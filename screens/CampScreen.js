@@ -1,17 +1,18 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
 
-export default function HomeScreen() {
+
+export default function CampScreen() {
   return (
     <ScrollView style={styles.container}>
-     <Text>Home</Text>
+      
+      <Text>Camp</Text>
     </ScrollView>
   );
 }
 
-HomeScreen.navigationOptions = {
-  title: 'Home',
+CampScreen.navigationOptions = {
+  title: 'Camp',
 };
 
 const styles = StyleSheet.create({
