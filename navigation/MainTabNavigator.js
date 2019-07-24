@@ -14,101 +14,52 @@ import DetailScreen from '../screens/DetailScreen';
 
 import { Icon } from 'react-native-elements';
 
-const config = Platform.select({
-  web: { headerMode: 'screen' },
-  default: {}
-});
-
 const HomeStack = createStackNavigator(
+  { Home: HomeScreen },
   {
-    Home: HomeScreen
-  },
-  config
-);
-
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
-  tabBarIcon: ({ focused }) => <Icon name='home' type='font-awesome' />
-};
-
-HomeStack.path = '';
-
-const LinksStack = createStackNavigator(
-  {
-    CreatePost: LinksScreen
-  },
-  config
-);
-
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Create Post',
-  tabBarIcon: ({ focused }) => <Icon name='plus' type='font-awesome' />
-};
-
-LinksStack.path = '';
-
-const ProStack = createStackNavigator({
-  Pro: ProScreen,
-  Feed: {
-    screen: CampScreen
-  },
-  Detail: {
-    screen: DetailScreen
-  }
-});
-
-ProStack.navigationOptions = {
-  tabBarLabel: 'Profile',
-  tabBarIcon: ({ focused }) => <Icon name='user' type='font-awesome' />
-};
-
-ProStack.path = '';
-
-const CampStack = createStackNavigator(
-  {
-    Camp: CampScreen
-  },
-  config
-);
-
-CampStack.navigationOptions = {
-  tabBarLabel: 'Campaign'
-};
-
-CampStack.path = '';
-
-const NavigationOptions = createStackNavigator({
-  CampStack
-});
-
-NavigationOptions.path = '';
-
-// const ProStack = createStackNavigator({
-//   Profile: {
-//     screen: CampScreen
-//   },
-//   DetailScreen: {
-//     screen: Detail
-//   }
-// })
-
-const tabNavigator = createBottomTabNavigator(
-  {
-    HomeStack,
-    LinksStack,
-    ProStack
-  },
-  {
-    navigationOptions: ({ navigation }) => {
-      const { routeName } = navigation.state.routes[navigation.state.index];
-      return {
-        header: null,
-        headerTitle: routeName
-      };
+    navigationOptions: {
+      tabBarLabel: 'Home',
+      tabBarIcon: ({ focused }) => <Icon name='home' type='font-awesome' />
     }
   }
 );
 
-tabNavigator.path = '';
+const LinksStack = createStackNavigator(
+  { CreatePost: LinksScreen },
+  {
+    navigationOptions: {
+      tabBarLabel: 'Create Post',
+      tabBarIcon: ({ focused }) => <Icon name='plus' type='font-awesome' />
+    }
+  }
+);
 
-export default tabNavigator;
+const ProStack = createStackNavigator(
+  {
+    Pro: ProScreen,
+    Feed: CampScreen,
+    Detail: DetailScreen
+  },
+  {
+    navigationOptions: {
+      tabBarLabel: 'Profile',
+      tabBarIcon: ({ focused }) => <Icon name='user' type='font-awesome' />
+    }
+  }
+);
+
+export const TabNavigator = createBottomTabNavigator(
+  {
+    HomeStack: { screen: HomeStack, path: '' },
+    LinksStack: { screen: LinksStack, path: '' },
+    ProStack: { screen: ProStack, path: '' }
+  }
+);
+
+export const NoTabNavigator = createStackNavigator(
+  {
+    HomeStack: { screen: HomeStack, path: '' },
+    LinksStack: { screen: LinksStack, path: '' },
+    ProStack: { screen: ProStack, path: '' }
+  }
+);
