@@ -10,12 +10,6 @@ import {
 
 import { Avatar, Icon } from 'react-native-elements';
 
-import { NativeRouter, Route, Link, Switch } from "react-router-native";
-import CampScreen from './CampScreen';
-import DetailScreen from './DetailScreen'
- 
-import AppProNav from '../../react-elements/navigation/ProNav';
-
 
 export default class ProScreen extends Component {
   
