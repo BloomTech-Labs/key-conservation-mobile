@@ -5,10 +5,10 @@ export default {
   tabIconDefault: '#ccc',
   tabIconSelected: tintColor,
   tabBar: '#fefefe',
-  errorBackground: 'red',
-  errorText: '#fff',
+  errorBackground: '#fff',
+  errorText: '#000',
   warningBackground: '#EAEB5E',
   warningText: '#666804',
   noticeBackground: tintColor,
-  noticeText: '#fff',
+  noticeText: '#fff'
 };
