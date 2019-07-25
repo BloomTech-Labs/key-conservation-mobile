@@ -8,9 +8,17 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+import { withNavigation } from 'react-navigation';
+
 import { Avatar, Icon } from 'react-native-elements';
 
 class ProfileHeader extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {};
+  }
+
   render() {
     return (
       <ScrollView style={styles.pic}>
@@ -36,7 +44,9 @@ class ProfileHeader extends Component {
           </View>
 
           <View>
-            <TouchableOpacity style={{ paddingTop: 25, width: 250 }}>
+            <TouchableOpacity
+              style={{ paddingTop: 25, paddingBottom: 25, width: 250 }}
+            >
               <View
                 style={{
                   backgroundColor: '#fff',
@@ -60,6 +70,14 @@ class ProfileHeader extends Component {
             </TouchableOpacity>
           </View>
         </View>
+        <View style={styles.buttons}>
+          <Button title='Campaigns' />
+
+          <Button
+            onPress={() => this.props.navigation.navigate('Detail')}
+            title='Details'
+          />
+        </View>
       </ScrollView>
     );
   }
@@ -71,10 +89,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingTop: 15,
     backgroundColor: '#eee',
     paddingTop: 50,
-    paddingBottom: 50,
+
     flexWrap: 'wrap'
   },
   bioContainer: {
@@ -98,10 +115,9 @@ const styles = StyleSheet.create({
   buttons: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-
-    borderBottomWidth: 3,
+    backgroundColor: '#fff',
     borderBottomColor: 'whitesmoke'
   }
 });
 
-export default ProfileHeader;
+export default withNavigation(ProfileHeader);

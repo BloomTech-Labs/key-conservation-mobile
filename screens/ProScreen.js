@@ -21,20 +21,8 @@ export default class ProScreen extends Component {
 
   render() {
     return (
-      <ScrollView style={styles.pic}>
-        <View style={styles.container}>
-          <ProfileHeader />
-        </View>
-        <View>
-          <View style={styles.buttons}>
-            <Button title='Campaigns' />
-
-            <Button
-              onPress={() => this.props.navigation.navigate('Detail')}
-              title='Details'
-            />
-          </View>
-        </View>
+      <ScrollView>
+        <ProfileHeader />
       </ScrollView>
     );
   }
@@ -43,41 +31,3 @@ export default class ProScreen extends Component {
 ProScreen.navigationOptions = {
   title: 'Profile'
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingTop: 15,
-    backgroundColor: '#eee',
-    paddingTop: 50,
-    paddingBottom: 50,
-    flexWrap: 'wrap'
-  },
-  bioContainer: {
-    marginTop: 25,
-    marginBottom: 25,
-    marginLeft: 90,
-    marginRight: 60,
-    textAlign: 'center',
-    alignItems: 'center'
-  },
-  bio: {
-    marginBottom: 50
-  },
-  org: {
-    fontSize: 22
-  },
-  pic: {
-    flex: 1
-  },
-  textContainer: {},
-  buttons: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    borderBottomWidth: 3,
-    borderBottomColor: 'whitesmoke'
-  }
-});

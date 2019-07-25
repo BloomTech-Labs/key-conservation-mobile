@@ -10,5 +10,6 @@ export default {
   warningBackground: '#EAEB5E',
   warningText: '#666804',
   noticeBackground: tintColor,
-  noticeText: '#fff'
+  noticeText: '#fff',
+  focused: '#FF7F00'
 };
