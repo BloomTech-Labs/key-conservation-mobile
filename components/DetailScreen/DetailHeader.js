@@ -21,7 +21,7 @@ class DetailHeader extends Component {
             onPress={() => this.props.navigation.navigate('Pro')}
           >
             <View style={styles.LeftButtonStyle}>
-              <Text style={styles.ButtonText}>Campaigns</Text>
+              <Text style={styles.CampaignButton}>Campaigns</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.TouchableOpacity}>
@@ -41,8 +41,10 @@ class DetailHeader extends Component {
               }}
             />
             <View style={styles.textContainer}>
-              <Text style={styles.title}>Carribean Sea Turtle Project</Text>
-              <Text style={styles.location}>St. George's, Grenada</Text>
+              <View style={styles.titleLocationWrap}>
+                <Text style={styles.title}>Carribean Sea Turtle Project</Text>
+                <Text style={styles.location}>St. George's, Grenada</Text>
+              </View>
               <Text>carribbeanseaturtleproject.com</Text>
               <View style={styles.SocialContainer}>
                 <Icon
@@ -80,7 +82,7 @@ const styles = StyleSheet.create({
     marginBottom: -10
   },
   title: {
-    fontWeight: "400"
+    fontWeight: '600'
   },
   header: {
     flex: 1,
@@ -106,8 +108,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: '#eee',
-    marginTop: 8,
-    marginBottom: 8,
+    marginTop: 12,
+    marginBottom: 12,
     flex: 1,
     borderRightWidth: 1
   },
@@ -115,21 +117,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: '#eee',
-    marginTop: 8,
-    marginBottom: 8,
+    marginTop: 12,
+    marginBottom: 12,
     flex: 1,
     borderLeftWidth: 1
   },
-  ButtonText: {
-    color: 'black',
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    letterSpacing: 2
+  CampaignButton: {
+    fontSize: 18,
+    color: 'black'
   },
   DetailButton: {
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    letterSpacing: 2,
+    fontSize: 18,
     color: 'blue'
   },
   SocialContainer: {
@@ -143,6 +141,12 @@ const styles = StyleSheet.create({
   SocialIcon: {
     height: 40,
     width: 40
+  },
+  titleLocationWrap: {
+    borderBottomColor: '#eee',
+    borderBottomWidth: 1,
+    marginBottom: 2,
+    paddingBottom: 10
   }
 });
 

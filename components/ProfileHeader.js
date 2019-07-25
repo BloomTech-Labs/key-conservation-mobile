@@ -84,7 +84,7 @@ class ProfileHeader extends Component {
             onPress={() => this.props.navigation.navigate('Detail')}
           >
             <View style={styles.RightButtonStyle}>
-              <Text style={styles.ButtonText}>Details</Text>
+              <Text style={styles.DetailButton}>Details</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -143,8 +143,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: '#eee',
-    marginTop: 8,
-    marginBottom: 8,
+    marginTop: 12,
+    marginBottom: 12,
     flex: 1,
     borderRightWidth: 1
   },
@@ -152,22 +152,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: '#eee',
-    marginTop: 8,
-    marginBottom: 8,
+    marginTop: 12,
+    marginBottom: 12,
     flex: 1,
     borderLeftWidth: 1
   },
-  ButtonText: {
-    color: 'black',
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    letterSpacing: 2
-  },
   CampaignButton: {
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    letterSpacing: 2,
+    fontSize: 18,
     color: 'blue'
+  },
+  DetailButton: {
+    fontSize: 18,
+    color: 'black'
   }
 });
 
