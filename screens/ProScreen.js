@@ -10,107 +10,35 @@ import {
 
 import { Avatar, Icon } from 'react-native-elements';
 
+import ProfileHeader from '../components/ProfileHeader';
 
 export default class ProScreen extends Component {
-  
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.state = {
-      activeIndex: 0
-    }
+    this.state = {};
   }
 
-  segmentClicked = (index) => {
-    this.setState({
-      activeIndex: index
-    })
-  }
-
-  renderSection = () => {
-    if (this.state.activeIndex == 0)
-    {
-      return (
-        <View>
-          <Text>This is the first section</Text>
-        </View>
-      )
-    }
-  }
- 
   render() {
     return (
       <ScrollView style={styles.pic}>
-      
         <View style={styles.container}>
-          <Avatar
-            size='large'
-            rounded
-            source={{
-              uri:
-                'https://www.seewinter.com/wp-content/uploads/2018/09/poolboy-hatchling-100-1200-wide.jpg'
-            }}
-          />
-          <View style={styles.textContainer}>
-            <Text style={styles.org}>Carribean Sea Turtle Project</Text>
-            <Text style={styles.location}>St. George's, Grenada</Text>
-            <Text style={styles.social}>@CarribeanSeaTurtleProject</Text>
-          </View>
-          <View style={styles.bioContainer}>
-            <Text style={{ textAlign: 'left', width: 300 }}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi nemo
-              voluptatibus minima neque esse reiciendis rem!
-            </Text>
-          </View>
-
-          <View>
-            <TouchableOpacity style={{ paddingTop: 25, width: 250 }}>
-              <View
-                style={{
-                  backgroundColor: '#fff',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: 5,
-                  height: 35
-                }}
-              >
-                <Text
-                  style={{
-                    color: 'black',
-                    textTransform: 'uppercase',
-                    fontWeight: 'bold',
-                    letterSpacing: 2
-                  }}
-                >
-                  Edit Profile
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+          <ProfileHeader />
         </View>
         <View>
-        <View style={styles.buttons}>
-        <Button transparent onPress={() =>this.segmentClicked(0)} active={this.state.activeIndex == 0} title="Campaigns" icon={
-    <Icon
-      name="heartbeat"
-      size={1}
-      color="red"
-      type="font-awesome"
-    />
-  } />
-        
-       
-        <Button  onPress={() =>this.segmentClicked(0)} active={this.state.activeIndex == 0}  title="Details" style={[this.state.activeIndex == 2 ? {} : { color: "red"}]} />
-        
-        </View>
-        {this.renderSection()}
+          <View style={styles.buttons}>
+            <Button title='Campaigns' />
+
+            <Button
+              onPress={() => this.props.navigation.navigate('Detail')}
+              title='Details'
+            />
+          </View>
         </View>
       </ScrollView>
     );
   }
 }
-
-
 
 ProScreen.navigationOptions = {
   title: 'Profile'
@@ -147,11 +75,9 @@ const styles = StyleSheet.create({
   },
   textContainer: {},
   buttons: {
-    flexDirection: "row", 
-    justifyContent: "space-around", 
-    
-    borderBottomWidth: 3, 
-    borderBottomColor: "whitesmoke", 
-   
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    borderBottomWidth: 3,
+    borderBottomColor: 'whitesmoke'
   }
 });

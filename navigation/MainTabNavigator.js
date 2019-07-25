@@ -6,29 +6,29 @@ import {
 } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import FeedScreen from '../screens/FeedScreen';
+import CreateCampScreen from '../screens/CreateCampScreen';
 import ProScreen from '../screens/ProScreen';
 import CampScreen from '../screens/CampScreen';
 import DetailScreen from '../screens/DetailScreen';
 
 import { Icon } from 'react-native-elements';
 
-const HomeStack = createStackNavigator(
-  { Home: HomeScreen },
+const FeedStack = createStackNavigator(
+  { Home: FeedScreen },
   {
     navigationOptions: {
-      tabBarLabel: 'Home',
+      tabBarLabel: 'Feed',
       tabBarIcon: ({ focused }) => <Icon name='home' type='font-awesome' />
     }
   }
 );
 
-const LinksStack = createStackNavigator(
-  { CreatePost: LinksScreen },
+const CreateCampStack = createStackNavigator(
+  { CreateCampaign: CreateCampScreen },
   {
     navigationOptions: {
-      tabBarLabel: 'Create Post',
+      tabBarLabel: 'Create Campaign',
       tabBarIcon: ({ focused }) => <Icon name='plus' type='font-awesome' />
     }
   }
@@ -37,7 +37,7 @@ const LinksStack = createStackNavigator(
 const ProStack = createStackNavigator(
   {
     Pro: ProScreen,
-    Feed: CampScreen,
+    Campaign: CampScreen,
     Detail: DetailScreen
   },
   {
@@ -48,18 +48,14 @@ const ProStack = createStackNavigator(
   }
 );
 
-export const TabNavigator = createBottomTabNavigator(
-  {
-    HomeStack: { screen: HomeStack, path: '' },
-    LinksStack: { screen: LinksStack, path: '' },
-    ProStack: { screen: ProStack, path: '' }
-  }
-);
+export const TabNavigator = createBottomTabNavigator({
+  FeedStack: { screen: FeedStack, path: '' },
+  CreateCampStack: { screen: CreateCampStack, path: '' },
+  ProStack: { screen: ProStack, path: '' }
+});
 
-export const NoTabNavigator = createStackNavigator(
-  {
-    HomeStack: { screen: HomeStack, path: '' },
-    LinksStack: { screen: LinksStack, path: '' },
-    ProStack: { screen: ProStack, path: '' }
-  }
-);
+export const NoTabNavigator = createStackNavigator({
+  FeedStack: { screen: FeedStack, path: '' },
+  CreateCampStack: { screen: CreateCampStack, path: '' },
+  ProStack: { screen: ProStack, path: '' }
+});

@@ -1,16 +1,16 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text } from 'react-native';
 
-export default function HomeScreen() {
+export default function LinksScreen() {
   return (
     <ScrollView style={styles.container}>
-      <Text>Detail Screen</Text>
+      <Text>Create Camp</Text>
     </ScrollView>
   );
 }
 
-HomeScreen.navigationOptions = {
-  title: 'Home'
+LinksScreen.navigationOptions = {
+  title: 'Create Campaign'
 };
 
 const styles = StyleSheet.create({
