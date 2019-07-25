@@ -5,7 +5,8 @@ import {
   View,
   Text,
   Button,
-  TouchableOpacity
+  TouchableOpacity,
+  Platform
 } from 'react-native';
 
 import { withNavigation } from 'react-navigation';
@@ -70,13 +71,22 @@ class ProfileHeader extends Component {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.buttons}>
-          <Button title='Campaigns' />
 
-          <Button
+        <View style={styles.buttons}>
+          <TouchableOpacity style={styles.TouchableOpacity}>
+            <View style={styles.LeftButtonStyle}>
+              <Text style={styles.CampaignButton}>Campaigns</Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.TouchableOpacity}
             onPress={() => this.props.navigation.navigate('Detail')}
-            title='Details'
-          />
+          >
+            <View style={styles.RightButtonStyle}>
+              <Text style={styles.ButtonText}>Details</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     );
@@ -115,8 +125,49 @@ const styles = StyleSheet.create({
   buttons: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    borderBottomColor: 'whitesmoke',
     backgroundColor: '#fff',
-    borderBottomColor: 'whitesmoke'
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    elevation: 2
+  },
+  TouchableOpacity: {
+    flex: 1
+  },
+  LeftButtonStyle: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: '#eee',
+    marginTop: 8,
+    marginBottom: 8,
+    flex: 1,
+    borderRightWidth: 1
+  },
+  RightButtonStyle: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: '#eee',
+    marginTop: 8,
+    marginBottom: 8,
+    flex: 1,
+    borderLeftWidth: 1
+  },
+  ButtonText: {
+    color: 'black',
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+    letterSpacing: 2
+  },
+  CampaignButton: {
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+    letterSpacing: 2,
+    color: 'blue'
   }
 });
 
