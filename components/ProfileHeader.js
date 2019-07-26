@@ -74,7 +74,7 @@ class ProfileHeader extends Component {
 
         <View style={styles.buttons}>
           <TouchableOpacity style={styles.TouchableOpacity}>
-            <View style={styles.LeftButtonStyle}>
+            <View style={[styles.ButtonStyle, styles.LeftButtonStyle]}>
               <Text style={styles.CampaignButton}>Campaigns</Text>
             </View>
           </TouchableOpacity>
@@ -83,7 +83,7 @@ class ProfileHeader extends Component {
             style={styles.TouchableOpacity}
             onPress={() => this.props.navigation.navigate('Detail')}
           >
-            <View style={styles.RightButtonStyle}>
+            <View style={[styles.ButtonStyle, styles.RightButtonStyle]}>
               <Text style={styles.DetailButton}>Details</Text>
             </View>
           </TouchableOpacity>
@@ -139,22 +139,18 @@ const styles = StyleSheet.create({
   TouchableOpacity: {
     flex: 1
   },
-  LeftButtonStyle: {
+  ButtonStyle: {
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: '#eee',
     marginTop: 12,
     marginBottom: 12,
     flex: 1,
+  },
+  LeftButtonStyle: {
     borderRightWidth: 1
   },
   RightButtonStyle: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: '#eee',
-    marginTop: 12,
-    marginBottom: 12,
-    flex: 1,
     borderLeftWidth: 1
   },
   CampaignButton: {

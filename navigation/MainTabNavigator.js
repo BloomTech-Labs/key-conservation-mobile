@@ -5,7 +5,6 @@ import {
   createBottomTabNavigator
 } from 'react-navigation';
 
-import TabBarIcon from '../components/TabBarIcon';
 import FeedScreen from '../screens/FeedScreen';
 import CreateCampScreen from '../screens/CreateCampScreen';
 import ProScreen from '../screens/ProScreen';
