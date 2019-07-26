@@ -11,27 +11,9 @@ export const loginError = error => ({
   type: LOGIN_ERROR,
   error
 });
-export const loginSuccess = organization => ({
+export const loginSuccess = user => ({
   type: LOGIN_SUCCESS,
-  organization
-});
-
-export const [EDIT_PROFILE_START, EDIT_PROFILE_ERROR, EDIT_PROFILE_SUCCESS] = [
-  'EDIT_PROFILE_START',
-  'EDIT_PROFILE_ERROR',
-  'EDIT_PROFILE_SUCCESS'
-];
-
-export const editProfileStart = () => ({
-  type: EDIT_PROFILE_START
-});
-export const editProfileError = error => ({
-  type: EDIT_PROFILE_ERROR,
-  error
-});
-export const editProfileSuccess = completeOrg => ({
-  type: EDIT_PROFILE_SUCCESS,
-  completeOrg
+  user
 });
 
 export const [LOGOUT_START, LOGOUT_SUCCESS] = [
@@ -47,4 +29,48 @@ export const logoutSuccess = () => ({
 });
 
 
-//export c
+export const [GET_PROFILE_START, GET_PROFILE_ERROR, GET_PROFILE_SUCCESS] = [
+  'GET_PROFILE_START',
+  'GET_PROFILE_ERROR',
+  'GET_PROFILE_SUCCESS'
+];
+
+export const getProfileData = id => async dispatch => {
+  dispatch({ type: GET_PROFILE_START });
+  let user;
+  await axios
+    .get(`https://key-conservation-staging.herokuapp.com/api/users/${id}`)
+    .then(res => {
+      user = res.data;
+    })
+    .catch(err => {
+      dispatch({ type: GET_PROFILE_ERROR, payload: err });
+    });
+  axios
+    .get(`https://key-conservation-staging.herokuapp.com/api/campaigns/camp/${id}`)
+    .then(res => {
+      user.campaigns = res.data;
+      dispatch({ type: FETCH_SUCCESS, payload: user });
+    })
+    .catch(err => {
+      dispatch({ type: GET_PROFILE_ERROR, payload: err });
+    });
+};
+
+export const [GET_CAMPAIGNS_START, GET_CAMPAIGNS_ERROR, GET_CAMPAIGNS_SUCCESS] = [
+  'GET_CAMPAIGNS_START',
+  'GET_CAMPAIGNS_ERROR',
+  'GET_CAMPAIGNS_SUCCESS'
+];
+
+export const getCampaigns = () => dispatch => {
+  dispatch({ type: GET_CAMPAIGNS_START });
+  await axios
+    .get('https://key-conservation-staging.herokuapp.com/api/campaigns')
+    .then(res => {
+      dispatch({ type: GET_CAMPAIGNS_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      dispatch({ type: GET_CAMPAIGNS_ERROR, payload: err });
+    });
+};
