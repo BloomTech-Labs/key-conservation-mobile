@@ -10,7 +10,7 @@ import {
 
 import { Avatar, Icon, ListItem } from 'react-native-elements';
 
-import ProfileHeader from '../components/ProfileHeader';
+import ProfileHeader from '../components/Profile/ProfileHeader';
 
 export default class ProScreen extends Component {
   constructor(props) {
