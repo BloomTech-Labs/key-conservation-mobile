@@ -4,9 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { getCampaigns } from '../store/actions';
 
-import { rightIcon, Icon } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 
 import Campaign from '../components/FeedScreen/Campaign';
+
+import styles from '../constants/Stylesheet';
 
 function FeedScreen(props) {
   let { allCampaigns } = useSelector(state => state);
@@ -22,18 +24,20 @@ function FeedScreen(props) {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      {allCampaigns.length > 0 &&
-        allCampaigns.map(campaign => {
-          return (
-            <Campaign
-              key={campaign.camp_id}
-              data={campaign}
-              handlePress={handlePress}
-              navigation={navigation}
-            />
-          );
-        })}
+    <ScrollView>
+      <View style={styles.feedContainer}>
+        {allCampaigns.length > 0 &&
+          allCampaigns.map(campaign => {
+            return (
+              <Campaign
+                key={campaign.camp_id}
+                data={campaign}
+                handlePress={handlePress}
+                navigation={navigation}
+              />
+            );
+          })}
+      </View>
     </ScrollView>
   );
 }
@@ -42,14 +46,5 @@ FeedScreen.navigationOptions = {
   title: 'Feed',
   headerRight: <Icon name='search' type='font-awesome' /> // Find out how to implement this better// And how to style this!
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 15,
-    backgroundColor: '#fff'
-  },
-  searchIcon: { marginRight: 20 }
-});
 
 export default FeedScreen;

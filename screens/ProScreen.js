@@ -34,20 +34,19 @@ const ProScreen = props => {
       <ProfileHeader />
       <View />
       <View>
-        {allCampaigns.length > 0 &&
-          allCampaigns.map(campaign => {
-            return (
-              <ListItem
-                key={campaign.camp_id}
-                title={campaign.username}
-                leftAvatar={{ source: { uri: campaign.camp_img } }}
-                subtitle={campaign.location}
-                rightIcon={
-                  <Icon name='ellipsis-v' type='font-awesome' color='black' />
-                }
-              />
-            );
-          })}
+        {allCampaigns.map(campaign => {
+          return (
+            <ListItem
+              key={campaign.camp_id}
+              title={campaign.username}
+              leftAvatar={{ source: { uri: campaign.camp_img } }}
+              subtitle={campaign.location}
+              rightIcon={
+                <Icon name='ellipsis-v' type='font-awesome' color='black' />
+              }
+            />
+          );
+        })}
       </View>
     </ScrollView>
   );
