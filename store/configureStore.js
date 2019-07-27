@@ -15,10 +15,7 @@ if (__DEV__) {
 }
 
 const configureStore = () => {
-  return createStore(
-    rootReducer,
-    composeEnhancers(applyMiddleware(thunk, logger))
-  );
+  return createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 };
 
 export default configureStore;

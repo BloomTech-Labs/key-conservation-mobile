@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const [LOGIN_START, LOGIN_ERROR, LOGIN_SUCCESS] = [
   'LOGIN_START',
   'LOGIN_ERROR',
@@ -28,7 +30,6 @@ export const logoutSuccess = () => ({
   type: LOGOUT_SUCCESS
 });
 
-
 export const [GET_PROFILE_START, GET_PROFILE_ERROR, GET_PROFILE_SUCCESS] = [
   'GET_PROFILE_START',
   'GET_PROFILE_ERROR',
@@ -41,15 +42,17 @@ export const getProfileData = id => async dispatch => {
   await axios
     .get(`https://key-conservation-staging.herokuapp.com/api/users/${id}`)
     .then(res => {
-      user = res.data;
+      user = res.data.user;
     })
     .catch(err => {
       dispatch({ type: GET_PROFILE_ERROR, payload: err });
     });
   axios
-    .get(`https://key-conservation-staging.herokuapp.com/api/campaigns/camp/${id}`)
+    .get(
+      `https://key-conservation-staging.herokuapp.com/api/campaigns/camp/${id}`
+    )
     .then(res => {
-      user.campaigns = res.data;
+      user.campaigns = res.data.camp;
       dispatch({ type: FETCH_SUCCESS, payload: user });
     })
     .catch(err => {
@@ -57,18 +60,18 @@ export const getProfileData = id => async dispatch => {
     });
 };
 
-export const [GET_CAMPAIGNS_START, GET_CAMPAIGNS_ERROR, GET_CAMPAIGNS_SUCCESS] = [
-  'GET_CAMPAIGNS_START',
-  'GET_CAMPAIGNS_ERROR',
-  'GET_CAMPAIGNS_SUCCESS'
-];
+export const [
+  GET_CAMPAIGNS_START,
+  GET_CAMPAIGNS_ERROR,
+  GET_CAMPAIGNS_SUCCESS
+] = ['GET_CAMPAIGNS_START', 'GET_CAMPAIGNS_ERROR', 'GET_CAMPAIGNS_SUCCESS'];
 
 export const getCampaigns = () => dispatch => {
   dispatch({ type: GET_CAMPAIGNS_START });
-  await axios
+  axios
     .get('https://key-conservation-staging.herokuapp.com/api/campaigns')
     .then(res => {
-      dispatch({ type: GET_CAMPAIGNS_SUCCESS, payload: res.data });
+      dispatch({ type: GET_CAMPAIGNS_SUCCESS, payload: res.data.camp });
     })
     .catch(err => {
       dispatch({ type: GET_CAMPAIGNS_ERROR, payload: err });

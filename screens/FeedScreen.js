@@ -1,38 +1,46 @@
-import React from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { getCampaigns } from "../store/actions"
+import { getCampaigns } from '../store/actions';
 
-export default function FeedScreen() {
-  const { allCampaigns } = useSelector(state => state);
+import { rightIcon, Icon } from 'react-native-elements';
+
+import Campaign from '../components/FeedScreen/Campaign';
+
+function FeedScreen(props) {
+  let { allCampaigns } = useSelector(state => state);
   const dispatch = useDispatch();
+  const { navigation } = props;
 
   useEffect(() => {
-    dispatch(getCampaigns())
-  }, [])
+    dispatch(getCampaigns());
+  }, []);
+
+  const handlePress = orgId => {
+    navigation.navigate('Pro', { orgId });
+  };
 
   return (
     <ScrollView style={styles.container}>
-      {state.campaigns.map(campaign => {
-          return <Campaign />
-            <Text>{campaign.name}</Text>
-            <Text>{campaign.org}</Text>
-            <Button
-              title="SEE MORE FROM THIS ORG"
-              onPress={() =>
-                navigation.navigate('ProfileCampaigns', {
-                  orgId: campaign.orgId,
-                })}
+      {allCampaigns.length > 0 &&
+        allCampaigns.map(campaign => {
+          return (
+            <Campaign
+              key={campaign.camp_id}
+              data={campaign}
+              handlePress={handlePress}
+              navigation={navigation}
             />
-          </View>
+          );
         })}
     </ScrollView>
   );
 }
 
 FeedScreen.navigationOptions = {
-  title: 'Feed'
+  title: 'Feed',
+  headerRight: <Icon name='search' type='font-awesome' /> // Find out how to implement this better// And how to style this!
 };
 
 const styles = StyleSheet.create({
@@ -40,5 +48,8 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 15,
     backgroundColor: '#fff'
-  }
+  },
+  searchIcon: { marginRight: 20 }
 });
+
+export default FeedScreen;

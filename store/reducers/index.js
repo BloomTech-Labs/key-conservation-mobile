@@ -72,7 +72,7 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, getProfile: false },
         selectedProfile: action.payload
       };
-    case GET_PROFILE_FAILURE:
+    case GET_PROFILE_ERROR:
       return {
         ...state,
         pending: { ...state.pending, getProfile: false },
@@ -90,7 +90,7 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, getCampaigns: false },
         allCampaigns: action.payload
       };
-    case GET_CAMPAIGNS_FAILURE:
+    case GET_CAMPAIGNS_ERROR:
       return {
         ...state,
         pending: { ...state.pending, getCampaigns: false },

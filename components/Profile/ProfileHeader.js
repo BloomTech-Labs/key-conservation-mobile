@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     borderColor: '#eee',
     marginTop: 12,
     marginBottom: 12,
-    flex: 1,
+    flex: 1
   },
   LeftButtonStyle: {
     borderRightWidth: 1
