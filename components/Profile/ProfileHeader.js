@@ -9,13 +9,13 @@ import {
   Platform
 } from 'react-native';
 
-import { withNavigation } from 'react-navigation';
-import { useSelector } from 'react-redux';
+//import { withNavigation } from 'react-navigation';
 
 import { Avatar, Icon } from 'react-native-elements';
 
 const ProfileHeader = props => {
-  let profile = useSelector(state => state.selectedProfile);
+  let profile = props.profile;
+
   return (
     <ScrollView style={styles.pic}>
       <View style={styles.container}>
@@ -74,7 +74,9 @@ const ProfileHeader = props => {
 
         <TouchableOpacity
           style={styles.TouchableOpacity}
-          onPress={() => props.navigation.navigate('Detail')}
+          onPress={() =>
+            props.navigation.navigate(props.myProfile ? 'MyDetail' : 'Detail')
+          }
         >
           <View style={[styles.ButtonStyle, styles.RightButtonStyle]}>
             <Text style={styles.DetailButton}>Details</Text>
@@ -155,4 +157,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withNavigation(ProfileHeader);
+export default ProfileHeader;

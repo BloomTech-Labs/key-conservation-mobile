@@ -11,8 +11,9 @@ import { useSelector } from 'react-redux';
 
 import { Icon, ListItem } from 'react-native-elements';
 
-const DetailAboutUs = () => {
-  let profile = useSelector(state => state.selectedProfile);
+const DetailAboutUs = props => {
+  let profile = props.profile;
+
   return (
     <ScrollView>
       <View style={styles.container}>

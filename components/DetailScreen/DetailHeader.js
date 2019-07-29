@@ -7,19 +7,22 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import { withNavigation } from 'react-navigation';
+//import { withNavigation } from 'react-navigation';
 import { useSelector } from 'react-redux';
 
 import { Avatar, SocialIcon, Icon } from 'react-native-elements';
 
 const DetailHeader = props => {
-  let profile = useSelector(state => state.selectedProfile);
+  let profile = props.profile;
+
   return (
     <View>
       <View style={styles.buttons}>
         <TouchableOpacity
           style={styles.TouchableOpacity}
-          onPress={() => props.navigation.navigate('Pro')}
+          onPress={() =>
+            props.navigation.navigate(props.myProfile ? 'MyPro' : 'Pro')
+          }
         >
           <View style={[styles.ButtonStyle, styles.LeftButtonStyle]}>
             <Text style={styles.CampaignButton}>Campaigns</Text>
@@ -145,4 +148,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withNavigation(DetailHeader);
+export default DetailHeader;

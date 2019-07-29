@@ -21,7 +21,10 @@ const initialState = {
   },
   currentUser: {
     id: 1,
-    role: 'conservationist'
+    role: 'conservationist',
+    profile: {
+      campaigns: []
+    }
   },
   selectedProfile: {
     campaigns: []
@@ -66,11 +69,24 @@ const reducer = (state = initialState, action) => {
         error: ''
       };
     case GET_PROFILE_SUCCESS:
-      return {
-        ...state,
-        pending: { ...state.pending, getProfile: false },
-        selectedProfile: action.payload
-      };
+      if (action.payload.myProfile) {
+        console.log('MY PROFILE', action.payload.user.id);
+        return {
+          ...state,
+          pending: { ...state.pending, getProfile: false },
+          currentUser: {
+            ...state.currentUser,
+            profile: action.payload.user
+          }
+        };
+      } else {
+        console.log('NOT MY PROFILE', action.payload.user.id);
+        return {
+          ...state,
+          pending: { ...state.pending, getProfile: false },
+          selectedProfile: action.payload.user
+        };
+      }
     case GET_PROFILE_ERROR:
       return {
         ...state,

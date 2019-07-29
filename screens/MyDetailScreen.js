@@ -8,19 +8,26 @@ import {
 } from 'react-native';
 
 //import { withNavigation } from 'react-navigation';
-
 import { useSelector } from 'react-redux';
 
 import DetailHeader from '../components/DetailScreen/DetailHeader';
 import DetailAboutUs from '../components/DetailScreen/DetailAboutUs';
 
-const DetailsScreen = props => {
-  let { selectedProfile } = useSelector(state => state);
+const MyDetailsScreen = props => {
+  let { currentUser } = useSelector(state => state);
   const { navigation } = props;
   return (
     <ScrollView contentContainerStyle={{ backgroundColor: '#F2F2FB' }}>
-      <DetailHeader navigation={navigation} profile={selectedProfile} />
-      <DetailAboutUs navigation={navigation} profile={selectedProfile} />
+      <DetailHeader
+        navigation={navigation}
+        myProfile={true}
+        profile={currentUser.profile}
+      />
+      <DetailAboutUs
+        navigation={navigation}
+        myProfile={true}
+        profile={currentUser.profile}
+      />
     </ScrollView>
   );
 };
@@ -62,4 +69,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DetailsScreen;
+export default MyDetailsScreen;

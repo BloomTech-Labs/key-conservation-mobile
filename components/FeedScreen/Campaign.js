@@ -11,12 +11,10 @@ import styles from '../../constants/Stylesheet';
 const Campaign = props => {
   const dispatch = useDispatch();
   const { title, users_id } = props.data;
-  const navigation = props.navigation;
 
   const handlePress = () => {
     dispatch(getProfileData(users_id));
-    console.log(users_id);
-    navigation.navigate('Pro', { orgId: users_id });
+    props.navigation.navigate('Pro', { orgId: users_id });
   };
 
   return (

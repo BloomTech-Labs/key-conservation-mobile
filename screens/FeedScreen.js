@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getCampaigns, getProfileData } from '../store/actions';
+import { getCampaigns } from '../store/actions';
 
 import { Icon } from 'react-native-elements';
 

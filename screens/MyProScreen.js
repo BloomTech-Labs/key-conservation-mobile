@@ -16,18 +16,25 @@ import { Avatar, Icon, ListItem } from 'react-native-elements';
 
 import ProfileHeader from '../components/Profile/ProfileHeader';
 
-const ProScreen = props => {
-  let { selectedProfile } = useSelector(state => state);
+const MyProScreen = props => {
+  let { currentUser } = useSelector(state => state);
   const dispatch = useDispatch();
   const { navigation } = props;
-  const orgId = props.navigation.getParam('orgId');
+
+  useEffect(() => {
+    dispatch(getProfileData(currentUser.id, 'myProfile'));
+  }, []);
 
   return (
     <ScrollView>
-      <ProfileHeader navigation={navigation} profile={selectedProfile} />
+      <ProfileHeader
+        navigation={navigation}
+        myProfile={true}
+        profile={currentUser.profile}
+      />
       <View />
       <View>
-        {selectedProfile.campaigns.map(campaign => {
+        {currentUser.profile.campaigns.map(campaign => {
           return (
             <ListItem
               key={campaign.camp_id}
@@ -45,8 +52,8 @@ const ProScreen = props => {
   );
 };
 
-ProScreen.navigationOptions = {
+MyProScreen.navigationOptions = {
   title: 'Profile'
 };
 
-export default ProScreen;
+export default MyProScreen;

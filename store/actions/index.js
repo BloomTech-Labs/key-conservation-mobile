@@ -36,7 +36,7 @@ export const [GET_PROFILE_START, GET_PROFILE_ERROR, GET_PROFILE_SUCCESS] = [
   'GET_PROFILE_SUCCESS'
 ];
 
-export const getProfileData = id => async dispatch => {
+export const getProfileData = (id, myProfile = false) => async dispatch => {
   dispatch({ type: GET_PROFILE_START });
   let user;
   await axios
@@ -53,7 +53,7 @@ export const getProfileData = id => async dispatch => {
     )
     .then(res => {
       user.campaigns = res.data.camp;
-      dispatch({ type: GET_PROFILE_SUCCESS, payload: user });
+      dispatch({ type: GET_PROFILE_SUCCESS, payload: { user, myProfile } });
     })
     .catch(err => {
       dispatch({ type: GET_PROFILE_ERROR, payload: err });

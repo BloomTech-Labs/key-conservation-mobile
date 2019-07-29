@@ -8,8 +8,10 @@ import {
 import FeedScreen from '../screens/FeedScreen';
 import CreateCampScreen from '../screens/CreateCampScreen';
 import ProScreen from '../screens/ProScreen';
+import MyProScreen from '../screens/MyProScreen';
 import CampScreen from '../screens/CampScreen';
 import DetailScreen from '../screens/DetailScreen';
+import MyDetailScreen from '../screens/MyDetailScreen';
 import LoginScreen from '../screens/LoginScreen';
 // import {
 //   FeedScreen,
@@ -28,7 +30,6 @@ const FeedStack = createStackNavigator(
   {
     Home: FeedScreen,
     Pro: { screen: ProScreen, navigationOptions: { title: 'Profile' } },
-    Campaign: CampScreen,
     Detail: {
       screen: DetailScreen,
       navigationOptions: { title: 'Details', headerLeft: null }
@@ -64,13 +65,13 @@ const CreateCampStack = createStackNavigator(
   }
 );
 
-const ProStack = createStackNavigator(
+const MyProStack = createStackNavigator(
   {
-    Pro: { screen: ProScreen, navigationOptions: { title: 'Profile' } },
+    MyPro: { screen: MyProScreen, navigationOptions: { title: 'My Profile' } },
     Campaign: CampScreen,
-    Detail: {
-      screen: DetailScreen,
-      navigationOptions: { title: 'Details', headerLeft: null }
+    MyDetail: {
+      screen: MyDetailScreen,
+      navigationOptions: { title: 'My Details', headerLeft: null }
     }
   },
   {
@@ -96,7 +97,7 @@ export const TabNavigator = createBottomTabNavigator(
   {
     FeedStack: { screen: FeedStack, path: '' },
     CreateCampStack: { screen: CreateCampStack, path: '' },
-    ProStack: { screen: ProStack, path: '' }
+    MyProStack: { screen: MyProStack, path: '' }
   },
   {
     tabBarOptions: {
@@ -108,6 +109,6 @@ export const TabNavigator = createBottomTabNavigator(
 export const NoTabNavigator = createStackNavigator({
   FeedStack: { screen: FeedStack, path: '' },
   CreateCampStack: { screen: CreateCampStack, path: '' },
-  ProStack: { screen: ProStack, path: '' },
+  MyProStack: { screen: MyProStack, path: '' },
   LoginStack: { screen: LoginStack, path: '' }
 });
