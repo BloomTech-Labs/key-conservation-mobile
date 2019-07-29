@@ -2,14 +2,27 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 
 import { ListItem } from 'react-native-elements';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { getProfileData } from '../../store/actions';
 
 import styles from '../../constants/Stylesheet';
 
 const Campaign = props => {
-  const title = props.data.username;
+  const dispatch = useDispatch();
+  const { title, users_id } = props.data;
+  const navigation = props.navigation;
+
+  const handlePress = () => {
+    dispatch(getProfileData(users_id));
+    console.log(users_id);
+    navigation.navigate('Pro', { orgId: users_id });
+  };
+
   return (
     <View style={styles.container}>
       <ListItem
+        onPress={() => handlePress(users_id)}
         title={props.data.username}
         leftAvatar={{ source: { uri: props.data.camp_img } }}
         subtitle={props.data.location}

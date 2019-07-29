@@ -25,7 +25,15 @@ import { Icon } from 'react-native-elements';
 export const LoginStack = createStackNavigator({ Login: LoginScreen });
 
 const FeedStack = createStackNavigator(
-  { Home: FeedScreen },
+  {
+    Home: FeedScreen,
+    Pro: { screen: ProScreen, navigationOptions: { title: 'Profile' } },
+    Campaign: CampScreen,
+    Detail: {
+      screen: DetailScreen,
+      navigationOptions: { title: 'Details', headerLeft: null }
+    }
+  },
   {
     navigationOptions: {
       tabBarLabel: 'Feed',

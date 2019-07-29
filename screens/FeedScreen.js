@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getCampaigns } from '../store/actions';
+import { getCampaigns, getProfileData } from '../store/actions';
 
 import { Icon } from 'react-native-elements';
 
@@ -19,10 +19,6 @@ function FeedScreen(props) {
     dispatch(getCampaigns());
   }, []);
 
-  const handlePress = orgId => {
-    navigation.navigate('Pro', { orgId });
-  };
-
   return (
     <ScrollView>
       <View style={styles.feedContainer}>
@@ -32,7 +28,6 @@ function FeedScreen(props) {
               <Campaign
                 key={campaign.camp_id}
                 data={campaign}
-                handlePress={handlePress}
                 navigation={navigation}
               />
             );

@@ -10,19 +10,20 @@ import {
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getCampaigns } from '../store/actions';
+import { getProfileData } from '../store/actions';
 
 import { Avatar, Icon, ListItem } from 'react-native-elements';
 
 import ProfileHeader from '../components/Profile/ProfileHeader';
 
 const ProScreen = props => {
-  let { allCampaigns } = useSelector(state => state);
+  let { selectedProfile, currentUser } = useSelector(state => state);
   const dispatch = useDispatch();
   const { navigation } = props;
+  const orgId = props.navigation.getParam('orgId', currentUser.id);
 
   useEffect(() => {
-    dispatch(getCampaigns());
+    dispatch(getProfileData(orgId));
   }, []);
 
   const handlePress = orgId => {
@@ -34,7 +35,7 @@ const ProScreen = props => {
       <ProfileHeader />
       <View />
       <View>
-        {allCampaigns.map(campaign => {
+        {selectedProfile.campaigns.map(campaign => {
           return (
             <ListItem
               key={campaign.camp_id}

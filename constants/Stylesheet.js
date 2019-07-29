@@ -58,4 +58,8 @@ export default {
   searchIcon: { marginRight: 20 }
 
   // # End of FeedScreen.js Styles  # //
+
+  // # DetailAboutUs.js Styles  # //
+
+  // # End of DetailAboutUs.js Styles  # //
 };

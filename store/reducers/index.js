@@ -20,11 +20,10 @@ const initialState = {
     getUser: false
   },
   currentUser: {
-    id: null,
-    role: null
+    id: 1,
+    role: 'conservationist'
   },
   selectedProfile: {
-    user: {},
     campaigns: []
   },
   allCampaigns: []

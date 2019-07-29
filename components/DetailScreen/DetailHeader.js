@@ -8,73 +8,72 @@ import {
 } from 'react-native';
 
 import { withNavigation } from 'react-navigation';
+import { useSelector } from 'react-redux';
 
 import { Avatar, SocialIcon, Icon } from 'react-native-elements';
 
-class DetailHeader extends Component {
-  render() {
-    return (
-      <View>
-        <View style={styles.buttons}>
-          <TouchableOpacity
-            style={styles.TouchableOpacity}
-            onPress={() => this.props.navigation.navigate('Pro')}
-          >
-            <View style={[styles.ButtonStyle, styles.LeftButtonStyle]}>
-              <Text style={styles.CampaignButton}>Campaigns</Text>
+const DetailHeader = props => {
+  let profile = useSelector(state => state.selectedProfile);
+  return (
+    <View>
+      <View style={styles.buttons}>
+        <TouchableOpacity
+          style={styles.TouchableOpacity}
+          onPress={() => props.navigation.navigate('Pro')}
+        >
+          <View style={[styles.ButtonStyle, styles.LeftButtonStyle]}>
+            <Text style={styles.CampaignButton}>Campaigns</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.TouchableOpacity}>
+          <View style={[styles.ButtonStyle, styles.RightButtonStyle]}>
+            <Text style={styles.DetailButton}>Details</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Avatar
+            size='large'
+            rounded
+            source={{
+              uri: profile.profile_image
+            }}
+          />
+          <View style={styles.textContainer}>
+            <View style={styles.titleLocationWrap}>
+              <Text style={styles.title}>{profile.org_name}</Text>
+              <Text style={styles.location}>{profile.location}</Text>
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.TouchableOpacity}>
-            <View style={[styles.ButtonStyle, styles.RightButtonStyle]}>
-              <Text style={styles.DetailButton}>Details</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.container}>
-          <View style={styles.header}>
-            <Avatar
-              size='large'
-              rounded
-              source={{
-                uri:
-                  'https://www.seewinter.com/wp-content/uploads/2018/09/poolboy-hatchling-100-1200-wide.jpg'
-              }}
-            />
-            <View style={styles.textContainer}>
-              <View style={styles.titleLocationWrap}>
-                <Text style={styles.title}>Carribean Sea Turtle Project</Text>
-                <Text style={styles.location}>St. George's, Grenada</Text>
-              </View>
-              <Text>carribbeanseaturtleproject.com</Text>
-              <View style={styles.SocialContainer}>
-                <Icon
-                  style={styles.SocialIcon}
-                  name='facebook'
-                  type='font-awesome'
-                />
-                <Icon
-                  style={styles.SocialIcon}
-                  name='twitter'
-                  type='font-awesome'
-                />
-                <Icon
-                  style={styles.SocialIcon}
-                  name='instagram'
-                  type='font-awesome'
-                />
-                <Icon
-                  style={styles.SocialIcon}
-                  name='phone'
-                  type='font-awesome'
-                />
-              </View>
+            <Text>{profile.email}</Text>
+            <View style={styles.SocialContainer}>
+              <Icon
+                style={styles.SocialIcon}
+                name='facebook'
+                type='font-awesome'
+              />
+              <Icon
+                style={styles.SocialIcon}
+                name='twitter'
+                type='font-awesome'
+              />
+              <Icon
+                style={styles.SocialIcon}
+                name='instagram'
+                type='font-awesome'
+              />
+              <Icon
+                style={styles.SocialIcon}
+                name='phone'
+                type='font-awesome'
+              />
             </View>
           </View>
         </View>
       </View>
-    );
-  }
-}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

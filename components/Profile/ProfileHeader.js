@@ -10,88 +10,80 @@ import {
 } from 'react-native';
 
 import { withNavigation } from 'react-navigation';
+import { useSelector } from 'react-redux';
 
 import { Avatar, Icon } from 'react-native-elements';
 
-class ProfileHeader extends Component {
-  constructor(props) {
-    super(props);
+const ProfileHeader = props => {
+  let profile = useSelector(state => state.selectedProfile);
+  return (
+    <ScrollView style={styles.pic}>
+      <View style={styles.container}>
+        <Avatar
+          size='large'
+          rounded
+          source={{
+            uri: profile.profile_image
+          }}
+        />
+        <View style={styles.textContainer}>
+          <Text style={styles.org}>{profile.org_name}</Text>
+          <Text style={styles.location}>{profile.location}</Text>
+          <Text style={styles.social}>{profile.email}</Text>
+        </View>
+        <View style={styles.bioContainer}>
+          <Text style={{ textAlign: 'left', width: 300 }}>
+            {profile.mini_bio}
+          </Text>
+        </View>
 
-    this.state = {};
-  }
-
-  render() {
-    return (
-      <ScrollView style={styles.pic}>
-        <View style={styles.container}>
-          <Avatar
-            size='large'
-            rounded
-            source={{
-              uri:
-                'https://www.seewinter.com/wp-content/uploads/2018/09/poolboy-hatchling-100-1200-wide.jpg'
-            }}
-          />
-          <View style={styles.textContainer}>
-            <Text style={styles.org}>Carribean Sea Turtle Project</Text>
-            <Text style={styles.location}>St. George's, Grenada</Text>
-            <Text style={styles.social}>@CarribeanSeaTurtleProject</Text>
-          </View>
-          <View style={styles.bioContainer}>
-            <Text style={{ textAlign: 'left', width: 300 }}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi nemo
-              voluptatibus minima neque esse reiciendis rem!
-            </Text>
-          </View>
-
-          <View>
-            <TouchableOpacity
-              style={{ paddingTop: 25, paddingBottom: 25, width: 250 }}
+        <View>
+          <TouchableOpacity
+            style={{ paddingTop: 25, paddingBottom: 25, width: 250 }}
+          >
+            <View
+              style={{
+                backgroundColor: '#fff',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 5,
+                height: 35
+              }}
             >
-              <View
+              <Text
                 style={{
-                  backgroundColor: '#fff',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: 5,
-                  height: 35
+                  color: 'black',
+                  textTransform: 'uppercase',
+                  fontWeight: 'bold',
+                  letterSpacing: 2
                 }}
               >
-                <Text
-                  style={{
-                    color: 'black',
-                    textTransform: 'uppercase',
-                    fontWeight: 'bold',
-                    letterSpacing: 2
-                  }}
-                >
-                  Edit Profile
-                </Text>
-              </View>
-            </TouchableOpacity>
+                Edit Profile
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <View style={styles.buttons}>
+        <TouchableOpacity style={styles.TouchableOpacity}>
+          <View style={[styles.ButtonStyle, styles.LeftButtonStyle]}>
+            <Text style={styles.CampaignButton}>Campaigns</Text>
           </View>
-        </View>
+        </TouchableOpacity>
 
-        <View style={styles.buttons}>
-          <TouchableOpacity style={styles.TouchableOpacity}>
-            <View style={[styles.ButtonStyle, styles.LeftButtonStyle]}>
-              <Text style={styles.CampaignButton}>Campaigns</Text>
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.TouchableOpacity}
-            onPress={() => this.props.navigation.navigate('Detail')}
-          >
-            <View style={[styles.ButtonStyle, styles.RightButtonStyle]}>
-              <Text style={styles.DetailButton}>Details</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    );
-  }
-}
+        <TouchableOpacity
+          style={styles.TouchableOpacity}
+          onPress={() => props.navigation.navigate('Detail')}
+        >
+          <View style={[styles.ButtonStyle, styles.RightButtonStyle]}>
+            <Text style={styles.DetailButton}>Details</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

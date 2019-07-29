@@ -21,7 +21,14 @@ const DetailAboutUs = () => {
             <Icon type='font-awesome' name='info-circle' />
             <Text style={styles.title}>{'  About Us'}</Text>
           </View>
-          <Text style={styles.body}>{profile.about_us}</Text>
+          <Text style={styles.body}>
+            The Carribean Sea Turtle Project is based in St. George's, Grenada
+            but we work all over the island. We have been working to conserve
+            the sea turtles that visit our shores and surrounding ovean for
+            the past 30 years. We believe in empowering our local communities
+            thorugh education and public outreach as well as educating our
+            elephants.
+          </Text>
         </View>
 
         <View style={styles.sections}>
@@ -32,7 +39,9 @@ const DetailAboutUs = () => {
             </Text>
           </View>
           <View style={styles.body}>
-            <Text>{profile.species_and_habitats}</Text>
+            <Text>- Grasslands</Text>
+            <Text style={styles.forcedMargin}>- Decidious Forest</Text>
+            <Text style={styles.forcedMargin}>- Coral Reef</Text>
           </View>
         </View>
 
@@ -42,7 +51,9 @@ const DetailAboutUs = () => {
             <Text style={styles.title}>{'  Big Issues'}</Text>
           </View>
           <View style={styles.body}>
-            <Text>{profile.issues}</Text>
+            <Text>- Main road construction</Text>
+            <Text style={styles.forcedMargin}>- Nest Disruption</Text>
+            <Text style={styles.forcedMargin}>- Plastic bottles</Text>
           </View>
         </View>
         <View style={styles.sections}>
@@ -51,7 +62,11 @@ const DetailAboutUs = () => {
             <Text style={styles.title}>{'  Support Our Mission'}</Text>
           </View>
           <View style={styles.body}>
-            <Text>{profile.support_us}</Text>
+            <Text>
+              Donate funds to go towards the overall mission of our
+              conversation organization, Your donation will be to support our
+              team, our daily activities and research.
+            </Text>
             <View style={styles.donateButton}>
               <TouchableOpacity
                 style={{
@@ -88,7 +103,7 @@ const DetailAboutUs = () => {
       </View>
     </ScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

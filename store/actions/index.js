@@ -53,7 +53,7 @@ export const getProfileData = id => async dispatch => {
     )
     .then(res => {
       user.campaigns = res.data.camp;
-      dispatch({ type: FETCH_SUCCESS, payload: user });
+      dispatch({ type: GET_PROFILE_SUCCESS, payload: user });
     })
     .catch(err => {
       dispatch({ type: GET_PROFILE_ERROR, payload: err });
