@@ -13,18 +13,8 @@ import CampScreen from '../screens/CampScreen';
 import DetailScreen from '../screens/DetailScreen';
 import MyDetailScreen from '../screens/MyDetailScreen';
 import LoginScreen from '../screens/LoginScreen';
-// import {
-//   FeedScreen,
-//   CreateCampScreen,
-//   ProScreen,
-//   CampScreen,
-//   DetailScreen,
-//   LoginScreen
-// } from '../screens';
 
 import { Icon } from 'react-native-elements';
-
-export const LoginStack = createStackNavigator({ Login: LoginScreen });
 
 const FeedStack = createStackNavigator(
   {
@@ -32,7 +22,7 @@ const FeedStack = createStackNavigator(
     Pro: { screen: ProScreen, navigationOptions: { title: 'Profile' } },
     Detail: {
       screen: DetailScreen,
-      navigationOptions: { title: 'Details', headerLeft: null }
+      navigationOptions: { title: 'Details' }
     }
   },
   {
@@ -93,6 +83,8 @@ const MyProStack = createStackNavigator(
   }
 );
 
+export const LoginStack = createStackNavigator({ Login: LoginScreen });
+
 export const TabNavigator = createBottomTabNavigator(
   {
     FeedStack: { screen: FeedStack, path: '' },
@@ -106,9 +98,14 @@ export const TabNavigator = createBottomTabNavigator(
   }
 );
 
-export const NoTabNavigator = createStackNavigator({
-  FeedStack: { screen: FeedStack, path: '' },
-  CreateCampStack: { screen: CreateCampStack, path: '' },
-  MyProStack: { screen: MyProStack, path: '' },
-  LoginStack: { screen: LoginStack, path: '' }
-});
+export const NoTabNavigator = createStackNavigator(
+  {
+    FeedStack: { screen: FeedStack, path: '' },
+    CreateCampStack: { screen: CreateCampStack, path: '' },
+    MyProStack: { screen: MyProStack, path: '' },
+    LoginStack: { screen: LoginStack, path: '' }
+  },
+  {
+    headerMode: 'none'
+  }
+);

@@ -9,8 +9,6 @@ import {
   Platform
 } from 'react-native';
 
-//import { withNavigation } from 'react-navigation';
-
 import { Avatar, Icon } from 'react-native-elements';
 
 const ProfileHeader = props => {
@@ -37,32 +35,34 @@ const ProfileHeader = props => {
           </Text>
         </View>
 
-        <View>
-          <TouchableOpacity
-            style={{ paddingTop: 25, paddingBottom: 25, width: 250 }}
-          >
-            <View
-              style={{
-                backgroundColor: '#fff',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 5,
-                height: 35
-              }}
+        {props.myProfile && (
+          <View>
+            <TouchableOpacity
+              style={{ paddingTop: 25, paddingBottom: 25, width: 250 }}
             >
-              <Text
+              <View
                 style={{
-                  color: 'black',
-                  textTransform: 'uppercase',
-                  fontWeight: 'bold',
-                  letterSpacing: 2
+                  backgroundColor: '#fff',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 5,
+                  height: 35
                 }}
               >
-                Edit Profile
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
+                <Text
+                  style={{
+                    color: 'black',
+                    textTransform: 'uppercase',
+                    fontWeight: 'bold',
+                    letterSpacing: 2
+                  }}
+                >
+                  Edit Profile
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
 
       <View style={styles.buttons}>

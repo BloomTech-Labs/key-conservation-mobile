@@ -7,9 +7,6 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-//import { withNavigation } from 'react-navigation';
-import { useSelector } from 'react-redux';
-
 import { Avatar, SocialIcon, Icon } from 'react-native-elements';
 
 const DetailHeader = props => {

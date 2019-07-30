@@ -1,5 +1,8 @@
 import { AuthSession } from 'expo';
 import jwtDecode from 'jwt-decode';
+import store from '../configureStore.js';
+
+import { loginStart, loginError, loginSuccess } from './index.js';
 
 /*
  Converts an object to a query string to be used by the request to auth0 via the dashboard application
@@ -19,14 +22,14 @@ function toQueryString(params) {
 export const login = async navigation => {
   store.dispatch(loginStart());
   const redirectUrl = AuthSession.getRedirectUrl();
-  // console.log(
-  //   `***************Redirect URL---place inside of Auth0 dashboard for callback url: ${redirectUrl}`
-  // );
+  console.log(
+    `***************Redirect URL---place inside of Auth0 dashboard for callback url: ${redirectUrl}`
+  );
 
   //this variable structures a query param for the /authorize API call to the auth0 API
   const queryParams = toQueryString({
     //this must come from your auth0 dashboard.
-    client_id: 'aWbcrJuDRzAgU0cba0Jj7oPVM1gKAWEr',
+    client_id: '0otCu1tlz708JNQ06YDUhRyKwXstKj55',
     redirect_uri: redirectUrl,
     // this is the API that should be built in relation to this app. This address is found in the Auth0 dashboard at API's -> select API -> settings -> identifier
     audience: 'https://auth0-example',
@@ -39,7 +42,7 @@ export const login = async navigation => {
 
   //dynamicly navigating the proper routes on the auth0 app
   // the domain url is found in the Auth0 dashboard at applications -> select App -> settings -> Domain
-  const domain = 'https://jaymaasdev.auth0.com';
+  const domain = 'https:dev-pdro3tql.auth0.com';
   const authUrl = `${domain}/authorize` + queryParams;
 
   // Perform the authentication
@@ -71,7 +74,7 @@ export const login = async navigation => {
     };
 
     store.dispatch(loginSuccess(chosenDecoded));
-    navigation.navigate('Edit');
+    navigation.navigate('Conservationist');
   }
 };
 

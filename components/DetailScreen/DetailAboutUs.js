@@ -7,8 +7,6 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import { useSelector } from 'react-redux';
-
 import { Icon, ListItem } from 'react-native-elements';
 
 const DetailAboutUs = props => {

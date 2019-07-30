@@ -8,53 +8,136 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-export default class LoginScreen extends Component {
-  static navigationOptions = () => {
+// import { login } from '../store/actions/login';
+
+import { useDispatch } from 'react-redux';
+import { AuthSession } from 'expo';
+import jwtDecode from 'jwt-decode';
+
+import { loginStart, loginError, loginSuccess } from '../store/actions';
+
+/*
+ Converts an object to a query string to be used by the request to auth0 via the dashboard application
+*/
+function toQueryString(params) {
+  return (
+    '?' +
+    Object.entries(params)
+      .map(
+        ([key, value]) =>
+          `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+      )
+      .join('&')
+  );
+}
+
+export default (LoginScreen = props => {
+  navigationOptions = () => {
     return {
-      headerStyle: {
-        display: 'none'
-      }
+      header: null
     };
   };
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.logoContainer}>
-          <Image
-            style={styles.logo}
-            source={require('../assets/images/keyFullBlack.png')}
-          />
-        </View>
-        <View style={styles.textContainer}>
-          <Text style={styles.SelectText}>Select one:</Text>
-        </View>
-        <View style={styles.buttons}>
-          {/* <View style={styles.buttonContainer}> */}
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Main')}
-            style={styles.buttonContainer}
-          >
-            <Text style={styles.buttonText}>CONSERVATION ORGANIZATION</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Alt')}
-            style={styles.buttonContainer}
-          >
-            <Text style={styles.buttonText}>GLOBAL SUPPORTER</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.needHelp}>
-          <Text style={styles.needHelpText}>Not sure which one to pick?</Text>
-          <Button
-            title='Click Here'
-            style={styles.needHelpText}
-            onPress={() => console.log('help')}
-          />
-        </View>
-      </View>
+
+  const dispatch = useDispatch();
+  const { navigation } = props;
+
+  const login = async navigation => {
+    dispatch(loginStart());
+    const redirectUrl = AuthSession.getRedirectUrl();
+    console.log(
+      `***************Redirect URL---place inside of Auth0 dashboard for callback url: ${redirectUrl}`
     );
-  }
-}
+
+    //this variable structures a query param for the /authorize API call to the auth0 API
+    const queryParams = toQueryString({
+      //this must come from your auth0 dashboard.
+      client_id: '0otCu1tlz708JNQ06YDUhRyKwXstKj55',
+      redirect_uri: redirectUrl,
+      // this is the API that should be built in relation to this app. This address is found in the Auth0 dashboard at API's -> select API -> settings -> identifier
+      audience: 'https://dev-pdro3tql.auth0.com/api/v2/',
+      // id_token will return a JWT token, token is access_token
+      response_type: 'id_token token',
+      // retrieve the user's profile and email from the openID
+      scope: 'openid profile email',
+      nonce: 'nonce'
+    });
+
+    //dynamicly navigating the proper routes on the auth0 app
+    // the domain url is found in the Auth0 dashboard at applications -> select App -> settings -> Domain
+    const domain = 'https://dev-pdro3tql.auth0.com';
+    const authUrl = `${domain}/authorize` + queryParams;
+
+    // Perform the authentication
+    const response = await AuthSession.startAsync({ authUrl });
+    console.log('Authentication response', response);
+
+    //if successful then it will call the next function!!!
+    //this should contain the access token and the id token
+    //this calls the function below, passing the tokens as parameters
+    if (response.type === 'success') {
+      if (response.error) {
+        dispatch(loginError(response.error));
+        Alert(
+          'Authentication error',
+          response.error_description || 'something went wrong'
+        );
+        return;
+      }
+      //set the access token to be assigned to state for later use
+      const access_token = response.params.access_token;
+      // Retrieve the JWT token and decode it using the jwtToken imported above
+      const jwtToken = response.params.id_token;
+      //decodes the token so we can access the available attributes of the users Auth0 profile
+      const decoded = jwtDecode(jwtToken);
+      console.log('*******************', decoded);
+      const chosenDecoded = {
+        name: decoded.name,
+        accessToken: access_token
+      };
+
+      dispatch(loginSuccess(chosenDecoded));
+      navigation.navigate('Conservationist');
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.logoContainer}>
+        <Image
+          style={styles.logo}
+          source={require('../assets/images/keyFullBlack.png')}
+        />
+      </View>
+      <View style={styles.textContainer}>
+        <Text style={styles.SelectText}>Select one:</Text>
+      </View>
+      <View style={styles.buttons}>
+        {/* <View style={styles.buttonContainer}> */}
+        <TouchableOpacity
+          onPress={() => login(navigation)}
+          style={styles.buttonContainer}
+        >
+          <Text style={styles.buttonText}>CONSERVATION ORGANIZATION</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate('Supporter')}
+          style={styles.buttonContainer}
+        >
+          <Text style={styles.buttonText}>GLOBAL SUPPORTER</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.needHelp}>
+        <Text style={styles.needHelpText}>Not sure which one to pick?</Text>
+        <Button
+          title='Click Here'
+          style={styles.needHelpText}
+          onPress={() => console.log('help')}
+        />
+      </View>
+    </View>
+  );
+});
+
 const styles = StyleSheet.create({
   container: {
     // marginTop: 50,

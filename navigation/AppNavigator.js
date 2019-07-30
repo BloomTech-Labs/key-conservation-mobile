@@ -7,8 +7,8 @@ export default createAppContainer(
   createSwitchNavigator({
     // You could add another route here for authentication.
     // Read more at https://reactnavigation.org/docs/en/auth-flow.html
-    //Login: LoginStack,
-    Main: TabNavigator,
-    Alt: NoTabNavigator
+    Login: LoginStack,
+    Conservationist: TabNavigator,
+    Supporter: NoTabNavigator
   })
 );
