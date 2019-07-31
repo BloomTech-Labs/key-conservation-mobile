@@ -4,58 +4,88 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform
 } from 'react-native';
 
 import { Input } from 'react-native-elements';
 
 export default function LinksScreen() {
   return (
-    <ScrollView contentContainerStyle={{ backgroundColor: '#F2F2FB' }}>
-      <View style={styles.buttons}>
-        <TouchableOpacity
-          style={styles.TouchableOpacity}
-          // onPress={}
+    <KeyboardAvoidingView
+      behavior='height'
+      keyboardVerticalOffset={165}
+      enabled
+    >
+      <View>
+        <View style={styles.buttons}>
+          <TouchableOpacity
+            style={styles.TouchableOpacity}
+            // onPress={}
+          >
+            <View style={styles.ButtonStyle}>
+              <Text style={styles.CancelButton}>Cancel</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.TouchableOpacity}>
+            <View style={styles.ButtonStyle}>
+              <Text style={styles.PublishButton}>Publish</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <ScrollView
+          contentContainerStyle={{
+            backgroundColor: '#F2F2FB',
+            minHeight: '100%'
+          }}
         >
-          <View style={styles.ButtonStyle}>
-            <Text style={styles.CancelButton}>Cancel</Text>
+          {/* <View style={styles.buttons}>
+            <TouchableOpacity
+              style={styles.TouchableOpacity}
+              // onPress={}
+            >
+              <View style={styles.ButtonStyle}>
+                <Text style={styles.CancelButton}>Cancel</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.TouchableOpacity}>
+              <View style={styles.ButtonStyle}>
+                <Text style={styles.PublishButton}>Publish</Text>
+              </View>
+            </TouchableOpacity>
+          </View> */}
+          <View style={styles.camera}>
+            <TouchableOpacity style={styles.TouchableOpacity}>
+              <Text style={styles.CameraContainerButton}>Photo</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.TouchableOpacity}>
+              <Text style={styles.CameraContainerButton}>Library</Text>
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.TouchableOpacity}>
-          <View style={styles.ButtonStyle}>
-            <Text style={styles.PublishButton}>Publish</Text>
+          <View style={styles.sectionContainer}>
+            <View style={styles.Card}>
+              <Input
+                inputContainerStyle={styles.inputContain}
+                shake={true}
+                placeholder='Campaign Name:'
+              />
+              <Text style={styles.cardPara}>
+                Add campaign details and a list of monitary needs.
+              </Text>
+            </View>
+            <View style={styles.Card}>
+              <Text style={styles.cardText}>Support our mission</Text>
+              <Input
+                inputContainerStyle={styles.inputContain}
+                shake={true}
+                placeholder='Donation link here:'
+              />
+            </View>
           </View>
-        </TouchableOpacity>
+        </ScrollView>
       </View>
-      <View style={styles.camera}>
-        <TouchableOpacity style={styles.TouchableOpacity}>
-          <Text style={styles.CameraContainerButton}>Photo</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.TouchableOpacity}>
-          <Text style={styles.CameraContainerButton}>Library</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.sectionContainer}>
-        <View style={styles.Card}>
-          <Input
-            inputContainerStyle={styles.inputContain}
-            shake={true}
-            placeholder='Campaign Name:'
-          />
-          <Text style={styles.cardPara}>
-            Add campaign details and a list of monitary needs.
-          </Text>
-        </View>
-        <View style={styles.Card}>
-          <Text style={styles.cardText}>Support our mission</Text>
-          <Input
-            inputContainerStyle={styles.inputContain}
-            shake={true}
-            placeholder='Donation link here:'
-          />
-        </View>
-      </View>
-    </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -75,7 +105,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderBottomColor: 'whitesmoke',
     paddingLeft: 10,
-    paddingRight: 10
+    paddingRight: 10,
+    height: 75
   },
   TouchableOpacity: {},
   ButtonStyle: {

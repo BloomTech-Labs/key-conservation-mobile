@@ -8,13 +8,16 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-// import { login } from '../store/actions/login';
-
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { AuthSession } from 'expo';
 import jwtDecode from 'jwt-decode';
 
-import { loginStart, loginError, loginSuccess } from '../store/actions';
+import {
+  loginStart,
+  loginError,
+  loginSuccess,
+  getProfileData
+} from '../store/actions';
 
 /*
  Converts an object to a query string to be used by the request to auth0 via the dashboard application
@@ -39,14 +42,15 @@ export default (LoginScreen = props => {
   };
 
   const dispatch = useDispatch();
+  const { currentUser, error } = useSelector(state => state);
   const { navigation } = props;
 
   const login = async navigation => {
     dispatch(loginStart());
     const redirectUrl = AuthSession.getRedirectUrl();
-    console.log(
-      `***************Redirect URL---place inside of Auth0 dashboard for callback url: ${redirectUrl}`
-    );
+    // console.log(
+    //   `***************Redirect URL---place inside of Auth0 dashboard for callback url: ${redirectUrl}`
+    // );
 
     //this variable structures a query param for the /authorize API call to the auth0 API
     const queryParams = toQueryString({
@@ -54,7 +58,7 @@ export default (LoginScreen = props => {
       client_id: '0otCu1tlz708JNQ06YDUhRyKwXstKj55',
       redirect_uri: redirectUrl,
       // this is the API that should be built in relation to this app. This address is found in the Auth0 dashboard at API's -> select API -> settings -> identifier
-      audience: 'https://dev-pdro3tql.auth0.com/api/v2/',
+      audience: 'https://burner-react-native/',
       // id_token will return a JWT token, token is access_token
       response_type: 'id_token token',
       // retrieve the user's profile and email from the openID
@@ -83,20 +87,30 @@ export default (LoginScreen = props => {
         );
         return;
       }
+
       //set the access token to be assigned to state for later use
       const access_token = response.params.access_token;
+      console.log('************* access token', access_token);
+      let role = jwtDecode(access_token);
+      if (role.permissions.length > 0) {
+        role.permissions[0].replace('role:', '');
+      }
+      console.log('role *****', role);
       // Retrieve the JWT token and decode it using the jwtToken imported above
       const jwtToken = response.params.id_token;
       //decodes the token so we can access the available attributes of the users Auth0 profile
+
       const decoded = jwtDecode(jwtToken);
       console.log('*******************', decoded);
       const chosenDecoded = {
         name: decoded.name,
-        accessToken: access_token
+        accessToken: access_token,
+        sub: decoded.sub
       };
 
       dispatch(loginSuccess(chosenDecoded));
-      navigation.navigate('Conservationist');
+      await dispatch(getProfileData(false, decoded.sub, 'myProfile'));
+      navigation.navigate(error ? 'CreateAccount' : 'Conservationist');
     }
   };
 
@@ -131,7 +145,9 @@ export default (LoginScreen = props => {
         <Button
           title='Click Here'
           style={styles.needHelpText}
-          onPress={() => console.log('help')}
+          onPress={() => {
+            null;
+          }}
         />
       </View>
     </View>
@@ -154,6 +170,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   logo: {
+    // marginTop: 50,
     height: 189,
     width: 189
   },

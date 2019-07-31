@@ -13,6 +13,7 @@ import CampScreen from '../screens/CampScreen';
 import DetailScreen from '../screens/DetailScreen';
 import MyDetailScreen from '../screens/MyDetailScreen';
 import LoginScreen from '../screens/LoginScreen';
+import FormScreen from '../screens/FormScreen';
 
 import { Icon } from 'react-native-elements';
 
@@ -55,6 +56,22 @@ const CreateCampStack = createStackNavigator(
   }
 );
 
+const FormStack = createStackNavigator(
+  { Form: FormScreen },
+  {
+    navigationOptions: {
+      tabBarLabel: 'Form',
+      tabBarIcon: ({ focused }) => (
+        <Icon
+          name='heartbeat'
+          color={focused ? 'blue' : 'black'}
+          type='font-awesome'
+        />
+      )
+    }
+  }
+);
+
 const MyProStack = createStackNavigator(
   {
     MyPro: { screen: MyProScreen, navigationOptions: { title: 'My Profile' } },
@@ -83,13 +100,19 @@ const MyProStack = createStackNavigator(
   }
 );
 
-export const LoginStack = createStackNavigator({ Login: LoginScreen });
+export const LoginStack = createStackNavigator(
+  { Login: LoginScreen },
+  {
+    headerMode: 'none'
+  }
+);
 
 export const TabNavigator = createBottomTabNavigator(
   {
     FeedStack: { screen: FeedStack, path: '' },
     CreateCampStack: { screen: CreateCampStack, path: '' },
-    MyProStack: { screen: MyProStack, path: '' }
+    MyProStack: { screen: MyProStack, path: '' },
+    FormStack: { screen: FormStack, path: '' }
   },
   {
     tabBarOptions: {

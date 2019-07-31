@@ -11,11 +11,11 @@ export const loginStart = () => ({
 });
 export const loginError = error => ({
   type: LOGIN_ERROR,
-  error
+  payload: error
 });
 export const loginSuccess = user => ({
   type: LOGIN_SUCCESS,
-  user
+  payload: user
 });
 
 export const [LOGOUT_START, LOGOUT_SUCCESS] = [
@@ -36,27 +36,42 @@ export const [GET_PROFILE_START, GET_PROFILE_ERROR, GET_PROFILE_SUCCESS] = [
   'GET_PROFILE_SUCCESS'
 ];
 
-export const getProfileData = (id, myProfile = false) => async dispatch => {
+export const getProfileData = (
+  id,
+  sub,
+  myProfile = false
+) => async dispatch => {
   dispatch({ type: GET_PROFILE_START });
-  let user;
-  await axios
-    .get(`https://key-conservation-staging.herokuapp.com/api/users/${id}`)
+  let user, url;
+  if (id)
+    url = `https://key-conservation-staging.herokuapp.com/api/users/${id}`;
+  else if (sub)
+    url = `https://key-conservation-staging.herokuapp.com/api/users/sub/${sub}`;
+  return axios
+    .get(url)
     .then(res => {
       user = res.data.user;
     })
     .catch(err => {
       dispatch({ type: GET_PROFILE_ERROR, payload: err });
     });
+};
+
+export const [POST_USER_START, POST_USER_ERROR, POST_USER_SUCCESS] = [
+  'POST_CAMPAIGNS_START',
+  'POST_CAMPAIGNS_ERROR',
+  'POST_CAMPAIGNS_SUCCESS'
+];
+
+export const postUser = user => dispatch => {
+  dispatch({ type: POST_USER_START });
   axios
-    .get(
-      `https://key-conservation-staging.herokuapp.com/api/campaigns/camp/${id}`
-    )
+    .post('https://key-conservation-staging.herokuapp.com/api/users', user)
     .then(res => {
-      user.campaigns = res.data.camp;
-      dispatch({ type: GET_PROFILE_SUCCESS, payload: { user, myProfile } });
+      dispatch({ type: POST_USER_SUCCESS, payload: res.data.newUser });
     })
     .catch(err => {
-      dispatch({ type: GET_PROFILE_ERROR, payload: err });
+      dispatch({ type: POST_USER_ERROR, payload: err });
     });
 };
 
@@ -75,5 +90,23 @@ export const getCampaigns = () => dispatch => {
     })
     .catch(err => {
       dispatch({ type: GET_CAMPAIGNS_ERROR, payload: err });
+    });
+};
+
+export const [
+  POST_CAMPAIGN_START,
+  POST_CAMPAIGN_ERROR,
+  POST_CAMPAIGN_SUCCESS
+] = ['POST_CAMPAIGNS_START', 'POST_CAMPAIGNS_ERROR', 'POST_CAMPAIGNS_SUCCESS'];
+
+export const postCampaign = camp => dispatch => {
+  dispatch({ type: POST_CAMPAIGN_START });
+  axios
+    .post('https://key-conservation-staging.herokuapp.com/api/campaigns', camp)
+    .then(res => {
+      dispatch({ type: POST_CAMPAIGN_SUCCESS, payload: res.data.newCamps });
+    })
+    .catch(err => {
+      dispatch({ type: POST_CAMPAIGN_ERROR, payload: err });
     });
 };

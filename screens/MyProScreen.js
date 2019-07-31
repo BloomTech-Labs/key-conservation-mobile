@@ -22,7 +22,7 @@ const MyProScreen = props => {
   const { navigation } = props;
 
   useEffect(() => {
-    dispatch(getProfileData(currentUser.id, 'myProfile'));
+    dispatch(getProfileData(currentUser.id, false, 'myProfile'));
   }, []);
 
   return (

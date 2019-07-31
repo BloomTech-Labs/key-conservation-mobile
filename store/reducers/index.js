@@ -7,9 +7,15 @@ import {
   GET_PROFILE_START,
   GET_PROFILE_ERROR,
   GET_PROFILE_SUCCESS,
+  POST_USER_START,
+  POST_USER_ERROR,
+  POST_USER_SUCCESS,
   GET_CAMPAIGNS_START,
   GET_CAMPAIGNS_ERROR,
-  GET_CAMPAIGNS_SUCCESS
+  GET_CAMPAIGNS_SUCCESS,
+  POST_CAMPAIGN_START,
+  POST_CAMPAIGN_ERROR,
+  POST_CAMPAIGN_SUCCESS
 } from '../actions';
 
 const initialState = {
@@ -20,11 +26,15 @@ const initialState = {
     getUser: false
   },
   currentUser: {
-    id: 1,
+    id: '',
+    sub: '',
     role: 'conservationist',
+    email: '',
+    name: '',
     profile: {
       campaigns: []
-    }
+    },
+    token: ''
   },
   selectedProfile: {
     campaigns: []
@@ -44,14 +54,18 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, login: false },
-        error: action.error
+        error: action.payload
       };
     case LOGIN_SUCCESS:
       return {
         ...state,
         pending: { ...state.pending, login: false },
-        orgName: action.organization.name,
-        accesToken: action.organization.accessToken,
+        currentUser: {
+          ...state.currentUser,
+          name: action.payload.name,
+          sub: action.payload.sub,
+          token: action.payload.accessToken
+        },
         error: ''
       };
     case LOGOUT_START:
@@ -70,7 +84,6 @@ const reducer = (state = initialState, action) => {
       };
     case GET_PROFILE_SUCCESS:
       if (action.payload.myProfile) {
-        console.log('MY PROFILE', action.payload.user.id);
         return {
           ...state,
           pending: { ...state.pending, getProfile: false },
@@ -80,7 +93,6 @@ const reducer = (state = initialState, action) => {
           }
         };
       } else {
-        console.log('NOT MY PROFILE', action.payload.user.id);
         return {
           ...state,
           pending: { ...state.pending, getProfile: false },
@@ -91,6 +103,27 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getProfile: false },
+        error: action.payload
+      };
+    case POST_USER_START:
+      return {
+        ...state,
+        pending: { ...state.pending, postUser: true },
+        error: ''
+      };
+    case POST_USER_SUCCESS:
+      return {
+        ...state,
+        pending: { ...state.pending, postUser: false },
+        currentUser: {
+          ...state.currentUser,
+          profile: action.payload.user
+        }
+      };
+    case POST_USER_ERROR:
+      return {
+        ...state,
+        pending: { ...state.pending, postUser: false },
         error: action.payload
       };
     case GET_CAMPAIGNS_START:
@@ -104,6 +137,24 @@ const reducer = (state = initialState, action) => {
         ...state,
         pending: { ...state.pending, getCampaigns: false },
         allCampaigns: action.payload
+      };
+    case GET_CAMPAIGNS_ERROR:
+      return {
+        ...state,
+        pending: { ...state.pending, getCampaigns: false },
+        error: action.payload
+      };
+    case GET_CAMPAIGNS_START:
+      return {
+        ...state,
+        pending: { ...state.pending, getCampaigns: true },
+        error: ''
+      };
+    case GET_CAMPAIGNS_SUCCESS:
+      return {
+        ...state,
+        pending: { ...state.pending, getCampaigns: false },
+        allCampaigns: [...state.allCampaigns, action.payload]
       };
     case GET_CAMPAIGNS_ERROR:
       return {
