@@ -18,10 +18,6 @@ class EditProScreen extends React.Component {
     usernameInput: ''
   };
 
-  componentDidMount() {
-    this.props.getProfileData(this.props.currentUser.id, false, 'myProfile');
-  };
-
   handlePress = async () => {
     const { error } = this.props;
     const { sub, role, email } = this.props.currentUser;

@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 
 import { connect } from 'react-redux';
-import { useSelector } from 'react-redux';
 
 import DetailHeader from '../components/DetailScreen/DetailHeader';
 import DetailAboutUs from '../components/DetailScreen/DetailAboutUs';
@@ -24,22 +23,18 @@ class MyDetailsScreen extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.props.getProfileData(this.props.currentUser.id, false, 'myProfile');
-  };
-
   render() {
     return (
       <ScrollView contentContainerStyle={{ backgroundColor: '#F2F2FB' }}>
         <DetailHeader
           navigation={this.props.navigation}
           myProfile={true}
-          profile={this.props.currentUser.profile}
+          profile={this.props.currentUserProfile}
         />
         <DetailAboutUs
           navigation={this.props.navigation}
           myProfile={true}
-          profile={this.props.currentUser.profile}
+          profile={this.props.currentUserProfile}
         />
       </ScrollView>
     );
@@ -47,7 +42,8 @@ class MyDetailsScreen extends React.Component {
 };
 
 const mapStateToProps = state => ({
-  currentUser: state.currentUser
+  currentUser: state.currentUser,
+  currentUserProfile: state.currentUserProfile
 });
 
 export default connect(

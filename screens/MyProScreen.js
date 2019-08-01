@@ -35,13 +35,13 @@ class MyProScreen extends React.Component {
       <ProfileHeader
         navigation={this.props.navigation}
         myProfile={true}
-        profile={this.props.currentUser.profile}
+        profile={this.props.currentUserProfile}
       />
       <View />
       <View>
         {
-          this.props.currentUser.profile.campaigns &&
-          this.props.currentUser.profile.campaigns.map(campaign => {
+          this.props.currentUserProfile.campaigns &&
+          this.props.currentUserProfile.campaigns.map(campaign => {
           return (
             <ListItem
               key={campaign.camp_id}
@@ -60,7 +60,8 @@ class MyProScreen extends React.Component {
 };
 
 const mapStateToProps = state => ({
-  currentUser: state.currentUser
+  currentUser: state.currentUser,
+  currentUserProfile: state.currentUserProfile
 });
 
 export default connect(

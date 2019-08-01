@@ -50,8 +50,8 @@ export const getProfileData = (
   return axios
     .get(url)
     .then(res => {
-      console.log(res.data.user)
-      dispatch({ type: GET_PROFILE_SUCCESS, payload: res.data.user });
+      user = res.data.user;
+      dispatch({ type: GET_PROFILE_SUCCESS, payload: { user, myProfile } });
     })
     .catch(err => {
       dispatch({ type: GET_PROFILE_ERROR, payload: err });

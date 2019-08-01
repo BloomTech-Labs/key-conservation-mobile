@@ -26,7 +26,7 @@ const initialState = {
     getUser: false
   },
   currentUser: {
-    id: '1',
+    id: 1,
     sub: '',
     role: 'conservationist',
     email: '',
@@ -87,13 +87,13 @@ const reducer = (state = initialState, action) => {
         return {
           ...state,
           pending: { ...state.pending, getProfile: false },
-          currentUserProfile: action.payload
+          currentUserProfile: action.payload.user
         };
       } else {
         return {
           ...state,
           pending: { ...state.pending, getProfile: false },
-          selectedProfile: action.payload
+          selectedProfile: action.payload.user
         };
       }
     case GET_PROFILE_ERROR:
