@@ -13,9 +13,13 @@ import { connect } from 'react-redux';
 
 import { postUser } from '../store/actions';
 
-class FormScreen extends React.Component {
+class EditDetailScreen extends React.Component {
   state = {
     usernameInput: ''
+  };
+
+  componentDidMount() {
+    this.props.getProfileData(this.props.currentUser.id, false, 'myProfile');
   };
 
   handlePress = async () => {
@@ -43,30 +47,74 @@ class FormScreen extends React.Component {
             <View style={styles.Card} />
             <TextInput
               returnKeyType='go'
-              placeholder='Username'
+              placeholder='Email'
+              style={styles.inputContain}
+              onChangeText={text => this.setState({ usernameInput: text })}
+              value={this.state.usernameInput}
+              required
+            />
+            <TextInput
+              returnKeyType='go'
+              placeholder='Website'
+              style={styles.inputContain}
+              onChangeText={text => this.setState({ usernameInput: text })}
+              value={this.state.usernameInput}
+              required
+            />
+            <TextInput
+              returnKeyType='go'
+              placeholder='Donation Link'
+              style={styles.inputContain}
+              onChangeText={text => this.setState({ usernameInput: text })}
+              value={this.state.usernameInput}
+              required
+            />
+            <TextInput
+              returnKeyType='go'
+              placeholder='Facebook'
+              style={styles.inputContain}
+              onChangeText={text => this.setState({ usernameInput: text })}
+              value={this.state.usernameInput}
+              required
+            />
+            <TextInput
+              returnKeyType='go'
+              placeholder='Instagram'
+              style={styles.inputContain}
+              onChangeText={text => this.setState({ usernameInput: text })}
+              value={this.state.usernameInput}
+              required
+            />
+            <TextInput
+              returnKeyType='go'
+              placeholder='Twitter'
+              style={styles.inputContain}
+              onChangeText={text => this.setState({ usernameInput: text })}
+              value={this.state.usernameInput}
+              required
+            />
+            <TextInput
+              returnKeyType='go'
+              placeholder='About Us'
               style={styles.inputContain}
               onChangeText={text => this.setState({ usernameInput: text })}
               value={this.state.usernameInput}
               required
             />
           </View>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={this.handlePress}
             style={styles.touchableButton}
           >
             <View style={styles.touchableView}>
               <Text style={styles.touchableText}>Register</Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </ScrollView>
       </KeyboardAvoidingView>
     );
   }
 }
-
-FormScreen.navigationOptions = {
-  title: 'Form'
-};
 
 const mapStateToProps = state => ({
   error: state.error,
@@ -76,7 +124,7 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { postUser }
-)(FormScreen);
+)(EditDetailScreen);
 
 const styles = StyleSheet.create({
   sectionContainer: {

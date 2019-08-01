@@ -91,11 +91,6 @@ export default (LoginScreen = props => {
       //set the access token to be assigned to state for later use
       const access_token = response.params.access_token;
       console.log('************* access token', access_token);
-      let role = jwtDecode(access_token);
-      if (role.permissions.length > 0) {
-        role.permissions[0].replace('role:', '');
-      }
-      console.log('role *****', role);
       // Retrieve the JWT token and decode it using the jwtToken imported above
       const jwtToken = response.params.id_token;
       //decodes the token so we can access the available attributes of the users Auth0 profile
@@ -107,6 +102,7 @@ export default (LoginScreen = props => {
         accessToken: access_token,
         sub: decoded.sub
       };
+      
 
       dispatch(loginSuccess(chosenDecoded));
       await dispatch(getProfileData(false, decoded.sub, 'myProfile'));

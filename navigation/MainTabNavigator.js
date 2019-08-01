@@ -9,11 +9,15 @@ import FeedScreen from '../screens/FeedScreen';
 import CreateCampScreen from '../screens/CreateCampScreen';
 import ProScreen from '../screens/ProScreen';
 import MyProScreen from '../screens/MyProScreen';
+import EditProScreen from '../screens/EditProScreen';
 import CampScreen from '../screens/CampScreen';
 import DetailScreen from '../screens/DetailScreen';
 import MyDetailScreen from '../screens/MyDetailScreen';
+import EditDetailScreen from '../screens/EditDetailScreen';
 import LoginScreen from '../screens/LoginScreen';
 import FormScreen from '../screens/FormScreen';
+
+import EditButton from '../components/EditButton'
 
 import { Icon } from 'react-native-elements';
 
@@ -74,12 +78,11 @@ const FormStack = createStackNavigator(
 
 const MyProStack = createStackNavigator(
   {
-    MyPro: { screen: MyProScreen, navigationOptions: { title: 'My Profile' } },
-    Campaign: CampScreen,
-    MyDetail: {
-      screen: MyDetailScreen,
-      navigationOptions: { title: 'My Details', headerLeft: null }
-    }
+    MyPro: { screen: MyProScreen },
+    MyDetail: { screen: MyDetailScreen },
+    EditPro: { screen: EditProScreen, navigationOptions: { title: 'Edit Profile' } },
+    EditDetail: { screen: EditDetailScreen, navigationOptions: { title: 'Edit Details' } },
+    Campaign: CampScreen
   },
   {
     transitionConfig: () => ({
