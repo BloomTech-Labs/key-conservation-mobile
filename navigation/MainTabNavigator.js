@@ -78,7 +78,15 @@ const MyProStack = createStackNavigator(
     Campaign: CampScreen,
     MyDetail: {
       screen: MyDetailScreen,
-      navigationOptions: { title: 'Details', headerLeft: null }
+      navigationOptions: {
+        title: 'Details',
+        headerLeft: null,
+        headerTitleStyle: {
+          textAlign: 'center',
+          flexGrow: 1,
+          alignSelf: 'center'
+        }
+      }
     }
   },
   {

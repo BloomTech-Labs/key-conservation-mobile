@@ -77,6 +77,6 @@ const styles = StyleSheet.create({
 //     flexGrow: 1,
 //     alignSelf: 'center'
 //   }
-// };// // // // // //
+// };
 
 export default MyDetailsScreen;
