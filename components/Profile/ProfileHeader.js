@@ -16,6 +16,29 @@ const ProfileHeader = props => {
 
   return (
     <ScrollView style={styles.pic}>
+      <View style={styles.buttons}>
+        <TouchableOpacity
+          style={[
+            styles.TouchableOpacity,
+            null ? {} : { borderBottomColor: '#00FF9D', borderBottomWidth: 2 }
+          ]}
+        >
+          <View style={[styles.ButtonStyle, styles.LeftButtonStyle]}>
+            <Text style={styles.CampaignButton}>Campaigns</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.TouchableOpacity}
+          onPress={() =>
+            props.navigation.navigate(props.myProfile ? 'MyDetail' : 'Detail')
+          }
+        >
+          <View style={[styles.ButtonStyle, styles.RightButtonStyle]}>
+            <Text style={styles.DetailButton}>Details</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
       <View style={styles.container}>
         <Avatar
           size='large'
@@ -63,25 +86,6 @@ const ProfileHeader = props => {
             </TouchableOpacity>
           </View>
         )}
-      </View>
-
-      <View style={styles.buttons}>
-        <TouchableOpacity style={styles.TouchableOpacity}>
-          <View style={[styles.ButtonStyle, styles.LeftButtonStyle]}>
-            <Text style={styles.CampaignButton}>Campaigns</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.TouchableOpacity}
-          onPress={() =>
-            props.navigation.navigate(props.myProfile ? 'MyDetail' : 'Detail')
-          }
-        >
-          <View style={[styles.ButtonStyle, styles.RightButtonStyle]}>
-            <Text style={styles.DetailButton}>Details</Text>
-          </View>
-        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -149,11 +153,13 @@ const styles = StyleSheet.create({
   },
   CampaignButton: {
     fontSize: 18,
-    color: 'blue'
+    color: '#000',
+    fontWeight: 'bold'
   },
   DetailButton: {
     fontSize: 18,
-    color: 'black'
+    color: '#C4C4C4',
+    fontWeight: 'bold'
   }
 });
 
