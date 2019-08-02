@@ -91,6 +91,10 @@ export default function LinksScreen() {
 
 LinksScreen.navigationOptions = {
   title: 'Create Campaign',
+  headerStyle: {
+    backgroundColor: '#323338'
+  },
+  headerTintColor: '#fff',
   headerTitleStyle: {
     textAlign: 'center',
     flexGrow: 1,

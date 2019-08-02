@@ -63,7 +63,16 @@ class FormScreen extends React.Component {
 }
 
 FormScreen.navigationOptions = {
-  title: 'Form'
+  title: 'Form',
+  headerStyle: {
+    backgroundColor: '#323338'
+  },
+  headerTintColor: '#fff',
+  headerTitleStyle: {
+    textAlign: 'center',
+    flexGrow: 1,
+    alignSelf: 'center'
+  }
 };
 
 const mapStateToProps = state => ({

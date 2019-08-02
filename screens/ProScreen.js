@@ -46,7 +46,7 @@ const ProScreen = props => {
 };
 
 ProScreen.navigationOptions = {
-  title: 'Profile',
+  title: 'My Profile',
   // This setting needs to be on every screen so that header is in the center
   // This is fix for andriod devices should be good on IOS
   headerTitleStyle: {

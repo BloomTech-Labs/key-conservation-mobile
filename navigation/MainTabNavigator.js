@@ -20,10 +20,35 @@ import { Icon } from 'react-native-elements';
 const FeedStack = createStackNavigator(
   {
     Home: FeedScreen,
-    Pro: { screen: ProScreen, navigationOptions: { title: 'Profile' } },
+    Pro: {
+      screen: ProScreen,
+      navigationOptions: {
+        title: 'Profile',
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          textAlign: 'center',
+          flexGrow: 1,
+          alignSelf: 'center'
+        },
+        headerStyle: {
+          backgroundColor: '#323338'
+        }
+      }
+    },
     Detail: {
       screen: DetailScreen,
-      navigationOptions: { title: 'Details' }
+      navigationOptions: {
+        title: 'Details',
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          textAlign: 'center',
+          flexGrow: 1,
+          alignSelf: 'center'
+        },
+        headerStyle: {
+          backgroundColor: '#323338'
+        }
+      }
     }
   },
   {
@@ -44,6 +69,7 @@ const CreateCampStack = createStackNavigator(
   { CreateCampaign: CreateCampScreen },
   {
     navigationOptions: {
+      headerLeft: null,
       tabBarLabel: 'Create Campaign',
       tabBarIcon: ({ focused }) => (
         <Icon
@@ -81,6 +107,10 @@ const MyProStack = createStackNavigator(
       navigationOptions: {
         title: 'Details',
         headerLeft: null,
+        headerStyle: {
+          backgroundColor: '#323338'
+        },
+        headerTintColor: '#fff',
         headerTitleStyle: {
           textAlign: 'center',
           flexGrow: 1,
@@ -96,7 +126,7 @@ const MyProStack = createStackNavigator(
       }
     }),
     navigationOptions: {
-      tabBarLabel: 'Profile',
+      tabBarLabel: 'My Profile',
       tabBarIcon: ({ focused }) => (
         <Icon
           name='user'
