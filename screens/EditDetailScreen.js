@@ -61,7 +61,7 @@ class EditDetailScreen extends React.Component {
               </View>
 
               <View style={styles.sections}>
-                <Text style={styles.sectionsText}>Website</Text>
+                <Text style={styles.sectionsText}>Website Link URL</Text>
                 <TextInput
                   ref={(input) => { this.orgLinkUrlInput = input; }}
                   returnKeyType='next'
@@ -75,7 +75,7 @@ class EditDetailScreen extends React.Component {
               </View>
 
               <View style={styles.sections}>
-                <Text style={styles.sectionsText}>Website Text</Text>
+                <Text style={styles.sectionsText}>Website Link Text</Text>
                 <TextInput
                   ref={(input) => { this.orgLinkTextInput = input; }}
                   returnKeyType='next'
@@ -181,8 +181,8 @@ class EditDetailScreen extends React.Component {
                   placeholder='Big Issues'
                   style={styles.inputContain2}
                   onChangeText={text => this.setState({ issues: text })}
-                  onSubmitEditing={() => { this.supportUsInput.focus(); }}
-                  blurOnSubmit={false}
+                  // onSubmitEditing={() => { this.supportUsInput.focus(); }}
+                  // blurOnSubmit={false}
                   multiline={true}
                   value={this.state.issues}
                 />

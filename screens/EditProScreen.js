@@ -15,7 +15,10 @@ import { postUser } from '../store/actions';
 
 class EditProScreen extends React.Component {
   state = {
-    usernameInput: ''
+    orgName: this.props.currentUserProfile.org_name,
+    username: this.props.currentUserProfile.username,
+    location: this.props.currentUserProfile.location,
+    miniBio: this.props.currentUserProfile.mini_bio,
   }; 
 
   render() {
@@ -31,57 +34,57 @@ class EditProScreen extends React.Component {
               <View style={styles.sections}>
                 <Text style={styles.sectionsText}>Organization Name</Text>
                 <TextInput
-                  ref={(input) => { this.facebookInput = input; }}
+                  ref={(input) => { this.orgNameInput = input; }}
                   returnKeyType='next'
                   placeholder='Facebook'
                   style={styles.inputContain}
-                  onChangeText={text => this.setState({ facebook: text })}
-                  onSubmitEditing={() => { this.instagramInput.focus(); }}
+                  onChangeText={text => this.setState({ orgName: text })}
+                  onSubmitEditing={() => { this.usernameInput.focus(); }}
                   blurOnSubmit={false}
-                  value={this.state.facebook}
+                  value={this.state.orgName}
                 />
             </View>
 
             <View style={styles.sections}>
               <Text style={styles.sectionsText}>Username</Text>
               <TextInput
-                ref={(input) => { this.instagramInput = input; }}
+                ref={(input) => { this.usernameInput = input; }}
                 returnKeyType='next'
                 placeholder='Instagram'
                 style={styles.inputContain}
-                onChangeText={text => this.setState({ instagram: text })}
-                onSubmitEditing={() => { this.twitterInput.focus(); }}
+                onChangeText={text => this.setState({ username: text })}
+                onSubmitEditing={() => { this.locationInput.focus(); }}
                 blurOnSubmit={false}
-                value={this.state.instagram}
+                value={this.state.username}
               />
             </View>
 
             <View style={styles.sections}>
               <Text style={styles.sectionsText}>Location</Text>
               <TextInput
-                ref={(input) => { this.twitterInput = input; }}
+                ref={(input) => { this.locationInput = input; }}
                 returnKeyType='next'
                 placeholder='Twitter'
                 style={styles.inputContain}
-                onChangeText={text => this.setState({ twitter: text })}
-                onSubmitEditing={() => { this.aboutUsInput.focus(); }}
+                onChangeText={text => this.setState({ location: text })}
+                onSubmitEditing={() => { this.miniBioInput.focus(); }}
                 blurOnSubmit={false}
-                value={this.state.twitter}
+                value={this.state.location}
               />
             </View>
 
             <View style={styles.sections}>
               <Text style={styles.sectionsText}>Bio</Text>
               <TextInput
-                ref={(input) => { this.aboutUsInput = input; }}
+                ref={(input) => { this.miniBioInput = input; }}
                 returnKeyType='next'
                 placeholder='About Us'
                 style={styles.inputContain2}
-                onChangeText={text => this.setState({ aboutUs: text })}
-                onSubmitEditing={() => { this.speciesHabitatsInput.focus(); }}
-                blurOnSubmit={false}
+                onChangeText={text => this.setState({ miniBio: text })}
+                // onSubmitEditing={() => { this.speciesHabitatsInput.focus(); }}
+                // blurOnSubmit={false}
                 multiline={true}
-                value={this.state.aboutUs}
+                value={this.state.miniBio}
               />
             </View>
           </View>
@@ -93,7 +96,8 @@ class EditProScreen extends React.Component {
 
 const mapStateToProps = state => ({
   error: state.error,
-  currentUser: state.currentUser
+  currentUser: state.currentUser,
+  currentUserProfile: state.currentUserProfile,
 });
 
 export default connect(
