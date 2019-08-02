@@ -69,4 +69,14 @@ const styles = StyleSheet.create({
   }
 });
 
+// MyDetail.navigationOptions = {
+//   // This setting needs to be on every screen so that header is in the center
+//   // This is fix for andriod devices should be good on IOS
+//   headerTitleStyle: {
+//     textAlign: 'center',
+//     flexGrow: 1,
+//     alignSelf: 'center'
+//   }
+// };// // // // // //
+
 export default MyDetailsScreen;

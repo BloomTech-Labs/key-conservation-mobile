@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     height: 35
   },
   ButtonText: {
-    color: 'black',
+    color: '#C4C4C4',
     textTransform: 'uppercase',
     fontWeight: 'bold',
     letterSpacing: 2
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontWeight: 'bold',
     letterSpacing: 2,
-    color: 'blue'
+    color: '#00FF9D'
   }
 });
 

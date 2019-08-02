@@ -31,7 +31,7 @@ const FeedStack = createStackNavigator(
       tabBarLabel: 'Feed',
       tabBarIcon: ({ focused }) => (
         <Icon
-          color={focused ? 'blue' : 'black'}
+          color={focused ? '#00FF9D' : 'black'}
           name='home'
           type='font-awesome'
         />
@@ -48,7 +48,7 @@ const CreateCampStack = createStackNavigator(
       tabBarIcon: ({ focused }) => (
         <Icon
           name='plus'
-          color={focused ? 'blue' : 'black'}
+          color={focused ? '#00FF9D' : 'black'}
           type='font-awesome'
         />
       )
@@ -64,7 +64,7 @@ const FormStack = createStackNavigator(
       tabBarIcon: ({ focused }) => (
         <Icon
           name='heartbeat'
-          color={focused ? 'blue' : 'black'}
+          color={focused ? '#00FF9D' : 'black'}
           type='font-awesome'
         />
       )
@@ -74,11 +74,11 @@ const FormStack = createStackNavigator(
 
 const MyProStack = createStackNavigator(
   {
-    MyPro: { screen: MyProScreen, navigationOptions: { title: 'My Profile' } },
+    MyPro: { screen: MyProScreen, navigationOptions: { title: 'Profile' } },
     Campaign: CampScreen,
     MyDetail: {
       screen: MyDetailScreen,
-      navigationOptions: { title: 'My Details', headerLeft: null }
+      navigationOptions: { title: 'Details', headerLeft: null }
     }
   },
   {
@@ -92,7 +92,7 @@ const MyProStack = createStackNavigator(
       tabBarIcon: ({ focused }) => (
         <Icon
           name='user'
-          color={focused ? 'blue' : 'black'}
+          color={focused ? '#00FF9D' : 'black'}
           type='font-awesome'
         />
       )

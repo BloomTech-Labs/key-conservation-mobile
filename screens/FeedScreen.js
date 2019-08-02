@@ -39,7 +39,14 @@ function FeedScreen(props) {
 
 FeedScreen.navigationOptions = {
   title: 'Feed',
-  headerRight: <Icon name='search' type='font-awesome' /> // Find out how to implement this better// And how to style this!
+  headerRight: <Icon name='search' type='font-awesome' />, // Find out how to implement this better. And how to style this!
+  // This setting needs to be on every screen so that header is in the center
+  // This is fix for andriod devices should be good on IOS
+  headerTitleStyle: {
+    textAlign: 'center',
+    flexGrow: 1,
+    alignSelf: 'center'
+  }
 };
 
 export default FeedScreen;
