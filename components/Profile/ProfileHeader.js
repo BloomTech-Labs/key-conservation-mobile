@@ -57,35 +57,6 @@ const ProfileHeader = props => {
             {profile.mini_bio}
           </Text>
         </View>
-
-        {props.myProfile && (
-          <View>
-            <TouchableOpacity
-              style={{ paddingTop: 25, paddingBottom: 25, width: 250 }}
-            >
-              <View
-                style={{
-                  backgroundColor: '#fff',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: 5,
-                  height: 35
-                }}
-              >
-                <Text
-                  style={{
-                    color: 'black',
-                    textTransform: 'uppercase',
-                    fontWeight: 'bold',
-                    letterSpacing: 2
-                  }}
-                >
-                  Edit Profile
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        )}
       </View>
     </ScrollView>
   );

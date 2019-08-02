@@ -7,34 +7,41 @@ import {
   Button,
   TouchableOpacity
 } from 'react-native';
-
-import { useSelector, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
+import { Avatar, Icon, ListItem } from 'react-native-elements';
 
 import { getProfileData } from '../store/actions';
 
-import { Avatar, Icon, ListItem } from 'react-native-elements';
+import EditButton from '../components/EditButton';
 
 import ProfileHeader from '../components/Profile/ProfileHeader';
 
-const MyProScreen = props => {
-  let { currentUser } = useSelector(state => state);
-  const dispatch = useDispatch();
-  const { navigation } = props;
+class MyProScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'My Profile',
+      headerLeft: null,
+      headerRight: <EditButton navigation={navigation} editRoute={'EditPro'} />
+    };
+  }
 
-  useEffect(() => {
-    dispatch(getProfileData(currentUser.id, false, 'myProfile'));
-  }, []);
+  componentDidMount() {
+    this.props.getProfileData(this.props.currentUser.id, false, 'myProfile');
+  };
 
-  return (
+  render() {
+    return (
     <ScrollView>
       <ProfileHeader
-        navigation={navigation}
+        navigation={this.props.navigation}
         myProfile={true}
-        profile={currentUser.profile}
+        profile={this.props.currentUserProfile}
       />
       <View />
       <View>
-        {currentUser.profile.campaigns.map(campaign => {
+        {
+          this.props.currentUserProfile.campaigns &&
+          this.props.currentUserProfile.campaigns.map(campaign => {
           return (
             <ListItem
               key={campaign.camp_id}
@@ -49,22 +56,17 @@ const MyProScreen = props => {
         })}
       </View>
     </ScrollView>
-  );
+  );}
 };
 
-MyProScreen.navigationOptions = {
-  title: `My Profile`,
-  // This setting needs to be on every screen so that header is in the center
-  // This is fix for andriod devices should be good on IOS
-  headerStyle: {
-    backgroundColor: '#323338'
-  },
-  headerTintColor: '#fff',
-  headerTitleStyle: {
-    textAlign: 'center',
-    flexGrow: 1,
-    alignSelf: 'center'
-  }
-};
+const mapStateToProps = state => ({
+  currentUser: state.currentUser,
+  currentUserProfile: state.currentUserProfile
+});
 
-export default MyProScreen;
+export default connect(
+  mapStateToProps,
+  { getProfileData }
+)(MyProScreen);
+
+
