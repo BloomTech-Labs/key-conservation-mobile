@@ -58,6 +58,25 @@ export const getProfileData = (
     });
 };
 
+export const [EDIT_PROFILE_START, EDIT_PROFILE_ERROR, EDIT_PROFILE_SUCCESS] = [
+  'EDIT_PROFILE_START',
+  'EDIT_PROFILE_ERROR',
+  'EDIT_PROFILE_SUCCESS'
+];
+
+export const editProfileData = (id, changes) => async dispatch => {
+  dispatch({ type: EDIT_PROFILE_START });
+  return axios
+    .put(`https://key-conservation-staging.herokuapp.com/api/users/${id}`, changes)
+    .then(res => {
+      user = res.data.editUser;
+      dispatch({ type: EDIT_PROFILE_SUCCESS, payload: { user } });
+    })
+    .catch(err => {
+      dispatch({ type: EDIT_PROFILE_ERROR, payload: err });
+    });
+};
+
 export const [POST_USER_START, POST_USER_ERROR, POST_USER_SUCCESS] = [
   'POST_CAMPAIGNS_START',
   'POST_CAMPAIGNS_ERROR',

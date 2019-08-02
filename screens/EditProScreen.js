@@ -1,5 +1,6 @@
- import React from 'react';
+import React from 'react';
 import {
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -11,15 +12,25 @@ import {
 
 import { connect } from 'react-redux';
 
+import DoneButton from '../components/DoneButton';
+
 import { postUser } from '../store/actions';
 
 class EditProScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    console.log(this.state)
+    return {
+      title: 'Edit Profile',
+      headerRight: <DoneButton navigation={navigation} changes={this.state} />
+    };
+  }
+
   state = {
     orgName: this.props.currentUserProfile.org_name,
     username: this.props.currentUserProfile.username,
     location: this.props.currentUserProfile.location,
     miniBio: this.props.currentUserProfile.mini_bio,
-  }; 
+  };
 
   render() {
     return (
@@ -36,11 +47,13 @@ class EditProScreen extends React.Component {
                 <TextInput
                   ref={(input) => { this.orgNameInput = input; }}
                   returnKeyType='next'
-                  placeholder='Facebook'
                   style={styles.inputContain}
                   onChangeText={text => this.setState({ orgName: text })}
-                  onSubmitEditing={() => { this.usernameInput.focus(); }}
-                  blurOnSubmit={false}
+                  onSubmitEditing={() => {
+                    if (Platform.OS === 'android') return;
+                    this.usernameInput.focus();
+                  }}
+                  blurOnSubmit={Platform.OS === 'android'}
                   value={this.state.orgName}
                 />
             </View>
@@ -50,11 +63,13 @@ class EditProScreen extends React.Component {
               <TextInput
                 ref={(input) => { this.usernameInput = input; }}
                 returnKeyType='next'
-                placeholder='Instagram'
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ username: text })}
-                onSubmitEditing={() => { this.locationInput.focus(); }}
-                blurOnSubmit={false}
+                onSubmitEditing={() => {
+                  if (Platform.OS === 'android') return;
+                  this.locationInput.focus();
+                }}
+                blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.username}
               />
             </View>
@@ -64,11 +79,13 @@ class EditProScreen extends React.Component {
               <TextInput
                 ref={(input) => { this.locationInput = input; }}
                 returnKeyType='next'
-                placeholder='Twitter'
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ location: text })}
-                onSubmitEditing={() => { this.miniBioInput.focus(); }}
-                blurOnSubmit={false}
+                onSubmitEditing={() => {
+                  if (Platform.OS === 'android') return;
+                  this.miniBioInput.focus();
+                }}
+                blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.location}
               />
             </View>
@@ -78,11 +95,8 @@ class EditProScreen extends React.Component {
               <TextInput
                 ref={(input) => { this.miniBioInput = input; }}
                 returnKeyType='next'
-                placeholder='About Us'
                 style={styles.inputContain2}
                 onChangeText={text => this.setState({ miniBio: text })}
-                // onSubmitEditing={() => { this.speciesHabitatsInput.focus(); }}
-                // blurOnSubmit={false}
                 multiline={true}
                 value={this.state.miniBio}
               />
@@ -135,6 +149,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     fontSize: 20,
     marginBottom: 25,
+    textAlignVertical: 'top'
   },
  
   touchableView: {

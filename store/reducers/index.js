@@ -7,6 +7,9 @@ import {
   GET_PROFILE_START,
   GET_PROFILE_ERROR,
   GET_PROFILE_SUCCESS,
+  EDIT_PROFILE_START,
+  EDIT_PROFILE_ERROR,
+  EDIT_PROFILE_SUCCESS,
   POST_USER_START,
   POST_USER_ERROR,
   POST_USER_SUCCESS,
@@ -20,11 +23,7 @@ import {
 
 const initialState = {
   error: '',
-  pending: {
-    login: false,
-    logout: false,
-    getUser: false
-  },
+  pending: {},
   currentUser: {
     id: 1,
     sub: '',
@@ -100,6 +99,24 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getProfile: false },
+        error: action.payload
+      };
+    case EDIT_PROFILE_START:
+      return {
+        ...state,
+        pending: { ...state.pending, updateProfile: true },
+        error: ''
+      };
+    case EDIT_PROFILE_SUCCESS:
+      return {
+        ...state,
+        pending: { ...state.pending, updateProfile: false },
+        currentUserProfile: action.payload.user
+      };
+    case EDIT_PROFILE_ERROR:
+      return {
+        ...state,
+        pending: { ...state.pending, updateProfile: false },
         error: action.payload
       };
     case POST_USER_START:

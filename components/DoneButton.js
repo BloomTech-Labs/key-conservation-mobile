@@ -1,13 +1,19 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import  { TouchableOpacity, View, Text } from 'react-native';
 
+import { editProfileData } from '../store/actions'
 
-const EditButton = props => {
+const DoneButton = props => {
+  const { id } = useSelector(state => state.currentUser)
   const { navigation } = props;
+  const dispatch = useDispatch();
+  const changes = props.changes;
   return (
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate(props.editRoute)
+          dispatch(editProfileData(id, changes))
+          navigation.goBack()
         }}
         style={{ padding: 18 }}
       >
@@ -26,10 +32,11 @@ const EditButton = props => {
               fontSize: 17
             }}
           >
-            Edit
+            Done
           </Text>
         </View>
       </TouchableOpacity>
-  )}
+  )
+}
 
-  export default EditButton;
+  export default DoneButton;

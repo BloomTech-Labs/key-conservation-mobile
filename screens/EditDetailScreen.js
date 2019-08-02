@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -11,9 +12,18 @@ import {
 
 import { connect } from 'react-redux';
 
+import DoneButton from '../components/DoneButton';
+
 import { postUser } from '../store/actions';
 
 class EditDetailScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Edit Details',
+      headerRight: <DoneButton navigation={navigation} changes={this.state} />
+    };
+  }
+
   state = {
     email: this.props.currentUserProfile.email,
     orgLinkUrl: this.props.currentUserProfile.org_link_url,
@@ -27,14 +37,6 @@ class EditDetailScreen extends React.Component {
     // supportUs: this.props.currentUserProfile.support_us,
     orgCta: this.props.currentUserProfile.org_cta
   };
-
-  // handlePress = async () => {
-  //   const { error } = this.props;
-  //   const { sub, role, email } = this.props.currentUser;
-  //   let details = state
-  //   await this.props.postUser(user);
-  //   this.props.navigation.navigate(error ? 'CreateAccount' : 'Conservationist');
-  // };
 
   render() {
     return (
@@ -54,8 +56,11 @@ class EditDetailScreen extends React.Component {
                   placeholder='Email'
                   style={styles.inputContain}
                   onChangeText={text => this.setState({ email: text })}
-                  onSubmitEditing={() => { this.orgLinkUrlInput.focus(); }}
-                  blurOnSubmit={false}
+                  onSubmitEditing={() => {
+                    if (Platform.OS === 'android') return;
+                    this.orgLinkUrlInput.focus();
+                  }}
+                  blurOnSubmit={Platform.OS === 'android'}
                   value={this.state.email}
                 />    
               </View>
@@ -64,12 +69,14 @@ class EditDetailScreen extends React.Component {
                 <Text style={styles.sectionsText}>Website Link URL</Text>
                 <TextInput
                   ref={(input) => { this.orgLinkUrlInput = input; }}
-                  returnKeyType='next'
-                  placeholder='Website'
+                  returnKeyType='next'            
                   style={styles.inputContain}
                   onChangeText={text => this.setState({ orgLinkUrl: text })}
-                  onSubmitEditing={() => { this.orgLinkTextInput.focus(); }}
-                  blurOnSubmit={false}
+                  onSubmitEditing={() => {
+                    if (Platform.OS === 'android') return;
+                    this.orgLinkTextInput.focus();
+                  }}
+                  blurOnSubmit={Platform.OS === 'android'}
                   value={this.state.orgLinkUrl}
                 />
               </View>
@@ -79,11 +86,14 @@ class EditDetailScreen extends React.Component {
                 <TextInput
                   ref={(input) => { this.orgLinkTextInput = input; }}
                   returnKeyType='next'
-                  placeholder='Website Text'
+                  placeholder='enter how you wish your website to appear'
                   style={styles.inputContain}
                   onChangeText={text => this.setState({ orgLinkText: text })}
-                  onSubmitEditing={() => { this.orgCtaInput.focus(); }}
-                  blurOnSubmit={false}
+                  onSubmitEditing={() => {
+                    if (Platform.OS === 'android') return;
+                    this.orgCtaInput.focus();
+                  }}
+                  blurOnSubmit={Platform.OS === 'android'}
                   value={this.state.orgLinkText}
                 />
               </View>
@@ -93,10 +103,12 @@ class EditDetailScreen extends React.Component {
                 <TextInput
                   ref={(input) => { this.orgCtaInput = input; }}
                   returnKeyType='next'
-                  placeholder='Donation Link'
                   style={styles.inputContain}
-                  onSubmitEditing={() => { this.facebookInput.focus(); }}
-                  blurOnSubmit={false}
+                  onSubmitEditing={() => {
+                    if (Platform.OS === 'android') return;
+                    this.facebookInput.focus();
+                  }}
+                  blurOnSubmit={Platform.OS === 'android'}
                   value={this.state.orgCta}
                 />
               </View>
@@ -106,11 +118,13 @@ class EditDetailScreen extends React.Component {
                 <TextInput
                   ref={(input) => { this.facebookInput = input; }}
                   returnKeyType='next'
-                  placeholder='Facebook'
                   style={styles.inputContain}
                   onChangeText={text => this.setState({ facebook: text })}
-                  onSubmitEditing={() => { this.instagramInput.focus(); }}
-                  blurOnSubmit={false}
+                  onSubmitEditing={() => {
+                    if (Platform.OS === 'android') return;
+                    this.instagramInput.focus();
+                  }}
+                  blurOnSubmit={Platform.OS === 'android'}
                   value={this.state.facebook}
                 />
               </View>
@@ -120,11 +134,13 @@ class EditDetailScreen extends React.Component {
                 <TextInput
                   ref={(input) => { this.instagramInput = input; }}
                   returnKeyType='next'
-                  placeholder='Instagram'
                   style={styles.inputContain}
                   onChangeText={text => this.setState({ instagram: text })}
-                  onSubmitEditing={() => { this.twitterInput.focus(); }}
-                  blurOnSubmit={false}
+                  onSubmitEditing={() => {
+                    if (Platform.OS === 'android') return;
+                    this.twitterInput.focus();
+                  }}
+                  blurOnSubmit={Platform.OS === 'android'}
                   value={this.state.instagram}
                 />
               </View>
@@ -134,11 +150,13 @@ class EditDetailScreen extends React.Component {
                 <TextInput
                   ref={(input) => { this.twitterInput = input; }}
                   returnKeyType='next'
-                  placeholder='Twitter'
                   style={styles.inputContain}
                   onChangeText={text => this.setState({ twitter: text })}
-                  onSubmitEditing={() => { this.aboutUsInput.focus(); }}
-                  blurOnSubmit={false}
+                  onSubmitEditing={() => {
+                    if (Platform.OS === 'android') return;
+                    this.aboutUsInput.focus();
+                  }}
+                  blurOnSubmit={Platform.OS === 'android'}
                   value={this.state.twitter}
                 />
               </View>
@@ -148,11 +166,8 @@ class EditDetailScreen extends React.Component {
                 <TextInput
                   ref={(input) => { this.aboutUsInput = input; }}
                   returnKeyType='next'
-                  placeholder='About Us'
                   style={styles.inputContain2}
                   onChangeText={text => this.setState({ aboutUs: text })}
-                  onSubmitEditing={() => { this.speciesHabitatsInput.focus(); }}
-                  blurOnSubmit={false}
                   multiline={true}
                   value={this.state.aboutUs}
                 />
@@ -163,11 +178,8 @@ class EditDetailScreen extends React.Component {
                 <TextInput
                   ref={(input) => { this.speciesHabitatsInput = input; }}
                   returnKeyType='next'
-                  placeholder='Species & Habitats'
                   style={styles.inputContain2}
                   onChangeText={text => this.setState({ speciesHabitats: text })}
-                  onSubmitEditing={() => { this.issuesInput.focus(); }}
-                  blurOnSubmit={false}
                   multiline={true}
                   value={this.state.speciesHabitats}
                 />
@@ -178,29 +190,12 @@ class EditDetailScreen extends React.Component {
                 <TextInput
                   ref={(input) => { this.issuesInput = input; }}
                   returnKeyType='next'
-                  placeholder='Big Issues'
                   style={styles.inputContain2}
                   onChangeText={text => this.setState({ issues: text })}
-                  // onSubmitEditing={() => { this.supportUsInput.focus(); }}
-                  // blurOnSubmit={false}
                   multiline={true}
                   value={this.state.issues}
                 />
-              </View>
-
-              {/* <View style={styles.sections}>
-                <Text style={styles.sectionsText}></Text>              
-                <TextInput
-                  ref={(input) => { this.supportUsInput = input; }}
-                  returnKeyType='next'
-                  placeholder='Support Us'
-                  style={styles.inputContain}
-                  onChangeText={text => this.setState({ supportUs: text })}
-                  onSubmitEditing={() => { this.orgCtaInput.focus(); }}
-                  blurOnSubmit={false}
-                  value={this.state.supportUs}
-                />
-              </View> */}                       
+              </View>                     
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -249,6 +244,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     fontSize: 20,
     marginBottom: 25,
+    textAlignVertical: 'top'
   },
  
   touchableView: {
