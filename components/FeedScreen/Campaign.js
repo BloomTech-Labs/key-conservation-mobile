@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
+import * as WebBrowser from 'expo-web-browser';
 
 import { ListItem } from 'react-native-elements';
 import { useSelector, useDispatch } from 'react-redux';
@@ -34,7 +35,14 @@ const Campaign = props => {
         <Text>{props.data.camp_desc}</Text>
       </View>
       <View style={styles.donateButton}>
-        <TouchableOpacity style={styles.touchableButton}>
+        <TouchableOpacity
+          style={styles.touchableButton}
+          onPress={async () =>
+            await WebBrowser.openBrowserAsync(
+              'https://support.nature.org/site/Donation2?12640.donation=form1&df_id=12640&src=p_g.dfa.fd.x.dtd.EGT01&set.SingleDesignee=15852&crid=EGT01&sbid=B01&suslb=no&asid=100&moncb=no&s_src=p_g.dfa.fd.x.dtd.EGT01&gclid=Cj0KCQjwvo_qBRDQARIsAE-bsH9-sROQJs2hlLZCElWEEJR2M96cf0H6oNVRWKcerwapzSYfzJb9mfAaAqv3EALw_wcB'
+            )
+          }
+        >
           <View style={styles.touchableView}>
             <Text style={styles.touchableText}>Donate</Text>
           </View>
@@ -42,6 +50,17 @@ const Campaign = props => {
       </View>
     </View>
   );
+};
+
+Campaign.navigationOptions = {
+  title: 'Profile',
+  // This setting needs to be on every screen so that header is in the center
+  // This is fix for andriod devices should be good on IOS
+  headerTitleStyle: {
+    textAlign: 'center',
+    flexGrow: 1,
+    alignSelf: 'center'
+  }
 };
 
 export default Campaign;

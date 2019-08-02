@@ -16,7 +16,7 @@ const DetailHeader = props => {
     <View>
       <View style={styles.buttons}>
         <TouchableOpacity
-          style={styles.TouchableOpacity}
+          style={[styles.TouchableOpacity]}
           onPress={() =>
             props.navigation.navigate(props.myProfile ? 'MyPro' : 'Pro')
           }
@@ -25,7 +25,12 @@ const DetailHeader = props => {
             <Text style={styles.CampaignButton}>Campaigns</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.TouchableOpacity}>
+        <TouchableOpacity
+          style={[
+            styles.TouchableOpacity,
+            null ? {} : { borderBottomColor: '#00FF9D', borderBottomWidth: 2 }
+          ]}
+        >
           <View style={[styles.ButtonStyle, styles.RightButtonStyle]}>
             <Text style={styles.DetailButton}>Details</Text>
           </View>
@@ -119,11 +124,13 @@ const styles = StyleSheet.create({
   },
   CampaignButton: {
     fontSize: 18,
-    color: 'black'
+    color: '#C4C4C4',
+    fontWeight: 'bold'
   },
   DetailButton: {
     fontSize: 18,
-    color: 'blue'
+    color: '#000',
+    fontWeight: 'bold'
   },
   SocialContainer: {
     marginTop: 10,
