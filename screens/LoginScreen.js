@@ -19,6 +19,8 @@ import {
   getProfileData
 } from "../store/actions";
 
+
+import * as SecureStore from 'expo-secure-store'
 /*
  Converts an object to a query string to be used by the request to auth0 via the dashboard application
 */
@@ -99,7 +101,7 @@ export default (LoginScreen = props => {
       // Retrieve the JWT token and decode it using the jwtToken imported above
       const jwtToken = response.params.id_token;
       //decodes the token so we can access the available attributes of the users Auth0 profile
-
+      
       const decoded = jwtDecode(jwtToken);
       console.log("*******************", decoded);
       const chosenDecoded = {
@@ -107,6 +109,9 @@ export default (LoginScreen = props => {
         accessToken: access_token,
         sub: decoded.sub
       };
+
+
+      await SecureStore.setItemAsync("user", chosenDecoded)
 
       dispatch(loginSuccess(chosenDecoded));
       await dispatch(getProfileData(false, decoded.sub, "myProfile"));
