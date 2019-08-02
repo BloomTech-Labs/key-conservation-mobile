@@ -16,25 +16,25 @@ import {
   POST_CAMPAIGN_START,
   POST_CAMPAIGN_ERROR,
   POST_CAMPAIGN_SUCCESS
-} from '../actions';
+} from "../actions";
 
 const initialState = {
-  error: '',
+  error: "",
   pending: {
     login: false,
     logout: false,
     getUser: false
   },
   currentUser: {
-    id: '',
-    sub: '',
-    role: 'conservationist',
-    email: '',
-    name: '',
+    id: "",
+    sub: "",
+    role: "conservationist",
+    email: "",
+    name: "",
     profile: {
       campaigns: []
     },
-    token: ''
+    token: ""
   },
   selectedProfile: {
     campaigns: []
@@ -48,7 +48,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, login: true },
-        error: ''
+        error: ""
       };
     case LOGIN_ERROR:
       return {
@@ -64,15 +64,16 @@ const reducer = (state = initialState, action) => {
           ...state.currentUser,
           name: action.payload.name,
           sub: action.payload.sub,
+          email: action.payload.email,
           token: action.payload.accessToken
         },
-        error: ''
+        error: ""
       };
     case LOGOUT_START:
       return {
         ...state,
         pending: { ...state.pending, logout: true },
-        error: ''
+        error: ""
       };
     case LOGOUT_SUCCESS:
       return initialState;
@@ -80,7 +81,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getProfile: true },
-        error: ''
+        error: ""
       };
     case GET_PROFILE_SUCCESS:
       if (action.payload.myProfile) {
@@ -109,7 +110,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, postUser: true },
-        error: ''
+        error: ""
       };
     case POST_USER_SUCCESS:
       return {
@@ -130,7 +131,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getCampaigns: true },
-        error: ''
+        error: ""
       };
     case GET_CAMPAIGNS_SUCCESS:
       return {
@@ -148,7 +149,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getCampaigns: true },
-        error: ''
+        error: ""
       };
     case GET_CAMPAIGNS_SUCCESS:
       return {

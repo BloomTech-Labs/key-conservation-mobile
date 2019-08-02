@@ -5,7 +5,8 @@ import {
   View,
   Image,
   Button,
-  TouchableOpacity
+  TouchableOpacity,
+  ImageBackground
 } from "react-native";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -19,8 +20,7 @@ import {
   getProfileData
 } from "../store/actions";
 
-
-import * as SecureStore from 'expo-secure-store'
+import * as SecureStore from "expo-secure-store";
 /*
  Converts an object to a query string to be used by the request to auth0 via the dashboard application
 */
@@ -101,20 +101,21 @@ export default (LoginScreen = props => {
       // Retrieve the JWT token and decode it using the jwtToken imported above
       const jwtToken = response.params.id_token;
       //decodes the token so we can access the available attributes of the users Auth0 profile
-      
+
       const decoded = jwtDecode(jwtToken);
       // console.log("*******************", decoded);
       const chosenDecoded = {
         name: decoded.name,
         accessToken: access_token,
+        email: decoded.email,
         sub: decoded.sub
       };
-      const userLog2 = await SecureStore.getItemAsync("sub", {})
-      console.log("*********async test user*************", userLog2)
+      const userLog2 = await SecureStore.getItemAsync("sub", {});
+      console.log("*********async test user*************", userLog2);
 
-      await SecureStore.setItemAsync("sub", chosenDecoded.sub)
-      const userLog = await SecureStore.getItemAsync("sub", {})
-      console.log("*********async user*************", userLog)
+      await SecureStore.setItemAsync("sub", chosenDecoded.sub);
+      const userLog = await SecureStore.getItemAsync("sub", {});
+      console.log("*********async user*************", userLog);
 
       dispatch(loginSuccess(chosenDecoded));
       await dispatch(getProfileData(false, decoded.sub, "myProfile"));
@@ -123,11 +124,14 @@ export default (LoginScreen = props => {
   };
 
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      source={require("../assets/images/FurBackground.png")}
+      style={styles.container}
+    >
       <View style={styles.logoContainer}>
         <Image
           style={styles.logo}
-          source={require("../assets/images/keyFullBlack.png")}
+          source={require("../assets/images/keyFullWhite.png")}
         />
       </View>
       <View style={styles.textContainer}>
@@ -158,7 +162,7 @@ export default (LoginScreen = props => {
           }}
         />
       </View>
-    </View>
+    </ImageBackground>
   );
 });
 
@@ -185,7 +189,8 @@ const styles = StyleSheet.create({
   logoContainer: {
     flex: 2,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    paddingTop: 50
   },
   textContainer: {
     flex: 1,
@@ -196,8 +201,9 @@ const styles = StyleSheet.create({
   },
   SelectText: {
     fontSize: 27,
-    fontFamily: "Lato"
+    fontFamily: "Lato",
     // marginTop: 64
+    color: "white"
   },
   buttons: {
     flex: 1,
@@ -213,7 +219,7 @@ const styles = StyleSheet.create({
     marginBottom: 18,
     borderRadius: 4,
     // fontFamily:  'ArchivoNarrow',
-    backgroundColor: "black",
+    backgroundColor: "#00FF9D",
     shadowColor: "rgba(0, 0, 0, 0.25)",
     shadowOffset: {
       width: 0,

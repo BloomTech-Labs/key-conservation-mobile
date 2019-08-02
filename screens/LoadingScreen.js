@@ -15,15 +15,15 @@ export default class LoggedInView extends React.Component {
   async componentDidMount() {
     const savedUser = await SecureStore.getItemAsync("sub", {});
     console.log("**********loading screen**********", savedUser);
-    // setTimeout(() => {
-    //     if (savedUser) {
-    //     console.log("data is present");
-    //     this.props.navigation.navigate("Conservationist");
-    //   } else {
-    //     console.log("data is not present");
-    //     this.props.navigation.navigate("Login");
-    //   }
-    // }, 3000)
+    setTimeout(() => {
+      if (savedUser) {
+        console.log("data is present");
+        this.props.navigation.navigate("Conservationist");
+      } else {
+        console.log("data is not present");
+        this.props.navigation.navigate("Login");
+      }
+    }, 3000);
   }
   render() {
     return (
