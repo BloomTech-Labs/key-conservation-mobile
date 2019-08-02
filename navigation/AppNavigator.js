@@ -1,9 +1,9 @@
-import React from 'react';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import React from "react";
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
 
-import { TabNavigator, NoTabNavigator, LoginStack } from './MainTabNavigator';
-import FormScreen from '../screens/FormScreen';
-import LoadingScreen from '../screens/LoadingScreen'
+import { TabNavigator, NoTabNavigator, LoginStack } from "./MainTabNavigator";
+import UsernameScreen from "../screens/UsernameScreen";
+import LoadingScreen from "../screens/LoadingScreen";
 
 export default createAppContainer(
   createSwitchNavigator({
@@ -11,7 +11,7 @@ export default createAppContainer(
     // Read more at https://reactnavigation.org/docs/en/auth-flow.html
     Loading: LoadingScreen,
     Login: LoginStack,
-    CreateAccount: FormScreen,
+    CreateAccount: UsernameScreen,
     Conservationist: TabNavigator,
     Supporter: NoTabNavigator
   })

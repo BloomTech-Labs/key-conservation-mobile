@@ -13,12 +13,19 @@ import jwtDecode from "jwt-decode";
 
 export default class LoggedInView extends React.Component {
   async componentDidMount() {
-    const savedUser = await SecureStore.getItemAsync("sub", {});
-    console.log("**********loading screen**********", savedUser);
+    const sub = await SecureStore.getItemAsync("sub", {});
+    console.log("**********loading screen**********", sub);
+    const userId = await SecureStore.getItemAsync("userId", {});
+    console.log("*************userId********", userId);
     setTimeout(() => {
-      if (savedUser) {
+      if (sub) {
         console.log("data is present");
-        this.props.navigation.navigate("Conservationist");
+
+        if (userId) {
+          this.props.navigation.navigate("Conservationist");
+        } else {
+          this.props.navigation.navigate("CreateAccount");
+        }
       } else {
         console.log("data is not present");
         this.props.navigation.navigate("Login");

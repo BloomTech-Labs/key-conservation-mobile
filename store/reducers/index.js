@@ -30,7 +30,7 @@ const initialState = {
     sub: "",
     role: "conservationist",
     email: "",
-    name: "",
+    username: "",
     profile: {
       campaigns: []
     },
@@ -62,7 +62,6 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, login: false },
         currentUser: {
           ...state.currentUser,
-          name: action.payload.name,
           sub: action.payload.sub,
           email: action.payload.email,
           token: action.payload.accessToken
@@ -118,7 +117,7 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, postUser: false },
         currentUser: {
           ...state.currentUser,
-          profile: action.payload.user
+          profile: action.payload
         }
       };
     case POST_USER_ERROR:

@@ -105,7 +105,6 @@ export default (LoginScreen = props => {
       const decoded = jwtDecode(jwtToken);
       // console.log("*******************", decoded);
       const chosenDecoded = {
-        name: decoded.name,
         accessToken: access_token,
         email: decoded.email,
         sub: decoded.sub

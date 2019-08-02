@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -7,19 +7,19 @@ import {
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView
-} from 'react-native';
+} from "react-native";
 
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
 //import { Input } from 'react-native-elements';
 
 //import styles from '../constants/Stylesheet';
 
-import { postUser } from '../store/actions';
+import { postUser } from "../store/actions";
 
-class FormScreen extends React.Component {
+class UsernameScreen extends React.Component {
   state = {
-    usernameInput: ''
+    usernameInput: ""
   };
 
   handlePress = async () => {
@@ -31,8 +31,9 @@ class FormScreen extends React.Component {
       roles: role,
       email: email
     };
+    console.log(user);
     await this.props.postUser(user);
-    this.props.navigation.navigate(error ? 'CreateAccount' : 'Conservationist');
+    this.props.navigation.navigate(error ? "CreateAccount" : "Conservationist");
   };
 
   render() {
@@ -41,8 +42,8 @@ class FormScreen extends React.Component {
         <View style={styles.sectionContainer}>
           <View style={styles.Card} />
           <TextInput
-            returnKeyType='go'
-            placeholder='Username'
+            returnKeyType="go"
+            placeholder="Username"
             style={styles.inputContain}
             onChangeText={text => this.setState({ usernameInput: text })}
             value={this.state.usernameInput}
@@ -62,8 +63,8 @@ class FormScreen extends React.Component {
   }
 }
 
-FormScreen.navigationOptions = {
-  title: 'Form'
+UsernameScreen.navigationOptions = {
+  title: "Form"
 };
 
 const mapStateToProps = state => ({
@@ -74,23 +75,23 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { postUser }
-)(FormScreen);
+)(UsernameScreen);
 
 const styles = StyleSheet.create({
   sectionContainer: {
-    flexDirection: 'column',
-    flexWrap: 'wrap',
+    flexDirection: "column",
+    flexWrap: "wrap",
     margin: 15
   },
   Card: {
     marginTop: 20,
-    backgroundColor: '#fff',
-    width: '100%',
+    backgroundColor: "#fff",
+    width: "100%",
     padding: 25
   },
   inputContain: {
     borderWidth: 2,
-    borderColor: '#C4C4C4',
+    borderColor: "#C4C4C4",
     padding: 5,
     borderRadius: 3,
     fontSize: 16
@@ -98,20 +99,20 @@ const styles = StyleSheet.create({
   touchableButton: {
     paddingTop: 25,
     paddingBottom: 25,
-    width: '100%',
+    width: "100%",
     height: 50
   },
   touchableView: {
-    backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "black",
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 5,
     height: 35
   },
   touchableText: {
-    color: '#fff',
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
+    color: "#fff",
+    textTransform: "uppercase",
+    fontWeight: "bold",
     letterSpacing: 2
   }
 });
