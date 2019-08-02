@@ -16,48 +16,75 @@ import { postUser } from '../store/actions';
 class EditProScreen extends React.Component {
   state = {
     usernameInput: ''
-  };
-
-  handlePress = async () => {
-    const { error } = this.props;
-    const { sub, role, email } = this.props.currentUser;
-    let user = {
-      username: this.state.usernameInput,
-      sub: sub,
-      roles: role,
-      email: email
-    };
-    await this.props.postUser(user);
-    this.props.navigation.navigate(error ? 'CreateAccount' : 'Conservationist');
-  };
+  }; 
 
   render() {
     return (
       <KeyboardAvoidingView
         behavior='height'
-        keyboardVerticalOffset={165}
+        keyboardVerticalOffset={86}
         enabled
       >
         <ScrollView>
           <View style={styles.sectionContainer}>
             <View style={styles.Card} />
-            <TextInput
-              returnKeyType='go'
-              placeholder='Username'
-              style={styles.inputContain}
-              onChangeText={text => this.setState({ usernameInput: text })}
-              value={this.state.usernameInput}
-              required
-            />
-          </View>
-          <TouchableOpacity
-            onPress={this.handlePress}
-            style={styles.touchableButton}
-          >
-            <View style={styles.touchableView}>
-              <Text style={styles.touchableText}>Register</Text>
+              <View style={styles.sections}>
+                <Text style={styles.sectionsText}>Organization Name</Text>
+                <TextInput
+                  ref={(input) => { this.facebookInput = input; }}
+                  returnKeyType='next'
+                  placeholder='Facebook'
+                  style={styles.inputContain}
+                  onChangeText={text => this.setState({ facebook: text })}
+                  onSubmitEditing={() => { this.instagramInput.focus(); }}
+                  blurOnSubmit={false}
+                  value={this.state.facebook}
+                />
             </View>
-          </TouchableOpacity>
+
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>Username</Text>
+              <TextInput
+                ref={(input) => { this.instagramInput = input; }}
+                returnKeyType='next'
+                placeholder='Instagram'
+                style={styles.inputContain}
+                onChangeText={text => this.setState({ instagram: text })}
+                onSubmitEditing={() => { this.twitterInput.focus(); }}
+                blurOnSubmit={false}
+                value={this.state.instagram}
+              />
+            </View>
+
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>Location</Text>
+              <TextInput
+                ref={(input) => { this.twitterInput = input; }}
+                returnKeyType='next'
+                placeholder='Twitter'
+                style={styles.inputContain}
+                onChangeText={text => this.setState({ twitter: text })}
+                onSubmitEditing={() => { this.aboutUsInput.focus(); }}
+                blurOnSubmit={false}
+                value={this.state.twitter}
+              />
+            </View>
+
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>Bio</Text>
+              <TextInput
+                ref={(input) => { this.aboutUsInput = input; }}
+                returnKeyType='next'
+                placeholder='About Us'
+                style={styles.inputContain2}
+                onChangeText={text => this.setState({ aboutUs: text })}
+                onSubmitEditing={() => { this.speciesHabitatsInput.focus(); }}
+                blurOnSubmit={false}
+                multiline={true}
+                value={this.state.aboutUs}
+              />
+            </View>
+          </View>
         </ScrollView>
       </KeyboardAvoidingView>
     );
@@ -78,27 +105,34 @@ const styles = StyleSheet.create({
   sectionContainer: {
     flexDirection: 'column',
     flexWrap: 'wrap',
-    margin: 15
+    marginLeft: 15, 
+    marginRight: 15,
   },
   Card: {
-    marginTop: 20,
+    marginTop: 10,
     backgroundColor: '#fff',
     width: '100%',
-    padding: 25
+    height: 20,
   },
   inputContain: {
+    height: 48,
     borderWidth: 2,
     borderColor: '#C4C4C4',
     padding: 5,
-    borderRadius: 3,
-    fontSize: 16
+    borderRadius: 5,
+    fontSize: 20,
+    marginBottom: 25,
   },
-  touchableButton: {
-    paddingTop: 25,
-    paddingBottom: 25,
-    width: '100%',
-    height: 50
+  inputContain2: {
+    height: 140,
+    borderWidth: 2,
+    borderColor: '#C4C4C4',
+    padding: 5,
+    borderRadius: 5,
+    fontSize: 20,
+    marginBottom: 25,
   },
+ 
   touchableView: {
     backgroundColor: 'black',
     alignItems: 'center',
@@ -111,5 +145,15 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontWeight: 'bold',
     letterSpacing: 2
-  }
+  },
+  sections: {
+    // marginTop: 20,
+    backgroundColor: '#fff',
+    width: '100%',    
+  },
+  sectionsText: {
+    fontSize: 20, 
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
 });

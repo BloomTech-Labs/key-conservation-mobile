@@ -200,21 +200,8 @@ class EditDetailScreen extends React.Component {
                   blurOnSubmit={false}
                   value={this.state.supportUs}
                 />
-              </View> */}
-
-              
-
-              {/* <View style={styles.whiteSpace} /> */}
-                        
+              </View> */}                       
           </View>
-          {/* <TouchableOpacity
-            onPress={this.handlePress}
-            style={styles.touchableButton}
-          >
-            <View style={styles.touchableView}>
-              <Text style={styles.touchableText}>Register</Text>
-            </View>
-          </TouchableOpacity> */}
         </ScrollView>
       </KeyboardAvoidingView>
     );
@@ -243,7 +230,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     backgroundColor: '#fff',
     width: '100%',
-    padding: 25
+    height: 20,
   },
   inputContain: {
     height: 48,
@@ -263,12 +250,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 25,
   },
-  touchableButton: {
-    paddingTop: 25,
-    paddingBottom: 25,
-    width: '100%',
-    height: 50
-  },
+ 
   touchableView: {
     backgroundColor: 'black',
     alignItems: 'center',
@@ -292,8 +274,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5,
   },
-  whiteSpace:{
-    height: 100,
-    backgroundColor: '#fff'
-  }
 });
