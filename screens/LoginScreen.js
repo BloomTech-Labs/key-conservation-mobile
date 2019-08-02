@@ -75,7 +75,7 @@ export default (LoginScreen = props => {
 
     // Perform the authentication
     const response = await AuthSession.startAsync({ authUrl });
-    console.log("Authentication response", response);
+    // console.log("Authentication response", response);
 
     //if successful then it will call the next function!!!
     //this should contain the access token and the id token
@@ -92,7 +92,7 @@ export default (LoginScreen = props => {
 
       //set the access token to be assigned to state for later use
       const access_token = response.params.access_token;
-      console.log("************* access token", access_token);
+      // console.log("************* access token", access_token);
       // let role = jwtDecode(access_token);
       // if (role.permissions.length > 0) {
       //   role.permissions[0].replace("role:", "");
@@ -103,19 +103,22 @@ export default (LoginScreen = props => {
       //decodes the token so we can access the available attributes of the users Auth0 profile
       
       const decoded = jwtDecode(jwtToken);
-      console.log("*******************", decoded);
+      // console.log("*******************", decoded);
       const chosenDecoded = {
         name: decoded.name,
         accessToken: access_token,
         sub: decoded.sub
       };
+      const userLog2 = await SecureStore.getItemAsync("sub", {})
+      console.log("*********async test user*************", userLog2)
 
-
-      await SecureStore.setItemAsync("user", chosenDecoded)
+      await SecureStore.setItemAsync("sub", chosenDecoded.sub)
+      const userLog = await SecureStore.getItemAsync("sub", {})
+      console.log("*********async user*************", userLog)
 
       dispatch(loginSuccess(chosenDecoded));
       await dispatch(getProfileData(false, decoded.sub, "myProfile"));
-      navigation.navigate(error ? "CreateAccount" : "Conservationist");
+      navigation.navigate("Loading");
     }
   };
 
