@@ -7,30 +7,48 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-//import { withNavigation } from 'react-navigation';
-import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 
 import DetailHeader from '../components/DetailScreen/DetailHeader';
 import DetailAboutUs from '../components/DetailScreen/DetailAboutUs';
 
-const MyDetailsScreen = props => {
-  let { currentUser } = useSelector(state => state);
-  const { navigation } = props;
-  return (
-    <ScrollView contentContainerStyle={{ backgroundColor: '#F2F2FB' }}>
-      <DetailHeader
-        navigation={navigation}
-        myProfile={true}
-        profile={currentUser.profile}
-      />
-      <DetailAboutUs
-        navigation={navigation}
-        myProfile={true}
-        profile={currentUser.profile}
-      />
-    </ScrollView>
-  );
+import EditButton from '../components/EditButton';
+
+class MyDetailsScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'My Details',
+      headerLeft: null,
+      headerRight: <EditButton navigation={navigation} editRoute={'EditDetail'} />
+    };
+  }
+
+  render() {
+    return (
+      <ScrollView contentContainerStyle={{ backgroundColor: '#F2F2FB' }}>
+        <DetailHeader
+          navigation={this.props.navigation}
+          myProfile={true}
+          profile={this.props.currentUserProfile}
+        />
+        <DetailAboutUs
+          navigation={this.props.navigation}
+          myProfile={true}
+          profile={this.props.currentUserProfile}
+        />
+      </ScrollView>
+    );
+  };
 };
+
+const mapStateToProps = state => ({
+  currentUser: state.currentUser,
+  currentUserProfile: state.currentUserProfile
+});
+
+export default connect(
+  mapStateToProps,
+)(MyDetailsScreen);
 
 const styles = StyleSheet.create({
   header: {
@@ -68,5 +86,3 @@ const styles = StyleSheet.create({
     color: 'blue'
   }
 });
-
-export default MyDetailsScreen;

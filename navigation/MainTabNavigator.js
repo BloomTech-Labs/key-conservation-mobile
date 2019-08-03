@@ -9,21 +9,50 @@ import FeedScreen from '../screens/FeedScreen';
 import CreateCampScreen from '../screens/CreateCampScreen';
 import ProScreen from '../screens/ProScreen';
 import MyProScreen from '../screens/MyProScreen';
+import EditProScreen from '../screens/EditProScreen';
 import CampScreen from '../screens/CampScreen';
 import DetailScreen from '../screens/DetailScreen';
 import MyDetailScreen from '../screens/MyDetailScreen';
+import EditDetailScreen from '../screens/EditDetailScreen';
 import LoginScreen from '../screens/LoginScreen';
 import FormScreen from '../screens/FormScreen';
+
+import EditButton from '../components/EditButton'
 
 import { Icon } from 'react-native-elements';
 
 const FeedStack = createStackNavigator(
   {
     Home: FeedScreen,
-    Pro: { screen: ProScreen, navigationOptions: { title: 'Profile' } },
+    Pro: {
+      screen: ProScreen,
+      navigationOptions: {
+        title: 'Profile',
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          textAlign: 'center',
+          flexGrow: 1,
+          alignSelf: 'center'
+        },
+        headerStyle: {
+          backgroundColor: '#323338'
+        }
+      }
+    },
     Detail: {
       screen: DetailScreen,
-      navigationOptions: { title: 'Details' }
+      navigationOptions: {
+        title: 'Details',
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          textAlign: 'center',
+          flexGrow: 1,
+          alignSelf: 'center'
+        },
+        headerStyle: {
+          backgroundColor: '#323338'
+        }
+      }
     }
   },
   {
@@ -31,7 +60,7 @@ const FeedStack = createStackNavigator(
       tabBarLabel: 'Feed',
       tabBarIcon: ({ focused }) => (
         <Icon
-          color={focused ? 'blue' : 'black'}
+          color={focused ? '#00FF9D' : 'black'}
           name='home'
           type='font-awesome'
         />
@@ -44,11 +73,12 @@ const CreateCampStack = createStackNavigator(
   { CreateCampaign: CreateCampScreen },
   {
     navigationOptions: {
+      headerLeft: null,
       tabBarLabel: 'Create Campaign',
       tabBarIcon: ({ focused }) => (
         <Icon
           name='plus'
-          color={focused ? 'blue' : 'black'}
+          color={focused ? '#00FF9D' : 'black'}
           type='font-awesome'
         />
       )
@@ -64,7 +94,7 @@ const FormStack = createStackNavigator(
       tabBarIcon: ({ focused }) => (
         <Icon
           name='heartbeat'
-          color={focused ? 'blue' : 'black'}
+          color={focused ? '#00FF9D' : 'black'}
           type='font-awesome'
         />
       )
@@ -74,12 +104,12 @@ const FormStack = createStackNavigator(
 
 const MyProStack = createStackNavigator(
   {
-    MyPro: { screen: MyProScreen, navigationOptions: { title: 'My Profile' } },
-    Campaign: CampScreen,
-    MyDetail: {
-      screen: MyDetailScreen,
-      navigationOptions: { title: 'My Details', headerLeft: null }
-    }
+    MyPro: { screen: MyProScreen },
+    MyDetail: { screen: MyDetailScreen },
+    EditPro: { screen: EditProScreen, navigationOptions: { title: 'Edit Profile' } },
+    EditDetail: { screen: EditDetailScreen, navigationOptions: { title: 'Edit Details' } },
+    Campaign: CampScreen
+
   },
   {
     transitionConfig: () => ({
@@ -88,11 +118,11 @@ const MyProStack = createStackNavigator(
       }
     }),
     navigationOptions: {
-      tabBarLabel: 'Profile',
+      tabBarLabel: 'My Profile',
       tabBarIcon: ({ focused }) => (
         <Icon
           name='user'
-          color={focused ? 'blue' : 'black'}
+          color={focused ? '#00FF9D' : 'black'}
           type='font-awesome'
         />
       )

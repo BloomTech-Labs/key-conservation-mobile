@@ -16,19 +16,43 @@ export default class DetailHeader extends Component {
   render() {
     let profile = this.props.profile;
 
-    return (
-      <View>
-        <View style={styles.buttons}>
-          <TouchableOpacity
-            style={styles.TouchableOpacity}
-            onPress={() =>
-              this.props.navigation.navigate(
-                profile.myProfile ? "MyPro" : "Pro"
-              )
-            }
-          >
-            <View style={[styles.ButtonStyle, styles.LeftButtonStyle]}>
-              <Text style={styles.CampaignButton}>Campaigns</Text>
+  return (
+    <View>
+      <View style={styles.buttons}>
+        <TouchableOpacity
+          style={[styles.TouchableOpacity]}
+          onPress={() =>
+            this.props.navigation.navigate(props.myProfile ? 'MyPro' : 'Pro')
+          }
+        >
+          <View style={[styles.ButtonStyle, styles.LeftButtonStyle]}>
+            <Text style={styles.CampaignButton}>Campaigns</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.TouchableOpacity,
+            null ? {} : { borderBottomColor: '#00FF9D', borderBottomWidth: 2 }
+          ]}
+        >
+          <View style={[styles.ButtonStyle, styles.RightButtonStyle]}>
+            <Text style={styles.DetailButton}>Details</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Avatar
+            size='large'
+            rounded
+            source={{
+              uri: profile.profile_image
+            }}
+          />
+          <View style={styles.textContainer}>
+            <View style={styles.titleLocationWrap}>
+              <Text style={styles.title}>{profile.org_name}</Text>
+              <Text style={styles.location}>{profile.location}</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.TouchableOpacity}>
@@ -154,7 +178,8 @@ const styles = StyleSheet.create({
   },
   DetailButton: {
     fontSize: 18,
-    color: "blue"
+    color: '#C4C4C4',
+    fontWeight: 'bold'
   },
   SocialContainer: {
     marginTop: 10,
