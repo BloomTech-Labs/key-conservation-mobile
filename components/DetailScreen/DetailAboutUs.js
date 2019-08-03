@@ -7,6 +7,8 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+import * as WebBrowser from 'expo-web-browser';
+
 import { Icon, ListItem } from 'react-native-elements';
 
 const DetailAboutUs = props => {
@@ -17,7 +19,7 @@ const DetailAboutUs = props => {
       <View style={styles.container}>
         <View style={styles.sections}>
           <View style={styles.iconWrap}>
-            <Icon type='font-awesome' name='info-circle' />
+            <Icon type='font-awesome' name='list' />
             <Text style={styles.title}>{'  About Us'}</Text>
           </View>
           <Text style={styles.body}>{profile.about_us}</Text>
@@ -53,16 +55,21 @@ const DetailAboutUs = props => {
             <Text>{profile.support_us}</Text>
             <View style={styles.donateButton}>
               <TouchableOpacity
+                onPress={async () =>
+                  await WebBrowser.openBrowserAsync(
+                    'https://support.nature.org/site/Donation2?12640.donation=form1&df_id=12640&src=p_g.dfa.fd.x.dtd.EGT01&set.SingleDesignee=15852&crid=EGT01&sbid=B01&suslb=no&asid=100&moncb=no&s_src=p_g.dfa.fd.x.dtd.EGT01&gclid=Cj0KCQjwvo_qBRDQARIsAE-bsH9-sROQJs2hlLZCElWEEJR2M96cf0H6oNVRWKcerwapzSYfzJb9mfAaAqv3EALw_wcB'
+                  )
+                }
                 style={{
                   paddingTop: 25,
                   paddingBottom: 25,
-                  width: '100%',
+                  width: 243,
                   height: 50
                 }}
               >
                 <View
                   style={{
-                    backgroundColor: 'black',
+                    backgroundColor: '#00ff9d',
                     alignItems: 'center',
                     justifyContent: 'center',
                     borderRadius: 5,
@@ -71,7 +78,7 @@ const DetailAboutUs = props => {
                 >
                   <Text
                     style={{
-                      color: '#fff',
+                      color: '#323339',
                       textTransform: 'uppercase',
                       fontWeight: 'bold',
                       letterSpacing: 2

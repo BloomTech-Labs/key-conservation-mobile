@@ -21,43 +21,52 @@ class MyProScreen extends React.Component {
     return {
       title: 'My Profile',
       headerLeft: null,
+      headerStyle: {
+        backgroundColor: '#323338'
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        textAlign: 'center',
+        flexGrow: 1,
+        alignSelf: 'center'
+      },
       headerRight: <EditButton navigation={navigation} editRoute={'EditPro'} />
     };
-  }
+  };
 
   componentDidMount() {
     this.props.getProfileData(this.props.currentUser.id, false, 'myProfile');
-  };
+  }
 
   render() {
     return (
-    <ScrollView>
-      <ProfileHeader
-        navigation={this.props.navigation}
-        myProfile={true}
-        profile={this.props.currentUserProfile}
-      />
-      <View />
-      <View>
-        {
-          this.props.currentUserProfile.campaigns &&
-          this.props.currentUserProfile.campaigns.map(campaign => {
-          return (
-            <ListItem
-              key={campaign.camp_id}
-              title={campaign.username}
-              leftAvatar={{ source: { uri: campaign.camp_img } }}
-              subtitle={campaign.location}
-              rightIcon={
-                <Icon name='ellipsis-v' type='font-awesome' color='black' />
-              }
-            />
-          );
-        })}
-      </View>
-    </ScrollView>
-  );}
-};
+      <ScrollView>
+        <ProfileHeader
+          navigation={this.props.navigation}
+          myProfile={true}
+          profile={this.props.currentUserProfile}
+        />
+        <View />
+        <View>
+          {this.props.currentUserProfile.campaigns &&
+            this.props.currentUserProfile.campaigns.map(campaign => {
+              return (
+                <ListItem
+                  key={campaign.camp_id}
+                  title={campaign.username}
+                  leftAvatar={{ source: { uri: campaign.camp_img } }}
+                  subtitle={campaign.location}
+                  rightIcon={
+                    <Icon name='ellipsis-v' type='font-awesome' color='black' />
+                  }
+                />
+              );
+            })}
+        </View>
+      </ScrollView>
+    );
+  }
+}
 
 const mapStateToProps = state => ({
   currentUser: state.currentUser,
@@ -68,5 +77,3 @@ export default connect(
   mapStateToProps,
   { getProfileData }
 )(MyProScreen);
-
-

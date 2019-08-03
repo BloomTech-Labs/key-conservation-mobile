@@ -17,7 +17,7 @@ import EditDetailScreen from '../screens/EditDetailScreen';
 import LoginScreen from '../screens/LoginScreen';
 import FormScreen from '../screens/FormScreen';
 
-import EditButton from '../components/EditButton'
+import EditButton from '../components/EditButton';
 
 import { Icon } from 'react-native-elements';
 
@@ -40,7 +40,7 @@ const FeedStack = createStackNavigator(
       }
     },
     Detail: {
-      screen: DetailScreen,
+      screen: MyDetailScreen, // not being used
       navigationOptions: {
         title: 'Details',
         headerTintColor: '#fff',
@@ -106,10 +106,15 @@ const MyProStack = createStackNavigator(
   {
     MyPro: { screen: MyProScreen },
     MyDetail: { screen: MyDetailScreen },
-    EditPro: { screen: EditProScreen, navigationOptions: { title: 'Edit Profile' } },
-    EditDetail: { screen: EditDetailScreen, navigationOptions: { title: 'Edit Details' } },
+    EditPro: {
+      screen: EditProScreen,
+      navigationOptions: { title: 'Edit Profile' }
+    },
+    EditDetail: {
+      screen: EditDetailScreen,
+      navigationOptions: { title: 'Edit Details' }
+    },
     Campaign: CampScreen
-
   },
   {
     transitionConfig: () => ({
@@ -141,8 +146,8 @@ export const TabNavigator = createBottomTabNavigator(
   {
     FeedStack: { screen: FeedStack, path: '' },
     CreateCampStack: { screen: CreateCampStack, path: '' },
-    MyProStack: { screen: MyProStack, path: '' },
-    FormStack: { screen: FormStack, path: '' }
+    MyProStack: { screen: MyProStack, path: '' }
+    //FormStack: { screen: FormStack, path: '' }
   },
   {
     tabBarOptions: {
