@@ -21,6 +21,7 @@ import {
 } from "../store/actions";
 
 import * as SecureStore from "expo-secure-store";
+import Axios from "axios";
 /*
  Converts an object to a query string to be used by the request to auth0 via the dashboard application
 */
@@ -112,6 +113,8 @@ export default (LoginScreen = props => {
       const userLog2 = await SecureStore.getItemAsync("sub", {});
       console.log("*********async test user*************", userLog2);
 
+      // dispatch(getProfileData(null, chosenDecoded.sub, true));
+
       await SecureStore.setItemAsync("sub", chosenDecoded.sub);
       await SecureStore.setItemAsync("email", chosenDecoded.email);
       await SecureStore.setItemAsync("roles", "conservationist");
@@ -119,7 +122,7 @@ export default (LoginScreen = props => {
       console.log("*********async user*************", userLog);
 
       dispatch(loginSuccess(chosenDecoded));
-      await dispatch(getProfileData(false, decoded.sub, "myProfile"));
+      await dispatch(getProfileData(null, chosenDecoded.sub, true));
       navigation.navigate("Loading");
     }
   };

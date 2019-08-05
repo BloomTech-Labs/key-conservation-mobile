@@ -1,3 +1,5 @@
+import * as SecureStore from "expo-secure-store";
+
 import {
   LOGIN_START,
   LOGIN_ERROR,
@@ -90,7 +92,7 @@ const reducer = (state = initialState, action) => {
           pending: { ...state.pending, getProfile: false },
           currentUser: {
             ...state.currentUser,
-            profile: action.payload.user
+            accountInfo: action.payload.user
           }
         };
       } else {
@@ -113,7 +115,8 @@ const reducer = (state = initialState, action) => {
         error: ""
       };
     case POST_USER_SUCCESS:
-      console.log("************inside reducer*********", action.payload);
+      SecureStore.setItemAsync("userId", `${action.payload.id}`);
+      console.log("************inside reducer*********", action.payload.id);
       return {
         ...state,
         pending: { ...state.pending, postUser: false },

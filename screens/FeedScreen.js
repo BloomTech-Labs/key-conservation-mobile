@@ -28,6 +28,7 @@ function FeedScreen(props) {
           await SecureStorage.deleteItemAsync("sub", {});
           await SecureStorage.deleteItemAsync("email", {});
           await SecureStorage.deleteItemAsync("roles", {});
+          await SecureStorage.deleteItemAsync("userId", {});
           props.navigation.navigate("Loading");
         }}
       />

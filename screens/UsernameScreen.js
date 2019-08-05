@@ -39,7 +39,7 @@ class UsernameScreen extends React.Component {
     console.log("******click from username", user);
     await this.props.postUser(user);
     this.props.navigation.navigate(
-      this.props.error ? "CreateAccount" : "Conservationist"
+      this.props.error ? "CreateAccount" : "Loading"
     );
   };
 

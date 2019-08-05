@@ -10,22 +10,25 @@ import {
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import { connect } from "react-redux";
+import { getProfileData } from "../store/actions";
 
-export default class LoggedInView extends React.Component {
+class LoadingScreen extends React.Component {
   async componentDidMount() {
     // id in the auth0 database
     const sub = await SecureStore.getItemAsync("sub", {});
     console.log("**********loading screen**********", sub);
     // id in the PG database
-    const userId = await SecureStore.getItemAsync("userId", {});
-    console.log("*************userId********", userId);
+    this.props.getProfileData(null, sub, true);
     setTimeout(() => {
       if (sub) {
         console.log("data is present");
-
-        if (userId) {
+        console.log(this.props.userId);
+        if (this.props.userId) {
+          console.log("yes", this.props.userId);
           this.props.navigation.navigate("Conservationist");
         } else {
+          console.log("no", this.props.userId);
           this.props.navigation.navigate("CreateAccount");
         }
       } else {
@@ -52,6 +55,16 @@ export default class LoggedInView extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  error: state.error,
+  userId: state.currentUser.accountInfo.id
+});
+
+export default connect(
+  mapStateToProps,
+  { getProfileData }
+)(LoadingScreen);
 
 const styles = StyleSheet.create({
   container: {
