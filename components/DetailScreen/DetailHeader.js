@@ -57,7 +57,7 @@ export default class DetailHeader extends Component {
                   <Text style={styles.title}>{profile.org_name}</Text>
                   <Text style={styles.location}>{profile.location}</Text>
                 </View>
-                <Text>{profile.email}</Text>
+                <Text>{profile.org_link_text}</Text>
               </View>
               <View style={styles.SocialContainer}>
                 <TouchableOpacity

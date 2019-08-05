@@ -65,7 +65,12 @@ const FeedStack = createStackNavigator(
           type='font-awesome'
         />
       )
-    }
+    },
+    transitionConfig: () => ({
+      transitionSpec: {
+        duration: 0,
+      }
+    })
   }
 );
 
