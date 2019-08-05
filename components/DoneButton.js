@@ -11,10 +11,7 @@ const DoneButton = props => {
   const changes = props.changes;
   return (
     <TouchableOpacity
-      onPress={() => {
-        dispatch(editProfileData(id, changes));
-        navigation.goBack();
-      }}
+      onPress={props.pressAction}
       style={{ padding: 18 }}
     >
       <View

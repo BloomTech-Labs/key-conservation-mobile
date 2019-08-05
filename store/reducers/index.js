@@ -23,7 +23,9 @@ import {
 
 const initialState = {
   error: '',
-  pending: {},
+  pending: {
+    updateProfile: false
+  },
   currentUser: {
     id: 1,
     sub: '',
@@ -111,7 +113,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, updateProfile: false },
-        currentUserProfile: action.payload.user
+        currentUserProfile: action.payload
       };
     case EDIT_PROFILE_ERROR:
       return {

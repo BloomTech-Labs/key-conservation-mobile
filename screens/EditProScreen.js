@@ -14,11 +14,10 @@ import { connect } from 'react-redux';
 
 import DoneButton from '../components/DoneButton';
 
-import { postUser } from '../store/actions';
+import { postUser, editProfileData } from '../store/actions';
 
 class EditProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
-    console.log(this.state);
     return {
       title: 'Edit Profile',
       headerStyle: {
@@ -30,16 +29,25 @@ class EditProScreen extends React.Component {
         flexGrow: 1,
         alignSelf: 'center'
       },
-      headerRight: <DoneButton navigation={navigation} changes={this.state} />
+      headerRight: <DoneButton navigation={navigation} pressAction={navigation.getParam('done')} />
     };
   };
 
   state = {
-    orgName: this.props.currentUserProfile.org_name,
+    org_name: this.props.currentUserProfile.org_name,
     username: this.props.currentUserProfile.username,
     location: this.props.currentUserProfile.location,
-    miniBio: this.props.currentUserProfile.mini_bio
+    mini_bio: this.props.currentUserProfile.mini_bio
   };
+
+  componentDidMount() {
+    this.props.navigation.setParams({ done: this.done });
+  }
+  
+  done = () => {
+    this.props.editProfileData(this.props.currentUser.id, this.state);
+    this.props.navigation.goBack(); 
+  }
 
   render() {
     return (
@@ -55,17 +63,17 @@ class EditProScreen extends React.Component {
               <Text style={styles.sectionsText}>Organization Name</Text>
               <TextInput
                 ref={input => {
-                  this.orgNameInput = input;
+                  this.org_nameInput = input;
                 }}
                 returnKeyType='next'
                 style={styles.inputContain}
-                onChangeText={text => this.setState({ orgName: text })}
+                onChangeText={text => this.setState({ org_name: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
                   this.usernameInput.focus();
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.orgName}
+                value={this.state.org_name}
               />
             </View>
 
@@ -98,7 +106,7 @@ class EditProScreen extends React.Component {
                 onChangeText={text => this.setState({ location: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
-                  this.miniBioInput.focus();
+                  this.mini_bioInput.focus();
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.location}
@@ -109,13 +117,13 @@ class EditProScreen extends React.Component {
               <Text style={styles.sectionsText}>Bio</Text>
               <TextInput
                 ref={input => {
-                  this.miniBioInput = input;
+                  this.mini_bioInput = input;
                 }}
                 returnKeyType='next'
                 style={styles.inputContain2}
-                onChangeText={text => this.setState({ miniBio: text })}
+                onChangeText={text => this.setState({ mini_bio: text })}
                 multiline={true}
-                value={this.state.miniBio}
+                value={this.state.mini_bio}
               />
             </View>
           </View>
@@ -133,7 +141,7 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { postUser }
+  { postUser, editProfileData }
 )(EditProScreen);
 
 const styles = StyleSheet.create({
