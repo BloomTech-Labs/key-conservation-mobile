@@ -28,12 +28,13 @@ const initialState = {
   currentUser: {
     id: "",
     sub: "",
-    role: "conservationist",
+    role: "",
     email: "",
     username: "",
     profile: {
       campaigns: []
     },
+    accountInfo: [],
     token: ""
   },
   selectedProfile: {
@@ -112,12 +113,13 @@ const reducer = (state = initialState, action) => {
         error: ""
       };
     case POST_USER_SUCCESS:
+      console.log("************inside reducer*********", action.payload);
       return {
         ...state,
         pending: { ...state.pending, postUser: false },
         currentUser: {
           ...state.currentUser,
-          profile: action.payload
+          accountInfo: action.payload
         }
       };
     case POST_USER_ERROR:

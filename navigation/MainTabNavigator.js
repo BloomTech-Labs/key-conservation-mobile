@@ -100,6 +100,24 @@ const MyProStack = createStackNavigator(
   }
 );
 
+export const UsernameStack = createStackNavigator({
+  Username: {
+    screen: UsernameScreen,
+
+    navigationOptions: {
+      title: "Sign Up",
+      headerTitleStyle: {
+        flex: 1,
+        textAlign: "center",
+        color: "white"
+      },
+      headerStyle: {
+        backgroundColor: "#323338"
+      }
+    }
+  }
+});
+
 export const LoginStack = createStackNavigator(
   { Login: LoginScreen },
   {

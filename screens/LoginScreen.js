@@ -113,6 +113,8 @@ export default (LoginScreen = props => {
       console.log("*********async test user*************", userLog2);
 
       await SecureStore.setItemAsync("sub", chosenDecoded.sub);
+      await SecureStore.setItemAsync("email", chosenDecoded.email);
+      await SecureStore.setItemAsync("roles", "conservationist");
       const userLog = await SecureStore.getItemAsync("sub", {});
       console.log("*********async user*************", userLog);
 

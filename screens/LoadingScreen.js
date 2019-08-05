@@ -13,8 +13,10 @@ import jwtDecode from "jwt-decode";
 
 export default class LoggedInView extends React.Component {
   async componentDidMount() {
+    // id in the auth0 database
     const sub = await SecureStore.getItemAsync("sub", {});
     console.log("**********loading screen**********", sub);
+    // id in the PG database
     const userId = await SecureStore.getItemAsync("userId", {});
     console.log("*************userId********", userId);
     setTimeout(() => {

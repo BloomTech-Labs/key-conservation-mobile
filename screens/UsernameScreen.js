@@ -11,6 +11,8 @@ import {
 
 import { connect } from "react-redux";
 
+import * as SecureStore from "expo-secure-store";
+
 //import { Input } from 'react-native-elements';
 
 //import styles from '../constants/Stylesheet';
@@ -18,23 +20,27 @@ import { connect } from "react-redux";
 import { postUser } from "../store/actions";
 
 class UsernameScreen extends React.Component {
-  
   state = {
     usernameInput: ""
   };
 
   handlePress = async () => {
     const { error } = this.props;
-    const { sub, role, email } = this.props.currentUser;
+    const sub = await SecureStore.getItemAsync("sub", {});
+    const email = await SecureStore.getItemAsync("email", {});
+    const role = await SecureStore.getItemAsync("roles", {});
+    const username = this.state.usernameInput;
     let user = {
-      username: this.state.usernameInput,
+      username: username,
       sub: sub,
       roles: role,
       email: email
     };
-    console.log(user);
+    console.log("******click from username", user);
     await this.props.postUser(user);
-    this.props.navigation.navigate(error ? "CreateAccount" : "Conservationist");
+    this.props.navigation.navigate(
+      this.props.error ? "CreateAccount" : "Conservationist"
+    );
   };
 
   render() {
@@ -42,9 +48,10 @@ class UsernameScreen extends React.Component {
       <ScrollView>
         <View style={styles.sectionContainer}>
           <View style={styles.Card} />
-          <View style = {styles.textContainer}>
+          <View style={styles.textContainer}>
             <Text>
-              Thanks for signing up! Please choose a username and enter it below.
+              Thanks for signing up! Please choose a username and enter it
+              below.
             </Text>
           </View>
           <TextInput
@@ -71,11 +78,10 @@ class UsernameScreen extends React.Component {
 
 UsernameScreen.navigationOptions = {
   title: "Sign Up"
-}
+};
 
 const mapStateToProps = state => ({
-  error: state.error,
-  currentUser: state.currentUser
+  error: state.error
 });
 
 export default connect(
@@ -89,7 +95,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     margin: 15,
     flex: 1,
-    alignItems: 'center'
+    alignItems: "center"
   },
   Card: {
     marginTop: 20,
@@ -113,7 +119,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 50,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   touchableView: {
     backgroundColor: "#00FF9D",
@@ -121,7 +127,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 5,
     height: 48,
-    width:243,
+    width: 243
   },
   touchableText: {
     color: "black",
@@ -135,7 +141,7 @@ const styles = StyleSheet.create({
     height: 43,
     marginBottom: 33,
     fontSize: 16,
-    flexWrap: 'wrap',
+    flexWrap: "wrap",
     letterSpacing: 2
   }
 });

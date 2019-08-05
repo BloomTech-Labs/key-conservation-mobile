@@ -26,6 +26,8 @@ function FeedScreen(props) {
         title="LOGOUT"
         onPress={async () => {
           await SecureStorage.deleteItemAsync("sub", {});
+          await SecureStorage.deleteItemAsync("email", {});
+          await SecureStorage.deleteItemAsync("roles", {});
           props.navigation.navigate("Loading");
         }}
       />
