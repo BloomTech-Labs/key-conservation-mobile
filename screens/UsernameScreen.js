@@ -18,6 +18,7 @@ import { connect } from "react-redux";
 import { postUser } from "../store/actions";
 
 class UsernameScreen extends React.Component {
+  
   state = {
     usernameInput: ""
   };
@@ -41,9 +42,14 @@ class UsernameScreen extends React.Component {
       <ScrollView>
         <View style={styles.sectionContainer}>
           <View style={styles.Card} />
+          <View style = {styles.textContainer}>
+            <Text>
+              Thanks for signing up! Please choose a username and enter it below.
+            </Text>
+          </View>
           <TextInput
             returnKeyType="go"
-            placeholder="Username"
+            placeholder="ex: carribbeanturtleproject"
             style={styles.inputContain}
             onChangeText={text => this.setState({ usernameInput: text })}
             value={this.state.usernameInput}
@@ -55,7 +61,7 @@ class UsernameScreen extends React.Component {
           style={styles.touchableButton}
         >
           <View style={styles.touchableView}>
-            <Text style={styles.touchableText}>Register</Text>
+            <Text style={styles.touchableText}>Continue</Text>
           </View>
         </TouchableOpacity>
       </ScrollView>
@@ -64,8 +70,8 @@ class UsernameScreen extends React.Component {
 }
 
 UsernameScreen.navigationOptions = {
-  title: "Form"
-};
+  title: "Sign Up"
+}
 
 const mapStateToProps = state => ({
   error: state.error,
@@ -81,7 +87,9 @@ const styles = StyleSheet.create({
   sectionContainer: {
     flexDirection: "column",
     flexWrap: "wrap",
-    margin: 15
+    margin: 15,
+    flex: 1,
+    alignItems: 'center'
   },
   Card: {
     marginTop: 20,
@@ -94,25 +102,40 @@ const styles = StyleSheet.create({
     borderColor: "#C4C4C4",
     padding: 5,
     borderRadius: 3,
-    fontSize: 16
+    fontSize: 16,
+    width: 281,
+    height: 38,
+    marginBottom: 53
   },
   touchableButton: {
     paddingTop: 25,
     paddingBottom: 25,
     width: "100%",
-    height: 50
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
   },
   touchableView: {
-    backgroundColor: "black",
+    backgroundColor: "#00FF9D",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 5,
-    height: 35
+    height: 48,
+    width:243,
   },
   touchableText: {
-    color: "#fff",
+    color: "black",
     textTransform: "uppercase",
     fontWeight: "bold",
+    letterSpacing: 2
+  },
+
+  textContainer: {
+    width: 279,
+    height: 43,
+    marginBottom: 33,
+    fontSize: 16,
+    flexWrap: 'wrap',
     letterSpacing: 2
   }
 });
