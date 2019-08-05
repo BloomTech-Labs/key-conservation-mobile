@@ -32,7 +32,7 @@ const ProfileHeader = props => {
           style={styles.TouchableOpacity}
           onPress={() =>
             {
-              console.log(props.navigation);
+              console.log(props.myProfile);
               props.navigation.navigate(props.myProfile ? 'MyDetail' : 'Detail')
             }
           }
