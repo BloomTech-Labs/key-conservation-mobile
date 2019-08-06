@@ -1,9 +1,9 @@
-import React from 'react';
-import { Platform } from 'react-native';
+import React from "react";
+import { Platform } from "react-native";
 import {
   createStackNavigator,
   createBottomTabNavigator
-} from 'react-navigation';
+} from "react-navigation";
 
 import FeedScreen from '../screens/FeedScreen';
 import CreateCampScreen from '../screens/CreateCampScreen';
@@ -15,7 +15,7 @@ import DetailScreen from '../screens/DetailScreen';
 import MyDetailScreen from '../screens/MyDetailScreen';
 import EditDetailScreen from '../screens/EditDetailScreen';
 import LoginScreen from '../screens/LoginScreen';
-import FormScreen from '../screens/FormScreen';
+import UsernameScreen from "../screens/UsernameScreen";
 
 import EditButton from '../components/EditButton';
 
@@ -40,7 +40,7 @@ const FeedStack = createStackNavigator(
       }
     },
     Detail: {
-      screen: MyDetailScreen, // not being used
+      screen: DetailScreen,
       navigationOptions: {
         title: 'Details',
         headerTintColor: '#fff',
@@ -57,7 +57,7 @@ const FeedStack = createStackNavigator(
   },
   {
     navigationOptions: {
-      tabBarLabel: 'Feed',
+      tabBarLabel: "Feed",
       tabBarIcon: ({ focused }) => (
         <SvgUri
           width='25'
@@ -69,7 +69,12 @@ const FeedStack = createStackNavigator(
           }
         />
       )
-    }
+    },
+    transitionConfig: () => ({
+      transitionSpec: {
+        duration: 0,
+      }
+    })
   }
 );
 
@@ -94,6 +99,7 @@ const CreateCampStack = createStackNavigator(
   }
 );
 
+
 const FormStack = createStackNavigator(
   { Form: FormScreen },
   {
@@ -113,6 +119,7 @@ const FormStack = createStackNavigator(
     }
   }
 );
+
 
 const MyProStack = createStackNavigator(
   {
@@ -151,10 +158,28 @@ const MyProStack = createStackNavigator(
   }
 );
 
+export const UsernameStack = createStackNavigator({
+  Username: {
+    screen: UsernameScreen,
+
+    navigationOptions: {
+      title: "Sign Up",
+      headerTitleStyle: {
+        flex: 1,
+        textAlign: "center",
+        color: "white"
+      },
+      headerStyle: {
+        backgroundColor: "#323338"
+      }
+    }
+  }
+});
+
 export const LoginStack = createStackNavigator(
   { Login: LoginScreen },
   {
-    headerMode: 'none'
+    headerMode: "none"
   }
 );
 
@@ -163,7 +188,7 @@ export const TabNavigator = createBottomTabNavigator(
     FeedStack: { screen: FeedStack, path: '' },
     CreateCampStack: { screen: CreateCampStack, path: '' },
     MyProStack: { screen: MyProStack, path: '' }
-    //FormStack: { screen: FormStack, path: '' }
+    // FormStack: { screen: FormStack, path: '' }
   },
   {
     tabBarOptions: {
@@ -174,12 +199,12 @@ export const TabNavigator = createBottomTabNavigator(
 
 export const NoTabNavigator = createStackNavigator(
   {
-    FeedStack: { screen: FeedStack, path: '' },
-    CreateCampStack: { screen: CreateCampStack, path: '' },
-    MyProStack: { screen: MyProStack, path: '' },
-    LoginStack: { screen: LoginStack, path: '' }
+    FeedStack: { screen: FeedStack, path: "" },
+    CreateCampStack: { screen: CreateCampStack, path: "" },
+    MyProStack: { screen: MyProStack, path: "" },
+    LoginStack: { screen: LoginStack, path: "" }
   },
   {
-    headerMode: 'none'
+    headerMode: "none"
   }
 );

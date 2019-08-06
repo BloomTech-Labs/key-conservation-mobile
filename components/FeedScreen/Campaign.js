@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 
-import { ListItem } from 'react-native-elements';
+import { ListItem, Icon } from 'react-native-elements';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { getProfileData } from '../../store/actions';
@@ -27,30 +27,43 @@ const Campaign = props => {
   return (
     <View style={styles.container}>
       <ListItem
-        onPress={() => handlePress(users_id)}
-        title={props.data.username}
-        leftAvatar={{ source: { uri: props.data.camp_img } }}
+        onPress={() => handlePress(users_id)}        
+        title={
+          <View>
+            <Text style={styles.orgTitleView}>{props.data.username}</Text>
+          </View>}
+        leftAvatar={{ source: { uri: props.data.profile_image } }}
         subtitle={props.data.location}
       />
-      <Image
-        source={{ uri: props.data.camp_img }}
-        style={styles.campImgContain}
-      />
-      <View style={styles.campDesc}>
-        <Text style={styles.campDescUsername}>{props.data.username}</Text>
-        <Text>{props.data.camp_desc}</Text>
+      <View>
+        <Text style={styles.campTitle}>{props.data.camp_name}</Text>
+        <Image
+          source={{ uri: props.data.camp_img }}
+          style={styles.campImgContain}
+        />
       </View>
-      <View style={styles.donateButton}>
-        <TouchableOpacity
-          style={styles.touchableButton}
-          onPress={async () =>
-            await WebBrowser.openBrowserAsync(props.data.org_link_url)
-          }
-        >
-          <View style={styles.touchableView}>
-            <Text style={styles.touchableText}>Donate</Text>
-          </View>
-        </TouchableOpacity>
+      <View style={styles.campDesc}>        
+           
+        <Text><Text style={styles.campDescUsername}>{props.data.username}</Text> {props.data.camp_desc}</Text>        
+      </View>
+      <View>
+        <View style={styles.campMission}>
+          <Icon type='font-awesome' name='rocket' style={styles.campIcon}>Icon</Icon>
+          <Text style={styles.campMissionText}>Support Our Mission</Text>
+        </View>
+        <View style={styles.donateButton}>
+          <TouchableOpacity
+            style={styles.touchableButton}
+            onPress={async () =>
+              await WebBrowser.openBrowserAsync(props.data.org_link_url)
+            }
+          >
+            <View style={styles.touchableView}>
+              <Text style={styles.touchableText}>Donate</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
       </View>
     </View>
   );
@@ -59,7 +72,7 @@ const Campaign = props => {
 Campaign.navigationOptions = {
   title: 'Profile',
   // This setting needs to be on every screen so that header is in the center
-  // This is fix for andriod devices should be good on IOS
+  // This is fix for android devices should be good on IOS
   headerTitleStyle: {
     textAlign: 'center',
     flexGrow: 1,

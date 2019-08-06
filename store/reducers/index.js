@@ -1,3 +1,5 @@
+import * as SecureStore from "expo-secure-store";
+
 import {
   LOGIN_START,
   LOGIN_ERROR,
@@ -19,18 +21,20 @@ import {
   POST_CAMPAIGN_START,
   POST_CAMPAIGN_ERROR,
   POST_CAMPAIGN_SUCCESS
-} from '../actions';
+} from "../actions";
 
 const initialState = {
   error: '',
-  pending: {},
+  pending: {
+    updateProfile: false
+  },
   currentUser: {
-    id: 1,
-    sub: '',
-    role: 'conservationist',
-    email: '',
-    name: '',
-    token: ''
+    id: "",
+    sub: "",
+    role: "",
+    email: "",
+    username: "",
+    token: ""
   },
   currentUserProfile: {
     campaigns: []
@@ -47,7 +51,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, login: true },
-        error: ''
+        error: ""
       };
     case LOGIN_ERROR:
       return {
@@ -61,17 +65,17 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, login: false },
         currentUser: {
           ...state.currentUser,
-          name: action.payload.name,
           sub: action.payload.sub,
+          email: action.payload.email,
           token: action.payload.accessToken
         },
-        error: ''
+        error: ""
       };
     case LOGOUT_START:
       return {
         ...state,
         pending: { ...state.pending, logout: true },
-        error: ''
+        error: ""
       };
     case LOGOUT_SUCCESS:
       return initialState;
@@ -79,9 +83,10 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getProfile: true },
-        error: ''
+        error: ""
       };
     case GET_PROFILE_SUCCESS:
+      console.log(action.payload.user)
       if (action.payload.myProfile) {
         return {
           ...state,
@@ -111,7 +116,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, updateProfile: false },
-        currentUserProfile: action.payload.user
+        currentUserProfile: action.payload
       };
     case EDIT_PROFILE_ERROR:
       return {
@@ -123,16 +128,15 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, postUser: true },
-        error: ''
+        error: ""
       };
     case POST_USER_SUCCESS:
+      SecureStore.setItemAsync("userId", `${action.payload.id}`);
+      console.log("************inside reducer*********", action.payload.id);
       return {
         ...state,
         pending: { ...state.pending, postUser: false },
-        currentUser: {
-          ...state.currentUser,
-          profile: action.payload.user
-        }
+        currentUserProfile: action.payload
       };
     case POST_USER_ERROR:
       return {
@@ -144,7 +148,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getCampaigns: true },
-        error: ''
+        error: ""
       };
     case GET_CAMPAIGNS_SUCCESS:
       return {
@@ -162,7 +166,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getCampaigns: true },
-        error: ''
+        error: ""
       };
     case GET_CAMPAIGNS_SUCCESS:
       return {

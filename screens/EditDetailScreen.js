@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 
 import DoneButton from '../components/DoneButton';
 
-import { postUser } from '../store/actions';
+import { postUser, editProfileData } from '../store/actions';
 
 class EditDetailScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -29,23 +29,33 @@ class EditDetailScreen extends React.Component {
         flexGrow: 1,
         alignSelf: 'center'
       },
-      headerRight: <DoneButton navigation={navigation} changes={this.state} />
+      headerRight: <DoneButton navigation={navigation} pressAction={navigation.getParam('done')} />
     };
   }
 
   state = {
     email: this.props.currentUserProfile.email,
-    orgLinkUrl: this.props.currentUserProfile.org_link_url,
-    orgLinkText: this.props.currentUserProfile.org_link_text,
+    org_link_url: this.props.currentUserProfile.org_link_url,
+    org_link_text: this.props.currentUserProfile.org_link_text,
     facebook: this.props.currentUserProfile.facebook,
     instagram: this.props.currentUserProfile.instagram,
     twitter: this.props.currentUserProfile.twitter,
-    aboutUs: this.props.currentUserProfile.about_us,
-    speciesHabitats: this.props.currentUserProfile.species_and_habitats,
+    about_us: this.props.currentUserProfile.about_us,
+    species_habitats: this.props.currentUserProfile.species_and_habitats,
     issues: this.props.currentUserProfile.issues,
     // supportUs: this.props.currentUserProfile.support_us,
-    orgCta: this.props.currentUserProfile.org_cta
+    org_cta: this.props.currentUserProfile.org_cta
   };
+
+  componentDidMount() {
+    this.props.navigation.setParams({ done: this.done });
+  }
+
+  done = () => {
+    console.log(this.props.currentUserProfile.id)
+    this.props.editProfileData(this.props.currentUserProfile.id, this.state);
+    this.props.navigation.goBack(); 
+  }
 
   render() {
     return (
@@ -77,16 +87,16 @@ class EditDetailScreen extends React.Component {
               <View style={styles.sections}>
                 <Text style={styles.sectionsText}>Website Link URL</Text>
                 <TextInput
-                  ref={(input) => { this.orgLinkUrlInput = input; }}
+                  ref={(input) => { this.org_link_urlInput = input; }}
                   returnKeyType='next'            
                   style={styles.inputContain}
-                  onChangeText={text => this.setState({ orgLinkUrl: text })}
+                  onChangeText={text => this.setState({ org_Link_url: text })}
                   onSubmitEditing={() => {
                     if (Platform.OS === 'android') return;
                     this.orgLinkTextInput.focus();
                   }}
                   blurOnSubmit={Platform.OS === 'android'}
-                  value={this.state.orgLinkUrl}
+                  value={this.state.org_link_url}
                 />
               </View>
 
@@ -110,7 +120,7 @@ class EditDetailScreen extends React.Component {
               <View style={styles.sections}>  
                 <Text style={styles.sectionsText}>Donation Link</Text>            
                 <TextInput
-                  ref={(input) => { this.orgCtaInput = input; }}
+                  ref={(input) => { this.org_ctaInput = input; }}
                   returnKeyType='next'
                   style={styles.inputContain}
                   onSubmitEditing={() => {
@@ -118,7 +128,7 @@ class EditDetailScreen extends React.Component {
                     this.facebookInput.focus();
                   }}
                   blurOnSubmit={Platform.OS === 'android'}
-                  value={this.state.orgCta}
+                  value={this.state.org_cta}
                 />
               </View>
 
@@ -173,24 +183,24 @@ class EditDetailScreen extends React.Component {
               <View style={styles.sections}>
                 <Text style={styles.sectionsText}>About Us</Text>
                 <TextInput
-                  ref={(input) => { this.aboutUsInput = input; }}
+                  ref={(input) => { this.about_usInput = input; }}
                   returnKeyType='next'
                   style={styles.inputContain2}
-                  onChangeText={text => this.setState({ aboutUs: text })}
+                  onChangeText={text => this.setState({ about_us: text })}
                   multiline={true}
-                  value={this.state.aboutUs}
+                  value={this.state.about_us}
                 />
               </View>
 
               <View style={styles.sections}>
                 <Text style={styles.sectionsText}>Species & Habitats</Text>
                 <TextInput
-                  ref={(input) => { this.speciesHabitatsInput = input; }}
+                  ref={(input) => { this.species_habitatsInput = input; }}
                   returnKeyType='next'
                   style={styles.inputContain2}
-                  onChangeText={text => this.setState({ speciesHabitats: text })}
+                  onChangeText={text => this.setState({ species_habitats: text })}
                   multiline={true}
-                  value={this.state.speciesHabitats}
+                  value={this.state.species_habitats}
                 />
               </View>
 
@@ -220,7 +230,7 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { postUser }
+  { postUser, editProfileData }
 )(EditDetailScreen);
 
 const styles = StyleSheet.create({
