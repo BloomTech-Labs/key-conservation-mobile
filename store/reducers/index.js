@@ -86,7 +86,6 @@ const reducer = (state = initialState, action) => {
         error: ""
       };
     case GET_PROFILE_SUCCESS:
-      console.log(action.payload.user)
       if (action.payload.myProfile) {
         return {
           ...state,
@@ -132,7 +131,7 @@ const reducer = (state = initialState, action) => {
       };
     case POST_USER_SUCCESS:
       SecureStore.setItemAsync("userId", `${action.payload.id}`);
-      console.log("************inside reducer*********", action.payload.id);
+      // console.log("************inside reducer*********", action.payload.id);
       return {
         ...state,
         pending: { ...state.pending, postUser: false },

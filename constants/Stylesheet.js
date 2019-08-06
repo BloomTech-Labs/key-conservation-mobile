@@ -7,14 +7,16 @@ export default {
     marginBottom: 10,
     borderBottomWidth: 2,
     borderBottomColor: '#eee',
-    paddingBottom: 35,
+    paddingBottom: 45,
   },
   donateButton: {
+    fontFamily: "OpenSans-SemiBold",
     width: '60%',
     alignSelf: 'center',
     
   },
   listItem: {
+    fontFamily: 'OpenSans-Regular',
     color: 'black',
     backgroundColor: 'black'
   },
@@ -26,7 +28,7 @@ export default {
     marginRight: 15
   },
   campDescUsername: {
-    fontWeight: 'bold',
+    fontFamily: 'OpenSans-SemiBold',
     paddingRight: 10
   },
   touchableButton: {
@@ -46,6 +48,7 @@ export default {
     
   },
   touchableText: {
+    fontFamily: 'OpenSans-Regular',
     color: '#323338',
     textTransform: 'uppercase',
     fontWeight: 'bold',
@@ -58,6 +61,7 @@ export default {
     height: 300
   },
   campTitle:{
+    fontFamily: 'OpenSans-Regular',
     backgroundColor: '#323338',
     color: '#fff',
     height: 32,
@@ -66,16 +70,19 @@ export default {
     paddingTop: 7,
   },
   orgTitleView: {
+    fontFamily: 'OpenSans-SemiBold',
     fontWeight: 'bold',
   },
-  // campIcon: {
-  //   width: '50%'
-  // },
+  orgLocation: {
+    fontFamily: 'OpenSans-Regular'
+  },
   campMissionText: {
+    fontFamily: 'OpenSans-SemiBold',
      fontSize: 14,
      paddingLeft: 10,
   },
   campMission: {
+    fontFamily: 'OpenSans-Regular',
     flexWrap: 'wrap',
     flexDirection: 'row',
     alignItems: 'center',

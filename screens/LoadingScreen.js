@@ -17,22 +17,22 @@ class LoadingScreen extends React.Component {
   async componentDidMount() {
     // id in the auth0 database
     const sub = await SecureStore.getItemAsync("sub", {});
-    console.log("**********loading screen**********", sub);
+    // console.log("**********loading screen**********", sub);
     // id in the PG database
     this.props.getProfileData(null, sub, true);
     setTimeout(() => {
       if (sub) {
-        console.log("data is present");
-        console.log(this.props.userId);
+        // console.log("data is present");
+        // console.log(this.props.userId);
         if (this.props.userId) {
-          console.log("yes", this.props.userId);
+          // console.log("yes", this.props.userId);
           this.props.navigation.navigate("Conservationist");
         } else {
-          console.log("no", this.props.userId);
+          // console.log("no", this.props.userId);
           this.props.navigation.navigate("CreateAccount");
         }
       } else {
-        console.log("data is not present");
+        // console.log("data is not present");
         this.props.navigation.navigate("Login");
       }
     }, 3000);

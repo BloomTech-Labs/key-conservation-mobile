@@ -172,21 +172,15 @@ export default (LoginScreen = props => {
 
 const styles = StyleSheet.create({
   container: {
-    // marginTop: 50,
     flex: 1,
-    // backgroundColor: '#fff',
     alignItems: "center",
     justifyContent: "center"
-    // height: 667,
-    // width: 375
   },
   button: {
-    // margin: 50,
     justifyContent: "center",
     alignItems: "center"
   },
   logo: {
-    // marginTop: 50,
     height: 189,
     width: 189
   },
@@ -198,23 +192,18 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flex: 1,
-    // marginTop: 20,
-    // marginBottom: 20,
     justifyContent: "center",
     alignItems: "center"
   },
   SelectText: {
     fontSize: 27,
-    fontFamily: "Lato",
-    // marginTop: 64
+    fontFamily: "OpenSans-Regular",
     color: "white"
   },
   buttons: {
     flex: 1,
     alignItems: "center",
     paddingBottom: "2.5%",
-    // marginBottom: 50,
-    // marginTop: 50,
     width: "90%"
   },
   buttonContainer: {
@@ -222,7 +211,7 @@ const styles = StyleSheet.create({
     height: 50,
     marginBottom: 18,
     borderRadius: 4,
-    // fontFamily:  'ArchivoNarrow',
+    fontFamily:  'OpenSans-Regular',
     backgroundColor: "#00FF9D",
     shadowColor: "rgba(0, 0, 0, 0.25)",
     shadowOffset: {
@@ -234,7 +223,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   buttonText: {
-    fontFamily: "ArchivoNarrow",
+    fontFamily: "OpenSans-Regular",
     fontWeight: "bold",
     fontStyle: "normal",
     letterSpacing: 0,
@@ -254,7 +243,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   needHelpText: {
-    color: "white"
+    color: "white",
   },
   needHelpButton: {
     color: "white",

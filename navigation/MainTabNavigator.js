@@ -100,25 +100,25 @@ const CreateCampStack = createStackNavigator(
 );
 
 
-const FormStack = createStackNavigator(
-  { Form: FormScreen },
-  {
-    navigationOptions: {
-      tabBarLabel: 'Form',
-      tabBarIcon: ({ focused }) => (
-        <SvgUri
-          width='25'
-          height='25'
-          source={
-            focused
-              ? require('../assets/icons/plus-fill.svg')
-              : require('../assets/icons/plus.svg')
-          }
-        />
-      )
-    }
-  }
-);
+// // const FormStack = createStackNavigator(
+//   { Form: FormScreen },
+//   {
+//     navigationOptions: {
+//       tabBarLabel: 'Form',
+//       tabBarIcon: ({ focused }) => (
+//         <SvgUri
+//           width='25'
+//           height='25'
+//           source={
+//             focused
+//               ? require('../assets/icons/plus-fill.svg')
+//               : require('../assets/icons/plus.svg')
+//           }
+//         />
+//       )
+//     }
+//   }
+// );
 
 
 const MyProStack = createStackNavigator(

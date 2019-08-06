@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 25
   },
-  title: { fontSize: 18, alignSelf: 'center', marginLeft: 10 },
+  title: { fontSize: 18, alignSelf: 'center', marginLeft: 10, fontFamily: "OpenSans-Regular" },
   donateButton: {
     alignItems: 'center',
     width: '100%'

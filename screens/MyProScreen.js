@@ -31,13 +31,15 @@ class MyProScreen extends React.Component {
       headerTitleStyle: {
         textAlign: 'center',
         flexGrow: 1,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        fontFamily: 'OpenSans-SemiBold',
       },
       headerRight: <EditButton navigation={navigation} editRoute={'EditPro'} />
     };
   };
 
   componentDidMount() {
+    console.log()
     this.props.getProfileData(this.props.currentUserProfile.id, false, 'myProfile');
   }
 
@@ -76,7 +78,6 @@ class MyProScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.currentUser,
   currentUserProfile: state.currentUserProfile
 });
 

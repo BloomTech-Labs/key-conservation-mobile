@@ -24,7 +24,8 @@ export default class LinksScreen extends React.Component {
       headerTitleStyle: {
         textAlign: 'center',
         flexGrow: 1,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        fontFamily: 'OpenSans-SemiBold',
       },
       headerRight: <PublishButton />
     };
