@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 
-import { ListItem } from 'react-native-elements';
+import { ListItem, Icon } from 'react-native-elements';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { getProfileData } from '../../store/actions';
@@ -21,8 +21,11 @@ const Campaign = props => {
   return (
     <View style={styles.container}>
       <ListItem
-        onPress={() => handlePress(users_id)}
-        title={props.data.username}
+        onPress={() => handlePress(users_id)}        
+        title={
+          <View>
+            <Text style={styles.orgTitleView}>{props.data.username}</Text>
+          </View>}
         leftAvatar={{ source: { uri: props.data.profile_image } }}
         subtitle={props.data.location}
       />
@@ -33,14 +36,14 @@ const Campaign = props => {
           style={styles.campImgContain}
         />
       </View>
-      <View style={styles.campDesc}>
-        <Text style={styles.campDescUsername}>{props.data.username}</Text>
-        <Text>{props.data.camp_desc}</Text>
+      <View style={styles.campDesc}>        
+           
+        <Text><Text style={styles.campDescUsername}>{props.data.username}</Text> {props.data.camp_desc}</Text>        
       </View>
       <View>
-        <View>
-          <Text>Icon</Text>
-          <Text>Support Our Mission</Text>
+        <View style={styles.campMission}>
+          <Icon type='font-awesome' name='rocket' style={styles.campIcon}>Icon</Icon>
+          <Text style={styles.campMissionText}>Support Our Mission</Text>
         </View>
         <View style={styles.donateButton}>
           <TouchableOpacity

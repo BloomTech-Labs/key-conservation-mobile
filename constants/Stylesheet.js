@@ -21,7 +21,8 @@ export default {
     flexWrap: 'wrap',
     flexDirection: 'row',
     marginLeft: 15,
-    paddingTop: 15
+    paddingTop: 15,
+    marginRight: 15
   },
   campDescUsername: {
     fontWeight: 'bold',
@@ -59,8 +60,26 @@ export default {
     color: '#fff',
     height: 32,
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: 14,
     paddingTop: 7,
+  },
+  orgTitleView: {
+    fontWeight: 'bold',
+  },
+  // campIcon: {
+  //   width: '50%'
+  // },
+  campMissionText: {
+     fontSize: 14,
+     paddingLeft: 10,
+  },
+  campMission: {
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent:'center',
+    fontSize: 14,
+    marginTop: 20,
   },
   // # End of Campaign.js Styles # //
 
