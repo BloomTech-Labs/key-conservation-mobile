@@ -1,13 +1,11 @@
 import React from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
 
-const EditButton = props => {
-  const { navigation } = props;
+const PublishButton = props => {
+  //const { navigation } = props;
   return (
     <TouchableOpacity
-      onPress={() => {
-        navigation.navigate(props.editRoute);
-      }}
+      //onPress={}
       style={{ padding: 18 }}
     >
       <View
@@ -24,11 +22,11 @@ const EditButton = props => {
             color: '#fff'
           }}
         >
-          Edit
+          Publish
         </Text>
       </View>
     </TouchableOpacity>
   );
 };
 
-export default EditButton;
+export default PublishButton;

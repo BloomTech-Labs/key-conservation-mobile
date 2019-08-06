@@ -43,10 +43,12 @@ async function loadResourcesAsync() {
       require('./assets/images/keyFullBlack.png')
     ]),
     Font.loadAsync({
-      ...Ionicons.font,
-      'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
-      ArchivoNarrow: require('./assets/fonts/Archivo_Narrow/ArchivoNarrow-Regular.ttf'),
-      Lato: require('./assets/fonts/Lato/Lato-Regular.ttf')
+      //...Ionicons.font,
+      //'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+      //ArchivoNarrow: require('./assets/fonts/Open_Sans/Open_Sans-Regular.ttf'),
+      //Lato: require('./assets/fonts/Lato/Lato-Regular.ttf')
+      'OpenSans-Regular': require('./assets/fonts/Open_Sans/OpenSans-Regular.ttf'),
+      'OpenSans-SemiBold': require('./assets/fonts/Open_Sans/OpenSans-SemiBold.ttf')
     })
   ]);
 }

@@ -23,7 +23,7 @@ const ProfileHeader = props => {
             null ? {} : { borderBottomColor: '#00FF9D', borderBottomWidth: 2 }
           ]}
         >
-          <View style={[styles.ButtonStyle, styles.LeftButtonStyle]}>
+          <View style={styles.ButtonStyle}>
             <Text style={styles.CampaignButton}>Campaigns</Text>
           </View>
         </TouchableOpacity>
@@ -34,7 +34,7 @@ const ProfileHeader = props => {
             props.navigation.navigate(props.myProfile ? 'MyDetail' : 'Detail')
           }
         >
-          <View style={[styles.ButtonStyle, styles.RightButtonStyle]}>
+          <View style={styles.ButtonStyle}>
             <Text style={styles.DetailButton}>Details</Text>
           </View>
         </TouchableOpacity>
@@ -68,9 +68,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    backgroundColor: '#eee',
+    backgroundColor: '#e1e8ed',
     paddingTop: 50,
-
     flexWrap: 'wrap'
   },
   bioContainer: {
@@ -116,12 +115,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     flex: 1
   },
-  LeftButtonStyle: {
-    borderRightWidth: 1
-  },
-  RightButtonStyle: {
-    borderLeftWidth: 1
-  },
+
   CampaignButton: {
     fontSize: 18,
     color: '#000',

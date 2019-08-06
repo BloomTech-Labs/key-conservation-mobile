@@ -6,8 +6,8 @@ import FormScreen from '../screens/FormScreen';
 
 export default createAppContainer(
   createSwitchNavigator({
-    Login: LoginStack,
-    CreateAccount: FormScreen,
+    //Login: LoginStack,
+    //CreateAccount: FormScreen,
     Conservationist: TabNavigator,
     Supporter: NoTabNavigator
   })
