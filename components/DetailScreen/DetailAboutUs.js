@@ -26,7 +26,7 @@ const DetailAboutUs = props => {
               height='25'
               source={require('../../assets/icons/clipboard.svg')}
             />
-            <Text style={styles.title}>{'  About Us'}</Text>
+            <Text style={styles.title}>{'About Us'}</Text>
           </View>
           <Text style={styles.body}>{profile.about_us}</Text>
         </View>
@@ -38,9 +38,7 @@ const DetailAboutUs = props => {
               height='25'
               source={require('../../assets/icons/seedling.svg')}
             />
-            <Text style={styles.title}>
-              {'  Species & Habitats we work with'}
-            </Text>
+            <Text style={styles.title}>{'Species & Habitats'}</Text>
           </View>
           <View style={styles.body}>
             <Text>{profile.species_and_habitats}</Text>
@@ -54,7 +52,7 @@ const DetailAboutUs = props => {
               height='25'
               source={require('../../assets/icons/lightbulb.svg')}
             />
-            <Text style={styles.title}>{'  Big Issues'}</Text>
+            <Text style={styles.title}>{'Big Issues'}</Text>
           </View>
           <View style={styles.body}>
             <Text>{profile.issues}</Text>
@@ -67,7 +65,7 @@ const DetailAboutUs = props => {
               height='25'
               source={require('../../assets/icons/hand.svg')}
             />
-            <Text style={styles.title}>{'  Support Our Mission'}</Text>
+            <Text style={styles.title}>{'Support Our Mission'}</Text>
           </View>
           <View style={styles.body}>
             <Text>{profile.support_us}</Text>
