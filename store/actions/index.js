@@ -50,6 +50,7 @@ export const getProfileData = (
   return axios
     .get(url)
     .then(res => {
+      console.log("USER", res.data.user)
       user = res.data.user;
       dispatch({ type: GET_PROFILE_SUCCESS, payload: { user, myProfile } });
     })
@@ -69,8 +70,7 @@ export const editProfileData = (id, changes) => async dispatch => {
   return axios
     .put(`https://key-conservation-staging.herokuapp.com/api/users/${id}`, changes)
     .then(res => {
-      user = res.data.editUser;
-      dispatch({ type: EDIT_PROFILE_SUCCESS, payload: { user } });
+      dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.editUser });
     })
     .catch(err => {
       dispatch({ type: EDIT_PROFILE_ERROR, payload: err });

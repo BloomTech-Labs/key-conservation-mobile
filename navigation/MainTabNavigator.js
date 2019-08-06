@@ -40,7 +40,7 @@ const FeedStack = createStackNavigator(
       }
     },
     Detail: {
-      screen: MyDetailScreen, // not being used
+      screen: DetailScreen,
       navigationOptions: {
         title: 'Details',
         headerTintColor: '#fff',
@@ -65,7 +65,12 @@ const FeedStack = createStackNavigator(
           type='font-awesome'
         />
       )
-    }
+    },
+    transitionConfig: () => ({
+      transitionSpec: {
+        duration: 0,
+      }
+    })
   }
 );
 
@@ -149,7 +154,7 @@ export const TabNavigator = createBottomTabNavigator(
     FeedStack: { screen: FeedStack, path: '' },
     CreateCampStack: { screen: CreateCampStack, path: '' },
     MyProStack: { screen: MyProStack, path: '' }
-    //FormStack: { screen: FormStack, path: '' }
+    // FormStack: { screen: FormStack, path: '' }
   },
   {
     tabBarOptions: {

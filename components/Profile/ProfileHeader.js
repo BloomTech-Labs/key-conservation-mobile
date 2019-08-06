@@ -31,7 +31,10 @@ const ProfileHeader = props => {
         <TouchableOpacity
           style={styles.TouchableOpacity}
           onPress={() =>
-            props.navigation.navigate(props.myProfile ? 'MyDetail' : 'Detail')
+            {
+              console.log(props.myProfile);
+              props.navigation.navigate(props.myProfile ? 'MyDetail' : 'Detail')
+            }
           }
         >
           <View style={styles.ButtonStyle}>
@@ -50,7 +53,7 @@ const ProfileHeader = props => {
         <View style={styles.textContainer}>
           <Text style={styles.org}>{profile.org_name}</Text>
           <Text style={styles.location}>{profile.location}</Text>
-          <Text style={styles.social}>{profile.email}</Text>
+          <Text style={styles.social}>{profile.org_link_text}</Text>
         </View>
         <View style={styles.bioContainer}>
           <Text style={{ textAlign: 'left', width: 300 }}>

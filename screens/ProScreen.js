@@ -24,7 +24,7 @@ const ProScreen = props => {
 
   return (
     <ScrollView>
-      <ProfileHeader navigation={navigation} profile={selectedProfile} />
+      <ProfileHeader navigation={navigation} profile={selectedProfile} myProfile={false} />
       <View />
       <View>
         {selectedProfile.campaigns.map(campaign => {
