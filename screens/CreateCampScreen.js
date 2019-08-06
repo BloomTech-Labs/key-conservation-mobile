@@ -2,6 +2,7 @@ import React from 'react';
 import {
   ScrollView,
   StyleSheet,
+  TextInput,
   Text,
   View,
   TouchableOpacity,
@@ -11,12 +12,16 @@ import {
 
 import { Input } from 'react-native-elements';
 
+import { connect } from 'react-redux';
+
+import { postCampaign, getCampaigns } from '../store/actions'
+
 import PublishButton from '../components/PublishButton';
 
-export default class LinksScreen extends React.Component {
+class CreateCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Create Campaign',
+      title: 'New Campaign',
       headerStyle: {
         backgroundColor: '#323338'
       },
@@ -27,75 +32,133 @@ export default class LinksScreen extends React.Component {
         alignSelf: 'center',
         fontFamily: 'OpenSans-SemiBold',
       },
-      headerRight: <PublishButton />
+      headerRight: <PublishButton navigation={navigation} pressAction={navigation.getParam('publish')} />
     };
   };
+  
+  state = {
+    users_id: this.props.currentUserProfile.id,
+    camp_img: "",
+    camp_name: "",
+    camp_desc: "",
+    camp_cta: ""
+  };
+
+  componentDidMount() {
+    this.props.navigation.setParams({ publish: this.publish });
+  }
+
+  publish = async () => {
+    if (
+      !this.state.camp_img ||
+      !this.state.camp_name ||
+      !this.state.camp_desc ||
+      !this.state.camp_cta
+    ) {
+      return
+    } else {
+      await this.props.postCampaign(this.state);
+      await this.props.getCampaigns()
+      this.props.navigation.navigate('Home'); 
+    }
+  }
+
+
 
   render() {
     return (
       <KeyboardAvoidingView
         behavior='height'
-        keyboardVerticalOffset={165}
+        keyboardVerticalOffset={86}
         enabled
       >
-        <View>
-          <ScrollView
+
+      <ScrollView
             contentContainerStyle={{
-              backgroundColor: '#F2F2FB',
+              backgroundColor: '#fff',
               minHeight: '100%'
             }}
-          >
-            <View style={styles.camera}>
-              <TouchableOpacity style={styles.TouchableOpacity}>
-                <Text style={styles.CameraContainerButton}>Photo</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.TouchableOpacity}>
-                <Text style={styles.CameraContainerButton}>Library</Text>
-              </TouchableOpacity>
-            </View>
+          >            
             <View style={styles.sectionContainer}>
-              <View style={styles.Card}>
-                <Input
-                  inputContainerStyle={styles.inputContain}
-                  shake={true}
-                  placeholder='Campaign Name:'
-                />
-                <Input
-                  inputContainerStyle={styles.inputContain}
-                  shake={true}
-                  placeholder='Campaign Image URL:'
-                />
-                <Input
-                  inputContainerStyle={styles.inputContain}
-                  shake={true}
-                  placeholder='Campaign Details:'
-                />
-                <Input
-                  inputContainerStyle={styles.inputContain}
-                  shake={true}
-                  placeholder='Donation Link:'
-                />
-                <Input
-                  inputContainerStyle={styles.inputContain}
-                  shake={true}
-                  placeholder='Donation Message:'
-                />
+              
+              <View style={styles.sections}>
+                <Text style={styles.sectionsText}>Campaign Name</Text>
+                <TextInput
+                  ref={(input) => { this.campNameInput = input; }}
+                  returnKeyType='next'
+                  placeholder='Koala In Need!'
+                  style={styles.inputContain}
+                  onChangeText={text => this.setState({ camp_name: text })}
+                  onSubmitEditing={() => {
+                    if (Platform.OS === 'android') return;
+                    this.campImgUrlInput.focus();
+                  }}
+                  blurOnSubmit={Platform.OS === 'android'}
+                  value={this.state.camp_name}
+                />    
               </View>
-              <View style={styles.Card}>
-                <Text style={styles.cardText}>Support our mission</Text>
-                <Input
-                  inputContainerStyle={styles.inputContain}
-                  shake={true}
-                  placeholder='Donation link here:'
-                />
+              <View style={styles.sections}>
+                <Text style={styles.sectionsText}>Campaign Image URL</Text>
+                <TextInput
+                  ref={(input) => { this.campImgUrlInput = input; }}
+                  returnKeyType='next'
+                  placeholder="https://imgur.com/gallery/iSi6jLY"
+                  style={styles.inputContain}
+                  onChangeText={text => this.setState({ camp_img: text })}
+                  onSubmitEditing={() => {
+                    if (Platform.OS === 'android') return;
+                    this.campDetailsInput.focus();
+                  }}
+                  blurOnSubmit={Platform.OS === 'android'}
+                  value={this.state.camp_img}
+                />    
+              </View>
+              
+              <View style={styles.sections}>
+                <Text style={styles.sectionsText}>Campaign Details</Text>
+                <TextInput
+                  ref={(input) => { this.campDetailsInput = input; }}
+                  returnKeyType='next'
+                  placeholder='Add campaign details and list of monetary needs.'
+                  style={styles.inputContain2}
+                  onChangeText={text => this.setState({ camp_desc: text })}
+                  
+                  multiline={true}
+                  
+                  value={this.state.camp_desc}
+                />    
+              </View>
+              
+              <View style={styles.sections}>
+                <Text style={styles.sectionsText}>Donation Link</Text>
+                <TextInput
+                  ref={(input) => { this.donationLinkInput = input; }}
+                  returnKeyType='next'
+                  placeholder='https://www.turtleibrary/donate.now.com'
+                  style={styles.inputContain}
+                  onChangeText={text => this.setState({ camp_cta: text })}                 
+                  
+                  value={this.state.camp_cta}
+                />    
+              
               </View>
             </View>
           </ScrollView>
-        </View>
+        
       </KeyboardAvoidingView>
     );
   }
 }
+
+
+const mapStateToProps = state => ({
+  currentUserProfile: state.currentUserProfile,
+});
+
+export default connect(
+  mapStateToProps,
+  { postCampaign, getCampaigns }
+)(CreateCampScreen);
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -107,7 +170,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: '#fff',
-    borderBottomColor: 'whitesmoke',
+    borderBottomColor: '#f5f5f5',
     paddingLeft: 10,
     paddingRight: 10,
     height: 75
@@ -142,10 +205,23 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   inputContain: {
+    height: 48,
     borderWidth: 2,
     borderColor: '#C4C4C4',
     padding: 5,
-    borderRadius: 3
+    borderRadius: 5,
+    fontSize: 20,
+    marginBottom: 25,
+  },
+  inputContain2: {
+    height: 140,
+    borderWidth: 2,
+    borderColor: '#C4C4C4',
+    padding: 5,
+    borderRadius: 5,
+    fontSize: 20,
+    marginBottom: 25,
+    textAlignVertical: 'top'
   },
   Card: {
     marginTop: 20,
@@ -162,5 +238,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: 'center',
     fontSize: 13
-  }
+  },
+  sectionsText: {
+    fontFamily: 'OpenSans-SemiBold',
+    fontSize: 20, 
+    marginBottom: 5,
+  },
 });

@@ -179,6 +179,28 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, getCampaigns: false },
         error: action.payload
       };
+    case POST_CAMPAIGN_START:
+      return {
+        ...state,
+        pending: { ...state.pending, postCampaign: true },
+        error: ""
+      };
+    case POST_CAMPAIGN_SUCCESS:
+      return {
+        ...state,
+        pending: { ...state.pending, postCampaign: false },
+        currentUserProfile: {
+          ...state.currentUserProfile, campaigns: [
+            ...state.currentUserProfile.campaigns, action.payload
+          ]
+        }
+      };
+    case POST_CAMPAIGN_ERROR:
+      return {
+        ...state,
+        pending: { ...state.pending, postCampaign: false },
+        error: action.payload
+      };
     default:
       return state;
   }

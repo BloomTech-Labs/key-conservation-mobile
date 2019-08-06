@@ -10,7 +10,6 @@ import CreateCampScreen from '../screens/CreateCampScreen';
 import ProScreen from '../screens/ProScreen';
 import MyProScreen from '../screens/MyProScreen';
 import EditProScreen from '../screens/EditProScreen';
-import CampScreen from '../screens/CampScreen';
 import DetailScreen from '../screens/DetailScreen';
 import MyDetailScreen from '../screens/MyDetailScreen';
 import EditDetailScreen from '../screens/EditDetailScreen';
@@ -109,8 +108,7 @@ const MyProStack = createStackNavigator(
     EditDetail: {
       screen: EditDetailScreen,
       navigationOptions: { title: 'Edit Details' }
-    },
-    Campaign: CampScreen
+    }
   },
   {
     transitionConfig: () => ({
@@ -165,7 +163,6 @@ export const TabNavigator = createBottomTabNavigator(
     FeedStack: { screen: FeedStack, path: '' },
     CreateCampStack: { screen: CreateCampStack, path: '' },
     MyProStack: { screen: MyProStack, path: '' }
-    // FormStack: { screen: FormStack, path: '' }
   },
   {
     tabBarOptions: {

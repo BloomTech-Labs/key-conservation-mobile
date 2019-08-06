@@ -1,14 +1,7 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { TouchableOpacity, View, Text } from 'react-native';
 
-import { editProfileData } from '../store/actions';
-
 const DoneButton = props => {
-  const { id } = useSelector(state => state.currentUserProfile);
-  const { navigation } = props;
-  const dispatch = useDispatch();
-  const changes = props.changes;
   return (
     <TouchableOpacity
       onPress={props.pressAction}

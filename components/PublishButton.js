@@ -2,10 +2,9 @@ import React from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
 
 const PublishButton = props => {
-  //const { navigation } = props;
   return (
     <TouchableOpacity
-      //onPress={}
+      onPress={props.pressAction}
       style={{ padding: 18 }}
     >
       <View
