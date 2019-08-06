@@ -1,9 +1,9 @@
-import React from 'react';
-import { Platform } from 'react-native';
+import React from "react";
+import { Platform } from "react-native";
 import {
   createStackNavigator,
   createBottomTabNavigator
-} from 'react-navigation';
+} from "react-navigation";
 
 import FeedScreen from '../screens/FeedScreen';
 import CreateCampScreen from '../screens/CreateCampScreen';
@@ -15,7 +15,7 @@ import DetailScreen from '../screens/DetailScreen';
 import MyDetailScreen from '../screens/MyDetailScreen';
 import EditDetailScreen from '../screens/EditDetailScreen';
 import LoginScreen from '../screens/LoginScreen';
-import FormScreen from '../screens/FormScreen';
+import UsernameScreen from "../screens/UsernameScreen";
 
 import EditButton from '../components/EditButton';
 
@@ -57,7 +57,7 @@ const FeedStack = createStackNavigator(
   },
   {
     navigationOptions: {
-      tabBarLabel: 'Feed',
+      tabBarLabel: "Feed",
       tabBarIcon: ({ focused }) => (
         <Icon
           color={focused ? '#00FF9D' : 'black'}
@@ -83,22 +83,6 @@ const CreateCampStack = createStackNavigator(
       tabBarIcon: ({ focused }) => (
         <Icon
           name='plus'
-          color={focused ? '#00FF9D' : 'black'}
-          type='font-awesome'
-        />
-      )
-    }
-  }
-);
-
-const FormStack = createStackNavigator(
-  { Form: FormScreen },
-  {
-    navigationOptions: {
-      tabBarLabel: 'Form',
-      tabBarIcon: ({ focused }) => (
-        <Icon
-          name='heartbeat'
           color={focused ? '#00FF9D' : 'black'}
           type='font-awesome'
         />
@@ -140,10 +124,28 @@ const MyProStack = createStackNavigator(
   }
 );
 
+export const UsernameStack = createStackNavigator({
+  Username: {
+    screen: UsernameScreen,
+
+    navigationOptions: {
+      title: "Sign Up",
+      headerTitleStyle: {
+        flex: 1,
+        textAlign: "center",
+        color: "white"
+      },
+      headerStyle: {
+        backgroundColor: "#323338"
+      }
+    }
+  }
+});
+
 export const LoginStack = createStackNavigator(
   { Login: LoginScreen },
   {
-    headerMode: 'none'
+    headerMode: "none"
   }
 );
 
@@ -163,12 +165,12 @@ export const TabNavigator = createBottomTabNavigator(
 
 export const NoTabNavigator = createStackNavigator(
   {
-    FeedStack: { screen: FeedStack, path: '' },
-    CreateCampStack: { screen: CreateCampStack, path: '' },
-    MyProStack: { screen: MyProStack, path: '' },
-    LoginStack: { screen: LoginStack, path: '' }
+    FeedStack: { screen: FeedStack, path: "" },
+    CreateCampStack: { screen: CreateCampStack, path: "" },
+    MyProStack: { screen: MyProStack, path: "" },
+    LoginStack: { screen: LoginStack, path: "" }
   },
   {
-    headerMode: 'none'
+    headerMode: "none"
   }
 );
