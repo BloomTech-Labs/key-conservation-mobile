@@ -11,7 +11,8 @@ export default {
   },
   donateButton: {
     width: '60%',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    
   },
   listItem: {
     color: 'black',
@@ -32,10 +33,11 @@ export default {
     paddingTop: 25,
     paddingBottom: 25,
     width: '100%',
-    height: 50
+    height: 50,
+   
   },
   touchableView: {
-    backgroundColor: '#00ff9d',
+    backgroundColor: '#00FF9D',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,

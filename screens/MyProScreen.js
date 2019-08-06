@@ -8,7 +8,10 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
-import { Avatar, Icon, ListItem } from 'react-native-elements';
+
+import { Icon, ListItem } from 'react-native-elements';
+
+import SvgUri from 'react-native-svg-uri';
 
 import { getProfileData } from '../store/actions';
 
@@ -57,7 +60,11 @@ class MyProScreen extends React.Component {
                   leftAvatar={{ source: { uri: campaign.camp_img } }}
                   subtitle={campaign.location}
                   rightIcon={
-                    <Icon name='ellipsis-v' type='font-awesome' color='black' />
+                    <SvgUri
+                      width='25'
+                      height='25'
+                      source={require('../assets/icons/ellipsis-vertical.svg')}
+                    />
                   }
                 />
               );

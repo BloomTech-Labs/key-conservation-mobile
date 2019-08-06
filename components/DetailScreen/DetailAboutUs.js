@@ -9,7 +9,9 @@ import {
 
 import * as WebBrowser from 'expo-web-browser';
 
-import { Icon, ListItem } from 'react-native-elements';
+import { Icon, Image } from 'react-native-elements';
+
+import SvgUri from 'react-native-svg-uri';
 
 const DetailAboutUs = props => {
   let profile = props.profile;
@@ -19,18 +21,24 @@ const DetailAboutUs = props => {
       <View style={styles.container}>
         <View style={styles.sections}>
           <View style={styles.iconWrap}>
-            <Icon type='font-awesome' name='list' />
-            <Text style={styles.title}>{'  About Us'}</Text>
+            <SvgUri
+              width='25'
+              height='25'
+              source={require('../../assets/icons/clipboard.svg')}
+            />
+            <Text style={styles.title}>{'About Us'}</Text>
           </View>
           <Text style={styles.body}>{profile.about_us}</Text>
         </View>
 
         <View style={styles.sections}>
           <View style={styles.iconWrap}>
-            <Icon type='font-awesome' name='leaf' />
-            <Text style={styles.title}>
-              {'  Species & Habitats we work with'}
-            </Text>
+            <SvgUri
+              width='25'
+              height='25'
+              source={require('../../assets/icons/seedling.svg')}
+            />
+            <Text style={styles.title}>{'Species & Habitats'}</Text>
           </View>
           <View style={styles.body}>
             <Text>{profile.species_and_habitats}</Text>
@@ -39,8 +47,12 @@ const DetailAboutUs = props => {
 
         <View style={styles.sections}>
           <View style={styles.iconWrap}>
-            <Icon type='font-awesome' name='leaf' />
-            <Text style={styles.title}>{'  Big Issues'}</Text>
+            <SvgUri
+              width='25'
+              height='25'
+              source={require('../../assets/icons/lightbulb.svg')}
+            />
+            <Text style={styles.title}>{'Big Issues'}</Text>
           </View>
           <View style={styles.body}>
             <Text>{profile.issues}</Text>
@@ -48,8 +60,12 @@ const DetailAboutUs = props => {
         </View>
         <View style={styles.sections}>
           <View style={styles.iconWrap}>
-            <Icon type='font-awesome' name='rocket' />
-            <Text style={styles.title}>{'  Support Our Mission'}</Text>
+            <SvgUri
+              width='25'
+              height='25'
+              source={require('../../assets/icons/hand.svg')}
+            />
+            <Text style={styles.title}>{'Support Our Mission'}</Text>
           </View>
           <View style={styles.body}>
             <Text>{profile.support_us}</Text>
@@ -113,12 +129,12 @@ const styles = StyleSheet.create({
   },
   iconWrap: {
     flexWrap: 'wrap',
+    alignItems: 'center',
     flexDirection: 'row',
-    alignItems: 'baseline',
     borderBottomColor: '#eee',
     borderBottomWidth: 1,
     marginBottom: 2,
-    paddingBottom: 10
+    paddingBottom: 20
   },
   sections: {
     marginTop: 20,
@@ -126,7 +142,7 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 25
   },
-  title: { fontSize: 18 },
+  title: { fontSize: 18, alignSelf: 'center', marginLeft: 10 },
   donateButton: {
     alignItems: 'center',
     width: '100%'

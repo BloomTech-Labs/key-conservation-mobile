@@ -19,7 +19,7 @@ import UsernameScreen from "../screens/UsernameScreen";
 
 import EditButton from '../components/EditButton';
 
-import { Icon } from 'react-native-elements';
+import SvgUri from 'react-native-svg-uri';
 
 const FeedStack = createStackNavigator(
   {
@@ -59,10 +59,14 @@ const FeedStack = createStackNavigator(
     navigationOptions: {
       tabBarLabel: "Feed",
       tabBarIcon: ({ focused }) => (
-        <Icon
-          color={focused ? '#00FF9D' : 'black'}
-          name='home'
-          type='font-awesome'
+        <SvgUri
+          width='25'
+          height='25'
+          source={
+            focused
+              ? require('../assets/icons/home-fill.svg')
+              : require('../assets/icons/home.svg')
+          }
         />
       )
     },
@@ -81,15 +85,41 @@ const CreateCampStack = createStackNavigator(
       headerLeft: null,
       tabBarLabel: 'Create Campaign',
       tabBarIcon: ({ focused }) => (
-        <Icon
-          name='plus'
-          color={focused ? '#00FF9D' : 'black'}
-          type='font-awesome'
+        <SvgUri
+          width='25'
+          height='25'
+          source={
+            focused
+              ? require('../assets/icons/plus-fill.svg')
+              : require('../assets/icons/plus.svg')
+          }
         />
       )
     }
   }
 );
+
+
+const FormStack = createStackNavigator(
+  { Form: FormScreen },
+  {
+    navigationOptions: {
+      tabBarLabel: 'Form',
+      tabBarIcon: ({ focused }) => (
+        <SvgUri
+          width='25'
+          height='25'
+          source={
+            focused
+              ? require('../assets/icons/plus-fill.svg')
+              : require('../assets/icons/plus.svg')
+          }
+        />
+      )
+    }
+  }
+);
+
 
 const MyProStack = createStackNavigator(
   {
@@ -114,10 +144,14 @@ const MyProStack = createStackNavigator(
     navigationOptions: {
       tabBarLabel: 'My Profile',
       tabBarIcon: ({ focused }) => (
-        <Icon
-          name='user'
-          color={focused ? '#00FF9D' : 'black'}
-          type='font-awesome'
+        <SvgUri
+          width='25'
+          height='25'
+          source={
+            focused
+              ? require('../assets/icons/user-fill.svg')
+              : require('../assets/icons/user.svg')
+          }
         />
       )
     }
