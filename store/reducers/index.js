@@ -24,7 +24,7 @@ import {
 } from "../actions";
 
 const initialState = {
-  error: '',
+  error: "",
   pending: {
     updateProfile: false
   },
@@ -86,7 +86,7 @@ const reducer = (state = initialState, action) => {
         error: ""
       };
     case GET_PROFILE_SUCCESS:
-      console.log(action.payload.user)
+      console.log(action.payload.user);
       if (action.payload.myProfile) {
         return {
           ...state,
@@ -110,7 +110,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, updateProfile: true },
-        error: ''
+        error: ""
       };
     case EDIT_PROFILE_SUCCESS:
       return {
@@ -136,7 +136,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, postUser: false },
-        currentUserProfile: action.payload
+        currentUserProfile: action.payload,
+        error: ""
       };
     case POST_USER_ERROR:
       return {
