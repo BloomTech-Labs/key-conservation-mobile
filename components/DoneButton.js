@@ -5,7 +5,7 @@ import { TouchableOpacity, View, Text } from 'react-native';
 import { editProfileData } from '../store/actions';
 
 const DoneButton = props => {
-  const { id } = useSelector(state => state.currentUser);
+  const { id } = useSelector(state => state.currentUserProfile);
   const { navigation } = props;
   const dispatch = useDispatch();
   const changes = props.changes;
@@ -25,7 +25,8 @@ const DoneButton = props => {
         <Text
           style={{
             color: '#fff',
-            fontSize: 17
+            fontSize: 17,
+            fontFamily: 'OpenSans-Regular'
           }}
         >
           Done

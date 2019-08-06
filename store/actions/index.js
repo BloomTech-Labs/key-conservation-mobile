@@ -69,6 +69,7 @@ export const editProfileData = (id, changes) => async dispatch => {
   return axios
     .put(`https://key-conservation-staging.herokuapp.com/api/users/${id}`, changes)
     .then(res => {
+      console.log(res)
       dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.editUser });
     })
     .catch(err => {

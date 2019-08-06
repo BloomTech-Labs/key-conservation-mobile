@@ -98,8 +98,6 @@ const CreateCampStack = createStackNavigator(
     }
   }
 );
-
-
 const MyProStack = createStackNavigator(
   {
     MyPro: { screen: MyProScreen },

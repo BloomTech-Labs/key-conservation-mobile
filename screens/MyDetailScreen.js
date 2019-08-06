@@ -26,7 +26,8 @@ class MyDetailsScreen extends React.Component {
       headerTitleStyle: {
         textAlign: 'center',
         flexGrow: 1,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        fontFamily: 'OpenSans-SemiBold',
       },
       headerRight: (
         <EditButton navigation={navigation} editRoute={'EditDetail'} />
@@ -53,7 +54,6 @@ class MyDetailsScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.currentUser,
   currentUserProfile: state.currentUserProfile
 });
 
