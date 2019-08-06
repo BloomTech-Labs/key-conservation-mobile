@@ -45,7 +45,8 @@ class EditProScreen extends React.Component {
   }
   
   done = () => {
-    this.props.editProfileData(this.props.currentUser.id, this.state);
+    console.log(this.props.currentUserProfile.id)
+    this.props.editProfileData(this.props.currentUserProfile.id, this.state);
     this.props.navigation.goBack(); 
   }
 

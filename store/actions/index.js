@@ -50,7 +50,6 @@ export const getProfileData = (
   return axios
     .get(url)
     .then(res => {
-      console.log("USER", res.data.user)
       user = res.data.user;
       dispatch({ type: GET_PROFILE_SUCCESS, payload: { user, myProfile } });
     })

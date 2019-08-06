@@ -34,7 +34,6 @@ const initialState = {
     role: "",
     email: "",
     username: "",
-    accountInfo: [],
     token: ""
   },
   currentUserProfile: {
@@ -87,6 +86,7 @@ const reducer = (state = initialState, action) => {
         error: ""
       };
     case GET_PROFILE_SUCCESS:
+      console.log(action.payload.user)
       if (action.payload.myProfile) {
         return {
           ...state,
@@ -136,10 +136,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, postUser: false },
-        currentUser: {
-          ...state.currentUser,
-          accountInfo: action.payload
-        }
+        currentUserProfile: action.payload
       };
     case POST_USER_ERROR:
       return {
