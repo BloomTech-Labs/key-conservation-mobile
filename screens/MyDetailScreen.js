@@ -19,20 +19,9 @@ class MyDetailsScreen extends React.Component {
     return {
       title: 'My Details',
       headerLeft: null,
-      headerStyle: {
-        backgroundColor: '#323338'
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        textAlign: 'center',
-        flexGrow: 1,
-        alignSelf: 'center'
-      },
-      headerRight: (
-        <EditButton navigation={navigation} editRoute={'EditDetail'} />
-      )
+      headerRight: <EditButton navigation={navigation} editRoute={'EditDetail'} />
     };
-  };
+  }
 
   render() {
     return (
@@ -49,15 +38,17 @@ class MyDetailsScreen extends React.Component {
         />
       </ScrollView>
     );
-  }
-}
+  };
+};
 
 const mapStateToProps = state => ({
   currentUser: state.currentUser,
   currentUserProfile: state.currentUserProfile
 });
 
-export default connect(mapStateToProps)(MyDetailsScreen);
+export default connect(
+  mapStateToProps,
+)(MyDetailsScreen);
 
 const styles = StyleSheet.create({
   header: {

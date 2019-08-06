@@ -18,27 +18,18 @@ import { postUser } from '../store/actions';
 
 class EditProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
-    console.log(this.state);
+    console.log(this.state)
     return {
       title: 'Edit Profile',
-      headerStyle: {
-        backgroundColor: '#323338'
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        textAlign: 'center',
-        flexGrow: 1,
-        alignSelf: 'center'
-      },
       headerRight: <DoneButton navigation={navigation} changes={this.state} />
     };
-  };
+  }
 
   state = {
     orgName: this.props.currentUserProfile.org_name,
     username: this.props.currentUserProfile.username,
     location: this.props.currentUserProfile.location,
-    miniBio: this.props.currentUserProfile.mini_bio
+    miniBio: this.props.currentUserProfile.mini_bio,
   };
 
   render() {
@@ -51,30 +42,26 @@ class EditProScreen extends React.Component {
         <ScrollView>
           <View style={styles.sectionContainer}>
             <View style={styles.Card} />
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Organization Name</Text>
-              <TextInput
-                ref={input => {
-                  this.orgNameInput = input;
-                }}
-                returnKeyType='next'
-                style={styles.inputContain}
-                onChangeText={text => this.setState({ orgName: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.usernameInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.orgName}
-              />
+              <View style={styles.sections}>
+                <Text style={styles.sectionsText}>Organization Name</Text>
+                <TextInput
+                  ref={(input) => { this.orgNameInput = input; }}
+                  returnKeyType='next'
+                  style={styles.inputContain}
+                  onChangeText={text => this.setState({ orgName: text })}
+                  onSubmitEditing={() => {
+                    if (Platform.OS === 'android') return;
+                    this.usernameInput.focus();
+                  }}
+                  blurOnSubmit={Platform.OS === 'android'}
+                  value={this.state.orgName}
+                />
             </View>
 
             <View style={styles.sections}>
               <Text style={styles.sectionsText}>Username</Text>
               <TextInput
-                ref={input => {
-                  this.usernameInput = input;
-                }}
+                ref={(input) => { this.usernameInput = input; }}
                 returnKeyType='next'
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ username: text })}
@@ -90,9 +77,7 @@ class EditProScreen extends React.Component {
             <View style={styles.sections}>
               <Text style={styles.sectionsText}>Location</Text>
               <TextInput
-                ref={input => {
-                  this.locationInput = input;
-                }}
+                ref={(input) => { this.locationInput = input; }}
                 returnKeyType='next'
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ location: text })}
@@ -108,9 +93,7 @@ class EditProScreen extends React.Component {
             <View style={styles.sections}>
               <Text style={styles.sectionsText}>Bio</Text>
               <TextInput
-                ref={input => {
-                  this.miniBioInput = input;
-                }}
+                ref={(input) => { this.miniBioInput = input; }}
                 returnKeyType='next'
                 style={styles.inputContain2}
                 onChangeText={text => this.setState({ miniBio: text })}
@@ -128,7 +111,7 @@ class EditProScreen extends React.Component {
 const mapStateToProps = state => ({
   error: state.error,
   currentUser: state.currentUser,
-  currentUserProfile: state.currentUserProfile
+  currentUserProfile: state.currentUserProfile,
 });
 
 export default connect(
@@ -140,14 +123,14 @@ const styles = StyleSheet.create({
   sectionContainer: {
     flexDirection: 'column',
     flexWrap: 'wrap',
-    marginLeft: 15,
-    marginRight: 15
+    marginLeft: 15, 
+    marginRight: 15,
   },
   Card: {
     marginTop: 10,
     backgroundColor: '#fff',
     width: '100%',
-    height: 20
+    height: 20,
   },
   inputContain: {
     height: 48,
@@ -156,7 +139,7 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 5,
     fontSize: 20,
-    marginBottom: 25
+    marginBottom: 25,
   },
   inputContain2: {
     height: 140,
@@ -168,7 +151,7 @@ const styles = StyleSheet.create({
     marginBottom: 25,
     textAlignVertical: 'top'
   },
-
+ 
   touchableView: {
     backgroundColor: 'black',
     alignItems: 'center',
@@ -185,11 +168,11 @@ const styles = StyleSheet.create({
   sections: {
     // marginTop: 20,
     backgroundColor: '#fff',
-    width: '100%'
+    width: '100%',    
   },
   sectionsText: {
-    fontSize: 20,
+    fontSize: 20, 
     fontWeight: 'bold',
-    marginBottom: 5
-  }
+    marginBottom: 5,
+  },
 });

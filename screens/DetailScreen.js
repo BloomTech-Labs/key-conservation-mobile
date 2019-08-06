@@ -7,6 +7,8 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+//import { withNavigation } from 'react-navigation';
+
 import { useSelector } from 'react-redux';
 
 import DetailHeader from '../components/DetailScreen/DetailHeader';

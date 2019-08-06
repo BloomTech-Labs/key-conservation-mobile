@@ -17,9 +17,9 @@ import EditDetailScreen from '../screens/EditDetailScreen';
 import LoginScreen from '../screens/LoginScreen';
 import FormScreen from '../screens/FormScreen';
 
-import EditButton from '../components/EditButton';
+import EditButton from '../components/EditButton'
 
-import SvgUri from 'react-native-svg-uri';
+import { Icon } from 'react-native-elements';
 
 const FeedStack = createStackNavigator(
   {
@@ -40,7 +40,7 @@ const FeedStack = createStackNavigator(
       }
     },
     Detail: {
-      screen: MyDetailScreen, // not being used
+      screen: DetailScreen,
       navigationOptions: {
         title: 'Details',
         headerTintColor: '#fff',
@@ -59,14 +59,10 @@ const FeedStack = createStackNavigator(
     navigationOptions: {
       tabBarLabel: 'Feed',
       tabBarIcon: ({ focused }) => (
-        <SvgUri
-          width='25'
-          height='25'
-          source={
-            focused
-              ? require('../assets/icons/home-fill.svg')
-              : require('../assets/icons/home.svg')
-          }
+        <Icon
+          color={focused ? '#00FF9D' : 'black'}
+          name='home'
+          type='font-awesome'
         />
       )
     }
@@ -80,14 +76,10 @@ const CreateCampStack = createStackNavigator(
       headerLeft: null,
       tabBarLabel: 'Create Campaign',
       tabBarIcon: ({ focused }) => (
-        <SvgUri
-          width='25'
-          height='25'
-          source={
-            focused
-              ? require('../assets/icons/plus-fill.svg')
-              : require('../assets/icons/plus.svg')
-          }
+        <Icon
+          name='plus'
+          color={focused ? '#00FF9D' : 'black'}
+          type='font-awesome'
         />
       )
     }
@@ -100,14 +92,10 @@ const FormStack = createStackNavigator(
     navigationOptions: {
       tabBarLabel: 'Form',
       tabBarIcon: ({ focused }) => (
-        <SvgUri
-          width='25'
-          height='25'
-          source={
-            focused
-              ? require('../assets/icons/plus-fill.svg')
-              : require('../assets/icons/plus.svg')
-          }
+        <Icon
+          name='heartbeat'
+          color={focused ? '#00FF9D' : 'black'}
+          type='font-awesome'
         />
       )
     }
@@ -118,15 +106,10 @@ const MyProStack = createStackNavigator(
   {
     MyPro: { screen: MyProScreen },
     MyDetail: { screen: MyDetailScreen },
-    EditPro: {
-      screen: EditProScreen,
-      navigationOptions: { title: 'Edit Profile' }
-    },
-    EditDetail: {
-      screen: EditDetailScreen,
-      navigationOptions: { title: 'Edit Details' }
-    },
+    EditPro: { screen: EditProScreen, navigationOptions: { title: 'Edit Profile' } },
+    EditDetail: { screen: EditDetailScreen, navigationOptions: { title: 'Edit Details' } },
     Campaign: CampScreen
+
   },
   {
     transitionConfig: () => ({
@@ -137,14 +120,10 @@ const MyProStack = createStackNavigator(
     navigationOptions: {
       tabBarLabel: 'My Profile',
       tabBarIcon: ({ focused }) => (
-        <SvgUri
-          width='25'
-          height='25'
-          source={
-            focused
-              ? require('../assets/icons/user-fill.svg')
-              : require('../assets/icons/user.svg')
-          }
+        <Icon
+          name='user'
+          color={focused ? '#00FF9D' : 'black'}
+          type='font-awesome'
         />
       )
     }
@@ -162,8 +141,8 @@ export const TabNavigator = createBottomTabNavigator(
   {
     FeedStack: { screen: FeedStack, path: '' },
     CreateCampStack: { screen: CreateCampStack, path: '' },
-    MyProStack: { screen: MyProStack, path: '' }
-    //FormStack: { screen: FormStack, path: '' }
+    MyProStack: { screen: MyProStack, path: '' },
+    FormStack: { screen: FormStack, path: '' }
   },
   {
     tabBarOptions: {

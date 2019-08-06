@@ -1,41 +1,42 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { TouchableOpacity, View, Text } from 'react-native';
+import  { TouchableOpacity, View, Text } from 'react-native';
 
-import { editProfileData } from '../store/actions';
+import { editProfileData } from '../store/actions'
 
 const DoneButton = props => {
-  const { id } = useSelector(state => state.currentUser);
+  const { id } = useSelector(state => state.currentUser)
   const { navigation } = props;
   const dispatch = useDispatch();
   const changes = props.changes;
   return (
-    <TouchableOpacity
-      onPress={() => {
-        dispatch(editProfileData(id, changes));
-        navigation.goBack();
-      }}
-      style={{ padding: 18 }}
-    >
-      <View
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: 5,
-          height: 35
+      <TouchableOpacity
+        onPress={() => {
+          dispatch(editProfileData(id, changes))
+          navigation.goBack()
         }}
+        style={{ padding: 18 }}
       >
-        <Text
+        <View
           style={{
-            color: '#fff',
-            fontSize: 17
+            backgroundColor: '#fff',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 5,
+            height: 35
           }}
         >
-          Done
-        </Text>
-      </View>
-    </TouchableOpacity>
-  );
-};
+          <Text
+            style={{
+              color: 'black',
+              fontSize: 17
+            }}
+          >
+            Done
+          </Text>
+        </View>
+      </TouchableOpacity>
+  )
+}
 
-export default DoneButton;
+  export default DoneButton;

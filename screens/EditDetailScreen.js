@@ -20,15 +20,6 @@ class EditDetailScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Edit Details',
-      headerStyle: {
-        backgroundColor: '#323338'
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        textAlign: 'center',
-        flexGrow: 1,
-        alignSelf: 'center'
-      },
       headerRight: <DoneButton navigation={navigation} changes={this.state} />
     };
   }
