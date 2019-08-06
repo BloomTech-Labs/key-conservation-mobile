@@ -1,8 +1,13 @@
+import { CoverageMap } from "istanbul-lib-coverage";
+
 export default {
   // # Campaign.js Styles # //
   container: {
     justifyContent: 'center',
-    marginBottom: 40
+    marginBottom: 10,
+    borderBottomWidth: 2,
+    borderBottomColor: '#eee',
+    paddingBottom: 35,
   },
   donateButton: {
     width: '60%',
@@ -29,22 +34,33 @@ export default {
     height: 50
   },
   touchableView: {
-    backgroundColor: 'black',
+    backgroundColor: '#00ff9d',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
-    height: 35
+    height: 48,
+    width: 243,
+    
   },
   touchableText: {
-    color: '#fff',
+    color: '#323338',
     textTransform: 'uppercase',
     fontWeight: 'bold',
-    letterSpacing: 2
+    letterSpacing: 2,
+    fontSize: 16
   },
   campImgContain: {
-    /* Must have a Width && Height or is won't display anything! */
-    width: '100%',
-    height: 400
+    /* Must have a Width && Height or it won't display anything! */
+    resizeMode: 'cover',
+    height: 300
+  },
+  campTitle:{
+    backgroundColor: '#323338',
+    color: '#fff',
+    height: 32,
+    textAlign: 'center',
+    fontSize: 16,
+    paddingTop: 7,
   },
   // # End of Campaign.js Styles # //
 
