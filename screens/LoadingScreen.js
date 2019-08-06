@@ -58,7 +58,7 @@ class LoadingScreen extends React.Component {
 
 const mapStateToProps = state => ({
   error: state.error,
-  userId: state.currentUser.accountInfo.id
+  userId: state.currentUserProfile.id
 });
 
 export default connect(
