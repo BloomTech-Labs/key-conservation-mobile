@@ -25,6 +25,7 @@ class LoadingScreen extends React.Component {
         console.log("data is present");
         console.log(this.props.userId);
         if (this.props.userId) {
+          this.props.getProfileData(this.props.userId, null, true)
           console.log("yes", this.props.userId);
           this.props.navigation.navigate("Conservationist");
         } else {

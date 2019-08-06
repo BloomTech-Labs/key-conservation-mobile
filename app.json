@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "burner",
+    "name": "testing",
     "slug": "react-elements",
     "privacy": "public",
     "sdkVersion": "33.0.0",
@@ -25,6 +25,7 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "making a test publish"
   }
 }

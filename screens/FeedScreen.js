@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { ScrollView, StyleSheet, Text, View, Button } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import * as SecureStorage from "expo-secure-store";
+import * as SecureStore from "expo-secure-store";
 
-import { getCampaigns } from "../store/actions";
+import { getCampaigns, logoutSuccess, logoutStart } from "../store/actions";
 
 import { Icon } from "react-native-elements";
 
@@ -25,10 +25,12 @@ function FeedScreen(props) {
       <Button
         title="LOGOUT"
         onPress={async () => {
-          await SecureStorage.deleteItemAsync("sub", {});
-          await SecureStorage.deleteItemAsync("email", {});
-          await SecureStorage.deleteItemAsync("roles", {});
-          await SecureStorage.deleteItemAsync("userId", {});
+          dispatch(logoutStart());
+          await SecureStore.deleteItemAsync("sub", {});
+          await SecureStore.deleteItemAsync("email", {});
+          await SecureStore.deleteItemAsync("roles", {});
+          await SecureStore.deleteItemAsync("userId", {});
+          dispatch(logoutSuccess());
           props.navigation.navigate("Loading");
         }}
       />

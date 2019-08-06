@@ -6,7 +6,8 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Button
 } from "react-native";
 
 import { connect } from "react-redux";
@@ -71,6 +72,16 @@ class UsernameScreen extends React.Component {
             <Text style={styles.touchableText}>Continue</Text>
           </View>
         </TouchableOpacity>
+        <Button
+          title="LOGOUT"
+          onPress={async () => {
+            await SecureStore.deleteItemAsync("sub", {});
+            await SecureStore.deleteItemAsync("email", {});
+            await SecureStore.deleteItemAsync("roles", {});
+            await SecureStore.deleteItemAsync("userId", {});
+            this.props.navigation.navigate("Loading");
+          }}
+        />
       </ScrollView>
     );
   }
