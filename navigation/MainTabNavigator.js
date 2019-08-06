@@ -92,13 +92,13 @@ const CreateCampStack = createStackNavigator(
             focused
               ? require("../assets/icons/plus-fill.svg")
               : require("../assets/icons/plus.svg")
+
           }
         />
       )
     }
   }
 );
-
 const MyProStack = createStackNavigator(
   {
     MyPro: { screen: MyProScreen },

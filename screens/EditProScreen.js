@@ -46,6 +46,7 @@ class EditProScreen extends React.Component {
   
   done = () => {
     console.log(this.props.currentUserProfile.id)
+    console.log(this.state)
     this.props.editProfileData(this.props.currentUserProfile.id, this.state);
     this.props.navigation.goBack(); 
   }
@@ -136,7 +137,6 @@ class EditProScreen extends React.Component {
 
 const mapStateToProps = state => ({
   error: state.error,
-  currentUser: state.currentUser,
   currentUserProfile: state.currentUserProfile
 });
 
@@ -197,8 +197,8 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   sectionsText: {
+    fontFamily: 'OpenSans-SemiBold',
     fontSize: 20,
-    fontWeight: 'bold',
     marginBottom: 5
   }
 });

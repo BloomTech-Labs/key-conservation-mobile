@@ -156,12 +156,14 @@ const styles = StyleSheet.create({
   CampaignButton: {
     fontSize: 18,
     color: '#C4C4C4',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: "OpenSans-SemiBold",
   },
   DetailButton: {
     fontSize: 18,
     color: 'black',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: "OpenSans-SemiBold",
   },
   SocialContainer: {
     paddingTop: 30,

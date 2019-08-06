@@ -13,6 +13,9 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { getProfileData } from '../../store/actions';
 
+import SvgUri from 'react-native-svg-uri';
+
+
 import styles from '../../constants/Stylesheet';
 
 const Campaign = props => {
@@ -33,7 +36,7 @@ const Campaign = props => {
             <Text style={styles.orgTitleView}>{props.data.username}</Text>
           </View>}
         leftAvatar={{ source: { uri: props.data.profile_image } }}
-        subtitle={props.data.location}
+        subtitle={props.data.location} 
       />
       <View>
         <Text style={styles.campTitle}>{props.data.camp_name}</Text>
@@ -48,7 +51,11 @@ const Campaign = props => {
       </View>
       <View>
         <View style={styles.campMission}>
-          <Icon type='font-awesome' name='rocket' style={styles.campIcon}>Icon</Icon>
+        <SvgUri
+              width='25'
+              height='25'
+              source={require('../../assets/icons/hand.svg')}
+            />
           <Text style={styles.campMissionText}>Support Our Mission</Text>
         </View>
         <View style={styles.donateButton}>

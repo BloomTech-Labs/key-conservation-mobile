@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   buttons: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    borderBottomColor: 'whitesmoke',
+    borderBottomColor: '#f5f5f5',
     backgroundColor: '#fff',
     shadowColor: '#000',
     shadowOffset: {
@@ -121,12 +121,15 @@ const styles = StyleSheet.create({
   CampaignButton: {
     fontSize: 18,
     color: '#000',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: "OpenSans-SemiBold",
   },
   DetailButton: {
     fontSize: 18,
     color: '#C4C4C4',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: "OpenSans-SemiBold",
+
   }
 });
 

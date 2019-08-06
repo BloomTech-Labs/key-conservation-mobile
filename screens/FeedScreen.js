@@ -60,7 +60,8 @@ FeedScreen.navigationOptions = {
   headerTitleStyle: {
     textAlign: 'center',
     flexGrow: 1,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    fontFamily: 'OpenSans-SemiBold',
   }
 };
 
