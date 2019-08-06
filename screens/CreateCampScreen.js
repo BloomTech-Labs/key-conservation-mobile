@@ -11,96 +11,90 @@ import {
 
 import { Input } from 'react-native-elements';
 
-export default function LinksScreen() {
-  return (
-    <KeyboardAvoidingView
-      behavior='height'
-      keyboardVerticalOffset={165}
-      enabled
-    >
-      <View>
-        <View style={styles.buttons}>
-          <TouchableOpacity
-            style={styles.TouchableOpacity}
-            // onPress={}
-          >
-            <View style={styles.ButtonStyle}>
-              <Text style={styles.CancelButton}>Cancel</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.TouchableOpacity}>
-            <View style={styles.ButtonStyle}>
-              <Text style={styles.PublishButton}>Publish</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <ScrollView
-          contentContainerStyle={{
-            backgroundColor: '#F2F2FB',
-            minHeight: '100%'
-          }}
-        >
-          {/* <View style={styles.buttons}>
-            <TouchableOpacity
-              style={styles.TouchableOpacity}
-              // onPress={}
-            >
-              <View style={styles.ButtonStyle}>
-                <Text style={styles.CancelButton}>Cancel</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.TouchableOpacity}>
-              <View style={styles.ButtonStyle}>
-                <Text style={styles.PublishButton}>Publish</Text>
-              </View>
-            </TouchableOpacity>
-          </View> */}
-          <View style={styles.camera}>
-            <TouchableOpacity style={styles.TouchableOpacity}>
-              <Text style={styles.CameraContainerButton}>Photo</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.TouchableOpacity}>
-              <Text style={styles.CameraContainerButton}>Library</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.sectionContainer}>
-            <View style={styles.Card}>
-              <Input
-                inputContainerStyle={styles.inputContain}
-                shake={true}
-                placeholder='Campaign Name:'
-              />
-              <Text style={styles.cardPara}>
-                Add campaign details and a list of monitary needs.
-              </Text>
-            </View>
-            <View style={styles.Card}>
-              <Text style={styles.cardText}>Support our mission</Text>
-              <Input
-                inputContainerStyle={styles.inputContain}
-                shake={true}
-                placeholder='Donation link here:'
-              />
-            </View>
-          </View>
-        </ScrollView>
-      </View>
-    </KeyboardAvoidingView>
-  );
-}
+import PublishButton from '../components/PublishButton';
 
-LinksScreen.navigationOptions = {
-  title: 'Create Campaign',
-  headerStyle: {
-    backgroundColor: '#323338'
-  },
-  headerTintColor: '#fff',
-  headerTitleStyle: {
-    textAlign: 'center',
-    flexGrow: 1,
-    alignSelf: 'center'
+export default class LinksScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Create Campaign',
+      headerStyle: {
+        backgroundColor: '#323338'
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        textAlign: 'center',
+        flexGrow: 1,
+        alignSelf: 'center'
+      },
+      headerRight: <PublishButton />
+    };
+  };
+
+  render() {
+    return (
+      <KeyboardAvoidingView
+        behavior='height'
+        keyboardVerticalOffset={165}
+        enabled
+      >
+        <View>
+          <ScrollView
+            contentContainerStyle={{
+              backgroundColor: '#F2F2FB',
+              minHeight: '100%'
+            }}
+          >
+            <View style={styles.camera}>
+              <TouchableOpacity style={styles.TouchableOpacity}>
+                <Text style={styles.CameraContainerButton}>Photo</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.TouchableOpacity}>
+                <Text style={styles.CameraContainerButton}>Library</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.sectionContainer}>
+              <View style={styles.Card}>
+                <Input
+                  inputContainerStyle={styles.inputContain}
+                  shake={true}
+                  placeholder='Campaign Name:'
+                />
+                <Input
+                  inputContainerStyle={styles.inputContain}
+                  shake={true}
+                  placeholder='Campaign Image URL:'
+                />
+                <Input
+                  inputContainerStyle={styles.inputContain}
+                  shake={true}
+                  placeholder='Campaign Details:'
+                />
+                <Input
+                  inputContainerStyle={styles.inputContain}
+                  shake={true}
+                  placeholder='Donation Link:'
+                />
+                <Input
+                  inputContainerStyle={styles.inputContain}
+                  shake={true}
+                  placeholder='Donation Message:'
+                />
+              </View>
+              <View style={styles.Card}>
+                <Text style={styles.cardText}>Support our mission</Text>
+                <Input
+                  inputContainerStyle={styles.inputContain}
+                  shake={true}
+                  placeholder='Donation link here:'
+                />
+              </View>
+            </View>
+          </ScrollView>
+        </View>
+      </KeyboardAvoidingView>
+    );
   }
-};
+}
 
 const styles = StyleSheet.create({
   sectionContainer: {

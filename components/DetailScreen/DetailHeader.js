@@ -10,7 +10,9 @@ import {
 
 import * as WebBrowser from 'expo-web-browser';
 
-import { Avatar, SocialIcon, Icon } from 'react-native-elements';
+import { Avatar, Icon, Image } from 'react-native-elements';
+
+import SvgUri from 'react-native-svg-uri';
 
 export default class DetailHeader extends Component {
   render() {
@@ -65,11 +67,10 @@ export default class DetailHeader extends Component {
                     await Linking.openURL(`mailto:${profile.email}`);
                   }}
                 >
-                  <Icon
-                    style={styles.SocialIcon}
-                    name='envelope'
-                    type='font-awesome'
-                    size={30}
+                  <SvgUri
+                    width='25'
+                    height='25'
+                    source={require('../../assets/icons/envelope.svg')}
                   />
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -77,11 +78,10 @@ export default class DetailHeader extends Component {
                     await WebBrowser.openBrowserAsync(profile.instagram)
                   }
                 >
-                  <Icon
-                    style={styles.SocialIcon}
-                    name='instagram'
-                    type='font-awesome'
-                    size={30}
+                  <SvgUri
+                    width='25'
+                    height='25'
+                    source={require('../../assets/icons/instagram.svg')}
                   />
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -89,11 +89,10 @@ export default class DetailHeader extends Component {
                     await WebBrowser.openBrowserAsync(profile.twitter)
                   }
                 >
-                  <Icon
-                    style={styles.SocialIcon}
-                    name='twitter'
-                    type='font-awesome'
-                    size={30}
+                  <SvgUri
+                    width='25'
+                    height='25'
+                    source={require('../../assets/icons/twitter.svg')}
                   />
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -101,11 +100,10 @@ export default class DetailHeader extends Component {
                     await WebBrowser.openBrowserAsync(profile.facebook)
                   }
                 >
-                  <Icon
-                    style={styles.SocialIcon}
-                    name='facebook'
-                    type='font-awesome'
-                    size={30}
+                  <SvgUri
+                    width='25'
+                    height='25'
+                    source={require('../../assets/icons/facebook.svg')}
                   />
                 </TouchableOpacity>
               </View>

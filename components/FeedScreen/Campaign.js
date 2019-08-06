@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator
+} from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 
 import { ListItem } from 'react-native-elements';
@@ -38,9 +44,7 @@ const Campaign = props => {
         <TouchableOpacity
           style={styles.touchableButton}
           onPress={async () =>
-            await WebBrowser.openBrowserAsync(
-              'https://support.nature.org/site/Donation2?12640.donation=form1&df_id=12640&src=p_g.dfa.fd.x.dtd.EGT01&set.SingleDesignee=15852&crid=EGT01&sbid=B01&suslb=no&asid=100&moncb=no&s_src=p_g.dfa.fd.x.dtd.EGT01&gclid=Cj0KCQjwvo_qBRDQARIsAE-bsH9-sROQJs2hlLZCElWEEJR2M96cf0H6oNVRWKcerwapzSYfzJb9mfAaAqv3EALw_wcB'
-            )
+            await WebBrowser.openBrowserAsync(props.data.org_link_url)
           }
         >
           <View style={styles.touchableView}>
