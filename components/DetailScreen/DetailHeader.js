@@ -56,7 +56,13 @@ export default class DetailHeader extends Component {
                   <Text style={styles.title}>{profile.org_name}</Text>
                   <Text style={styles.location}>{profile.location}</Text>
                 </View>
-                <Text>{profile.org_link_text}</Text>
+                <Text
+                  onPress={async () =>
+                    await WebBrowser.openBrowserAsync(profile.org_link_url)
+                  }
+                >
+                  {profile.org_link_url}
+                </Text>
               </View>
               <View style={styles.SocialContainer}>
                 <TouchableOpacity
@@ -154,13 +160,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#C4C4C4',
     fontWeight: 'bold',
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: 'OpenSans-SemiBold'
   },
   DetailButton: {
     fontSize: 18,
     color: 'black',
     fontWeight: 'bold',
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: 'OpenSans-SemiBold'
   },
   SocialContainer: {
     paddingTop: 30,
