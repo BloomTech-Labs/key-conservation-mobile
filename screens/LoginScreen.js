@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     height: 50,
     marginBottom: 18,
     borderRadius: 4,
-    fontFamily:  'OpenSans-Regular',
+    fontFamily: "OpenSans-Regular",
     backgroundColor: "#00FF9D",
     shadowColor: "rgba(0, 0, 0, 0.25)",
     shadowOffset: {
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   needHelpText: {
-    color: "white",
+    color: "white"
   },
   needHelpButton: {
     color: "white",

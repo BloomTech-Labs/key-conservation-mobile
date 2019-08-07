@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "Key Conservation",
-    "slug": "react-elements",
-    "privacy": "public",
+    "slug": "key-conservation",
+    "privacy": "unlisted",
     "sdkVersion": "33.0.0",
     "platforms": [
       "ios",
@@ -11,7 +11,7 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/keyFullBlack.png",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
@@ -25,6 +25,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "The Key Conservation App",
+    "githubUrl": "https://github.com/labs14-key-conservation/Frontend-Mobile"
   }
 }
