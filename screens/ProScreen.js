@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import {
-  ScrollView,
   StyleSheet,
   View,
   Text,
   Button,
   TouchableOpacity
 } from 'react-native';
-
+import { ScrollView } from "react-navigation";
 import { useSelector, useDispatch } from 'react-redux';
 
 import { getProfileData } from '../store/actions';

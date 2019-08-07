@@ -15,10 +15,7 @@ import MyDetailScreen from '../screens/MyDetailScreen';
 import EditDetailScreen from '../screens/EditDetailScreen';
 import LoginScreen from '../screens/LoginScreen';
 import UsernameScreen from "../screens/UsernameScreen";
-
-import EditButton from "../components/EditButton";
-
-import SvgUri from "react-native-svg-uri";
+import SvgUri from 'react-native-svg-uri';
 
 const FeedStack = createStackNavigator(
   {
@@ -161,7 +158,16 @@ export const LoginStack = createStackNavigator(
 
 export const TabNavigator = createBottomTabNavigator(
   {
-    FeedStack: { screen: FeedStack, path: '' },
+    FeedStack: {
+      screen: FeedStack,
+      path: '',
+      navigationOptions: {
+        tabBarOnPress: ({ navigation, defaultHandler }) => {
+          navigation.navigate('Home'),
+          defaultHandler();
+        }
+      }
+    },
     CreateCampStack: { screen: CreateCampStack, path: '' },
     MyProStack: { screen: MyProStack, path: '' }
   },
@@ -176,8 +182,7 @@ export const NoTabNavigator = createStackNavigator(
   {
     FeedStack: { screen: FeedStack, path: "" },
     CreateCampStack: { screen: CreateCampStack, path: "" },
-    MyProStack: { screen: MyProStack, path: "" },
-    LoginStack: { screen: LoginStack, path: "" }
+    MyProStack: { screen: MyProStack, path: "" }
   },
   {
     headerMode: "none"

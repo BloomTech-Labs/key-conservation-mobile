@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  ScrollView,
   StyleSheet,
   View,
   Text,
@@ -8,7 +7,7 @@ import {
   TouchableOpacity,
   Platform
 } from 'react-native';
-
+import { ScrollView } from "react-navigation";
 import { Avatar, Icon } from 'react-native-elements';
 
 const ProfileHeader = props => {

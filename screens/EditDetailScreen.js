@@ -1,17 +1,16 @@
 import React from "react";
 import {
   Platform,
-  ScrollView,
   StyleSheet,
   Text,
   View,
   TextInput,
   TouchableOpacity,
-  KeyboardAvoidingView,
-  Button
-} from "react-native";
+  KeyboardAvoidingView
+} from 'react-native';
+import { ScrollView } from "react-navigation";
+import { connect } from 'react-redux';
 
-import { connect } from "react-redux";
 
 import * as SecureStorage from "expo-secure-store";
 
@@ -102,23 +101,24 @@ class EditDetailScreen extends React.Component {
               />
             </View>
 
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Website Link URL</Text>
-              <TextInput
-                ref={input => {
-                  this.org_link_urlInput = input;
-                }}
-                returnKeyType="next"
-                style={styles.inputContain}
-                onChangeText={text => this.setState({ org_Link_url: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === "android") return;
-                  this.orgLinkTextInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === "android"}
-                value={this.state.org_link_url}
-              />
-            </View>
+
+              <View style={styles.sections}>
+                <Text style={styles.sectionsText}>Website Link URL</Text>
+                <TextInput
+                  ref={(input) => { this.org_link_urlInput = input; }}
+                  returnKeyType='next'            
+                  style={styles.inputContain}
+                  autoCapitalize='none'
+                  onChangeText={text => this.setState({ org_Link_url: text })}
+                  onSubmitEditing={() => {
+                    if (Platform.OS === 'android') return;
+                    this.orgLinkTextInput.focus();
+                  }}
+                  blurOnSubmit={Platform.OS === 'android'}
+                  value={this.state.org_link_url}
+                />
+              </View>
+
 
             <View style={styles.sections}>
               <Text style={styles.sectionsText}>Website Link Text</Text>

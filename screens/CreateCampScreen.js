@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  ScrollView,
   StyleSheet,
   TextInput,
   Text,
@@ -9,9 +8,8 @@ import {
   KeyboardAvoidingView,
   Platform
 } from 'react-native';
-
+import { ScrollView } from "react-navigation";
 import { Input } from 'react-native-elements';
-
 import { connect } from 'react-redux';
 
 import { postCampaign, getCampaigns } from '../store/actions'
@@ -103,6 +101,7 @@ class CreateCampScreen extends React.Component {
                   ref={(input) => { this.campImgUrlInput = input; }}
                   returnKeyType='next'
                   placeholder="Please include full URL"
+                  autoCapitalize='none'
                   style={styles.inputContain}
                   onChangeText={text => this.setState({ camp_img: text })}
                   onSubmitEditing={() => {
@@ -135,6 +134,7 @@ class CreateCampScreen extends React.Component {
                   ref={(input) => { this.donationLinkInput = input; }}
                   returnKeyType='next'
                   placeholder='Please include full URL'
+                  autoCapitalize='none'
                   style={styles.inputContain}
                   onChangeText={text => this.setState({ camp_cta: text })}                 
                   

@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Platform,
-  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -9,7 +8,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView
 } from 'react-native';
-
+import { ScrollView } from "react-navigation";
 import { connect } from 'react-redux';
 
 import DoneButton from '../components/DoneButton';
