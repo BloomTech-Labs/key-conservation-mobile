@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  ScrollView,
   StyleSheet,
   TextInput,
   Text,
@@ -9,9 +8,8 @@ import {
   KeyboardAvoidingView,
   Platform
 } from 'react-native';
-
+import { ScrollView } from "react-navigation";
 import { Input } from 'react-native-elements';
-
 import { connect } from 'react-redux';
 
 import { postCampaign, getCampaigns } from '../store/actions';
@@ -119,6 +117,7 @@ class CreateCampScreen extends React.Component {
               />
             </View>
 
+
             <View style={styles.sections}>
               <Text style={styles.sectionsText}>Campaign Details</Text>
               <TextInput
@@ -132,6 +131,7 @@ class CreateCampScreen extends React.Component {
                 multiline={true}
                 value={this.state.camp_desc}
               />
+
             </View>
 
             <View style={styles.sections}>

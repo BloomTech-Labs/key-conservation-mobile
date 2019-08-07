@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import {
-  ScrollView,
   StyleSheet,
   Text,
   View,
   TouchableOpacity
 } from 'react-native';
-
+import { ScrollView } from "react-navigation";
 import * as WebBrowser from 'expo-web-browser';
-
 import { Icon, Image } from 'react-native-elements';
-
 import SvgUri from 'react-native-svg-uri';
 
 const DetailAboutUs = props => {

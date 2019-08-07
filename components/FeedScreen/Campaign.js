@@ -16,7 +16,6 @@ import { getProfileData } from '../../store/actions';
 
 import SvgUri from 'react-native-svg-uri';
 
-
 import styles from '../../constants/Stylesheet';
 
 const Campaign = props => {
@@ -62,9 +61,9 @@ const Campaign = props => {
         <View style={styles.donateButton}>
           <TouchableOpacity
             style={styles.touchableButton}
-            onPress={ async () =>
+            // If these links are empty string and don't have an http:// or a https:// it will send you with unpromised rejections.
+            onPress={async () =>
               await WebBrowser.openBrowserAsync(props.data.camp_cta) 
-             
             }
           >
             <View style={styles.touchableView}>

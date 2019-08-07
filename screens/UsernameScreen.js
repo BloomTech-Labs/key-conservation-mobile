@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -8,7 +7,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView
 } from "react-native";
-
+import { ScrollView } from "react-navigation";
 import { connect } from "react-redux";
 
 import * as SecureStore from "expo-secure-store";
@@ -21,7 +20,8 @@ import { postUser } from "../store/actions";
 
 class UsernameScreen extends React.Component {
   state = {
-    usernameInput: ""
+    usernameInput: "",
+    error: ""
   };
 
   handlePress = async () => {
@@ -30,17 +30,27 @@ class UsernameScreen extends React.Component {
     const email = await SecureStore.getItemAsync("email", {});
     const role = await SecureStore.getItemAsync("roles", {});
     const username = this.state.usernameInput;
-    let user = {
-      username: username,
-      sub: sub,
-      roles: role,
-      email: email
-    };
-    // console.log("******click from username", user);
-    await this.props.postUser(user);
-    this.props.navigation.navigate(
-      this.props.error ? "CreateAccount" : "Loading"
-    );
+
+    if (username.length > 4) {
+      this.setState({
+        error: ""
+      });
+      let user = {
+        username: username,
+        sub: sub,
+        roles: role,
+        email: email
+      };
+      console.log("******click from username", user);
+      await this.props.postUser(user);
+      this.props.navigation.navigate(
+        this.props.error ? "CreateAccount" : "Loading"
+      );
+    } else {
+      this.setState({
+        error: "Username is required to be atleast 4 characters"
+      });
+    }
   };
 
   render() {
@@ -62,6 +72,17 @@ class UsernameScreen extends React.Component {
             value={this.state.usernameInput}
             required
           />
+        </View>
+        <View style={{ height: 20, margin: 25 }}>
+          {this.state.error ? (
+            <Text style={{ textAlign: "center", color: "red" }}>
+              {this.state.error}
+            </Text>
+          ) : this.props.error.message ? (
+            <Text style={{ textAlign: "center", color: "red" }}>
+              Failed to create user. Please try another username
+            </Text>
+          ) : null}
         </View>
         <TouchableOpacity
           onPress={this.handlePress}
@@ -110,8 +131,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     fontSize: 16,
     width: 281,
-    height: 38,
-    marginBottom: 53
+    height: 38
   },
   touchableButton: {
     paddingTop: 25,

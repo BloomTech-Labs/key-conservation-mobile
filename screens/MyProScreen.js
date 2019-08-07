@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react';
 import {
-  ScrollView,
   StyleSheet,
   View,
   Text,
   Button,
   TouchableOpacity
 } from 'react-native';
+import { ScrollView } from "react-navigation";
 import { connect } from 'react-redux';
-
-import { Icon, ListItem } from 'react-native-elements';
-
 import SvgUri from 'react-native-svg-uri';
+import { Icon, ListItem } from 'react-native-elements';
 
 import { getProfileData } from '../store/actions';
 
