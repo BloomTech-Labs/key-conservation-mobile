@@ -153,25 +153,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getCampaigns: false },
-        allCampaigns: action.payload
-      };
-    case GET_CAMPAIGNS_ERROR:
-      return {
-        ...state,
-        pending: { ...state.pending, getCampaigns: false },
-        error: action.payload
-      };
-    case GET_CAMPAIGNS_START:
-      return {
-        ...state,
-        pending: { ...state.pending, getCampaigns: true },
-        error: ""
-      };
-    case GET_CAMPAIGNS_SUCCESS:
-      return {
-        ...state,
-        pending: { ...state.pending, getCampaigns: false },
-        allCampaigns: [...state.allCampaigns, action.payload]
+        allCampaigns: action.payload.reverse()
       };
     case GET_CAMPAIGNS_ERROR:
       return {

@@ -69,7 +69,7 @@ class CreateCampScreen extends React.Component {
     return (
       <KeyboardAvoidingView
         behavior='height'
-        keyboardVerticalOffset={86}
+        keyboardVerticalOffset={90}
         enabled
       >
 
@@ -102,7 +102,7 @@ class CreateCampScreen extends React.Component {
                 <TextInput
                   ref={(input) => { this.campImgUrlInput = input; }}
                   returnKeyType='next'
-                  placeholder="https://imgur.com/gallery/iSi6jLY"
+                  placeholder="Please include full URL"
                   style={styles.inputContain}
                   onChangeText={text => this.setState({ camp_img: text })}
                   onSubmitEditing={() => {
@@ -134,7 +134,7 @@ class CreateCampScreen extends React.Component {
                 <TextInput
                   ref={(input) => { this.donationLinkInput = input; }}
                   returnKeyType='next'
-                  placeholder='https://www.turtleibrary/donate.now.com'
+                  placeholder='Please include full URL'
                   style={styles.inputContain}
                   onChangeText={text => this.setState({ camp_cta: text })}                 
                   
