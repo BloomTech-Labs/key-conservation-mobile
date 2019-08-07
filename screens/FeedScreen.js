@@ -23,16 +23,6 @@ function FeedScreen(props) {
 
   return (
     <ScrollView>
-      <Button
-        title="LOGOUT"
-        onPress={async () => {
-          await SecureStorage.deleteItemAsync("sub", {});
-          await SecureStorage.deleteItemAsync("email", {});
-          await SecureStorage.deleteItemAsync("roles", {});
-          await SecureStorage.deleteItemAsync("userId", {});
-          props.navigation.navigate("Loading");
-        }}
-      />
       <View style={styles.feedContainer}>
         {allCampaigns.length > 0 &&
           allCampaigns.map(campaign => {
