@@ -1,9 +1,9 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const [LOGIN_START, LOGIN_ERROR, LOGIN_SUCCESS] = [
-  "LOGIN_START",
-  "LOGIN_ERROR",
-  "LOGIN_SUCCESS"
+  'LOGIN_START',
+  'LOGIN_ERROR',
+  'LOGIN_SUCCESS'
 ];
 
 export const loginStart = () => ({
@@ -19,8 +19,8 @@ export const loginSuccess = user => ({
 });
 
 export const [LOGOUT_START, LOGOUT_SUCCESS] = [
-  "LOGOUT_START",
-  "LOGOUT_SUCCESS"
+  'LOGOUT_START',
+  'LOGOUT_SUCCESS'
 ];
 
 export const logoutStart = () => ({
@@ -31,9 +31,9 @@ export const logoutSuccess = () => ({
 });
 
 export const [GET_PROFILE_START, GET_PROFILE_ERROR, GET_PROFILE_SUCCESS] = [
-  "GET_PROFILE_START",
-  "GET_PROFILE_ERROR",
-  "GET_PROFILE_SUCCESS"
+  'GET_PROFILE_START',
+  'GET_PROFILE_ERROR',
+  'GET_PROFILE_SUCCESS'
 ];
 
 export const getProfileData = (
@@ -67,9 +67,12 @@ export const [EDIT_PROFILE_START, EDIT_PROFILE_ERROR, EDIT_PROFILE_SUCCESS] = [
 export const editProfileData = (id, changes) => async dispatch => {
   dispatch({ type: EDIT_PROFILE_START });
   return axios
-    .put(`https://key-conservation-staging.herokuapp.com/api/users/${id}`, changes)
+    .put(
+      `https://key-conservation-staging.herokuapp.com/api/users/${id}`,
+      changes
+    )
     .then(res => {
-      console.log(res)
+      console.log(res);
       dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.editUser });
     })
     .catch(err => {
@@ -78,15 +81,15 @@ export const editProfileData = (id, changes) => async dispatch => {
 };
 
 export const [POST_USER_START, POST_USER_ERROR, POST_USER_SUCCESS] = [
-  "POST_USER_START",
-  "POST_USER_ERROR",
-  "POST_USER_SUCCESS"
+  'POST_USER_START',
+  'POST_USER_ERROR',
+  'POST_USER_SUCCESS'
 ];
 
 export const postUser = user => dispatch => {
   dispatch({ type: POST_USER_START });
   axios
-    .post("https://key-conservation-staging.herokuapp.com/api/users", user)
+    .post('https://key-conservation-staging.herokuapp.com/api/users', user)
     .then(res => {
       dispatch({ type: POST_USER_SUCCESS, payload: res.data.newUser });
     })
@@ -99,12 +102,12 @@ export const [
   GET_CAMPAIGNS_START,
   GET_CAMPAIGNS_ERROR,
   GET_CAMPAIGNS_SUCCESS
-] = ["GET_CAMPAIGNS_START", "GET_CAMPAIGNS_ERROR", "GET_CAMPAIGNS_SUCCESS"];
+] = ['GET_CAMPAIGNS_START', 'GET_CAMPAIGNS_ERROR', 'GET_CAMPAIGNS_SUCCESS'];
 
 export const getCampaigns = () => dispatch => {
   dispatch({ type: GET_CAMPAIGNS_START });
   axios
-    .get("https://key-conservation-staging.herokuapp.com/api/campaigns")
+    .get('https://key-conservation-staging.herokuapp.com/api/campaigns')
     .then(res => {
       dispatch({ type: GET_CAMPAIGNS_SUCCESS, payload: res.data.camp });
     })
@@ -117,12 +120,23 @@ export const [
   POST_CAMPAIGN_START,
   POST_CAMPAIGN_ERROR,
   POST_CAMPAIGN_SUCCESS
-] = ["POST_CAMPAIGNS_START", "POST_CAMPAIGNS_ERROR", "POST_CAMPAIGNS_SUCCESS"];
+] = ['POST_CAMPAIGNS_START', 'POST_CAMPAIGNS_ERROR', 'POST_CAMPAIGNS_SUCCESS'];
 
 export const postCampaign = camp => dispatch => {
   dispatch({ type: POST_CAMPAIGN_START });
+  // If a user doesn't include http or https in there URL this function will add it.
+  // If they already include it it will be ignored. and if its capital "Https || Http" it will become lowercase.
+  camp.camp_cta = camp.camp_cta.toLowerCase();
+  if (
+    camp.camp_cta.indexOf('http://') == 0 ||
+    camp.camp_cta.indexOf('https://') == 0
+  ) {
+  } else {
+    var newurl = 'https://' + camp.camp_cta;
+    camp.camp_cta = newurl;
+  }
   axios
-    .post("https://key-conservation-staging.herokuapp.com/api/campaigns", camp)
+    .post('https://key-conservation-staging.herokuapp.com/api/campaigns', camp)
     .then(res => {
       dispatch({ type: POST_CAMPAIGN_SUCCESS, payload: res.data.newCamps });
     })

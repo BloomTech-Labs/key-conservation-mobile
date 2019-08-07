@@ -14,7 +14,7 @@ import { Input } from 'react-native-elements';
 
 import { connect } from 'react-redux';
 
-import { postCampaign, getCampaigns } from '../store/actions'
+import { postCampaign, getCampaigns } from '../store/actions';
 
 import PublishButton from '../components/PublishButton';
 
@@ -30,18 +30,23 @@ class CreateCampScreen extends React.Component {
         textAlign: 'center',
         flexGrow: 1,
         alignSelf: 'center',
-        fontFamily: 'OpenSans-SemiBold',
+        fontFamily: 'OpenSans-SemiBold'
       },
-      headerRight: <PublishButton navigation={navigation} pressAction={navigation.getParam('publish')} />
+      headerRight: (
+        <PublishButton
+          navigation={navigation}
+          pressAction={navigation.getParam('publish')}
+        />
+      )
     };
   };
-  
+
   state = {
     users_id: this.props.currentUserProfile.id,
-    camp_img: "",
-    camp_name: "",
-    camp_desc: "",
-    camp_cta: ""
+    camp_img: '',
+    camp_name: '',
+    camp_desc: '',
+    camp_cta: ''
   };
 
   componentDidMount() {
@@ -55,15 +60,13 @@ class CreateCampScreen extends React.Component {
       !this.state.camp_desc ||
       !this.state.camp_cta
     ) {
-      return
+      return;
     } else {
       await this.props.postCampaign(this.state);
-      await this.props.getCampaigns()
-      this.props.navigation.navigate('Home'); 
+      await this.props.getCampaigns();
+      this.props.navigation.navigate('Home');
     }
-  }
-
-
+  };
 
   render() {
     return (
@@ -72,87 +75,87 @@ class CreateCampScreen extends React.Component {
         keyboardVerticalOffset={90}
         enabled
       >
-
-      <ScrollView
-            contentContainerStyle={{
-              backgroundColor: '#fff',
-              minHeight: '100%'
-            }}
-          >            
-            <View style={styles.sectionContainer}>
-              
-              <View style={styles.sections}>
-                <Text style={styles.sectionsText}>Campaign Name</Text>
-                <TextInput
-                  ref={(input) => { this.campNameInput = input; }}
-                  returnKeyType='next'
-                  placeholder='Koala In Need!'
-                  style={styles.inputContain}
-                  onChangeText={text => this.setState({ camp_name: text })}
-                  onSubmitEditing={() => {
-                    if (Platform.OS === 'android') return;
-                    this.campImgUrlInput.focus();
-                  }}
-                  blurOnSubmit={Platform.OS === 'android'}
-                  value={this.state.camp_name}
-                />    
-              </View>
-              <View style={styles.sections}>
-                <Text style={styles.sectionsText}>Campaign Image URL</Text>
-                <TextInput
-                  ref={(input) => { this.campImgUrlInput = input; }}
-                  returnKeyType='next'
-                  placeholder="Please include full URL"
-                  style={styles.inputContain}
-                  onChangeText={text => this.setState({ camp_img: text })}
-                  onSubmitEditing={() => {
-                    if (Platform.OS === 'android') return;
-                    this.campDetailsInput.focus();
-                  }}
-                  blurOnSubmit={Platform.OS === 'android'}
-                  value={this.state.camp_img}
-                />    
-              </View>
-              
-              <View style={styles.sections}>
-                <Text style={styles.sectionsText}>Campaign Details</Text>
-                <TextInput
-                  ref={(input) => { this.campDetailsInput = input; }}
-                  returnKeyType='next'
-                  placeholder='Add campaign details and list of monetary needs.'
-                  style={styles.inputContain2}
-                  onChangeText={text => this.setState({ camp_desc: text })}
-                  
-                  multiline={true}
-                  
-                  value={this.state.camp_desc}
-                />    
-              </View>
-              
-              <View style={styles.sections}>
-                <Text style={styles.sectionsText}>Donation Link</Text>
-                <TextInput
-                  ref={(input) => { this.donationLinkInput = input; }}
-                  returnKeyType='next'
-                  placeholder='Please include full URL'
-                  style={styles.inputContain}
-                  onChangeText={text => this.setState({ camp_cta: text })}                 
-                  
-                  value={this.state.camp_cta}
-                />    
-              
-              </View>
+        <ScrollView
+          contentContainerStyle={{
+            backgroundColor: '#fff',
+            minHeight: '100%'
+          }}
+        >
+          <View style={styles.sectionContainer}>
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>Campaign Name</Text>
+              <TextInput
+                ref={input => {
+                  this.campNameInput = input;
+                }}
+                returnKeyType='next'
+                placeholder='Koala In Need!'
+                style={styles.inputContain}
+                onChangeText={text => this.setState({ camp_name: text })}
+                onSubmitEditing={() => {
+                  if (Platform.OS === 'android') return;
+                  this.campImgUrlInput.focus();
+                }}
+                blurOnSubmit={Platform.OS === 'android'}
+                value={this.state.camp_name}
+              />
             </View>
-          </ScrollView>
-        
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>Campaign Image URL</Text>
+              <TextInput
+                ref={input => {
+                  this.campImgUrlInput = input;
+                }}
+                returnKeyType='next'
+                placeholder='Please include your website donation link'
+                style={styles.inputContain}
+                onChangeText={text => this.setState({ camp_img: text })}
+                onSubmitEditing={() => {
+                  if (Platform.OS === 'android') return;
+                  this.campDetailsInput.focus();
+                }}
+                blurOnSubmit={Platform.OS === 'android'}
+                value={this.state.camp_img}
+              />
+            </View>
+
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>Campaign Details</Text>
+              <TextInput
+                ref={input => {
+                  this.campDetailsInput = input;
+                }}
+                returnKeyType='next'
+                placeholder='Add campaign details and list of monetary needs.'
+                style={styles.inputContain2}
+                onChangeText={text => this.setState({ camp_desc: text })}
+                multiline={true}
+                value={this.state.camp_desc}
+              />
+            </View>
+
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>Donation Link</Text>
+              <TextInput
+                ref={input => {
+                  this.donationLinkInput = input;
+                }}
+                returnKeyType='next'
+                placeholder='Please include full URL'
+                style={styles.inputContain}
+                onChangeText={text => this.setState({ camp_cta: text })}
+                value={this.state.camp_cta}
+              />
+            </View>
+          </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     );
   }
 }
 
-
 const mapStateToProps = state => ({
-  currentUserProfile: state.currentUserProfile,
+  currentUserProfile: state.currentUserProfile
 });
 
 export default connect(
@@ -211,7 +214,7 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 5,
     fontSize: 20,
-    marginBottom: 25,
+    marginBottom: 25
   },
   inputContain2: {
     height: 140,
@@ -241,7 +244,7 @@ const styles = StyleSheet.create({
   },
   sectionsText: {
     fontFamily: 'OpenSans-SemiBold',
-    fontSize: 20, 
-    marginBottom: 5,
-  },
+    fontSize: 20,
+    marginBottom: 5
+  }
 });
