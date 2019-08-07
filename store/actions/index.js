@@ -66,6 +66,38 @@ export const [EDIT_PROFILE_START, EDIT_PROFILE_ERROR, EDIT_PROFILE_SUCCESS] = [
 
 export const editProfileData = (id, changes) => async dispatch => {
   dispatch({ type: EDIT_PROFILE_START });
+
+  changes.facebook = changes.facebook.toLowerCase();
+  changes.twitter = changes.twitter.toLowerCase();
+  changes.instagram = changes.instagram.toLowerCase();
+  changes.org_link_url = changes.org_link_url.toLowerCase();
+  changes.org_cta = changes.org_cta.toLowerCase();
+  if (
+    changes.facebook.indexOf('http://') == 0 ||
+    changes.facebook.indexOf('https://') == 0 ||
+    changes.twitter.indexOf('http://') == 0 ||
+    changes.twitter.indexOf('https://') == 0 ||
+    changes.instagram.indexOf('http://') == 0 ||
+    changes.instagram.indexOf('https://') == 0 ||
+    changes.org_link_url.indexOf('http://') == 0 ||
+    changes.org_link_url.indexOf('https://') == 0 ||
+    changes.org_cta.indexOf('http://') == 0 ||
+    changes.org_cta.indexOf('https://') == 0
+  ) {
+  } else {
+    let facebook = 'https://' + changes.facebook;
+    let twitter = 'https://' + changes.twitter;
+    let instagram = 'https:/' + changes.instagram;
+    let orgLink = 'https://' + changes.org_link_url;
+    let orgCta = 'https://' + changes.org_cta;
+
+    changes.facebook = facebook;
+    changes.twitter = twitter;
+    changes.instagram = instagram;
+    changes.org_link_url = orgLink;
+    changes.org_cta = orgCta;
+  }
+
   return axios
     .put(
       `https://key-conservation-staging.herokuapp.com/api/users/${id}`,

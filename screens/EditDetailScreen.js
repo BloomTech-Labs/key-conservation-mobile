@@ -29,9 +29,14 @@ class EditDetailScreen extends React.Component {
         flexGrow: 1,
         alignSelf: 'center'
       },
-      headerRight: <DoneButton navigation={navigation} pressAction={navigation.getParam('done')} />
+      headerRight: (
+        <DoneButton
+          navigation={navigation}
+          pressAction={navigation.getParam('done')}
+        />
+      )
     };
-  }
+  };
 
   state = {
     email: this.props.currentUserProfile.email,
@@ -53,8 +58,8 @@ class EditDetailScreen extends React.Component {
 
   done = () => {
     this.props.editProfileData(this.props.currentUserProfile.id, this.state);
-    this.props.navigation.goBack(); 
-  }
+    this.props.navigation.goBack();
+  };
 
   render() {
     return (
@@ -66,154 +71,175 @@ class EditDetailScreen extends React.Component {
         <ScrollView>
           <View style={styles.sectionContainer}>
             <View style={styles.Card} />
-              <View style={styles.sections}>
-                <Text style={styles.sectionsText}>Email</Text>
-                <TextInput
-                  ref={(input) => { this.emailInput = input; }}
-                  returnKeyType='next'
-                  placeholder='Email'
-                  style={styles.inputContain}
-                  onChangeText={text => this.setState({ email: text })}
-                  onSubmitEditing={() => {
-                    if (Platform.OS === 'android') return;
-                    this.orgLinkUrlInput.focus();
-                  }}
-                  blurOnSubmit={Platform.OS === 'android'}
-                  value={this.state.email}
-                />    
-              </View>
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>Email</Text>
+              <TextInput
+                ref={input => {
+                  this.emailInput = input;
+                }}
+                returnKeyType='next'
+                placeholder='Email'
+                style={styles.inputContain}
+                onChangeText={text => this.setState({ email: text })}
+                onSubmitEditing={() => {
+                  if (Platform.OS === 'android') return;
+                  this.orgLinkUrlInput.focus();
+                }}
+                blurOnSubmit={Platform.OS === 'android'}
+                value={this.state.email}
+              />
+            </View>
 
-              <View style={styles.sections}>
-                <Text style={styles.sectionsText}>Website Link URL</Text>
-                <TextInput
-                  ref={(input) => { this.org_link_urlInput = input; }}
-                  returnKeyType='next'            
-                  style={styles.inputContain}
-                  onChangeText={text => this.setState({ org_Link_url: text })}
-                  onSubmitEditing={() => {
-                    if (Platform.OS === 'android') return;
-                    this.orgLinkTextInput.focus();
-                  }}
-                  blurOnSubmit={Platform.OS === 'android'}
-                  value={this.state.org_link_url}
-                />
-              </View>
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>Website Link URL</Text>
+              <TextInput
+                ref={input => {
+                  this.org_link_urlInput = input;
+                }}
+                returnKeyType='next'
+                style={styles.inputContain}
+                onChangeText={text => this.setState({ org_link_url: text })}
+                onSubmitEditing={() => {
+                  if (Platform.OS === 'android') return;
+                  this.orgLinkTextInput.focus();
+                }}
+                blurOnSubmit={Platform.OS === 'android'}
+                value={this.state.org_link_url}
+              />
+            </View>
 
-              <View style={styles.sections}>
-                <Text style={styles.sectionsText}>Website Link Text</Text>
-                <TextInput
-                  ref={(input) => { this.orgLinkTextInput = input; }}
-                  returnKeyType='next'
-                  placeholder='enter how you wish your website to appear'
-                  style={styles.inputContain}
-                  onChangeText={text => this.setState({ orgLinkText: text })}
-                  onSubmitEditing={() => {
-                    if (Platform.OS === 'android') return;
-                    this.orgCtaInput.focus();
-                  }}
-                  blurOnSubmit={Platform.OS === 'android'}
-                  value={this.state.orgLinkText}
-                />
-              </View>
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>Website Link Text</Text>
+              <TextInput
+                ref={input => {
+                  this.orgLinkTextInput = input;
+                }}
+                returnKeyType='next'
+                placeholder='enter how you wish your website to appear'
+                style={styles.inputContain}
+                onChangeText={text => this.setState({ org_link_text: text })}
+                onSubmitEditing={() => {
+                  if (Platform.OS === 'android') return;
+                  this.orgCtaInput.focus();
+                }}
+                blurOnSubmit={Platform.OS === 'android'}
+                value={this.state.org_link_text}
+              />
+            </View>
 
-              <View style={styles.sections}>  
-                <Text style={styles.sectionsText}>Donation Link</Text>            
-                <TextInput
-                  ref={(input) => { this.org_ctaInput = input; }}
-                  returnKeyType='next'
-                  style={styles.inputContain}
-                  onSubmitEditing={() => {
-                    if (Platform.OS === 'android') return;
-                    this.facebookInput.focus();
-                  }}
-                  blurOnSubmit={Platform.OS === 'android'}
-                  value={this.state.org_cta}
-                />
-              </View>
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>Donation Link</Text>
+              <TextInput
+                ref={input => {
+                  this.org_ctaInput = input;
+                }}
+                returnKeyType='next'
+                style={styles.inputContain}
+                onChangeText={text => this.setState({ org_cta: text })}
+                onSubmitEditing={() => {
+                  if (Platform.OS === 'android') return;
+                  this.facebookInput.focus();
+                }}
+                blurOnSubmit={Platform.OS === 'android'}
+                value={this.state.org_cta}
+              />
+            </View>
 
-              <View style={styles.sections}>
-                <Text style={styles.sectionsText}>Facebook</Text>
-                <TextInput
-                  ref={(input) => { this.facebookInput = input; }}
-                  returnKeyType='next'
-                  style={styles.inputContain}
-                  onChangeText={text => this.setState({ facebook: text })}
-                  onSubmitEditing={() => {
-                    if (Platform.OS === 'android') return;
-                    this.instagramInput.focus();
-                  }}
-                  blurOnSubmit={Platform.OS === 'android'}
-                  value={this.state.facebook}
-                />
-              </View>
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>Facebook</Text>
+              <TextInput
+                ref={input => {
+                  this.facebookInput = input;
+                }}
+                returnKeyType='next'
+                style={styles.inputContain}
+                onChangeText={text => this.setState({ facebook: text })}
+                onSubmitEditing={() => {
+                  if (Platform.OS === 'android') return;
+                  this.instagramInput.focus();
+                }}
+                blurOnSubmit={Platform.OS === 'android'}
+                value={this.state.facebook}
+              />
+            </View>
 
-              <View style={styles.sections}>
-                <Text style={styles.sectionsText}>Instagram</Text>
-                <TextInput
-                  ref={(input) => { this.instagramInput = input; }}
-                  returnKeyType='next'
-                  style={styles.inputContain}
-                  onChangeText={text => this.setState({ instagram: text })}
-                  onSubmitEditing={() => {
-                    if (Platform.OS === 'android') return;
-                    this.twitterInput.focus();
-                  }}
-                  blurOnSubmit={Platform.OS === 'android'}
-                  value={this.state.instagram}
-                />
-              </View>
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>Instagram</Text>
+              <TextInput
+                ref={input => {
+                  this.instagramInput = input;
+                }}
+                returnKeyType='next'
+                style={styles.inputContain}
+                onChangeText={text => this.setState({ instagram: text })}
+                onSubmitEditing={() => {
+                  if (Platform.OS === 'android') return;
+                  this.twitterInput.focus();
+                }}
+                blurOnSubmit={Platform.OS === 'android'}
+                value={this.state.instagram}
+              />
+            </View>
 
-              <View style={styles.sections}>
-                <Text style={styles.sectionsText}>Twitter</Text>
-                <TextInput
-                  ref={(input) => { this.twitterInput = input; }}
-                  returnKeyType='next'
-                  style={styles.inputContain}
-                  onChangeText={text => this.setState({ twitter: text })}
-                  onSubmitEditing={() => {
-                    if (Platform.OS === 'android') return;
-                    this.aboutUsInput.focus();
-                  }}
-                  blurOnSubmit={Platform.OS === 'android'}
-                  value={this.state.twitter}
-                />
-              </View>
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>Twitter</Text>
+              <TextInput
+                ref={input => {
+                  this.twitterInput = input;
+                }}
+                returnKeyType='next'
+                style={styles.inputContain}
+                onChangeText={text => this.setState({ twitter: text })}
+                onSubmitEditing={() => {
+                  if (Platform.OS === 'android') return;
+                  this.aboutUsInput.focus();
+                }}
+                blurOnSubmit={Platform.OS === 'android'}
+                value={this.state.twitter}
+              />
+            </View>
 
-              <View style={styles.sections}>
-                <Text style={styles.sectionsText}>About Us</Text>
-                <TextInput
-                  ref={(input) => { this.about_usInput = input; }}
-                  returnKeyType='next'
-                  style={styles.inputContain2}
-                  onChangeText={text => this.setState({ about_us: text })}
-                  multiline={true}
-                  value={this.state.about_us}
-                />
-              </View>
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>About Us</Text>
+              <TextInput
+                ref={input => {
+                  this.about_usInput = input;
+                }}
+                returnKeyType='next'
+                style={styles.inputContain2}
+                onChangeText={text => this.setState({ about_us: text })}
+                multiline={true}
+                value={this.state.about_us}
+              />
+            </View>
 
-              <View style={styles.sections}>
-                <Text style={styles.sectionsText}>Species & Habitats</Text>
-                <TextInput
-                  ref={(input) => { this.species_habitatsInput = input; }}
-                  returnKeyType='next'
-                  style={styles.inputContain2}
-                  onChangeText={text => this.setState({ species_habitats: text })}
-                  multiline={true}
-                  value={this.state.species_habitats}
-                />
-              </View>
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>Species & Habitats</Text>
+              <TextInput
+                ref={input => {
+                  this.species_habitatsInput = input;
+                }}
+                returnKeyType='next'
+                style={styles.inputContain2}
+                onChangeText={text => this.setState({ species_habitats: text })}
+                multiline={true}
+                value={this.state.species_habitats}
+              />
+            </View>
 
-              <View style={styles.sections}>
-                <Text style={styles.sectionsText}>Big Issues</Text>
-                <TextInput
-                  ref={(input) => { this.issuesInput = input; }}
-                  returnKeyType='next'
-                  style={styles.inputContain2}
-                  onChangeText={text => this.setState({ issues: text })}
-                  multiline={true}
-                  value={this.state.issues}
-                />
-              </View>                     
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>Big Issues</Text>
+              <TextInput
+                ref={input => {
+                  this.issuesInput = input;
+                }}
+                returnKeyType='next'
+                style={styles.inputContain2}
+                onChangeText={text => this.setState({ issues: text })}
+                multiline={true}
+                value={this.state.issues}
+              />
+            </View>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -222,7 +248,7 @@ class EditDetailScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  currentUserProfile: state.currentUserProfile,
+  currentUserProfile: state.currentUserProfile
 });
 
 export default connect(
@@ -234,14 +260,14 @@ const styles = StyleSheet.create({
   sectionContainer: {
     flexDirection: 'column',
     flexWrap: 'wrap',
-    marginLeft: 15, 
-    marginRight: 15,
+    marginLeft: 15,
+    marginRight: 15
   },
   Card: {
     marginTop: 10,
     backgroundColor: '#fff',
     width: '100%',
-    height: 20,
+    height: 20
   },
   inputContain: {
     height: 48,
@@ -250,7 +276,7 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 5,
     fontSize: 20,
-    marginBottom: 25,
+    marginBottom: 25
   },
   inputContain2: {
     height: 140,
@@ -262,7 +288,7 @@ const styles = StyleSheet.create({
     marginBottom: 25,
     textAlignVertical: 'top'
   },
- 
+
   touchableView: {
     backgroundColor: 'black',
     alignItems: 'center',
@@ -277,13 +303,12 @@ const styles = StyleSheet.create({
     letterSpacing: 2
   },
   sections: {
-    // marginTop: 20,
     backgroundColor: '#fff',
-    width: '100%',    
+    width: '100%'
   },
   sectionsText: {
     fontFamily: 'OpenSans-SemiBold',
-    fontSize: 20, 
-    marginBottom: 5,
-  },
+    fontSize: 20,
+    marginBottom: 5
+  }
 });
