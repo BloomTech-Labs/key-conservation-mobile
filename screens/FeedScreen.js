@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { ScrollView, StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
+import { ScrollView } from "react-navigation";
 import { useSelector, useDispatch } from "react-redux";
 import * as SecureStorage from "expo-secure-store";
+import { Icon } from "react-native-elements";
 
 import { getCampaigns } from "../store/actions";
-
-import { Icon } from "react-native-elements";
 
 import Campaign from "../components/FeedScreen/Campaign";
 
@@ -18,6 +18,7 @@ function FeedScreen(props) {
 
   useEffect(() => {
     dispatch(getCampaigns());
+    let refreshInterval = setInterval(() => dispatch(getCampaigns()), 10000);
   }, []);
 
   return (

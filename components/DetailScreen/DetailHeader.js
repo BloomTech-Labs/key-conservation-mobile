@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import {
-  ScrollView,
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
   Linking
 } from 'react-native';
-
+import { ScrollView } from "react-navigation";
 import * as WebBrowser from 'expo-web-browser';
-
 import { Avatar, Icon, Image } from 'react-native-elements';
-
 import SvgUri from 'react-native-svg-uri';
 
 export default class DetailHeader extends Component {

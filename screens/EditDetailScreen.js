@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Platform,
-  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -9,7 +8,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView
 } from 'react-native';
-
+import { ScrollView } from "react-navigation";
 import { connect } from 'react-redux';
 
 import DoneButton from '../components/DoneButton';
@@ -89,6 +88,7 @@ class EditDetailScreen extends React.Component {
                   ref={(input) => { this.org_link_urlInput = input; }}
                   returnKeyType='next'            
                   style={styles.inputContain}
+                  autoCapitalize='none'
                   onChangeText={text => this.setState({ org_Link_url: text })}
                   onSubmitEditing={() => {
                     if (Platform.OS === 'android') return;

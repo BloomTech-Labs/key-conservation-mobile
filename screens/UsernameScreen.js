@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -8,7 +7,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView
 } from "react-native";
-
+import { ScrollView } from "react-navigation";
 import { connect } from "react-redux";
 
 import * as SecureStore from "expo-secure-store";

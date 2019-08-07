@@ -4,7 +4,7 @@ export default {
   // # Campaign.js Styles # //
   container: {
     justifyContent: 'center',
-    marginBottom: 10,
+    // marginBottom: 10,
     borderBottomWidth: 2,
     borderBottomColor: '#eee',
     paddingBottom: 45,
