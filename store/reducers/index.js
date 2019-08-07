@@ -150,10 +150,12 @@ const reducer = (state = initialState, action) => {
         error: ""
       };
     case GET_CAMPAIGNS_SUCCESS:
+      const campaigns = action.payload;
+      campaigns.sort(function(a, b){return b.camp_id - a.camp_id});
       return {
         ...state,
         pending: { ...state.pending, getCampaigns: false },
-        allCampaigns: action.payload.reverse()
+        allCampaigns: campaigns,
       };
     case GET_CAMPAIGNS_ERROR:
       return {

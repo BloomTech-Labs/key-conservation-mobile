@@ -70,12 +70,13 @@ class EditDetailScreen extends React.Component {
                 <TextInput
                   ref={(input) => { this.emailInput = input; }}
                   returnKeyType='next'
+                  keyboardType='email-address'
                   placeholder='Email'
                   style={styles.inputContain}
                   onChangeText={text => this.setState({ email: text })}
                   onSubmitEditing={() => {
                     if (Platform.OS === 'android') return;
-                    this.orgLinkUrlInput.focus();
+                    this.org_link_urlInput.focus();
                   }}
                   blurOnSubmit={Platform.OS === 'android'}
                   value={this.state.email}
@@ -86,13 +87,15 @@ class EditDetailScreen extends React.Component {
                 <Text style={styles.sectionsText}>Website Link URL</Text>
                 <TextInput
                   ref={(input) => { this.org_link_urlInput = input; }}
-                  returnKeyType='next'            
+                  returnKeyType='next'     
+                  keyboardType='url'       
                   style={styles.inputContain}
                   autoCapitalize='none'
-                  onChangeText={text => this.setState({ org_Link_url: text })}
+                  placeholder='Please include full URL'
+                  onChangeText={text => this.setState({ org_link_url: text })}
                   onSubmitEditing={() => {
                     if (Platform.OS === 'android') return;
-                    this.orgLinkTextInput.focus();
+                    this.org_link_textInput.focus();
                   }}
                   blurOnSubmit={Platform.OS === 'android'}
                   value={this.state.org_link_url}
@@ -104,15 +107,15 @@ class EditDetailScreen extends React.Component {
                 <TextInput
                   ref={(input) => { this.orgLinkTextInput = input; }}
                   returnKeyType='next'
-                  placeholder='enter how you wish your website to appear'
+                  placeholder='How you wish your website to appear'
                   style={styles.inputContain}
-                  onChangeText={text => this.setState({ orgLinkText: text })}
+                  onChangeText={text => this.setState({ org_link_text: text })}
                   onSubmitEditing={() => {
                     if (Platform.OS === 'android') return;
                     this.orgCtaInput.focus();
                   }}
                   blurOnSubmit={Platform.OS === 'android'}
-                  value={this.state.orgLinkText}
+                  value={this.state.org_link_text}
                 />
               </View>
 
@@ -121,7 +124,10 @@ class EditDetailScreen extends React.Component {
                 <TextInput
                   ref={(input) => { this.org_ctaInput = input; }}
                   returnKeyType='next'
+                  keyboardType='url'
                   style={styles.inputContain}
+                  autoCapitalize='none'
+                  placeholder='Please include full URL'
                   onSubmitEditing={() => {
                     if (Platform.OS === 'android') return;
                     this.facebookInput.focus();
@@ -136,7 +142,10 @@ class EditDetailScreen extends React.Component {
                 <TextInput
                   ref={(input) => { this.facebookInput = input; }}
                   returnKeyType='next'
+                  keyboardType='url'
                   style={styles.inputContain}
+                  autoCapitalize='none'
+                  placeholder='Please include full URL'
                   onChangeText={text => this.setState({ facebook: text })}
                   onSubmitEditing={() => {
                     if (Platform.OS === 'android') return;
@@ -152,7 +161,10 @@ class EditDetailScreen extends React.Component {
                 <TextInput
                   ref={(input) => { this.instagramInput = input; }}
                   returnKeyType='next'
+                  keyboardType='url'
                   style={styles.inputContain}
+                  autoCapitalize='none'
+                  placeholder='Please include full URL'
                   onChangeText={text => this.setState({ instagram: text })}
                   onSubmitEditing={() => {
                     if (Platform.OS === 'android') return;
@@ -168,11 +180,14 @@ class EditDetailScreen extends React.Component {
                 <TextInput
                   ref={(input) => { this.twitterInput = input; }}
                   returnKeyType='next'
+                  keyboardType='url'
                   style={styles.inputContain}
+                  autoCapitalize='none'
+                  placeholder='Please include full URL'
                   onChangeText={text => this.setState({ twitter: text })}
                   onSubmitEditing={() => {
                     if (Platform.OS === 'android') return;
-                    this.aboutUsInput.focus();
+                    this.about_usInput.focus();
                   }}
                   blurOnSubmit={Platform.OS === 'android'}
                   value={this.state.twitter}

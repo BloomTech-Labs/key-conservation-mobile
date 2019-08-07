@@ -100,6 +100,7 @@ class CreateCampScreen extends React.Component {
                 <TextInput
                   ref={(input) => { this.campImgUrlInput = input; }}
                   returnKeyType='next'
+                  keyboardType='url'
                   placeholder="Please include full URL"
                   autoCapitalize='none'
                   style={styles.inputContain}
@@ -133,6 +134,7 @@ class CreateCampScreen extends React.Component {
                 <TextInput
                   ref={(input) => { this.donationLinkInput = input; }}
                   returnKeyType='next'
+                  keyboardType='url'
                   placeholder='Please include full URL'
                   autoCapitalize='none'
                   style={styles.inputContain}
