@@ -118,34 +118,81 @@ class CreateCampScreen extends React.Component {
             </View>
 
 
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Campaign Details</Text>
-              <TextInput
-                ref={input => {
-                  this.campDetailsInput = input;
-                }}
-                returnKeyType='next'
-                placeholder='Add campaign details and list of monetary needs.'
-                style={styles.inputContain2}
-                onChangeText={text => this.setState({ camp_desc: text })}
-                multiline={true}
-                value={this.state.camp_desc}
-              />
 
-            </View>
+      <ScrollView
+            contentContainerStyle={{
+              backgroundColor: '#fff',
+              minHeight: '100%'
+            }}
+          >            
+            <View style={styles.sectionContainer}>
+              
+              <View style={styles.sections}>
+                <Text style={styles.sectionsText}>Campaign Name</Text>
+                <TextInput
+                  ref={(input) => { this.campNameInput = input; }}
+                  returnKeyType='next'
+                  placeholder='Koala In Need!'
+                  style={styles.inputContain}
+                  onChangeText={text => this.setState({ camp_name: text })}
+                  onSubmitEditing={() => {
+                    if (Platform.OS === 'android') return;
+                    this.campImgUrlInput.focus();
+                  }}
+                  blurOnSubmit={Platform.OS === 'android'}
+                  value={this.state.camp_name}
+                />    
+              </View>
+              <View style={styles.sections}>
+                <Text style={styles.sectionsText}>Campaign Image URL</Text>
+                <TextInput
+                  ref={(input) => { this.campImgUrlInput = input; }}
+                  returnKeyType='next'
+                  keyboardType='url'
+                  placeholder="Please include full URL"
+                  autoCapitalize='none'
+                  style={styles.inputContain}
+                  onChangeText={text => this.setState({ camp_img: text })}
+                  onSubmitEditing={() => {
+                    if (Platform.OS === 'android') return;
+                    this.campDetailsInput.focus();
+                  }}
+                  blurOnSubmit={Platform.OS === 'android'}
+                  value={this.state.camp_img}
+                />    
+              </View>
+              
+              <View style={styles.sections}>
+                <Text style={styles.sectionsText}>Campaign Details</Text>
+                <TextInput
+                  ref={(input) => { this.campDetailsInput = input; }}
+                  returnKeyType='next'
+                  placeholder='Add campaign details and list of monetary needs.'
+                  style={styles.inputContain2}
+                  onChangeText={text => this.setState({ camp_desc: text })}
+                  
+                  multiline={true}
+                  
+                  value={this.state.camp_desc}
+                />    
+              </View>
+              
+              <View style={styles.sections}>
+                <Text style={styles.sectionsText}>Donation Link</Text>
+                <TextInput
+                  ref={(input) => { this.donationLinkInput = input; }}
+                  returnKeyType='next'
+                  keyboardType='url'
+                  placeholder='Please include full URL'
+                  autoCapitalize='none'
+                  style={styles.inputContain}
+                  onChangeText={text => this.setState({ camp_cta: text })}                 
+                  
+                  value={this.state.camp_cta}
+                />    
+              
+              </View>
 
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Donation Link</Text>
-              <TextInput
-                ref={input => {
-                  this.donationLinkInput = input;
-                }}
-                returnKeyType='next'
-                placeholder='Please include full URL'
-                style={styles.inputContain}
-                onChangeText={text => this.setState({ camp_cta: text })}
-                value={this.state.camp_cta}
-              />
             </View>
           </View>
         </ScrollView>

@@ -176,3 +176,22 @@ export const postCampaign = camp => dispatch => {
       dispatch({ type: POST_CAMPAIGN_ERROR, payload: err });
     });
 };
+
+export const [
+  DELETE_CAMPAIGN_START,
+  DELETE_CAMPAIGN_ERROR,
+  DELETE_CAMPAIGN_SUCCESS
+] = ["DELETE_CAMPAIGNS_START", "DELETE_CAMPAIGNS_ERROR", "DELETE_CAMPAIGNS_SUCCESS"];
+
+export const deleteCampaign = id => dispatch => {
+  dispatch({ type: DELETE_CAMPAIGN_START });
+  axios
+    .delete(`https://key-conservation-staging.herokuapp.com/api/campaigns/${id}`)
+    .then(res => {
+      dispatch({ type: DELETE_CAMPAIGN_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      dispatch({ type: DELETE_CAMPAIGN_ERROR, payload: err });
+    });
+};
+

@@ -83,6 +83,7 @@ class EditDetailScreen extends React.Component {
         <ScrollView>
           <View style={styles.sectionContainer}>
             <View style={styles.Card} />
+
             <View style={styles.sections}>
               <Text style={styles.sectionsText}>Email</Text>
               <TextInput
@@ -92,6 +93,7 @@ class EditDetailScreen extends React.Component {
 
                 returnKeyType='next'
                 placeholder='Email'
+                keyboardType='email-address'
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ email: text })}
                 onSubmitEditing={() => {
@@ -110,7 +112,10 @@ class EditDetailScreen extends React.Component {
                   this.org_link_urlInput = input;
                 }}
                 returnKeyType='next'
-                style={styles.inputContain}
+                keyboardType='url'       
+                  style={styles.inputContain}
+                  autoCapitalize='none'
+                  placeholder='Please include full URL'
                 onChangeText={text => this.setState({ org_link_url: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
@@ -128,7 +133,7 @@ class EditDetailScreen extends React.Component {
                   this.orgLinkTextInput = input;
                 }}
                 returnKeyType='next'
-                placeholder='enter how you wish your website to appear'
+                placeholder='How you wish your website to appear'
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ org_link_text: text })}
                 onSubmitEditing={() => {
@@ -147,7 +152,10 @@ class EditDetailScreen extends React.Component {
                   this.org_ctaInput = input;
                 }}
                 returnKeyType='next'
-                style={styles.inputContain}
+                keyboardType='url'
+                  style={styles.inputContain}
+                  autoCapitalize='none'
+                  placeholder='Please include full URL'
                 onChangeText={text => this.setState({ org_cta: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
@@ -167,7 +175,10 @@ class EditDetailScreen extends React.Component {
                   this.facebookInput = input;
                 }}
                 returnKeyType='next'
-                style={styles.inputContain}
+                keyboardType='url'
+                  style={styles.inputContain}
+                  autoCapitalize='none'
+                  placeholder='Please include full URL'
                 onChangeText={text => this.setState({ facebook: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
@@ -187,7 +198,10 @@ class EditDetailScreen extends React.Component {
                   this.instagramInput = input;
                 }}
                 returnKeyType='next'
-                style={styles.inputContain}
+                keyboardType='url'
+                  style={styles.inputContain}
+                  autoCapitalize='none'
+                  placeholder='Please include full URL'
                 onChangeText={text => this.setState({ instagram: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
@@ -207,7 +221,10 @@ class EditDetailScreen extends React.Component {
                   this.twitterInput = input;
                 }}
                 returnKeyType='next'
-                style={styles.inputContain}
+                keyboardType='url'
+                  style={styles.inputContain}
+                  autoCapitalize='none'
+                  placeholder='Please include full URL'
                 onChangeText={text => this.setState({ twitter: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
@@ -276,6 +293,7 @@ class EditDetailScreen extends React.Component {
                 <Text style = {styles.buttonText}>Logout</Text>
               </TouchableOpacity>
             </View>
+
 
           </View>
         </ScrollView>

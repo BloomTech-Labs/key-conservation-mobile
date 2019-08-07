@@ -33,9 +33,9 @@ const ProScreen = props => {
               title={campaign.camp_name}
               leftAvatar={{ source: { uri: campaign.camp_img } }}
               subtitle={campaign.location}
-              rightIcon={
-                <Icon name='ellipsis-v' type='font-awesome' color='black' />
-              }
+              // rightIcon={
+              //   <Icon name='ellipsis-v' type='font-awesome' color='black' />
+              // }
             />
           );
         })}

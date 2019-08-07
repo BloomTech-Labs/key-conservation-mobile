@@ -6,16 +6,23 @@ import {
   Button,
   TouchableOpacity
 } from 'react-native';
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+} from 'react-native-popup-menu';
 import { ScrollView } from "react-navigation";
 import { connect } from 'react-redux';
 import SvgUri from 'react-native-svg-uri';
 import { Icon, ListItem } from 'react-native-elements';
 
-import { getProfileData } from '../store/actions';
+import { getProfileData, deleteCampaign } from '../store/actions';
 
 import EditButton from '../components/EditButton';
 
 import ProfileHeader from '../components/Profile/ProfileHeader';
+import Stylesheet from '../constants/Stylesheet';
 
 class MyProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -60,11 +67,15 @@ class MyProScreen extends React.Component {
                   leftAvatar={{ source: { uri: campaign.camp_img } }}
                   subtitle={campaign.location}
                   rightIcon={
-                    <SvgUri
-                      width='25'
-                      height='25'
-                      source={require('../assets/icons/ellipsis-vertical.svg')}
-                    />
+                    <Menu>
+                      <MenuTrigger children={<SvgUri width='25' height='25' source={require('../assets/icons/ellipsis-vertical.svg')} />}/>
+                      <MenuOptions customStyles={optionsStyles}>
+                        <MenuOption onSelect={() => this.props.deleteCampaign(campaign.camp_id)}>
+                          <Text style={{color: '#ff0a55',fontSize: 16 }}>Delete</Text>
+                        </MenuOption>
+                      </MenuOptions>
+                    </Menu>
+                    
                   }
                 />
               );
@@ -78,8 +89,14 @@ class MyProScreen extends React.Component {
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile
 });
+const optionsStyles = {
+  optionsContainer: {
+    width: 75
+  },
+}
+  
 
 export default connect(
   mapStateToProps,
-  { getProfileData }
+  { getProfileData, deleteCampaign }
 )(MyProScreen);
