@@ -154,7 +154,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getCampaigns: false },
-        allCampaigns: action.payload
+        allCampaigns: action.payload.reverse()
       };
     case GET_CAMPAIGNS_ERROR:
       return {
@@ -162,22 +162,26 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, getCampaigns: false },
         error: action.payload
       };
-    case GET_CAMPAIGNS_START:
+    case POST_CAMPAIGN_START:
       return {
         ...state,
-        pending: { ...state.pending, getCampaigns: true },
+        pending: { ...state.pending, postCampaign: true },
         error: ""
       };
-    case GET_CAMPAIGNS_SUCCESS:
+    case POST_CAMPAIGN_SUCCESS:
       return {
         ...state,
-        pending: { ...state.pending, getCampaigns: false },
-        allCampaigns: [...state.allCampaigns, action.payload]
+        pending: { ...state.pending, postCampaign: false },
+        currentUserProfile: {
+          ...state.currentUserProfile, campaigns: [
+            ...state.currentUserProfile.campaigns, action.payload
+          ]
+        }
       };
-    case GET_CAMPAIGNS_ERROR:
+    case POST_CAMPAIGN_ERROR:
       return {
         ...state,
-        pending: { ...state.pending, getCampaigns: false },
+        pending: { ...state.pending, postCampaign: false },
         error: action.payload
       };
     default:

@@ -58,7 +58,7 @@ class MyProScreen extends React.Component {
               return (
                 <ListItem
                   key={campaign.camp_id}
-                  title={campaign.username}
+                  title={campaign.camp_name}
                   leftAvatar={{ source: { uri: campaign.camp_img } }}
                   subtitle={campaign.location}
                   rightIcon={

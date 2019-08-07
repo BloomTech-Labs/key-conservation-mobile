@@ -4,7 +4,8 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  ActivityIndicator
+  ActivityIndicator,
+  Platform
 } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 
@@ -61,8 +62,9 @@ const Campaign = props => {
         <View style={styles.donateButton}>
           <TouchableOpacity
             style={styles.touchableButton}
-            onPress={async () =>
-              await WebBrowser.openBrowserAsync(props.data.org_link_url)
+            onPress={ async () =>
+              await WebBrowser.openBrowserAsync(props.data.camp_cta) 
+             
             }
           >
             <View style={styles.touchableView}>

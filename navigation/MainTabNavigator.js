@@ -5,16 +5,15 @@ import {
   createBottomTabNavigator
 } from "react-navigation";
 
-import FeedScreen from "../screens/FeedScreen";
-import CreateCampScreen from "../screens/CreateCampScreen";
-import ProScreen from "../screens/ProScreen";
-import MyProScreen from "../screens/MyProScreen";
-import EditProScreen from "../screens/EditProScreen";
-import CampScreen from "../screens/CampScreen";
-import DetailScreen from "../screens/DetailScreen";
-import MyDetailScreen from "../screens/MyDetailScreen";
-import EditDetailScreen from "../screens/EditDetailScreen";
-import LoginScreen from "../screens/LoginScreen";
+import FeedScreen from '../screens/FeedScreen';
+import CreateCampScreen from '../screens/CreateCampScreen';
+import ProScreen from '../screens/ProScreen';
+import MyProScreen from '../screens/MyProScreen';
+import EditProScreen from '../screens/EditProScreen';
+import DetailScreen from '../screens/DetailScreen';
+import MyDetailScreen from '../screens/MyDetailScreen';
+import EditDetailScreen from '../screens/EditDetailScreen';
+import LoginScreen from '../screens/LoginScreen';
 import UsernameScreen from "../screens/UsernameScreen";
 
 import EditButton from "../components/EditButton";
@@ -109,9 +108,8 @@ const MyProStack = createStackNavigator(
     },
     EditDetail: {
       screen: EditDetailScreen,
-      navigationOptions: { title: "Edit Details" }
-    },
-    Campaign: CampScreen
+      navigationOptions: { title: 'Edit Details' }
+    }
   },
   {
     transitionConfig: () => ({
@@ -163,10 +161,9 @@ export const LoginStack = createStackNavigator(
 
 export const TabNavigator = createBottomTabNavigator(
   {
-    FeedStack: { screen: FeedStack, path: "" },
-    CreateCampStack: { screen: CreateCampStack, path: "" },
-    MyProStack: { screen: MyProStack, path: "" }
-    // FormStack: { screen: FormStack, path: '' }
+    FeedStack: { screen: FeedStack, path: '' },
+    CreateCampStack: { screen: CreateCampStack, path: '' },
+    MyProStack: { screen: MyProStack, path: '' }
   },
   {
     tabBarOptions: {
