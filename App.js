@@ -2,6 +2,7 @@ import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import React, { useState } from 'react';
+import { MenuProvider } from 'react-native-popup-menu';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 
 import AppNavigator from './navigation/AppNavigator';
@@ -28,7 +29,9 @@ export default function App(props) {
         {Platform.OS === 'ios' && <StatusBar barStyle='light-content' />}
         {Platform.OS === 'android' && <StatusBar barStyle='dark-content' translucent />}
         <Provider store={store}>
-          <AppNavigator />
+          <MenuProvider>
+            <AppNavigator />
+          </MenuProvider>
         </Provider>
       </View>
     );

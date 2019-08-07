@@ -20,7 +20,10 @@ import {
   GET_CAMPAIGNS_SUCCESS,
   POST_CAMPAIGN_START,
   POST_CAMPAIGN_ERROR,
-  POST_CAMPAIGN_SUCCESS
+  POST_CAMPAIGN_SUCCESS,
+  DELETE_CAMPAIGN_START,
+  DELETE_CAMPAIGN_ERROR,
+  DELETE_CAMPAIGN_SUCCESS
 } from "../actions";
 
 const initialState = {
@@ -155,12 +158,37 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getCampaigns: false },
-        allCampaigns: campaigns,
+        allCampaigns: campaigns
       };
     case GET_CAMPAIGNS_ERROR:
       return {
         ...state,
         pending: { ...state.pending, getCampaigns: false },
+        error: action.payload
+      };
+    case DELETE_CAMPAIGN_START:
+      return {
+        ...state,
+        pending: { ...state.pending, deleteCampaign: true },
+        error: ""
+      };
+    case DELETE_CAMPAIGN_SUCCESS:
+      const deleted = Number(action.payload);
+      const newCampaigns = state.currentUserProfile.campaigns.filter(camp => {
+        return (camp.camp_id !== deleted)
+      })
+      return {
+        ...state,
+        pending: { ...state.pending, deleteCampaign: false },
+        currentUserProfile: {
+          ...state.currentUserProfile,
+          campaigns: newCampaigns
+        }
+      };
+    case DELETE_CAMPAIGN_ERROR:
+      return {
+        ...state,
+        pending: { ...state.pending, deleteCampaign: false },
         error: action.payload
       };
     case POST_CAMPAIGN_START:
@@ -174,7 +202,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         pending: { ...state.pending, postCampaign: false },
         currentUserProfile: {
-          ...state.currentUserProfile, campaigns: [
+          ...state.currentUserProfile, 
+          campaigns: [
             ...state.currentUserProfile.campaigns, action.payload
           ]
         }
