@@ -5,6 +5,7 @@ import {
   View,
   TouchableOpacity
 } from 'react-native';
+import { ScrollView } from "react-navigation";
 import { useSelector } from 'react-redux';
 
 import DetailHeader from '../components/DetailScreen/DetailHeader';
