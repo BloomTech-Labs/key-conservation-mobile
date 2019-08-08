@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,34 +6,34 @@ import {
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView
-} from "react-native";
-import { ScrollView } from "react-navigation";
-import { connect } from "react-redux";
+} from 'react-native';
+import { ScrollView } from 'react-navigation';
+import { connect } from 'react-redux';
 
-import * as SecureStore from "expo-secure-store";
+import * as SecureStore from 'expo-secure-store';
 
 //import { Input } from 'react-native-elements';
 
 //import styles from '../constants/Stylesheet';
 
-import { postUser } from "../store/actions";
+import { postUser } from '../store/actions';
 
 class UsernameScreen extends React.Component {
   state = {
-    usernameInput: "",
-    error: ""
+    usernameInput: '',
+    error: ''
   };
 
   handlePress = async () => {
     const { error } = this.props;
-    const sub = await SecureStore.getItemAsync("sub", {});
-    const email = await SecureStore.getItemAsync("email", {});
-    const role = await SecureStore.getItemAsync("roles", {});
+    const sub = await SecureStore.getItemAsync('sub', {});
+    const email = await SecureStore.getItemAsync('email', {});
+    const role = await SecureStore.getItemAsync('roles', {});
     const username = this.state.usernameInput;
 
     if (username.length > 4) {
       this.setState({
-        error: ""
+        error: ''
       });
       let user = {
         username: username,
@@ -41,14 +41,14 @@ class UsernameScreen extends React.Component {
         roles: role,
         email: email
       };
-      console.log("******click from username", user);
+      console.log('******click from username', user);
       await this.props.postUser(user);
       this.props.navigation.navigate(
-        this.props.error ? "CreateAccount" : "Loading"
+        this.props.error ? 'CreateAccount' : 'Loading'
       );
     } else {
       this.setState({
-        error: "Username is required to be atleast 4 characters"
+        error: 'Username is required to be atleast 5 characters'
       });
     }
   };
@@ -59,14 +59,11 @@ class UsernameScreen extends React.Component {
         <View style={styles.sectionContainer}>
           <View style={styles.Card} />
           <View style={styles.textContainer}>
-            <Text>
-              Thanks for signing up! Please choose a username and enter it
-              below.
-            </Text>
+            <Text style={{ textAlign: 'center' }}>Thanks for signing up!</Text>
           </View>
           <TextInput
-            returnKeyType="go"
-            placeholder="ex: carribbeanturtleproject"
+            returnKeyType='go'
+            placeholder='ex: carribbeanturtleproject'
             style={styles.inputContain}
             onChangeText={text => this.setState({ usernameInput: text })}
             value={this.state.usernameInput}
@@ -75,11 +72,16 @@ class UsernameScreen extends React.Component {
         </View>
         <View style={{ height: 20, margin: 25 }}>
           {this.state.error ? (
-            <Text style={{ textAlign: "center", color: "red" }}>
+            <Text style={{ textAlign: 'center', color: 'red' }}>
               {this.state.error}
             </Text>
+          ) : this.props.error.config &&
+            this.props.error.config.method === 'get' ? (
+            <Text style={{ textAlign: 'center', color: 'green' }}>
+              Please choose a username and enter it above
+            </Text>
           ) : this.props.error.message ? (
-            <Text style={{ textAlign: "center", color: "red" }}>
+            <Text style={{ textAlign: 'center', color: 'red' }}>
               Failed to create user. Please try another username
             </Text>
           ) : null}
@@ -98,7 +100,7 @@ class UsernameScreen extends React.Component {
 }
 
 UsernameScreen.navigationOptions = {
-  title: "Sign Up"
+  title: 'Sign Up'
 };
 
 const mapStateToProps = state => ({
@@ -112,21 +114,21 @@ export default connect(
 
 const styles = StyleSheet.create({
   sectionContainer: {
-    flexDirection: "column",
-    flexWrap: "wrap",
+    flexDirection: 'column',
+    flexWrap: 'wrap',
     margin: 15,
     flex: 1,
-    alignItems: "center"
+    alignItems: 'center'
   },
   Card: {
     marginTop: 20,
-    backgroundColor: "#fff",
-    width: "100%",
+    backgroundColor: '#fff',
+    width: '100%',
     padding: 25
   },
   inputContain: {
     borderWidth: 2,
-    borderColor: "#C4C4C4",
+    borderColor: '#C4C4C4',
     padding: 5,
     borderRadius: 3,
     fontSize: 16,
@@ -136,23 +138,23 @@ const styles = StyleSheet.create({
   touchableButton: {
     paddingTop: 25,
     paddingBottom: 25,
-    width: "100%",
+    width: '100%',
     height: 50,
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   touchableView: {
-    backgroundColor: "#00FF9D",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#00FF9D',
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 5,
     height: 48,
     width: 243
   },
   touchableText: {
-    color: "black",
-    textTransform: "uppercase",
-    fontWeight: "bold",
+    color: 'black',
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
     letterSpacing: 2
   },
 
@@ -161,7 +163,7 @@ const styles = StyleSheet.create({
     height: 43,
     marginBottom: 33,
     fontSize: 16,
-    flexWrap: "wrap",
+    flexWrap: 'wrap',
     letterSpacing: 2
   }
 });
