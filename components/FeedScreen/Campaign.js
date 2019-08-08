@@ -30,13 +30,14 @@ const Campaign = props => {
   return (
     <View style={styles.container}>
       <ListItem
-        onPress={() => handlePress(users_id)}        
+        onPress={() => handlePress(users_id)}
         title={
           <View>
             <Text style={styles.orgTitleView}>{props.data.username}</Text>
-          </View>}
+          </View>
+        }
         leftAvatar={{ source: { uri: props.data.profile_image } }}
-        subtitle={props.data.location} 
+        subtitle={props.data.location}
       />
       <View>
         <Text style={styles.campTitle}>{props.data.camp_name}</Text>
@@ -45,17 +46,19 @@ const Campaign = props => {
           style={styles.campImgContain}
         />
       </View>
-      <View style={styles.campDesc}>        
-           
-        <Text><Text style={styles.campDescUsername}>{props.data.username}</Text> {props.data.camp_desc}</Text>        
+      <View style={styles.campDesc}>
+        <Text>
+          <Text style={styles.campDescUsername}>{props.data.username}</Text>
+          {props.data.camp_desc}
+        </Text>
       </View>
       <View>
         <View style={styles.campMission}>
-        <SvgUri
-              width='25'
-              height='25'
-              source={require('../../assets/icons/hand.svg')}
-            />
+          <SvgUri
+            width='25'
+            height='25'
+            source={require('../../assets/icons/hand.svg')}
+          />
           <Text style={styles.campMissionText}>Support Our Mission</Text>
         </View>
         <View style={styles.donateButton}>
@@ -63,7 +66,9 @@ const Campaign = props => {
             style={styles.touchableButton}
             // If these links are empty string and don't have an http:// or a https:// it will send you with unpromised rejections.
             onPress={async () =>
-              await WebBrowser.openBrowserAsync(props.data.camp_cta) 
+              props.data.camp_cta &&
+              props.data.camp_cata !== null &&
+              (await WebBrowser.openBrowserAsync(props.data.camp_cta))
             }
           >
             <View style={styles.touchableView}>
@@ -71,7 +76,6 @@ const Campaign = props => {
             </View>
           </TouchableOpacity>
         </View>
-
       </View>
     </View>
   );

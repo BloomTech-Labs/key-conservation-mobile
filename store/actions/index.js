@@ -66,41 +66,56 @@ export const [EDIT_PROFILE_START, EDIT_PROFILE_ERROR, EDIT_PROFILE_SUCCESS] = [
 
 export const editProfileData = (id, changes) => async dispatch => {
   dispatch({ type: EDIT_PROFILE_START });
-  
+
   if (
-    changes.facebook && changes.facebook !== null && changes.facebook.indexOf('http://') !== 0 && changes.facebook.indexOf('https://') !== 0
+    changes.facebook &&
+    changes.facebook !== null &&
+    changes.facebook.indexOf('http://') !== 0 &&
+    changes.facebook.indexOf('https://') !== 0
   ) {
     changes.facebook = changes.facebook.toLowerCase();
     let facebook = 'https://' + changes.facebook;
     changes.facebook = facebook;
   }
   if (
-    changes.twitter && changes.twitter !== null && changes.twitter.indexOf('http://') !== 0 && changes.twitter.indexOf('https://') !== 0
+    changes.twitter &&
+    changes.twitter !== null &&
+    changes.twitter.indexOf('http://') !== 0 &&
+    changes.twitter.indexOf('https://') !== 0
   ) {
     changes.twitter = changes.twitter.toLowerCase();
     let twitter = 'https://' + changes.twitter;
     changes.twitter = twitter;
   }
   if (
-    changes.instagram && changes.instagram !== null && changes.instagram.indexOf('http://') !== 0 && changes.instagram.indexOf('https://') !== 0
+    changes.instagram &&
+    changes.instagram !== null &&
+    changes.instagram.indexOf('http://') !== 0 &&
+    changes.instagram.indexOf('https://') !== 0
   ) {
     changes.instagram = changes.instagram.toLowerCase();
     let instagram = 'https://' + changes.instagram;
     changes.instagram = instagram;
   }
   if (
-    changes.org_link_url && changes.org_link_url !== null && changes.org_link_url.indexOf('http://') !== 0 && changes.org_link_url.indexOf('https://') !== 0
+    changes.org_link_url &&
+    changes.org_link_url !== null &&
+    changes.org_link_url.indexOf('http://') !== 0 &&
+    changes.org_link_url.indexOf('https://') !== 0
   ) {
     changes.org_link_url = changes.org_link_url.toLowerCase();
     let org_link_url = 'https://' + changes.org_link_url;
     changes.org_link_url = org_link_url;
   }
   if (
-    changes.org_link_cta && changes.org_link_cta !== null && changes.org_link_cta.indexOf('http://') !== 0 && changes.org_link_cta.indexOf('https://') !== 0
+    changes.org_cta &&
+    changes.org_cta !== null &&
+    changes.org_cta.indexOf('http://') !== 0 &&
+    changes.org_cta.indexOf('https://') !== 0
   ) {
     changes.org_cta = changes.org_cta.toLowerCase();
-    let org_link_cta = 'https://' + changes.org_link_cta;
-    changes.org_link_cta = org_link_cta;
+    let orgDonate = 'https://' + changes.org_cta;
+    changes.org_cta = orgDonate;
   }
 
   return axios
@@ -163,13 +178,15 @@ export const postCampaign = camp => dispatch => {
   dispatch({ type: POST_CAMPAIGN_START });
   // If a user doesn't include http or https in there URL this function will add it.
   // If they already include it it will be ignored. and if its capital "Https || Http" it will become lowercase.
-  camp.camp_cta = camp.camp_cta.toLowerCase();
   if (
-    camp.camp_cta.indexOf('http://') !== 0 ||
+    camp.camp_cta &&
+    camp.camp_cta !== null &&
+    camp.camp_cta.indexOf('http://') !== 0 &&
     camp.camp_cta.indexOf('https://') !== 0
-  ) { 
-    var newurl = 'https://' + camp.camp_cta;
-    camp.camp_cta = newurl;
+  ) {
+    camp.camp_cta = camp.camp_cta.toLowerCase();
+    let donate = 'https://' + camp.camp_cta;
+    camp.camp_cta = donate;
   }
   axios
     .post('https://key-conservation-staging.herokuapp.com/api/campaigns', camp)
@@ -185,12 +202,18 @@ export const [
   DELETE_CAMPAIGN_START,
   DELETE_CAMPAIGN_ERROR,
   DELETE_CAMPAIGN_SUCCESS
-] = ["DELETE_CAMPAIGNS_START", "DELETE_CAMPAIGNS_ERROR", "DELETE_CAMPAIGNS_SUCCESS"];
+] = [
+  'DELETE_CAMPAIGNS_START',
+  'DELETE_CAMPAIGNS_ERROR',
+  'DELETE_CAMPAIGNS_SUCCESS'
+];
 
 export const deleteCampaign = id => dispatch => {
   dispatch({ type: DELETE_CAMPAIGN_START });
   axios
-    .delete(`https://key-conservation-staging.herokuapp.com/api/campaigns/${id}`)
+    .delete(
+      `https://key-conservation-staging.herokuapp.com/api/campaigns/${id}`
+    )
     .then(res => {
       dispatch({ type: DELETE_CAMPAIGN_SUCCESS, payload: res.data });
     })
@@ -198,4 +221,3 @@ export const deleteCampaign = id => dispatch => {
       dispatch({ type: DELETE_CAMPAIGN_ERROR, payload: err });
     });
 };
-
