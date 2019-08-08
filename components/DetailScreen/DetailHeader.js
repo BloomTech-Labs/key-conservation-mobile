@@ -57,7 +57,7 @@ export default class DetailHeader extends Component {
                   <Text style={styles.location}>{profile.location}</Text>
                 </View>
                 <Text
-                  onPress={async () =>
+                  onPress={profile.org_link_url && profile.org_link_url !== null && async () =>
                     await WebBrowser.openBrowserAsync(profile.org_link_url)
                   }
                 >
@@ -66,9 +66,9 @@ export default class DetailHeader extends Component {
               </View>
               <View style={styles.SocialContainer}>
                 <TouchableOpacity
-                  onPress={async () => {
-                    await Linking.openURL(`mailto:${profile.email}`);
-                  }}
+                  onPress={profile.email && profile.email !== null && async () =>
+                    await Linking.openURL(`mailto:${profile.email}`)
+                  }
                 >
                   <SvgUri
                     width='25'
@@ -77,7 +77,7 @@ export default class DetailHeader extends Component {
                   />
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={async () =>
+                  onPress={profile.instagram && profile.instagram !== null && async () =>
                     await WebBrowser.openBrowserAsync(profile.instagram)
                   }
                 >
@@ -88,7 +88,7 @@ export default class DetailHeader extends Component {
                   />
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={async () =>
+                  onPress={profile.twitter && profile.twitter !== null && async () =>
                     await WebBrowser.openBrowserAsync(profile.twitter)
                   }
                 >
@@ -99,7 +99,7 @@ export default class DetailHeader extends Component {
                   />
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={async () =>
+                  onPress={profile.facebook && profile.facebook !== null && async () =>
                     await WebBrowser.openBrowserAsync(profile.facebook)
                   }
                 >

@@ -66,36 +66,41 @@ export const [EDIT_PROFILE_START, EDIT_PROFILE_ERROR, EDIT_PROFILE_SUCCESS] = [
 
 export const editProfileData = (id, changes) => async dispatch => {
   dispatch({ type: EDIT_PROFILE_START });
-
-  changes.facebook = changes.facebook.toLowerCase();
-  changes.twitter = changes.twitter.toLowerCase();
-  changes.instagram = changes.instagram.toLowerCase();
-  changes.org_link_url = changes.org_link_url.toLowerCase();
-  changes.org_cta = changes.org_cta.toLowerCase();
+  
   if (
-    changes.facebook.indexOf('http://') == 0 ||
-    changes.facebook.indexOf('https://') == 0 ||
-    changes.twitter.indexOf('http://') == 0 ||
-    changes.twitter.indexOf('https://') == 0 ||
-    changes.instagram.indexOf('http://') == 0 ||
-    changes.instagram.indexOf('https://') == 0 ||
-    changes.org_link_url.indexOf('http://') == 0 ||
-    changes.org_link_url.indexOf('https://') == 0 ||
-    changes.org_cta.indexOf('http://') == 0 ||
-    changes.org_cta.indexOf('https://') == 0
+    changes.facebook && changes.facebook !== null && changes.facebook.indexOf('http://') !== 0 && changes.facebook.indexOf('https://') !== 0
   ) {
-  } else {
+    changes.facebook = changes.facebook.toLowerCase();
     let facebook = 'https://' + changes.facebook;
-    let twitter = 'https://' + changes.twitter;
-    let instagram = 'https:/' + changes.instagram;
-    let orgLink = 'https://' + changes.org_link_url;
-    let orgCta = 'https://' + changes.org_cta;
-
     changes.facebook = facebook;
+  }
+  if (
+    changes.twitter && changes.twitter !== null && changes.twitter.indexOf('http://') !== 0 && changes.twitter.indexOf('https://') !== 0
+  ) {
+    changes.twitter = changes.twitter.toLowerCase();
+    let twitter = 'https://' + changes.twitter;
     changes.twitter = twitter;
+  }
+  if (
+    changes.instagram && changes.instagram !== null && changes.instagram.indexOf('http://') !== 0 && changes.instagram.indexOf('https://') !== 0
+  ) {
+    changes.instagram = changes.instagram.toLowerCase();
+    let instagram = 'https://' + changes.instagram;
     changes.instagram = instagram;
-    changes.org_link_url = orgLink;
-    changes.org_cta = orgCta;
+  }
+  if (
+    changes.org_link_url && changes.org_link_url !== null && changes.org_link_url.indexOf('http://') !== 0 && changes.org_link_url.indexOf('https://') !== 0
+  ) {
+    changes.org_link_url = changes.org_link_url.toLowerCase();
+    let org_link_url = 'https://' + changes.org_link_url;
+    changes.org_link_url = org_link_url;
+  }
+  if (
+    changes.org_link_cta && changes.org_link_cta !== null && changes.org_link_cta.indexOf('http://') !== 0 && changes.org_link_cta.indexOf('https://') !== 0
+  ) {
+    changes.org_cta = changes.org_cta.toLowerCase();
+    let org_link_cta = 'https://' + changes.org_link_cta;
+    changes.org_link_cta = org_link_cta;
   }
 
   return axios
@@ -160,10 +165,9 @@ export const postCampaign = camp => dispatch => {
   // If they already include it it will be ignored. and if its capital "Https || Http" it will become lowercase.
   camp.camp_cta = camp.camp_cta.toLowerCase();
   if (
-    camp.camp_cta.indexOf('http://') == 0 ||
-    camp.camp_cta.indexOf('https://') == 0
-  ) {
-  } else {
+    camp.camp_cta.indexOf('http://') !== 0 ||
+    camp.camp_cta.indexOf('https://') !== 0
+  ) { 
     var newurl = 'https://' + camp.camp_cta;
     camp.camp_cta = newurl;
   }

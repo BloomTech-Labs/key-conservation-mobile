@@ -98,51 +98,12 @@ class CreateCampScreen extends React.Component {
                 value={this.state.camp_name}
               />
             </View>
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Campaign Image URL</Text>
-              <TextInput
-                ref={input => {
-                  this.campImgUrlInput = input;
-                }}
-                returnKeyType='next'
-                placeholder='Please include your website donation link'
-                style={styles.inputContain}
-                onChangeText={text => this.setState({ camp_img: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.campDetailsInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.camp_img}
-              />
-            </View>
+            
 
 
 
-      <ScrollView
-            contentContainerStyle={{
-              backgroundColor: '#fff',
-              minHeight: '100%'
-            }}
-          >            
-            <View style={styles.sectionContainer}>
-              
-              <View style={styles.sections}>
-                <Text style={styles.sectionsText}>Campaign Name</Text>
-                <TextInput
-                  ref={(input) => { this.campNameInput = input; }}
-                  returnKeyType='next'
-                  placeholder='Koala In Need!'
-                  style={styles.inputContain}
-                  onChangeText={text => this.setState({ camp_name: text })}
-                  onSubmitEditing={() => {
-                    if (Platform.OS === 'android') return;
-                    this.campImgUrlInput.focus();
-                  }}
-                  blurOnSubmit={Platform.OS === 'android'}
-                  value={this.state.camp_name}
-                />    
-              </View>
+            
+            
               <View style={styles.sections}>
                 <Text style={styles.sectionsText}>Campaign Image URL</Text>
                 <TextInput
@@ -194,7 +155,6 @@ class CreateCampScreen extends React.Component {
               </View>
 
             </View>
-          </View>
         </ScrollView>
       </KeyboardAvoidingView>
     );
