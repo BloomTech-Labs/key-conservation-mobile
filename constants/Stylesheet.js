@@ -29,7 +29,10 @@ export default {
   },
   campDescUsername: {
     fontFamily: 'OpenSans-SemiBold',
-    paddingRight: 10
+    paddingRight: 15
+  },
+  campDescText: {
+    paddingLeft: 15
   },
   touchableButton: {
     paddingTop: 25,
