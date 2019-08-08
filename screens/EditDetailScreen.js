@@ -58,7 +58,7 @@ class EditDetailScreen extends React.Component {
     instagram: this.props.currentUserProfile.instagram,
     twitter: this.props.currentUserProfile.twitter,
     about_us: this.props.currentUserProfile.about_us,
-    species_habitats: this.props.currentUserProfile.species_and_habitats,
+    species_and_habitats: this.props.currentUserProfile.species_and_habitats,
     issues: this.props.currentUserProfile.issues,
     // supportUs: this.props.currentUserProfile.support_us,
     org_cta: this.props.currentUserProfile.org_cta
@@ -261,9 +261,9 @@ class EditDetailScreen extends React.Component {
                 }}
                 returnKeyType='next'
                 style={styles.inputContain2}
-                onChangeText={text => this.setState({ species_habitats: text })}
+                onChangeText={text => this.setState({ species_and_habitats: text })}
                 multiline={true}
-                value={this.state.species_habitats}
+                value={this.state.species_and_habitats}
 
               />
             </View>
