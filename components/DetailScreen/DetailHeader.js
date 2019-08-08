@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Linking
 } from 'react-native';
-import { ScrollView } from "react-navigation";
+import { ScrollView } from 'react-navigation';
 import * as WebBrowser from 'expo-web-browser';
 import { Avatar, Icon, Image } from 'react-native-elements';
 import SvgUri from 'react-native-svg-uri';
@@ -57,8 +57,10 @@ export default class DetailHeader extends Component {
                   <Text style={styles.location}>{profile.location}</Text>
                 </View>
                 <Text
-                  onPress={profile.org_link_url && profile.org_link_url !== null && async () =>
-                    await WebBrowser.openBrowserAsync(profile.org_link_url)
+                  onPress={async () =>
+                    profile.org_link_url &&
+                    profile.org_link_url !== null &&
+                    (await WebBrowser.openBrowserAsync(profile.org_link_url))
                   }
                 >
                   {profile.org_link_url}
@@ -66,9 +68,9 @@ export default class DetailHeader extends Component {
               </View>
               <View style={styles.SocialContainer}>
                 <TouchableOpacity
-                  onPress={profile.email && profile.email !== null && async () =>
-                    await Linking.openURL(`mailto:${profile.email}`)
-                  }
+                  onPress={async () => {
+                    await Linking.openURL(`mailto:${profile.email}`);
+                  }}
                 >
                   <SvgUri
                     width='25'
@@ -77,8 +79,11 @@ export default class DetailHeader extends Component {
                   />
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={profile.instagram && profile.instagram !== null && async () =>
-                    await WebBrowser.openBrowserAsync(profile.instagram)
+                  style={{ padding: 0, padding: 0 }}
+                  onPress={async () =>
+                    profile.instagram &&
+                    profile.instagram !== null &&
+                    (await WebBrowser.openBrowserAsync(profile.instagram))
                   }
                 >
                   <SvgUri
@@ -88,8 +93,10 @@ export default class DetailHeader extends Component {
                   />
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={profile.twitter && profile.twitter !== null && async () =>
-                    await WebBrowser.openBrowserAsync(profile.twitter)
+                  onPress={async () =>
+                    profile.twitter &&
+                    profile.twitter !== null &&
+                    (await WebBrowser.openBrowserAsync(profile.twitter))
                   }
                 >
                   <SvgUri
@@ -99,8 +106,10 @@ export default class DetailHeader extends Component {
                   />
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={profile.facebook && profile.facebook !== null && async () =>
-                    await WebBrowser.openBrowserAsync(profile.facebook)
+                  onPress={async () =>
+                    profile.facebook &&
+                    profile.facebook !== null &&
+                    (await WebBrowser.openBrowserAsync(profile.facebook))
                   }
                 >
                   <SvgUri
@@ -134,10 +143,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     flexWrap: 'wrap',
-    marginTop: 10,
+    marginTop: 5,
     padding: 25,
     backgroundColor: '#fff',
-    width: '100%'
+    width: '100%',
+    height: 173
   },
   buttons: {
     flexDirection: 'row',

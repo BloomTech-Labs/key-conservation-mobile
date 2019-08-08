@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity
-} from 'react-native';
-import { ScrollView } from "react-navigation";
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { ScrollView } from 'react-navigation';
 import * as WebBrowser from 'expo-web-browser';
 import { Icon, Image } from 'react-native-elements';
 import SvgUri from 'react-native-svg-uri';
@@ -69,9 +64,9 @@ const DetailAboutUs = props => {
             <View style={styles.donateButton}>
               <TouchableOpacity
                 onPress={async () =>
-                  await WebBrowser.openBrowserAsync(
-                    'https://support.nature.org/site/Donation2?12640.donation=form1&df_id=12640&src=p_g.dfa.fd.x.dtd.EGT01&set.SingleDesignee=15852&crid=EGT01&sbid=B01&suslb=no&asid=100&moncb=no&s_src=p_g.dfa.fd.x.dtd.EGT01&gclid=Cj0KCQjwvo_qBRDQARIsAE-bsH9-sROQJs2hlLZCElWEEJR2M96cf0H6oNVRWKcerwapzSYfzJb9mfAaAqv3EALw_wcB'
-                  )
+                  profile.org_cta &&
+                  profile.org_cta !== null &&
+                  (await WebBrowser.openBrowserAsync(profile.org_cta))
                 }
                 style={{
                   paddingTop: 25,
@@ -139,7 +134,12 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 25
   },
-  title: { fontSize: 18, alignSelf: 'center', marginLeft: 10, fontFamily: "OpenSans-Regular" },
+  title: {
+    fontSize: 18,
+    alignSelf: 'center',
+    marginLeft: 10,
+    fontFamily: 'OpenSans-Regular'
+  },
   donateButton: {
     alignItems: 'center',
     width: '100%'
