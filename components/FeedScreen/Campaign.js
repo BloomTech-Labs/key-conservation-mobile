@@ -49,7 +49,7 @@ const Campaign = props => {
       <View style={styles.campDesc}>
         <Text>
           <Text style={styles.campDescUsername}>{props.data.username}</Text>
-          {props.data.camp_desc}
+          &nbsp;&nbsp;{props.data.camp_desc}
         </Text>
       </View>
       <View>
