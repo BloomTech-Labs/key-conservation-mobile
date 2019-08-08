@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { ScrollView } from "react-navigation";
 import { connect } from 'react-redux';
+import BackButton from '../components/BackButton';
 
 import DoneButton from '../components/DoneButton';
 
@@ -28,12 +29,18 @@ class EditProScreen extends React.Component {
         flexGrow: 1,
         alignSelf: 'center'
       },
+      headerLeft: (
+        <BackButton
+          navigation={navigation} 
+      />
+      ),
       headerRight: <DoneButton navigation={navigation} pressAction={navigation.getParam('done')} />
     };
   };
 
   state = {
     org_name: this.props.currentUserProfile.org_name,
+    profile_image: this.props.currentUserProfile.profile_image,
     username: this.props.currentUserProfile.username,
     location: this.props.currentUserProfile.location,
     mini_bio: this.props.currentUserProfile.mini_bio
@@ -45,7 +52,11 @@ class EditProScreen extends React.Component {
   
   done = () => {
     this.props.editProfileData(this.props.currentUserProfile.id, this.state);
-    this.props.navigation.goBack(); 
+    if (this.props.firstLogin) {
+      this.props.navigation.navigate('Home');   
+    } else {
+      this.props.navigation.goBack(); 
+    }
   }
 
   render() {
@@ -87,10 +98,31 @@ class EditProScreen extends React.Component {
                 onChangeText={text => this.setState({ username: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
-                  this.locationInput.focus();
+                  this.profileImageInput.focus();
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.username}
+              />
+            </View>
+
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>Profile Image URL</Text>
+              <TextInput
+                ref={input => {
+                  this.profileImageInput = input;
+                }}
+                returnKeyType='next'
+                keyboardType='url'
+                style={styles.inputContain}
+                autoCapitalize='none'
+                placeholder='Please include full URL'
+                onChangeText={text => this.setState({ profile_image: text })}
+                onSubmitEditing={() => {
+                  if (Platform.OS === 'android') return;
+                  this.locationInput.focus();
+                }}
+                blurOnSubmit={Platform.OS === 'android'}
+                value={this.state.profile_image}
               />
             </View>
 

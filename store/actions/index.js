@@ -18,16 +18,16 @@ export const loginSuccess = user => ({
   payload: user
 });
 
-export const [LOGOUT_START, LOGOUT_SUCCESS] = [
-  'LOGOUT_START',
-  'LOGOUT_SUCCESS'
-];
+export const LOGOUT = 'LOGOUT';
 
-export const logoutStart = () => ({
-  type: LOGOUT_START
+export const logout = () => ({
+  type: LOGOUT
 });
-export const logoutSuccess = () => ({
-  type: LOGOUT_SUCCESS
+
+export const AFTER_FIRST_LOGIN = "AFTER_FIRST_LOGIN";
+
+export const afterFirstLogin = () => ({
+  type: AFTER_FIRST_LOGIN
 });
 
 export const [GET_PROFILE_START, GET_PROFILE_ERROR, GET_PROFILE_SUCCESS] = [

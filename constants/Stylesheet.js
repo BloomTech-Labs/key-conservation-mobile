@@ -31,9 +31,7 @@ export default {
     fontFamily: 'OpenSans-SemiBold',
     paddingRight: 15
   },
-  campDescText: {
-    paddingLeft: 15
-  },
+  
   touchableButton: {
     paddingTop: 25,
     paddingBottom: 25,

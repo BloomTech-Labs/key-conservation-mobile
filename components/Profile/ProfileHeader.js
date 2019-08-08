@@ -8,6 +8,7 @@ import {
   Platform
 } from 'react-native';
 import { ScrollView } from "react-navigation";
+import * as WebBrowser from 'expo-web-browser';
 import { Avatar, Icon } from 'react-native-elements';
 
 const ProfileHeader = props => {
@@ -51,7 +52,15 @@ const ProfileHeader = props => {
         <View style={styles.textContainer}>
           <Text style={styles.org}>{profile.org_name}</Text>
           <Text style={styles.location}>{profile.location}</Text>
-          <Text style={styles.social}>{profile.org_link_text}</Text>
+          <Text
+            onPress={async () =>
+              profile.org_link_url &&
+              profile.org_link_url !== null &&
+              (await WebBrowser.openBrowserAsync(profile.org_link_url))
+            }
+          >
+            {profile.org_link_text}
+          </Text>
         </View>
         <View style={styles.bioContainer}>
           <Text style={{ textAlign: 'left', width: 300 }}>

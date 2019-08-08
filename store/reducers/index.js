@@ -4,8 +4,8 @@ import {
   LOGIN_START,
   LOGIN_ERROR,
   LOGIN_SUCCESS,
-  LOGOUT_START,
-  LOGOUT_SUCCESS,
+  LOGOUT,
+  AFTER_FIRST_LOGIN,
   GET_PROFILE_START,
   GET_PROFILE_ERROR,
   GET_PROFILE_SUCCESS,
@@ -32,7 +32,6 @@ const initialState = {
     updateProfile: false
   },
   currentUser: {
-    id: "",
     sub: "",
     role: "",
     email: "",
@@ -40,12 +39,14 @@ const initialState = {
     token: ""
   },
   currentUserProfile: {
+    roles: 'guest',
     campaigns: []
   },
   selectedProfile: {
     campaigns: []
   },
-  allCampaigns: []
+  allCampaigns: [],
+  firstLogin: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -74,14 +75,13 @@ const reducer = (state = initialState, action) => {
         },
         error: ""
       };
-    case LOGOUT_START:
+    case LOGOUT:
+      return initialState;
+    case AFTER_FIRST_LOGIN:
       return {
         ...state,
-        pending: { ...state.pending, logout: true },
-        error: ""
-      };
-    case LOGOUT_SUCCESS:
-      return initialState;
+        firstLogin: false
+      }
     case GET_PROFILE_START:
       return {
         ...state,
@@ -139,6 +139,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         pending: { ...state.pending, postUser: false },
         currentUserProfile: action.payload,
+        firstLogin: true,
         error: ""
       };
     case POST_USER_ERROR:
