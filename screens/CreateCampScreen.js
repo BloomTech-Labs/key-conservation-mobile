@@ -8,7 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform
 } from 'react-native';
-import { ScrollView } from 'react-navigation';
+import { ScrollView, NavigationEvents } from 'react-navigation';
 import { Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -72,6 +72,16 @@ class CreateCampScreen extends React.Component {
     }
   };
 
+  clearState = () => {
+    this.setState({
+      users_id: this.props.currentUserProfile.id,
+      camp_img: '',
+      camp_name: '',
+      camp_desc: '',
+      camp_cta: ''
+    });
+  }
+
   render() {
     return (
       <KeyboardAvoidingView
@@ -86,6 +96,9 @@ class CreateCampScreen extends React.Component {
             minHeight: '100%'
           }}
         >
+          <NavigationEvents
+            onDidBlur={this.clearState}
+          />
           <View style={styles.sectionContainer}>
             <View style={styles.sections}>
               <Text style={styles.sectionsText}>Campaign Name</Text>
