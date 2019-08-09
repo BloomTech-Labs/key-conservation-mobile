@@ -12,11 +12,11 @@ import UploadPhoto from '../screens/UploadPhoto'
 
 export default createAppContainer(
   createSwitchNavigator({
-    Upload: UploadPhoto, 
-    // Loading: LoadingScreen,
-    // Login: LoginStack,
-    // CreateAccount: UsernameStack,
-    // Conservationist: TabNavigator,
-    // Supporter: NoTabNavigator
+    // Upload: UploadPhoto, 
+    Loading: LoadingScreen,
+    Login: LoginStack,
+    CreateAccount: UsernameStack,
+    Conservationist: TabNavigator,
+    Supporter: NoTabNavigator
   })
 );

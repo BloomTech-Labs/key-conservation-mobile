@@ -33,7 +33,7 @@ const initialState = {
   },
   currentUser: {
     sub: "",
-    role: "",
+    roles: "",
     email: "",
     username: "",
     token: ""

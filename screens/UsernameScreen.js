@@ -28,7 +28,7 @@ class UsernameScreen extends React.Component {
     const { error } = this.props;
     const sub = await SecureStore.getItemAsync('sub', {});
     const email = await SecureStore.getItemAsync('email', {});
-    const role = await SecureStore.getItemAsync('roles', {});
+    const roles = await SecureStore.getItemAsync('roles', {});
     const username = this.state.usernameInput;
 
     if (username.length > 4) {
@@ -38,7 +38,7 @@ class UsernameScreen extends React.Component {
       let user = {
         username: username,
         sub: sub,
-        roles: role,
+        roles: roles,
         email: email
       };
       console.log('******click from username', user);

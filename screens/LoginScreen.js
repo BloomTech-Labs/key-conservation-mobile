@@ -49,6 +49,7 @@ export default (LoginScreen = props => {
   const { navigation } = props;
 
   const login = async navigation => {
+    let localState = {roles: ''};
     dispatch(loginStart());
     const redirectUrl = AuthSession.getRedirectUrl();
     console.log(
@@ -117,7 +118,7 @@ export default (LoginScreen = props => {
 
       await SecureStore.setItemAsync("sub", chosenDecoded.sub);
       await SecureStore.setItemAsync("email", chosenDecoded.email);
-      await SecureStore.setItemAsync("roles", "conservationist");
+      await SecureStore.setItemAsync("roles", localState.roles === 'conservationist' ? 'conservationist' : 'supporter');
       const userLog = await SecureStore.getItemAsync("sub", {});
       console.log("*********async user*************", userLog);
 
@@ -139,18 +140,24 @@ export default (LoginScreen = props => {
         />
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.SelectText}>Select one:</Text>
+        <Text style={styles.SelectText}>I am a:</Text>
       </View>
       <View style={styles.buttons}>
         {/* <View style={styles.buttonContainer}> */}
         <TouchableOpacity
-          onPress={() => login(navigation)}
+          onPress={() => {
+            login(navigation);
+            localState = {roles: 'conservationist'}
+          }}
           style={styles.buttonContainer}
         >
           <Text style={styles.buttonText}>CONSERVATION ORGANIZATION</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => props.navigation.navigate("Supporter")}
+          onPress={() => {
+            login(navigation);
+            localState = {roles: 'supporter'}
+          }} 
           style={styles.buttonContainer}
         >
           <Text style={styles.buttonText}>GLOBAL SUPPORTER</Text>
