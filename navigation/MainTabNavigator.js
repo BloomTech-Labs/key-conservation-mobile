@@ -169,7 +169,16 @@ export const TabNavigator = createBottomTabNavigator(
       }
     },
     CreateCampStack: { screen: CreateCampStack, path: '' },
-    MyProStack: { screen: MyProStack, path: '' }
+    MyProStack: {
+      screen: MyProStack,
+      path: '',
+      navigationOptions: {
+        tabBarOnPress: ({ navigation, defaultHandler }) => {
+          navigation.navigate('MyPro'),
+          defaultHandler();
+        }
+      } 
+    }
   },
   {
     tabBarOptions: {

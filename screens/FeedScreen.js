@@ -1,59 +1,69 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { ScrollView } from "react-navigation";
-import { useSelector, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import * as SecureStorage from "expo-secure-store";
 import { Icon } from "react-native-elements";
 
 import { getCampaigns } from "../store/actions";
 
 import Campaign from "../components/FeedScreen/Campaign";
+import LoginButton from '../components/LoginButton';
 
 import styles from "../constants/Stylesheet";
 
-function FeedScreen(props) {
-  let { allCampaigns } = useSelector(state => state);
-  const dispatch = useDispatch();
-  const { navigation } = props;
+class FeedScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Feed',
+      headerStyle: {
+        backgroundColor: '#323338'
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        textAlign: 'center',
+        position: 'absolute',
+        width: '100%',
+        fontFamily: 'OpenSans-SemiBold',
+      },
+      headerRight: <LoginButton roles={navigation.getParam('roles')} navigation={navigation} loginRoute={'Login'} />
+    }
+  };
 
-  useEffect(() => {
-    dispatch(getCampaigns());
-    let refreshInterval = setInterval(() => dispatch(getCampaigns()), 10000);
-  }, []);
+  componentDidMount() {
+    this.props.navigation.setParams({ roles: this.props.currentUserProfile.roles });
+    this.props.getCampaigns();
+    let refreshInterval = setInterval(() => this.props.getCampaigns(), 10000);
+  };
 
-  return (
-    <ScrollView>
-      <View style={styles.feedContainer}>
-        {allCampaigns.length > 0 &&
-          allCampaigns.map(campaign => {
-            return (
-              <Campaign
-                key={campaign.camp_id}
-                data={campaign}
-                navigation={navigation}
-              />
-            );
-          })}
-      </View>
-    </ScrollView>
-  );
+  render() {
+    const { navigation } = this.props;
+    return (
+      <ScrollView>
+        <View style={styles.feedContainer}>
+          {this.props.allCampaigns.length > 0 &&
+            this.props.allCampaigns.map(campaign => {
+              return (
+                <Campaign
+                  key={campaign.camp_id}
+                  data={campaign}
+                  navigation={navigation}
+                />
+              );
+            })}
+        </View>
+      </ScrollView>
+    );
+  }
 }
 
-FeedScreen.navigationOptions = {
-  title: 'Feed',
-  // headerRight: <Icon name='search' type='font-awesome' />, // Find out how to implement this better. And how to style this!
-  // This setting needs to be on every screen so that header is in the center
-  // This is fix for andriod devices should be good on IOS
-  headerStyle: {
-    backgroundColor: '#323338'
-  },
-  headerTintColor: '#fff',
-  headerTitleStyle: {
-    textAlign: 'center',
-    flexGrow: 1,
-    alignSelf: 'center',
-    fontFamily: 'OpenSans-SemiBold',
-  }
-};
+const mapStateToProps = state => ({
+  allCampaigns: state.allCampaigns,
+  currentUserProfile: state.currentUserProfile
+});
+  
 
-export default FeedScreen;
+export default connect(
+  mapStateToProps,
+  { getCampaigns }
+)(FeedScreen);

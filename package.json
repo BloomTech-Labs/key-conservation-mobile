@@ -29,6 +29,7 @@
     "react-dom": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
     "react-native-elements": "^1.1.0",
+    "react-native-keyboard-aware-scroll-view": "^0.8.0",
     "react-native-popup-menu": "^0.15.6",
     "react-native-svg": "^9.6.2",
     "react-native-svg-uri": "^1.2.3",

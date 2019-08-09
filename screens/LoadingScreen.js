@@ -11,7 +11,7 @@ import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { connect } from "react-redux";
-import { getProfileData } from "../store/actions";
+import { getProfileData, afterFirstLogin } from "../store/actions";
 
 class LoadingScreen extends React.Component {
   async componentDidMount() {
@@ -27,7 +27,13 @@ class LoadingScreen extends React.Component {
         if (this.props.userId) {
           // console.log("yes", this.props.userId);
           this.props.getProfileData(this.props.userId, null, true);
-          this.props.navigation.navigate("Conservationist");
+          let route;
+          if (this.props.firstLogin) {
+            this.props.afterFirstLogin();
+            this.props.navigation.navigate("EditPro");
+          } else {
+            this.props.navigation.navigate("Conservationist");
+          }
         } else {
           // console.log("no", this.props.userId);
           this.props.navigation.navigate("CreateAccount");
@@ -59,12 +65,13 @@ class LoadingScreen extends React.Component {
 
 const mapStateToProps = state => ({
   error: state.error,
-  userId: state.currentUserProfile.id
+  userId: state.currentUserProfile.id,
+  firstLogin: state.firstLogin
 });
 
 export default connect(
   mapStateToProps,
-  { getProfileData }
+  { getProfileData, afterFirstLogin }
 )(LoadingScreen);
 
 const styles = StyleSheet.create({

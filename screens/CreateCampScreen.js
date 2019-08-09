@@ -11,8 +11,9 @@ import {
 import { ScrollView } from 'react-navigation';
 import { Input } from 'react-native-elements';
 import { connect } from 'react-redux';
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { postCampaign, getCampaigns } from '../store/actions';
+import BackButton from '../components/BackButton';
 
 import PublishButton from '../components/PublishButton';
 
@@ -30,6 +31,11 @@ class CreateCampScreen extends React.Component {
         alignSelf: 'center',
         fontFamily: 'OpenSans-SemiBold'
       },
+      headerLeft: (
+        <BackButton
+          navigation={navigation} 
+      />
+      ),
       headerRight: (
         <PublishButton
           navigation={navigation}
@@ -71,8 +77,9 @@ class CreateCampScreen extends React.Component {
       <KeyboardAvoidingView
         behavior='height'
         keyboardVerticalOffset={90}
-        enabled
+        enabled={Platform.OS === 'android' ? true : false}
       >
+      <KeyboardAwareScrollView>
         <ScrollView
           contentContainerStyle={{
             backgroundColor: '#fff',
@@ -151,6 +158,8 @@ class CreateCampScreen extends React.Component {
             </View>
           </View>
         </ScrollView>
+       
+      </KeyboardAwareScrollView>
       </KeyboardAvoidingView>
     );
   }

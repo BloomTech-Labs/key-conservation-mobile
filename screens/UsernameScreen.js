@@ -48,7 +48,7 @@ class UsernameScreen extends React.Component {
       );
     } else {
       this.setState({
-        error: 'Username is required to be atleast 5 characters'
+        error: 'Username is required to be at least 5 characters'
       });
     }
   };

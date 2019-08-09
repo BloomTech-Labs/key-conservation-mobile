@@ -63,7 +63,7 @@ export default class DetailHeader extends Component {
                     (await WebBrowser.openBrowserAsync(profile.org_link_url))
                   }
                 >
-                  {profile.org_link_url}
+                  {profile.org_link_text}
                 </Text>
               </View>
               <View style={styles.SocialContainer}>

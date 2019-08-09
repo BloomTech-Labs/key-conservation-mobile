@@ -10,13 +10,13 @@ import {
 } from 'react-native';
 import { ScrollView } from "react-navigation";
 import { connect } from 'react-redux';
-
+import BackButton from '../components/BackButton';
 
 import * as SecureStorage from "expo-secure-store";
 
 import DoneButton from "../components/DoneButton";
 
-import { postUser, editProfileData } from "../store/actions";
+import { postUser, editProfileData, logout } from "../store/actions";
 
 class EditDetailScreen extends React.Component {
   logoutPress = async () => {
@@ -25,6 +25,7 @@ class EditDetailScreen extends React.Component {
     await SecureStorage.deleteItemAsync("email", {});
     await SecureStorage.deleteItemAsync("roles", {});
     await SecureStorage.deleteItemAsync("userId", {});
+    this.props.logout();
     this.props.navigation.navigate("Loading");
   };
 
@@ -40,6 +41,11 @@ class EditDetailScreen extends React.Component {
         flexGrow: 1,
         alignSelf: "center"
       },
+      headerLeft: (
+        <BackButton
+          navigation={navigation} 
+      />
+      ),
       headerRight: (
         <DoneButton
           navigation={navigation}
@@ -308,7 +314,7 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { postUser, editProfileData }
+  { postUser, editProfileData, logout }
 )(EditDetailScreen);
 
 const styles = StyleSheet.create({
