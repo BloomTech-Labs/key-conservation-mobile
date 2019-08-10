@@ -33,13 +33,10 @@ const initialState = {
   },
   currentUser: {
     sub: "",
-    roles: "",
     email: "",
-    username: "",
     token: ""
   },
   currentUserProfile: {
-    roles: 'guest',
     campaigns: []
   },
   selectedProfile: {

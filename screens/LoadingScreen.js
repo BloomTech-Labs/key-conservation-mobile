@@ -17,6 +17,7 @@ class LoadingScreen extends React.Component {
   async componentDidMount() {
     // id in the auth0 database
     const sub = await SecureStore.getItemAsync("sub", {});
+    const roles = await SecureStorage.getItemAsync('roles', {});
     // console.log("**********loading screen**********", sub);
     // id in the PG database
     this.props.getProfileData(null, sub, true);
@@ -30,9 +31,9 @@ class LoadingScreen extends React.Component {
           let route;
           if (this.props.firstLogin) {
             this.props.afterFirstLogin();
-            this.props.navigation.navigate("EditPro");
+            this.props.navigation.navigate(roles === "conservationist" ? "EditPro" : "Home");
           } else {
-            this.props.navigation.navigate("Conservationist");
+            this.props.navigation.navigate(roles === "conservationist" ? "Conservationist" : "Supporter");
           }
         } else {
           // console.log("no", this.props.userId);

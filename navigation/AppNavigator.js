@@ -2,8 +2,8 @@ import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 import {
-  TabNavigator,
-  NoTabNavigator,
+  ConsNavigator,
+  SupNavigator,
   LoginStack,
   UsernameStack
 } from './MainTabNavigator';
@@ -16,7 +16,7 @@ export default createAppContainer(
     Loading: LoadingScreen,
     Login: LoginStack,
     CreateAccount: UsernameStack,
-    Conservationist: TabNavigator,
-    Supporter: NoTabNavigator
+    Conservationist: ConsNavigator,
+    Supporter: SupNavigator
   })
 );

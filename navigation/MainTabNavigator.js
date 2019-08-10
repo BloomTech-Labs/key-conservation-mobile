@@ -13,6 +13,7 @@ import EditProScreen from '../screens/EditProScreen';
 import DetailScreen from '../screens/DetailScreen';
 import MyDetailScreen from '../screens/MyDetailScreen';
 import EditDetailScreen from '../screens/EditDetailScreen';
+import SupProScreen from '../screens/SupProScreen';
 import LoginScreen from '../screens/LoginScreen';
 import UsernameScreen from "../screens/UsernameScreen";
 import SvgUri from 'react-native-svg-uri';
@@ -156,7 +157,7 @@ export const LoginStack = createStackNavigator(
   }
 );
 
-export const TabNavigator = createBottomTabNavigator(
+export const ConsNavigator = createBottomTabNavigator(
   {
     FeedStack: {
       screen: FeedStack,
@@ -187,13 +188,32 @@ export const TabNavigator = createBottomTabNavigator(
   }
 );
 
-export const NoTabNavigator = createStackNavigator(
+export const SupNavigator = createBottomTabNavigator(
   {
-    FeedStack: { screen: FeedStack, path: "" },
-    CreateCampStack: { screen: CreateCampStack, path: "" },
-    MyProStack: { screen: MyProStack, path: "" }
+    FeedStack: {
+      screen: FeedStack,
+      path: '',
+      navigationOptions: {
+        tabBarOnPress: ({ navigation, defaultHandler }) => {
+          navigation.navigate('Home'),
+          defaultHandler();
+        }
+      }
+    },
+    SupProStack: {
+      screen: SupProScreen,
+      path: '',
+      navigationOptions: {
+        tabBarOnPress: ({ navigation, defaultHandler }) => {
+          navigation.navigate('SupProScreen'),
+          defaultHandler();
+        }
+      }
+    }
   },
   {
-    headerMode: "none"
+    tabBarOptions: {
+      showLabel: false
+    }
   }
 );
