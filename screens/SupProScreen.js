@@ -41,7 +41,7 @@ class SupProScreen extends React.Component {
         alignSelf: 'center',
         fontFamily: 'OpenSans-SemiBold',
       },
-      // headerRight: <EditButton navigation={navigation} editRoute={'EditPro'} />
+      headerRight: <EditButton navigation={navigation} editRoute={'EditSupPro'} />
     };
   };
 

@@ -26,7 +26,7 @@ class FeedScreen extends React.Component {
         width: '100%',
         fontFamily: 'OpenSans-SemiBold',
       },
-      headerRight: <LoginButton roles={navigation.getParam('roles')} navigation={navigation} loginRoute={'Login'} />
+      // headerRight: <LoginButton roles={navigation.getParam('roles')} navigation={navigation} loginRoute={'Login'} />
     }
   };
 

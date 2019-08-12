@@ -12,8 +12,8 @@ import MyProScreen from '../screens/MyProScreen';
 import EditProScreen from '../screens/EditProScreen';
 import DetailScreen from '../screens/DetailScreen';
 import MyDetailScreen from '../screens/MyDetailScreen';
-import EditDetailScreen from '../screens/EditDetailScreen';
 import SupProScreen from '../screens/SupProScreen';
+import EditSupProScreen from '../screens/EditSupProScreen';
 import LoginScreen from '../screens/LoginScreen';
 import UsernameScreen from "../screens/UsernameScreen";
 import SvgUri from 'react-native-svg-uri';
@@ -104,10 +104,6 @@ const MyProStack = createStackNavigator(
     EditPro: {
       screen: EditProScreen,
       navigationOptions: { title: "Edit Profile" }
-    },
-    EditDetail: {
-      screen: EditDetailScreen,
-      navigationOptions: { title: 'Edit Details' }
     }
   },
   {
@@ -135,7 +131,8 @@ const MyProStack = createStackNavigator(
 
 const SupProStack = createStackNavigator(
   {
-    SupPro: { screen: SupProScreen }
+    SupPro: { screen: SupProScreen },
+    EditSupPro: { screen: EditSupProScreen }
   },
   {
     transitionConfig: () => ({

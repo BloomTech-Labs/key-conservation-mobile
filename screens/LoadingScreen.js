@@ -18,7 +18,7 @@ class LoadingScreen extends React.Component {
     // id in the auth0 database
     const sub = await SecureStorage.getItemAsync("sub", {});
     const roles = await SecureStorage.getItemAsync('roles', {});
-    // console.log("**********loading screen**********", sub);
+    console.log("**********loading screen**********", roles);
     // id in the PG database
     this.props.getProfileData(null, sub, true);
     setTimeout(() => {
@@ -31,7 +31,7 @@ class LoadingScreen extends React.Component {
           let route;
           if (this.props.firstLogin) {
             this.props.afterFirstLogin();
-            this.props.navigation.navigate(roles === "conservationist" ? "EditPro" : "Home");
+            this.props.navigation.navigate(roles === "conservationist" ? "EditPro" : "EditSupPro");
           } else {
             this.props.navigation.navigate(roles === "conservationist" ? "Conservationist" : "Supporter");
           }

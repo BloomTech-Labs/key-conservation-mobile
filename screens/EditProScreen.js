@@ -14,7 +14,7 @@ import BackButton from '../components/BackButton';
 import * as SecureStorage from "expo-secure-store";
 import DoneButton from '../components/DoneButton';
 
-import { postUser, editProfileData, logout } from '../store/actions';
+import { editProfileData, logout } from '../store/actions';
 
 class EditProScreen extends React.Component {
   logoutPress = async () => {
@@ -393,7 +393,7 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { postUser, editProfileData, logout }
+  { editProfileData, logout }
 )(EditProScreen);
 
 const styles = StyleSheet.create({
