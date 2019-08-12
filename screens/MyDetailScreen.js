@@ -29,7 +29,7 @@ class MyDetailsScreen extends React.Component {
         fontFamily: 'OpenSans-SemiBold',
       },
       headerRight: (
-        <EditButton navigation={navigation} editRoute={'EditDetail'} />
+        <EditButton navigation={navigation} editRoute={'EditPro'} />
       )
     };
   };
