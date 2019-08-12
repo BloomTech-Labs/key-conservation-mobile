@@ -6,17 +6,19 @@ import {
   SupNavigator,
   LoginStack,
   UsernameStack
-} from './MainTabNavigator';
+} from './MainNavigation';
 import LoadingScreen from '../screens/LoadingScreen';
-import UploadPhoto from '../screens/UploadPhoto'
 
+// This is the top level navigator for the app. It covers the loading process, and sorts the user into the version of the app they will be seeing.
 export default createAppContainer(
   createSwitchNavigator({
-    // Upload: UploadPhoto, 
+    // First three routes deal with login / onboarding of users
     Loading: LoadingScreen,
     Login: LoginStack,
     CreateAccount: UsernameStack,
+    // This is the tab navigator for conservationists
     Conservationist: ConsNavigator,
+    // This is the tab navigator for supporters
     Supporter: SupNavigator
   })
 );

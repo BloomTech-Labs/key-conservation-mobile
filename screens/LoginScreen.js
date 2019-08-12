@@ -47,9 +47,9 @@ export default (LoginScreen = props => {
   const dispatch = useDispatch();
   const { currentUser, error } = useSelector(state => state);
   const { navigation } = props;
+  let roles;
 
   const login = async navigation => {
-    let localState = {roles: ''};
     dispatch(loginStart());
     const redirectUrl = AuthSession.getRedirectUrl();
     console.log(
@@ -118,7 +118,7 @@ export default (LoginScreen = props => {
 
       await SecureStore.setItemAsync("sub", chosenDecoded.sub);
       await SecureStore.setItemAsync("email", chosenDecoded.email);
-      await SecureStore.setItemAsync("roles", localState.roles === 'conservationist' ? 'conservationist' : 'supporter');
+      await SecureStore.setItemAsync("roles", roles === 'conservationist' ? 'conservationist' : 'supporter');
       const userLog = await SecureStore.getItemAsync("sub", {});
       console.log("*********async user*************", userLog);
 
@@ -146,8 +146,8 @@ export default (LoginScreen = props => {
         {/* <View style={styles.buttonContainer}> */}
         <TouchableOpacity
           onPress={() => {
+            roles = 'conservationist';
             login(navigation);
-            localState = {roles: 'conservationist'}
           }}
           style={styles.buttonContainer}
         >
@@ -155,8 +155,8 @@ export default (LoginScreen = props => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
+            roles = 'supporter';
             login(navigation);
-            localState = {roles: 'supporter'}
           }} 
           style={styles.buttonContainer}
         >

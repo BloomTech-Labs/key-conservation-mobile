@@ -17,14 +17,16 @@ import { connect } from 'react-redux';
 import SvgUri from 'react-native-svg-uri';
 import { Icon, ListItem } from 'react-native-elements';
 
-import { getProfileData } from '../store/actions';
+import * as SecureStorage from "expo-secure-store";
+
+import { getProfileData, logout } from '../store/actions';
 
 import EditButton from '../components/EditButton';
 
 import ProfileHeader from '../components/Profile/ProfileHeader';
 import Stylesheet from '../constants/Stylesheet';
 
-class MyProScreen extends React.Component {
+class SupProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'My Profile',
@@ -39,19 +41,28 @@ class MyProScreen extends React.Component {
         alignSelf: 'center',
         fontFamily: 'OpenSans-SemiBold',
       },
-      headerRight: <EditButton navigation={navigation} editRoute={'EditPro'} />
+      // headerRight: <EditButton navigation={navigation} editRoute={'EditPro'} />
     };
   };
 
   componentDidMount() {
-    console.log()
     this.props.getProfileData(this.props.currentUserProfile.id, false, 'myProfile');
+  }
+
+  logMeOut = async () => {
+    await SecureStorage.deleteItemAsync("sub", {});
+    await SecureStorage.deleteItemAsync("email", {});
+    await SecureStorage.deleteItemAsync("roles", {});
+    await SecureStorage.deleteItemAsync("userId", {});
+    this.props.logout();
+    this.props.navigation.navigate("Loading");
   }
 
   render() {
     return (
       <ScrollView>
         <Text>PLACEHOLDER - SUPPORTER PROFILE PAGE</Text>
+        <Button onPress={this.logMeOut} title="LOGOUT"/>
         <View />
       </ScrollView>
     );
@@ -70,5 +81,5 @@ const optionsStyles = {
 
 export default connect(
   mapStateToProps,
-  { getProfileData, deleteCampaign }
-)(MyProScreen);
+  { getProfileData, logout }
+)(SupProScreen);

@@ -124,7 +124,6 @@ export const editProfileData = (id, changes) => async dispatch => {
       changes
     )
     .then(res => {
-      console.log(res);
       dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.editUser });
     })
     .catch(err => {

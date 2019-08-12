@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
   ImageBackground
 } from "react-native";
-import * as SecureStore from "expo-secure-store";
+import * as SecureStorage from "expo-secure-store";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { connect } from "react-redux";
@@ -16,7 +16,7 @@ import { getProfileData, afterFirstLogin } from "../store/actions";
 class LoadingScreen extends React.Component {
   async componentDidMount() {
     // id in the auth0 database
-    const sub = await SecureStore.getItemAsync("sub", {});
+    const sub = await SecureStorage.getItemAsync("sub", {});
     const roles = await SecureStorage.getItemAsync('roles', {});
     // console.log("**********loading screen**********", sub);
     // id in the PG database

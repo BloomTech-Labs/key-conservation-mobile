@@ -96,6 +96,7 @@ const CreateCampStack = createStackNavigator(
     }
   }
 );
+
 const MyProStack = createStackNavigator(
   {
     MyPro: { screen: MyProScreen },
@@ -108,6 +109,33 @@ const MyProStack = createStackNavigator(
       screen: EditDetailScreen,
       navigationOptions: { title: 'Edit Details' }
     }
+  },
+  {
+    transitionConfig: () => ({
+      transitionSpec: {
+        duration: 0
+      }
+    }),
+    navigationOptions: {
+      tabBarLabel: "My Profile",
+      tabBarIcon: ({ focused }) => (
+        <SvgUri
+          width="25"
+          height="25"
+          source={
+            focused
+              ? require("../assets/icons/user-fill.svg")
+              : require("../assets/icons/user.svg")
+          }
+        />
+      )
+    }
+  }
+);
+
+const SupProStack = createStackNavigator(
+  {
+    SupPro: { screen: SupProScreen }
   },
   {
     transitionConfig: () => ({
@@ -201,7 +229,7 @@ export const SupNavigator = createBottomTabNavigator(
       }
     },
     SupProStack: {
-      screen: SupProScreen,
+      screen: SupProStack,
       path: '',
       navigationOptions: {
         tabBarOnPress: ({ navigation, defaultHandler }) => {
