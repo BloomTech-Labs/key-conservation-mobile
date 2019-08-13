@@ -24,7 +24,7 @@ export const logout = () => ({
   type: LOGOUT
 });
 
-export const AFTER_FIRST_LOGIN = "AFTER_FIRST_LOGIN";
+export const AFTER_FIRST_LOGIN = 'AFTER_FIRST_LOGIN';
 
 export const afterFirstLogin = () => ({
   type: AFTER_FIRST_LOGIN
@@ -43,10 +43,9 @@ export const getProfileData = (
 ) => async dispatch => {
   dispatch({ type: GET_PROFILE_START });
   let user, url;
-  if (id)
-    url = `https://key-conservation-staging.herokuapp.com/api/users/${id}`;
+  if (id) url = `https://key-conservation.herokuapp.com/api/users/${id}`;
   else if (sub)
-    url = `https://key-conservation-staging.herokuapp.com/api/users/sub/${sub}`;
+    url = `https://key-conservation.herokuapp.com/api/users/sub/${sub}`;
   return axios
     .get(url)
     .then(res => {
@@ -119,10 +118,7 @@ export const editProfileData = (id, changes) => async dispatch => {
   }
 
   return axios
-    .put(
-      `https://key-conservation-staging.herokuapp.com/api/users/${id}`,
-      changes
-    )
+    .put(`https://key-conservation.herokuapp.com/api/users/${id}`, changes)
     .then(res => {
       console.log(res);
       dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.editUser });
@@ -141,7 +137,7 @@ export const [POST_USER_START, POST_USER_ERROR, POST_USER_SUCCESS] = [
 export const postUser = user => dispatch => {
   dispatch({ type: POST_USER_START });
   axios
-    .post('https://key-conservation-staging.herokuapp.com/api/users', user)
+    .post('https://key-conservation.herokuapp.com/api/users', user)
     .then(res => {
       dispatch({ type: POST_USER_SUCCESS, payload: res.data.newUser });
     })
@@ -159,7 +155,7 @@ export const [
 export const getCampaigns = () => dispatch => {
   dispatch({ type: GET_CAMPAIGNS_START });
   axios
-    .get('https://key-conservation-staging.herokuapp.com/api/campaigns')
+    .get('https://key-conservation.herokuapp.com/api/campaigns')
     .then(res => {
       dispatch({ type: GET_CAMPAIGNS_SUCCESS, payload: res.data.camp });
     })
@@ -189,7 +185,7 @@ export const postCampaign = camp => dispatch => {
     camp.camp_cta = donate;
   }
   axios
-    .post('https://key-conservation-staging.herokuapp.com/api/campaigns', camp)
+    .post('https://key-conservation.herokuapp.com/api/campaigns', camp)
     .then(res => {
       dispatch({ type: POST_CAMPAIGN_SUCCESS, payload: res.data.newCamps });
     })
@@ -211,9 +207,7 @@ export const [
 export const deleteCampaign = id => dispatch => {
   dispatch({ type: DELETE_CAMPAIGN_START });
   axios
-    .delete(
-      `https://key-conservation-staging.herokuapp.com/api/campaigns/${id}`
-    )
+    .delete(`https://key-conservation.herokuapp.com/api/campaigns/${id}`)
     .then(res => {
       dispatch({ type: DELETE_CAMPAIGN_SUCCESS, payload: res.data });
     })

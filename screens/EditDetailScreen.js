@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Platform,
   StyleSheet,
@@ -8,49 +8,45 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView
 } from 'react-native';
-import { ScrollView } from "react-navigation";
+import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
 import BackButton from '../components/BackButton';
 
-import * as SecureStorage from "expo-secure-store";
+import * as SecureStorage from 'expo-secure-store';
+import * as WebBrowser from 'expo-web-browser';
 
-import DoneButton from "../components/DoneButton";
+import DoneButton from '../components/DoneButton';
 
-import { postUser, editProfileData, logout } from "../store/actions";
+import { postUser, editProfileData, logout } from '../store/actions';
 
 class EditDetailScreen extends React.Component {
   logoutPress = async () => {
-    console.log("pressed button");
-    await SecureStorage.deleteItemAsync("sub", {});
-    await SecureStorage.deleteItemAsync("email", {});
-    await SecureStorage.deleteItemAsync("roles", {});
-    await SecureStorage.deleteItemAsync("userId", {});
+    console.log('pressed button');
+    await SecureStorage.deleteItemAsync('sub', {});
+    await SecureStorage.deleteItemAsync('email', {});
+    await SecureStorage.deleteItemAsync('roles', {});
+    await SecureStorage.deleteItemAsync('userId', {});
     this.props.logout();
-    this.props.navigation.navigate("Loading");
+    this.props.navigation.navigate('Loading');
   };
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: "Edit Details",
+      title: 'Edit Details',
       headerStyle: {
-        backgroundColor: "#323338"
+        backgroundColor: '#323338'
       },
-      headerTintColor: "#fff",
+      headerTintColor: '#fff',
       headerTitleStyle: {
-        textAlign: "center",
+        textAlign: 'center',
         flexGrow: 1,
-        alignSelf: "center"
+        alignSelf: 'center'
       },
-      headerLeft: (
-        <BackButton
-          navigation={navigation} 
-      />
-      ),
+      headerLeft: <BackButton navigation={navigation} />,
       headerRight: (
         <DoneButton
           navigation={navigation}
           pressAction={navigation.getParam('done')}
-
         />
       )
     };
@@ -82,7 +78,7 @@ class EditDetailScreen extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView
-        behavior="height"
+        behavior='height'
         keyboardVerticalOffset={86}
         enabled
       >
@@ -96,7 +92,6 @@ class EditDetailScreen extends React.Component {
                 ref={input => {
                   this.emailInput = input;
                 }}
-
                 returnKeyType='next'
                 placeholder='Email'
                 keyboardType='email-address'
@@ -118,10 +113,10 @@ class EditDetailScreen extends React.Component {
                   this.org_link_urlInput = input;
                 }}
                 returnKeyType='next'
-                keyboardType='url'       
-                  style={styles.inputContain}
-                  autoCapitalize='none'
-                  placeholder='Please include full URL'
+                keyboardType='url'
+                style={styles.inputContain}
+                autoCapitalize='none'
+                placeholder='Please include full URL'
                 onChangeText={text => this.setState({ org_link_url: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
@@ -159,9 +154,9 @@ class EditDetailScreen extends React.Component {
                 }}
                 returnKeyType='next'
                 keyboardType='url'
-                  style={styles.inputContain}
-                  autoCapitalize='none'
-                  placeholder='Please include full URL'
+                style={styles.inputContain}
+                autoCapitalize='none'
+                placeholder='Please include full URL'
                 onChangeText={text => this.setState({ org_cta: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
@@ -169,12 +164,10 @@ class EditDetailScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.org_cta}
-
               />
             </View>
 
             <View style={styles.sections}>
-
               <Text style={styles.sectionsText}>Facebook</Text>
               <TextInput
                 ref={input => {
@@ -182,9 +175,9 @@ class EditDetailScreen extends React.Component {
                 }}
                 returnKeyType='next'
                 keyboardType='url'
-                  style={styles.inputContain}
-                  autoCapitalize='none'
-                  placeholder='Please include full URL'
+                style={styles.inputContain}
+                autoCapitalize='none'
+                placeholder='Please include full URL'
                 onChangeText={text => this.setState({ facebook: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
@@ -192,12 +185,10 @@ class EditDetailScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.facebook}
-
               />
             </View>
 
             <View style={styles.sections}>
-
               <Text style={styles.sectionsText}>Instagram</Text>
               <TextInput
                 ref={input => {
@@ -205,9 +196,9 @@ class EditDetailScreen extends React.Component {
                 }}
                 returnKeyType='next'
                 keyboardType='url'
-                  style={styles.inputContain}
-                  autoCapitalize='none'
-                  placeholder='Please include full URL'
+                style={styles.inputContain}
+                autoCapitalize='none'
+                placeholder='Please include full URL'
                 onChangeText={text => this.setState({ instagram: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
@@ -215,12 +206,10 @@ class EditDetailScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.instagram}
-
               />
             </View>
 
             <View style={styles.sections}>
-
               <Text style={styles.sectionsText}>Twitter</Text>
               <TextInput
                 ref={input => {
@@ -228,9 +217,9 @@ class EditDetailScreen extends React.Component {
                 }}
                 returnKeyType='next'
                 keyboardType='url'
-                  style={styles.inputContain}
-                  autoCapitalize='none'
-                  placeholder='Please include full URL'
+                style={styles.inputContain}
+                autoCapitalize='none'
+                placeholder='Please include full URL'
                 onChangeText={text => this.setState({ twitter: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
@@ -238,12 +227,10 @@ class EditDetailScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.twitter}
-
               />
             </View>
 
             <View style={styles.sections}>
-
               <Text style={styles.sectionsText}>About Us</Text>
               <TextInput
                 ref={input => {
@@ -254,12 +241,10 @@ class EditDetailScreen extends React.Component {
                 onChangeText={text => this.setState({ about_us: text })}
                 multiline={true}
                 value={this.state.about_us}
-
               />
             </View>
 
             <View style={styles.sections}>
-
               <Text style={styles.sectionsText}>Species & Habitats</Text>
               <TextInput
                 ref={input => {
@@ -267,23 +252,21 @@ class EditDetailScreen extends React.Component {
                 }}
                 returnKeyType='next'
                 style={styles.inputContain2}
-                onChangeText={text => this.setState({ species_and_habitats: text })}
+                onChangeText={text =>
+                  this.setState({ species_and_habitats: text })
+                }
                 multiline={true}
                 value={this.state.species_and_habitats}
-
               />
             </View>
 
             <View style={styles.sections}>
-
               <Text style={styles.sectionsText}>Big Issues</Text>
               <TextInput
                 ref={input => {
                   this.issuesInput = input;
                 }}
-
                 returnKeyType='next'
-
                 style={styles.inputContain2}
                 onChangeText={text => this.setState({ issues: text })}
                 multiline={true}
@@ -293,14 +276,12 @@ class EditDetailScreen extends React.Component {
             <View style={styles.logoutSection}>
               <Text style={styles.accountSettingsText}>Account Settings:</Text>
               <TouchableOpacity
-              onPress = {this.logoutPress}
-              style = {styles.logoutButton}
+                onPress={this.logoutPress}
+                style={styles.logoutButton}
               >
-                <Text style = {styles.buttonText}>Logout</Text>
+                <Text style={styles.buttonText}>Logout</Text>
               </TouchableOpacity>
             </View>
-
-
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -319,7 +300,6 @@ export default connect(
 
 const styles = StyleSheet.create({
   sectionContainer: {
-
     flexDirection: 'column',
     flexWrap: 'wrap',
 
@@ -337,7 +317,7 @@ const styles = StyleSheet.create({
   inputContain: {
     height: 48,
     borderWidth: 2,
-    borderColor: "#C4C4C4",
+    borderColor: '#C4C4C4',
     padding: 5,
     borderRadius: 5,
     fontSize: 20,
@@ -346,59 +326,55 @@ const styles = StyleSheet.create({
   inputContain2: {
     height: 140,
     borderWidth: 2,
-    borderColor: "#C4C4C4",
+    borderColor: '#C4C4C4',
     padding: 5,
     borderRadius: 5,
     fontSize: 20,
     marginBottom: 25,
-    textAlignVertical: "top"
+    textAlignVertical: 'top'
   },
 
   touchableView: {
-    backgroundColor: "black",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 5,
     height: 35
   },
   touchableText: {
-    color: "#fff",
-    textTransform: "uppercase",
-    fontWeight: "bold",
+    color: '#fff',
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
     letterSpacing: 2
   },
   sections: {
-
     // marginTop: 20,
-    backgroundColor: "#fff",
-    width: "100%"
+    backgroundColor: '#fff',
+    width: '100%'
   },
   sectionsText: {
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: 'OpenSans-SemiBold',
     fontSize: 20,
     marginBottom: 5
   },
   logoutSection: {
-    justifyContent: "flex-start",
-    flexDirection: "column",
+    justifyContent: 'flex-start',
+    flexDirection: 'column',
     marginBottom: 20,
-    width: "100%",
-    
+    width: '100%'
   },
   accountSettingsText: {
     fontSize: 20,
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: 'OpenSans-SemiBold',
     marginBottom: 10
   },
   logoutButton: {
     fontSize: 20,
-    alignItems: "flex-start",
+    alignItems: 'flex-start',
     backgroundColor: 'white'
   },
   buttonText: {
     color: 'blue',
     fontSize: 20
   }
-
-
 });
