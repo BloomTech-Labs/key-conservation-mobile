@@ -18,7 +18,7 @@ import SvgUri from 'react-native-svg-uri';
 
 import styles from '../../constants/Stylesheet';
 
-const Campaign = props => {
+const FeedCampaign = props => {
   const dispatch = useDispatch();
   const { title, users_id } = props.data;
 
@@ -81,7 +81,7 @@ const Campaign = props => {
   );
 };
 
-Campaign.navigationOptions = {
+FeedCampaign.navigationOptions = {
   title: 'Profile',
   // This setting needs to be on every screen so that header is in the center
   // This is fix for android devices should be good on IOS
@@ -92,4 +92,4 @@ Campaign.navigationOptions = {
   }
 };
 
-export default Campaign;
+export default FeedCampaign;

@@ -7,7 +7,7 @@ import { Icon } from "react-native-elements";
 
 import { getCampaigns } from "../store/actions";
 
-import Campaign from "../components/FeedScreen/Campaign";
+import FeedCampaign from "../components/FeedScreen/FeedCampaign";
 import LoginButton from '../components/LoginButton';
 
 import styles from "../constants/Stylesheet";
@@ -46,7 +46,7 @@ class FeedScreen extends React.Component {
           {this.props.allCampaigns.length > 0 &&
             this.props.allCampaigns.map(campaign => {
               return (
-                <Campaign
+                <FeedCampaign
                   key={campaign.camp_id}
                   data={campaign}
                   navigation={navigation}

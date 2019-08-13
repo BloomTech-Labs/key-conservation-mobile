@@ -12,6 +12,7 @@ import {
   MenuOption,
   MenuTrigger,
 } from 'react-native-popup-menu';
+import SvgUri from 'react-native-svg-uri';
 import { ScrollView } from "react-navigation";
 import { connect } from 'react-redux';
 
@@ -75,7 +76,6 @@ class MyProScreen extends React.Component {
                         </MenuOption>
                       </MenuOptions>
                     </Menu>
-                    
                   }
                 />
               );
