@@ -22,10 +22,12 @@ class FeedScreen extends React.Component {
       headerTintColor: '#fff',
       headerTitleStyle: {
         textAlign: 'center',
-        position: 'absolute',
-        width: '100%',
+        flexGrow: 1,
+        alignSelf: 'center',
         fontFamily: 'OpenSans-SemiBold',
       },
+      headerLeft: <View />,
+      headerRight: <View />
       // headerRight: <LoginButton roles={navigation.getParam('roles')} navigation={navigation} loginRoute={'Login'} />
     }
   };

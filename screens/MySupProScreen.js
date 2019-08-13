@@ -19,18 +19,19 @@ import { Icon, ListItem } from 'react-native-elements';
 
 import * as SecureStorage from "expo-secure-store";
 
-import { getProfileData, logout } from '../store/actions';
+import { getProfileData } from '../store/actions';
 
 import EditButton from '../components/EditButton';
 
-import ProfileHeader from '../components/Profile/ProfileHeader';
+import SupProfileHeader from '../components/Profile/SupProfileHeader';
+import SupProfileBody from '../components/Profile/SupProfileBody';
 import Stylesheet from '../constants/Stylesheet';
 
-class SupProScreen extends React.Component {
+class MySupProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'My Profile',
-      headerLeft: null,
+      headerLeft: <View />,
       headerStyle: {
         backgroundColor: '#323338'
       },
@@ -49,21 +50,14 @@ class SupProScreen extends React.Component {
     this.props.getProfileData(this.props.currentUserProfile.id, false, 'myProfile');
   }
 
-  logMeOut = async () => {
-    await SecureStorage.deleteItemAsync("sub", {});
-    await SecureStorage.deleteItemAsync("email", {});
-    await SecureStorage.deleteItemAsync("roles", {});
-    await SecureStorage.deleteItemAsync("userId", {});
-    this.props.logout();
-    this.props.navigation.navigate("Loading");
-  }
-
   render() {
     return (
       <ScrollView>
-        <Text>PLACEHOLDER - SUPPORTER PROFILE PAGE</Text>
-        <Button onPress={this.logMeOut} title="LOGOUT"/>
-        <View />
+        <View>
+          <SupProfileHeader profile={this.props.currentUserProfile}/>
+          <SupProfileBody profile={this.props.currentUserProfile}/>
+        
+        </View>
       </ScrollView>
     );
   }
@@ -81,5 +75,5 @@ const optionsStyles = {
 
 export default connect(
   mapStateToProps,
-  { getProfileData, logout }
-)(SupProScreen);
+  { getProfileData }
+)(MySupProScreen);

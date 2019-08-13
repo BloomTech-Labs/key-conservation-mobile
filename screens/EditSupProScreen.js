@@ -165,7 +165,7 @@ class EditSupProScreen extends React.Component {
             </View>
 
             <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Bio</Text>
+              <Text style={styles.sectionsText}>About Me</Text>
               <TextInput
                 ref={input => {
                   this.mini_bioInput = input;
@@ -360,7 +360,8 @@ const styles = StyleSheet.create({
   logoutButton: {
     fontSize: 20,
     alignItems: "flex-start",
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    marginBottom: 10
   },
   buttonText: {
     color: 'blue',

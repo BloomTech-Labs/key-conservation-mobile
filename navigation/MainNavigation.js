@@ -12,7 +12,7 @@ import MyProScreen from '../screens/MyProScreen';
 import EditProScreen from '../screens/EditProScreen';
 import DetailScreen from '../screens/DetailScreen';
 import MyDetailScreen from '../screens/MyDetailScreen';
-import SupProScreen from '../screens/SupProScreen';
+import MySupProScreen from '../screens/MySupProScreen';
 import EditSupProScreen from '../screens/EditSupProScreen';
 import LoginScreen from '../screens/LoginScreen';
 import UsernameScreen from "../screens/UsernameScreen";
@@ -39,7 +39,7 @@ const FeedStack = createStackNavigator(
     Detail: {
       screen: DetailScreen,
       navigationOptions: {
-        title: "Details",
+        title: "Profile",
         headerTintColor: "#fff",
         headerTitleStyle: {
           textAlign: "center",
@@ -131,7 +131,7 @@ const MyProStack = createStackNavigator(
 
 const SupProStack = createStackNavigator(
   {
-    SupPro: { screen: SupProScreen },
+    MySupPro: { screen: MySupProScreen },
     EditSupPro: { screen: EditSupProScreen }
   },
   {
@@ -230,7 +230,7 @@ export const SupNavigator = createBottomTabNavigator(
       path: '',
       navigationOptions: {
         tabBarOnPress: ({ navigation, defaultHandler }) => {
-          navigation.navigate('SupProScreen'),
+          navigation.navigate('MySupPro'),
           defaultHandler();
         }
       }

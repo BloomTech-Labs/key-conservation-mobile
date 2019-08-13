@@ -6,21 +6,45 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { ScrollView } from "react-navigation";
-import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 
 import DetailHeader from '../components/DetailScreen/DetailHeader';
 import DetailAboutUs from '../components/DetailScreen/DetailAboutUs';
 
-const DetailsScreen = props => {
-  let { selectedProfile } = useSelector(state => state);
-  const { navigation } = props;
-  return (
-    <ScrollView contentContainerStyle={{ backgroundColor: '#F2F2FB' }}>
-      <DetailHeader navigation={navigation} profile={selectedProfile} />
-      <DetailAboutUs navigation={navigation} profile={selectedProfile} />
-    </ScrollView>
-  );
-};
+class DetailsScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Profile',
+      headerStyle: {
+        backgroundColor: '#323338'
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        textAlign: 'center',
+        flexGrow: 1,
+        alignSelf: 'center',
+        fontFamily: 'OpenSans-SemiBold',
+      },
+      headerLeft: <View />,
+      headerRight: <View />
+    };
+  };
+
+  render() {
+    return (
+      <ScrollView contentContainerStyle={{ backgroundColor: '#F2F2FB' }}>
+        <DetailHeader navigation={this.props.navigation} profile={this.props.selectedProfile} />
+        <DetailAboutUs navigation={this.props.navigation} profile={this.props.selectedProfile} />
+      </ScrollView>
+    );
+  }
+}
+
+const mapStateToProps = state => ({
+  selectedProfile: state.selectedProfile
+});
+
+export default connect(mapStateToProps)(DetailsScreen);
 
 const styles = StyleSheet.create({
   header: {
@@ -58,5 +82,3 @@ const styles = StyleSheet.create({
     color: '#00FF9D'
   }
 });
-
-export default DetailsScreen;
