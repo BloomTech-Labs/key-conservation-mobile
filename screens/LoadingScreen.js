@@ -27,6 +27,7 @@ class LoadingScreen extends React.Component {
         // console.log(this.props.userId);
         if (this.props.userId) {
           // console.log("yes", this.props.userId);
+          console.log( "*********role from loading screen",this.props.role)
           this.props.getProfileData(this.props.userId, null, true);
           let route;
           if (this.props.firstLogin) {
@@ -67,6 +68,7 @@ class LoadingScreen extends React.Component {
 const mapStateToProps = state => ({
   error: state.error,
   userId: state.currentUserProfile.id,
+  role: state.currentUserProfile.role,
   firstLogin: state.firstLogin
 });
 
