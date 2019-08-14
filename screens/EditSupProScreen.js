@@ -70,7 +70,6 @@ class EditSupProScreen extends React.Component {
   }
 
   done = () => {
-    console.log(this.props.currentUserProfile)
     this.props.editProfileData(this.props.currentUserProfile.id, this.state);
     if (this.props.firstLogin) {
       this.props.navigation.navigate('Home');   

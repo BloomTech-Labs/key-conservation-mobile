@@ -52,21 +52,7 @@ const FeedStack = createStackNavigator(
         }
       }
     },
-    Camp: {
-      screen: ViewCampScreen,
-      navigationOptions: {
-        title: "Profile",
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          textAlign: "center",
-          flexGrow: 1,
-          alignSelf: "center"
-        },
-        headerStyle: {
-          backgroundColor: "#323338"
-        }
-      }
-    },
+    Camp: ViewCampScreen
   },
   {
     navigationOptions: {

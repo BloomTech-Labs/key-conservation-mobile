@@ -8,82 +8,106 @@ import {
   Platform
 } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
+import moment from 'moment';
+import SvgUri from 'react-native-svg-uri';
 
 import { ListItem, Icon } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 
 import { getProfileData, getCampaign } from '../../store/actions';
 
-import SvgUri from 'react-native-svg-uri';
-
 import styles from '../../constants/Stylesheet';
+
 
 const FeedCampaign = props => {
   const dispatch = useDispatch();
-  const { title, users_id, camp_id } = props.data;
+  const { data } = props;
+  const shorten = (string, cutoff) => {
+    if (string.length < cutoff) {
+      return string;
+    } else {
+      let end = cutoff;
+      const avoidChars = [" ", ",", "."];
+      while (avoidChars.includes(string.charAt(end)) && end >= cutoff - 10) {
+        end--
+      }
+      return `${string.substring(0, end)}...`;
+    };
+  };
 
-  const goToProfile = () => {
-    dispatch(getProfileData(users_id));
+ const createdAt = data.created_at;
+ const currentTime = moment();
+ const postTime = moment(createdAt);
+ let timeDiff
+ if (currentTime.diff(postTime, 'days') < 1) {
+   if (currentTime.diff(postTime, 'hours') < 1) {
+    if (currentTime.diff(postTime, 'minutes') < 1) {
+      timeDiff = 'just now'
+    } else {
+      if (currentTime.diff(postTime, 'minutes') === 1) {
+        timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO`
+      } else {
+        timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`
+      }
+    }
+   } else {
+    if (currentTime.diff(postTime, 'hours') === 1) {
+      timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO`
+    } else {
+      timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`
+    }
+  }
+ } else {
+  if (currentTime.diff(postTime, 'days') === 1) {
+    timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO`
+  } else {
+    timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`
+  }
+}
+
+  const goToProfile = async () => {
+    await dispatch(getProfileData(data.users_id));
     props.navigation.navigate('Pro');
   };
 
   const goToCampaign = async () => {
-    await dispatch(getCampaign(camp_id));
+    await dispatch(getCampaign(data.camp_id));
     props.navigation.navigate('Camp');
   };
 
   return (
     <View style={styles.container}>
       <ListItem
-        onPress={() => goToProfile()}
+        onPress={goToProfile}
         title={
           <View>
-            <Text style={styles.orgTitleView}>{props.data.username}</Text>
+            <Text style={styles.orgTitleView}>{data.username}</Text>
           </View>
         }
-        leftAvatar={{ source: { uri: props.data.profile_image } }}
-        subtitle={props.data.location}
+        leftAvatar={{ source: { uri: data.profile_image } }}
+        subtitle={data.location}
       />
       <View>
-        <Text style={styles.campTitle}>{props.data.camp_name}</Text>
-        <TouchableOpacity activeOpacity = { .5 } onPress={() => goToCampaign()}>
+        <TouchableOpacity activeOpacity = { .5 } onPress={goToCampaign}>
           <Image
-            source={{ uri: props.data.camp_img }}
+            source={{ uri: data.camp_img }}
             style={styles.campImgContain}
           />
         </TouchableOpacity>
       </View>
+      <TouchableOpacity 
+        style={styles.goToCampaignButton}
+        onPress={goToCampaign}
+      >
+        <Text style={styles.goToCampaignText}>See Post  {'>'}</Text>
+      </TouchableOpacity>
       <View style={styles.campDesc}>
         <Text>
-          <Text style={styles.campDescUsername}>{props.data.username}</Text>
-          &nbsp;&nbsp;{props.data.camp_desc}
+          <Text style={styles.campDescName}>{data.camp_name}</Text>
+          <Text style={styles.campDesc}>{shorten(data.camp_desc, 80)}</Text>   
         </Text>
       </View>
-      <View>
-        <View style={styles.campMission}>
-          <SvgUri
-            width='25'
-            height='25'
-            source={require('../../assets/icons/hand.svg')}
-          />
-          <Text style={styles.campMissionText}>Support Our Mission</Text>
-        </View>
-        <View style={styles.donateButton}>
-          <TouchableOpacity
-            style={styles.touchableButton}
-            // If these links are empty string and don't have an http:// or a https:// it will send you with unpromised rejections.
-            onPress={async () =>
-              props.data.camp_cta &&
-              props.data.camp_cata !== null &&
-              (await WebBrowser.openBrowserAsync(props.data.camp_cta))
-            }
-          >
-            <View style={styles.touchableView}>
-              <Text style={styles.touchableText}>Donate</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </View>
+      <Text style={styles.timeText}>{timeDiff}</Text>
     </View>
   );
 };

@@ -45,7 +45,6 @@ class MyProScreen extends React.Component {
   };
 
   componentDidMount() {
-    console.log()
     this.props.getProfileData(this.props.currentUserProfile.id, false, 'myProfile');
   }
 
