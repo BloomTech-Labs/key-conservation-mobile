@@ -7,6 +7,7 @@ import {
 
 import FeedScreen from '../screens/FeedScreen';
 import CreateCampScreen from '../screens/CreateCampScreen';
+import ViewCampScreen from '../screens/ViewCampScreen';
 import ProScreen from '../screens/ProScreen';
 import MyProScreen from '../screens/MyProScreen';
 import EditProScreen from '../screens/EditProScreen';
@@ -50,7 +51,22 @@ const FeedStack = createStackNavigator(
           backgroundColor: "#323338"
         }
       }
-    }
+    },
+    Camp: {
+      screen: ViewCampScreen,
+      navigationOptions: {
+        title: "Profile",
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          textAlign: "center",
+          flexGrow: 1,
+          alignSelf: "center"
+        },
+        headerStyle: {
+          backgroundColor: "#323338"
+        }
+      }
+    },
   },
   {
     navigationOptions: {

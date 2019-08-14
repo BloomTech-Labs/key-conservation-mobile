@@ -15,6 +15,8 @@ import { Avatar, Icon, ListItem } from 'react-native-elements';
 
 import ProfileHeader from '../components/Profile/ProfileHeader';
 
+import BackButton from '../components/BackButton';
+
 
 class ProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -30,13 +32,12 @@ class ProScreen extends React.Component {
         alignSelf: 'center',
         fontFamily: 'OpenSans-SemiBold',
       },
-      headerLeft: <View />,
+      headerLeft: <BackButton navigation={navigation} />,
       headerRight: <View />
     };
   };
   
   render() {
-    const orgId = this.props.navigation.getParam('orgId');
     return (
       <ScrollView>
         <ProfileHeader navigation={this.props.navigation} profile={this.props.selectedProfile} myProfile={false} />

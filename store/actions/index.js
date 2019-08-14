@@ -168,6 +168,26 @@ export const getCampaigns = () => dispatch => {
 };
 
 export const [
+  GET_CAMPAIGN_START,
+  GET_CAMPAIGN_ERROR,
+  GET_CAMPAIGN_SUCCESS
+] = ['GET_CAMPAIGN_START', 'GET_CAMPAIGN_ERROR', 'GET_CAMPAIGN_SUCCESS'];
+
+export const getCampaign = id => dispatch => {
+  console.log(id)
+  dispatch({ type: GET_CAMPAIGNS_START });
+  axios
+    .get(`https://key-conservation-staging.herokuapp.com/api/campaigns/${id}`)
+    .then(res => {
+      console.log(res.data.camp)
+      dispatch({ type: GET_CAMPAIGNS_SUCCESS, payload: res.data.camp });
+    })
+    .catch(err => {
+      dispatch({ type: GET_CAMPAIGNS_ERROR, payload: err });
+    });
+};
+
+export const [
   POST_CAMPAIGN_START,
   POST_CAMPAIGN_ERROR,
   POST_CAMPAIGN_SUCCESS

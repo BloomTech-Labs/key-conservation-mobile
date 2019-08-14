@@ -2,13 +2,11 @@ import React from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { ScrollView } from "react-navigation";
 import { connect } from "react-redux";
-import * as SecureStorage from "expo-secure-store";
 import { Icon } from "react-native-elements";
 
 import { getCampaigns } from "../store/actions";
 
 import FeedCampaign from "../components/FeedScreen/FeedCampaign";
-import LoginButton from '../components/LoginButton';
 
 import styles from "../constants/Stylesheet";
 
@@ -28,7 +26,6 @@ class FeedScreen extends React.Component {
       },
       headerLeft: <View />,
       headerRight: <View />
-      // headerRight: <LoginButton roles={navigation.getParam('roles')} navigation={navigation} loginRoute={'Login'} />
     }
   };
 

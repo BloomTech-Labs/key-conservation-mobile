@@ -10,9 +10,9 @@ import {
 import * as WebBrowser from 'expo-web-browser';
 
 import { ListItem, Icon } from 'react-native-elements';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { getProfileData } from '../../store/actions';
+import { getProfileData, getCampaign } from '../../store/actions';
 
 import SvgUri from 'react-native-svg-uri';
 
@@ -20,17 +20,22 @@ import styles from '../../constants/Stylesheet';
 
 const FeedCampaign = props => {
   const dispatch = useDispatch();
-  const { title, users_id } = props.data;
+  const { title, users_id, camp_id } = props.data;
 
-  const handlePress = () => {
+  const goToProfile = () => {
     dispatch(getProfileData(users_id));
-    props.navigation.navigate('Pro', { orgId: users_id });
+    props.navigation.navigate('Pro');
+  };
+
+  const goToCampaign = async () => {
+    await dispatch(getCampaign(camp_id));
+    props.navigation.navigate('Camp');
   };
 
   return (
     <View style={styles.container}>
       <ListItem
-        onPress={() => handlePress(users_id)}
+        onPress={() => goToProfile()}
         title={
           <View>
             <Text style={styles.orgTitleView}>{props.data.username}</Text>
@@ -41,10 +46,12 @@ const FeedCampaign = props => {
       />
       <View>
         <Text style={styles.campTitle}>{props.data.camp_name}</Text>
-        <Image
-          source={{ uri: props.data.camp_img }}
-          style={styles.campImgContain}
-        />
+        <TouchableOpacity activeOpacity = { .5 } onPress={() => goToCampaign()}>
+          <Image
+            source={{ uri: props.data.camp_img }}
+            style={styles.campImgContain}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.campDesc}>
         <Text>

@@ -18,6 +18,9 @@ import {
   GET_CAMPAIGNS_START,
   GET_CAMPAIGNS_ERROR,
   GET_CAMPAIGNS_SUCCESS,
+  GET_CAMPAIGN_START,
+  GET_CAMPAIGN_ERROR,
+  GET_CAMPAIGN_SUCCESS,
   POST_CAMPAIGN_START,
   POST_CAMPAIGN_ERROR,
   POST_CAMPAIGN_SUCCESS,
@@ -42,6 +45,7 @@ const initialState = {
   selectedProfile: {
     campaigns: []
   },
+  selectedCampaign: {},
   allCampaigns: [],
   firstLogin: false
 };
@@ -163,6 +167,24 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getCampaigns: false },
+        error: action.payload
+      };
+    case GET_CAMPAIGN_START:
+      return {
+        ...state,
+        pending: { ...state.pending, getCampaign: true },
+        error: ""
+      };
+    case GET_CAMPAIGN_SUCCESS:
+      return {
+        ...state,
+        pending: { ...state.pending, getCampaign: false },
+        selectedCampaign: action.payload
+      };
+    case GET_CAMPAIGN_ERROR:
+      return {
+        ...state,
+        pending: { ...state.pending, getCampaign: false },
         error: action.payload
       };
     case DELETE_CAMPAIGN_START:
