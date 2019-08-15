@@ -12,12 +12,13 @@ import {
   MenuOption,
   MenuTrigger,
 } from 'react-native-popup-menu';
+import SvgUri from 'react-native-svg-uri';
 import { ScrollView } from "react-navigation";
 import { connect } from 'react-redux';
-import SvgUri from 'react-native-svg-uri';
+
 import { Icon, ListItem } from 'react-native-elements';
 
-import { getProfileData, deleteCampaign } from '../store/actions';
+import { getProfileData, deleteCampaign, getCampaign } from '../store/actions';
 
 import EditButton from '../components/EditButton';
 
@@ -28,7 +29,6 @@ class MyProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'My Profile',
-      headerLeft: null,
       headerStyle: {
         backgroundColor: '#323338'
       },
@@ -39,14 +39,19 @@ class MyProScreen extends React.Component {
         alignSelf: 'center',
         fontFamily: 'OpenSans-SemiBold',
       },
+      headerLeft: <View />,
       headerRight: <EditButton navigation={navigation} editRoute={'EditPro'} />
     };
   };
 
   componentDidMount() {
-    console.log()
     this.props.getProfileData(this.props.currentUserProfile.id, false, 'myProfile');
   }
+
+  goToCampaign = async (id) => {
+    await this.props.getCampaign(id);
+    this.props.navigation.navigate('Camp');
+  };
 
   render() {
     return (
@@ -62,6 +67,7 @@ class MyProScreen extends React.Component {
             this.props.currentUserProfile.campaigns.map(campaign => {
               return (
                 <ListItem
+                  onPress={() => this.goToCampaign(campaign.camp_id)}
                   key={campaign.camp_id}
                   title={campaign.camp_name}
                   leftAvatar={{ source: { uri: campaign.camp_img } }}
@@ -75,7 +81,6 @@ class MyProScreen extends React.Component {
                         </MenuOption>
                       </MenuOptions>
                     </Menu>
-                    
                   }
                 />
               );
@@ -94,9 +99,8 @@ const optionsStyles = {
     width: 75
   },
 }
-  
 
 export default connect(
   mapStateToProps,
-  { getProfileData, deleteCampaign }
+  { getProfileData, deleteCampaign, getCampaign }
 )(MyProScreen);
