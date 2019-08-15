@@ -106,7 +106,8 @@ const MyProStack = createStackNavigator(
     EditPro: {
       screen: EditProScreen,
       navigationOptions: { title: "Edit Profile" }
-    }
+    },
+    Camp: ViewCampScreen
   },
   {
     transitionConfig: () => ({
