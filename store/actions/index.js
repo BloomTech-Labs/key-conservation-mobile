@@ -239,6 +239,28 @@ export const deleteCampaign = id => dispatch => {
     });
 };
 
+
+export const [EDIT_CAMPAIGN_START, EDIT_CAMPAIGN_ERROR, EDIT_CAMPAIGN_SUCCESS] = [
+  'EDIT_CAMPAIGN_START',
+  'EDIT_CAMPAIGN_ERROR',
+  'EDIT_CAMPAIGN_SUCCESS'
+];
+
+export const editCampaign = (id, changes) => dispatch => {
+  dispatch({ type: EDIT_CAMPAIGN_START });
+  axios
+    .put(
+      `https://key-conservation-staging.herokuapp.com/api/campaigns/${id}`,
+      changes
+    )
+    .then(res => {
+      dispatch({ type: EDIT_CAMPAIGN_SUCCESS, payload: res.data.editCamp });
+    })
+    .catch(err => {
+      dispatch({ type: EDIT_CAMPAIGN_ERROR, payload: err });
+    });
+};
+
 export const TOGGLE_CAMPAIGN_TEXT = 'TOGGLE_CAMPAIGN_TEXT';
 
 export const toggleCampaignText = id => ({

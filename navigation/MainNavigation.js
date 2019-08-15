@@ -11,6 +11,7 @@ import ViewCampScreen from '../screens/ViewCampScreen';
 import ProScreen from '../screens/ProScreen';
 import MyProScreen from '../screens/MyProScreen';
 import EditProScreen from '../screens/EditProScreen';
+import EditCampScreen from '../screens/EditCampScreen';
 import DetailScreen from '../screens/DetailScreen';
 import MyDetailScreen from '../screens/MyDetailScreen';
 import MySupProScreen from '../screens/MySupProScreen';
@@ -107,7 +108,8 @@ const MyProStack = createStackNavigator(
       screen: EditProScreen,
       navigationOptions: { title: "Edit Profile" }
     },
-    Camp: ViewCampScreen
+    Camp: ViewCampScreen,
+    EditCamp: EditCampScreen
   },
   {
     transitionConfig: () => ({
