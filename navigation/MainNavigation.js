@@ -106,12 +106,8 @@ const MyProStack = createStackNavigator(
     EditPro: {
       screen: EditProScreen,
       navigationOptions: { title: "Edit Profile" }
-<<<<<<< HEAD:navigation/MainTabNavigator.js
     },
     Camp: ViewCampScreen
-=======
-    }
->>>>>>> parent of efea1c3... Revert "Merge branch 'single-campaign' into development":navigation/MainNavigation.js
   },
   {
     transitionConfig: () => ({

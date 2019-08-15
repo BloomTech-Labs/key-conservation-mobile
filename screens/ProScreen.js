@@ -7,13 +7,9 @@ import {
   TouchableOpacity,
   ScrollView
 } from 'react-native';
-<<<<<<< HEAD
-=======
-import { ScrollView } from "react-navigation";
 import { connect } from 'react-redux';
 
 import { getProfileData } from '../store/actions';
->>>>>>> parent of efea1c3... Revert "Merge branch 'single-campaign' into development"
 
 import { Avatar, Icon, ListItem } from 'react-native-elements';
 import FeedCampaign from '../components/FeedScreen/FeedCampaign';
@@ -43,7 +39,6 @@ class ProScreen extends React.Component {
   
   render() {
     return (
-<<<<<<< HEAD
       // creates sticky header
       <ScrollView stickyHeaderIndices={[0]}>
         <View style={{borderBottomWidth: 2, borderBottomColor: '#929292'}}>
@@ -62,27 +57,6 @@ class ProScreen extends React.Component {
       </ScrollView>
       
       
-=======
-      <ScrollView>
-        <ProfileHeader navigation={this.props.navigation} profile={this.props.selectedProfile} myProfile={false} />
-        <View />
-        <View>
-          {this.props.selectedProfile.campaigns.map(campaign => {
-            return (
-              <ListItem
-                key={campaign.camp_id}
-                title={campaign.camp_name}
-                leftAvatar={{ source: { uri: campaign.camp_img } }}
-                subtitle={campaign.location}
-                // rightIcon={
-                //   <Icon name='ellipsis-v' type='font-awesome' color='black' />
-                // }
-              />
-            );
-          })}
-        </View>
-      </ScrollView>
->>>>>>> parent of efea1c3... Revert "Merge branch 'single-campaign' into development"
     );
   }
 };
