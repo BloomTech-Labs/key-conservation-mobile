@@ -238,3 +238,10 @@ export const deleteCampaign = id => dispatch => {
       dispatch({ type: DELETE_CAMPAIGN_ERROR, payload: err });
     });
 };
+
+export const TOGGLE_CAMPAIGN_TEXT = 'TOGGLE_CAMPAIGN_TEXT';
+
+export const toggleCampaignText = id => ({
+  type: TOGGLE_CAMPAIGN_TEXT,
+  payload: id
+})

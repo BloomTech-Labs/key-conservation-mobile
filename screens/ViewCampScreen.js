@@ -71,7 +71,7 @@ class ViewCampScreen extends React.Component {
                 source={require('../assets/icons/hand.svg')}
               />
               <Text style={styles.supportMissionText}>Support Our Mission</Text>
-              <Text style={styles.campMissionText}>Your donation helps us {"\n"}than you know. Thanks!</Text>
+              <Text style={styles.campMissionText}>Your donation helps us more{"\n"}than you know. Thanks!</Text>
             </View>
             <View style={styles.donateButton}>
               <TouchableOpacity

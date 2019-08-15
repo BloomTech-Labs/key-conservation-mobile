@@ -41,11 +41,12 @@ class FeedScreen extends React.Component {
       <ScrollView>
         <View style={styles.feedContainer}>
           {this.props.allCampaigns.length > 0 &&
-            this.props.allCampaigns.map(campaign => {
+            this.props.allCampaigns.map(camp => {
               return (
                 <FeedCampaign
-                  key={campaign.camp_id}
-                  data={campaign}
+                  key={camp.camp_id}
+                  data={camp}
+                  toggled={this.props.campaignsToggled.includes(camp.camp_id)}
                   navigation={navigation}
                 />
               );
@@ -58,7 +59,8 @@ class FeedScreen extends React.Component {
 
 const mapStateToProps = state => ({
   allCampaigns: state.allCampaigns,
-  currentUserProfile: state.currentUserProfile
+  currentUserProfile: state.currentUserProfile,
+  campaignsToggled: state.campaignsToggled
 });
   
 

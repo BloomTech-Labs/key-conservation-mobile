@@ -21,17 +21,27 @@ export default {
     backgroundColor: 'black'
   },
   campDesc: {
-    flexWrap: 'wrap',
-    flexDirection: 'row',
+    
     marginLeft: 15,
     paddingTop: 15,
     marginRight: 15
+  },
+  campDescText: {
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 14,
+    lineHeight: 19,
+  },
+  campDescName: {
+    fontFamily: 'OpenSans-SemiBold',
+    fontSize: 16
   },
   campDescUsername: {
     fontFamily: 'OpenSans-SemiBold',
     paddingRight: 15
   },
-  
+  readMore: {
+    color: "#929292"
+  },  
   touchableButton: {
     paddingTop: 25,
     paddingBottom: 25,

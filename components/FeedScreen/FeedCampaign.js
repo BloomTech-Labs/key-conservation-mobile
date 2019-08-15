@@ -14,14 +14,13 @@ import SvgUri from 'react-native-svg-uri';
 import { ListItem, Icon } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 
-import { getProfileData, getCampaign } from '../../store/actions';
+import { getProfileData, getCampaign, toggleCampaignText } from '../../store/actions';
 
 import styles from '../../constants/Stylesheet';
 
-
 const FeedCampaign = props => {
   const dispatch = useDispatch();
-  const { data } = props;
+  const { data, toggled } = props;
   const shorten = (string, cutoff) => {
     if (string.length < cutoff) {
       return string;
@@ -75,6 +74,10 @@ const FeedCampaign = props => {
     props.navigation.navigate('Camp');
   };
 
+  const toggleText = () => {
+    dispatch(toggleCampaignText(data.camp_id))
+  }
+
   return (
     <View style={styles.container}>
       <ListItem
@@ -102,10 +105,23 @@ const FeedCampaign = props => {
         <Text style={styles.goToCampaignText}>See Post  {'>'}</Text>
       </TouchableOpacity>
       <View style={styles.campDesc}>
-        <Text>
-          <Text style={styles.campDescName}>{data.camp_name}</Text>
-          <Text style={styles.campDesc}>{shorten(data.camp_desc, 80)}</Text>   
-        </Text>
+        <Text style={styles.campDescName}>{data.camp_name}</Text>
+        {
+          toggled || data.camp_desc.length < 80
+          ? 
+          <Text style={styles.campDescText}>
+            {data.camp_desc}
+          </Text>
+          :
+          <Text style={styles.campDescText}>
+            {shorten(data.camp_desc, 80)}
+            &nbsp;
+            <Text 
+              onPress={toggleText}
+              style={styles.readMore}>Read More
+            </Text>
+          </Text>
+        }
       </View>
       <Text style={styles.timeText}>{timeDiff}</Text>
     </View>

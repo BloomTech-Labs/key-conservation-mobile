@@ -26,7 +26,8 @@ import {
   POST_CAMPAIGN_SUCCESS,
   DELETE_CAMPAIGN_START,
   DELETE_CAMPAIGN_ERROR,
-  DELETE_CAMPAIGN_SUCCESS
+  DELETE_CAMPAIGN_SUCCESS,
+  TOGGLE_CAMPAIGN_TEXT
 } from "../actions";
 
 const initialState = {
@@ -47,7 +48,8 @@ const initialState = {
   },
   selectedCampaign: {},
   allCampaigns: [],
-  firstLogin: false
+  firstLogin: false,
+  campaignsToggled: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -235,9 +237,14 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, postCampaign: false },
         error: action.payload
       };
+    case TOGGLE_CAMPAIGN_TEXT:
+      return {
+        ...state,
+        campaignsToggled: [...state.campaignsToggled, action.payload]
+      };
     default:
-      return state;
-  }
+        return state;
+    }
 };
 
 export default reducer;
