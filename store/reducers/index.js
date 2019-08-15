@@ -18,16 +18,12 @@ import {
   GET_CAMPAIGNS_START,
   GET_CAMPAIGNS_ERROR,
   GET_CAMPAIGNS_SUCCESS,
-  GET_CAMPAIGN_START,
-  GET_CAMPAIGN_ERROR,
-  GET_CAMPAIGN_SUCCESS,
   POST_CAMPAIGN_START,
   POST_CAMPAIGN_ERROR,
   POST_CAMPAIGN_SUCCESS,
   DELETE_CAMPAIGN_START,
   DELETE_CAMPAIGN_ERROR,
-  DELETE_CAMPAIGN_SUCCESS,
-  TOGGLE_CAMPAIGN_TEXT
+  DELETE_CAMPAIGN_SUCCESS
 } from "../actions";
 
 const initialState = {
@@ -37,19 +33,20 @@ const initialState = {
   },
   currentUser: {
     sub: "",
+    role: "",
     email: "",
+    username: "",
     token: ""
   },
   currentUserProfile: {
+    roles: 'guest',
     campaigns: []
   },
   selectedProfile: {
     campaigns: []
   },
-  selectedCampaign: {},
   allCampaigns: [],
-  firstLogin: false,
-  campaignsToggled: []
+  firstLogin: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -171,24 +168,6 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, getCampaigns: false },
         error: action.payload
       };
-    case GET_CAMPAIGN_START:
-      return {
-        ...state,
-        pending: { ...state.pending, getCampaign: true },
-        error: ""
-      };
-    case GET_CAMPAIGN_SUCCESS:
-      return {
-        ...state,
-        pending: { ...state.pending, getCampaign: false },
-        selectedCampaign: action.payload
-      };
-    case GET_CAMPAIGN_ERROR:
-      return {
-        ...state,
-        pending: { ...state.pending, getCampaign: false },
-        error: action.payload
-      };
     case DELETE_CAMPAIGN_START:
       return {
         ...state,
@@ -237,14 +216,9 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, postCampaign: false },
         error: action.payload
       };
-    case TOGGLE_CAMPAIGN_TEXT:
-      return {
-        ...state,
-        campaignsToggled: [...state.campaignsToggled, action.payload]
-      };
     default:
-        return state;
-    }
+      return state;
+  }
 };
 
 export default reducer;

@@ -47,7 +47,6 @@ export default (LoginScreen = props => {
   const dispatch = useDispatch();
   const { currentUser, error } = useSelector(state => state);
   const { navigation } = props;
-  let roles;
 
   const login = async navigation => {
     dispatch(loginStart());
@@ -118,7 +117,7 @@ export default (LoginScreen = props => {
 
       await SecureStore.setItemAsync("sub", chosenDecoded.sub);
       await SecureStore.setItemAsync("email", chosenDecoded.email);
-      await SecureStore.setItemAsync("roles", roles === 'conservationist' ? 'conservationist' : 'supporter');
+      await SecureStore.setItemAsync("roles", "conservationist");
       const userLog = await SecureStore.getItemAsync("sub", {});
       console.log("*********async user*************", userLog);
 
@@ -140,24 +139,18 @@ export default (LoginScreen = props => {
         />
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.SelectText}>I am a:</Text>
+        <Text style={styles.SelectText}>Select one:</Text>
       </View>
       <View style={styles.buttons}>
         {/* <View style={styles.buttonContainer}> */}
         <TouchableOpacity
-          onPress={() => {
-            roles = 'conservationist';
-            login(navigation);
-          }}
+          onPress={() => login(navigation)}
           style={styles.buttonContainer}
         >
           <Text style={styles.buttonText}>CONSERVATION ORGANIZATION</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => {
-            roles = 'supporter';
-            login(navigation);
-          }} 
+          onPress={() => props.navigation.navigate("Supporter")}
           style={styles.buttonContainer}
         >
           <Text style={styles.buttonText}>GLOBAL SUPPORTER</Text>

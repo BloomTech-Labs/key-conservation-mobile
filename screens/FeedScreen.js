@@ -2,11 +2,13 @@ import React from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { ScrollView } from "react-navigation";
 import { connect } from "react-redux";
+import * as SecureStorage from "expo-secure-store";
 import { Icon } from "react-native-elements";
 
 import { getCampaigns } from "../store/actions";
 
-import FeedCampaign from "../components/FeedScreen/FeedCampaign";
+import Campaign from "../components/FeedScreen/Campaign";
+import LoginButton from '../components/LoginButton';
 
 import styles from "../constants/Stylesheet";
 
@@ -20,12 +22,11 @@ class FeedScreen extends React.Component {
       headerTintColor: '#fff',
       headerTitleStyle: {
         textAlign: 'center',
-        flexGrow: 1,
-        alignSelf: 'center',
+        position: 'absolute',
+        width: '100%',
         fontFamily: 'OpenSans-SemiBold',
       },
-      headerLeft: <View />,
-      headerRight: <View />
+      headerRight: <LoginButton roles={navigation.getParam('roles')} navigation={navigation} loginRoute={'Login'} />
     }
   };
 
@@ -41,12 +42,11 @@ class FeedScreen extends React.Component {
       <ScrollView>
         <View style={styles.feedContainer}>
           {this.props.allCampaigns.length > 0 &&
-            this.props.allCampaigns.map(camp => {
+            this.props.allCampaigns.map(campaign => {
               return (
-                <FeedCampaign
-                  key={camp.camp_id}
-                  data={camp}
-                  toggled={this.props.campaignsToggled.includes(camp.camp_id)}
+                <Campaign
+                  key={campaign.camp_id}
+                  data={campaign}
                   navigation={navigation}
                 />
               );
@@ -59,8 +59,7 @@ class FeedScreen extends React.Component {
 
 const mapStateToProps = state => ({
   allCampaigns: state.allCampaigns,
-  currentUserProfile: state.currentUserProfile,
-  campaignsToggled: state.campaignsToggled
+  currentUserProfile: state.currentUserProfile
 });
   
 

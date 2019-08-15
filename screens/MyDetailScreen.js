@@ -16,7 +16,8 @@ import EditButton from '../components/EditButton';
 class MyDetailsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'My Profile',
+      title: 'My Details',
+      headerLeft: null,
       headerStyle: {
         backgroundColor: '#323338'
       },
@@ -27,8 +28,9 @@ class MyDetailsScreen extends React.Component {
         alignSelf: 'center',
         fontFamily: 'OpenSans-SemiBold',
       },
-      headerLeft: <View />,
-      headerRight: <EditButton navigation={navigation} editRoute={'EditPro'} />
+      headerRight: (
+        <EditButton navigation={navigation} editRoute={'EditDetail'} />
+      )
     };
   };
 
