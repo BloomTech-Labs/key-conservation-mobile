@@ -1,21 +1,22 @@
-import React from "react";
-import { Platform } from "react-native";
+import React from "react"
+import { Platform } from "react-native"
 import {
   createStackNavigator,
-  createBottomTabNavigator
-} from "react-navigation";
+  createBottomTabNavigator,
+} from "react-navigation"
 
-import FeedScreen from '../screens/FeedScreen';
-import CreateCampScreen from '../screens/CreateCampScreen';
-import ProScreen from '../screens/ProScreen';
-import MyProScreen from '../screens/MyProScreen';
-import EditProScreen from '../screens/EditProScreen';
-import DetailScreen from '../screens/DetailScreen';
-import MyDetailScreen from '../screens/MyDetailScreen';
-import EditDetailScreen from '../screens/EditDetailScreen';
-import LoginScreen from '../screens/LoginScreen';
-import UsernameScreen from "../screens/UsernameScreen";
-import SvgUri from 'react-native-svg-uri';
+import FeedScreen from "../screens/FeedScreen"
+import CreateCampScreen from "../screens/CreateCampScreen"
+import ProScreen from "../screens/ProScreen"
+import MyProScreen from "../screens/MyProScreen"
+import EditProScreen from "../screens/EditProScreen"
+import DetailScreen from "../screens/DetailScreen"
+import MyDetailScreen from "../screens/MyDetailScreen"
+import EditDetailScreen from "../screens/EditDetailScreen"
+import LoginScreen from "../screens/LoginScreen"
+import UsernameScreen from "../screens/UsernameScreen"
+import SvgUri from "react-native-svg-uri"
+import SearchScreen from "../screens/SearchScreen"
 
 const FeedStack = createStackNavigator(
   {
@@ -28,12 +29,12 @@ const FeedStack = createStackNavigator(
         headerTitleStyle: {
           textAlign: "center",
           flexGrow: 1,
-          alignSelf: "center"
+          alignSelf: "center",
         },
         headerStyle: {
-          backgroundColor: "#323338"
-        }
-      }
+          backgroundColor: "#323338",
+        },
+      },
     },
     Detail: {
       screen: DetailScreen,
@@ -43,13 +44,13 @@ const FeedStack = createStackNavigator(
         headerTitleStyle: {
           textAlign: "center",
           flexGrow: 1,
-          alignSelf: "center"
+          alignSelf: "center",
         },
         headerStyle: {
-          backgroundColor: "#323338"
-        }
-      }
-    }
+          backgroundColor: "#323338",
+        },
+      },
+    },
   },
   {
     navigationOptions: {
@@ -64,15 +65,15 @@ const FeedStack = createStackNavigator(
               : require("../assets/icons/home.svg")
           }
         />
-      )
+      ),
     },
     transitionConfig: () => ({
       transitionSpec: {
-        duration: 0
-      }
-    })
+        duration: 0,
+      },
+    }),
   }
-);
+)
 
 const CreateCampStack = createStackNavigator(
   { CreateCampaign: CreateCampScreen },
@@ -88,31 +89,30 @@ const CreateCampStack = createStackNavigator(
             focused
               ? require("../assets/icons/plus-fill.svg")
               : require("../assets/icons/plus.svg")
-
           }
         />
-      )
-    }
+      ),
+    },
   }
-);
+)
 const MyProStack = createStackNavigator(
   {
     MyPro: { screen: MyProScreen },
     MyDetail: { screen: MyDetailScreen },
     EditPro: {
       screen: EditProScreen,
-      navigationOptions: { title: "Edit Profile" }
+      navigationOptions: { title: "Edit Profile" },
     },
     EditDetail: {
       screen: EditDetailScreen,
-      navigationOptions: { title: 'Edit Details' }
-    }
+      navigationOptions: { title: "Edit Details" },
+    },
   },
   {
     transitionConfig: () => ({
       transitionSpec: {
-        duration: 0
-      }
+        duration: 0,
+      },
     }),
     navigationOptions: {
       tabBarLabel: "My Profile",
@@ -126,10 +126,10 @@ const MyProStack = createStackNavigator(
               : require("../assets/icons/user.svg")
           }
         />
-      )
-    }
+      ),
+    },
   }
-);
+)
 
 export const UsernameStack = createStackNavigator({
   Username: {
@@ -140,60 +140,67 @@ export const UsernameStack = createStackNavigator({
       headerTitleStyle: {
         flex: 1,
         textAlign: "center",
-        color: "white"
+        color: "white",
       },
       headerStyle: {
-        backgroundColor: "#323338"
-      }
-    }
-  }
-});
+        backgroundColor: "#323338",
+      },
+    },
+  },
+})
 
 export const LoginStack = createStackNavigator(
   { Login: LoginScreen },
   {
-    headerMode: "none"
+    headerMode: "none",
   }
-);
+)
+
+export const SearchStack = createStackNavigator(
+  {
+    Search: SearchScreen,
+  },
+  {
+    headerMode: "none",
+  }
+)
 
 export const TabNavigator = createBottomTabNavigator(
   {
     FeedStack: {
       screen: FeedStack,
-      path: '',
+      path: "",
       navigationOptions: {
         tabBarOnPress: ({ navigation, defaultHandler }) => {
-          navigation.navigate('Home'),
-          defaultHandler();
-        }
-      }
+          navigation.navigate("Home"), defaultHandler()
+        },
+      },
     },
-    CreateCampStack: { screen: CreateCampStack, path: '' },
+    CreateCampStack: { screen: CreateCampStack, path: "" },
     MyProStack: {
       screen: MyProStack,
-      path: '',
+      path: "",
       navigationOptions: {
         tabBarOnPress: ({ navigation, defaultHandler }) => {
-          navigation.navigate('MyPro'),
-          defaultHandler();
-        }
-      } 
-    }
+          navigation.navigate("MyPro"), defaultHandler()
+        },
+      },
+    },
   },
   {
     tabBarOptions: {
-      showLabel: false
-    }
+      showLabel: false,
+    },
   }
-);
+)
 
 export const NoTabNavigator = createStackNavigator(
   {
     FeedStack: { screen: FeedStack, path: "" },
     CreateCampStack: { screen: CreateCampStack, path: "" },
-    MyProStack: { screen: MyProStack, path: "" }
+    MyProStack: { screen: MyProStack, path: "" },
   },
   {
-    headerMode: "none"
+    headerMode: "none",
   }
-);
+)

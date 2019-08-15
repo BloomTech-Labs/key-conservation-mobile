@@ -15,6 +15,7 @@
   "dependencies": {
     "@expo/samples": "~3.0.0",
     "@expo/vector-icons": "^10.0.1",
+  
     "@react-navigation/web": "^1.0.0-alpha.9",
     "axios": "^0.19.0",
     "expo": "^33.0.0",
@@ -31,6 +32,7 @@
     "react-native-elements": "^1.1.0",
     "react-native-keyboard-aware-scroll-view": "^0.8.0",
     "react-native-popup-menu": "^0.15.6",
+    "react-native-search-filter": "^0.1.4",
     "react-native-svg": "^9.6.2",
     "react-native-svg-uri": "^1.2.3",
     "react-native-web": "^0.11.4",
@@ -42,7 +44,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0"
   },
-  "devDependencies": {
+  "evDependencies": {
     "babel-preset-expo": "^5.1.0",
     "jest-expo": "^33.0.0",
     "react-native-debugger-open": "^0.3.19"
