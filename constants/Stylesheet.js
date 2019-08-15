@@ -5,9 +5,9 @@ export default {
   container: {
     justifyContent: 'center',
     // marginBottom: 10,
-    borderBottomWidth: 2,
-    borderBottomColor: '#eee',
-    paddingBottom: 45,
+    // borderBottomWidth: 2,
+    // borderBottomColor: '#eee',
+    paddingBottom: 35,
   },
   donateButton: {
     fontFamily: "OpenSans-SemiBold",
@@ -21,23 +21,32 @@ export default {
     backgroundColor: 'black'
   },
   campDesc: {
-    flexWrap: 'wrap',
-    flexDirection: 'row',
+    
     marginLeft: 15,
     paddingTop: 15,
     marginRight: 15
+  },
+  campDescText: {
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 14,
+    lineHeight: 19,
+  },
+  campDescName: {
+    fontFamily: 'OpenSans-SemiBold',
+    fontSize: 16
   },
   campDescUsername: {
     fontFamily: 'OpenSans-SemiBold',
     paddingRight: 15
   },
-  
+  readMore: {
+    color: "#929292"
+  },  
   touchableButton: {
     paddingTop: 25,
     paddingBottom: 25,
     width: '100%',
     height: 50,
-   
   },
   touchableView: {
     backgroundColor: '#00FF9D',
@@ -49,12 +58,24 @@ export default {
     
   },
   touchableText: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'OpenSans-SemiBold',
     color: '#323338',
     textTransform: 'uppercase',
     fontWeight: 'bold',
     letterSpacing: 2,
     fontSize: 16
+  },
+  goToCampaignButton: {
+    backgroundColor: '#00FF9D',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 37,
+    width: '100%',
+  },
+  goToCampaignText: {
+    fontFamily: 'OpenSans-SemiBold',
+    fontSize: 18,
+
   },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
@@ -72,7 +93,7 @@ export default {
   },
   orgTitleView: {
     fontFamily: 'OpenSans-SemiBold',
-    fontWeight: 'bold',
+    fontSize: 16,
   },
   orgLocation: {
     fontFamily: 'OpenSans-Regular'
@@ -91,16 +112,25 @@ export default {
     fontSize: 14,
     marginTop: 20,
   },
+  
   // # End of Campaign.js Styles # //
 
   // # FeedScreen.js Styles  # //
 
   feedContainer: {
     flex: 1,
-    paddingTop: 15,
     backgroundColor: '#fff'
   },
-  searchIcon: { marginRight: 20 }
+  searchIcon: { 
+    marginRight: 20 
+  },
+  timeText: {
+    color: '#929292',
+    fontSize: 10, 
+    marginLeft: 15,
+    marginTop: 10
+  }
+
 
   // # End of FeedScreen.js Styles  # //
 

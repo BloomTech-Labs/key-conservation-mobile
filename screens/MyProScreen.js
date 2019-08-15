@@ -12,9 +12,10 @@ import {
   MenuOption,
   MenuTrigger,
 } from 'react-native-popup-menu';
+import SvgUri from 'react-native-svg-uri';
 import { ScrollView } from "react-navigation";
 import { connect } from 'react-redux';
-import SvgUri from 'react-native-svg-uri';
+
 import { Icon, ListItem } from 'react-native-elements';
 
 import { getProfileData, deleteCampaign } from '../store/actions';
@@ -28,7 +29,6 @@ class MyProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'My Profile',
-      headerLeft: null,
       headerStyle: {
         backgroundColor: '#323338'
       },
@@ -39,12 +39,12 @@ class MyProScreen extends React.Component {
         alignSelf: 'center',
         fontFamily: 'OpenSans-SemiBold',
       },
+      headerLeft: <View />,
       headerRight: <EditButton navigation={navigation} editRoute={'EditPro'} />
     };
   };
 
   componentDidMount() {
-    console.log()
     this.props.getProfileData(this.props.currentUserProfile.id, false, 'myProfile');
   }
 
@@ -75,7 +75,6 @@ class MyProScreen extends React.Component {
                         </MenuOption>
                       </MenuOptions>
                     </Menu>
-                    
                   }
                 />
               );
@@ -94,7 +93,6 @@ const optionsStyles = {
     width: 75
   },
 }
-  
 
 export default connect(
   mapStateToProps,

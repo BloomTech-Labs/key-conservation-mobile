@@ -124,7 +124,6 @@ export const editProfileData = (id, changes) => async dispatch => {
       changes
     )
     .then(res => {
-      console.log(res);
       dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.editUser });
     })
     .catch(err => {
@@ -165,6 +164,24 @@ export const getCampaigns = () => dispatch => {
     })
     .catch(err => {
       dispatch({ type: GET_CAMPAIGNS_ERROR, payload: err });
+    });
+};
+
+export const [
+  GET_CAMPAIGN_START,
+  GET_CAMPAIGN_ERROR,
+  GET_CAMPAIGN_SUCCESS
+] = ['GET_CAMPAIGN_START', 'GET_CAMPAIGN_ERROR', 'GET_CAMPAIGN_SUCCESS'];
+
+export const getCampaign = id => dispatch => {
+  dispatch({ type: GET_CAMPAIGN_START });
+  axios
+    .get(`https://key-conservation-staging.herokuapp.com/api/campaigns/${id}`)
+    .then(res => {
+      dispatch({ type: GET_CAMPAIGN_SUCCESS, payload: res.data.camp });
+    })
+    .catch(err => {
+      dispatch({ type: GET_CAMPAIGN_ERROR, payload: err });
     });
 };
 
@@ -221,3 +238,10 @@ export const deleteCampaign = id => dispatch => {
       dispatch({ type: DELETE_CAMPAIGN_ERROR, payload: err });
     });
 };
+
+export const TOGGLE_CAMPAIGN_TEXT = 'TOGGLE_CAMPAIGN_TEXT';
+
+export const toggleCampaignText = id => ({
+  type: TOGGLE_CAMPAIGN_TEXT,
+  payload: id
+})
