@@ -93,7 +93,7 @@ export default {
   },
   orgTitleView: {
     fontFamily: 'OpenSans-SemiBold',
-    fontWeight: 'bold',
+    fontSize: 16,
   },
   orgLocation: {
     fontFamily: 'OpenSans-Regular'
