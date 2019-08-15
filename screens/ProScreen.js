@@ -4,15 +4,17 @@ import {
   View,
   Text,
   Button,
-  TouchableOpacity
+  TouchableOpacity,
+  ScrollView
 } from 'react-native';
-import { ScrollView } from "react-navigation";
+// import { ScrollView } from "react-navigation";
 import { connect } from 'react-redux';
 
 import { getProfileData } from '../store/actions';
 
 import { Avatar, Icon, ListItem } from 'react-native-elements';
 
+import FeedCampaign from '../components/FeedScreen/FeedCampaign';
 import ProfileHeader from '../components/Profile/ProfileHeader';
 
 import BackButton from '../components/BackButton';
@@ -39,25 +41,23 @@ class ProScreen extends React.Component {
   
   render() {
     return (
-      <ScrollView>
-        <ProfileHeader navigation={this.props.navigation} profile={this.props.selectedProfile} myProfile={false} />
-        <View />
-        <View>
-          {this.props.selectedProfile.campaigns.map(campaign => {
-            return (
-              <ListItem
-                key={campaign.camp_id}
-                title={campaign.camp_name}
-                leftAvatar={{ source: { uri: campaign.camp_img } }}
-                subtitle={campaign.location}
-                // rightIcon={
-                //   <Icon name='ellipsis-v' type='font-awesome' color='black' />
-                // }
-              />
-            );
-          })}
+      <ScrollView stickyHeaderIndices={[0]}>
+        <View style={{borderBottomWidth: 2, borderBottomColor: '#929292'}}>
+          <ProfileHeader navigation={this.props.navigation} profile={this.props.selectedProfile} myProfile={false} />
         </View>
+        {this.props.selectedProfile.campaigns.map(camp => {
+          return (
+            <FeedCampaign
+              key={camp.camp_id}
+              data={camp}
+              toggled={true}
+              navigation={this.props.navigation}
+            />
+          );
+        })}
       </ScrollView>
+      
+      
     );
   }
 };
