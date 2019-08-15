@@ -5,7 +5,8 @@ import {
   Text,
   Button,
   TouchableOpacity,
-  Platform
+  Platform,
+  Linking
 } from 'react-native';
 import { ScrollView } from "react-navigation";
 import * as WebBrowser from 'expo-web-browser';
