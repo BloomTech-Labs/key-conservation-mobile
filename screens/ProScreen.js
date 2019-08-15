@@ -62,6 +62,7 @@ class ProScreen extends React.Component {
   
   render() {
     return (
+      // creates sticky header
       <ScrollView stickyHeaderIndices={[0]}>
         <View style={{borderBottomWidth: 2, borderBottomColor: '#929292'}}>
           <ProfileHeader navigation={this.props.navigation} profile={this.props.selectedProfile} myProfile={false} />
