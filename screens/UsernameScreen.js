@@ -18,12 +18,63 @@ import * as SecureStore from 'expo-secure-store';
 
 import { postUser } from '../store/actions';
 
+import * as Amplitude from 'expo-analytics-amplitude';
+
 class UsernameScreen extends React.Component {
   state = {
     usernameInput: '',
     error: ''
   };
 
+  componentDidMount() {
+    // Amplitude.initialize('0e3d4f261c96385cef3f8ab5973ea054');
+    // Amplitude.logEvent('Connected');
+    // Amplitude.setUserId('testingBasicSetup');
+    const userState = (sub, id, role, email, username) => {
+      const object = {
+        sub: sub,
+        id: id,
+        role: role,
+        email: email,
+        username: username
+      };
+      return object;
+    };
+
+    console.log(userState());
+    // sub: 'testingBasicSetup',
+    // id: null,
+    // role: 'conservationist',
+    // email: 'testingBasic@gmail.com',
+    // username: null
+
+    Amplitude.setUserProperties(userState());
+    console.log(
+      userState(
+        'testingBasicSetup',
+        null,
+        'conservationist',
+        'testingBasic@gmail.com',
+        null
+      )
+    );
+
+    Amplitude.logEventWithProperties(
+      'Connected with Properties',
+      userState(
+        'testingBasicSetup',
+        null,
+        'conservationist',
+        'testingBasic@gmail.com',
+        null
+      )
+    );
+  }
+
+  // handlePress = () => {
+  //   Amplitude.logEvent('Clicked Continue Button');
+  //   this.props.navigation.navigate('Loading');
+  // };
   handlePress = async () => {
     const { error } = this.props;
     const sub = await SecureStore.getItemAsync('sub', {});
