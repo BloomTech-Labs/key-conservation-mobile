@@ -6,14 +6,19 @@ import { MenuProvider } from 'react-native-popup-menu';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 
 import AppNavigator from './navigation/AppNavigator';
-import * as Amplitude from 'expo-analytics-amplitude';
-
+import { AmpInit, withAmplitude } from './components/withAmplitude';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 
 const store = configureStore();
 
-export default function App(props) {
+export default withAmplitude(App);
+
+// export default AppWithAmp;
+
+// const AppWithAmp = withAmplitude(App);
+
+function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
   const navState = (nextScreen, action) => {
@@ -32,8 +37,9 @@ export default function App(props) {
     // console.log('action', action.type);
 
     const navigationAnalytics = navState(newState, action);
-    console.log(navigationAnalytics);
-    Amplitude.logEventWithProperties('Screen Navigation', navigationAnalytics);
+    // console.log(navigationAnalytics);
+    // change to the HOC props
+    props.AmpEvent('Screen Navigation', navigationAnayltics);
   };
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
@@ -42,9 +48,10 @@ export default function App(props) {
         startAsync={loadResourcesAsync}
         onError={handleLoadingError}
         onFinish={() => {
-          Amplitude.initialize('0e3d4f261c96385cef3f8ab5973ea054');
-          Amplitude.setUserId('testingBasicSetup');
-          Amplitude.logEvent('Connected');
+          AmpInit();
+          props.AmpEvent('Connected for session');
+          props.AmpEvent({ test: null });
+          prosp.AmpEvent('string', { test: null });
           handleFinishLoading(setLoadingComplete);
         }}
       />
@@ -60,7 +67,6 @@ export default function App(props) {
           <MenuProvider>
             <AppNavigator
               onNavigationStateChange={(prevState, newState, action) => {
-                console.log('made it in');
                 handleNavigationChange(prevState, newState, action);
               }}
             />

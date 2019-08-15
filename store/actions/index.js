@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import * as Amplitude from 'expo-analytics-amplitude';
+
 export const [LOGIN_START, LOGIN_ERROR, LOGIN_SUCCESS] = [
   'LOGIN_START',
   'LOGIN_ERROR',

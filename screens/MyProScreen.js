@@ -1,18 +1,12 @@
 import React, { useEffect } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Button,
-  TouchableOpacity
-} from 'react-native';
+import { StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native';
 import {
   Menu,
   MenuOptions,
   MenuOption,
-  MenuTrigger,
+  MenuTrigger
 } from 'react-native-popup-menu';
-import { ScrollView } from "react-navigation";
+import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
 import SvgUri from 'react-native-svg-uri';
 import { Icon, ListItem } from 'react-native-elements';
@@ -37,15 +31,18 @@ class MyProScreen extends React.Component {
         textAlign: 'center',
         flexGrow: 1,
         alignSelf: 'center',
-        fontFamily: 'OpenSans-SemiBold',
+        fontFamily: 'OpenSans-SemiBold'
       },
       headerRight: <EditButton navigation={navigation} editRoute={'EditPro'} />
     };
   };
 
   componentDidMount() {
-    console.log()
-    this.props.getProfileData(this.props.currentUserProfile.id, false, 'myProfile');
+    this.props.getProfileData(
+      this.props.currentUserProfile.id,
+      false,
+      'myProfile'
+    );
   }
 
   render() {
@@ -68,14 +65,27 @@ class MyProScreen extends React.Component {
                   subtitle={campaign.location}
                   rightIcon={
                     <Menu>
-                      <MenuTrigger children={<SvgUri width='25' height='25' source={require('../assets/icons/ellipsis-vertical.svg')} />}/>
+                      <MenuTrigger
+                        children={
+                          <SvgUri
+                            width='25'
+                            height='25'
+                            source={require('../assets/icons/ellipsis-vertical.svg')}
+                          />
+                        }
+                      />
                       <MenuOptions customStyles={optionsStyles}>
-                        <MenuOption onSelect={() => this.props.deleteCampaign(campaign.camp_id)}>
-                          <Text style={{color: '#ff0a55',fontSize: 16 }}>Delete</Text>
+                        <MenuOption
+                          onSelect={() =>
+                            this.props.deleteCampaign(campaign.camp_id)
+                          }
+                        >
+                          <Text style={{ color: '#ff0a55', fontSize: 16 }}>
+                            Delete
+                          </Text>
                         </MenuOption>
                       </MenuOptions>
                     </Menu>
-                    
                   }
                 />
               );
@@ -92,9 +102,8 @@ const mapStateToProps = state => ({
 const optionsStyles = {
   optionsContainer: {
     width: 75
-  },
-}
-  
+  }
+};
 
 export default connect(
   mapStateToProps,
