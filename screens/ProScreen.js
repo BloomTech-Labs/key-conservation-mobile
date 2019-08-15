@@ -4,15 +4,12 @@ import {
   View,
   Text,
   Button,
-  TouchableOpacity
+  TouchableOpacity,
+  ScrollView
 } from 'react-native';
-import { ScrollView } from "react-navigation";
-import { useSelector, useDispatch } from 'react-redux';
-
-import { getProfileData } from '../store/actions';
 
 import { Avatar, Icon, ListItem } from 'react-native-elements';
-
+import FeedCampaign from '../components/FeedScreen/FeedCampaign';
 import ProfileHeader from '../components/Profile/ProfileHeader';
 
 const ProScreen = props => {
@@ -44,14 +41,45 @@ const ProScreen = props => {
   );
 };
 
-ProScreen.navigationOptions = {
-  title: 'My Profile',
-  // This setting needs to be on every screen so that header is in the center
-  // This is fix for andriod devices should be good on IOS
-  headerTitleStyle: {
-    textAlign: 'center',
-    flexGrow: 1,
-    alignSelf: 'center'
+class ProScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Profile',
+      headerStyle: {
+        backgroundColor: '#323338'
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        textAlign: 'center',
+        flexGrow: 1,
+        alignSelf: 'center',
+        fontFamily: 'OpenSans-SemiBold',
+      },
+      headerLeft: <BackButton navigation={navigation} />,
+      headerRight: <View />
+    };
+  };
+  
+  render() {
+    return (
+      <ScrollView stickyHeaderIndices={[0]}>
+        <View style={{borderBottomWidth: 2, borderBottomColor: '#929292'}}>
+          <ProfileHeader navigation={this.props.navigation} profile={this.props.selectedProfile} myProfile={false} />
+        </View>
+        {this.props.selectedProfile.campaigns.map(camp => {
+          return (
+            <FeedCampaign
+              key={camp.camp_id}
+              data={camp}
+              toggled={true}
+              navigation={this.props.navigation}
+            />
+          );
+        })}
+      </ScrollView>
+      
+      
+    );
   }
 };
 

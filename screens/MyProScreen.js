@@ -17,7 +17,7 @@ import { connect } from 'react-redux';
 import SvgUri from 'react-native-svg-uri';
 import { Icon, ListItem } from 'react-native-elements';
 
-import { getProfileData, deleteCampaign } from '../store/actions';
+import { getProfileData, deleteCampaign, getCampaign } from '../store/actions';
 
 import EditButton from '../components/EditButton';
 
@@ -48,6 +48,11 @@ class MyProScreen extends React.Component {
     this.props.getProfileData(this.props.currentUserProfile.id, false, 'myProfile');
   }
 
+  goToCampaign = async (id) => {
+    await this.props.getCampaign(id);
+    this.props.navigation.navigate('Camp');
+  };
+
   render() {
     return (
       <ScrollView>
@@ -62,6 +67,7 @@ class MyProScreen extends React.Component {
             this.props.currentUserProfile.campaigns.map(campaign => {
               return (
                 <ListItem
+                  onPress={() => this.goToCampaign(campaign.camp_id)}
                   key={campaign.camp_id}
                   title={campaign.camp_name}
                   leftAvatar={{ source: { uri: campaign.camp_img } }}
@@ -98,5 +104,5 @@ const optionsStyles = {
 
 export default connect(
   mapStateToProps,
-  { getProfileData, deleteCampaign }
+  { getProfileData, deleteCampaign, getCampaign }
 )(MyProScreen);
