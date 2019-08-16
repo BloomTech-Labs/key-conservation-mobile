@@ -17,6 +17,8 @@ import BackButton from '../components/BackButton';
 
 import DoneButton from '../components/DoneButton';
 
+import UploadMedia from '../components/UploadMedia';
+
 class CreateCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -117,7 +119,8 @@ class CreateCampScreen extends React.Component {
               />
             </View>
             <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Campaign Image URL</Text>
+              <UploadMedia />
+              {/* <Text style={styles.sectionsText}>Campaign Image URL</Text>
               <TextInput
                 ref={input => {
                   this.campImgUrlInput = input;
@@ -134,7 +137,7 @@ class CreateCampScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.camp_img}
-              />
+              /> */}
             </View>
 
             <View style={styles.sections}>

@@ -1,5 +1,22 @@
 import axios from 'axios';
 
+const filterUrls = (keys, object) => {
+  // If a user doesn't include http or https in there URL this function will add it.
+  // If they already include it it will be ignored. and if its capital "Https || Http" it will become lowercase.
+  keys.forEach(key => {
+    if (
+      object[key] &&
+      object[key] !== null &&
+      object[key].indexOf('http://') !== 0 &&
+      object[key].indexOf('https://') !== 0
+    ) {
+      object[key] = object[key].toLowerCase();
+      object[key] = 'https://' + object[key];
+    }
+  })
+  return object
+}
+
 export const [LOGIN_START, LOGIN_ERROR, LOGIN_SUCCESS] = [
   'LOGIN_START',
   'LOGIN_ERROR',
@@ -64,66 +81,43 @@ export const [EDIT_PROFILE_START, EDIT_PROFILE_ERROR, EDIT_PROFILE_SUCCESS] = [
   'EDIT_PROFILE_SUCCESS'
 ];
 
-export const editProfileData = (id, changes) => async dispatch => {
+export const editProfileData = (id, changes) => async dispatch => {  
   dispatch({ type: EDIT_PROFILE_START });
 
-  if (
-    changes.facebook &&
-    changes.facebook !== null &&
-    changes.facebook.indexOf('http://') !== 0 &&
-    changes.facebook.indexOf('https://') !== 0
-  ) {
-    changes.facebook = changes.facebook.toLowerCase();
-    let facebook = 'https://' + changes.facebook;
-    changes.facebook = facebook;
-  }
-  if (
-    changes.twitter &&
-    changes.twitter !== null &&
-    changes.twitter.indexOf('http://') !== 0 &&
-    changes.twitter.indexOf('https://') !== 0
-  ) {
-    changes.twitter = changes.twitter.toLowerCase();
-    let twitter = 'https://' + changes.twitter;
-    changes.twitter = twitter;
-  }
-  if (
-    changes.instagram &&
-    changes.instagram !== null &&
-    changes.instagram.indexOf('http://') !== 0 &&
-    changes.instagram.indexOf('https://') !== 0
-  ) {
-    changes.instagram = changes.instagram.toLowerCase();
-    let instagram = 'https://' + changes.instagram;
-    changes.instagram = instagram;
-  }
-  if (
-    changes.org_link_url &&
-    changes.org_link_url !== null &&
-    changes.org_link_url.indexOf('http://') !== 0 &&
-    changes.org_link_url.indexOf('https://') !== 0
-  ) {
-    changes.org_link_url = changes.org_link_url.toLowerCase();
-    let org_link_url = 'https://' + changes.org_link_url;
-    changes.org_link_url = org_link_url;
-  }
-  if (
-    changes.org_cta &&
-    changes.org_cta !== null &&
-    changes.org_cta.indexOf('http://') !== 0 &&
-    changes.org_cta.indexOf('https://') !== 0
-  ) {
-    changes.org_cta = changes.org_cta.toLowerCase();
-    let orgDonate = 'https://' + changes.org_cta;
-    changes.org_cta = orgDonate;
+  const filteredChanges = filterUrls(['facebook', 'twitter', 'instagram', 'org_link_url', 'org_cta'], changes)
+
+  let formData = new FormData();
+
+  let keys = Object.keys(filteredChanges).filter(key => {
+    return (key !== "camp_img")
+  })
+
+  if (filteredChanges.camp_img) {
+    const uri = filteredChanges.camp_img
+
+    let uriParts = uri.split('.');
+    let fileType = uriParts[uriParts.length - 1];
+
+    formData.append('photo', {
+      uri,
+      name: `photo.${fileType}`,
+      type: `image/${fileType}`,
+    });
   }
 
+  keys.forEach(key => {
+    formData.append(key, filteredChanges[key])
+  })
+
   return axios
-    .put(
-      `https://key-conservation-staging.herokuapp.com/api/users/${id}`,
-      changes
-    )
+    .put(`https://key-conservation-staging.herokuapp.com/api/users/${id}`, formData, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      }
+    })
     .then(res => {
+      console.log("RES", res.data)
       dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.editUser });
     })
     .catch(err => {
@@ -192,25 +186,42 @@ export const [
 ] = ['POST_CAMPAIGNS_START', 'POST_CAMPAIGNS_ERROR', 'POST_CAMPAIGNS_SUCCESS'];
 
 export const postCampaign = camp => dispatch => {
+  console.log("SEND THIS OUT", camp)
   dispatch({ type: POST_CAMPAIGN_START });
-  // If a user doesn't include http or https in there URL this function will add it.
-  // If they already include it it will be ignored. and if its capital "Https || Http" it will become lowercase.
-  if (
-    camp.camp_cta &&
-    camp.camp_cta !== null &&
-    camp.camp_cta.indexOf('http://') !== 0 &&
-    camp.camp_cta.indexOf('https://') !== 0
-  ) {
-    camp.camp_cta = camp.camp_cta.toLowerCase();
-    let donate = 'https://' + camp.camp_cta;
-    camp.camp_cta = donate;
-  }
+
+  const filteredCamp = filterUrls(["camp_cta"], camp)
+
+  const uri = filteredCamp.camp_img
+
+  let uriParts = uri.split('.');
+  let fileType = uriParts[uriParts.length - 1];
+
+  let formData = new FormData();
+  formData.append('photo', {
+    uri,
+    name: `photo.${fileType}`,
+    type: `image/${fileType}`,
+  });
+  formData.append('camp_cta', filteredCamp.camp_cta)
+  formData.append('camp_desc', filteredCamp.camp_desc)
+  formData.append('camp_name', filteredCamp.camp_name)
+  formData.append('users_id', filteredCamp.users_id)
+  
+  console.log("FormData", formData)
+
   axios
-    .post('https://key-conservation-staging.herokuapp.com/api/campaigns', camp)
+    .post('https://key-conservation-staging.herokuapp.com/api/campaigns', formData, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      }
+    })
     .then(res => {
+      console.log("RESULT", res.data.newCamps)
       dispatch({ type: POST_CAMPAIGN_SUCCESS, payload: res.data.newCamps });
     })
     .catch(err => {
+      console.log("ERROR", err)
       dispatch({ type: POST_CAMPAIGN_ERROR, payload: err });
     });
 };
@@ -248,10 +259,40 @@ export const [EDIT_CAMPAIGN_START, EDIT_CAMPAIGN_ERROR, EDIT_CAMPAIGN_SUCCESS] =
 
 export const editCampaign = (id, changes) => dispatch => {
   dispatch({ type: EDIT_CAMPAIGN_START });
+
+  let formData = new FormData();
+
+  let keys = Object.keys(changes).filter(key => {
+    return (key !== "camp_img")
+  })
+
+  if (changes.camp_img) {
+    const uri = changes.camp_img
+
+    let uriParts = uri.split('.');
+    let fileType = uriParts[uriParts.length - 1];
+
+    formData.append('photo', {
+      uri,
+      name: `photo.${fileType}`,
+      type: `image/${fileType}`,
+    });
+  }
+
+  keys.forEach(key => {
+    formData.append(key, changes[key])
+  })
+  
   axios
     .put(
       `https://key-conservation-staging.herokuapp.com/api/campaigns/${id}`,
-      changes
+      formData,
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data',
+        }
+      }
     )
     .then(res => {
       dispatch({ type: EDIT_CAMPAIGN_SUCCESS, payload: res.data.editCamp });
@@ -266,4 +307,22 @@ export const TOGGLE_CAMPAIGN_TEXT = 'TOGGLE_CAMPAIGN_TEXT';
 export const toggleCampaignText = id => ({
   type: TOGGLE_CAMPAIGN_TEXT,
   payload: id
-})
+});
+
+export const MEDIA_UPLOAD = 'MEDIA_UPLOAD';
+
+export const setMedia = media => {
+  console.log(media)
+  return {
+    type: MEDIA_UPLOAD,
+    payload: media
+  }
+}
+
+export const MEDIA_CLEAR = 'MEDIA_CLEAR';
+
+export const clearMedia = () => {
+  return {
+    type: MEDIA_CLEAR
+  }
+}

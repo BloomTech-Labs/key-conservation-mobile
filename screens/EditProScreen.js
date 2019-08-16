@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import BackButton from '../components/BackButton';
 import * as SecureStorage from "expo-secure-store";
 import DoneButton from '../components/DoneButton';
+import UploadMedia from '../components/UploadMedia';
 
 import { editProfileData, logout } from '../store/actions';
 
@@ -76,6 +77,7 @@ class EditProScreen extends React.Component {
   }
   
   done = () => {
+    console.log(this.props.currentUserProfile.id, this.state)
     this.props.editProfileData(this.props.currentUserProfile.id, this.state);
     if (this.props.firstLogin) {
       this.props.navigation.navigate('Home');   
@@ -131,7 +133,8 @@ class EditProScreen extends React.Component {
             </View>
 
             <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Profile Image URL</Text>
+              <UploadMedia />
+              {/* <Text style={styles.sectionsText}>Profile Image URL</Text>
               <TextInput
                 ref={input => {
                   this.profileImageInput = input;
@@ -148,7 +151,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.profile_image}
-              />
+              /> */}
             </View>
 
             <View style={styles.sections}>

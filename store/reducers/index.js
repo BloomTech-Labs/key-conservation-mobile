@@ -30,7 +30,9 @@ import {
   EDIT_CAMPAIGN_START,
   EDIT_CAMPAIGN_ERROR,
   EDIT_CAMPAIGN_SUCCESS,
-  TOGGLE_CAMPAIGN_TEXT
+  TOGGLE_CAMPAIGN_TEXT,
+  MEDIA_UPLOAD,
+  MEDIA_CLEAR
 } from "../actions";
 
 const initialState = {
@@ -52,7 +54,8 @@ const initialState = {
   selectedCampaign: {},
   allCampaigns: [],
   firstLogin: false,
-  campaignsToggled: []
+  campaignsToggled: [],
+  mediaUpload: '',
 };
 
 const reducer = (state = initialState, action) => {
@@ -121,6 +124,7 @@ const reducer = (state = initialState, action) => {
         error: ""
       };
     case EDIT_PROFILE_SUCCESS:
+      console.log(action.payload)
       return {
         ...state,
         pending: { ...state.pending, updateProfile: false },
@@ -275,6 +279,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         campaignsToggled: [...state.campaignsToggled, action.payload]
       };
+    case MEDIA_UPLOAD:
+      return {
+        ...state,
+        mediaUpload: action.payload.media
+      }
+    case MEDIA_CLEAR:
+      return {
+        ...state,
+        mediaUpload: ''
+      }
     default:
         return state;
     }

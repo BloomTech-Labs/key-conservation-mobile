@@ -12,10 +12,12 @@ import { ScrollView, NavigationEvents } from 'react-navigation';
 import { Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { postCampaign, getCampaigns } from '../store/actions';
+import { postCampaign, getCampaigns, clearMedia } from '../store/actions';
 import BackButton from '../components/BackButton';
 
 import PublishButton from '../components/PublishButton';
+
+import UploadMedia from '../components/UploadMedia';
 
 class CreateCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -47,7 +49,6 @@ class CreateCampScreen extends React.Component {
 
   state = {
     users_id: this.props.currentUserProfile.id,
-    camp_img: '',
     camp_name: '',
     camp_desc: '',
     camp_cta: ''
@@ -59,14 +60,18 @@ class CreateCampScreen extends React.Component {
 
   publish = async () => {
     if (
-      !this.state.camp_img ||
+      !this.props.mediaUpload ||
       !this.state.camp_name ||
       !this.state.camp_desc ||
       !this.state.camp_cta
     ) {
       return;
     } else {
-      await this.props.postCampaign(this.state);
+      const camp = {
+        ...this.state,
+        camp_img: this.props.mediaUpload
+      }
+      await this.props.postCampaign(camp);
       await this.props.getCampaigns();
       this.props.navigation.navigate('Home');
     }
@@ -75,7 +80,7 @@ class CreateCampScreen extends React.Component {
   clearState = () => {
     this.setState({
       users_id: this.props.currentUserProfile.id,
-      camp_img: '',
+      camp_img: this.props.mediaUpload,
       camp_name: '',
       camp_desc: '',
       camp_cta: ''
@@ -83,6 +88,7 @@ class CreateCampScreen extends React.Component {
   }
 
   render() {
+    console.log("IN RENDER", this.props.mediaUpload)
     return (
       <KeyboardAvoidingView
         behavior='height'
@@ -97,6 +103,7 @@ class CreateCampScreen extends React.Component {
           }}
         >
           <NavigationEvents
+            onWillFocus={this.props.clearMedia}
             onDidBlur={this.clearState}
           />
           <View style={styles.sectionContainer}>
@@ -119,7 +126,8 @@ class CreateCampScreen extends React.Component {
               />
             </View>
             <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Campaign Image URL</Text>
+              <UploadMedia />
+              {/* <Text style={styles.sectionsText}>Campaign Image URL</Text>
               <TextInput
                 ref={input => {
                   this.campImgUrlInput = input;
@@ -136,7 +144,7 @@ class CreateCampScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.camp_img}
-              />
+              /> */}
             </View>
 
             <View style={styles.sections}>
@@ -179,12 +187,13 @@ class CreateCampScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  currentUserProfile: state.currentUserProfile
+  currentUserProfile: state.currentUserProfile,
+  mediaUpload: state.mediaUpload
 });
 
 export default connect(
   mapStateToProps,
-  { postCampaign, getCampaigns }
+  { postCampaign, getCampaigns, clearMedia }
 )(CreateCampScreen);
 
 const styles = StyleSheet.create({
