@@ -41,9 +41,12 @@ export const [GET_PROFILE_START, GET_PROFILE_ERROR, GET_PROFILE_SUCCESS] = [
 export const getProfileData = (
   id,
   sub,
-  myProfile = false
+  myProfile = false,
+  noDispatch = false
 ) => async dispatch => {
-  dispatch({ type: GET_PROFILE_START });
+  {
+    !noDispatch && dispatch({ type: GET_PROFILE_START });
+  }
   let user, url;
   if (id) url = `https://key-conservation.herokuapp.com/api/users/${id}`;
   else if (sub)
@@ -52,7 +55,13 @@ export const getProfileData = (
     .get(url)
     .then(res => {
       user = res.data.user;
-      dispatch({ type: GET_PROFILE_SUCCESS, payload: { user, myProfile } });
+      if (noDispatch) {
+        return user;
+      }
+      {
+        !noDispatch &&
+          dispatch({ type: GET_PROFILE_SUCCESS, payload: { user, myProfile } });
+      }
     })
     .catch(err => {
       dispatch({ type: GET_PROFILE_ERROR, payload: err });

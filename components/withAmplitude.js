@@ -2,6 +2,7 @@ import * as Amplitude from 'expo-analytics-amplitude';
 import * as SecureStore from 'expo-secure-store';
 
 import React from 'react';
+import { getProfileData } from '../store/actions';
 
 export function withAmplitude(WrappedComponent) {
   return class extends React.Component {
@@ -29,68 +30,56 @@ export function AmpEvent(name, properties) {
   }
 
   if (name && !properties) {
-    return console.log('sent event name but no properties');
-    // return Amplitude.logEvent(name);
+    console.log('sent event name but no properties');
+    Amplitude.logEvent(name);
   } else if (name && properties) {
-    if (typeof properties !== 'array' || typeof properties !== 'object') {
-      return console.log('You must use the data type Array or Object');
+    if (typeof properties !== 'object' && typeof properties !== 'array') {
+      return console.log(
+        'You must use the data type of Object for Event Properties'
+      );
     }
-    return console.log('sent name and properties');
-    // return Amplitude.logEventWithProperties(name, properties);
+    console.log('sent name and properties');
+    Amplitude.logEventWithProperties(name, properties);
   }
 }
 
 let count = 0;
 
 export async function AmpInit() {
-  const id = await SecureStore.getItemAsync('id');
-  console.log('found their id', id);
-  if ((count = 0)) {
-    console.log('initializing connection');
+  const id = await SecureStore.getItemAsync('id', {});
+  if (id) {
+    console.log('found their id', id);
+    const userData = getProfileData(id, null, true, true);
+    const data = await userData();
+    if (data) {
+      const profileData = {
+        campaignsTotal: data.campaigns.length,
+        cons_id: data.cons_id,
+        email: data.email,
+        id: data.id,
+        location: data.location,
+        org_name: data.org_name,
+        roles: data.roles,
+        species_and_habitats: data.species_and_habitats,
+        sub: data.sub,
+        username: data.username
+      };
+      Amplitude.initialize('fae81e5eeff3b6917f9d76566b67a7da');
+      Amplitude.setUserId(`${profileData.id}`);
+      const message = {
+        details:
+          'Local data has been found for the user. Setting their data to user properties.'
+      };
+      Amplitude.setUserProperties(profileData);
+      AmpEvent('User Connection', message);
+    }
   }
-  // Amplitude.initialize('0e3d4f261c96385cef3f8ab5973ea054');
+  if (!id) {
+    Amplitude.initialize('fae81e5eeff3b6917f9d76566b67a7da');
+    const message = {
+      details:
+        'There is no local data available for the user on this device. This is there first time using the app on this device, it is their first use with the app, they have logged out and are signing back in, or they are using the guest view to see the Campaings Feed.'
+    };
+    AmpEvent(`User Connection`, message);
+  }
 }
-
-// Amplitude.initialize('0e3d4f261c96385cef3f8ab5973ea054');
-// Amplitude.logEvent('Connected');
-// Amplitude.setUserId('testingBasicSetup');
-//   const userState = (sub, id, role, email, username) => {
-//     const object = {
-//       sub: sub,
-//       id: id,
-//       role: role,
-//       email: email,
-//       username: username
-//     };
-//     return object;
-//   };
-
-//   console.log(userState());
-//   // sub: 'testingBasicSetup',
-//   // id: null,
-//   // role: 'conservationist',
-//   // email: 'testingBasic@gmail.com',
-//   // username: null
-
-//   Amplitude.setUserProperties(userState());
-//   console.log(
-//     userState(
-//       'testingBasicSetup',
-//       null,
-//       'conservationist',
-//       'testingBasic@gmail.com',
-//       null
-//     )
-//   );
-
-//   Amplitude.logEventWithProperties(
-//     'Connected with Properties',
-//     userState(
-//       'testingBasicSetup',
-//       null,
-//       'conservationist',
-//       'testingBasic@gmail.com',
-//       null
-//     )
-//   );
-// }

@@ -14,10 +14,6 @@ const store = configureStore();
 
 export default withAmplitude(App);
 
-// export default AppWithAmp;
-
-// const AppWithAmp = withAmplitude(App);
-
 function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
@@ -31,15 +27,8 @@ function App(props) {
   };
 
   const handleNavigationChange = (prevState, newState, action) => {
-    // console.log('screen changed');
-    // console.log('previous screen', newState.routes[0].routeName);
-    // console.log('next screen', newState.routes[1].routeName);
-    // console.log('action', action.type);
-
     const navigationAnalytics = navState(newState, action);
-    // console.log(navigationAnalytics);
-    // change to the HOC props
-    props.AmpEvent('Screen Navigation', navigationAnayltics);
+    props.AmpEvent('Screen Navigation', navigationAnalytics);
   };
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
@@ -49,9 +38,6 @@ function App(props) {
         onError={handleLoadingError}
         onFinish={() => {
           AmpInit();
-          props.AmpEvent('Connected for session');
-          props.AmpEvent({ test: null });
-          prosp.AmpEvent('string', { test: null });
           handleFinishLoading(setLoadingComplete);
         }}
       />
