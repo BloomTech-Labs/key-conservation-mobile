@@ -30,7 +30,7 @@ export function AmpEvent(name, properties) {
   }
 
   if (name && !properties) {
-    console.log('sent event name but no properties');
+    console.log('sent event name but no properties', name);
     Amplitude.logEvent(name);
   } else if (name && properties) {
     if (typeof properties !== 'object' && typeof properties !== 'array') {
@@ -38,12 +38,10 @@ export function AmpEvent(name, properties) {
         'You must use the data type of Object for Event Properties'
       );
     }
-    console.log('sent name and properties');
+    console.log('sent name and properties', name, properties);
     Amplitude.logEventWithProperties(name, properties);
   }
 }
-
-let count = 0;
 
 export async function AmpInit() {
   const id = await SecureStore.getItemAsync('id', {});
@@ -76,6 +74,7 @@ export async function AmpInit() {
   }
   if (!id) {
     Amplitude.initialize('fae81e5eeff3b6917f9d76566b67a7da');
+    Amplitude.clearUserProperties();
     const message = {
       details:
         'There is no local data available for the user on this device. This is there first time using the app on this device, it is their first use with the app, they have logged out and are signing back in, or they are using the guest view to see the Campaings Feed.'

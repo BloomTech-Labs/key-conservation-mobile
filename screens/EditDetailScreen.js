@@ -22,6 +22,7 @@ import { postUser, editProfileData, logout } from '../store/actions';
 class EditDetailScreen extends React.Component {
   logoutPress = async () => {
     console.log('pressed button');
+    await SecureStorage.deleteItemAsync('id', {});
     await SecureStorage.deleteItemAsync('sub', {});
     await SecureStorage.deleteItemAsync('email', {});
     await SecureStorage.deleteItemAsync('roles', {});
