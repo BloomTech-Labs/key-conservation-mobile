@@ -212,7 +212,7 @@ export const postCampaign = camp => dispatch => {
   axios
     .post('https://key-conservation-staging.herokuapp.com/api/campaigns', formData, {
       headers: {
-        Accept: 'application/json',
+        'Accept': 'application/json',
         'Content-Type': 'multipart/form-data',
       }
     })
