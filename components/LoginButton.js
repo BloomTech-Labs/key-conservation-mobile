@@ -3,8 +3,10 @@ import { TouchableOpacity, View, Text } from 'react-native';
 
 const LoginButton = props => {
   const { navigation } = props;
-    
-  if (!props.roles || props.roles !== "conservationist") {
+
+  // console.log(props.roles)
+
+  if (!props.roles || props.roles !== 'conservationist') {
     return (
       <TouchableOpacity
         onPress={() => {
@@ -33,7 +35,7 @@ const LoginButton = props => {
       </TouchableOpacity>
     );
   } else {
-    return null
+    return null;
   }
 };
 
