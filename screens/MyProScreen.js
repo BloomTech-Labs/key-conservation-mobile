@@ -53,6 +53,11 @@ class MyProScreen extends React.Component {
     this.props.navigation.navigate('Camp');
   };
 
+  goToEditCampaign = async (id) => {
+    await this.props.getCampaign(id)
+    this.props.navigation.navigate('EditCamp') 
+  }
+
   render() {
     return (
       <ScrollView>
@@ -64,18 +69,21 @@ class MyProScreen extends React.Component {
         <View />
         <View>
           {this.props.currentUserProfile.campaigns &&
-            this.props.currentUserProfile.campaigns.map(campaign => {
+            this.props.currentUserProfile.campaigns.map(camp => {
               return (
                 <ListItem
-                  onPress={() => this.goToCampaign(campaign.camp_id)}
-                  key={campaign.camp_id}
-                  title={campaign.camp_name}
-                  leftAvatar={{ source: { uri: campaign.camp_img } }}
-                  subtitle={campaign.location}
+                  onPress={() => this.goToCampaign(camp.camp_id)}
+                  key={camp.camp_id}
+                  title={camp.camp_name}
+                  leftAvatar={{ source: { uri: camp.camp_img } }}
+                  subtitle={camp.location}
                   rightIcon={
                     <Menu>
                       <MenuTrigger children={<SvgUri width='25' height='25' source={require('../assets/icons/ellipsis-vertical.svg')} />}/>
                       <MenuOptions customStyles={optionsStyles}>
+                        <MenuOption onSelect={() => this.goToEditCampaign(camp.camp_id)}>
+                          <Text style={{color: '#ff0a55',fontSize: 16 }}>Edit</Text>
+                        </MenuOption>
                         <MenuOption onSelect={() => this.props.deleteCampaign(campaign.camp_id)}>
                           <Text style={{color: '#ff0a55',fontSize: 16 }}>Delete</Text>
                         </MenuOption>
@@ -96,7 +104,8 @@ const mapStateToProps = state => ({
 });
 const optionsStyles = {
   optionsContainer: {
-    width: 75
+    width: 150
+    
   },
 }
 

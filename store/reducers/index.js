@@ -27,7 +27,12 @@ import {
   DELETE_CAMPAIGN_START,
   DELETE_CAMPAIGN_ERROR,
   DELETE_CAMPAIGN_SUCCESS,
-  TOGGLE_CAMPAIGN_TEXT
+  EDIT_CAMPAIGN_START,
+  EDIT_CAMPAIGN_ERROR,
+  EDIT_CAMPAIGN_SUCCESS,
+  TOGGLE_CAMPAIGN_TEXT,
+  MEDIA_UPLOAD,
+  MEDIA_CLEAR
 } from "../actions";
 
 const initialState = {
@@ -49,7 +54,8 @@ const initialState = {
   selectedCampaign: {},
   allCampaigns: [],
   firstLogin: false,
-  campaignsToggled: []
+  campaignsToggled: [],
+  mediaUpload: '',
 };
 
 const reducer = (state = initialState, action) => {
@@ -237,11 +243,51 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, postCampaign: false },
         error: action.payload
       };
+    case EDIT_CAMPAIGN_START:
+      return {
+        ...state,
+        pending: { ...state.pending, editCampaign: true },
+        error: ""
+      };
+    case EDIT_CAMPAIGN_SUCCESS:
+      let { camp_id } = action.payload
+      const alteredCampaigns = state.currentUserProfile.campaigns.map(camp => {
+        if (camp.camp_id === camp_id) {
+          return action.payload
+        } else {
+          return camp
+        }
+      })
+      return {
+        ...state,
+        pending: { ...state.pending, editCampaign: false },
+        currentUserProfile: {
+          ...state.currentUserProfile,
+          campaigns: alteredCampaigns
+        },
+        selectedCampaign: action.payload
+      };
+    case EDIT_CAMPAIGN_ERROR:
+      return {
+        ...state,
+        pending: { ...state.pending, editCampaign: false },
+        error: action.payload
+      };
     case TOGGLE_CAMPAIGN_TEXT:
       return {
         ...state,
         campaignsToggled: [...state.campaignsToggled, action.payload]
       };
+    case MEDIA_UPLOAD:
+      return {
+        ...state,
+        mediaUpload: action.payload.media
+      }
+    case MEDIA_CLEAR:
+      return {
+        ...state,
+        mediaUpload: ''
+      }
     default:
         return state;
     }

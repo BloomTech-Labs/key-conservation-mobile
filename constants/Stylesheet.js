@@ -1,4 +1,6 @@
-import { CoverageMap } from "istanbul-lib-coverage";
+import { Dimensions } from 'react-native';
+
+const deviceWidth = Dimensions.get('window').width
 
 export default {
   // # Campaign.js Styles # //
@@ -79,8 +81,8 @@ export default {
   },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
-    resizeMode: 'cover',
-    height: 300
+    resizeMode: 'contain',
+    height: deviceWidth <= 415 ? deviceWidth : 415
   },
   campTitle:{
     fontFamily: 'OpenSans-Regular',

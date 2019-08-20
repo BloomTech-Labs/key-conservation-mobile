@@ -8,13 +8,14 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView
 } from 'react-native';
-import { ScrollView } from "react-navigation";
+import { ScrollView, NavigationEvents } from "react-navigation";
 import { connect } from 'react-redux';
 import BackButton from '../components/BackButton';
 import * as SecureStorage from "expo-secure-store";
 import DoneButton from '../components/DoneButton';
+import UploadMedia from '../components/UploadMedia';
 
-import { editProfileData, logout } from '../store/actions';
+import { editProfileData, logout, clearMedia } from '../store/actions';
 
 class EditProScreen extends React.Component {
   logoutPress = async () => {
@@ -76,7 +77,15 @@ class EditProScreen extends React.Component {
   }
   
   done = () => {
-    this.props.editProfileData(this.props.currentUserProfile.id, this.state);
+    let changes = this.state;
+    if (this.props.mediaUpload) {
+      changes = {
+        ...this.state,
+        profile_image: this.props.mediaUpload
+      }
+      console.log("CHANGES", changes)
+    }
+    this.props.editProfileData(this.props.currentUserProfile.id, changes);
     if (this.props.firstLogin) {
       this.props.navigation.navigate('Home');   
     } else {
@@ -92,6 +101,9 @@ class EditProScreen extends React.Component {
         enabled
       >
         <ScrollView>
+          <NavigationEvents
+            onWillFocus={this.props.clearMedia}
+          />
           <View style={styles.sectionContainer}>
             <View style={styles.Card} />
             <View style={styles.sections}>
@@ -131,7 +143,8 @@ class EditProScreen extends React.Component {
             </View>
 
             <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Profile Image URL</Text>
+              <UploadMedia />
+              {/* <Text style={styles.sectionsText}>Profile Image URL</Text>
               <TextInput
                 ref={input => {
                   this.profileImageInput = input;
@@ -148,7 +161,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.profile_image}
-              />
+              /> */}
             </View>
 
             <View style={styles.sections}>
@@ -388,12 +401,13 @@ class EditProScreen extends React.Component {
 
 const mapStateToProps = state => ({
   error: state.error,
-  currentUserProfile: state.currentUserProfile
+  currentUserProfile: state.currentUserProfile,
+  mediaUpload: state.mediaUpload
 });
 
 export default connect(
   mapStateToProps,
-  { editProfileData, logout }
+  { editProfileData, logout, clearMedia }
 )(EditProScreen);
 
 const styles = StyleSheet.create({
