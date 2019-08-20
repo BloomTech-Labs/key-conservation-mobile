@@ -124,7 +124,6 @@ const reducer = (state = initialState, action) => {
         error: ""
       };
     case EDIT_PROFILE_SUCCESS:
-      console.log(action.payload)
       return {
         ...state,
         pending: { ...state.pending, updateProfile: false },

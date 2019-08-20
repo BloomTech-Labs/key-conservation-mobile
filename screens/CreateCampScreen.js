@@ -88,7 +88,6 @@ class CreateCampScreen extends React.Component {
   }
 
   render() {
-    console.log("IN RENDER", this.props.mediaUpload)
     return (
       <KeyboardAvoidingView
         behavior='height'

@@ -106,18 +106,19 @@ export const editProfileData = (id, changes) => async dispatch => {
   }
 
   keys.forEach(key => {
-    formData.append(key, filteredChanges[key])
+    if (filteredChanges[key] !== null) {
+      formData.append(key, filteredChanges[key])
+    }
   })
 
   return axios
     .put(`https://key-conservation-staging.herokuapp.com/api/users/${id}`, formData, {
       headers: {
-        Accept: 'application/json',
+        'Accept': 'application/json',
         'Content-Type': 'multipart/form-data',
       }
     })
     .then(res => {
-      console.log("RES", res.data)
       dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.editUser });
     })
     .catch(err => {
@@ -186,7 +187,6 @@ export const [
 ] = ['POST_CAMPAIGNS_START', 'POST_CAMPAIGNS_ERROR', 'POST_CAMPAIGNS_SUCCESS'];
 
 export const postCampaign = camp => dispatch => {
-  console.log("SEND THIS OUT", camp)
   dispatch({ type: POST_CAMPAIGN_START });
 
   const filteredCamp = filterUrls(["camp_cta"], camp)
@@ -207,7 +207,6 @@ export const postCampaign = camp => dispatch => {
   formData.append('camp_name', filteredCamp.camp_name)
   formData.append('users_id', filteredCamp.users_id)
   
-  console.log("FormData", formData)
 
   axios
     .post('https://key-conservation-staging.herokuapp.com/api/campaigns', formData, {
@@ -217,11 +216,9 @@ export const postCampaign = camp => dispatch => {
       }
     })
     .then(res => {
-      console.log("RESULT", res.data.newCamps)
       dispatch({ type: POST_CAMPAIGN_SUCCESS, payload: res.data.newCamps });
     })
     .catch(err => {
-      console.log("ERROR", err)
       dispatch({ type: POST_CAMPAIGN_ERROR, payload: err });
     });
 };
@@ -312,7 +309,6 @@ export const toggleCampaignText = id => ({
 export const MEDIA_UPLOAD = 'MEDIA_UPLOAD';
 
 export const setMedia = media => {
-  console.log(media)
   return {
     type: MEDIA_UPLOAD,
     payload: media

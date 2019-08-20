@@ -79,8 +79,8 @@ export default {
   },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
-    resizeMode: 'cover',
-    height: 300
+    resizeMode: 'contain',
+    height: 320
   },
   campTitle:{
     fontFamily: 'OpenSans-Regular',
