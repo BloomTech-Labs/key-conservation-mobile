@@ -65,7 +65,7 @@ const reducer = (state = initialState, action) => {
         error: action.payload
       };
     case LOGIN_SUCCESS:
-      console.log(action.payload);
+      //console.log(action.payload);
       return {
         ...state,
         pending: { ...state.pending, login: false },
@@ -94,7 +94,7 @@ const reducer = (state = initialState, action) => {
       };
     case GET_PROFILE_SUCCESS:
       if (action.payload.myProfile) {
-        console.log("*******getprofile", action.payload.user)
+        //console.log("*******getprofile", action.payload.user)
         return {
           ...state,
           pending: { ...state.pending, getProfile: false },

@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
+import { withAmplitude } from './withAmplitude';
 
 const PublishButton = props => {
   return (

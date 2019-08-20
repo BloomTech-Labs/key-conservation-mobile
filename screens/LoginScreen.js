@@ -120,9 +120,10 @@ export default (LoginScreen = props => {
       await SecureStore.setItemAsync('email', chosenDecoded.email);
       await SecureStore.setItemAsync('roles', 'conservationist');
       const userLog = await SecureStore.getItemAsync('sub', {});
-      console.log('*********async user*************', userLog);
+      //console.log('*********async user*************', userLog);
 
       dispatch(loginSuccess(chosenDecoded));
+
       await dispatch(getProfileData(null, chosenDecoded.sub, true));
       navigation.navigate('Loading');
     }

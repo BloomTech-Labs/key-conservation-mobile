@@ -41,7 +41,7 @@ class UsernameScreen extends React.Component {
         roles: role,
         email: email
       };
-      console.log('******click from username', user);
+      //console.log('******click from username', user);
       await this.props.postUser(user);
       this.props.navigation.navigate(
         this.props.error ? 'CreateAccount' : 'Loading'
@@ -57,14 +57,14 @@ class UsernameScreen extends React.Component {
     await SecureStore.deleteItemAsync("sub", {});
     await SecureStore.deleteItemAsync("email", {});
     await SecureStore.deleteItemAsync("roles", {});
-    await SecureStore.deleteItemAsync("userId", {});
+    await SecureStore.deleteItemAsync("id", {});
     this.props.logout();
     this.props.navigation.navigate("Loading");
   };
 
 
   render() {
-    console.log(this.props);
+    //console.log(this.props);
     return (
       <ScrollView>
         <View style={styles.sectionContainer}>

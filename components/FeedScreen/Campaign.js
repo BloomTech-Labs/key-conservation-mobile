@@ -13,6 +13,7 @@ import { ListItem, Icon } from 'react-native-elements';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { getProfileData } from '../../store/actions';
+import { withAmplitude } from '../withAmplitude';
 
 import SvgUri from 'react-native-svg-uri';
 
@@ -65,11 +66,15 @@ const Campaign = props => {
           <TouchableOpacity
             style={styles.touchableButton}
             // If these links are empty string and don't have an http:// or a https:// it will send you with unpromised rejections.
-            onPress={async () =>
+            onPress={async () => {
               props.data.camp_cta &&
-              props.data.camp_cata !== null &&
-              (await WebBrowser.openBrowserAsync(props.data.camp_cta))
-            }
+                props.data.camp_cata !== null &&
+                (await WebBrowser.openBrowserAsync(props.data.camp_cta));
+              props.AmpEvent('Donation link clicked', {
+                orgName: props.data.orgName,
+                campaignName: props.data.camp_name
+              });
+            }}
           >
             <View style={styles.touchableView}>
               <Text style={styles.touchableText}>Donate</Text>
@@ -92,4 +97,4 @@ Campaign.navigationOptions = {
   }
 };
 
-export default Campaign;
+export default withAmplitude(Campaign);

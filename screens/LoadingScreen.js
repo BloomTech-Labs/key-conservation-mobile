@@ -11,8 +11,8 @@ import * as SecureStore from 'expo-secure-store';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import { connect } from 'react-redux';
-import { getProfileData, afterFirstLogin } from '../store/actions';
-import  { withAmplitude } from '../components/withAmplitude'
+import { getProfileData, afterFirstLogin, loginSuccess } from '../store/actions';
+import  { withAmplitude } from '../components/withAmplitude';
 
 
  
@@ -32,7 +32,8 @@ class LoadingScreen extends React.Component {
           // console.log("yes", this.props.userId);
           console.log( "*********role from loading screen",this.props.role)
           this.props.getProfileData(this.props.userId, null, true);
-          
+          this.props.setAmpId(this.props.userId)
+          this.props.AmpEvent('Login')
           let route;
           if (this.props.firstLogin) {
             this.props.afterFirstLogin();

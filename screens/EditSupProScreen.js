@@ -21,7 +21,7 @@ import { postUser, editProfileData, logout } from '../store/actions';
 
 class EditSupProScreen extends React.Component {
   logoutPress = async () => {
-    console.log('pressed button');
+    //console.log('pressed button');
     await SecureStorage.deleteItemAsync('id', {});
     await SecureStorage.deleteItemAsync('sub', {});
     await SecureStorage.deleteItemAsync('email', {});
@@ -71,7 +71,7 @@ class EditSupProScreen extends React.Component {
   }
 
   done = () => {
-    console.log(this.props.currentUserProfile)
+    //console.log(this.props.currentUserProfile)
     this.props.editProfileData(this.props.currentUserProfile.id, this.state);
     if (this.props.firstLogin) {
       this.props.navigation.navigate('Home');   
