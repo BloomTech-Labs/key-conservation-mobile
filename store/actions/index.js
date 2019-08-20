@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import * as Amplitude from 'expo-analytics-amplitude';
+
 export const [LOGIN_START, LOGIN_ERROR, LOGIN_SUCCESS] = [
   'LOGIN_START',
   'LOGIN_ERROR',
@@ -39,9 +41,12 @@ export const [GET_PROFILE_START, GET_PROFILE_ERROR, GET_PROFILE_SUCCESS] = [
 export const getProfileData = (
   id,
   sub,
-  myProfile = false
+  myProfile = false,
+  noDispatch = false
 ) => async dispatch => {
-  dispatch({ type: GET_PROFILE_START });
+  {
+    !noDispatch && dispatch({ type: GET_PROFILE_START });
+  }
   let user, url;
   if (id) url = `https://key-conservation.herokuapp.com/api/users/${id}`;
   else if (sub)
@@ -50,7 +55,13 @@ export const getProfileData = (
     .get(url)
     .then(res => {
       user = res.data.user;
-      dispatch({ type: GET_PROFILE_SUCCESS, payload: { user, myProfile } });
+      if (noDispatch) {
+        return user;
+      }
+      {
+        !noDispatch &&
+          dispatch({ type: GET_PROFILE_SUCCESS, payload: { user, myProfile } });
+      }
     })
     .catch(err => {
       dispatch({ type: GET_PROFILE_ERROR, payload: err });
@@ -120,7 +131,6 @@ export const editProfileData = (id, changes) => async dispatch => {
   return axios
     .put(`https://key-conservation.herokuapp.com/api/users/${id}`, changes)
     .then(res => {
-      console.log(res);
       dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.editUser });
     })
     .catch(err => {
@@ -171,6 +181,7 @@ export const [
 ] = ['POST_CAMPAIGNS_START', 'POST_CAMPAIGNS_ERROR', 'POST_CAMPAIGNS_SUCCESS'];
 
 export const postCampaign = camp => dispatch => {
+  console.log('posting campign************************');
   dispatch({ type: POST_CAMPAIGN_START });
   // If a user doesn't include http or https in there URL this function will add it.
   // If they already include it it will be ignored. and if its capital "Https || Http" it will become lowercase.

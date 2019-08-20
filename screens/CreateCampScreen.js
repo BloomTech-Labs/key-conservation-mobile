@@ -14,8 +14,8 @@ import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { postCampaign, getCampaigns } from '../store/actions';
 import BackButton from '../components/BackButton';
-
 import PublishButton from '../components/PublishButton';
+import { AmpEvent } from '../components/withAmplitude';
 
 class CreateCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -31,11 +31,7 @@ class CreateCampScreen extends React.Component {
         alignSelf: 'center',
         fontFamily: 'OpenSans-SemiBold'
       },
-      headerLeft: (
-        <BackButton
-          navigation={navigation} 
-      />
-      ),
+      headerLeft: <BackButton navigation={navigation} />,
       headerRight: (
         <PublishButton
           navigation={navigation}
@@ -44,7 +40,6 @@ class CreateCampScreen extends React.Component {
       )
     };
   };
-
   state = {
     users_id: this.props.currentUserProfile.id,
     camp_img: '',
@@ -52,11 +47,9 @@ class CreateCampScreen extends React.Component {
     camp_desc: '',
     camp_cta: ''
   };
-
   componentDidMount() {
     this.props.navigation.setParams({ publish: this.publish });
   }
-
   publish = async () => {
     if (
       !this.state.camp_img ||
@@ -68,10 +61,10 @@ class CreateCampScreen extends React.Component {
     } else {
       await this.props.postCampaign(this.state);
       await this.props.getCampaigns();
+      AmpEvent('Campaign Created');
       this.props.navigation.navigate('Home');
     }
   };
-
   clearState = () => {
     this.setState({
       users_id: this.props.currentUserProfile.id,
@@ -80,8 +73,7 @@ class CreateCampScreen extends React.Component {
       camp_desc: '',
       camp_cta: ''
     });
-  }
-
+  };
   render() {
     return (
       <KeyboardAvoidingView
@@ -89,104 +81,96 @@ class CreateCampScreen extends React.Component {
         keyboardVerticalOffset={90}
         enabled={Platform.OS === 'android' ? true : false}
       >
-      <KeyboardAwareScrollView>
-        <ScrollView
-          contentContainerStyle={{
-            backgroundColor: '#fff',
-            minHeight: '100%'
-          }}
-        >
-          <NavigationEvents
-            onDidBlur={this.clearState}
-          />
-          <View style={styles.sectionContainer}>
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Campaign Name</Text>
-              <TextInput
-                ref={input => {
-                  this.campNameInput = input;
-                }}
-                returnKeyType='next'
-                placeholder='Koala In Need!'
-                style={styles.inputContain}
-                onChangeText={text => this.setState({ camp_name: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.campImgUrlInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.camp_name}
-              />
+        <KeyboardAwareScrollView>
+          <ScrollView
+            contentContainerStyle={{
+              backgroundColor: '#fff',
+              minHeight: '100%'
+            }}
+          >
+            <NavigationEvents onDidBlur={this.clearState} />
+            <View style={styles.sectionContainer}>
+              <View style={styles.sections}>
+                <Text style={styles.sectionsText}>Campaign Name</Text>
+                <TextInput
+                  ref={input => {
+                    this.campNameInput = input;
+                  }}
+                  returnKeyType='next'
+                  placeholder='Koala In Need!'
+                  style={styles.inputContain}
+                  onChangeText={text => this.setState({ camp_name: text })}
+                  onSubmitEditing={() => {
+                    if (Platform.OS === 'android') return;
+                    this.campImgUrlInput.focus();
+                  }}
+                  blurOnSubmit={Platform.OS === 'android'}
+                  value={this.state.camp_name}
+                />
+              </View>
+              <View style={styles.sections}>
+                <Text style={styles.sectionsText}>Campaign Image URL</Text>
+                <TextInput
+                  ref={input => {
+                    this.campImgUrlInput = input;
+                  }}
+                  returnKeyType='next'
+                  keyboardType='url'
+                  placeholder='Please include full URL'
+                  autoCapitalize='none'
+                  style={styles.inputContain}
+                  onChangeText={text => this.setState({ camp_img: text })}
+                  onSubmitEditing={() => {
+                    if (Platform.OS === 'android') return;
+                    this.campDetailsInput.focus();
+                  }}
+                  blurOnSubmit={Platform.OS === 'android'}
+                  value={this.state.camp_img}
+                />
+              </View>
+              <View style={styles.sections}>
+                <Text style={styles.sectionsText}>Campaign Details</Text>
+                <TextInput
+                  ref={input => {
+                    this.campDetailsInput = input;
+                  }}
+                  returnKeyType='next'
+                  placeholder='Add campaign details and list of monetary needs.'
+                  style={styles.inputContain2}
+                  onChangeText={text => this.setState({ camp_desc: text })}
+                  multiline={true}
+                  value={this.state.camp_desc}
+                />
+              </View>
+              <View style={styles.sections}>
+                <Text style={styles.sectionsText}>Donation Link</Text>
+                <TextInput
+                  ref={input => {
+                    this.donationLinkInput = input;
+                  }}
+                  returnKeyType='next'
+                  keyboardType='url'
+                  placeholder='Please include full URL'
+                  autoCapitalize='none'
+                  style={styles.inputContain}
+                  onChangeText={text => this.setState({ camp_cta: text })}
+                  value={this.state.camp_cta}
+                />
+              </View>
             </View>
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Campaign Image URL</Text>
-              <TextInput
-                ref={input => {
-                  this.campImgUrlInput = input;
-                }}
-                returnKeyType='next'
-                keyboardType='url'
-                placeholder='Please include full URL'
-                autoCapitalize='none'
-                style={styles.inputContain}
-                onChangeText={text => this.setState({ camp_img: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.campDetailsInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.camp_img}
-              />
-            </View>
-
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Campaign Details</Text>
-              <TextInput
-                ref={input => {
-                  this.campDetailsInput = input;
-                }}
-                returnKeyType='next'
-                placeholder='Add campaign details and list of monetary needs.'
-                style={styles.inputContain2}
-                onChangeText={text => this.setState({ camp_desc: text })}
-                multiline={true}
-                value={this.state.camp_desc}
-              />
-            </View>
-
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Donation Link</Text>
-              <TextInput
-                ref={input => {
-                  this.donationLinkInput = input;
-                }}
-                returnKeyType='next'
-                keyboardType='url'
-                placeholder='Please include full URL'
-                autoCapitalize='none'
-                style={styles.inputContain}
-                onChangeText={text => this.setState({ camp_cta: text })}
-                value={this.state.camp_cta}
-              />
-            </View>
-          </View>
-        </ScrollView>
-       
-      </KeyboardAwareScrollView>
+          </ScrollView>
+        </KeyboardAwareScrollView>
       </KeyboardAvoidingView>
     );
   }
 }
-
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile
 });
-
 export default connect(
   mapStateToProps,
   { postCampaign, getCampaigns }
 )(CreateCampScreen);
-
 const styles = StyleSheet.create({
   sectionContainer: {
     flexDirection: 'column',

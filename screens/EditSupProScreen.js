@@ -19,9 +19,10 @@ import DoneButton from '../components/DoneButton';
 
 import { postUser, editProfileData, logout } from '../store/actions';
 
-class EditDetailScreen extends React.Component {
+class EditSupProScreen extends React.Component {
   logoutPress = async () => {
-    console.log('pressed button');
+    //console.log('pressed button');
+    await SecureStorage.deleteItemAsync('id', {});
     await SecureStorage.deleteItemAsync('sub', {});
     await SecureStorage.deleteItemAsync('email', {});
     await SecureStorage.deleteItemAsync('roles', {});
@@ -53,17 +54,16 @@ class EditDetailScreen extends React.Component {
   };
 
   state = {
+    sup_name: this.props.currentUserProfile.sup_name,
+    username: this.props.currentUserProfile.username,
+    profile_image: this.props.currentUserProfile.profile_image,
+    location: this.props.currentUserProfile.location,
+    mini_bio: this.props.currentUserProfile.mini_bio,
     email: this.props.currentUserProfile.email,
-    org_link_url: this.props.currentUserProfile.org_link_url,
-    org_link_text: this.props.currentUserProfile.org_link_text,
     facebook: this.props.currentUserProfile.facebook,
     instagram: this.props.currentUserProfile.instagram,
     twitter: this.props.currentUserProfile.twitter,
-    about_us: this.props.currentUserProfile.about_us,
     species_and_habitats: this.props.currentUserProfile.species_and_habitats,
-    issues: this.props.currentUserProfile.issues,
-    // supportUs: this.props.currentUserProfile.support_us,
-    org_cta: this.props.currentUserProfile.org_cta
   };
 
   componentDidMount() {
@@ -71,9 +71,14 @@ class EditDetailScreen extends React.Component {
   }
 
   done = () => {
+    //console.log(this.props.currentUserProfile)
     this.props.editProfileData(this.props.currentUserProfile.id, this.state);
-    this.props.navigation.goBack();
-  };
+    if (this.props.firstLogin) {
+      this.props.navigation.navigate('Home');   
+    } else {
+      this.props.navigation.goBack(); 
+    }
+  }
 
   render() {
     return (
@@ -83,34 +88,31 @@ class EditDetailScreen extends React.Component {
         enabled
       >
         <ScrollView>
-          <View style={styles.sectionContainer}>
-            <View style={styles.Card} />
-
+        <View style={styles.sectionContainer}>
+          <View style={styles.Card} />
             <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Email</Text>
+              <Text style={styles.sectionsText}>Name</Text>
               <TextInput
                 ref={input => {
-                  this.emailInput = input;
+                  this.sup_nameInput = input;
                 }}
                 returnKeyType='next'
-                placeholder='Email'
-                keyboardType='email-address'
                 style={styles.inputContain}
-                onChangeText={text => this.setState({ email: text })}
+                onChangeText={text => this.setState({ sup_name: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
-                  this.orgLinkUrlInput.focus();
+                  this.usernameInput.focus();
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.email}
+                value={this.state.sup_name}
               />
             </View>
 
             <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Website Link URL</Text>
+              <Text style={styles.sectionsText}>Username</Text>
               <TextInput
                 ref={input => {
-                  this.org_link_urlInput = input;
+                  this.usernameInput = input;
                 }}
                 returnKeyType='next'
                 keyboardType='url'
@@ -120,37 +122,39 @@ class EditDetailScreen extends React.Component {
                 onChangeText={text => this.setState({ org_link_url: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
-                  this.orgLinkTextInput.focus();
+                  this.profileImageInput.focus();
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.org_link_url}
+                value={this.state.username}
               />
             </View>
 
             <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Website Link Text</Text>
+              <Text style={styles.sectionsText}>Profile Image URL</Text>
               <TextInput
                 ref={input => {
-                  this.orgLinkTextInput = input;
+                  this.profileImageInput = input;
                 }}
                 returnKeyType='next'
-                placeholder='How you wish your website to appear'
+                keyboardType='url'
                 style={styles.inputContain}
-                onChangeText={text => this.setState({ org_link_text: text })}
+                autoCapitalize='none'
+                placeholder='Please include full URL'
+                onChangeText={text => this.setState({ profile_image: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
-                  this.orgCtaInput.focus();
+                  this.locationInput.focus();
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.org_link_text}
+                value={this.state.profile_image}
               />
             </View>
 
             <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Donation Link</Text>
+              <Text style={styles.sectionsText}>Location</Text>
               <TextInput
                 ref={input => {
-                  this.org_ctaInput = input;
+                  this.locationInput = input;
                 }}
                 returnKeyType='next'
                 keyboardType='url'
@@ -160,7 +164,7 @@ class EditDetailScreen extends React.Component {
                 onChangeText={text => this.setState({ org_cta: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
-                  this.facebookInput.focus();
+                  this.mini_bioInput.focus();
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.org_cta}
@@ -290,28 +294,26 @@ class EditDetailScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  error: state.error,
   currentUserProfile: state.currentUserProfile
 });
 
 export default connect(
   mapStateToProps,
-  { postUser, editProfileData, logout }
-)(EditDetailScreen);
+  { editProfileData, logout }
+)(EditSupProScreen);
 
 const styles = StyleSheet.create({
   sectionContainer: {
     flexDirection: 'column',
     flexWrap: 'wrap',
-
     marginLeft: 15,
     marginRight: 15
   },
   Card: {
     marginTop: 10,
-
     backgroundColor: '#fff',
     width: '100%',
-
     height: 20
   },
   inputContain: {

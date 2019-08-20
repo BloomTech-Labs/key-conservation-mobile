@@ -12,7 +12,8 @@ import MyProScreen from '../screens/MyProScreen';
 import EditProScreen from '../screens/EditProScreen';
 import DetailScreen from '../screens/DetailScreen';
 import MyDetailScreen from '../screens/MyDetailScreen';
-import EditDetailScreen from '../screens/EditDetailScreen';
+import MySupProScreen from '../screens/MySupProScreen';
+import EditSupProScreen from '../screens/EditSupProScreen';
 import LoginScreen from '../screens/LoginScreen';
 import UsernameScreen from "../screens/UsernameScreen";
 import SvgUri from 'react-native-svg-uri';
@@ -38,7 +39,7 @@ const FeedStack = createStackNavigator(
     Detail: {
       screen: DetailScreen,
       navigationOptions: {
-        title: "Details",
+        title: "Profile",
         headerTintColor: "#fff",
         headerTitleStyle: {
           textAlign: "center",
@@ -95,6 +96,7 @@ const CreateCampStack = createStackNavigator(
     }
   }
 );
+
 const MyProStack = createStackNavigator(
   {
     MyPro: { screen: MyProScreen },
@@ -102,11 +104,35 @@ const MyProStack = createStackNavigator(
     EditPro: {
       screen: EditProScreen,
       navigationOptions: { title: "Edit Profile" }
-    },
-    EditDetail: {
-      screen: EditDetailScreen,
-      navigationOptions: { title: 'Edit Details' }
     }
+  },
+  {
+    transitionConfig: () => ({
+      transitionSpec: {
+        duration: 0
+      }
+    }),
+    navigationOptions: {
+      tabBarLabel: "My Profile",
+      tabBarIcon: ({ focused }) => (
+        <SvgUri
+          width="25"
+          height="25"
+          source={
+            focused
+              ? require("../assets/icons/user-fill.svg")
+              : require("../assets/icons/user.svg")
+          }
+        />
+      )
+    }
+  }
+);
+
+const SupProStack = createStackNavigator(
+  {
+    MySupPro: { screen: MySupProScreen },
+    EditSupPro: { screen: EditSupProScreen }
   },
   {
     transitionConfig: () => ({
@@ -156,7 +182,7 @@ export const LoginStack = createStackNavigator(
   }
 );
 
-export const TabNavigator = createBottomTabNavigator(
+export const ConsNavigator = createBottomTabNavigator(
   {
     FeedStack: {
       screen: FeedStack,
@@ -187,13 +213,32 @@ export const TabNavigator = createBottomTabNavigator(
   }
 );
 
-export const NoTabNavigator = createStackNavigator(
+export const SupNavigator = createBottomTabNavigator(
   {
-    FeedStack: { screen: FeedStack, path: "" },
-    CreateCampStack: { screen: CreateCampStack, path: "" },
-    MyProStack: { screen: MyProStack, path: "" }
+    FeedStack: {
+      screen: FeedStack,
+      path: '',
+      navigationOptions: {
+        tabBarOnPress: ({ navigation, defaultHandler }) => {
+          navigation.navigate('Home'),
+          defaultHandler();
+        }
+      }
+    },
+    SupProStack: {
+      screen: SupProStack,
+      path: '',
+      navigationOptions: {
+        tabBarOnPress: ({ navigation, defaultHandler }) => {
+          navigation.navigate('MySupPro'),
+          defaultHandler();
+        }
+      }
+    }
   },
   {
-    headerMode: "none"
+    tabBarOptions: {
+      showLabel: false
+    }
   }
 );
