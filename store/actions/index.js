@@ -181,6 +181,7 @@ export const [
 ] = ['POST_CAMPAIGNS_START', 'POST_CAMPAIGNS_ERROR', 'POST_CAMPAIGNS_SUCCESS'];
 
 export const postCampaign = camp => dispatch => {
+  console.log('posting campign************************');
   dispatch({ type: POST_CAMPAIGN_START });
   // If a user doesn't include http or https in there URL this function will add it.
   // If they already include it it will be ignored. and if its capital "Https || Http" it will become lowercase.

@@ -14,9 +14,8 @@ import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { postCampaign, getCampaigns } from '../store/actions';
 import BackButton from '../components/BackButton';
-import { withAmplitude } from '../components/withAmplitude';
-
 import PublishButton from '../components/PublishButton';
+import { AmpEvent } from '../components/withAmplitude';
 
 class CreateCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -41,7 +40,6 @@ class CreateCampScreen extends React.Component {
       )
     };
   };
-
   state = {
     users_id: this.props.currentUserProfile.id,
     camp_img: '',
@@ -49,11 +47,9 @@ class CreateCampScreen extends React.Component {
     camp_desc: '',
     camp_cta: ''
   };
-
   componentDidMount() {
     this.props.navigation.setParams({ publish: this.publish });
   }
-
   publish = async () => {
     if (
       !this.state.camp_img ||
@@ -65,11 +61,10 @@ class CreateCampScreen extends React.Component {
     } else {
       await this.props.postCampaign(this.state);
       await this.props.getCampaigns();
-      this.props.AmpEvent('campaign created');
+      AmpEvent('Campaign Created');
       this.props.navigation.navigate('Home');
     }
   };
-
   clearState = () => {
     this.setState({
       users_id: this.props.currentUserProfile.id,
@@ -79,7 +74,6 @@ class CreateCampScreen extends React.Component {
       camp_cta: ''
     });
   };
-
   render() {
     return (
       <KeyboardAvoidingView
@@ -134,7 +128,6 @@ class CreateCampScreen extends React.Component {
                   value={this.state.camp_img}
                 />
               </View>
-
               <View style={styles.sections}>
                 <Text style={styles.sectionsText}>Campaign Details</Text>
                 <TextInput
@@ -149,7 +142,6 @@ class CreateCampScreen extends React.Component {
                   value={this.state.camp_desc}
                 />
               </View>
-
               <View style={styles.sections}>
                 <Text style={styles.sectionsText}>Donation Link</Text>
                 <TextInput
@@ -172,16 +164,13 @@ class CreateCampScreen extends React.Component {
     );
   }
 }
-
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile
 });
-
 export default connect(
   mapStateToProps,
   { postCampaign, getCampaigns }
-)(withAmplitude(CreateCampScreen));
-
+)(CreateCampScreen);
 const styles = StyleSheet.create({
   sectionContainer: {
     flexDirection: 'column',

@@ -10,6 +10,7 @@ import { ScrollView } from 'react-navigation';
 import * as WebBrowser from 'expo-web-browser';
 import { Avatar, Icon, Image } from 'react-native-elements';
 import SvgUri from 'react-native-svg-uri';
+import { AmpEvent } from '../withAmplitude';
 
 export default class DetailHeader extends Component {
   render() {
@@ -57,11 +58,14 @@ export default class DetailHeader extends Component {
                   <Text style={styles.location}>{profile.location}</Text>
                 </View>
                 <Text
-                  onPress={async () =>
+                  onPress={async () => {
                     profile.org_link_url &&
-                    profile.org_link_url !== null &&
-                    (await WebBrowser.openBrowserAsync(profile.org_link_url))
-                  }
+                      profile.org_link_url !== null &&
+                      await AmpEvent('Website Link Clicked', {
+                        orgName: profile.org_name
+                      });
+                    await WebBrowser.openBrowserAsync(profile.org_link_url);
+                  }}
                 >
                   {profile.org_link_text}
                 </Text>

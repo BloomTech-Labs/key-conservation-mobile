@@ -1,13 +1,15 @@
 import React from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
-import { withAmplitude } from './withAmplitude';
 
 const PublishButton = props => {
+  // ampPressAction = () => {
+  //   console.log('publish button clicked');
+  //   props.pressAction;
+  //   AmpEvent('Campaign Created');
+  // };
+
   return (
-    <TouchableOpacity
-      onPress={props.pressAction}
-      style={{ padding: 18 }}
-    >
+    <TouchableOpacity onPress={props.pressAction} style={{ padding: 18 }}>
       <View
         style={{
           alignItems: 'center',
