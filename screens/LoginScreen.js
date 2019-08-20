@@ -164,14 +164,14 @@ export default (LoginScreen = props => {
         </TouchableOpacity>
       </View>
       <View style={styles.needHelp}>
-        <Text style={styles.needHelpText}>Not sure which one to pick?</Text>
+        {/* <Text style={styles.needHelpText}>Not sure which one to pick?</Text>
         <Button
           title="Click Here"
           style={styles.needHelpText}
           onPress={() => {
             null;
           }}
-        />
+        /> */}
       </View>
     </ImageBackground>
   );
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   },
   SelectText: {
     fontSize: 27,
-    fontFamily: "OpenSans-Regular",
+    fontFamily: "OpenSans-SemiBold",
     color: "white"
   },
   buttons: {
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     letterSpacing: 0,
     textAlign: "center",
-    color: "white",
+    color: "black",
     justifyContent: "center",
     alignItems: "center",
     fontSize: 20
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: 375,
     height: "7.9%",
-    opacity: 0.5,
+    opacity: 0,
     backgroundColor: "black",
     justifyContent: "center",
     alignItems: "center"
