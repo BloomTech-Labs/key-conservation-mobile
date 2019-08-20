@@ -180,6 +180,15 @@ export const getCampaign = id => dispatch => {
     });
 };
 
+export const SET_CAMPAIGN = 'SET_CAMPAIGN';
+
+export const setCampaign = camp => {
+  return {
+    type: SET_CAMPAIGN,
+    payload: camp
+  }
+}
+
 export const [
   POST_CAMPAIGN_START,
   POST_CAMPAIGN_ERROR,
@@ -279,6 +288,8 @@ export const editCampaign = (id, changes) => dispatch => {
   keys.forEach(key => {
     formData.append(key, changes[key])
   })
+
+  console.log("FORMDATA", formData)
   
   axios
     .put(
@@ -292,9 +303,11 @@ export const editCampaign = (id, changes) => dispatch => {
       }
     )
     .then(res => {
+      console.log('RES', res.data.editCamp)
       dispatch({ type: EDIT_CAMPAIGN_SUCCESS, payload: res.data.editCamp });
     })
     .catch(err => {
+      console.log('ERR', err)
       dispatch({ type: EDIT_CAMPAIGN_ERROR, payload: err });
     });
 };
