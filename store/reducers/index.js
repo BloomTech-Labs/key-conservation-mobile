@@ -21,6 +21,7 @@ import {
   GET_CAMPAIGN_START,
   GET_CAMPAIGN_ERROR,
   GET_CAMPAIGN_SUCCESS,
+  SET_CAMPAIGN,
   POST_CAMPAIGN_START,
   POST_CAMPAIGN_ERROR,
   POST_CAMPAIGN_SUCCESS,
@@ -195,6 +196,11 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, getCampaign: false },
         error: action.payload
       };
+    case SET_CAMPAIGN:
+      return {
+        ...state,
+        selectedCampaign: action.payload
+      }
     case DELETE_CAMPAIGN_START:
       return {
         ...state,

@@ -5,7 +5,8 @@ import {
   View,
   TextInput,
   TouchableOpacity,  
-  Image
+  Image,
+  Dimensions
 } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-navigation';
@@ -16,7 +17,7 @@ import SvgUri from 'react-native-svg-uri';
 import { getProfileData } from '../store/actions'
 import BackButton from '../components/BackButton'
 
-
+const deviceWidth = Dimensions.get('window').width
 
 class ViewCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -156,8 +157,8 @@ const styles =  StyleSheet.create({
   },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
-    resizeMode: 'cover',
-    height: 300
+    resizeMode: 'contain',
+    height: deviceWidth <= 415 ? deviceWidth : 415
   },
   campDescContain: {
     marginLeft: 15,

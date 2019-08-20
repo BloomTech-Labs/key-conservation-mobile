@@ -18,7 +18,7 @@ import { connect } from 'react-redux';
 
 import { Icon, ListItem } from 'react-native-elements';
 
-import { getProfileData, deleteCampaign, getCampaign } from '../store/actions';
+import { getProfileData, deleteCampaign, setCampaign } from '../store/actions';
 
 import EditButton from '../components/EditButton';
 
@@ -48,14 +48,14 @@ class MyProScreen extends React.Component {
     this.props.getProfileData(this.props.currentUserProfile.id, false, 'myProfile');
   }
 
-  goToCampaign = async (id) => {
-    await this.props.getCampaign(id);
+  goToCampaign = async (camp) => {
+    this.props.setCampaign(camp);
     this.props.navigation.navigate('Camp');
   };
 
-  goToEditCampaign = async (id) => {
-    await this.props.getCampaign(id)
-    this.props.navigation.navigate('EditCamp') 
+  goToEditCampaign = async (camp) => {
+    this.props.setCampaign(camp)
+    this.props.navigation.navigate('EditCamp')
   }
 
   render() {
@@ -72,19 +72,23 @@ class MyProScreen extends React.Component {
             this.props.currentUserProfile.campaigns.map(camp => {
               return (
                 <ListItem
-                  onPress={() => this.goToCampaign(camp.camp_id)}
+                  onPress={() => this.goToCampaign(camp)}
                   key={camp.camp_id}
                   title={camp.camp_name}
                   leftAvatar={{ source: { uri: camp.camp_img } }}
                   subtitle={camp.location}
                   rightIcon={
                     <Menu>
-                      <MenuTrigger children={<SvgUri width='25' height='25' source={require('../assets/icons/ellipsis-vertical.svg')} />}/>
+                      <MenuTrigger children={
+                        <View>
+                          <SvgUri width='25' height='25' source={require('../assets/icons/ellipsis-vertical.svg')} />
+                        </View>
+                      }/>
                       <MenuOptions customStyles={optionsStyles}>
-                        <MenuOption onSelect={() => this.goToEditCampaign(camp.camp_id)}>
-                          <Text style={{color: '#ff0a55',fontSize: 16 }}>Edit</Text>
+                        <MenuOption onSelect={() => this.goToEditCampaign(camp)}>
+                          <Text style={{color: '#000',fontSize: 16 }}>Edit</Text>
                         </MenuOption>
-                        <MenuOption onSelect={() => this.props.deleteCampaign(campaign.camp_id)}>
+                        <MenuOption onSelect={() => this.props.deleteCampaign(camp.camp_id)}>
                           <Text style={{color: '#ff0a55',fontSize: 16 }}>Delete</Text>
                         </MenuOption>
                       </MenuOptions>
@@ -100,7 +104,8 @@ class MyProScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  currentUserProfile: state.currentUserProfile
+  currentUserProfile: state.currentUserProfile,
+  selectedCampaign: state.selectedCampaign
 });
 const optionsStyles = {
   optionsContainer: {
@@ -111,5 +116,5 @@ const optionsStyles = {
 
 export default connect(
   mapStateToProps,
-  { getProfileData, deleteCampaign, getCampaign }
+  { getProfileData, deleteCampaign, setCampaign }
 )(MyProScreen);

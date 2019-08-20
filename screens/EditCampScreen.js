@@ -12,7 +12,7 @@ import { ScrollView, NavigationEvents } from 'react-navigation';
 import { Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { editCampaign, getCampaigns } from '../store/actions';
+import { editCampaign, getCampaigns, clearMedia } from '../store/actions';
 import BackButton from '../components/BackButton';
 
 import DoneButton from '../components/DoneButton';
@@ -67,7 +67,14 @@ class CreateCampScreen extends React.Component {
     ) {
       return;
     } else {
-      await this.props.editCampaign(this.props.selectedCampaign.camp_id, this.state);
+      let changes = this.state;
+      if (this.props.mediaUpload) {
+        changes = {
+          ...this.state,
+          camp_img: this.props.mediaUpload
+        }
+      }
+      await this.props.editCampaign(this.props.selectedCampaign.camp_id, changes);
       await this.props.getCampaigns();
       this.props.navigation.goBack();
     }
@@ -97,6 +104,7 @@ class CreateCampScreen extends React.Component {
           }}
         >
           <NavigationEvents
+            onWillFocus={this.props.clearMedia}
             onDidBlur={this.clearState}
           />
           <View style={styles.sectionContainer}>
@@ -180,12 +188,13 @@ class CreateCampScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  selectedCampaign: state.selectedCampaign
+  selectedCampaign: state.selectedCampaign,
+  mediaUpload: state.mediaUpload
 });
 
 export default connect(
   mapStateToProps,
-  { editCampaign, getCampaigns }
+  { editCampaign, getCampaigns, clearMedia }
 )(CreateCampScreen);
 
 const styles = StyleSheet.create({

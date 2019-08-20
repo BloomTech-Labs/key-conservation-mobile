@@ -83,7 +83,6 @@ class EditProScreen extends React.Component {
         ...this.state,
         profile_image: this.props.mediaUpload
       }
-      console.log("CHANGES", changes)
     }
     this.props.editProfileData(this.props.currentUserProfile.id, changes);
     if (this.props.firstLogin) {
@@ -400,7 +399,6 @@ class EditProScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  error: state.error,
   currentUserProfile: state.currentUserProfile,
   mediaUpload: state.mediaUpload
 });
