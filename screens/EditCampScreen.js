@@ -12,17 +12,17 @@ import { ScrollView, NavigationEvents } from 'react-navigation';
 import { Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { postCampaign, getCampaigns, clearMedia } from '../store/actions';
+import { editCampaign, getCampaigns, clearMedia } from '../store/actions';
 import BackButton from '../components/BackButton';
 
-import PublishButton from '../components/PublishButton';
+import DoneButton from '../components/DoneButton';
 
 import UploadMedia from '../components/UploadMedia';
 
 class CreateCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'New Campaign',
+      title: 'Edit Campaign',
       headerStyle: {
         backgroundColor: '#323338'
       },
@@ -39,51 +39,53 @@ class CreateCampScreen extends React.Component {
       />
       ),
       headerRight: (
-        <PublishButton
+        <DoneButton
           navigation={navigation}
-          pressAction={navigation.getParam('publish')}
+          pressAction={navigation.getParam('edit')}
         />
       )
     };
   };
 
   state = {
-    users_id: this.props.currentUserProfile.id,
-    camp_name: '',
-    camp_desc: '',
-    camp_cta: ''
+    camp_img: this.props.selectedCampaign.camp_img,
+    camp_name: this.props.selectedCampaign.camp_name,
+    camp_desc: this.props.selectedCampaign.camp_desc,
+    camp_cta: this.props.selectedCampaign.camp_cta
   };
 
   componentDidMount() {
-    this.props.navigation.setParams({ publish: this.publish });
+    this.props.navigation.setParams({ edit: this.edit });
   }
 
-  publish = async () => {
+  edit = async () => {
     if (
-      !this.props.mediaUpload ||
+      !this.state.camp_img ||
       !this.state.camp_name ||
       !this.state.camp_desc ||
       !this.state.camp_cta
     ) {
       return;
     } else {
-      const camp = {
-        ...this.state,
-        camp_img: this.props.mediaUpload
+      let changes = this.state;
+      if (this.props.mediaUpload) {
+        changes = {
+          ...this.state,
+          camp_img: this.props.mediaUpload
+        }
       }
-      await this.props.postCampaign(camp);
+      await this.props.editCampaign(this.props.selectedCampaign.camp_id, changes);
       await this.props.getCampaigns();
-      this.props.navigation.navigate('Home');
+      this.props.navigation.goBack();
     }
   };
 
   clearState = () => {
     this.setState({
-      users_id: this.props.currentUserProfile.id,
-      camp_img: this.props.mediaUpload,
-      camp_name: '',
-      camp_desc: '',
-      camp_cta: ''
+      camp_img: this.props.selectedCampaign.camp_img,
+      camp_name: this.props.selectedCampaign.camp_name,
+      camp_desc: this.props.selectedCampaign.camp_desc,
+      camp_cta: this.props.selectedCampaign.camp_cta
     });
   }
 
@@ -186,13 +188,13 @@ class CreateCampScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  currentUserProfile: state.currentUserProfile,
+  selectedCampaign: state.selectedCampaign,
   mediaUpload: state.mediaUpload
 });
 
 export default connect(
   mapStateToProps,
-  { postCampaign, getCampaigns, clearMedia }
+  { editCampaign, getCampaigns, clearMedia }
 )(CreateCampScreen);
 
 const styles = StyleSheet.create({

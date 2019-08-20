@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
   ImageBackground
 } from "react-native";
-import * as SecureStore from "expo-secure-store";
+import * as SecureStorage from "expo-secure-store";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { connect } from "react-redux";
@@ -16,8 +16,9 @@ import { getProfileData, afterFirstLogin } from "../store/actions";
 class LoadingScreen extends React.Component {
   async componentDidMount() {
     // id in the auth0 database
-    const sub = await SecureStore.getItemAsync("sub", {});
-    // console.log("**********loading screen**********", sub);
+    const sub = await SecureStorage.getItemAsync("sub", {});
+    const roles = await SecureStorage.getItemAsync('roles', {});
+    // console.log("**********loading screen**********", roles);
     // id in the PG database
     this.props.getProfileData(null, sub, true);
     setTimeout(() => {
@@ -30,9 +31,9 @@ class LoadingScreen extends React.Component {
           let route;
           if (this.props.firstLogin) {
             this.props.afterFirstLogin();
-            this.props.navigation.navigate("EditPro");
+            this.props.navigation.navigate(roles === "conservationist" ? "EditPro" : "EditSupPro");
           } else {
-            this.props.navigation.navigate("Conservationist");
+            this.props.navigation.navigate(roles === "conservationist" ? "Conservationist" : "Supporter");
           }
         } else {
           // console.log("no", this.props.userId);

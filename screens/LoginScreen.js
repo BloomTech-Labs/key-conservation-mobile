@@ -47,6 +47,7 @@ export default (LoginScreen = props => {
   const dispatch = useDispatch();
   const { currentUser, error } = useSelector(state => state);
   const { navigation } = props;
+  let roles;
 
   const login = async navigation => {
     dispatch(loginStart());
@@ -117,7 +118,7 @@ export default (LoginScreen = props => {
 
       await SecureStore.setItemAsync("sub", chosenDecoded.sub);
       await SecureStore.setItemAsync("email", chosenDecoded.email);
-      await SecureStore.setItemAsync("roles", "conservationist");
+      await SecureStore.setItemAsync("roles", roles === 'conservationist' ? 'conservationist' : 'supporter');
       const userLog = await SecureStore.getItemAsync("sub", {});
       console.log("*********async user*************", userLog);
 
@@ -139,32 +140,38 @@ export default (LoginScreen = props => {
         />
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.SelectText}>Select one:</Text>
+        <Text style={styles.SelectText}>I am a:</Text>
       </View>
       <View style={styles.buttons}>
         {/* <View style={styles.buttonContainer}> */}
         <TouchableOpacity
-          onPress={() => login(navigation)}
+          onPress={() => {
+            roles = 'conservationist';
+            login(navigation);
+          }}
           style={styles.buttonContainer}
         >
           <Text style={styles.buttonText}>CONSERVATION ORGANIZATION</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => props.navigation.navigate("Supporter")}
+          onPress={() => {
+            roles = 'supporter';
+            login(navigation);
+          }} 
           style={styles.buttonContainer}
         >
           <Text style={styles.buttonText}>GLOBAL SUPPORTER</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.needHelp}>
-        <Text style={styles.needHelpText}>Not sure which one to pick?</Text>
+        {/* <Text style={styles.needHelpText}>Not sure which one to pick?</Text>
         <Button
           title="Click Here"
           style={styles.needHelpText}
           onPress={() => {
             null;
           }}
-        />
+        /> */}
       </View>
     </ImageBackground>
   );
@@ -197,7 +204,7 @@ const styles = StyleSheet.create({
   },
   SelectText: {
     fontSize: 27,
-    fontFamily: "OpenSans-Regular",
+    fontFamily: "OpenSans-SemiBold",
     color: "white"
   },
   buttons: {
@@ -228,7 +235,7 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     letterSpacing: 0,
     textAlign: "center",
-    color: "white",
+    color: "black",
     justifyContent: "center",
     alignItems: "center",
     fontSize: 20
@@ -237,7 +244,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: 375,
     height: "7.9%",
-    opacity: 0.5,
+    opacity: 0,
     backgroundColor: "black",
     justifyContent: "center",
     alignItems: "center"

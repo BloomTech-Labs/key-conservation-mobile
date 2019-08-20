@@ -4,55 +4,69 @@ import {
   View,
   Text,
   Button,
-  TouchableOpacity
+  TouchableOpacity,
+  ScrollView
 } from 'react-native';
-import { ScrollView } from "react-navigation";
-import { useSelector, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 
 import { getProfileData } from '../store/actions';
 
 import { Avatar, Icon, ListItem } from 'react-native-elements';
-
+import FeedCampaign from '../components/FeedScreen/FeedCampaign';
 import ProfileHeader from '../components/Profile/ProfileHeader';
 
-const ProScreen = props => {
-  let { selectedProfile } = useSelector(state => state);
-  const dispatch = useDispatch();
-  const { navigation } = props;
-  const orgId = props.navigation.getParam('orgId');
+import BackButton from '../components/BackButton';
 
-  return (
-    <ScrollView>
-      <ProfileHeader navigation={navigation} profile={selectedProfile} myProfile={false} />
-      <View />
-      <View>
-        {selectedProfile.campaigns.map(campaign => {
+
+class ProScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Profile',
+      headerStyle: {
+        backgroundColor: '#323338'
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        textAlign: 'center',
+        flexGrow: 1,
+        alignSelf: 'center',
+        fontFamily: 'OpenSans-SemiBold',
+      },
+      headerLeft: <BackButton navigation={navigation} />,
+      headerRight: <View />
+    };
+  };
+  
+  render() {
+    return (
+      // creates sticky header
+      <ScrollView stickyHeaderIndices={[0]}>
+        <View style={{borderBottomWidth: 2, borderBottomColor: '#929292'}}>
+          <ProfileHeader navigation={this.props.navigation} profile={this.props.selectedProfile} myProfile={false} />
+        </View>
+        {this.props.selectedProfile.campaigns.map(camp => {
           return (
-            <ListItem
-              key={campaign.camp_id}
-              title={campaign.camp_name}
-              leftAvatar={{ source: { uri: campaign.camp_img } }}
-              subtitle={campaign.location}
-              // rightIcon={
-              //   <Icon name='ellipsis-v' type='font-awesome' color='black' />
-              // }
+            <FeedCampaign
+              key={camp.camp_id}
+              data={camp}
+              toggled={true}
+              navigation={this.props.navigation}
             />
           );
         })}
-      </View>
-    </ScrollView>
-  );
-};
-
-ProScreen.navigationOptions = {
-  title: 'My Profile',
-  // This setting needs to be on every screen so that header is in the center
-  // This is fix for andriod devices should be good on IOS
-  headerTitleStyle: {
-    textAlign: 'center',
-    flexGrow: 1,
-    alignSelf: 'center'
+      </ScrollView>
+      
+      
+    );
   }
 };
 
-export default ProScreen;
+const mapStateToProps = state => ({
+  selectedProfile: state.selectedProfile
+});
+
+export default connect(
+  mapStateToProps,
+  { getProfileData }
+)(ProScreen);
+
