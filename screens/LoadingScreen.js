@@ -12,7 +12,10 @@ import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import { connect } from 'react-redux';
 import { getProfileData, afterFirstLogin } from '../store/actions';
+import  { withAmplitude } from '../components/withAmplitude'
 
+
+ 
 class LoadingScreen extends React.Component {
   async componentDidMount() {
     // id in the auth0 database
@@ -29,6 +32,7 @@ class LoadingScreen extends React.Component {
           // console.log("yes", this.props.userId);
           console.log( "*********role from loading screen",this.props.role)
           this.props.getProfileData(this.props.userId, null, true);
+          
           let route;
           if (this.props.firstLogin) {
             this.props.afterFirstLogin();
@@ -75,7 +79,7 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { getProfileData, afterFirstLogin }
-)(LoadingScreen);
+)(withAmplitude(LoadingScreen));
 
 const styles = StyleSheet.create({
   container: {

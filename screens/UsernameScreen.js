@@ -16,7 +16,7 @@ import * as SecureStore from 'expo-secure-store';
 
 //import styles from '../constants/Stylesheet';
 
-import { postUser } from '../store/actions';
+import { postUser, logout } from '../store/actions';
 
 class UsernameScreen extends React.Component {
   state = {
@@ -38,7 +38,7 @@ class UsernameScreen extends React.Component {
       let user = {
         username: username,
         sub: sub,
-        roles: roles,
+        roles: role,
         email: email
       };
       console.log('******click from username', user);
@@ -52,6 +52,16 @@ class UsernameScreen extends React.Component {
       });
     }
   };
+
+  logoutPress = async () => {
+    await SecureStore.deleteItemAsync("sub", {});
+    await SecureStore.deleteItemAsync("email", {});
+    await SecureStore.deleteItemAsync("roles", {});
+    await SecureStore.deleteItemAsync("userId", {});
+    this.props.logout();
+    this.props.navigation.navigate("Loading");
+  };
+
 
   render() {
     console.log(this.props);
@@ -95,6 +105,14 @@ class UsernameScreen extends React.Component {
             <Text style={styles.touchableText}>Continue</Text>
           </View>
         </TouchableOpacity>
+        <TouchableOpacity
+          onPress={this.logoutPress}
+          style={styles.touchableButton}
+        >
+          <View style={styles.touchableView}>
+            <Text style={styles.touchableText}>Logout</Text>
+          </View>
+        </TouchableOpacity>
       </ScrollView>
     );
   }
@@ -110,7 +128,7 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { postUser }
+  { postUser, logout }
 )(UsernameScreen);
 
 const styles = StyleSheet.create({
