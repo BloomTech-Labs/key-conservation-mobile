@@ -89,11 +89,11 @@ export const editProfileData = (id, changes) => async dispatch => {
   let formData = new FormData();
 
   let keys = Object.keys(filteredChanges).filter(key => {
-    return (key !== "camp_img")
+    return (key !== "profile_image")
   })
 
-  if (filteredChanges.camp_img) {
-    const uri = filteredChanges.camp_img
+  if (filteredChanges.profile_image) {
+    const uri = filteredChanges.profile_image
 
     let uriParts = uri.split('.');
     let fileType = uriParts[uriParts.length - 1];
