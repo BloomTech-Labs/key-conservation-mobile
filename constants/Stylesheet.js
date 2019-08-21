@@ -1,7 +1,6 @@
 import { Dimensions } from 'react-native';
 
 const deviceWidth = Dimensions.get('window').width
-
 export default {
   // # Campaign.js Styles # //
   container: {
@@ -12,10 +11,9 @@ export default {
     paddingBottom: 35,
   },
   donateButton: {
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: 'OpenSans-SemiBold',
     width: '60%',
-    alignSelf: 'center',
-    
+    alignSelf: 'center'
   },
   listItem: {
     fontFamily: 'OpenSans-Regular',
@@ -56,8 +54,7 @@ export default {
     justifyContent: 'center',
     borderRadius: 5,
     height: 48,
-    width: 243,
-    
+    width: 243
   },
   touchableText: {
     fontFamily: 'OpenSans-SemiBold',
@@ -84,35 +81,36 @@ export default {
     resizeMode: 'contain',
     height: deviceWidth <= 415 ? deviceWidth : 415
   },
-  campTitle:{
+  campTitle: {
     fontFamily: 'OpenSans-Regular',
     backgroundColor: '#323338',
     color: '#fff',
     height: 32,
     textAlign: 'center',
     fontSize: 14,
-    paddingTop: 7,
+    paddingTop: 7
   },
   orgTitleView: {
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 16,
+    fontWeight: 'bold'
   },
   orgLocation: {
     fontFamily: 'OpenSans-Regular'
   },
   campMissionText: {
     fontFamily: 'OpenSans-SemiBold',
-     fontSize: 14,
-     paddingLeft: 10,
+    fontSize: 14,
+    paddingLeft: 10
   },
   campMission: {
     fontFamily: 'OpenSans-Regular',
     flexWrap: 'wrap',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent:'center',
+    justifyContent: 'center',
     fontSize: 14,
-    marginTop: 20,
+    marginTop: 20
   },
   
   // # End of Campaign.js Styles # //
