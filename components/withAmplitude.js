@@ -88,7 +88,7 @@ export async function AmpInit() {
     const data = await userData();
     if (data) {
       const profileData = {
-        campaignsTotal: data.campaigns.length,
+        campaignsTotal: data.campaigns && data.campaigns.length,
         cons_id: data.cons_id,
         email: data.email,
         id: data.id,

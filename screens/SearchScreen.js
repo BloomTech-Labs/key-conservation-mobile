@@ -23,6 +23,8 @@ import { Header, SearchBar } from 'react-native-elements';
 
 import { createFilter } from 'react-native-search-filter';
 
+import Constants from 'expo-constants';
+
 // These are the keywoards that filtered through the map. You can add more to do depending.
 const KEYS_TO_FILTERS = [
   'camp_name',
@@ -62,7 +64,19 @@ class SearchScreen extends React.Component {
             <Header
               containerStyle={{
                 backgroundColor: '#323338',
-                height: 80
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                height:
+                  Constants.deviceName === 'Iphone Xr' &&
+                  Constants.deviceName === 'Iphone Xs'
+                    ? null
+                    : (100 && Constants.deviceName === 'Iphone 7') ||
+                      'Iphone 8' ||
+                      'Pixel' ||
+                      'Pixel XL'
+                    ? null
+                    : 80
               }}
               leftComponent={
                 <TouchableOpacity

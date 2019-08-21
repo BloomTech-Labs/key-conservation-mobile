@@ -43,37 +43,56 @@ export default (LoginScreen = props => {
       header: null
     };
   };
-
   const dispatch = useDispatch();
   const { currentUser, error } = useSelector(state => state);
   const { navigation } = props;
   let roles;
 
   const login = async navigation => {
+    // console.log('********************', roles);
     dispatch(loginStart());
     const redirectUrl = AuthSession.getRedirectUrl();
-    console.log(
-      `***************Redirect URL---place inside of Auth0 dashboard for callback url: ${redirectUrl}`
-    );
+    // console.log(
+    //   `***************Redirect URL---place inside of Auth0 dashboard for callback url: ${redirectUrl}`
+    // );
 
     //this variable structures a query param for the /authorize API call to the auth0 API
-    const queryParams = toQueryString({
-      //this must come from your auth0 dashboard.
-      client_id: 'elyo5qK7vYReEsKAPEADW2T8LAMpIJaf',
-      redirect_uri: redirectUrl,
-      // this is the API that should be built in relation to this app. This address is found in the Auth0 dashboard at API's -> select API -> settings -> identifier
-      audience: 'https://key-conservation',
-      // id_token will return a JWT token, token is access_token
-      response_type: 'id_token token',
-      // retrieve the user's profile and email from the openID
-      scope: 'openid profile email',
-      nonce: 'nonce'
-    });
+    const queryParams = () => {
+      if (roles === 'conservationist') {
+        // console.log('cons App');
+        return toQueryString({
+          //this must come from your auth0 dashboard.
+          client_id: 'elyo5qK7vYReEsKAPEADW2T8LAMpIJaf',
+          redirect_uri: redirectUrl,
+          // this is the API that should be built in relation to this app. This address is found in the Auth0 dashboard at API's -> select API -> settings -> identifier
+          audience: 'https://key-conservation',
+          // id_token will return a JWT token, token is access_token
+          response_type: 'id_token token',
+          // retrieve the user's profile and email from the openID
+          scope: 'openid profile email',
+          nonce: 'nonce'
+        });
+      } else if (roles === 'supporter') {
+        // console.log('supporter App');
+        return toQueryString({
+          //this must come from your auth0 dashboard.
+          client_id: 'DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S',
+          redirect_uri: redirectUrl,
+          // this is the API that should be built in relation to this app. This address is found in the Auth0 dashboard at API's -> select API -> settings -> identifier
+          audience: 'https://key-conservation',
+          // id_token will return a JWT token, token is access_token
+          response_type: 'id_token token',
+          // retrieve the user's profile and email from the openID
+          scope: 'openid profile email',
+          nonce: 'nonce'
+        });
+      }
+    };
 
     //dynamicly navigating the proper routes on the auth0 app
     // the domain url is found in the Auth0 dashboard at applications -> select App -> settings -> Domain
     const domain = 'https://key-conservation.auth0.com';
-    const authUrl = `${domain}/authorize` + queryParams;
+    const authUrl = `${domain}/authorize` + queryParams();
 
     // Perform the authentication
     const response = await AuthSession.startAsync({ authUrl });

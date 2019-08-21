@@ -31,11 +31,11 @@ class LoadingScreen extends React.Component {
         // console.log("data is present");
         // console.log(this.props.userId);
         if (this.props.userId) {
-          console.log('yes', this.props.userRole, roles);
+          // console.log('yes', this.props.userRole, roles);
           const userRole = this.props.userRole;
           await SecureStore.setItemAsync('roles', `${userRole}`);
           const newRole = await SecureStore.getItemAsync('roles', {});
-          console.log('yes', this.props.userRole, newRole);
+          // console.log('yes', this.props.userRole, newRole);
           await SecureStore.setItemAsync('id', `${this.props.userId}`);
           this.props.getProfileData(this.props.userId, null, true);
           this.props.setAmpId(this.props.userId);

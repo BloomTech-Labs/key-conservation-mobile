@@ -17,18 +17,20 @@ export default withAmplitude(App, true);
 function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
-  const navState = (nextScreen, action) => {
-    const object = {
-      prevScreen: nextScreen.routes[0].routeName,
-      nextScreen: nextScreen.routes[1].routeName,
-      action: action.type
-    };
-    return object;
-  };
-
   const handleNavigationChange = (prevState, newState, action) => {
-    const navigationAnalytics = navState(newState, action);
-    props.AmpEvent('Screen Navigation', navigationAnalytics);
+    routeSupply = () => {
+      if (action.key) {
+        const key = action.key;
+        if (key.search('id') === 0) {
+          return 'Unique screen - Camp Post/Edit Pro/Detail screen';
+        } else {
+          return action.key;
+        }
+      } else if (action.routeName) {
+        return action.routeName;
+      }
+    };
+    props.AmpEvent('Screen Navigation', { navigatedTo: routeSupply() });
   };
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {

@@ -13,8 +13,12 @@ import SvgUri from 'react-native-svg-uri';
 
 import { ListItem, Icon } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
-
-import { getProfileData, getCampaign, toggleCampaignText } from '../../store/actions';
+import { AmpEvent } from '../withAmplitude';
+import {
+  getProfileData,
+  getCampaign,
+  toggleCampaignText
+} from '../../store/actions';
 
 import styles from '../../constants/Stylesheet';
 
@@ -26,57 +30,65 @@ const FeedCampaign = props => {
       return string;
     } else {
       let end = cutoff;
-      const avoidChars = [" ", ",", ".", "!"];
+      const avoidChars = [' ', ',', '.', '!'];
       while (avoidChars.includes(string.charAt(end)) && end >= cutoff - 10) {
-        end--
+        end--;
       }
       return `${string.substring(0, end)}...`;
-    };
+    }
   };
 
- const createdAt = data.created_at;
- const currentTime = moment();
- const postTime = moment(createdAt);
- let timeDiff
- if (currentTime.diff(postTime, 'days') < 1) {
-   if (currentTime.diff(postTime, 'hours') < 1) {
-    if (currentTime.diff(postTime, 'minutes') < 1) {
-      timeDiff = 'just now'
-    } else {
-      if (currentTime.diff(postTime, 'minutes') === 1) {
-        timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO`
+  const createdAt = data.created_at;
+  const currentTime = moment();
+  const postTime = moment(createdAt);
+  let timeDiff;
+  if (currentTime.diff(postTime, 'days') < 1) {
+    if (currentTime.diff(postTime, 'hours') < 1) {
+      if (currentTime.diff(postTime, 'minutes') < 1) {
+        timeDiff = 'just now';
       } else {
-        timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`
+        if (currentTime.diff(postTime, 'minutes') === 1) {
+          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO`;
+        } else {
+          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`;
+        }
+      }
+    } else {
+      if (currentTime.diff(postTime, 'hours') === 1) {
+        timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO`;
+      } else {
+        timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`;
       }
     }
-   } else {
-    if (currentTime.diff(postTime, 'hours') === 1) {
-      timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO`
+  } else {
+    if (currentTime.diff(postTime, 'days') === 1) {
+      timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO`;
     } else {
-      timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`
+      timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
     }
   }
- } else {
-  if (currentTime.diff(postTime, 'days') === 1) {
-    timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO`
-  } else {
-    timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`
-  }
-}
 
   const goToProfile = async () => {
     await dispatch(getProfileData(data.users_id));
+    AmpEvent('Select Profile from Campaign', {
+      profile: data.username,
+      campaign: data.camp_name
+    });
     props.navigation.navigate('Pro');
   };
 
   const goToCampaign = async () => {
     await dispatch(getCampaign(data.camp_id));
+    AmpEvent('Select Profile from Campaign', {
+      campaign: data.camp_name,
+      profile: data.username
+    });
     props.navigation.navigate('Camp');
   };
 
   const toggleText = () => {
-    dispatch(toggleCampaignText(data.camp_id))
-  }
+    dispatch(toggleCampaignText(data.camp_id));
+  };
 
   return (
     <View style={styles.container}>
@@ -91,37 +103,32 @@ const FeedCampaign = props => {
         subtitle={data.location}
       />
       <View>
-        <TouchableOpacity activeOpacity = { .5 } onPress={goToCampaign}>
+        <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
           <Image
             source={{ uri: data.camp_img }}
             style={styles.campImgContain}
           />
         </TouchableOpacity>
       </View>
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.goToCampaignButton}
         onPress={goToCampaign}
       >
-        <Text style={styles.goToCampaignText}>See Post  {'>'}</Text>
+        <Text style={styles.goToCampaignText}>See Post {'>'}</Text>
       </TouchableOpacity>
       <View style={styles.campDesc}>
         <Text style={styles.campDescName}>{data.camp_name}</Text>
-        {
-          toggled || data.camp_desc.length < 80
-          ? 
-          <Text style={styles.campDescText}>
-            {data.camp_desc}
-          </Text>
-          :
+        {toggled || data.camp_desc.length < 80 ? (
+          <Text style={styles.campDescText}>{data.camp_desc}</Text>
+        ) : (
           <Text style={styles.campDescText}>
             {shorten(data.camp_desc, 80)}
             &nbsp;
-            <Text 
-              onPress={toggleText}
-              style={styles.readMore}>Read More
+            <Text onPress={toggleText} style={styles.readMore}>
+              Read More
             </Text>
           </Text>
-        }
+        )}
       </View>
       <Text style={styles.timeText}>{timeDiff}</Text>
     </View>
