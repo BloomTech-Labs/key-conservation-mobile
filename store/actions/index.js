@@ -184,7 +184,7 @@ export const getCampaign = id => dispatch => {
   axios
     .get(`https://key-conservation.herokuapp.com/api/campaigns/${id}`)
     .then(res => {
-      console.log(res.data);
+      // console.log(res.data);
       dispatch({ type: GET_CAMPAIGN_SUCCESS, payload: res.data.camp });
     })
     .catch(err => {
@@ -208,7 +208,7 @@ export const [
 ] = ['POST_CAMPAIGNS_START', 'POST_CAMPAIGNS_ERROR', 'POST_CAMPAIGNS_SUCCESS'];
 
 export const postCampaign = camp => dispatch => {
-  console.log('posting campign************************');
+  // console.log('posting campign************************');
   dispatch({ type: POST_CAMPAIGN_START });
 
   const filteredCamp = filterUrls(['camp_cta'], camp);
@@ -298,7 +298,7 @@ export const editCampaign = (id, changes) => dispatch => {
     formData.append(key, changes[key]);
   });
 
-  console.log('FORMDATA', formData);
+  // console.log('FORMDATA', formData);
 
   axios
     .put(
@@ -312,11 +312,11 @@ export const editCampaign = (id, changes) => dispatch => {
       }
     )
     .then(res => {
-      console.log('RES', res.data.editCamp);
+      // console.log('RES', res.data.editCamp);
       dispatch({ type: EDIT_CAMPAIGN_SUCCESS, payload: res.data.editCamp });
     })
     .catch(err => {
-      console.log('ERR', err);
+      // console.log('ERR', err);
       dispatch({ type: EDIT_CAMPAIGN_ERROR, payload: err });
     });
 };
