@@ -16,7 +16,6 @@ const filterUrls = (keys, object) => {
   });
   return object;
 };
-import * as Amplitude from 'expo-analytics-amplitude';
 
 export const [LOGIN_START, LOGIN_ERROR, LOGIN_SUCCESS] = [
   'LOGIN_START',
@@ -124,16 +123,12 @@ export const editProfileData = (id, changes) => async dispatch => {
   });
 
   return axios
-    .put(
-      `https://key-conservation-staging.herokuapp.com/api/users/${id}`,
-      formData,
-      {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'multipart/form-data'
-        }
+    .put(`https://key-conservation.herokuapp.com/api/users/${id}`, formData, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data'
       }
-    )
+    })
     .then(res => {
       dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.editUser });
     })
@@ -235,16 +230,12 @@ export const postCampaign = camp => dispatch => {
   formData.append('users_id', filteredCamp.users_id);
 
   axios
-    .post(
-      'https://key-conservation.herokuapp.com/api/campaigns',
-      formData,
-      {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'multipart/form-data'
-        }
+    .post('https://key-conservation.herokuapp.com/api/campaigns', formData, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data'
       }
-    )
+    })
     .then(res => {
       dispatch({ type: POST_CAMPAIGN_SUCCESS, payload: res.data.newCamps });
     })

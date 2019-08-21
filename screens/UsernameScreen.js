@@ -154,6 +154,7 @@ const styles = StyleSheet.create({
     height: 38
   },
   touchableButton: {
+    marginBottom: 100,
     paddingTop: 25,
     paddingBottom: 25,
     width: '100%',
