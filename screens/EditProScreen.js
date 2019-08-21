@@ -22,7 +22,7 @@ class EditProScreen extends React.Component {
     await SecureStorage.deleteItemAsync("sub", {});
     await SecureStorage.deleteItemAsync("email", {});
     await SecureStorage.deleteItemAsync("roles", {});
-    await SecureStorage.deleteItemAsync("userId", {});
+    await SecureStorage.deleteItemAsync("id", {});
     this.props.logout();
     this.props.navigation.navigate("Loading");
   };

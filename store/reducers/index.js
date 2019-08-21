@@ -1,4 +1,6 @@
-import * as SecureStore from "expo-secure-store";
+import * as SecureStore from 'expo-secure-store';
+
+import * as Amplitude from 'expo-analytics-amplitude';
 
 import {
   LOGIN_START,
@@ -34,17 +36,19 @@ import {
   TOGGLE_CAMPAIGN_TEXT,
   MEDIA_UPLOAD,
   MEDIA_CLEAR
-} from "../actions";
+} from '../actions';
 
 const initialState = {
-  error: "",
+  error: '',
   pending: {
     updateProfile: false
   },
   currentUser: {
-    sub: "",
-    email: "",
-    token: ""
+    sub: '',
+    role: '',
+    email: '',
+    username: '',
+    token: ''
   },
   currentUserProfile: {
     campaigns: []
@@ -56,7 +60,7 @@ const initialState = {
   allCampaigns: [],
   firstLogin: false,
   campaignsToggled: [],
-  mediaUpload: '',
+  mediaUpload: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -65,7 +69,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, login: true },
-        error: ""
+        error: ''
       };
     case LOGIN_ERROR:
       return {
@@ -74,6 +78,7 @@ const reducer = (state = initialState, action) => {
         error: action.payload
       };
     case LOGIN_SUCCESS:
+      //console.log(action.payload);
       return {
         ...state,
         pending: { ...state.pending, login: false },
@@ -83,23 +88,26 @@ const reducer = (state = initialState, action) => {
           email: action.payload.email,
           token: action.payload.accessToken
         },
-        error: ""
+        error: ''
       };
+    //Amplitude.logEventWithProperties('logged in', currentUser);
+
     case LOGOUT:
       return initialState;
     case AFTER_FIRST_LOGIN:
       return {
         ...state,
         firstLogin: false
-      }
+      };
     case GET_PROFILE_START:
       return {
         ...state,
         pending: { ...state.pending, getProfile: true },
-        error: ""
+        error: ''
       };
     case GET_PROFILE_SUCCESS:
       if (action.payload.myProfile) {
+        //console.log("*******getprofile", action.payload.user)
         return {
           ...state,
           pending: { ...state.pending, getProfile: false },
@@ -122,7 +130,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, updateProfile: true },
-        error: ""
+        error: ''
       };
     case EDIT_PROFILE_SUCCESS:
       return {
@@ -140,17 +148,17 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, postUser: true },
-        error: ""
+        error: ''
       };
     case POST_USER_SUCCESS:
-      SecureStore.setItemAsync("userId", `${action.payload.id}`);
+      SecureStore.setItemAsync('userId', `${action.payload.id}`);
       // console.log("************inside reducer*********", action.payload.id);
       return {
         ...state,
         pending: { ...state.pending, postUser: false },
         currentUserProfile: action.payload,
         firstLogin: true,
-        error: ""
+        error: ''
       };
     case POST_USER_ERROR:
       return {
@@ -162,11 +170,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getCampaigns: true },
-        error: ""
+        error: ''
       };
     case GET_CAMPAIGNS_SUCCESS:
       const campaigns = action.payload;
-      campaigns.sort(function(a, b){return b.camp_id - a.camp_id});
+      campaigns.sort(function(a, b) {
+        return b.camp_id - a.camp_id;
+      });
       return {
         ...state,
         pending: { ...state.pending, getCampaigns: false },
@@ -182,7 +192,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getCampaign: true },
-        error: ""
+        error: ''
       };
     case GET_CAMPAIGN_SUCCESS:
       return {
@@ -200,18 +210,18 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         selectedCampaign: action.payload
-      }
+      };
     case DELETE_CAMPAIGN_START:
       return {
         ...state,
         pending: { ...state.pending, deleteCampaign: true },
-        error: ""
+        error: ''
       };
     case DELETE_CAMPAIGN_SUCCESS:
       const deleted = Number(action.payload);
       const newCampaigns = state.currentUserProfile.campaigns.filter(camp => {
-        return (camp.camp_id !== deleted)
-      })
+        return camp.camp_id !== deleted;
+      });
       return {
         ...state,
         pending: { ...state.pending, deleteCampaign: false },
@@ -230,17 +240,15 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, postCampaign: true },
-        error: ""
+        error: ''
       };
     case POST_CAMPAIGN_SUCCESS:
       return {
         ...state,
         pending: { ...state.pending, postCampaign: false },
         currentUserProfile: {
-          ...state.currentUserProfile, 
-          campaigns: [
-            ...state.currentUserProfile.campaigns, action.payload
-          ]
+          ...state.currentUserProfile,
+          campaigns: [...state.currentUserProfile.campaigns, action.payload]
         }
       };
     case POST_CAMPAIGN_ERROR:
@@ -253,17 +261,17 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, editCampaign: true },
-        error: ""
+        error: ''
       };
     case EDIT_CAMPAIGN_SUCCESS:
-      let { camp_id } = action.payload
+      let { camp_id } = action.payload;
       const alteredCampaigns = state.currentUserProfile.campaigns.map(camp => {
         if (camp.camp_id === camp_id) {
-          return action.payload
+          return action.payload;
         } else {
-          return camp
+          return camp;
         }
-      })
+      });
       return {
         ...state,
         pending: { ...state.pending, editCampaign: false },
@@ -288,15 +296,15 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         mediaUpload: action.payload.media
-      }
+      };
     case MEDIA_CLEAR:
       return {
         ...state,
         mediaUpload: ''
-      }
+      };
     default:
-        return state;
-    }
+      return state;
+  }
 };
 
 export default reducer;

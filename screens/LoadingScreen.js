@@ -7,17 +7,22 @@ import {
   ActivityIndicator,
   ImageBackground
 } from 'react-native';
-import * as SecureStorage from 'expo-secure-store';
+import * as SecureStore from 'expo-secure-store';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import { connect } from 'react-redux';
-import { getProfileData, afterFirstLogin } from '../store/actions';
+import {
+  getProfileData,
+  afterFirstLogin,
+  loginSuccess
+} from '../store/actions';
+import { withAmplitude } from '../components/withAmplitude';
 
 class LoadingScreen extends React.Component {
   async componentDidMount() {
     // id in the auth0 database
-    const sub = await SecureStorage.getItemAsync('sub', {});
-    const roles = await SecureStorage.getItemAsync('roles', {});
+    const sub = await SecureStore.getItemAsync('sub', {});
+    const roles = await SecureStore.getItemAsync('roles', {});
     // console.log("**********loading screen**********", roles);
     // id in the PG database
     this.props.getProfileData(null, sub, true);
@@ -28,10 +33,13 @@ class LoadingScreen extends React.Component {
         if (this.props.userId) {
           console.log('yes', this.props.userRole, roles);
           const userRole = this.props.userRole;
-          await SecureStorage.setItemAsync('roles', `${userRole}`);
-          const newRole = await SecureStorage.getItemAsync('roles', {});
+          await SecureStore.setItemAsync('roles', `${userRole}`);
+          const newRole = await SecureStore.getItemAsync('roles', {});
           console.log('yes', this.props.userRole, newRole);
+          await SecureStore.setItemAsync('id', `${this.props.userId}`);
           this.props.getProfileData(this.props.userId, null, true);
+          this.props.setAmpId(this.props.userId);
+          this.props.AmpEvent('Login');
           let route;
           if (this.props.firstLogin) {
             this.props.afterFirstLogin();
@@ -86,7 +94,7 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { getProfileData, afterFirstLogin }
-)(LoadingScreen);
+)(withAmplitude(LoadingScreen));
 
 const styles = StyleSheet.create({
   container: {

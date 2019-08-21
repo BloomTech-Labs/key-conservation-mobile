@@ -8,10 +8,13 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView
 } from 'react-native';
-import { ScrollView, NavigationEvents } from "react-navigation";
+import { ScrollView, NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import BackButton from '../components/BackButton';
-import * as SecureStorage from "expo-secure-store";
+
+import * as SecureStorage from 'expo-secure-store';
+import * as WebBrowser from 'expo-web-browser';
+
 import DoneButton from '../components/DoneButton';
 import UploadMedia from '../components/UploadMedia';
 
@@ -19,17 +22,19 @@ import { editProfileData, logout, clearMedia } from '../store/actions';
 
 class EditSupProScreen extends React.Component {
   logoutPress = async () => {
-    await SecureStorage.deleteItemAsync("sub", {});
-    await SecureStorage.deleteItemAsync("email", {});
-    await SecureStorage.deleteItemAsync("roles", {});
-    await SecureStorage.deleteItemAsync("userId", {});
+    //console.log('pressed button');
+    await SecureStorage.deleteItemAsync('id', {});
+    await SecureStorage.deleteItemAsync('sub', {});
+    await SecureStorage.deleteItemAsync('email', {});
+    await SecureStorage.deleteItemAsync('roles', {});
+    await SecureStorage.deleteItemAsync('userId', {});
     this.props.logout();
-    this.props.navigation.navigate("Loading");
+    this.props.navigation.navigate('Loading');
   };
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Edit Profile',
+      title: 'Edit Details',
       headerStyle: {
         backgroundColor: '#323338'
       },
@@ -39,15 +44,11 @@ class EditSupProScreen extends React.Component {
         flexGrow: 1,
         alignSelf: 'center'
       },
-      headerLeft: (
-        <BackButton
-          navigation={navigation} 
-        />
-      ),
+      headerLeft: <BackButton navigation={navigation} />,
       headerRight: (
-        <DoneButton 
-          navigation={navigation} 
-          pressAction={navigation.getParam('done')} 
+        <DoneButton
+          navigation={navigation}
+          pressAction={navigation.getParam('done')}
         />
       )
     };
@@ -63,7 +64,7 @@ class EditSupProScreen extends React.Component {
     facebook: this.props.currentUserProfile.facebook,
     instagram: this.props.currentUserProfile.instagram,
     twitter: this.props.currentUserProfile.twitter,
-    species_and_habitats: this.props.currentUserProfile.species_and_habitats,
+    species_and_habitats: this.props.currentUserProfile.species_and_habitats
   };
 
   componentDidMount() {
@@ -76,16 +77,16 @@ class EditSupProScreen extends React.Component {
       changes = {
         ...this.state,
         profile_image: this.props.mediaUpload
-      }
-      console.log("CHANGES", changes)
+      };
+      console.log('CHANGES', changes);
     }
     this.props.editProfileData(this.props.currentUserProfile.id, changes);
     if (this.props.firstLogin) {
-      this.props.navigation.navigate('Home');   
+      this.props.navigation.navigate('Home');
     } else {
-      this.props.navigation.goBack(); 
+      this.props.navigation.goBack();
     }
-  }
+  };
 
   render() {
     return (
@@ -95,11 +96,9 @@ class EditSupProScreen extends React.Component {
         enabled
       >
         <ScrollView>
-        <NavigationEvents
-          onWillFocus={this.props.clearMedia}
-        />
-        <View style={styles.sectionContainer}>
-          <View style={styles.Card} />
+          <NavigationEvents onWillFocus={this.props.clearMedia} />
+          <View style={styles.sectionContainer}>
+            <View style={styles.Card} />
             <View style={styles.sections}>
               <Text style={styles.sectionsText}>Name</Text>
               <TextInput
@@ -125,8 +124,11 @@ class EditSupProScreen extends React.Component {
                   this.usernameInput = input;
                 }}
                 returnKeyType='next'
+                keyboardType='url'
                 style={styles.inputContain}
-                onChangeText={text => this.setState({ username: text })}
+                autoCapitalize='none'
+                placeholder='Please include full URL'
+                onChangeText={text => this.setState({ org_link_url: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
                   this.profileImageInput.focus();
@@ -165,48 +167,17 @@ class EditSupProScreen extends React.Component {
                   this.locationInput = input;
                 }}
                 returnKeyType='next'
+                keyboardType='url'
                 style={styles.inputContain}
-                onChangeText={text => this.setState({ location: text })}
+                autoCapitalize='none'
+                placeholder='Please include full URL'
+                onChangeText={text => this.setState({ org_cta: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
                   this.mini_bioInput.focus();
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.location}
-              />
-            </View>
-
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>About Me</Text>
-              <TextInput
-                ref={input => {
-                  this.mini_bioInput = input;
-                }}
-                returnKeyType='next'
-                style={styles.inputContain2}
-                onChangeText={text => this.setState({ mini_bio: text })}
-                multiline={true}
-                value={this.state.mini_bio}
-              />
-            </View>
-
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Email</Text>
-              <TextInput
-                ref={input => {
-                  this.emailInput = input;
-                }}
-                returnKeyType='next'
-                placeholder='Email'
-                keyboardType='email-address'
-                style={styles.inputContain}
-                onChangeText={text => this.setState({ email: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.facebookInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.email}
+                value={this.state.org_cta}
               />
             </View>
 
@@ -274,6 +245,20 @@ class EditSupProScreen extends React.Component {
             </View>
 
             <View style={styles.sections}>
+              <Text style={styles.sectionsText}>About Us</Text>
+              <TextInput
+                ref={input => {
+                  this.about_usInput = input;
+                }}
+                returnKeyType='next'
+                style={styles.inputContain2}
+                onChangeText={text => this.setState({ about_us: text })}
+                multiline={true}
+                value={this.state.about_us}
+              />
+            </View>
+
+            <View style={styles.sections}>
               <Text style={styles.sectionsText}>Species & Habitats</Text>
               <TextInput
                 ref={input => {
@@ -281,19 +266,34 @@ class EditSupProScreen extends React.Component {
                 }}
                 returnKeyType='next'
                 style={styles.inputContain2}
-                onChangeText={text => this.setState({ species_and_habitats: text })}
+                onChangeText={text =>
+                  this.setState({ species_and_habitats: text })
+                }
                 multiline={true}
                 value={this.state.species_and_habitats}
               />
             </View>
 
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>Big Issues</Text>
+              <TextInput
+                ref={input => {
+                  this.issuesInput = input;
+                }}
+                returnKeyType='next'
+                style={styles.inputContain2}
+                onChangeText={text => this.setState({ issues: text })}
+                multiline={true}
+                value={this.state.issues}
+              />
+            </View>
             <View style={styles.logoutSection}>
               <Text style={styles.accountSettingsText}>Account Settings:</Text>
               <TouchableOpacity
-              onPress = {this.logoutPress}
-              style = {styles.logoutButton}
+                onPress={this.logoutPress}
+                style={styles.logoutButton}
               >
-                <Text style = {styles.buttonText}>Logout</Text>
+                <Text style={styles.buttonText}>Logout</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -370,11 +370,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 5
   },
+  logoutSection: {
+    justifyContent: 'flex-start',
+    flexDirection: 'column',
+    marginBottom: 20,
+    width: '100%'
+  },
+  accountSettingsText: {
+    fontSize: 20,
+    fontFamily: 'OpenSans-SemiBold',
+    marginBottom: 10
+  },
   logoutButton: {
     fontSize: 20,
-    alignItems: "flex-start",
-    backgroundColor: 'white',
-    marginBottom: 10
+    alignItems: 'flex-start',
+    backgroundColor: 'white'
   },
   buttonText: {
     color: 'blue',

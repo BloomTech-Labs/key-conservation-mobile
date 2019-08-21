@@ -111,8 +111,8 @@ export default (LoginScreen = props => {
         email: decoded.email,
         sub: decoded.sub
       };
-      const userLog2 = await SecureStore.getItemAsync('sub', {});
-      console.log('*********async test user*************', userLog2);
+      // const userLog2 = await SecureStore.getItemAsync("sub", {});
+      // console.log("*********async test user*************", userLog2);
 
       // dispatch(getProfileData(null, chosenDecoded.sub, true));
 
@@ -126,6 +126,7 @@ export default (LoginScreen = props => {
       console.log('*********async user*************', userLog);
 
       dispatch(loginSuccess(chosenDecoded));
+
       await dispatch(getProfileData(null, chosenDecoded.sub, true));
       navigation.navigate('Loading');
     }
@@ -169,7 +170,7 @@ export default (LoginScreen = props => {
       <View style={styles.needHelp}>
         {/* <Text style={styles.needHelpText}>Not sure which one to pick?</Text>
         <Button
-          title="Click Here"
+          title='Click Here'
           style={styles.needHelpText}
           onPress={() => {
             null;

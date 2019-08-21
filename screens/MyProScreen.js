@@ -1,21 +1,14 @@
 import React, { useEffect } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Button,
-  TouchableOpacity
-} from 'react-native';
+import { StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native';
 import {
   Menu,
   MenuOptions,
   MenuOption,
-  MenuTrigger,
+  MenuTrigger
 } from 'react-native-popup-menu';
-import SvgUri from 'react-native-svg-uri';
-import { ScrollView } from "react-navigation";
+import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
-
+import SvgUri from 'react-native-svg-uri';
 import { Icon, ListItem } from 'react-native-elements';
 
 import { getProfileData, deleteCampaign, setCampaign } from '../store/actions';
@@ -37,7 +30,7 @@ class MyProScreen extends React.Component {
         textAlign: 'center',
         flexGrow: 1,
         alignSelf: 'center',
-        fontFamily: 'OpenSans-SemiBold',
+        fontFamily: 'OpenSans-SemiBold'
       },
       headerLeft: <View />,
       headerRight: <EditButton navigation={navigation} editRoute={'EditPro'} />
@@ -45,18 +38,22 @@ class MyProScreen extends React.Component {
   };
 
   componentDidMount() {
-    this.props.getProfileData(this.props.currentUserProfile.id, false, 'myProfile');
+    this.props.getProfileData(
+      this.props.currentUserProfile.id,
+      false,
+      'myProfile'
+    );
   }
 
-  goToCampaign = async (camp) => {
+  goToCampaign = async camp => {
     this.props.setCampaign(camp);
     this.props.navigation.navigate('Camp');
   };
 
-  goToEditCampaign = async (camp) => {
-    this.props.setCampaign(camp)
-    this.props.navigation.navigate('EditCamp')
-  }
+  goToEditCampaign = async camp => {
+    this.props.setCampaign(camp);
+    this.props.navigation.navigate('EditCamp');
+  };
 
   render() {
     return (
@@ -79,17 +76,33 @@ class MyProScreen extends React.Component {
                   subtitle={camp.location}
                   rightIcon={
                     <Menu>
-                      <MenuTrigger children={
-                        <View>
-                          <SvgUri width='25' height='25' source={require('../assets/icons/ellipsis-vertical.svg')} />
-                        </View>
-                      }/>
+                      <MenuTrigger
+                        children={
+                          <View>
+                            <SvgUri
+                              width='25'
+                              height='25'
+                              source={require('../assets/icons/ellipsis-vertical.svg')}
+                            />
+                          </View>
+                        }
+                      />
                       <MenuOptions customStyles={optionsStyles}>
-                        <MenuOption onSelect={() => this.goToEditCampaign(camp)}>
-                          <Text style={{color: '#000',fontSize: 16 }}>Edit</Text>
+                        <MenuOption
+                          onSelect={() => this.goToEditCampaign(camp)}
+                        >
+                          <Text style={{ color: '#000', fontSize: 16 }}>
+                            Edit
+                          </Text>
                         </MenuOption>
-                        <MenuOption onSelect={() => this.props.deleteCampaign(camp.camp_id)}>
-                          <Text style={{color: '#ff0a55',fontSize: 16 }}>Delete</Text>
+                        <MenuOption
+                          onSelect={() =>
+                            this.props.deleteCampaign(camp.camp_id)
+                          }
+                        >
+                          <Text style={{ color: '#ff0a55', fontSize: 16 }}>
+                            Delete
+                          </Text>
                         </MenuOption>
                       </MenuOptions>
                     </Menu>
@@ -110,9 +123,8 @@ const mapStateToProps = state => ({
 const optionsStyles = {
   optionsContainer: {
     width: 150
-    
-  },
-}
+  }
+};
 
 export default connect(
   mapStateToProps,

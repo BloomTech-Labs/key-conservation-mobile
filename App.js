@@ -6,31 +6,56 @@ import { MenuProvider } from 'react-native-popup-menu';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 
 import AppNavigator from './navigation/AppNavigator';
-
+import { AmpInit, withAmplitude } from './components/withAmplitude';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 
 const store = configureStore();
 
-export default function App(props) {
+export default withAmplitude(App, true);
+
+function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
+
+  const navState = (nextScreen, action) => {
+    const object = {
+      prevScreen: nextScreen.routes[0].routeName,
+      nextScreen: nextScreen.routes[1].routeName,
+      action: action.type
+    };
+    return object;
+  };
+
+  const handleNavigationChange = (prevState, newState, action) => {
+    const navigationAnalytics = navState(newState, action);
+    props.AmpEvent('Screen Navigation', navigationAnalytics);
+  };
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
       <AppLoading
         startAsync={loadResourcesAsync}
         onError={handleLoadingError}
-        onFinish={() => handleFinishLoading(setLoadingComplete)}
+        onFinish={() => {
+          AmpInit();
+          handleFinishLoading(setLoadingComplete);
+        }}
       />
     );
   } else {
     return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle='light-content' />}
-        {Platform.OS === 'android' && <StatusBar barStyle='light-content' translucent />}
+        {Platform.OS === 'android' && (
+          <StatusBar barStyle='light-content' translucent />
+        )}
         <Provider store={store}>
           <MenuProvider>
-            <AppNavigator />
+            <AppNavigator
+              onNavigationStateChange={(prevState, newState, action) => {
+                handleNavigationChange(prevState, newState, action);
+              }}
+            />
           </MenuProvider>
         </Provider>
       </View>
