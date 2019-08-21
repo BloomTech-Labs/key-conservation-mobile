@@ -210,10 +210,9 @@ export const [
   POST_CAMPAIGN_START,
   POST_CAMPAIGN_ERROR,
   POST_CAMPAIGN_SUCCESS
-] = ['POST_CAMPAIGNS_START', 'POST_CAMPAIGNS_ERROR', 'POST_CAMPAIGNS_SUCCESS'];
+] = ['POST_CAMPAIGN_START', 'POST_CAMPAIGN_ERROR', 'POST_CAMPAIGN_SUCCESS'];
 
 export const postCampaign = camp => dispatch => {
-  console.log('posting campign************************');
   dispatch({ type: POST_CAMPAIGN_START });
 
   const filteredCamp = filterUrls(['camp_cta'], camp);
@@ -258,9 +257,9 @@ export const [
   DELETE_CAMPAIGN_ERROR,
   DELETE_CAMPAIGN_SUCCESS
 ] = [
-  'DELETE_CAMPAIGNS_START',
-  'DELETE_CAMPAIGNS_ERROR',
-  'DELETE_CAMPAIGNS_SUCCESS'
+  'DELETE_CAMPAIGN_START',
+  'DELETE_CAMPAIGN_ERROR',
+  'DELETE_CAMPAIGN_SUCCESS'
 ];
 
 export const deleteCampaign = id => dispatch => {
@@ -307,8 +306,6 @@ export const editCampaign = (id, changes) => dispatch => {
     formData.append(key, changes[key]);
   });
 
-  console.log('FORMDATA', formData);
-
   axios
     .put(
       `https://key-conservation-staging.herokuapp.com/api/campaigns/${id}`,
@@ -321,14 +318,57 @@ export const editCampaign = (id, changes) => dispatch => {
       }
     )
     .then(res => {
-      console.log('RES', res.data.editCamp);
       dispatch({ type: EDIT_CAMPAIGN_SUCCESS, payload: res.data.editCamp });
     })
     .catch(err => {
-      console.log('ERR', err);
       dispatch({ type: EDIT_CAMPAIGN_ERROR, payload: err });
     });
 };
+
+export const [
+  POST_CAMPAIGN_UPDATE_START,
+  POST_CAMPAIGN_UPDATE_ERROR,
+  POST_CAMPAIGN_UPDATE_SUCCESS
+] = ['POST_CAMPAIGN_UPDATE_START', 'POST_CAMPAIGN_UPDATE_ERROR', 'POST_CAMPAIGN_UPDATE_SUCCESS'];
+
+export const postCampaignUpdate = campUpdate => dispatch => {
+  dispatch({ type: POST_CAMPAIGN_UPDATE_START });
+
+  const uri = campUpdate.update_img;
+
+  let uriParts = uri.split('.');
+  let fileType = uriParts[uriParts.length - 1];
+
+  let formData = new FormData();
+  formData.append('photo', {
+    uri,
+    name: `photo.${fileType}`,
+    type: `image/${fileType}`
+  });
+
+  formData.append('update_desc', campUpdate.update_desc);
+  formData.append('users_id', campUpdate.users_id);
+  formData.append('camp_id', campUpdate.camp_id);
+
+  axios
+    .post(
+      'https://key-conservation-staging.herokuapp.com/api/updates',
+      formData,
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    )
+    .then(res => {
+      dispatch({ type: POST_CAMPAIGN_UPDATE_SUCCESS, payload: res.data.newCampUpdates });
+    })
+    .catch(err => {
+      dispatch({ type: POST_CAMPAIGN_UPDATE_ERROR, payload: err });
+    });
+};
+
 
 export const TOGGLE_CAMPAIGN_TEXT = 'TOGGLE_CAMPAIGN_TEXT';
 

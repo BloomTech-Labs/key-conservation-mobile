@@ -33,6 +33,9 @@ import {
   EDIT_CAMPAIGN_START,
   EDIT_CAMPAIGN_ERROR,
   EDIT_CAMPAIGN_SUCCESS,
+  POST_CAMPAIGN_UPDATE_START,
+  POST_CAMPAIGN_UPDATE_ERROR,
+  POST_CAMPAIGN_UPDATE_SUCCESS,
   TOGGLE_CAMPAIGN_TEXT,
   MEDIA_UPLOAD,
   MEDIA_CLEAR
@@ -285,6 +288,27 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, editCampaign: false },
+        error: action.payload
+      };
+    case POST_CAMPAIGN_UPDATE_START:
+      return {
+        ...state,
+        pending: { ...state.pending, postCampaignUpdate: true },
+        error: ''
+      };
+    case POST_CAMPAIGN_UPDATE_SUCCESS:
+      return {
+        ...state,
+        pending: { ...state.pending, postCampaignUpdate: false },
+        currentUserProfile: {
+          ...state.currentUserProfile,
+          campaigns: [...state.currentUserProfile.campaigns, action.payload]
+        }
+      };
+    case POST_CAMPAIGN_UPDATE_ERROR:
+      return {
+        ...state,
+        pending: { ...state.pending, postCampaignUpdate: false },
         error: action.payload
       };
     case TOGGLE_CAMPAIGN_TEXT:

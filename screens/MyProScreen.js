@@ -45,15 +45,20 @@ class MyProScreen extends React.Component {
     );
   }
 
-  goToCampaign = async camp => {
+  goToCampaign = camp => {
     this.props.setCampaign(camp);
     this.props.navigation.navigate('Camp');
   };
 
-  goToEditCampaign = async camp => {
+  goToEditCampaign = camp => {
     this.props.setCampaign(camp);
     this.props.navigation.navigate('EditCamp');
   };
+
+  goToCreateCampUpdate = camp => {
+    this.props.setCampaign(camp);
+    this.props.navigation.navigate('CreateCampUpdate');
+  }
 
   render() {
     return (
@@ -88,22 +93,32 @@ class MyProScreen extends React.Component {
                         }
                       />
                       <MenuOptions customStyles={optionsStyles}>
-                        <MenuOption
-                          onSelect={() => this.goToEditCampaign(camp)}
-                        >
-                          <Text style={{ color: '#000', fontSize: 16 }}>
-                            Edit
-                          </Text>
-                        </MenuOption>
-                        <MenuOption
+                      <MenuOption
                           onSelect={() =>
                             this.props.deleteCampaign(camp.camp_id)
                           }
                         >
                           <Text style={{ color: '#ff0a55', fontSize: 16 }}>
-                            Delete
+                            Delete Campaign
                           </Text>
                         </MenuOption>
+                        <MenuOption
+                          onSelect={() =>
+                            this.goToCreateCampUpdate(camp)
+                            }
+                          >
+                          <Text style={{ color: '#000', fontSize: 16 }}>
+                            Make Update Post
+                          </Text>
+                        </MenuOption>
+                        <MenuOption
+                          onSelect={() => this.goToEditCampaign(camp)}
+                        >
+                          <Text style={{ color: '#000', fontSize: 16 }}>
+                            Edit Post
+                          </Text>
+                        </MenuOption>
+                        
                       </MenuOptions>
                     </Menu>
                   }
