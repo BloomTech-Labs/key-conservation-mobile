@@ -1,14 +1,14 @@
-import React from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
-import { ScrollView } from "react-navigation";
-import { connect } from "react-redux";
-import { Icon } from "react-native-elements";
-
-import { getCampaigns } from "../store/actions";
-
-import FeedCampaign from "../components/FeedScreen/FeedCampaign";
-
-import styles from "../constants/Stylesheet";
+import React from 'react';
+import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import { ScrollView } from 'react-navigation';
+import { connect } from 'react-redux';
+import * as SecureStorage from 'expo-secure-store';
+import { Icon } from 'react-native-elements';
+import { getCampaigns } from '../store/actions';
+import FeedCampaign from '../components/FeedScreen/FeedCampaign';
+import LoginButton from '../components/LoginButton';
+import SvgUri from 'react-native-svg-uri';
+import styles from '../constants/Stylesheet';
 
 class FeedScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -20,20 +20,32 @@ class FeedScreen extends React.Component {
       headerTintColor: '#fff',
       headerTitleStyle: {
         textAlign: 'center',
-        flexGrow: 1,
-        alignSelf: 'center',
-        fontFamily: 'OpenSans-SemiBold',
+        position: 'absolute',
+        width: '100%',
+        fontFamily: 'OpenSans-SemiBold'
       },
       headerLeft: <View />,
-      headerRight: <View />
-    }
+      headerRight: (
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Search')}
+          style={{ marginRight: 15 }}
+        >
+          <SvgUri
+            width='25'
+            height='25'
+            source={require('../assets/icons/search-regular.svg')}
+          />
+        </TouchableOpacity>
+      )
+    };
   };
-
   componentDidMount() {
-    this.props.navigation.setParams({ roles: this.props.currentUserProfile.roles });
+    this.props.navigation.setParams({
+      roles: this.props.currentUserProfile.roles
+    });
     this.props.getCampaigns();
     let refreshInterval = setInterval(() => this.props.getCampaigns(), 10000);
-  };
+  }
 
   render() {
     const { navigation } = this.props;
@@ -62,7 +74,6 @@ const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
   campaignsToggled: state.campaignsToggled
 });
-  
 
 export default connect(
   mapStateToProps,
