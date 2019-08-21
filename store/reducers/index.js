@@ -20,12 +20,22 @@ import {
   GET_CAMPAIGNS_START,
   GET_CAMPAIGNS_ERROR,
   GET_CAMPAIGNS_SUCCESS,
+  GET_CAMPAIGN_START,
+  GET_CAMPAIGN_ERROR,
+  GET_CAMPAIGN_SUCCESS,
+  SET_CAMPAIGN,
   POST_CAMPAIGN_START,
   POST_CAMPAIGN_ERROR,
   POST_CAMPAIGN_SUCCESS,
   DELETE_CAMPAIGN_START,
   DELETE_CAMPAIGN_ERROR,
-  DELETE_CAMPAIGN_SUCCESS
+  DELETE_CAMPAIGN_SUCCESS,
+  EDIT_CAMPAIGN_START,
+  EDIT_CAMPAIGN_ERROR,
+  EDIT_CAMPAIGN_SUCCESS,
+  TOGGLE_CAMPAIGN_TEXT,
+  MEDIA_UPLOAD,
+  MEDIA_CLEAR
 } from '../actions';
 
 const initialState = {
@@ -46,8 +56,11 @@ const initialState = {
   selectedProfile: {
     campaigns: []
   },
+  selectedCampaign: {},
   allCampaigns: [],
-  firstLogin: false
+  firstLogin: false,
+  campaignsToggled: [],
+  mediaUpload: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -175,6 +188,29 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, getCampaigns: false },
         error: action.payload
       };
+    case GET_CAMPAIGN_START:
+      return {
+        ...state,
+        pending: { ...state.pending, getCampaign: true },
+        error: ''
+      };
+    case GET_CAMPAIGN_SUCCESS:
+      return {
+        ...state,
+        pending: { ...state.pending, getCampaign: false },
+        selectedCampaign: action.payload
+      };
+    case GET_CAMPAIGN_ERROR:
+      return {
+        ...state,
+        pending: { ...state.pending, getCampaign: false },
+        error: action.payload
+      };
+    case SET_CAMPAIGN:
+      return {
+        ...state,
+        selectedCampaign: action.payload
+      };
     case DELETE_CAMPAIGN_START:
       return {
         ...state,
@@ -220,6 +256,51 @@ const reducer = (state = initialState, action) => {
         ...state,
         pending: { ...state.pending, postCampaign: false },
         error: action.payload
+      };
+    case EDIT_CAMPAIGN_START:
+      return {
+        ...state,
+        pending: { ...state.pending, editCampaign: true },
+        error: ''
+      };
+    case EDIT_CAMPAIGN_SUCCESS:
+      let { camp_id } = action.payload;
+      const alteredCampaigns = state.currentUserProfile.campaigns.map(camp => {
+        if (camp.camp_id === camp_id) {
+          return action.payload;
+        } else {
+          return camp;
+        }
+      });
+      return {
+        ...state,
+        pending: { ...state.pending, editCampaign: false },
+        currentUserProfile: {
+          ...state.currentUserProfile,
+          campaigns: alteredCampaigns
+        },
+        selectedCampaign: action.payload
+      };
+    case EDIT_CAMPAIGN_ERROR:
+      return {
+        ...state,
+        pending: { ...state.pending, editCampaign: false },
+        error: action.payload
+      };
+    case TOGGLE_CAMPAIGN_TEXT:
+      return {
+        ...state,
+        campaignsToggled: [...state.campaignsToggled, action.payload]
+      };
+    case MEDIA_UPLOAD:
+      return {
+        ...state,
+        mediaUpload: action.payload.media
+      };
+    case MEDIA_CLEAR:
+      return {
+        ...state,
+        mediaUpload: ''
       };
     default:
       return state;

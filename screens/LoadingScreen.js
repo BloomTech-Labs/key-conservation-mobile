@@ -22,7 +22,8 @@ class LoadingScreen extends React.Component {
   async componentDidMount() {
     // id in the auth0 database
     const sub = await SecureStore.getItemAsync('sub', {});
-    // console.log("**********loading screen**********", sub);
+    const roles = await SecureStore.getItemAsync('roles', {});
+    // console.log("**********loading screen**********", roles);
     // id in the PG database
     this.props.getProfileData(null, sub, true);
     setTimeout(async () => {
@@ -30,18 +31,29 @@ class LoadingScreen extends React.Component {
         // console.log("data is present");
         // console.log(this.props.userId);
         if (this.props.userId) {
+          console.log('yes', this.props.userRole, roles);
+          const userRole = this.props.userRole;
+          await SecureStore.setItemAsync('roles', `${userRole}`);
+          const newRole = await SecureStore.getItemAsync('roles', {});
+          console.log('yes', this.props.userRole, newRole);
           await SecureStore.setItemAsync('id', `${this.props.userId}`);
-          // console.log("yes", this.props.userId);
-          console.log('*********role from loading screen', this.props.role);
           this.props.getProfileData(this.props.userId, null, true);
           this.props.setAmpId(this.props.userId);
           this.props.AmpEvent('Login');
           let route;
           if (this.props.firstLogin) {
             this.props.afterFirstLogin();
-            this.props.navigation.navigate('EditPro');
+            this.props.navigation.navigate(
+              this.props.userRole === 'conservationist'
+                ? 'EditPro'
+                : 'EditSupPro'
+            );
           } else {
-            this.props.navigation.navigate('Conservationist');
+            this.props.navigation.navigate(
+              this.props.userRole === 'conservationist'
+                ? 'Conservationist'
+                : 'Supporter'
+            );
           }
         } else {
           // console.log("no", this.props.userId);
@@ -75,8 +87,8 @@ class LoadingScreen extends React.Component {
 const mapStateToProps = state => ({
   error: state.error,
   userId: state.currentUserProfile.id,
-  role: state.currentUserProfile.roles,
-  firstLogin: state.firstLogin
+  firstLogin: state.firstLogin,
+  userRole: state.currentUserProfile.roles
 });
 
 export default connect(

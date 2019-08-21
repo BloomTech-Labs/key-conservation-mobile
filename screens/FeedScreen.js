@@ -1,15 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
 import * as SecureStorage from 'expo-secure-store';
 import { Icon } from 'react-native-elements';
-
 import { getCampaigns } from '../store/actions';
-
-import Campaign from '../components/FeedScreen/Campaign';
+import FeedCampaign from '../components/FeedScreen/FeedCampaign';
 import LoginButton from '../components/LoginButton';
-
+import SvgUri from 'react-native-svg-uri';
 import styles from '../constants/Stylesheet';
 
 class FeedScreen extends React.Component {
@@ -22,16 +20,25 @@ class FeedScreen extends React.Component {
       headerTintColor: '#fff',
       headerTitleStyle: {
         textAlign: 'center',
-        flexGrow: 1,
-        alignSelf: 'center',
+        position: 'absolute',
+        width: '100%',
         fontFamily: 'OpenSans-SemiBold'
       },
       headerLeft: <View />,
-      headerRight: <View />
-      // headerRight: <LoginButton roles={navigation.getParam('roles')} navigation={navigation} loginRoute={'Login'} />
+      headerRight: (
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Search')}
+          style={{ marginRight: 15 }}
+        >
+          <SvgUri
+            width='25'
+            height='25'
+            source={require('../assets/icons/search-regular.svg')}
+          />
+        </TouchableOpacity>
+      )
     };
   };
-
   componentDidMount() {
     this.props.navigation.setParams({
       roles: this.props.currentUserProfile.roles
@@ -46,11 +53,12 @@ class FeedScreen extends React.Component {
       <ScrollView>
         <View style={styles.feedContainer}>
           {this.props.allCampaigns.length > 0 &&
-            this.props.allCampaigns.map(campaign => {
+            this.props.allCampaigns.map(camp => {
               return (
-                <Campaign
-                  key={campaign.camp_id}
-                  data={campaign}
+                <FeedCampaign
+                  key={camp.camp_id}
+                  data={camp}
+                  toggled={this.props.campaignsToggled.includes(camp.camp_id)}
                   navigation={navigation}
                 />
               );
@@ -63,7 +71,8 @@ class FeedScreen extends React.Component {
 
 const mapStateToProps = state => ({
   allCampaigns: state.allCampaigns,
-  currentUserProfile: state.currentUserProfile
+  currentUserProfile: state.currentUserProfile,
+  campaignsToggled: state.campaignsToggled
 });
 
 export default connect(

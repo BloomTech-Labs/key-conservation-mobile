@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView
 } from 'react-native';
-import { ScrollView } from 'react-navigation';
+import { ScrollView, NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import BackButton from '../components/BackButton';
 
@@ -16,8 +16,9 @@ import * as SecureStorage from 'expo-secure-store';
 import * as WebBrowser from 'expo-web-browser';
 
 import DoneButton from '../components/DoneButton';
+import UploadMedia from '../components/UploadMedia';
 
-import { postUser, editProfileData, logout } from '../store/actions';
+import { editProfileData, logout, clearMedia } from '../store/actions';
 
 class EditSupProScreen extends React.Component {
   logoutPress = async () => {
@@ -63,7 +64,7 @@ class EditSupProScreen extends React.Component {
     facebook: this.props.currentUserProfile.facebook,
     instagram: this.props.currentUserProfile.instagram,
     twitter: this.props.currentUserProfile.twitter,
-    species_and_habitats: this.props.currentUserProfile.species_and_habitats,
+    species_and_habitats: this.props.currentUserProfile.species_and_habitats
   };
 
   componentDidMount() {
@@ -71,14 +72,21 @@ class EditSupProScreen extends React.Component {
   }
 
   done = () => {
-    //console.log(this.props.currentUserProfile)
-    this.props.editProfileData(this.props.currentUserProfile.id, this.state);
-    if (this.props.firstLogin) {
-      this.props.navigation.navigate('Home');   
-    } else {
-      this.props.navigation.goBack(); 
+    let changes = this.state;
+    if (this.props.mediaUpload) {
+      changes = {
+        ...this.state,
+        profile_image: this.props.mediaUpload
+      };
+      console.log('CHANGES', changes);
     }
-  }
+    this.props.editProfileData(this.props.currentUserProfile.id, changes);
+    if (this.props.firstLogin) {
+      this.props.navigation.navigate('Home');
+    } else {
+      this.props.navigation.goBack();
+    }
+  };
 
   render() {
     return (
@@ -88,8 +96,9 @@ class EditSupProScreen extends React.Component {
         enabled
       >
         <ScrollView>
-        <View style={styles.sectionContainer}>
-          <View style={styles.Card} />
+          <NavigationEvents onWillFocus={this.props.clearMedia} />
+          <View style={styles.sectionContainer}>
+            <View style={styles.Card} />
             <View style={styles.sections}>
               <Text style={styles.sectionsText}>Name</Text>
               <TextInput
@@ -130,7 +139,8 @@ class EditSupProScreen extends React.Component {
             </View>
 
             <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Profile Image URL</Text>
+              <UploadMedia />
+              {/* <Text style={styles.sectionsText}>Profile Image URL</Text>
               <TextInput
                 ref={input => {
                   this.profileImageInput = input;
@@ -147,7 +157,7 @@ class EditSupProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.profile_image}
-              />
+              /> */}
             </View>
 
             <View style={styles.sections}>
@@ -295,12 +305,13 @@ class EditSupProScreen extends React.Component {
 
 const mapStateToProps = state => ({
   error: state.error,
-  currentUserProfile: state.currentUserProfile
+  currentUserProfile: state.currentUserProfile,
+  mediaUpload: state.mediaUpload
 });
 
 export default connect(
   mapStateToProps,
-  { editProfileData, logout }
+  { editProfileData, logout, clearMedia }
 )(EditSupProScreen);
 
 const styles = StyleSheet.create({
