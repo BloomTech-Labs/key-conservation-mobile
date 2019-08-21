@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as SecureStorage from 'expo-secure-store';
 import { Icon } from 'react-native-elements';
 import { getCampaigns } from '../store/actions';
-import Campaign from '../components/FeedScreen/Campaign';
+import FeedCampaign from '../components/FeedScreen/FeedCampaign';
 import LoginButton from '../components/LoginButton';
 import SvgUri from 'react-native-svg-uri';
 import styles from '../constants/Stylesheet';

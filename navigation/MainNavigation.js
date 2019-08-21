@@ -12,7 +12,7 @@ import MyProScreen from '../screens/MyProScreen';
 import EditProScreen from '../screens/EditProScreen';
 import DetailScreen from '../screens/DetailScreen';
 import MyDetailScreen from '../screens/MyDetailScreen';
-import EditDetailScreen from '../screens/EditDetailScreen';
+import MySupProScreen from '../screens/MySupProScreen';
 import LoginScreen from '../screens/LoginScreen';
 import UsernameScreen from '../screens/UsernameScreen';
 import SvgUri from 'react-native-svg-uri';
@@ -107,10 +107,10 @@ const MyProStack = createStackNavigator(
       screen: EditProScreen,
       navigationOptions: { title: 'Edit Profile' }
     },
-    EditDetail: {
-      screen: EditDetailScreen,
-      navigationOptions: { title: 'Edit Details' }
-    },
+    // EditDetail: {
+    //   screen: EditDetailScreen,
+    //   navigationOptions: { title: 'Edit Details' }
+    // },
     Camp: ViewCampScreen,
     EditCamp: EditCampScreen
   },

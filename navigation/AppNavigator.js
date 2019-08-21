@@ -7,7 +7,7 @@ import {
   LoginStack,
   UsernameStack,
   SearchStack
-} from './MainTabNavigator';
+} from './MainNavigation';
 import LoadingScreen from '../screens/LoadingScreen';
 
 // This is the top level navigator for the app. It covers the loading process, and sorts the user into the version of the app they will be seeing.
@@ -17,8 +17,8 @@ export default createAppContainer(
     Loading: LoadingScreen,
     Login: LoginStack,
     CreateAccount: UsernameStack,
-    Conservationist: TabNavigator,
-    Supporter: NoTabNavigator,
+    Conservationist: ConsNavigator,
+    Supporter: SupNavigator,
     Search: SearchStack
   })
 );
