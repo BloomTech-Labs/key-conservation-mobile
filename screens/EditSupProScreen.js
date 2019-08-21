@@ -78,7 +78,7 @@ class EditSupProScreen extends React.Component {
         ...this.state,
         profile_image: this.props.mediaUpload
       };
-      console.log('CHANGES', changes);
+      // console.log('CHANGES', changes);
     }
     this.props.editProfileData(this.props.currentUserProfile.id, changes);
     if (this.props.firstLogin) {
