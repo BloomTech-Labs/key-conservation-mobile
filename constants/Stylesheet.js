@@ -1,5 +1,3 @@
-import { CoverageMap } from "istanbul-lib-coverage";
-
 export default {
   // # Campaign.js Styles # //
   container: {
@@ -7,13 +5,12 @@ export default {
     // marginBottom: 10,
     borderBottomWidth: 2,
     borderBottomColor: '#eee',
-    paddingBottom: 45,
+    paddingBottom: 45
   },
   donateButton: {
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: 'OpenSans-SemiBold',
     width: '60%',
-    alignSelf: 'center',
-    
+    alignSelf: 'center'
   },
   listItem: {
     fontFamily: 'OpenSans-Regular',
@@ -31,13 +28,12 @@ export default {
     fontFamily: 'OpenSans-SemiBold',
     paddingRight: 15
   },
-  
+
   touchableButton: {
     paddingTop: 25,
     paddingBottom: 25,
     width: '100%',
-    height: 50,
-   
+    height: 50
   },
   touchableView: {
     backgroundColor: '#00FF9D',
@@ -45,8 +41,7 @@ export default {
     justifyContent: 'center',
     borderRadius: 5,
     height: 48,
-    width: 243,
-    
+    width: 243
   },
   touchableText: {
     fontFamily: 'OpenSans-Regular',
@@ -61,35 +56,35 @@ export default {
     resizeMode: 'cover',
     height: 300
   },
-  campTitle:{
+  campTitle: {
     fontFamily: 'OpenSans-Regular',
     backgroundColor: '#323338',
     color: '#fff',
     height: 32,
     textAlign: 'center',
     fontSize: 14,
-    paddingTop: 7,
+    paddingTop: 7
   },
   orgTitleView: {
     fontFamily: 'OpenSans-SemiBold',
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   orgLocation: {
     fontFamily: 'OpenSans-Regular'
   },
   campMissionText: {
     fontFamily: 'OpenSans-SemiBold',
-     fontSize: 14,
-     paddingLeft: 10,
+    fontSize: 14,
+    paddingLeft: 10
   },
   campMission: {
     fontFamily: 'OpenSans-Regular',
     flexWrap: 'wrap',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent:'center',
+    justifyContent: 'center',
     fontSize: 14,
-    marginTop: 20,
+    marginTop: 20
   },
   // # End of Campaign.js Styles # //
 

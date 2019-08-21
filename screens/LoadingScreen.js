@@ -11,11 +11,13 @@ import * as SecureStore from 'expo-secure-store';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import { connect } from 'react-redux';
-import { getProfileData, afterFirstLogin, loginSuccess } from '../store/actions';
-import  { withAmplitude } from '../components/withAmplitude';
+import {
+  getProfileData,
+  afterFirstLogin,
+  loginSuccess
+} from '../store/actions';
+import { withAmplitude } from '../components/withAmplitude';
 
-
- 
 class LoadingScreen extends React.Component {
   async componentDidMount() {
     // id in the auth0 database
@@ -30,10 +32,10 @@ class LoadingScreen extends React.Component {
         if (this.props.userId) {
           await SecureStore.setItemAsync('id', `${this.props.userId}`);
           // console.log("yes", this.props.userId);
-          console.log( "*********role from loading screen",this.props.role)
+          console.log('*********role from loading screen', this.props.role);
           this.props.getProfileData(this.props.userId, null, true);
-          this.props.setAmpId(this.props.userId)
-          this.props.AmpEvent('Login')
+          this.props.setAmpId(this.props.userId);
+          this.props.AmpEvent('Login');
           let route;
           if (this.props.firstLogin) {
             this.props.afterFirstLogin();
@@ -73,7 +75,7 @@ class LoadingScreen extends React.Component {
 const mapStateToProps = state => ({
   error: state.error,
   userId: state.currentUserProfile.id,
-  role: state.currentUserProfile.role,
+  role: state.currentUserProfile.roles,
   firstLogin: state.firstLogin
 });
 
