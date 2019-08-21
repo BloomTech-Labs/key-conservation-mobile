@@ -63,7 +63,7 @@ export const getProfileData = (
     !noDispatch && dispatch({ type: GET_PROFILE_START });
   }
   let user, url;
-  if (id) url = `https://key-conservation.herokuapp.com/api/users/${id}`;
+  if (id) url = `https://key-conservation-staging.herokuapp.com/api/users/${id}`;
   else if (sub)
     url = `https://key-conservation.herokuapp.com/api/users/sub/${sub}`;
   return axios
