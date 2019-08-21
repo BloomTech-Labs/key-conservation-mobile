@@ -189,6 +189,7 @@ export const getCampaign = id => dispatch => {
   axios
     .get(`https://key-conservation-staging.herokuapp.com/api/campaigns/${id}`)
     .then(res => {
+      console.log(res.data);
       dispatch({ type: GET_CAMPAIGN_SUCCESS, payload: res.data.camp });
     })
     .catch(err => {

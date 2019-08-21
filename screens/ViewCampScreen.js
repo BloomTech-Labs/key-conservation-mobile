@@ -4,7 +4,7 @@ import {
   Text,
   View,
   TextInput,
-  TouchableOpacity,  
+  TouchableOpacity,
   Image,
   Dimensions
 } from 'react-native';
@@ -14,10 +14,11 @@ import * as WebBrowser from 'expo-web-browser';
 import { connect } from 'react-redux';
 import SvgUri from 'react-native-svg-uri';
 
-import { getProfileData } from '../store/actions'
-import BackButton from '../components/BackButton'
+import { getProfileData } from '../store/actions';
+import BackButton from '../components/BackButton';
+import { AmpEvent } from '../components/withAmplitude';
 
-const deviceWidth = Dimensions.get('window').width
+const deviceWidth = Dimensions.get('window').width;
 
 class ViewCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -33,7 +34,7 @@ class ViewCampScreen extends React.Component {
         alignSelf: 'center'
       },
       headerLeft: <BackButton navigation={navigation} />,
-      headerRight:  <View />
+      headerRight: <View />
     };
   };
 
@@ -50,19 +51,27 @@ class ViewCampScreen extends React.Component {
             onPress={this.goToProfile}
             title={
               <View>
-                <Text style={styles.listUsername}>{this.props.selectedCampaign.username}</Text>
+                <Text style={styles.listUsername}>
+                  {this.props.selectedCampaign.username}
+                </Text>
               </View>
             }
-            leftAvatar={{ source: { uri: this.props.selectedCampaign.profile_image } }}
+            leftAvatar={{
+              source: { uri: this.props.selectedCampaign.profile_image }
+            }}
             subtitle={this.props.selectedCampaign.location}
-          />        
-            <Image
-              source={{ uri: this.props.selectedCampaign.camp_img }}
-              style={styles.campImgContain}
-            />
-          <View style={styles.campDescContain}>            
-            <Text style={styles.campDescName}>{this.props.selectedCampaign.camp_name}</Text>
-            <Text style={styles.campDesc}>{this.props.selectedCampaign.camp_desc}</Text>            
+          />
+          <Image
+            source={{ uri: this.props.selectedCampaign.camp_img }}
+            style={styles.campImgContain}
+          />
+          <View style={styles.campDescContain}>
+            <Text style={styles.campDescName}>
+              {this.props.selectedCampaign.camp_name}
+            </Text>
+            <Text style={styles.campDesc}>
+              {this.props.selectedCampaign.camp_desc}
+            </Text>
           </View>
           <View style={styles.donateView}>
             <View style={styles.campMission}>
@@ -72,7 +81,9 @@ class ViewCampScreen extends React.Component {
                 source={require('../assets/icons/hand.svg')}
               />
               <Text style={styles.supportMissionText}>Support Our Mission</Text>
-              <Text style={styles.campMissionText}>Your donation helps us more{"\n"}than you know. Thanks!</Text>
+              <Text style={styles.campMissionText}>
+                Your donation helps us more{'\n'}than you know. Thanks!
+              </Text>
             </View>
             <View style={styles.donateButton}>
               <TouchableOpacity
@@ -81,7 +92,14 @@ class ViewCampScreen extends React.Component {
                 onPress={async () =>
                   this.props.selectedCampaign.camp_cta &&
                   this.props.selectedCampaign.camp_cta !== null &&
-                  (await WebBrowser.openBrowserAsync(this.props.selectedCampaign.camp_cta))
+                  AmpEvent('Campaign Donation Button Clicked', {
+                    username: this.props.username,
+                    campId: this.props.selectedCampaign.camp_id
+                  })(
+                    await WebBrowser.openBrowserAsync(
+                      this.props.selectedCampaign.camp_cta
+                    )
+                  )
                 }
               >
                 <View style={styles.touchableView}>
@@ -101,13 +119,12 @@ const mapStateToProps = state => ({
   selectedCampaign: state.selectedCampaign
 });
 
-const styles =  StyleSheet.create({
+const styles = StyleSheet.create({
   touchableButton: {
     paddingTop: 25,
     paddingBottom: 25,
     width: '100%',
-    height: 50,
-   
+    height: 50
   },
   touchableView: {
     backgroundColor: '#00FF9D',
@@ -115,8 +132,7 @@ const styles =  StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 5,
     height: 48,
-    width: 243,
-    
+    width: 243
   },
   touchableText: {
     fontFamily: 'OpenSans-Regular',
@@ -127,20 +143,20 @@ const styles =  StyleSheet.create({
     fontSize: 16
   },
   donateButton: {
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: 'OpenSans-SemiBold',
     width: '60%',
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
   supportMissionText: {
     fontFamily: 'OpenSans-SemiBold',
-     fontSize: 14,
-     paddingLeft: 10,
+    fontSize: 14,
+    paddingLeft: 10
   },
   campMissionText: {
     fontFamily: 'OpenSans-Regular',
     fontSize: 14,
     lineHeight: 19,
-    paddingTop: 10,
+    paddingTop: 10
   },
   campMission: {
     width: '68%',
@@ -148,12 +164,12 @@ const styles =  StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent:'center',
+    justifyContent: 'center',
     fontSize: 14,
     marginTop: 20,
     paddingTop: 19,
     borderTopWidth: 2,
-    borderTopColor: '#eee',
+    borderTopColor: '#eee'
   },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
@@ -163,7 +179,7 @@ const styles =  StyleSheet.create({
   campDescContain: {
     marginLeft: 15,
     paddingTop: 15,
-    marginRight: 15,
+    marginRight: 15
   },
   campDescName: {
     fontFamily: 'OpenSans-SemiBold',
@@ -178,19 +194,17 @@ const styles =  StyleSheet.create({
   listUsername: {
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 16,
-    lineHeight: 22,
+    lineHeight: 22
   },
   donateView: {
-    alignItems: 'center',
+    alignItems: 'center'
   },
   whiteSpace: {
     height: 40
-  },
-
-})
+  }
+});
 
 export default connect(
   mapStateToProps,
   { getProfileData }
 )(ViewCampScreen);
-
