@@ -66,7 +66,7 @@ export const getProfileData = (
   let user, url;
   if (id) url = `https://key-conservation-staging.herokuapp.com/api/users/${id}`;
   else if (sub)
-    url = `https://key-conservation-staging.herokuapp.com/api/users/sub/${sub}`;
+    url = `https://key-conservation.herokuapp.com/api/users/sub/${sub}`;
   return axios
     .get(url)
     .then(res => {
@@ -151,7 +151,7 @@ export const [POST_USER_START, POST_USER_ERROR, POST_USER_SUCCESS] = [
 export const postUser = user => dispatch => {
   dispatch({ type: POST_USER_START });
   axios
-    .post('https://key-conservation-staging.herokuapp.com/api/users', user)
+    .post('https://key-conservation.herokuapp.com/api/users', user)
     .then(res => {
       dispatch({ type: POST_USER_SUCCESS, payload: res.data.newUser });
     })
@@ -169,7 +169,7 @@ export const [
 export const getCampaigns = () => dispatch => {
   dispatch({ type: GET_CAMPAIGNS_START });
   axios
-    .get('https://key-conservation-staging.herokuapp.com/api/campaigns')
+    .get('https://key-conservation.herokuapp.com/api/campaigns')
     .then(res => {
       dispatch({ type: GET_CAMPAIGNS_SUCCESS, payload: res.data.camp });
     })
@@ -187,7 +187,7 @@ export const [GET_CAMPAIGN_START, GET_CAMPAIGN_ERROR, GET_CAMPAIGN_SUCCESS] = [
 export const getCampaign = id => dispatch => {
   dispatch({ type: GET_CAMPAIGN_START });
   axios
-    .get(`https://key-conservation-staging.herokuapp.com/api/campaigns/${id}`)
+    .get(`https://key-conservation.herokuapp.com/api/campaigns/${id}`)
     .then(res => {
       console.log(res.data);
       dispatch({ type: GET_CAMPAIGN_SUCCESS, payload: res.data.camp });
@@ -236,7 +236,7 @@ export const postCampaign = camp => dispatch => {
 
   axios
     .post(
-      'https://key-conservation-staging.herokuapp.com/api/campaigns',
+      'https://key-conservation.herokuapp.com/api/campaigns',
       formData,
       {
         headers: {
@@ -266,7 +266,7 @@ export const [
 export const deleteCampaign = id => dispatch => {
   dispatch({ type: DELETE_CAMPAIGN_START });
   axios
-    .delete(`https://key-conservation-staging.herokuapp.com/api/campaigns/${id}`)
+    .delete(`https://key-conservation.herokuapp.com/api/campaigns/${id}`)
     .then(res => {
       dispatch({ type: DELETE_CAMPAIGN_SUCCESS, payload: res.data });
     })
@@ -311,7 +311,7 @@ export const editCampaign = (id, changes) => dispatch => {
 
   axios
     .put(
-      `https://key-conservation-staging.herokuapp.com/api/campaigns/${id}`,
+      `https://key-conservation.herokuapp.com/api/campaigns/${id}`,
       formData,
       {
         headers: {
