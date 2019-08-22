@@ -1,4 +1,5 @@
 import * as SecureStore from 'expo-secure-store';
+import moment from 'moment';
 
 import * as Amplitude from 'expo-analytics-amplitude';
 
@@ -184,7 +185,7 @@ const reducer = (state = initialState, action) => {
     case GET_CAMPAIGNS_SUCCESS:
       const campaigns = action.payload;
       campaigns.sort(function(a, b) {
-        return b.camp_id - a.camp_id;
+        return moment(b.created_at) - moment(a.created_at);
       });
       return {
         ...state,
@@ -333,6 +334,31 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, postCampaignUpdate: false },
+        error: action.payload
+      };
+    case DELETE_CAMPAIGN_UPDATE_START:
+      return {
+        ...state,
+        pending: { ...state.pending, deleteCampaignUpdate: true },
+        error: ''
+      };
+    case DELETE_CAMPAIGN_UPDATE_SUCCESS:
+      const deletedUpdate = Number(action.payload);
+      const newCampaignsAndUpdates = state.currentUserProfile.campaigns.filter(camp => {
+        return camp.update_id !== deletedUpdate;
+      });
+      return {
+        ...state,
+        pending: { ...state.pending, deleteCampaignUpdate: false },
+        currentUserProfile: {
+          ...state.currentUserProfile,
+          campaigns: newCampaignsAndUpdates
+        }
+      };
+    case DELETE_CAMPAIGN_UPDATE_ERROR:
+      return {
+        ...state,
+        pending: { ...state.pending, deleteCampaignUpdate: false },
         error: action.payload
       };
     case TOGGLE_CAMPAIGN_TEXT:

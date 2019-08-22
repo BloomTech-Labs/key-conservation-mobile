@@ -33,7 +33,7 @@ class ViewCampScreen extends React.Component {
         flexGrow: 1,
         alignSelf: 'center'
       },
-      headerLeft: <BackButton navigation={navigation} />,
+      headerLeft: <BackButton navigation={navigation} popToTop />,
       headerRight: <View />
     };
   };

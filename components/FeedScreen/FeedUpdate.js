@@ -80,11 +80,7 @@ const FeedUpdate = props => {
 
   const goToCampUpdate = () => {
     dispatch(setCampaign(data));
-    // AmpEvent('Select Profile from Campaign', {
-    //   campaign: data.camp_name,
-    //   profile: data.username
-    // });
-    props.navigation.navigate('CampUpdate');
+    props.navigation.navigate('CampUpdate', {backBehavior: 'Home'});
   };
 
   const toggleText = () => {
@@ -104,6 +100,9 @@ const FeedUpdate = props => {
         subtitle={data.location}
       />
       <View>
+        <View style={styles.updateBar}>
+          <Text style={styles.updateBarText}>UPDATE</Text>
+        </View>
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampUpdate}>
           <Image
             source={{ uri: data.update_img }}

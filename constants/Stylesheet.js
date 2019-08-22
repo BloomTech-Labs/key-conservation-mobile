@@ -129,7 +129,7 @@ export default {
     fontSize: 10, 
     marginLeft: 15,
     marginTop: 10
-  }
+  },
 
 
   // # End of FeedScreen.js Styles  # //
@@ -137,4 +137,20 @@ export default {
   // # DetailAboutUs.js Styles  # //
 
   // # End of DetailAboutUs.js Styles  # //
+
+  // # FeedUpdate.js Styles # //
+  updateBar: {
+    backgroundColor: '#323338',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 37,
+    width: '100%',
+  },
+  updateBarText: {
+    fontFamily: 'OpenSans-SemiBold',
+    fontSize: 18,
+    color: '#fff',
+  }
+
+  // # End of FeedUpdate.js Styles # //
 };

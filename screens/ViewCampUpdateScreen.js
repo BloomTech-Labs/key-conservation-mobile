@@ -9,7 +9,7 @@ import {
   Dimensions
 } from 'react-native';
 import { ListItem } from 'react-native-elements';
-import { ScrollView } from 'react-navigation';
+import { ScrollView, NavigationEvents } from 'react-navigation';
 import * as WebBrowser from 'expo-web-browser';
 import { connect } from 'react-redux';
 import SvgUri from 'react-native-svg-uri';
@@ -20,7 +20,7 @@ import { AmpEvent } from '../components/withAmplitude';
 
 const deviceWidth = Dimensions.get('window').width;
 
-class ViewCampScreen extends React.Component {
+class ViewCampUpdateScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Update',
@@ -78,8 +78,8 @@ class ViewCampScreen extends React.Component {
               {this.props.selectedCampaign.update_desc}
             </Text>
           </View>
-          <View style={styles.ogPostView}>
-            
+          <View style={styles.ogBorder} />
+          <View style={styles.ogPostView}>            
             <View style={styles.ogPostButton}>
               <TouchableOpacity
                 style={styles.touchableButton}
@@ -141,20 +141,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 19,
     paddingTop: 10
-  },
-  campMission: {
-    width: '68%',
-    fontFamily: 'OpenSans-Regular',
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: 14,
-    marginTop: 20,
-    paddingTop: 19,
-    borderTopWidth: 2,
-    borderTopColor: '#eee'
-  },
+  },  
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
     resizeMode: 'contain',
@@ -173,15 +160,24 @@ const styles = StyleSheet.create({
   campDesc: {
     fontFamily: 'OpenSans-Regular',
     fontSize: 14,
-    lineHeight: 19
+    lineHeight: 19,
+    paddingBottom: 15,
   },
   listUsername: {
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 16,
     lineHeight: 22
   },
-  ogPostView: {
+  ogPostView: {    
     alignItems: 'center'
+  },
+  ogBorder: {
+    marginLeft: '16%',
+    marginRight: '16%',
+    marginTop: 20,
+    paddingTop: 19,
+    borderTopWidth: 2,
+    borderTopColor: '#eee',
   },
   whiteSpace: {
     height: 40
@@ -191,4 +187,4 @@ const styles = StyleSheet.create({
 export default connect(
   mapStateToProps,
   { getProfileData, getCampaign }
-)(ViewCampScreen);
+)(ViewCampUpdateScreen);
