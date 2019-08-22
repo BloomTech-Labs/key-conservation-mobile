@@ -15,7 +15,9 @@ import { connect } from 'react-redux';
 
 import { getCampaigns } from '../store/actions';
 
-import Campaign from '../components/FeedScreen/FeedCampaign';
+import FeedCampaign from '../components/FeedScreen/FeedCampaign';
+
+import FeedUpdate from '../components/FeedScreen/FeedUpdate';
 
 import SvgUri from 'react-native-svg-uri';
 
@@ -25,13 +27,14 @@ import { createFilter } from 'react-native-search-filter';
 
 import Constants from 'expo-constants';
 
-// These are the keywoards that filtered through the map. You can add more to do depending.
+// These are the keywords that filtered through the map. You can add more to do depending.
 const KEYS_TO_FILTERS = [
   'camp_name',
   'camp_desc',
   'username',
   'location',
-  'data'
+  'data',
+  'update_desc'
 ];
 
 class SearchScreen extends React.Component {
@@ -97,7 +100,7 @@ class SearchScreen extends React.Component {
                   searchIcon={false}
                   cancelIcon={true}
                   onCancel={true}
-                  placeholder=' Search ex eggs, bird, turtle, new york...'
+                  placeholder='Search ex eggs, bird, turtle, new york...'
                   containerStyle={{
                     backgroundColor: 'transparent',
                     borderTopWidth: 0,
@@ -113,24 +116,31 @@ class SearchScreen extends React.Component {
                     borderRadius: 5,
                     margin: 2,
                     fontSize: 14,
-                    backgroundColor: '#fff'
+                    backgroundColor: '#fff',
+                    paddingLeft: 10,
                   }}
                 />
               }
             />
             {this.props.allCampaigns.length > 0 &&
-              filterCamps.map(campaign => {
-                return (
-                  <Campaign
-                    key={campaign.camp_id}
-                    data={campaign}
-                    navigation={navigation}
-                    camp_name={campaign.camp_name}
-                    camp_desc={campaign.camp_desc}
-                    location={campaign.location}
-                    username={campaign.username}
-                  />
-                );
+              filterCamps.map(camp => {
+                if (camp.update_id) {
+                  return (
+                    <FeedUpdate
+                      key={`update${camp.update_id}`}
+                      data={camp}
+                      navigation={navigation}
+                    />
+                  );
+                } else {
+                  return (
+                    <FeedCampaign
+                      key={camp.camp_id}
+                      data={camp}
+                      navigation={navigation}
+                    />
+                  );
+                }
               })}
           </View>
         </ScrollView>
