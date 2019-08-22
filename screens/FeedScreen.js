@@ -40,6 +40,11 @@ class FeedScreen extends React.Component {
       )
     };
   };
+
+  state = {
+    campaignsVisible: 8
+  }
+
   componentDidMount() {
     this.props.navigation.setParams({
       roles: this.props.currentUserProfile.roles
@@ -48,13 +53,19 @@ class FeedScreen extends React.Component {
     let refreshInterval = setInterval(() => this.props.getCampaigns(), 10000);
   }
 
+  addMoreCampaigns = () => {
+    this.setState({
+      campaignsVisible: this.state.campaignsVisible + 8
+    })
+  }
+
   render() {
     const { navigation } = this.props;
     return (
       <ScrollView>
         <View style={styles.feedContainer}>
           {this.props.allCampaigns.length > 0 &&
-            this.props.allCampaigns.map(camp => {
+            this.props.allCampaigns.slice(0, this.state.campaignsVisible).map(camp => {
               if (camp.update_id) {
                 return (
                   <FeedUpdate
@@ -76,6 +87,13 @@ class FeedScreen extends React.Component {
               }
             })}
         </View>
+        {this.state.campaignsVisible < this.props.allCampaigns.length &&
+          <View style={styles.loadMoreView}>
+            <TouchableOpacity onPress={this.addMoreCampaigns} style={styles.loadMoreTouchable}>
+                <Text style={styles.loadMoreText}>Load More Campaigns</Text>
+            </TouchableOpacity>
+          </View>
+        }
       </ScrollView>
     );
   }

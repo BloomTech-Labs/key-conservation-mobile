@@ -130,6 +130,25 @@ export default {
     marginLeft: 15,
     marginTop: 10
   },
+  loadMoreView: {
+    paddingBottom: 25,
+    alignItems: 'center',
+  },
+  loadMoreTouchable: {
+    backgroundColor: '#fff',
+    borderWidth: 2,
+    borderColor: '#323338',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    height: 28,
+    width: 243
+  },
+  loadMoreText: {
+    fontSize: 14,
+    fontFamily: 'OpenSans-Regular',
+    color: '#323338',
+  },
 
 
   // # End of FeedScreen.js Styles  # //
