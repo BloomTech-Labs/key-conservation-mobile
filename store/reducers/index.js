@@ -33,9 +33,15 @@ import {
   EDIT_CAMPAIGN_START,
   EDIT_CAMPAIGN_ERROR,
   EDIT_CAMPAIGN_SUCCESS,
+  GET_CAMPAIGN_UPDATE_START,
+  GET_CAMPAIGN_UPDATE_ERROR,
+  GET_CAMPAIGN_UPDATE_SUCCESS,
   POST_CAMPAIGN_UPDATE_START,
   POST_CAMPAIGN_UPDATE_ERROR,
   POST_CAMPAIGN_UPDATE_SUCCESS,
+  DELETE_CAMPAIGN_UPDATE_START,
+  DELETE_CAMPAIGN_UPDATE_ERROR,
+  DELETE_CAMPAIGN_UPDATE_SUCCESS,
   TOGGLE_CAMPAIGN_TEXT,
   MEDIA_UPLOAD,
   MEDIA_CLEAR
@@ -258,6 +264,24 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, postCampaign: false },
+        error: action.payload
+      };
+    case GET_CAMPAIGN_UPDATE_START:
+      return {
+        ...state,
+        pending: { ...state.pending, getCampaignUpdate: true },
+        error: ''
+      };
+    case GET_CAMPAIGN_UPDATE_SUCCESS:
+      return {
+        ...state,
+        pending: { ...state.pending, getCampaignUpdate: false },
+        selectedCampaign: action.payload
+      };
+    case GET_CAMPAIGN_UPDATE_ERROR:
+      return {
+        ...state,
+        pending: { ...state.pending, getCampaignUpdate: false },
         error: action.payload
       };
     case EDIT_CAMPAIGN_START:

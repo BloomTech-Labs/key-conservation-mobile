@@ -17,12 +17,13 @@ import { AmpEvent } from '../withAmplitude';
 import {
   getProfileData,
   setCampaign,
-  toggleCampaignText
+  toggleCampaignText,
+  getCampaignUpdate
 } from '../../store/actions';
 
 import styles from '../../constants/Stylesheet';
 
-const FeedCampaign = props => {
+const FeedUpdate = props => {
   const dispatch = useDispatch();
   const { data, toggled } = props;
   const shorten = (string, cutoff) => {
@@ -77,17 +78,17 @@ const FeedCampaign = props => {
     props.navigation.navigate('Pro');
   };
 
-  const goToCampaign =  () => {
+  const goToCampUpdate = () => {
     dispatch(setCampaign(data));
-    AmpEvent('Select Profile from Campaign', {
-      campaign: data.camp_name,
-      profile: data.username
-    });
-    props.navigation.navigate('Camp');
+    // AmpEvent('Select Profile from Campaign', {
+    //   campaign: data.camp_name,
+    //   profile: data.username
+    // });
+    props.navigation.navigate('CampUpdate');
   };
 
   const toggleText = () => {
-    dispatch(toggleCampaignText(data.camp_id));
+    dispatch(toggleCampaignText(`update${data.update_id}`));
   };
 
   return (
@@ -103,26 +104,26 @@ const FeedCampaign = props => {
         subtitle={data.location}
       />
       <View>
-        <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
+        <TouchableOpacity activeOpacity={0.5} onPress={goToCampUpdate}>
           <Image
-            source={{ uri: data.camp_img }}
+            source={{ uri: data.update_img }}
             style={styles.campImgContain}
           />
         </TouchableOpacity>
       </View>
       <TouchableOpacity
         style={styles.goToCampaignButton}
-        onPress={goToCampaign}
+        onPress={goToCampUpdate}
       >
-        <Text style={styles.goToCampaignText}>See Post {'>'}</Text>
+        <Text style={styles.goToCampaignText}>See Update {'>'}</Text>
       </TouchableOpacity>
       <View style={styles.campDesc}>
         <Text style={styles.campDescName}>{data.camp_name}</Text>
-        {toggled || data.camp_desc.length < 80 ? (
-          <Text style={styles.campDescText}>{data.camp_desc}</Text>
+        {toggled || data.update_desc.length < 80 ? (
+          <Text style={styles.campDescText}>{data.update_desc}</Text>
         ) : (
           <Text style={styles.campDescText}>
-            {shorten(data.camp_desc, 80)}
+            {shorten(data.update_desc, 80)}
             &nbsp;
             <Text onPress={toggleText} style={styles.readMore}>
               Read More
@@ -135,4 +136,4 @@ const FeedCampaign = props => {
   );
 };
 
-export default FeedCampaign;
+export default FeedUpdate;

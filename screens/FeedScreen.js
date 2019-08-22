@@ -6,6 +6,7 @@ import * as SecureStorage from 'expo-secure-store';
 import { Icon } from 'react-native-elements';
 import { getCampaigns } from '../store/actions';
 import FeedCampaign from '../components/FeedScreen/FeedCampaign';
+import FeedUpdate from '../components/FeedScreen/FeedUpdate';
 import LoginButton from '../components/LoginButton';
 import SvgUri from 'react-native-svg-uri';
 import styles from '../constants/Stylesheet';
@@ -54,14 +55,25 @@ class FeedScreen extends React.Component {
         <View style={styles.feedContainer}>
           {this.props.allCampaigns.length > 0 &&
             this.props.allCampaigns.map(camp => {
-              return (
-                <FeedCampaign
-                  key={camp.camp_id}
-                  data={camp}
-                  toggled={this.props.campaignsToggled.includes(camp.camp_id)}
-                  navigation={navigation}
-                />
-              );
+              if (camp.update_id) {
+                return (
+                  <FeedUpdate
+                    key={`update${camp.update_id}`}
+                    data={camp}
+                    toggled={this.props.campaignsToggled.includes(`update${camp.update_id}`)}
+                    navigation={navigation}
+                  />
+                )
+              } else {
+                return (
+                  <FeedCampaign
+                    key={camp.camp_id}
+                    data={camp}
+                    toggled={this.props.campaignsToggled.includes(camp.camp_id)}
+                    navigation={navigation}
+                  />
+                );
+              }
             })}
         </View>
       </ScrollView>

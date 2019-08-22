@@ -20,6 +20,7 @@ import SearchScreen from '../screens/SearchScreen';
 import ViewCampScreen from '../screens/ViewCampScreen';
 import EditCampScreen from '../screens/EditCampScreen';
 import EditSupProScreen from '../screens/EditSupProScreen';
+import ViewCampUpdateScreen from '../screens/ViewCampUpdateScreen';
 import CreateCampUpdateScreen from '../screens/CreateCampUpdateScreen';
 
 const FeedStack = createStackNavigator(
@@ -55,7 +56,8 @@ const FeedStack = createStackNavigator(
         }
       }
     },
-    Camp: ViewCampScreen
+    Camp: ViewCampScreen,
+    CampUpdate: ViewCampUpdateScreen
   },
   {
     navigationOptions: {
@@ -114,6 +116,7 @@ const MyProStack = createStackNavigator(
     // },
     Camp: ViewCampScreen,
     EditCamp: EditCampScreen,
+    CampUpdate: ViewCampUpdateScreen,
     CreateCampUpdate: CreateCampUpdateScreen
   },
   {
