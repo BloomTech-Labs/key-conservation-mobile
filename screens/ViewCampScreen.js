@@ -17,6 +17,7 @@ import SvgUri from 'react-native-svg-uri';
 import { getProfileData } from '../store/actions';
 import BackButton from '../components/BackButton';
 import { AmpEvent } from '../components/withAmplitude';
+import FeedUpdate from '../components/FeedScreen/FeedUpdate';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -108,7 +109,22 @@ class ViewCampScreen extends React.Component {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={styles.whiteSpace} />
+          <View style={styles.feedContainer}>
+            {
+              this.props.selectedCampaign.updates && 
+              this.props.selectedCampaign.updates.length > 0 &&
+              this.props.selectedCampaign.updates.map(update => {
+                return (
+                  <FeedUpdate
+                    key={`update${update.update_id}`}
+                    data={update}
+                    toggled={true}
+                    navigation={this.props.navigation}
+                  />
+                )                
+              }
+            )}
+        </View>        
         </View>
       </ScrollView>
     );
@@ -197,7 +213,8 @@ const styles = StyleSheet.create({
     lineHeight: 22
   },
   donateView: {
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 50
   },
   whiteSpace: {
     height: 40

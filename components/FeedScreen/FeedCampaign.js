@@ -16,7 +16,7 @@ import { useDispatch } from 'react-redux';
 import { AmpEvent } from '../withAmplitude';
 import {
   getProfileData,
-  setCampaign,
+  getCampaign,
   toggleCampaignText
 } from '../../store/actions';
 
@@ -77,8 +77,8 @@ const FeedCampaign = props => {
     props.navigation.navigate('Pro');
   };
 
-  const goToCampaign =  () => {
-    dispatch(setCampaign(data));
+  const goToCampaign = async () => {
+    await dispatch(getCampaign(data.camp_id));
     AmpEvent('Select Profile from Campaign', {
       campaign: data.camp_name,
       profile: data.username
