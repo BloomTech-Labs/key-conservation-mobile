@@ -139,7 +139,7 @@ class EditSupProScreen extends React.Component {
             </View>
 
             <View style={styles.sections}>
-              <UploadMedia />
+              <UploadMedia circular />
               {/* <Text style={styles.sectionsText}>Profile Image URL</Text>
               <TextInput
                 ref={input => {

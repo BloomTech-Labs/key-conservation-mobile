@@ -68,7 +68,7 @@ class EditProScreen extends React.Component {
     about_us: this.props.currentUserProfile.about_us,
     species_and_habitats: this.props.currentUserProfile.species_and_habitats,
     issues: this.props.currentUserProfile.issues,
-    // supportUs: this.props.currentUserProfile.support_us,
+    // supportUs: this.props.currentUserProfile.support_us, 
     org_cta: this.props.currentUserProfile.org_cta
   };
 
@@ -142,7 +142,7 @@ class EditProScreen extends React.Component {
             </View>
 
             <View style={styles.sections}>
-              <UploadMedia />
+              <UploadMedia circular />
               {/* <Text style={styles.sectionsText}>Profile Image URL</Text>
               <TextInput
                 ref={input => {

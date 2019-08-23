@@ -37,9 +37,15 @@ import {
   GET_CAMPAIGN_UPDATE_START,
   GET_CAMPAIGN_UPDATE_ERROR,
   GET_CAMPAIGN_UPDATE_SUCCESS,
+  GET_UPDATES_BY_CAMPAIGN_START,
+  GET_UPDATES_BY_CAMPAIGN_ERROR,
+  GET_UPDATES_BY_CAMPAIGN_SUCCESS,
   POST_CAMPAIGN_UPDATE_START,
   POST_CAMPAIGN_UPDATE_ERROR,
   POST_CAMPAIGN_UPDATE_SUCCESS,
+  EDIT_CAMPAIGN_UPDATE_START,
+  EDIT_CAMPAIGN_UPDATE_ERROR,
+  EDIT_CAMPAIGN_UPDATE_SUCCESS,
   DELETE_CAMPAIGN_UPDATE_START,
   DELETE_CAMPAIGN_UPDATE_ERROR,
   DELETE_CAMPAIGN_UPDATE_SUCCESS,
@@ -322,18 +328,67 @@ const reducer = (state = initialState, action) => {
         error: ''
       };
     case POST_CAMPAIGN_UPDATE_SUCCESS:
+      const updateInsertedinCamp = state.currentUserProfile.campaigns.map(camp => {
+        let { update_id, camp_id } = action.payload;
+        if (camp.camp_id === camp_id && !camp.update_id) {
+          camp.updates.map(update => {
+            if (update.update_id === update_id) {
+              return action.payload
+            } else {
+              return update
+            }
+        })
+      }})
       return {
         ...state,
         pending: { ...state.pending, postCampaignUpdate: false },
         currentUserProfile: {
           ...state.currentUserProfile,
-          campaigns: [...state.currentUserProfile.campaigns, action.payload]
+          campaigns: [...updateInsertedinCamp, action.payload]
         }
       };
-    case POST_CAMPAIGN_UPDATE_ERROR:
+    case POST_CAMPAIGN_UPDATE_ERROR: 
       return {
         ...state,
         pending: { ...state.pending, postCampaignUpdate: false },
+        error: action.payload
+      };
+    case EDIT_CAMPAIGN_UPDATE_START:
+      return {
+        ...state,
+        pending: { ...state.pending, editCampaignUpdate: true },
+        error: ''
+      };
+    case EDIT_CAMPAIGN_UPDATE_SUCCESS:
+      const alteredCampaignsandUpdates = state.currentUserProfile.campaigns.map(camp => {
+        let { update_id, camp_id } = action.payload;
+        if (camp.update_id === update_id) {
+          return action.payload;
+        } else if (camp.camp_id === camp_id && !camp.update_id) {
+          camp.updates.map(update => {
+            if (update.update_id === update_id) {
+              return action.payload
+            } else {
+              return update
+            }
+          })
+        } else {
+          return camp;
+        }
+      });
+      return {
+        ...state,
+        pending: { ...state.pending, editCampaignUpdate: false },
+        currentUserProfile: {
+          ...state.currentUserProfile,
+          campaigns: alteredCampaignsandUpdates
+        },
+        selectedCampaign: action.payload
+      };
+    case EDIT_CAMPAIGN_UPDATE_ERROR:
+      return {
+        ...state,
+        pending: { ...state.pending, editCampaignUpdate: false },
         error: action.payload
       };
     case DELETE_CAMPAIGN_UPDATE_START:

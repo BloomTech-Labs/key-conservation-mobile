@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Button, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback, Platform } from 'react-native';
 import {
   Menu,
   MenuOptions,
@@ -65,6 +65,11 @@ class MyProScreen extends React.Component {
     this.props.navigation.navigate('CampUpdate', {backBehavior: 'MyPro'});
   };
 
+  goToEditCampUpdate = camp => {
+    this.props.setCampaign(camp);
+    this.props.navigation.navigate('EditCampUpdate');
+  };
+
   render() {
     return (
       <ScrollView>
@@ -82,22 +87,25 @@ class MyProScreen extends React.Component {
                   <ListItem
                     onPress={() => this.goToCampUpdate(camp)}
                     key={camp.update_id}
-                    title={camp.camp_name}
+                    title={`${camp.camp_name} - Update`}
                     leftAvatar={{ source: { uri: camp.update_img } }}
                     subtitle={camp.location}
                     rightIcon={
                       <Menu>
-                        <MenuTrigger
-                          children={
-                            <View>
-                              <SvgUri
-                                width='25'
-                                height='25'
-                                source={require('../assets/icons/ellipsis-vertical.svg')}
-                              />
-                            </View>
-                          }
-                        />
+                      
+                          <MenuTrigger
+                            customStyles={triggerStyles}
+                            children={
+                              <View style={styles.menuTrigger}>
+                                <SvgUri
+                                  width='25'
+                                  height='25'
+                                  source={require('../assets/icons/ellipsis-vertical.svg')}
+                                />
+                              </View>
+                            }
+                          />
+                        
                         <MenuOptions customStyles={optionsStyles}>
                         <MenuOption
                             onSelect={() =>
@@ -109,7 +117,7 @@ class MyProScreen extends React.Component {
                             </Text>
                           </MenuOption>                          
                           <MenuOption
-                            // onSelect={() => this.goToEditCampaign(camp)}
+                            onSelect={() => this.goToEditCampUpdate(camp)}
                           >
                             <Text style={{ color: '#000', fontSize: 16 }}>
                               Edit Update Post
@@ -133,8 +141,9 @@ class MyProScreen extends React.Component {
                     rightIcon={
                       <Menu>
                         <MenuTrigger
+                          customStyles={triggerStyles}
                           children={
-                            <View>
+                            <View style={styles.menuTrigger}>
                               <SvgUri
                                 width='25'
                                 height='25'
@@ -190,9 +199,28 @@ const mapStateToProps = state => ({
 });
 const optionsStyles = {
   optionsContainer: {
-    width: 150
+    width: 175
   }
 };
+
+const triggerStyles =  {
+  triggerTouchable: {
+    underlayColor: '#fff', 
+    activeOpacity: 0.8,
+    background: null
+  }
+}
+
+const styles = StyleSheet.create({
+  menuTrigger: {
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    width: 50,
+    height: 50,
+    paddingRight: 5,
+    borderRadius: 50,
+  }
+})
 
 export default connect(
   mapStateToProps,

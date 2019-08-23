@@ -337,7 +337,6 @@ export const getCampaignUpdate = id => dispatch => {
   axios
     .get(`https://key-conservation-staging.herokuapp.com/api/updates/${id}`)
     .then(res => {
-      // console.log(res.data);
       dispatch({ type: GET_CAMPAIGN_UPDATE_SUCCESS, payload: res.data.campUpdate });
     })
     .catch(err => {
@@ -386,6 +385,57 @@ export const postCampaignUpdate = campUpdate => dispatch => {
     })
     .catch(err => {
       dispatch({ type: POST_CAMPAIGN_UPDATE_ERROR, payload: err });
+    });
+};
+
+export const [
+  EDIT_CAMPAIGN_UPDATE_START,
+  EDIT_CAMPAIGN_UPDATE_ERROR,
+  EDIT_CAMPAIGN_UPDATE_SUCCESS
+] = ['EDIT_CAMPAIGN_UPDATE_START', 'EDIT_CAMPAIGN_UPDATE_ERROR', 'EDIT_CAMPAIGN_UPDATE_SUCCESS'];
+
+export const editCampaignUpdate = (id, changes) => dispatch => {
+  dispatch({ type: EDIT_CAMPAIGN_UPDATE_START });
+
+  let formData = new FormData();
+
+  let keys = Object.keys(changes).filter(key => {
+    return key !== 'update_img';
+  });
+
+  if (changes.update_img) {
+    const uri = changes.update_img;
+
+    let uriParts = uri.split('.');
+    let fileType = uriParts[uriParts.length - 1];
+
+    formData.append('photo', {
+      uri,
+      name: `photo.${fileType}`,
+      type: `image/${fileType}`
+    });
+  }
+
+  keys.forEach(key => {
+    formData.append(key, changes[key]);
+  });
+
+  axios
+    .put(
+      `https://key-conservation-staging.herokuapp.com/api/updates/${id}`,
+      formData,
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    )
+    .then(res => {
+      dispatch({ type: EDIT_CAMPAIGN_UPDATE_SUCCESS, payload: res.data.editCampUpdate });
+    })
+    .catch(err => {
+      dispatch({ type: EDIT_CAMPAIGN_UPDATE_ERROR, payload: err });
     });
 };
 

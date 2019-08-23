@@ -12,17 +12,17 @@ import { ScrollView, NavigationEvents } from 'react-navigation';
 import { Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { postCampaign, getCampaigns, clearMedia } from '../store/actions';
+import { editCampaignUpdate, getCampaigns, clearMedia } from '../store/actions';
 import BackButton from '../components/BackButton';
 import PublishButton from '../components/PublishButton';
 import { AmpEvent } from '../components/withAmplitude';
 
 import UploadMedia from '../components/UploadMedia';
 
-class CreateCampScreen extends React.Component {
+class EditCampUpdateScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'New Campaign',
+      title: 'Edit Update Post',
       headerStyle: {
         backgroundColor: '#323338'
       },
@@ -43,40 +43,34 @@ class CreateCampScreen extends React.Component {
     };
   };
   state = {
-    users_id: this.props.currentUserProfile.id,
-    camp_name: '',
-    camp_desc: '',
-    camp_cta: ''
+    update_desc: this.props.selectedCampaign.update_desc, 
   };
   componentDidMount() {
-    this.props.navigation.setParams({ publish: this.publish });
+    this.props.navigation.setParams({ edit: this.edit });
   }
-  publish = async () => {
+
+  edit = async () => {
     if (
       !this.props.mediaUpload ||
-      !this.state.camp_name ||
-      !this.state.camp_desc ||
-      !this.state.camp_cta
+      !this.state.update_desc
     ) {
       return;
     } else {
-      const camp = {
-        ...this.state,
-        camp_img: this.props.mediaUpload
+      let changes = this.state;
+      if (this.props.mediaUpload) {
+        changes = {
+          ...this.state,
+          camp_img: this.props.mediaUpload
+        }
       };
-      await this.props.postCampaign(camp);
+      await this.props.editCampaignUpdate(this.props.selectedCampaign.update_id, changes);
       await this.props.getCampaigns();
-      AmpEvent('Campaign Created');
-      this.props.navigation.navigate('Home');
+      this.props.navigation.goBack();
     }
   };
   clearState = () => {
     this.setState({
-      users_id: this.props.currentUserProfile.id,
-      camp_img: this.props.mediaUpload,
-      camp_name: '',
-      camp_desc: '',
-      camp_cta: ''
+      update_desc: this.props.selectedCampaign.update_desc,
     });
   };
   render() {
@@ -94,63 +88,31 @@ class CreateCampScreen extends React.Component {
             }}
           >
             <NavigationEvents
-              onWillFocus={this.props.clearMedia} 
+              onWillFocus={this.props.clearMedia}
               onDidBlur={this.clearState}
             />
-            <View style={styles.sectionContainer}>
+            <View style={styles.sectionContainer}>              
               <View style={styles.sections}>
-                <Text style={styles.sectionsText}>Campaign Name</Text>
-                <TextInput
-                  ref={input => {
-                    this.campNameInput = input;
-                  }}
-                  returnKeyType='next'
-                  placeholder='Koala In Need!'
-                  style={styles.inputContain}
-                  onChangeText={text => this.setState({ camp_name: text })}
-                  onSubmitEditing={() => {
-                    if (Platform.OS === 'android') return;
-                    this.campImgUrlInput.focus();
-                  }}
-                  blurOnSubmit={Platform.OS === 'android'}
-                  value={this.state.camp_name}
-                />
-              </View>
-              <View style={styles.sections}>
-                <UploadMedia />
-               
+                <UploadMedia />                
               </View>
 
               <View style={styles.sections}>
-                <Text style={styles.sectionsText}>Campaign Details</Text>
+                <View style={styles.goToCampaignButton}>
+                  <Text style={styles.goToCampaignText}>Update</Text>
+                </View>
+                <Text style={styles.sectionsText}>{this.props.selectedCampaign.camp_name}</Text>
                 <TextInput
                   ref={input => {
                     this.campDetailsInput = input;
                   }}
                   returnKeyType='next'
-                  placeholder='Add campaign details and list of monetary needs.'
+                  placeholder='Write an update here to tell people what has happened since their donation.'
                   style={styles.inputContain2}
-                  onChangeText={text => this.setState({ camp_desc: text })}
+                  onChangeText={text => this.setState({ update_desc: text })}
                   multiline={true}
-                  value={this.state.camp_desc}
+                  value={this.state.update_desc}
                 />
-              </View>
-
-              <View style={styles.sections}>
-                <Text style={styles.sectionsText}>Donation Link</Text>
-                <TextInput
-                  ref={input => {
-                    this.donationLinkInput = input;
-                  }}
-                  returnKeyType='next'
-                  keyboardType='url'
-                  placeholder='Please include full URL'
-                  autoCapitalize='none'
-                  style={styles.inputContain}
-                  onChangeText={text => this.setState({ camp_cta: text })}
-                  value={this.state.camp_cta}
-                />
-              </View>
+              </View>            
             </View>
           </ScrollView>
         </KeyboardAwareScrollView>
@@ -160,12 +122,15 @@ class CreateCampScreen extends React.Component {
 }
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
+  selectedCampaign: state.selectedCampaign,
   mediaUpload: state.mediaUpload
 });
+
 export default connect(
   mapStateToProps,
-  { postCampaign, getCampaigns, clearMedia }
-)(CreateCampScreen);
+  { editCampaignUpdate, getCampaigns, clearMedia }
+)(EditCampUpdateScreen);
+
 const styles = StyleSheet.create({
   sectionContainer: {
     flexDirection: 'column',
@@ -220,7 +185,7 @@ const styles = StyleSheet.create({
     marginBottom: 25
   },
   inputContain2: {
-    height: 140,
+    height: 146,
     borderWidth: 2,
     borderColor: '#C4C4C4',
     padding: 5,
@@ -248,6 +213,18 @@ const styles = StyleSheet.create({
   sectionsText: {
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 20,
-    marginBottom: 5
-  }
+    marginBottom: 5,
+    textAlign: 'center',
+  },
+  goToCampaignButton: {
+    backgroundColor: '#00FF9D',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 37,
+    width: '100%',
+  },
+  goToCampaignText: {
+    fontFamily: 'OpenSans-SemiBold',
+    fontSize: 18,
+  },
 });
