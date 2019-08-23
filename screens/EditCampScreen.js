@@ -75,7 +75,6 @@ class CreateCampScreen extends React.Component {
         }
       }
       await this.props.editCampaign(this.props.selectedCampaign.camp_id, changes);
-      await this.props.getCampaigns();
       this.props.navigation.goBack();
     }
   };

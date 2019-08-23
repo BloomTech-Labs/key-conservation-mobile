@@ -6,7 +6,8 @@ import {
   View,
   TouchableOpacity,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  Alert
 } from 'react-native';
 import { ScrollView, NavigationEvents } from 'react-navigation';
 import { Input } from 'react-native-elements';
@@ -58,14 +59,17 @@ class CreateCampScreen extends React.Component {
       !this.state.camp_desc ||
       !this.state.camp_cta
     ) {
-      return;
+      return (
+        Alert.alert(
+          'Error',
+          'Please complete all campaign fields.'
+        ));
     } else {
       const camp = {
         ...this.state,
         camp_img: this.props.mediaUpload
       };
       await this.props.postCampaign(camp);
-      await this.props.getCampaigns();
       AmpEvent('Campaign Created');
       this.props.navigation.navigate('Home');
     }

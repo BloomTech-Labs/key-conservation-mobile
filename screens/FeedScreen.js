@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
-import { ScrollView } from 'react-navigation';
+import { ScrollView, NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import * as SecureStorage from 'expo-secure-store';
 import { Icon } from 'react-native-elements';
@@ -49,8 +49,15 @@ class FeedScreen extends React.Component {
     this.props.navigation.setParams({
       roles: this.props.currentUserProfile.roles
     });
+  }
+
+  startGettingCampaigns = () => {
     this.props.getCampaigns();
-    let refreshInterval = setInterval(() => this.props.getCampaigns(), 10000);
+    this.refreshInterval = setInterval(() => this.props.getCampaigns(), 10000);
+  }
+
+  stopGettingCampaigns = () => {
+    clearInterval(this.refreshInterval);
   }
 
   addMoreCampaigns = () => {
@@ -63,6 +70,10 @@ class FeedScreen extends React.Component {
     const { navigation } = this.props;
     return (
       <ScrollView>
+        <NavigationEvents
+          onDidFocus={this.startGettingCampaigns}
+          onDidBlur={this.stopGettingCampaigns}
+        />
         <View style={styles.feedContainer}>
           {this.props.allCampaigns.length > 0 &&
             this.props.allCampaigns.slice(0, this.state.campaignsVisible).map(camp => {
@@ -90,7 +101,7 @@ class FeedScreen extends React.Component {
         {this.state.campaignsVisible < this.props.allCampaigns.length &&
           <View style={styles.loadMoreView}>
             <TouchableOpacity onPress={this.addMoreCampaigns} style={styles.loadMoreTouchable}>
-                <Text style={styles.loadMoreText}>Load More Campaigns</Text>
+                <Text style={styles.loadMoreText}>Load More Posts</Text>
             </TouchableOpacity>
           </View>
         }

@@ -9,7 +9,7 @@ import {
   KeyboardAvoidingView
 } from 'react-native';
 
-import { ScrollView } from 'react-navigation';
+import { ScrollView, NavigationEvents } from 'react-navigation';
 
 import { connect } from 'react-redux';
 
@@ -50,8 +50,6 @@ class SearchScreen extends React.Component {
     this.props.navigation.setParams({
       roles: this.props.currentUserProfile.roles
     });
-    this.props.getCampaigns();
-    let refreshInterval = setInterval(() => this.props.getCampaigns(), 10000);
   }
 
   render() {
@@ -63,6 +61,9 @@ class SearchScreen extends React.Component {
     return (
       <KeyboardAvoidingView behavior='height' enabled>
         <ScrollView>
+        <NavigationEvents
+          onWillFocus={this.props.getCampaigns()}
+        />
           <View>
             <Header
               containerStyle={{

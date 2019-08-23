@@ -6,7 +6,8 @@ import {
   View,
   TouchableOpacity,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  Alert 
 } from 'react-native';
 import { ScrollView, NavigationEvents } from 'react-navigation';
 import { Input } from 'react-native-elements';
@@ -53,7 +54,11 @@ class CreateCampUpdateScreen extends React.Component {
       !this.props.mediaUpload ||
       !this.state.update_desc
     ) {
-      return;
+      return(
+        Alert.alert(
+          'Error',
+          'Please complete all update fields.'
+        ));
     } else {
       const campUpdate = {
         ...this.state,
@@ -62,7 +67,6 @@ class CreateCampUpdateScreen extends React.Component {
         update_img: this.props.mediaUpload
       };
       await this.props.postCampaignUpdate(campUpdate);
-      await this.props.getCampaigns();
       // AmpEvent('Campaign Update Created');
       this.props.navigation.navigate('Home');
     }

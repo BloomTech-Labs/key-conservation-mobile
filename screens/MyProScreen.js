@@ -92,20 +92,18 @@ class MyProScreen extends React.Component {
                     subtitle={camp.location}
                     rightIcon={
                       <Menu>
-                      
-                          <MenuTrigger
-                            customStyles={triggerStyles}
-                            children={
-                              <View style={styles.menuTrigger}>
-                                <SvgUri
-                                  width='25'
-                                  height='25'
-                                  source={require('../assets/icons/ellipsis-vertical.svg')}
-                                />
-                              </View>
-                            }
-                          />
-                        
+                        <MenuTrigger
+                          customStyles={triggerStyles}
+                          children={
+                            <View style={styles.menuTrigger}>
+                              <SvgUri
+                                width='25'
+                                height='25'
+                                source={require('../assets/icons/ellipsis-vertical.svg')}
+                              />
+                            </View>
+                          }
+                        />
                         <MenuOptions customStyles={optionsStyles}>
                         <MenuOption
                             onSelect={() =>

@@ -64,7 +64,6 @@ class EditCampUpdateScreen extends React.Component {
         }
       };
       await this.props.editCampaignUpdate(this.props.selectedCampaign.update_id, changes);
-      await this.props.getCampaigns();
       this.props.navigation.goBack();
     }
   };
