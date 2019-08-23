@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
+import { AmpEvent } from '../components/withAmplitude';
 
 import * as SecureStore from 'expo-secure-store';
 
@@ -43,6 +44,7 @@ class UsernameScreen extends React.Component {
       };
       //console.log('******click from username', user);
       await this.props.postUser(user);
+      AmpEvent('Account Created')
       this.props.navigation.navigate(
         this.props.error ? 'CreateAccount' : 'Loading'
       );

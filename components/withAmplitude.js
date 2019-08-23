@@ -71,8 +71,9 @@ export function AmpEvent(name, properties) {
 
 export async function AmpInit() {
   const id = await SecureStore.getItemAsync('id', {});
+  const sub = await SecureStore.getItemAsync('sub', {});
   console.log('****** id from withamplitude', id);
-  if (id === null) {
+  if (sub === null) {
     console.log('id is null*******');
     Amplitude.initialize('fae81e5eeff3b6917f9d76566b67a7da');
     Amplitude.clearUserProperties();
@@ -81,8 +82,8 @@ export async function AmpInit() {
         'There is no local data available for the user on this device. This is there first time using the app on this device, it is their first use with the app, they have logged out and are signing back in, or they are using the guest view to see the Campaings Feed.'
     };
     AmpEvent(`User Connection`, message);
-  } else if (id) {
-    console.log('found their id', id);
+  } else if (sub) {
+    //console.log('found their id', id);
     const userData = getProfileData(id, null, true, true);
     const data = await userData();
     if (data) {
@@ -99,7 +100,7 @@ export async function AmpInit() {
         username: data.username
       };
       Amplitude.initialize('fae81e5eeff3b6917f9d76566b67a7da');
-      Amplitude.setUserId(`${profileData.id}`);
+      Amplitude.setUserId(`${profileData.sub}`);
       const message = {
         details:
           'Local data has been found for the user. Setting their data to user properties.'
