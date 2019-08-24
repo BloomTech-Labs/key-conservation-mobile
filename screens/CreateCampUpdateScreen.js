@@ -79,7 +79,7 @@ class CreateCampUpdateScreen extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView
-        behavior='height'
+        behavior='padding'
         keyboardVerticalOffset={90}
         enabled={Platform.OS === 'android' ? true : false}
       >
@@ -175,15 +175,6 @@ const styles = StyleSheet.create({
     marginTop: 120,
     marginRight: 10,
     marginLeft: 10
-  },
-  inputContain: {
-    height: 48,
-    borderWidth: 2,
-    borderColor: '#C4C4C4',
-    padding: 5,
-    borderRadius: 5,
-    fontSize: 20,
-    marginBottom: 25
   },
   inputContain2: {
     height: 146,

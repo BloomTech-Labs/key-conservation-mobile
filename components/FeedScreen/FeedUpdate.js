@@ -89,16 +89,19 @@ const FeedUpdate = props => {
 
   return (
     <View style={styles.container}>
-      <ListItem
-        onPress={goToProfile}
-        title={
-          <View>
-            <Text style={styles.orgTitleView}>{data.username}</Text>
-          </View>
-        }
-        leftAvatar={{ source: { uri: data.profile_image } }}
-        subtitle={data.location}
-      />
+      {
+        props.hideUsername === undefined &&
+        <ListItem
+          onPress={goToProfile}
+          title={
+            <View>
+              <Text style={styles.orgTitleView}>{data.username}</Text>
+            </View>
+          }
+          leftAvatar={{ source: { uri: data.profile_image } }}
+          subtitle={data.location}
+        />
+      }
       <View>
         <View style={styles.updateBar}>
           <Text style={styles.updateBarText}>UPDATE</Text>

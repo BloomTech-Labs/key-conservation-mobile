@@ -13,6 +13,7 @@ import { ScrollView } from 'react-navigation';
 import * as WebBrowser from 'expo-web-browser';
 import { connect } from 'react-redux';
 import SvgUri from 'react-native-svg-uri';
+import moment from 'moment';
 
 import { getProfileData } from '../store/actions';
 import BackButton from '../components/BackButton';
@@ -45,6 +46,13 @@ class ViewCampScreen extends React.Component {
   };
 
   render() {
+    let sortedUpdates = false;
+    if (this.props.selectedCampaign.updates && this.props.selectedCampaign.updates.length) {
+      sortedUpdates = this.props.selectedCampaign.updates.sort(function(a, b) {
+        return moment(a.created_at) - moment(b.created_at);
+      });
+    }
+
     return (
       <ScrollView>
         <View>
@@ -111,14 +119,14 @@ class ViewCampScreen extends React.Component {
           </View>
           <View style={styles.feedContainer}>
             {
-              this.props.selectedCampaign.updates && 
-              this.props.selectedCampaign.updates.length > 0 &&
-              this.props.selectedCampaign.updates.map(update => {
+              sortedUpdates !== false &&
+              sortedUpdates.map(update => {
                 return (
                   <FeedUpdate
                     key={`update${update.update_id}`}
                     data={update}
-                    toggled={true}
+                    toggled
+                    hideUsername
                     navigation={this.props.navigation}
                   />
                 )                

@@ -75,7 +75,7 @@ class EditCampUpdateScreen extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView
-        behavior='height'
+        behavior='padding'
         keyboardVerticalOffset={90}
         enabled={Platform.OS === 'android' ? true : false}
       >

@@ -331,14 +331,10 @@ const reducer = (state = initialState, action) => {
       const updateInsertedinCamp = state.currentUserProfile.campaigns.map(camp => {
         let { update_id, camp_id } = action.payload;
         if (camp.camp_id === camp_id && !camp.update_id) {
-          camp.updates.map(update => {
-            if (update.update_id === update_id) {
-              return action.payload
-            } else {
-              return update
-            }
-        })
-      }})
+          camp.updates = [...camp.updates, action.payload]
+        }
+        return camp
+      })
       return {
         ...state,
         pending: { ...state.pending, postCampaignUpdate: false },
