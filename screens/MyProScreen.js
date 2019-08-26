@@ -86,7 +86,7 @@ class MyProScreen extends React.Component {
                 return (
                   <ListItem
                     onPress={() => this.goToCampUpdate(camp)}
-                    key={camp.update_id}
+                    key={`update${camp.update_id}`}
                     title={`${camp.camp_name} - Update`}
                     leftAvatar={{ source: { uri: camp.update_img } }}
                     subtitle={camp.location}
