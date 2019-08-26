@@ -3,16 +3,13 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   TouchableOpacity,
   Image,
   Dimensions
 } from 'react-native';
 import { ListItem } from 'react-native-elements';
-import { ScrollView, NavigationEvents } from 'react-navigation';
-import * as WebBrowser from 'expo-web-browser';
+import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
-import SvgUri from 'react-native-svg-uri';
 
 import { getProfileData, getCampaign } from '../store/actions';
 import BackButton from '../components/BackButton';
@@ -38,8 +35,8 @@ class ViewCampUpdateScreen extends React.Component {
     };
   };
 
-  goToHome = () => {
-    this.props.getProfileData(this.props.selectedCampaign.users_id);
+  goToProfile = async () => {
+    await this.props.getProfileData(this.props.selectedCampaign.users_id);
     this.props.navigation.navigate('Pro');
   };
 

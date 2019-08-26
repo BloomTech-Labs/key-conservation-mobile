@@ -121,6 +121,7 @@ export const editProfileData = (id, changes) => async dispatch => {
       formData.append(key, filteredChanges[key]);
     }
   });
+  console.log(formData)
 
   return axios
     .put(`https://key-conservation-staging.herokuapp.com/api/users/${id}`, formData, {

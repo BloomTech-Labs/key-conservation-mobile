@@ -143,24 +143,6 @@ class EditProScreen extends React.Component {
 
             <View style={styles.sections}>
               <UploadMedia circular />
-              {/* <Text style={styles.sectionsText}>Profile Image URL</Text>
-              <TextInput
-                ref={input => {
-                  this.profileImageInput = input;
-                }}
-                returnKeyType='next'
-                keyboardType='url'
-                style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='Please include full URL'
-                onChangeText={text => this.setState({ profile_image: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.locationInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.profile_image}
-              /> */}
             </View>
 
             <View style={styles.sections}>

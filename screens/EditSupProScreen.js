@@ -124,40 +124,14 @@ class EditSupProScreen extends React.Component {
                   this.usernameInput = input;
                 }}
                 returnKeyType='next'
-                keyboardType='url'
                 style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='Please include full URL'
-                onChangeText={text => this.setState({ org_link_url: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.profileImageInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === 'android'}
+                onChangeText={text => this.setState({ username: text })}
                 value={this.state.username}
               />
             </View>
 
             <View style={styles.sections}>
               <UploadMedia circular />
-              {/* <Text style={styles.sectionsText}>Profile Image URL</Text>
-              <TextInput
-                ref={input => {
-                  this.profileImageInput = input;
-                }}
-                returnKeyType='next'
-                keyboardType='url'
-                style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='Please include full URL'
-                onChangeText={text => this.setState({ profile_image: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.locationInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.profile_image}
-              /> */}
             </View>
 
             <View style={styles.sections}>
@@ -167,19 +141,55 @@ class EditSupProScreen extends React.Component {
                   this.locationInput = input;
                 }}
                 returnKeyType='next'
-                keyboardType='url'
                 style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='Please include full URL'
-                onChangeText={text => this.setState({ org_cta: text })}
+                onChangeText={text => this.setState({ location: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
                   this.mini_bioInput.focus();
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.org_cta}
+                value={this.state.location}
               />
             </View>
+
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>About Me</Text>
+              <TextInput
+                ref={input => {
+                  this.mini_bioInput = input;
+                }}
+                returnKeyType='next'
+                style={styles.inputContain}
+                onChangeText={text => this.setState({ mini_bio: text })}
+                onSubmitEditing={() => {
+                  if (Platform.OS === 'android') return;
+                  this.emailInput.focus();
+                }}
+                blurOnSubmit={Platform.OS === 'android'}
+                value={this.state.mini_bio}
+              />
+            </View>
+
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>Email</Text>
+              <TextInput
+                ref={input => {
+                  this.emailInput = input;
+                }}
+                returnKeyType='next'
+                placeholder='Email'
+                keyboardType='email-address'
+                style={styles.inputContain}
+                onChangeText={text => this.setState({ email: text })}
+                onSubmitEditing={() => {
+                  if (Platform.OS === 'android') return;
+                  this.facebookInput.focus();
+                }}
+                blurOnSubmit={Platform.OS === 'android'}
+                value={this.state.email}
+              />
+            </View>
+
 
             <View style={styles.sections}>
               <Text style={styles.sectionsText}>Facebook</Text>
@@ -237,24 +247,10 @@ class EditSupProScreen extends React.Component {
                 onChangeText={text => this.setState({ twitter: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
-                  this.aboutUsInput.focus();
+                  this.species_habitatsInput.focus();
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.twitter}
-              />
-            </View>
-
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>About Us</Text>
-              <TextInput
-                ref={input => {
-                  this.about_usInput = input;
-                }}
-                returnKeyType='next'
-                style={styles.inputContain2}
-                onChangeText={text => this.setState({ about_us: text })}
-                multiline={true}
-                value={this.state.about_us}
               />
             </View>
 
@@ -273,20 +269,7 @@ class EditSupProScreen extends React.Component {
                 value={this.state.species_and_habitats}
               />
             </View>
-
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Big Issues</Text>
-              <TextInput
-                ref={input => {
-                  this.issuesInput = input;
-                }}
-                returnKeyType='next'
-                style={styles.inputContain2}
-                onChangeText={text => this.setState({ issues: text })}
-                multiline={true}
-                value={this.state.issues}
-              />
-            </View>
+            
             <View style={styles.logoutSection}>
               <Text style={styles.accountSettingsText}>Account Settings:</Text>
               <TouchableOpacity
