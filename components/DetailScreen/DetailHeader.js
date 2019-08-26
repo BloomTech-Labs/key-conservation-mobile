@@ -6,9 +6,8 @@ import {
   TouchableOpacity,
   Linking
 } from 'react-native';
-import { ScrollView } from 'react-navigation';
 import * as WebBrowser from 'expo-web-browser';
-import { Avatar, Icon, Image } from 'react-native-elements';
+import { Avatar } from 'react-native-elements';
 import SvgUri from 'react-native-svg-uri';
 import { AmpEvent } from '../withAmplitude';
 
@@ -46,18 +45,17 @@ export default class DetailHeader extends Component {
           <View style={styles.avatarInfoWrap}>
             <View style={styles.header}>
               <Avatar
-                size='large'
+                size={61}
                 rounded
                 source={{
                   uri: profile.profile_image
                 }}
               />
               <View style={styles.textContainer}>
-                <View>
-                  <Text style={styles.title}>{profile.org_name}</Text>
-                  <Text style={styles.location}>{profile.location}</Text>
-                </View>
+                <Text style={styles.titleText}>{profile.org_name}</Text>
+                <Text style={styles.userText}>{profile.location}</Text>
                 <Text
+                  style={styles.userText}
                   onPress={async () => {
                     profile.org_link_url &&
                       profile.org_link_url !== null &&
@@ -136,10 +134,15 @@ const styles = StyleSheet.create({
     margin: 15,
     marginBottom: -10
   },
-  title: {
-    fontSize: 18,
-    textTransform: 'capitalize',
-    fontWeight: '600'
+  titleText: {
+    lineHeight: 22,
+    fontSize: 16, 
+    fontFamily: 'OpenSans-SemiBold'
+  },
+  userText: {
+    lineHeight: 19,
+    fontSize: 14,
+    fontFamily: 'OpenSans-Regular'
   },
   header: {
     flex: 1,

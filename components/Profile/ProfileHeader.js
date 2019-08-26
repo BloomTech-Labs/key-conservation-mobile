@@ -3,13 +3,11 @@ import {
   StyleSheet,
   View,
   Text,
-  Button,
   TouchableOpacity,
-  Platform,
 } from 'react-native';
 import { ScrollView } from 'react-navigation';
 import * as WebBrowser from 'expo-web-browser';
-import { Avatar, Icon } from 'react-native-elements';
+import { Avatar } from 'react-native-elements';
 import { AmpEvent } from '../withAmplitude';
 
 const ProfileHeader = props => {
@@ -41,13 +39,15 @@ const ProfileHeader = props => {
         </TouchableOpacity>
       </View>
       <View style={styles.container}>
-        <Avatar
-          size='large'
-          rounded
-          source={{
-            uri: profile.profile_image
-          }}
-        />
+        <View style={styles.avatarContainer}>
+          <Avatar
+            size={61}
+            rounded
+            source={{
+              uri: profile.profile_image
+            }}
+          />
+        </View>
         <View style={styles.textContainer}>
           <Text style={styles.org}>{profile.org_name}</Text>
           <Text style={styles.location}>{profile.location}</Text>
@@ -79,8 +79,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     backgroundColor: '#e1e8ed',
-    paddingTop: 50,
+    paddingTop: 29,
     flexWrap: 'wrap'
+  },
+  avatarContainer: {
+    width: '30%',
+    flex: 0,
+    alignItems: 'center'
   },
   bioContainer: {
     marginTop: 25,
@@ -94,12 +99,18 @@ const styles = StyleSheet.create({
     marginBottom: 50
   },
   org: {
-    fontSize: 22
+    lineHeight: 22,
+    fontSize: 16, 
+    fontFamily: 'OpenSans-SemiBold'
   },
   pic: {
     flex: 1
   },
-  textContainer: {},
+  textContainer: {
+    flex: 1,
+    paddingTop: 2,
+    height: 61
+  },
   buttons: {
     flexDirection: 'row',
     justifyContent: 'space-around',
