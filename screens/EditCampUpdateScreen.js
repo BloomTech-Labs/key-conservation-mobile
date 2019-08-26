@@ -9,12 +9,11 @@ import {
   Platform
 } from 'react-native';
 import { ScrollView, NavigationEvents } from 'react-navigation';
-import { Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { editCampaignUpdate, getCampaigns, clearMedia } from '../store/actions';
 import BackButton from '../components/BackButton';
-import PublishButton from '../components/PublishButton';
+import DoneButton from '../components/DoneButton';
 import { AmpEvent } from '../components/withAmplitude';
 
 import UploadMedia from '../components/UploadMedia';
@@ -35,41 +34,37 @@ class EditCampUpdateScreen extends React.Component {
       },
       headerLeft: <BackButton navigation={navigation} />,
       headerRight: (
-        <PublishButton
+        <DoneButton
           navigation={navigation}
-          pressAction={navigation.getParam('publish')}
+          pressAction={navigation.getParam('edit')}
         />
       )
     };
   };
   state = {
-    update_desc: this.props.selectedCampaign.update_desc, 
+    update_desc: this.props.selectedCampaign.update_desc
   };
   componentDidMount() {
     this.props.navigation.setParams({ edit: this.edit });
   }
 
   edit = async () => {
-    if (
-      !this.props.mediaUpload ||
-      !this.state.update_desc
-    ) {
-      return;
-    } else {
-      let changes = this.state;
-      if (this.props.mediaUpload) {
-        changes = {
-          ...this.state,
-          camp_img: this.props.mediaUpload
-        }
+    let changes = this.state;
+    if (this.props.mediaUpload) {
+      changes = {
+        ...this.state,
+        camp_img: this.props.mediaUpload
       };
-      await this.props.editCampaignUpdate(this.props.selectedCampaign.update_id, changes);
-      this.props.navigation.goBack();
     }
+    await this.props.editCampaignUpdate(
+      this.props.selectedCampaign.update_id,
+      changes
+    );
+    this.props.navigation.goBack();
   };
   clearState = () => {
     this.setState({
-      update_desc: this.props.selectedCampaign.update_desc,
+      update_desc: this.props.selectedCampaign.update_desc
     });
   };
   render() {
@@ -90,16 +85,18 @@ class EditCampUpdateScreen extends React.Component {
               onWillFocus={this.props.clearMedia}
               onDidBlur={this.clearState}
             />
-            <View style={styles.sectionContainer}>              
+            <View style={styles.sectionContainer}>
               <View style={styles.sections}>
-                <UploadMedia />                
+                <UploadMedia />
               </View>
 
               <View style={styles.sections}>
                 <View style={styles.goToCampaignButton}>
                   <Text style={styles.goToCampaignText}>Update</Text>
                 </View>
-                <Text style={styles.sectionsText}>{this.props.selectedCampaign.camp_name}</Text>
+                <Text style={styles.sectionsText}>
+                  {this.props.selectedCampaign.camp_name}
+                </Text>
                 <TextInput
                   ref={input => {
                     this.campDetailsInput = input;
@@ -111,7 +108,7 @@ class EditCampUpdateScreen extends React.Component {
                   multiline={true}
                   value={this.state.update_desc}
                 />
-              </View>            
+              </View>
             </View>
           </ScrollView>
         </KeyboardAwareScrollView>
@@ -213,17 +210,17 @@ const styles = StyleSheet.create({
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 20,
     marginBottom: 5,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   goToCampaignButton: {
     backgroundColor: '#00FF9D',
     alignItems: 'center',
     justifyContent: 'center',
     height: 37,
-    width: '100%',
+    width: '100%'
   },
   goToCampaignText: {
     fontFamily: 'OpenSans-SemiBold',
-    fontSize: 18,
-  },
+    fontSize: 18
+  }
 });

@@ -356,6 +356,7 @@ const reducer = (state = initialState, action) => {
         error: ''
       };
     case EDIT_CAMPAIGN_UPDATE_SUCCESS:
+      console.log(state.currentUserProfile.campaigns)
       const alteredCampaignsandUpdates = state.currentUserProfile.campaigns.map(camp => {
         let { update_id, camp_id } = action.payload;
         if (camp.update_id === update_id) {
@@ -368,10 +369,12 @@ const reducer = (state = initialState, action) => {
               return update
             }
           })
+          return camp;
         } else {
           return camp;
         }
       });
+      console.log(alteredCampaignsandUpdates)
       return {
         ...state,
         pending: { ...state.pending, editCampaignUpdate: false },

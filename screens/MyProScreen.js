@@ -126,7 +126,6 @@ class MyProScreen extends React.Component {
                       </Menu>
                     }
                   />
-                
               );
             } else {
               return (

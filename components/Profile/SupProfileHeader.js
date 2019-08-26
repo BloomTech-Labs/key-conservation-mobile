@@ -98,9 +98,6 @@ const styles = StyleSheet.create({
   container: {
     height: 163,
     flexDirection: 'row',
-    // marginBottom: 37,
-    // borderBottomWidth: 2,
-    // borderBottomColor: '#eee',
   },
   rightContainer: {
     paddingTop: 29,
@@ -114,8 +111,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     paddingTop: 2,
-    height: 61,
-    
+    height: 61  
   },
   titleText: {
     lineHeight: 22,
