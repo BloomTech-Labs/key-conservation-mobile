@@ -1,5 +1,4 @@
 import React from 'react';
-import { Platform } from 'react-native';
 import {
   createStackNavigator,
   createBottomTabNavigator
@@ -61,6 +60,7 @@ const FeedStack = createStackNavigator(
       tabBarLabel: 'Feed',
       tabBarIcon: ({ focused }) => (
         <SvgUri
+          fill='#3b3b3b'
           width='25'
           height='25'
           source={
@@ -71,6 +71,7 @@ const FeedStack = createStackNavigator(
         />
       )
     },
+
     transitionConfig: () => ({
       transitionSpec: {
         duration: 0
@@ -87,6 +88,7 @@ const CreateCampStack = createStackNavigator(
       tabBarLabel: 'Create Campaign',
       tabBarIcon: ({ focused }) => (
         <SvgUri
+          fill='#3b3b3b'
           width='25'
           height='25'
           source={
@@ -124,6 +126,7 @@ const MyProStack = createStackNavigator(
       tabBarLabel: 'My Profile',
       tabBarIcon: ({ focused }) => (
         <SvgUri
+          fill='#3b3b3b'
           width='25'
           height='25'
           source={
@@ -152,6 +155,7 @@ const SupProStack = createStackNavigator(
       tabBarLabel: 'My Profile',
       tabBarIcon: ({ focused }) => (
         <SvgUri
+          fill='#3b3b3b'
           width='25'
           height='25'
           source={

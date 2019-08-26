@@ -1,15 +1,6 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  ActivityIndicator,
-  Platform
-} from 'react-native';
-import * as WebBrowser from 'expo-web-browser';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import moment from 'moment';
-import SvgUri from 'react-native-svg-uri';
 
 import { ListItem, Icon } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
@@ -20,7 +11,7 @@ import {
   toggleCampaignText
 } from '../../store/actions';
 
-import styles from '../../constants/Stylesheet';
+import styles from '../../constants/FeedScreen/FeedCampaign';
 
 const FeedCampaign = props => {
   const dispatch = useDispatch();

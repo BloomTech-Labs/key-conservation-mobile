@@ -8,23 +8,25 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView
 } from 'react-native';
-import { ScrollView, NavigationEvents } from "react-navigation";
+import { ScrollView, NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import BackButton from '../components/BackButton';
-import * as SecureStorage from "expo-secure-store";
+import * as SecureStorage from 'expo-secure-store';
 import DoneButton from '../components/DoneButton';
 import UploadMedia from '../components/UploadMedia';
 
 import { editProfileData, logout, clearMedia } from '../store/actions';
 
+import styles from '../constants/screens/EditProScreen'; 
+
 class EditProScreen extends React.Component {
   logoutPress = async () => {
-    await SecureStorage.deleteItemAsync("sub", {});
-    await SecureStorage.deleteItemAsync("email", {});
-    await SecureStorage.deleteItemAsync("roles", {});
-    await SecureStorage.deleteItemAsync("id", {});
+    await SecureStorage.deleteItemAsync('sub', {});
+    await SecureStorage.deleteItemAsync('email', {});
+    await SecureStorage.deleteItemAsync('roles', {});
+    await SecureStorage.deleteItemAsync('id', {});
     this.props.logout();
-    this.props.navigation.navigate("Loading");
+    this.props.navigation.navigate('Loading');
   };
 
   static navigationOptions = ({ navigation }) => {
@@ -39,15 +41,11 @@ class EditProScreen extends React.Component {
         flexGrow: 1,
         alignSelf: 'center'
       },
-      headerLeft: (
-        <BackButton
-          navigation={navigation} 
-        />
-      ),
+      headerLeft: <BackButton navigation={navigation} />,
       headerRight: (
-        <DoneButton 
-          navigation={navigation} 
-          pressAction={navigation.getParam('done')} 
+        <DoneButton
+          navigation={navigation}
+          pressAction={navigation.getParam('done')}
         />
       )
     };
@@ -75,22 +73,22 @@ class EditProScreen extends React.Component {
   componentDidMount() {
     this.props.navigation.setParams({ done: this.done });
   }
-  
+
   done = () => {
     let changes = this.state;
     if (this.props.mediaUpload) {
       changes = {
         ...this.state,
         profile_image: this.props.mediaUpload
-      }
+      };
     }
     this.props.editProfileData(this.props.currentUserProfile.id, changes);
     if (this.props.firstLogin) {
-      this.props.navigation.navigate('Home');   
+      this.props.navigation.navigate('Home');
     } else {
-      this.props.navigation.goBack(); 
+      this.props.navigation.goBack();
     }
-  }
+  };
 
   render() {
     return (
@@ -100,9 +98,7 @@ class EditProScreen extends React.Component {
         enabled
       >
         <ScrollView>
-          <NavigationEvents
-            onWillFocus={this.props.clearMedia}
-          />
+          <NavigationEvents onWillFocus={this.props.clearMedia} />
           <View style={styles.sectionContainer}>
             <View style={styles.Card} />
             <View style={styles.sections}>
@@ -222,10 +218,10 @@ class EditProScreen extends React.Component {
                   this.org_link_urlInput = input;
                 }}
                 returnKeyType='next'
-                keyboardType='url'       
-                  style={styles.inputContain}
-                  autoCapitalize='none'
-                  placeholder='Please include full URL'
+                keyboardType='url'
+                style={styles.inputContain}
+                autoCapitalize='none'
+                placeholder='Please include full URL'
                 onChangeText={text => this.setState({ org_link_url: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
@@ -263,9 +259,9 @@ class EditProScreen extends React.Component {
                 }}
                 returnKeyType='next'
                 keyboardType='url'
-                  style={styles.inputContain}
-                  autoCapitalize='none'
-                  placeholder='Please include full URL'
+                style={styles.inputContain}
+                autoCapitalize='none'
+                placeholder='Please include full URL'
                 onChangeText={text => this.setState({ org_cta: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
@@ -273,7 +269,6 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.org_cta}
-
               />
             </View>
 
@@ -362,7 +357,9 @@ class EditProScreen extends React.Component {
                 }}
                 returnKeyType='next'
                 style={styles.inputContain2}
-                onChangeText={text => this.setState({ species_and_habitats: text })}
+                onChangeText={text =>
+                  this.setState({ species_and_habitats: text })
+                }
                 multiline={true}
                 value={this.state.species_and_habitats}
               />
@@ -385,10 +382,10 @@ class EditProScreen extends React.Component {
             <View style={styles.logoutSection}>
               <Text style={styles.accountSettingsText}>Account Settings:</Text>
               <TouchableOpacity
-              onPress = {this.logoutPress}
-              style = {styles.logoutButton}
+                onPress={this.logoutPress}
+                style={styles.logoutButton}
               >
-                <Text style = {styles.buttonText}>Logout</Text>
+                <Text style={styles.buttonText}>Logout</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -407,70 +404,3 @@ export default connect(
   mapStateToProps,
   { editProfileData, logout, clearMedia }
 )(EditProScreen);
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    flexDirection: 'column',
-    flexWrap: 'wrap',
-    marginLeft: 15,
-    marginRight: 15
-  },
-  Card: {
-    marginTop: 10,
-    backgroundColor: '#fff',
-    width: '100%',
-    height: 20
-  },
-  inputContain: {
-    height: 48,
-    borderWidth: 2,
-    borderColor: '#C4C4C4',
-    padding: 5,
-    borderRadius: 5,
-    fontSize: 20,
-    marginBottom: 25
-  },
-  inputContain2: {
-    height: 140,
-    borderWidth: 2,
-    borderColor: '#C4C4C4',
-    padding: 5,
-    borderRadius: 5,
-    fontSize: 20,
-    marginBottom: 25,
-    textAlignVertical: 'top'
-  },
-
-  touchableView: {
-    backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-    height: 35
-  },
-  touchableText: {
-    color: '#fff',
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    letterSpacing: 2
-  },
-  sections: {
-    // marginTop: 20,
-    backgroundColor: '#fff',
-    width: '100%'
-  },
-  sectionsText: {
-    fontFamily: 'OpenSans-SemiBold',
-    fontSize: 20,
-    marginBottom: 5
-  },
-  logoutButton: {
-    fontSize: 20,
-    alignItems: "flex-start",
-    backgroundColor: 'white'
-  },
-  buttonText: {
-    color: 'blue',
-    fontSize: 20
-  }
-});

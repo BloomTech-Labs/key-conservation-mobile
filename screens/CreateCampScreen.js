@@ -1,15 +1,12 @@
 import React from 'react';
 import {
-  StyleSheet,
   TextInput,
   Text,
   View,
-  TouchableOpacity,
   KeyboardAvoidingView,
   Platform
 } from 'react-native';
 import { ScrollView, NavigationEvents } from 'react-navigation';
-import { Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { postCampaign, getCampaigns, clearMedia } from '../store/actions';
@@ -18,6 +15,8 @@ import PublishButton from '../components/PublishButton';
 import { AmpEvent } from '../components/withAmplitude';
 
 import UploadMedia from '../components/UploadMedia';
+
+import styles from '../constants/screens/CreateCampScreen';
 
 class CreateCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -183,88 +182,3 @@ export default connect(
   mapStateToProps,
   { postCampaign, getCampaigns, clearMedia }
 )(CreateCampScreen);
-const styles = StyleSheet.create({
-  sectionContainer: {
-    flexDirection: 'column',
-    flexWrap: 'wrap',
-    margin: 15
-  },
-  buttons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: '#fff',
-    borderBottomColor: '#f5f5f5',
-    paddingLeft: 10,
-    paddingRight: 10,
-    height: 75
-  },
-  TouchableOpacity: {},
-  ButtonStyle: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: '#eee',
-    marginTop: 12,
-    marginBottom: 12,
-    flex: 1
-  },
-  CancelButton: {
-    fontSize: 16,
-    color: 'black'
-  },
-  PublishButton: {
-    fontSize: 16,
-    color: 'black',
-    fontWeight: 'bold'
-  },
-  camera: {
-    backgroundColor: '#C4C4C4',
-    width: '100%',
-    height: 150,
-    flexDirection: 'row'
-  },
-  CameraContainerButton: {
-    marginTop: 120,
-    marginRight: 10,
-    marginLeft: 10
-  },
-  inputContain: {
-    height: 48,
-    borderWidth: 2,
-    borderColor: '#C4C4C4',
-    padding: 5,
-    borderRadius: 5,
-    fontSize: 20,
-    marginBottom: 25
-  },
-  inputContain2: {
-    height: 140,
-    borderWidth: 2,
-    borderColor: '#C4C4C4',
-    padding: 5,
-    borderRadius: 5,
-    fontSize: 20,
-    marginBottom: 25,
-    textAlignVertical: 'top'
-  },
-  Card: {
-    marginTop: 20,
-    backgroundColor: '#fff',
-    width: '100%',
-    padding: 25
-  },
-  cardText: {
-    textAlign: 'center',
-    marginBottom: 10,
-    fontSize: 25
-  },
-  cardPara: {
-    marginTop: 10,
-    textAlign: 'center',
-    fontSize: 13
-  },
-  sectionsText: {
-    fontFamily: 'OpenSans-SemiBold',
-    fontSize: 20,
-    marginBottom: 5
-  }
-});

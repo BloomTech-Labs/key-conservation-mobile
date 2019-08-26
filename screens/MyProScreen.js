@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, Text } from 'react-native';
 import {
   Menu,
   MenuOptions,
@@ -9,14 +9,13 @@ import {
 import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
 import SvgUri from 'react-native-svg-uri';
-import { Icon, ListItem } from 'react-native-elements';
+import { ListItem } from 'react-native-elements';
 
 import { getProfileData, deleteCampaign, setCampaign } from '../store/actions';
 
 import EditButton from '../components/EditButton';
 
 import ProfileHeader from '../components/Profile/ProfileHeader';
-import Stylesheet from '../constants/Stylesheet';
 
 class MyProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
