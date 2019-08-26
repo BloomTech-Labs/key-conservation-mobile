@@ -356,7 +356,6 @@ const reducer = (state = initialState, action) => {
         error: ''
       };
     case EDIT_CAMPAIGN_UPDATE_SUCCESS:
-      console.log(state.currentUserProfile.campaigns)
       const alteredCampaignsandUpdates = state.currentUserProfile.campaigns.map(camp => {
         let { update_id, camp_id } = action.payload;
         if (camp.update_id === update_id) {
@@ -374,7 +373,6 @@ const reducer = (state = initialState, action) => {
           return camp;
         }
       });
-      console.log(alteredCampaignsandUpdates)
       return {
         ...state,
         pending: { ...state.pending, editCampaignUpdate: false },
@@ -397,16 +395,29 @@ const reducer = (state = initialState, action) => {
         error: ''
       };
     case DELETE_CAMPAIGN_UPDATE_SUCCESS:
+      let deletedFromCamp;
       const deletedUpdate = Number(action.payload);
-      const newCampaignsAndUpdates = state.currentUserProfile.campaigns.filter(camp => {
+      const newCampaignsAndUpdatesA = state.currentUserProfile.campaigns.filter(camp => {
+        if (camp.update_id === deletedUpdate) {
+          deletedFromCamp = camp.camp_id
+        }
         return camp.update_id !== deletedUpdate;
       });
+      const newCampaignsAndUpdatesB = newCampaignsAndUpdatesA.map(camp => {
+        if (camp.camp_id === deletedFromCamp) {
+          camp.updates = camp.updates.filter(update => {
+            return update.update_id !== deletedUpdate;
+          })
+        }
+        return camp;
+      })
+
       return {
         ...state,
         pending: { ...state.pending, deleteCampaignUpdate: false },
         currentUserProfile: {
           ...state.currentUserProfile,
-          campaigns: newCampaignsAndUpdates
+          campaigns: newCampaignsAndUpdatesB
         }
       };
     case DELETE_CAMPAIGN_UPDATE_ERROR:
