@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-navigation';
 import * as WebBrowser from 'expo-web-browser';
-import { Icon, Image } from 'react-native-elements';
 import SvgUri from 'react-native-svg-uri';
+import styles from '../../constants/DetailScreen/DetailAboutUs';
 
 const DetailAboutUs = props => {
   let profile = props.profile;
@@ -14,6 +14,7 @@ const DetailAboutUs = props => {
         <View style={styles.sections}>
           <View style={styles.iconWrap}>
             <SvgUri
+              fill='#3b3b3b'
               width='25'
               height='25'
               source={require('../../assets/icons/clipboard.svg')}
@@ -26,6 +27,7 @@ const DetailAboutUs = props => {
         <View style={styles.sections}>
           <View style={styles.iconWrap}>
             <SvgUri
+              fill='#3b3b3b'
               width='25'
               height='25'
               source={require('../../assets/icons/seedling.svg')}
@@ -40,6 +42,7 @@ const DetailAboutUs = props => {
         <View style={styles.sections}>
           <View style={styles.iconWrap}>
             <SvgUri
+              fill='#3b3b3b'
               width='25'
               height='25'
               source={require('../../assets/icons/lightbulb.svg')}
@@ -53,6 +56,7 @@ const DetailAboutUs = props => {
         <View style={styles.sections}>
           <View style={styles.iconWrap}>
             <SvgUri
+              fill='#3b3b3b'
               width='25'
               height='25'
               source={require('../../assets/icons/hand.svg')}
@@ -103,50 +107,5 @@ const DetailAboutUs = props => {
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'flex-start',
-    margin: 15,
-    textAlign: 'justify',
-    lineHeight: 30
-  },
-  title: {
-    fontSize: 20
-  },
-  body: {
-    marginTop: 10,
-    flexDirection: 'column',
-    flexWrap: 'nowrap'
-  },
-  iconWrap: {
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    flexDirection: 'row',
-    borderBottomColor: '#eee',
-    borderBottomWidth: 1,
-    marginBottom: 2,
-    paddingBottom: 20
-  },
-  sections: {
-    marginTop: 20,
-    backgroundColor: '#fff',
-    width: '100%',
-    padding: 25
-  },
-  title: {
-    fontSize: 18,
-    alignSelf: 'center',
-    marginLeft: 10,
-    fontFamily: 'OpenSans-Regular'
-  },
-  donateButton: {
-    alignItems: 'center',
-    width: '100%'
-  },
-  forcedMargin: {
-    marginTop: 10
-  }
-});
 
 export default DetailAboutUs;

@@ -1,28 +1,12 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TouchableOpacity,
-  Platform,
-  KeyboardAvoidingView
-} from 'react-native';
-
+import { View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { ScrollView } from 'react-navigation';
-
 import { connect } from 'react-redux';
-
 import { getCampaigns } from '../store/actions';
-
 import Campaign from '../components/FeedScreen/FeedCampaign';
-
 import SvgUri from 'react-native-svg-uri';
-
 import { Header, SearchBar } from 'react-native-elements';
-
 import { createFilter } from 'react-native-search-filter';
-
 import Constants from 'expo-constants';
 
 // These are the keywoards that filtered through the map. You can add more to do depending.

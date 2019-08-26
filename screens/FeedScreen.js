@@ -1,14 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
-import * as SecureStorage from 'expo-secure-store';
-import { Icon } from 'react-native-elements';
 import { getCampaigns } from '../store/actions';
 import FeedCampaign from '../components/FeedScreen/FeedCampaign';
-import LoginButton from '../components/LoginButton';
 import SvgUri from 'react-native-svg-uri';
-import styles from '../constants/Stylesheet';
+import styles from '../constants/screens/FeedScreen';
 
 class FeedScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -31,6 +28,7 @@ class FeedScreen extends React.Component {
           style={{ marginRight: 15 }}
         >
           <SvgUri
+            fill='#fff'
             width='25'
             height='25'
             source={require('../assets/icons/search-regular.svg')}

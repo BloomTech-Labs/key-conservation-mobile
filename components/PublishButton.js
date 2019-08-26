@@ -2,12 +2,6 @@ import React from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
 
 const PublishButton = props => {
-  // ampPressAction = () => {
-  //   console.log('publish button clicked');
-  //   props.pressAction;
-  //   AmpEvent('Campaign Created');
-  // };
-
   return (
     <TouchableOpacity onPress={props.pressAction} style={{ padding: 18 }}>
       <View
