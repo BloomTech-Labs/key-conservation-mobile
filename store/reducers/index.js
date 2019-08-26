@@ -94,7 +94,6 @@ const reducer = (state = initialState, action) => {
         error: action.payload
       };
     case LOGIN_SUCCESS:
-      //console.log(action.payload);
       return {
         ...state,
         pending: { ...state.pending, login: false },
@@ -122,18 +121,23 @@ const reducer = (state = initialState, action) => {
         error: ''
       };
     case GET_PROFILE_SUCCESS:
+      let { user } = action.payload;
+      if (user.campaigns) {
+        user.campaigns.sort(function(a, b) {
+          return moment(b.created_at) - moment(a.created_at);
+        });
+      }
       if (action.payload.myProfile) {
-        //console.log("*******getprofile", action.payload.user)
         return {
           ...state,
           pending: { ...state.pending, getProfile: false },
-          currentUserProfile: action.payload.user
+          currentUserProfile: user
         };
       } else {
         return {
           ...state,
           pending: { ...state.pending, getProfile: false },
-          selectedProfile: action.payload.user
+          selectedProfile: user
         };
       }
     case GET_PROFILE_ERROR:
@@ -168,7 +172,6 @@ const reducer = (state = initialState, action) => {
       };
     case POST_USER_SUCCESS:
       SecureStore.setItemAsync('userId', `${action.payload.id}`);
-      // console.log("************inside reducer*********", action.payload.id);
       return {
         ...state,
         pending: { ...state.pending, postUser: false },
