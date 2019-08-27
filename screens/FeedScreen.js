@@ -1,14 +1,12 @@
-import React from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
-import { ScrollView } from "react-navigation";
-import { connect } from "react-redux";
-import { Icon } from "react-native-elements";
-
-import { getCampaigns } from "../store/actions";
-
-import FeedCampaign from "../components/FeedScreen/FeedCampaign";
-
-import styles from "../constants/Stylesheet";
+import React from 'react';
+import { Text, View, TouchableOpacity } from 'react-native';
+import { ScrollView, NavigationEvents } from 'react-navigation';
+import { connect } from 'react-redux';
+import { getCampaigns } from '../store/actions';
+import FeedCampaign from '../components/FeedScreen/FeedCampaign';
+import FeedUpdate from '../components/FeedScreen/FeedUpdate';
+import SvgUri from 'react-native-svg-uri';
+import styles from '../constants/screens/FeedScreen';
 
 class FeedScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -22,36 +20,89 @@ class FeedScreen extends React.Component {
         textAlign: 'center',
         flexGrow: 1,
         alignSelf: 'center',
-        fontFamily: 'OpenSans-SemiBold',
+        fontFamily: 'OpenSans-SemiBold'
       },
       headerLeft: <View />,
-      headerRight: <View />
-    }
+      headerRight: (
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Search')}
+          style={{ marginRight: 15 }}
+        >
+          <SvgUri
+            fill='#fff'
+            width='25'
+            height='25'
+            source={require('../assets/icons/search-regular.svg')}
+          />
+        </TouchableOpacity>
+      )
+    };
   };
 
+  state = {
+    campaignsVisible: 8
+  }
+
   componentDidMount() {
-    this.props.navigation.setParams({ roles: this.props.currentUserProfile.roles });
+    this.props.navigation.setParams({
+      roles: this.props.currentUserProfile.roles
+    });
+  }
+
+  startGettingCampaigns = () => {
     this.props.getCampaigns();
-    let refreshInterval = setInterval(() => this.props.getCampaigns(), 10000);
-  };
+    this.refreshInterval = setInterval(() => this.props.getCampaigns(), 10000);
+  }
+
+  stopGettingCampaigns = () => {
+    clearInterval(this.refreshInterval);
+  }
+
+  addMoreCampaigns = () => {
+    this.setState({
+      campaignsVisible: this.state.campaignsVisible + 8
+    })
+  }
 
   render() {
     const { navigation } = this.props;
     return (
       <ScrollView>
+        <NavigationEvents
+          onDidFocus={this.startGettingCampaigns}
+          onDidBlur={this.stopGettingCampaigns}
+        />
         <View style={styles.feedContainer}>
           {this.props.allCampaigns.length > 0 &&
-            this.props.allCampaigns.map(camp => {
-              return (
-                <FeedCampaign
-                  key={camp.camp_id}
-                  data={camp}
-                  toggled={this.props.campaignsToggled.includes(camp.camp_id)}
-                  navigation={navigation}
-                />
-              );
+            this.props.allCampaigns.slice(0, this.state.campaignsVisible).map(camp => {
+              if (camp.update_id) {
+                return (
+                  <FeedUpdate
+                    key={`update${camp.update_id}`}
+                    data={camp}
+                    toggled={this.props.campaignsToggled.includes(`update${camp.update_id}`)}
+                    navigation={navigation}
+                  />
+                )
+              } else {
+                return (
+                  <FeedCampaign
+                    key={camp.camp_id}
+                    data={camp}
+                    toggled={this.props.campaignsToggled.includes(camp.camp_id)}
+                    navigation={navigation}
+                  />
+                );
+              }
             })}
         </View>
+        {this.state.campaignsVisible < this.props.allCampaigns.length &&
+          <View style={styles.loadMoreView}>
+            <TouchableOpacity onPress={this.addMoreCampaigns} style={styles.loadMoreTouchable}>
+                <Text style={styles.loadMoreText}>Load More Posts</Text>
+            </TouchableOpacity>
+          </View>
+        }
       </ScrollView>
     );
   }
@@ -62,7 +113,6 @@ const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
   campaignsToggled: state.campaignsToggled
 });
-  
 
 export default connect(
   mapStateToProps,

@@ -1,15 +1,11 @@
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Button,
-  TouchableOpacity,
-  Platform
-} from 'react-native';
-import { ScrollView } from "react-navigation";
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { ScrollView } from 'react-navigation';
 import * as WebBrowser from 'expo-web-browser';
-import { Avatar, Icon } from 'react-native-elements';
+import { Avatar } from 'react-native-elements';
+import { AmpEvent } from '../withAmplitude';
+
+import styles from '../../constants/Profile/ProfileHeader';
 
 const ProfileHeader = props => {
   let profile = props.profile;
@@ -30,11 +26,9 @@ const ProfileHeader = props => {
 
         <TouchableOpacity
           style={styles.TouchableOpacity}
-          onPress={() =>
-            {
-              props.navigation.navigate(props.myProfile ? 'MyDetail' : 'Detail')
-            }
-          }
+          onPress={() => {
+            props.navigation.navigate(props.myProfile ? 'MyDetail' : 'Detail');
+          }}
         >
           <View style={styles.ButtonStyle}>
             <Text style={styles.DetailButton}>Details</Text>
@@ -42,22 +36,25 @@ const ProfileHeader = props => {
         </TouchableOpacity>
       </View>
       <View style={styles.container}>
-        <Avatar
-          size='large'
-          rounded
-          source={{
-            uri: profile.profile_image
-          }}
-        />
+        <View style={styles.avatarContainer}>
+          <Avatar
+            size={61}
+            rounded
+            source={{
+              uri: profile.profile_image
+            }}
+          />
+        </View>
         <View style={styles.textContainer}>
           <Text style={styles.org}>{profile.org_name}</Text>
           <Text style={styles.location}>{profile.location}</Text>
           <Text
-            onPress={async () =>
+            onPress={async () => {
               profile.org_link_url &&
-              profile.org_link_url !== null &&
-              (await WebBrowser.openBrowserAsync(profile.org_link_url))
-            }
+                profile.org_link_url !== null &&
+                AmpEvent('Website Link Clicked', { orgName: profile.org_name });
+              await WebBrowser.openBrowserAsync(profile.org_link_url);
+            }}
           >
             {profile.org_link_text}
           </Text>
@@ -71,74 +68,5 @@ const ProfileHeader = props => {
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: '#e1e8ed',
-    paddingTop: 50,
-    flexWrap: 'wrap'
-  },
-  bioContainer: {
-    marginTop: 25,
-    marginBottom: 25,
-    marginLeft: 90,
-    marginRight: 60,
-    textAlign: 'center',
-    alignItems: 'center'
-  },
-  bio: {
-    marginBottom: 50
-  },
-  org: {
-    fontSize: 22
-  },
-  pic: {
-    flex: 1
-  },
-  textContainer: {},
-  buttons: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    borderBottomColor: '#f5f5f5',
-    backgroundColor: '#fff',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 2
-  },
-  TouchableOpacity: {
-    flex: 1
-  },
-  ButtonStyle: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: '#eee',
-    marginTop: 12,
-    marginBottom: 12,
-    flex: 1
-  },
-
-  CampaignButton: {
-    fontSize: 18,
-    color: '#000',
-    fontWeight: 'bold',
-    fontFamily: "OpenSans-SemiBold",
-  },
-  DetailButton: {
-    fontSize: 18,
-    color: '#C4C4C4',
-    fontWeight: 'bold',
-    fontFamily: "OpenSans-SemiBold",
-
-  }
-});
 
 export default ProfileHeader;

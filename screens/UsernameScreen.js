@@ -1,22 +1,10 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  KeyboardAvoidingView
-} from 'react-native';
+import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
-
 import * as SecureStore from 'expo-secure-store';
-
-//import { Input } from 'react-native-elements';
-
-//import styles from '../constants/Stylesheet';
-
-import { postUser } from '../store/actions';
+import styles from '../constants/screens/UsernameScreen';
+import { postUser, logout } from '../store/actions';
 
 class UsernameScreen extends React.Component {
   state = {
@@ -28,7 +16,7 @@ class UsernameScreen extends React.Component {
     const { error } = this.props;
     const sub = await SecureStore.getItemAsync('sub', {});
     const email = await SecureStore.getItemAsync('email', {});
-    const roles = await SecureStore.getItemAsync('roles', {});
+    const role = await SecureStore.getItemAsync('roles', {});
     const username = this.state.usernameInput;
 
     if (username.length > 4) {
@@ -38,7 +26,7 @@ class UsernameScreen extends React.Component {
       let user = {
         username: username,
         sub: sub,
-        roles: roles,
+        roles: role,
         email: email
       };
       // console.log('******click from username', user);
@@ -53,7 +41,17 @@ class UsernameScreen extends React.Component {
     }
   };
 
+  logoutPress = async () => {
+    await SecureStore.deleteItemAsync('sub', {});
+    await SecureStore.deleteItemAsync('email', {});
+    await SecureStore.deleteItemAsync('roles', {});
+    await SecureStore.deleteItemAsync('id', {});
+    this.props.logout();
+    this.props.navigation.navigate('Loading');
+  };
+
   render() {
+    //console.log(this.props);
     return (
       <ScrollView>
         <View style={styles.sectionContainer}>
@@ -94,6 +92,14 @@ class UsernameScreen extends React.Component {
             <Text style={styles.touchableText}>Continue</Text>
           </View>
         </TouchableOpacity>
+        <TouchableOpacity
+          onPress={this.logoutPress}
+          style={styles.touchableButton}
+        >
+          <View style={styles.touchableView}>
+            <Text style={styles.touchableText}>Logout</Text>
+          </View>
+        </TouchableOpacity>
       </ScrollView>
     );
   }
@@ -109,61 +115,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { postUser }
+  { postUser, logout }
 )(UsernameScreen);
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    flexDirection: 'column',
-    flexWrap: 'wrap',
-    margin: 15,
-    flex: 1,
-    alignItems: 'center'
-  },
-  Card: {
-    marginTop: 20,
-    backgroundColor: '#fff',
-    width: '100%',
-    padding: 25
-  },
-  inputContain: {
-    borderWidth: 2,
-    borderColor: '#C4C4C4',
-    padding: 5,
-    borderRadius: 3,
-    fontSize: 16,
-    width: 281,
-    height: 38
-  },
-  touchableButton: {
-    paddingTop: 25,
-    paddingBottom: 25,
-    width: '100%',
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  touchableView: {
-    backgroundColor: '#00FF9D',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-    height: 48,
-    width: 243
-  },
-  touchableText: {
-    color: 'black',
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    letterSpacing: 2
-  },
-
-  textContainer: {
-    width: 279,
-    height: 43,
-    marginBottom: 33,
-    fontSize: 16,
-    flexWrap: 'wrap',
-    letterSpacing: 2
-  }
-});

@@ -3,10 +3,7 @@ import { TouchableOpacity, View, Text } from 'react-native';
 
 const PublishButton = props => {
   return (
-    <TouchableOpacity
-      onPress={props.pressAction}
-      style={{ padding: 18 }}
-    >
+    <TouchableOpacity onPress={props.pressAction} style={{ padding: 18 }}>
       <View
         style={{
           alignItems: 'center',
