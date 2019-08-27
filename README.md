@@ -1,21 +1,13 @@
-# mobile
-
-🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline, feel free to add your own flare to it.
-
-🚫 The numbers 1️⃣ through 5️⃣ next to each item represent the week that part of the docs needs to be comepleted by. Make sure to delete the numbers by the end of Labs.
-
-🚫 Each student has a required minimum number of meaningful PRs each week per the rubric. Contributing to docs does NOT count as a PR to meet your weekly requirements.
-
 # Key Conservation
 
 You can find the deployed project at (https://expo.io/@labs14_key_conservation/key-conservation) if you are on iOS you will need the following information to log into the app...on the Expo Client app on your mobile device... log into the Expo Client with the following credentials ... email - labs14KeyCon@gmail.com pass - tester and you will find the project is under the profile view in "Deployed Projects"
 
 ## Contributors
 
-|                                                                         [Jay Maas](https://github.com/jay-maas)                                                                         |                                                       [Leonel Flores](https://github.com/lflores12)                                                        |                                                      [Student 3](https://github.com/)                                                       |                                                       [Student 4](https://github.com/)                                                        |                                                      [Student 5](https://github.com/)                                                       |
+|                                                                         [Jay Maas](https://github.com/jay-maas)                                                                         |                                                       [Leonel Flores](https://github.com/lflores12)                                                        |                                                      [Bazen Berhane](https://github.com/ba-zen)                                                       |                                                       [Taslim Yakub](https://github.com/taslimy)                                                        |                                                      [Matthew Klein](https://github.com/duckeverlasting)                                                       |
 | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
 | [<img src="https://pbs.twimg.com/profile_images/1153735485547634688/od2u_aC4_400x400.jpg" width = "200" />](https://www.notion.so/jaymaasdev/Jay-Maas-0077a20ca7fc4f9b8d09468946b2ce62) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/) |
-|                                                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/jay-maas)                                                  |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/lflores12)                             |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Mister-Corn)                           |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/NandoTheessen)                           |                           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wvandolah)                            |
+|                                                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/jay-maas)                                                  |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/lflores12)                             |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/ba-zen)                           |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/NandoTheessen)                           |                           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wvandolah)                            |
 |                                  [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/jay-maas)                                  |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |
 
 <br>
@@ -49,22 +41,29 @@ Additionally, supporters of conservation organizations want more transparency as
 
 ### 4️⃣ Key Features
 
-- feature one
-- feature two
-- feature three
-- feature four
-- feature five
+- Authentication with Auth0
+- Conservation profiles to create campaigns
+- Create/Update/Delete campaigns
+- Supporter profiles to donate to campaigns
+- Search campaigns 
+- All users can edit/personalize profile
 
 ## Tech Stack
 
 ### Front end built using:
 
-#### Expo
-
-- Prefered Choice of Stakeholder
-- Expo is able to produce code base for iOS and Android
-- Relatable to current React experience for Development Team
-- Expo is widely supported and used by many companies
+#### Expo (https://www.npmjs.com/package/expo)
+   - Prefered Choice of Stakeholder
+   - Expo is able to produce code base for iOS and Android
+   - Relatable to current React experience for Development Team
+   - Expo is widely supported and used by many companies
+#### React (https://www.npmjs.com/package/react)
+#### React-Native (https://www.npmjs.com/package/react-native)
+#### Redux (https://www.npmjs.com/package/redux)
+#### React-Redux (https://www.npmjs.com/package/react-redux)
+#### React-Navigation (https://www.npmjs.com/package/react-navigation)
+#### React-Native-SVG-URI (https://www.npmjs.com/package/react-native-svg-uri)
+#### React-Native-Search-Filter (https://www.npmjs.com/package/react-native-search-filter)
 
 #### Front end Published to `Expo`
 
@@ -82,29 +81,18 @@ Additionally, supporters of conservation organizations want more transparency as
 
 Auth0 provides authentication and authorization as a service and includes a whole suite of products available to benefit owner/user/developer.
 
-## 2️⃣ Payment API here
-
-🚫Replace text below with a description of the API
-
-This is the way you take out your flustrations. Get away from those little Christmas tree things we used to make in school. Isn't it fantastic that you can change your mind and create all these happy things? Everything's not great in life, but we can still find beauty in it.
-
 ## 3️⃣ Amplitude Analytics
 
 Amplitude provides analytics for our app in a way that is easiest to work with Expo without having to eject.
 
 We have setup a HOC to wrap desired components to have analytics. The component is called withAmplitude.js. There are functions in there as well that can be imported for easier and quicker use. 
 
-## 3️⃣ Misc API here
+## 3️⃣ Staging API here
+(https://key-conservation-staging.herokuapp.com)
 
-🚫Replace text below with a description of the API
 
-When you do it your way you can go anywhere you choose. Let your heart take you to wherever you want to be. If I paint something, I don't want to have to explain what it is. A tree needs to be your friend if you're going to paint him. That's a son of a gun of a cloud. Even the worst thing we can do here is good.
-
-## 3️⃣ Misc API here
-
-🚫Replace text below with a description of the API
-
-Volunteering your time; it pays you and your whole community fantastic dividends. Maybe there's a happy little waterfall happening over here. You can spend all day playing with mountains. We don't have to be committed. We are just playing here. You have freedom here. The only guide is your heart. It's cold, but it's beautiful.
+## 3️⃣ Production API here
+(https://key-conservation.herokuapp.com)
 
 # 3️⃣ Environment Variables
 
@@ -112,17 +100,11 @@ In order for the app to function correctly, the user must set up their own envir
 
 🚫These are just examples, replace them with the specifics for your app
 
-    *  REACT_APP_apiKey - this is your Google API key, which can be generated in the Google Cloud Console
-    *  REACT_APP_authDomain - when you set up your Firebase project, this information will be in the dashboard
-    *  REACT_APP_databaseURL - in the Firebase dashboard
-    *  REACT_APP_projectID - in the Firebase dashboard
-    *  REACT_APP_storageBucket - in the Firebase dashboard
-    *  REACT_APP_messagingSenderId - in the Firebase dashboard
-    *  REACT_APP_stripe_API - this is your public Stripe API key, generated in the Stripe dashboard
-    *  REACT_APP_backendURL - optional for your local development server
-    *  REACT_APP_clientid - this is the Stripe_connect clientID, generated in Stripe_connect settings
-    *  REACT_APP_stripe_plan - this is the ID for a second Stripe subscription plan, generated under Stripe products
-
+    *  S3_ACCESS_KEY_ID
+    *  S3_BUCKET_NAME 
+    *  S3_BUCKET_REGION 
+    *  S3_SECRET_ACCESS_KEY 
+    
 # 5️⃣ Content Licenses
 
 🚫For all content - images, icons, etc, use this table to document permission of use. Remove the two placeholders and add you content to this table
