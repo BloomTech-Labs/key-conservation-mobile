@@ -74,8 +74,7 @@ export async function AmpInit() {
   // console.log('****** id from withamplitude', id);
   if (id === null) {
     console.log('id is null*******');
-    const test = await Amplitude.initialize('fae81e5eeff3b6917f9d76566b67a7da');
-    console.log(test);
+    await Amplitude.initialize('fae81e5eeff3b6917f9d76566b67a7da');
     Amplitude.clearUserProperties();
     const message = {
       details:
@@ -102,7 +101,6 @@ export async function AmpInit() {
       await Amplitude.initialize(
         'fae81e5eeff3b6917f9d76566b67a7da'
       );
-      // console.log(test);
       Amplitude.setUserId(`${profileData.id}`);
       const message = {
         details:
