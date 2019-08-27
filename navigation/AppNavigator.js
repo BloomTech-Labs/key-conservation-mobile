@@ -18,12 +18,7 @@ export default createAppContainer(
     Login: LoginStack,
     CreateAccount: UsernameStack,
     Conservationist: ConsNavigator,
-<<<<<<< HEAD
-    // This is the tab navigator for supporters
     Supporter: SupNavigator
-=======
-    Supporter: SupNavigator,
     Search: SearchStack
->>>>>>> 8ceb558fd6a9f24f0a3c3dbff28eee2a86090019
   })
 );
