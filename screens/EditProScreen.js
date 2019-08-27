@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import BackButton from '../components/BackButton';
 import * as SecureStorage from 'expo-secure-store';
 import DoneButton from '../components/DoneButton';
+import { AmpEvent } from '../components/withAmplitude';
 import UploadMedia from '../components/UploadMedia';
 
 import { editProfileData, logout, clearMedia } from '../store/actions';
@@ -72,7 +73,18 @@ class EditProScreen extends React.Component {
 
   componentDidMount() {
     this.props.navigation.setParams({ done: this.done });
+    console.log('****component mounted');
+    if(this.isProfileComplete(this.state) === true) {
+      return AmpEvent('Profile Completed')
+    };
   }
+
+  isProfileComplete = profile => {
+    for (let p in profile) {
+      if (!profile[p]) return false;
+    }
+    return true;
+  };
 
   done = () => {
     let changes = this.state;
