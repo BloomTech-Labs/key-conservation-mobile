@@ -1,22 +1,10 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  KeyboardAvoidingView
-} from 'react-native';
+import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
 import { AmpEvent } from '../components/withAmplitude';
-
 import * as SecureStore from 'expo-secure-store';
-
-//import { Input } from 'react-native-elements';
-
-//import styles from '../constants/Stylesheet';
-
+import styles from '../constants/screens/UsernameScreen';
 import { postUser, logout } from '../store/actions';
 
 class UsernameScreen extends React.Component {
@@ -42,7 +30,7 @@ class UsernameScreen extends React.Component {
         roles: role,
         email: email
       };
-      //console.log('******click from username', user);
+      // console.log('******click from username', user);
       await this.props.postUser(user);
       AmpEvent('Account Created')
       this.props.navigation.navigate(
@@ -56,14 +44,13 @@ class UsernameScreen extends React.Component {
   };
 
   logoutPress = async () => {
-    await SecureStore.deleteItemAsync("sub", {});
-    await SecureStore.deleteItemAsync("email", {});
-    await SecureStore.deleteItemAsync("roles", {});
-    await SecureStore.deleteItemAsync("id", {});
+    await SecureStore.deleteItemAsync('sub', {});
+    await SecureStore.deleteItemAsync('email', {});
+    await SecureStore.deleteItemAsync('roles', {});
+    await SecureStore.deleteItemAsync('id', {});
     this.props.logout();
-    this.props.navigation.navigate("Loading");
+    this.props.navigation.navigate('Loading');
   };
-
 
   render() {
     //console.log(this.props);
@@ -132,59 +119,3 @@ export default connect(
   mapStateToProps,
   { postUser, logout }
 )(UsernameScreen);
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    flexDirection: 'column',
-    flexWrap: 'wrap',
-    margin: 15,
-    flex: 1,
-    alignItems: 'center'
-  },
-  Card: {
-    marginTop: 20,
-    backgroundColor: '#fff',
-    width: '100%',
-    padding: 25
-  },
-  inputContain: {
-    borderWidth: 2,
-    borderColor: '#C4C4C4',
-    padding: 5,
-    borderRadius: 3,
-    fontSize: 16,
-    width: 281,
-    height: 38
-  },
-  touchableButton: {
-    paddingTop: 25,
-    paddingBottom: 25,
-    width: '100%',
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  touchableView: {
-    backgroundColor: '#00FF9D',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-    height: 48,
-    width: 243
-  },
-  touchableText: {
-    color: 'black',
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    letterSpacing: 2
-  },
-
-  textContainer: {
-    width: 279,
-    height: 43,
-    marginBottom: 33,
-    fontSize: 16,
-    flexWrap: 'wrap',
-    letterSpacing: 2
-  }
-});

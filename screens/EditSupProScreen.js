@@ -8,16 +8,18 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView
 } from 'react-native';
-import { ScrollView } from 'react-navigation';
+import { ScrollView, NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import BackButton from '../components/BackButton';
 
 import * as SecureStorage from 'expo-secure-store';
-import * as WebBrowser from 'expo-web-browser';
 
 import DoneButton from '../components/DoneButton';
+import UploadMedia from '../components/UploadMedia';
 
-import { postUser, editProfileData, logout } from '../store/actions';
+import { editProfileData, logout, clearMedia } from '../store/actions';
+
+import styles from '../constants/screens/EditSupProScreen';
 
 class EditSupProScreen extends React.Component {
   logoutPress = async () => {
@@ -63,7 +65,7 @@ class EditSupProScreen extends React.Component {
     facebook: this.props.currentUserProfile.facebook,
     instagram: this.props.currentUserProfile.instagram,
     twitter: this.props.currentUserProfile.twitter,
-    species_and_habitats: this.props.currentUserProfile.species_and_habitats,
+    species_and_habitats: this.props.currentUserProfile.species_and_habitats
   };
 
   componentDidMount() {
@@ -71,14 +73,21 @@ class EditSupProScreen extends React.Component {
   }
 
   done = () => {
-    //console.log(this.props.currentUserProfile)
-    this.props.editProfileData(this.props.currentUserProfile.id, this.state);
-    if (this.props.firstLogin) {
-      this.props.navigation.navigate('Home');   
-    } else {
-      this.props.navigation.goBack(); 
+    let changes = this.state;
+    if (this.props.mediaUpload) {
+      changes = {
+        ...this.state,
+        profile_image: this.props.mediaUpload
+      };
+      // console.log('CHANGES', changes);
     }
-  }
+    this.props.editProfileData(this.props.currentUserProfile.id, changes);
+    if (this.props.firstLogin) {
+      this.props.navigation.navigate('Home');
+    } else {
+      this.props.navigation.goBack();
+    }
+  };
 
   render() {
     return (
@@ -88,8 +97,9 @@ class EditSupProScreen extends React.Component {
         enabled
       >
         <ScrollView>
-        <View style={styles.sectionContainer}>
-          <View style={styles.Card} />
+          <NavigationEvents onWillFocus={this.props.clearMedia} />
+          <View style={styles.sectionContainer}>
+            <View style={styles.Card} />
             <View style={styles.sections}>
               <Text style={styles.sectionsText}>Name</Text>
               <TextInput
@@ -115,39 +125,14 @@ class EditSupProScreen extends React.Component {
                   this.usernameInput = input;
                 }}
                 returnKeyType='next'
-                keyboardType='url'
                 style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='Please include full URL'
-                onChangeText={text => this.setState({ org_link_url: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.profileImageInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === 'android'}
+                onChangeText={text => this.setState({ username: text })}
                 value={this.state.username}
               />
             </View>
 
             <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Profile Image URL</Text>
-              <TextInput
-                ref={input => {
-                  this.profileImageInput = input;
-                }}
-                returnKeyType='next'
-                keyboardType='url'
-                style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='Please include full URL'
-                onChangeText={text => this.setState({ profile_image: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.locationInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.profile_image}
-              />
+              <UploadMedia circular />
             </View>
 
             <View style={styles.sections}>
@@ -157,19 +142,55 @@ class EditSupProScreen extends React.Component {
                   this.locationInput = input;
                 }}
                 returnKeyType='next'
-                keyboardType='url'
                 style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='Please include full URL'
-                onChangeText={text => this.setState({ org_cta: text })}
+                onChangeText={text => this.setState({ location: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
                   this.mini_bioInput.focus();
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.org_cta}
+                value={this.state.location}
               />
             </View>
+
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>About Me</Text>
+              <TextInput
+                ref={input => {
+                  this.mini_bioInput = input;
+                }}
+                returnKeyType='next'
+                style={styles.inputContain}
+                onChangeText={text => this.setState({ mini_bio: text })}
+                onSubmitEditing={() => {
+                  if (Platform.OS === 'android') return;
+                  this.emailInput.focus();
+                }}
+                blurOnSubmit={Platform.OS === 'android'}
+                value={this.state.mini_bio}
+              />
+            </View>
+
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>Email</Text>
+              <TextInput
+                ref={input => {
+                  this.emailInput = input;
+                }}
+                returnKeyType='next'
+                placeholder='Email'
+                keyboardType='email-address'
+                style={styles.inputContain}
+                onChangeText={text => this.setState({ email: text })}
+                onSubmitEditing={() => {
+                  if (Platform.OS === 'android') return;
+                  this.facebookInput.focus();
+                }}
+                blurOnSubmit={Platform.OS === 'android'}
+                value={this.state.email}
+              />
+            </View>
+
 
             <View style={styles.sections}>
               <Text style={styles.sectionsText}>Facebook</Text>
@@ -227,24 +248,10 @@ class EditSupProScreen extends React.Component {
                 onChangeText={text => this.setState({ twitter: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
-                  this.aboutUsInput.focus();
+                  this.species_habitatsInput.focus();
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.twitter}
-              />
-            </View>
-
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>About Us</Text>
-              <TextInput
-                ref={input => {
-                  this.about_usInput = input;
-                }}
-                returnKeyType='next'
-                style={styles.inputContain2}
-                onChangeText={text => this.setState({ about_us: text })}
-                multiline={true}
-                value={this.state.about_us}
               />
             </View>
 
@@ -263,20 +270,7 @@ class EditSupProScreen extends React.Component {
                 value={this.state.species_and_habitats}
               />
             </View>
-
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Big Issues</Text>
-              <TextInput
-                ref={input => {
-                  this.issuesInput = input;
-                }}
-                returnKeyType='next'
-                style={styles.inputContain2}
-                onChangeText={text => this.setState({ issues: text })}
-                multiline={true}
-                value={this.state.issues}
-              />
-            </View>
+            
             <View style={styles.logoutSection}>
               <Text style={styles.accountSettingsText}>Account Settings:</Text>
               <TouchableOpacity
@@ -295,88 +289,11 @@ class EditSupProScreen extends React.Component {
 
 const mapStateToProps = state => ({
   error: state.error,
-  currentUserProfile: state.currentUserProfile
+  currentUserProfile: state.currentUserProfile,
+  mediaUpload: state.mediaUpload
 });
 
 export default connect(
   mapStateToProps,
-  { editProfileData, logout }
+  { editProfileData, logout, clearMedia }
 )(EditSupProScreen);
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    flexDirection: 'column',
-    flexWrap: 'wrap',
-    marginLeft: 15,
-    marginRight: 15
-  },
-  Card: {
-    marginTop: 10,
-    backgroundColor: '#fff',
-    width: '100%',
-    height: 20
-  },
-  inputContain: {
-    height: 48,
-    borderWidth: 2,
-    borderColor: '#C4C4C4',
-    padding: 5,
-    borderRadius: 5,
-    fontSize: 20,
-    marginBottom: 25
-  },
-  inputContain2: {
-    height: 140,
-    borderWidth: 2,
-    borderColor: '#C4C4C4',
-    padding: 5,
-    borderRadius: 5,
-    fontSize: 20,
-    marginBottom: 25,
-    textAlignVertical: 'top'
-  },
-
-  touchableView: {
-    backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-    height: 35
-  },
-  touchableText: {
-    color: '#fff',
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    letterSpacing: 2
-  },
-  sections: {
-    // marginTop: 20,
-    backgroundColor: '#fff',
-    width: '100%'
-  },
-  sectionsText: {
-    fontFamily: 'OpenSans-SemiBold',
-    fontSize: 20,
-    marginBottom: 5
-  },
-  logoutSection: {
-    justifyContent: 'flex-start',
-    flexDirection: 'column',
-    marginBottom: 20,
-    width: '100%'
-  },
-  accountSettingsText: {
-    fontSize: 20,
-    fontFamily: 'OpenSans-SemiBold',
-    marginBottom: 10
-  },
-  logoutButton: {
-    fontSize: 20,
-    alignItems: 'flex-start',
-    backgroundColor: 'white'
-  },
-  buttonText: {
-    color: 'blue',
-    fontSize: 20
-  }
-});

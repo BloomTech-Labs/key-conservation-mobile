@@ -8,14 +8,17 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView
 } from 'react-native';
-import { ScrollView } from 'react-navigation';
+import { ScrollView, NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import BackButton from '../components/BackButton';
 import * as SecureStorage from 'expo-secure-store';
 import DoneButton from '../components/DoneButton';
 import { AmpEvent } from '../components/withAmplitude';
+import UploadMedia from '../components/UploadMedia';
 
-import { editProfileData, logout } from '../store/actions';
+import { editProfileData, logout, clearMedia } from '../store/actions';
+
+import styles from '../constants/screens/EditProScreen'; 
 
 class EditProScreen extends React.Component {
   logoutPress = async () => {
@@ -64,7 +67,7 @@ class EditProScreen extends React.Component {
     about_us: this.props.currentUserProfile.about_us,
     species_and_habitats: this.props.currentUserProfile.species_and_habitats,
     issues: this.props.currentUserProfile.issues,
-    // supportUs: this.props.currentUserProfile.support_us,
+    // supportUs: this.props.currentUserProfile.support_us, 
     org_cta: this.props.currentUserProfile.org_cta
   };
 
@@ -84,7 +87,14 @@ class EditProScreen extends React.Component {
   };
 
   done = () => {
-    this.props.editProfileData(this.props.currentUserProfile.id, this.state);
+    let changes = this.state;
+    if (this.props.mediaUpload) {
+      changes = {
+        ...this.state,
+        profile_image: this.props.mediaUpload
+      };
+    }
+    this.props.editProfileData(this.props.currentUserProfile.id, changes);
     if (this.props.firstLogin) {
       this.props.navigation.navigate('Home');
     } else {
@@ -100,6 +110,7 @@ class EditProScreen extends React.Component {
         enabled
       >
         <ScrollView>
+          <NavigationEvents onWillFocus={this.props.clearMedia} />
           <View style={styles.sectionContainer}>
             <View style={styles.Card} />
             <View style={styles.sections}>
@@ -139,24 +150,7 @@ class EditProScreen extends React.Component {
             </View>
 
             <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Profile Image URL</Text>
-              <TextInput
-                ref={input => {
-                  this.profileImageInput = input;
-                }}
-                returnKeyType='next'
-                keyboardType='url'
-                style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='Please include full URL'
-                onChangeText={text => this.setState({ profile_image: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.locationInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.profile_image}
-              />
+              <UploadMedia circular />
             </View>
 
             <View style={styles.sections}>
@@ -396,78 +390,11 @@ class EditProScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  error: state.error,
-  currentUserProfile: state.currentUserProfile
+  currentUserProfile: state.currentUserProfile,
+  mediaUpload: state.mediaUpload
 });
 
 export default connect(
   mapStateToProps,
-  { editProfileData, logout }
+  { editProfileData, logout, clearMedia }
 )(EditProScreen);
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    flexDirection: 'column',
-    flexWrap: 'wrap',
-    marginLeft: 15,
-    marginRight: 15
-  },
-  Card: {
-    marginTop: 10,
-    backgroundColor: '#fff',
-    width: '100%',
-    height: 20
-  },
-  inputContain: {
-    height: 48,
-    borderWidth: 2,
-    borderColor: '#C4C4C4',
-    padding: 5,
-    borderRadius: 5,
-    fontSize: 20,
-    marginBottom: 25
-  },
-  inputContain2: {
-    height: 140,
-    borderWidth: 2,
-    borderColor: '#C4C4C4',
-    padding: 5,
-    borderRadius: 5,
-    fontSize: 20,
-    marginBottom: 25,
-    textAlignVertical: 'top'
-  },
-
-  touchableView: {
-    backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-    height: 35
-  },
-  touchableText: {
-    color: '#fff',
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    letterSpacing: 2
-  },
-  sections: {
-    // marginTop: 20,
-    backgroundColor: '#fff',
-    width: '100%'
-  },
-  sectionsText: {
-    fontFamily: 'OpenSans-SemiBold',
-    fontSize: 20,
-    marginBottom: 5
-  },
-  logoutButton: {
-    fontSize: 20,
-    alignItems: 'flex-start',
-    backgroundColor: 'white'
-  },
-  buttonText: {
-    color: 'blue',
-    fontSize: 20
-  }
-});

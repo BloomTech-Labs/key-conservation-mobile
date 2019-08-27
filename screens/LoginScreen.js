@@ -43,13 +43,13 @@ export default LoginScreen = props => {
       header: null
     };
   };
-
   const dispatch = useDispatch();
   const { currentUser, error } = useSelector(state => state);
   const { navigation } = props;
   let roles;
 
   const login = async navigation => {
+    // console.log('********************', roles);
     dispatch(loginStart());
     const redirectUrl = AuthSession.getRedirectUrl();
 
@@ -59,23 +59,42 @@ export default LoginScreen = props => {
     // );
 
     //this variable structures a query param for the /authorize API call to the auth0 API
-    const queryParams = toQueryString({
-      //this must come from your auth0 dashboard.
-      client_id: 'elyo5qK7vYReEsKAPEADW2T8LAMpIJaf',
-      redirect_uri: redirectUrl,
-      // this is the API that should be built in relation to this app. This address is found in the Auth0 dashboard at API's -> select API -> settings -> identifier
-      audience: 'https://key-conservation',
-      // id_token will return a JWT token, token is access_token
-      response_type: 'id_token token',
-      // retrieve the user's profile and email from the openID
-      scope: 'openid profile email',
-      nonce: 'nonce'
-    });
+    const queryParams = () => {
+      if (roles === 'conservationist') {
+        // console.log('cons App');
+        return toQueryString({
+          //this must come from your auth0 dashboard.
+          client_id: 'elyo5qK7vYReEsKAPEADW2T8LAMpIJaf',
+          redirect_uri: redirectUrl,
+          // this is the API that should be built in relation to this app. This address is found in the Auth0 dashboard at API's -> select API -> settings -> identifier
+          audience: 'https://key-conservation',
+          // id_token will return a JWT token, token is access_token
+          response_type: 'id_token token',
+          // retrieve the user's profile and email from the openID
+          scope: 'openid profile email',
+          nonce: 'nonce'
+        });
+      } else if (roles === 'supporter') {
+        // console.log('supporter App');
+        return toQueryString({
+          //this must come from your auth0 dashboard.
+          client_id: 'DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S',
+          redirect_uri: redirectUrl,
+          // this is the API that should be built in relation to this app. This address is found in the Auth0 dashboard at API's -> select API -> settings -> identifier
+          audience: 'https://key-conservation',
+          // id_token will return a JWT token, token is access_token
+          response_type: 'id_token token',
+          // retrieve the user's profile and email from the openID
+          scope: 'openid profile email',
+          nonce: 'nonce'
+        });
+      }
+    };
 
     //dynamicly navigating the proper routes on the auth0 app
     // the domain url is found in the Auth0 dashboard at applications -> select App -> settings -> Domain
     const domain = 'https://key-conservation.auth0.com';
-    const authUrl = `${domain}/authorize` + queryParams;
+    const authUrl = `${domain}/authorize` + queryParams();
 
     // Perform the authentication
     const response = await AuthSession.startAsync({ authUrl });
@@ -119,7 +138,10 @@ export default LoginScreen = props => {
 
       await SecureStore.setItemAsync('sub', chosenDecoded.sub);
       await SecureStore.setItemAsync('email', chosenDecoded.email);
-      await SecureStore.setItemAsync('roles', 'conservationist');
+      await SecureStore.setItemAsync(
+        'roles',
+        roles === 'conservationist' ? 'conservationist' : 'supporter'
+      );
       const userLog = await SecureStore.getItemAsync('sub', {});
       dispatch(loginSuccess(chosenDecoded));
 
@@ -154,21 +176,24 @@ export default LoginScreen = props => {
           <Text style={styles.buttonText}>CONSERVATION ORGANIZATION</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => props.navigation.navigate('Supporter')}
+          onPress={() => {
+            roles = 'supporter';
+            login(navigation);
+          }}
           style={styles.buttonContainer}
         >
           <Text style={styles.buttonText}>GLOBAL SUPPORTER</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.needHelp}>
-        <Text style={styles.needHelpText}>Not sure which one to pick?</Text>
+        {/* <Text style={styles.needHelpText}>Not sure which one to pick?</Text>
         <Button
           title='Click Here'
           style={styles.needHelpText}
           onPress={() => {
             null;
           }}
-        />
+        /> */}
       </View>
     </ImageBackground>
   );
@@ -201,7 +226,7 @@ const styles = StyleSheet.create({
   },
   SelectText: {
     fontSize: 27,
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'OpenSans-SemiBold',
     color: 'white'
   },
   buttons: {
@@ -232,7 +257,7 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     letterSpacing: 0,
     textAlign: 'center',
-    color: 'white',
+    color: 'black',
     justifyContent: 'center',
     alignItems: 'center',
     fontSize: 20
@@ -241,7 +266,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: 375,
     height: '7.9%',
-    opacity: 0.5,
+    opacity: 0,
     backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center'

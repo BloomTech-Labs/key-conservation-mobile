@@ -53,7 +53,7 @@ export function AmpEvent(name, properties) {
   }
 
   if (name && !properties) {
-    console.log('sent event name but no properties', name);
+    // console.log('sent event name but no properties', name);
     Amplitude.logEvent(name);
   } else if (name && properties) {
     if (typeof properties !== 'object' && typeof properties !== 'array') {
@@ -61,7 +61,7 @@ export function AmpEvent(name, properties) {
         'You must use the data type of Object for Event Properties'
       );
     }
-    console.log('sent name and properties', name, properties);
+    // console.log('sent name and properties', name, properties);
     Amplitude.logEventWithProperties(name, properties);
   }
 }
@@ -73,7 +73,8 @@ export async function AmpInit() {
   console.log('****** id from withamplitude', id);
   if (sub === null) {
     console.log('id is null*******');
-    Amplitude.initialize('fae81e5eeff3b6917f9d76566b67a7da');
+    const test = await Amplitude.initialize('fae81e5eeff3b6917f9d76566b67a7da');
+    console.log(test);
     Amplitude.clearUserProperties();
     const message = {
       details:
@@ -86,7 +87,7 @@ export async function AmpInit() {
     const data = await userData();
     if (data) {
       const profileData = {
-        campaignsTotal: data.campaigns.length,
+        campaignsTotal: data.campaigns && data.campaigns.length,
         cons_id: data.cons_id,
         email: data.email,
         id: data.id,

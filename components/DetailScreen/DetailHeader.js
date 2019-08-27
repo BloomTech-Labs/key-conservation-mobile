@@ -6,11 +6,12 @@ import {
   TouchableOpacity,
   Linking
 } from 'react-native';
-import { ScrollView } from 'react-navigation';
 import * as WebBrowser from 'expo-web-browser';
-import { Avatar, Icon, Image } from 'react-native-elements';
+import { Avatar } from 'react-native-elements';
 import SvgUri from 'react-native-svg-uri';
 import { AmpEvent } from '../withAmplitude';
+
+import styles from '../../constants/DetailScreen/DetailHeader';
 
 export default class DetailHeader extends Component {
   render() {
@@ -46,24 +47,23 @@ export default class DetailHeader extends Component {
           <View style={styles.avatarInfoWrap}>
             <View style={styles.header}>
               <Avatar
-                size='large'
+                size={61}
                 rounded
                 source={{
                   uri: profile.profile_image
                 }}
               />
               <View style={styles.textContainer}>
-                <View>
-                  <Text style={styles.title}>{profile.org_name}</Text>
-                  <Text style={styles.location}>{profile.location}</Text>
-                </View>
+                <Text style={styles.titleText}>{profile.org_name}</Text>
+                <Text style={styles.userText}>{profile.location}</Text>
                 <Text
+                  style={styles.userText}
                   onPress={async () => {
                     profile.org_link_url &&
                       profile.org_link_url !== null &&
-                      await AmpEvent('Website Link Clicked', {
+                      (await AmpEvent('Website Link Clicked', {
                         orgName: profile.org_name
-                      });
+                      }));
                     await WebBrowser.openBrowserAsync(profile.org_link_url);
                   }}
                 >
@@ -77,6 +77,7 @@ export default class DetailHeader extends Component {
                   }}
                 >
                   <SvgUri
+                    fill='#3b3b3b'
                     width='25'
                     height='25'
                     source={require('../../assets/icons/envelope.svg')}
@@ -91,6 +92,7 @@ export default class DetailHeader extends Component {
                   }
                 >
                   <SvgUri
+                    fill='#3b3b3b'
                     width='25'
                     height='25'
                     source={require('../../assets/icons/instagram.svg')}
@@ -104,6 +106,7 @@ export default class DetailHeader extends Component {
                   }
                 >
                   <SvgUri
+                    fill='#3b3b3b'
                     width='25'
                     height='25'
                     source={require('../../assets/icons/twitter.svg')}
@@ -117,6 +120,7 @@ export default class DetailHeader extends Component {
                   }
                 >
                   <SvgUri
+                    fill='#3b3b3b'
                     width='25'
                     height='25'
                     source={require('../../assets/icons/facebook.svg')}
@@ -131,68 +135,3 @@ export default class DetailHeader extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    margin: 15,
-    marginBottom: -10
-  },
-  title: {
-    fontSize: 18,
-    textTransform: 'capitalize',
-    fontWeight: '600'
-  },
-  header: {
-    flex: 1,
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    flexWrap: 'wrap',
-    marginTop: 5,
-    padding: 25,
-    backgroundColor: '#fff',
-    width: '100%',
-    height: 173
-  },
-  buttons: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: '#fff',
-    borderBottomColor: 'whitesmoke'
-  },
-  TouchableOpacity: {
-    flex: 1
-  },
-  ButtonStyle: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: '#eee',
-    marginTop: 12,
-    marginBottom: 12,
-    flex: 1
-  },
-  CampaignButton: {
-    fontSize: 18,
-    color: '#C4C4C4',
-    fontWeight: 'bold',
-    fontFamily: 'OpenSans-SemiBold'
-  },
-  DetailButton: {
-    fontSize: 18,
-    color: 'black',
-    fontWeight: 'bold',
-    fontFamily: 'OpenSans-SemiBold'
-  },
-  SocialContainer: {
-    paddingTop: 30,
-    alignItems: 'baseline',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '80%'
-  },
-  SocialIcon: {},
-  avatarInfoWrap: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  }
-});

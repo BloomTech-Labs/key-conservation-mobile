@@ -1,20 +1,11 @@
-import React, { useEffect } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Button,
-  TouchableOpacity
-} from 'react-native';
-import { ScrollView } from "react-navigation";
+import React from 'react';
+import { View, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-
 import { getProfileData } from '../store/actions';
-
-import { Avatar, Icon, ListItem } from 'react-native-elements';
-
+import FeedCampaign from '../components/FeedScreen/FeedCampaign';
+import FeedUpdate from '../components/FeedScreen/FeedUpdate';
 import ProfileHeader from '../components/Profile/ProfileHeader';
-
+import BackButton from '../components/BackButton';
 
 class ProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -28,38 +19,46 @@ class ProScreen extends React.Component {
         textAlign: 'center',
         flexGrow: 1,
         alignSelf: 'center',
-        fontFamily: 'OpenSans-SemiBold',
+        fontFamily: 'OpenSans-SemiBold'
       },
-      headerLeft: <View />,
+      headerLeft: <BackButton navigation={navigation} />,
       headerRight: <View />
     };
   };
-  
+
   render() {
-    const orgId = this.props.navigation.getParam('orgId');
+    const { navigation } = this.props;
     return (
-      <ScrollView>
-        <ProfileHeader navigation={this.props.navigation} profile={this.props.selectedProfile} myProfile={false} />
-        <View />
-        <View>
-          {this.props.selectedProfile.campaigns.map(campaign => {
+      // creates sticky header
+      <ScrollView stickyHeaderIndices={[0]}>
+        <View style={{borderBottomWidth: 2, borderBottomColor: '#929292'}}>
+          <ProfileHeader navigation={navigation} profile={this.props.selectedProfile} myProfile={false} />
+        </View>
+        {this.props.selectedProfile.campaigns.map(camp => {
+          if (camp.update_id) {
             return (
-              <ListItem
-                key={campaign.camp_id}
-                title={campaign.camp_name}
-                leftAvatar={{ source: { uri: campaign.camp_img } }}
-                subtitle={campaign.location}
-                // rightIcon={
-                //   <Icon name='ellipsis-v' type='font-awesome' color='black' />
-                // }
+              <FeedUpdate
+                key={`update${camp.update_id}`}
+                data={camp}
+                toggled
+                navigation={navigation}
+              />
+            )
+          } else {
+            return (
+              <FeedCampaign
+                key={camp.camp_id}
+                data={camp}
+                toggled
+                navigation={navigation}
               />
             );
-          })}
-        </View>
+          }
+        })}
       </ScrollView>
     );
   }
-};
+}
 
 const mapStateToProps = state => ({
   selectedProfile: state.selectedProfile
@@ -69,4 +68,3 @@ export default connect(
   mapStateToProps,
   { getProfileData }
 )(ProScreen);
-
