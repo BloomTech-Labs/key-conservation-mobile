@@ -66,5 +66,8 @@ export default {
     fontSize: 10,
     marginLeft: 15,
     marginTop: 10
+  },
+  readMore: {
+    color: '#929292'
   }
 };

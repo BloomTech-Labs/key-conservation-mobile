@@ -5,8 +5,13 @@ export default {
     flexDirection: 'row',
     justifyContent: 'space-around',
     backgroundColor: '#e1e8ed',
-    paddingTop: 50,
+    paddingTop: 29,
     flexWrap: 'wrap'
+  },
+  avatarContainer: {
+    width: '30%',
+    flex: 0,
+    alignItems: 'center'
   },
   bioContainer: {
     marginTop: 25,
@@ -20,12 +25,18 @@ export default {
     marginBottom: 50
   },
   org: {
-    fontSize: 22
+    lineHeight: 22,
+    fontSize: 16,
+    fontFamily: 'OpenSans-SemiBold'
   },
   pic: {
     flex: 1
   },
-  textContainer: {},
+  textContainer: {
+    flex: 1,
+    paddingTop: 2,
+    height: 61
+  },
   buttons: {
     flexDirection: 'row',
     justifyContent: 'space-around',

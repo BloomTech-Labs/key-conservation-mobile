@@ -3,25 +3,22 @@ import {
   View,
   Text,
   Image,
-  TouchableOpacity,
-  ActivityIndicator,
-  Platform
+  TouchableOpacity
 } from 'react-native';
-import * as WebBrowser from 'expo-web-browser';
-import moment from 'moment';
-import SvgUri from 'react-native-svg-uri';
 
-import { ListItem, Icon } from 'react-native-elements';
+import moment from 'moment';
+
+
+import { ListItem } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 import { AmpEvent } from '../withAmplitude';
 import {
   getProfileData,
   setCampaign,
-  toggleCampaignText,
-  getCampaignUpdate
+  toggleCampaignText
 } from '../../store/actions';
 
-import styles from '../../constants/Stylesheet';
+import styles from '../../constants/FeedScreen/FeedUpdate';
 
 const FeedUpdate = props => {
   const dispatch = useDispatch();

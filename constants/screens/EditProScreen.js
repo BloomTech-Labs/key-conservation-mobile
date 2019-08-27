@@ -57,7 +57,8 @@ export default {
   logoutButton: {
     fontSize: 20,
     alignItems: 'flex-start',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    marginBottom: 20
   },
   buttonText: {
     color: 'blue',

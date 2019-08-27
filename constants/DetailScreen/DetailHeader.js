@@ -3,10 +3,15 @@ export default {
     margin: 15,
     marginBottom: -10
   },
-  title: {
-    fontSize: 18,
-    textTransform: 'capitalize',
-    fontWeight: '600'
+  titleText: {
+    lineHeight: 22,
+    fontSize: 16,
+    fontFamily: 'OpenSans-SemiBold'
+  },
+  userText: {
+    lineHeight: 19,
+    fontSize: 14,
+    fontFamily: 'OpenSans-Regular'
   },
   header: {
     flex: 1,

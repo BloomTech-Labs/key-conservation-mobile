@@ -1,6 +1,7 @@
 import { Dimensions } from 'react-native';
 
 const deviceWidth = Dimensions.get('window').width;
+
 export default {
   touchableButton: {
     paddingTop: 25,
@@ -79,7 +80,8 @@ export default {
     lineHeight: 22
   },
   donateView: {
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 50
   },
   whiteSpace: {
     height: 40

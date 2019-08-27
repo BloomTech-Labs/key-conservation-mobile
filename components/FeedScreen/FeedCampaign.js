@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 
-import { ListItem, Icon } from 'react-native-elements';
+import { ListItem } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 import { AmpEvent } from '../withAmplitude';
 import {

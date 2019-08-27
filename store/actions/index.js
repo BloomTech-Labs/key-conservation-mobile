@@ -327,24 +327,6 @@ export const editCampaign = (id, changes) => dispatch => {
     });
 };
 
-export const [GET_CAMPAIGN_UPDATE_START, GET_CAMPAIGN_UPDATE_ERROR, GET_CAMPAIGN_UPDATE_SUCCESS] = [
-  'GET_CAMPAIGN_UPDATE_START',
-  'GET_CAMPAIGN_UPDATE_ERROR',
-  'GET_CAMPAIGN_UPDATE_SUCCESS'
-];
-
-export const getCampaignUpdate = id => dispatch => {
-  dispatch({ type: GET_CAMPAIGN_UPDATE_START });
-  axios
-    .get(`https://key-conservation-staging.herokuapp.com/api/updates/${id}`)
-    .then(res => {
-      dispatch({ type: GET_CAMPAIGN_UPDATE_SUCCESS, payload: res.data.campUpdate });
-    })
-    .catch(err => {
-      dispatch({ type: GET_CAMPAIGN_UPDATE_ERROR, payload: err });
-    });
-};
-
 export const [
   POST_CAMPAIGN_UPDATE_START,
   POST_CAMPAIGN_UPDATE_ERROR,
