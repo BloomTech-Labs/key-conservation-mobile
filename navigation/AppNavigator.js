@@ -18,7 +18,7 @@ export default createAppContainer(
     Login: LoginStack,
     CreateAccount: UsernameStack,
     Conservationist: ConsNavigator,
-    Supporter: SupNavigator
+    Supporter: SupNavigator,
     Search: SearchStack
   })
 );
