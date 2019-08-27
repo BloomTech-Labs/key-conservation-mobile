@@ -54,10 +54,14 @@ class CreateCampUpdateScreen extends React.Component {
       !this.props.mediaUpload ||
       !this.state.update_desc
     ) {
-      return(
+      const errorMessage = 
+        'Form incomplete. Please include:' +
+        (this.props.mediaUpload ? '' : '\n    - Update Image') +
+        (this.state.update_desc ? '' : '\n    - Update Details')
+      return (
         Alert.alert(
           'Error',
-          'Please complete all update fields.'
+          errorMessage
         ));
     } else {
       const campUpdate = {
