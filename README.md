@@ -13,7 +13,7 @@ You can find the deployed project at (https://expo.io/@labs14_key_conservation/k
 <br>
 <br>
 
-🚫 4️⃣ Optional examples of using images with links for your tech stack, make sure to change these to fit your project
+🚫 Optional examples of using images with links for your tech stack, make sure to change these to fit your project
 
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 ![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)
@@ -39,7 +39,7 @@ We are wildlife biologists who saw a massive disconnect in the way we could reac
 
 Additionally, supporters of conservation organizations want more transparency as to where their money is going, what the outcome of their support is, as well as, better ways to stay connected.
 
-### 4️⃣ Key Features
+### Key Features
 
 - Authentication with Auth0
 - Conservation profiles to create campaigns
@@ -81,29 +81,25 @@ Additionally, supporters of conservation organizations want more transparency as
 
 Auth0 provides authentication and authorization as a service and includes a whole suite of products available to benefit owner/user/developer.
 
-## 3️⃣ Amplitude Analytics
+## Amplitude Analytics
 
 Amplitude provides analytics for our app in a way that is easiest to work with Expo without having to eject.
 
 We have setup a HOC to wrap desired components to have analytics. The component is called withAmplitude.js. There are functions in there as well that can be imported for easier and quicker use. 
 
-## 3️⃣ Staging API here
+## Staging API here
 (https://key-conservation-staging.herokuapp.com)
 
 
-## 3️⃣ Production API here
+## Production API here
 (https://key-conservation.herokuapp.com)
 
-# 3️⃣ Environment Variables
+# Environment Variables
 
 In order for the app to function correctly, the user must set up their own environment variables. There should be a .env file containing the following:
 
 🚫These are just examples, replace them with the specifics for your app
 
-    *  S3_ACCESS_KEY_ID
-    *  S3_BUCKET_NAME 
-    *  S3_BUCKET_REGION 
-    *  S3_SECRET_ACCESS_KEY 
     
 # 5️⃣ Content Licenses
 
