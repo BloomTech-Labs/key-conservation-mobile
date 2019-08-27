@@ -5,6 +5,8 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { getProfileData } from '../store/actions';
 
+
+//this function can be imported and is the HOC meaning you can wrap your component with it will pass down the props which in this case are functions that you can use. 
 export function withAmplitude(WrappedComponent, isApp) {
   if (isApp) {
     return function(props) {
@@ -42,7 +44,7 @@ export function AmpUserProps(properties) {
     Amplitude.setUserProperties(properties);
   }
 }
-
+//this is one of the more important functions becasue it will fire off an an event to the amplitude analytics dashboard. this function will automatically know whether you set properties to the event or not. 
 export function AmpEvent(name, properties) {
   //console.log(typeof properties);
   if (!name) {
@@ -69,6 +71,8 @@ export function AmpEvent(name, properties) {
   }
 }
 
+
+//AmpInit initalizes the amplitude session for the user based on the subID from their auth0 login. 
 export async function AmpInit() {
   const id = await SecureStore.getItemAsync('id', {});
   const sub = await SecureStore.getItemAsync('sub', {});
