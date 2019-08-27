@@ -58,10 +58,16 @@ class CreateCampScreen extends React.Component {
       !this.state.camp_desc ||
       !this.state.camp_cta
     ) {
+      const errorMessage = 
+        'Form incomplete. Please include:' +
+        (this.props.mediaUpload ? '' : '\n    - Campaign Image') +
+        (this.state.camp_name ? '' : '\n    - Campaign Name') +
+        (this.state.camp_desc ? '' : '\n    - Campaign Details') +
+        (this.state.camp_cta ? '' : '\n    - Donation Link')
       return (
         Alert.alert(
           'Error',
-          'Please complete all campaign fields.'
+          errorMessage
         ));
     } else {
       const camp = {

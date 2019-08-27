@@ -279,7 +279,7 @@ const reducer = (state = initialState, action) => {
     case EDIT_CAMPAIGN_SUCCESS:
       let { camp_id } = action.payload;
       const alteredCampaigns = state.currentUserProfile.campaigns.map(camp => {
-        if (camp.camp_id === camp_id) {
+        if (camp.camp_id === camp_id && !camp.update_id) {
           return action.payload;
         } else {
           return camp;

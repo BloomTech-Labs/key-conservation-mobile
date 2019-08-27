@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import {
   Menu,
   MenuOptions,
@@ -41,6 +41,25 @@ class MyProScreen extends React.Component {
       this.props.currentUserProfile.id,
       false,
       'myProfile'
+    );
+  }
+
+  delete = (id, type) => {
+    let message, onPressFunction
+    if (type === 'campaign') {
+      message = 'Deleting a campaign will also delete all updates associated with it.\nAre you sure you want to delete this campaign?'
+      onPressFunction = () => this.props.deleteCampaign(id)
+    } else if (type === 'update') {
+      message = 'Are you sure you want to delete this update?'
+      onPressFunction = () => this.props.deleteCampaignUpdate(id)
+    }
+    Alert.alert(
+      'Warning',
+      message,
+      [
+        {text: 'Yes', onPress: onPressFunction},
+        {text: 'No', style: 'cancel'},
+      ]
     );
   }
 
@@ -116,7 +135,7 @@ class MyProScreen extends React.Component {
                         <MenuOptions customStyles={optionsStyles}>
                           <MenuOption
                             onSelect={() =>
-                              this.props.deleteCampaignUpdate(camp.update_id)
+                              this.delete(camp.update_id, 'update')
                             }
                           >
                             <Text style={{ color: '#ff0a55', fontSize: 16 }}>
@@ -170,7 +189,7 @@ class MyProScreen extends React.Component {
                       <MenuOptions customStyles={optionsStyles}>
                         <MenuOption
                           onSelect={() =>
-                            this.props.deleteCampaign(camp.camp_id)
+                            this.delete(camp.camp_id, 'campaign')
                           }
                         >
                           <Text style={{ color: '#ff0a55', fontSize: 16 }}>

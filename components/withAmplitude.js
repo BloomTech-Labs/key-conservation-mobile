@@ -56,7 +56,7 @@ export function AmpEvent(name, properties) {
   }
 
   if (name && !properties) {
-    console.log('sent event name but no properties', name);
+    // console.log('sent event name but no properties', name);
     Amplitude.logEvent(name);
   } else if (name && properties) {
     if (typeof properties !== 'object' && typeof properties !== 'array') {
@@ -64,14 +64,14 @@ export function AmpEvent(name, properties) {
         'You must use the data type of Object for Event Properties'
       );
     }
-    console.log('sent name and properties', name, properties);
+    // console.log('sent name and properties', name, properties);
     Amplitude.logEventWithProperties(name, properties);
   }
 }
 
 export async function AmpInit() {
   const id = await SecureStore.getItemAsync('id', {});
-  console.log('****** id from withamplitude', id);
+  // console.log('****** id from withamplitude', id);
   if (id === null) {
     console.log('id is null*******');
     const test = await Amplitude.initialize('fae81e5eeff3b6917f9d76566b67a7da');
@@ -83,7 +83,7 @@ export async function AmpInit() {
     };
     AmpEvent(`User Connection`, message);
   } else if (id) {
-    console.log('found their id', id);
+    // console.log('found their id', id);
     const userData = getProfileData(id, null, true, true);
     const data = await userData();
     if (data) {
@@ -99,10 +99,10 @@ export async function AmpInit() {
         sub: data.sub,
         username: data.username
       };
-      const test = await Amplitude.initialize(
+      await Amplitude.initialize(
         'fae81e5eeff3b6917f9d76566b67a7da'
       );
-      console.log(test);
+      // console.log(test);
       Amplitude.setUserId(`${profileData.id}`);
       const message = {
         details:
