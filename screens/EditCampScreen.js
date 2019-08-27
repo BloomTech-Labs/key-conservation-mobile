@@ -68,11 +68,7 @@ class CreateCampScreen extends React.Component {
           camp_img: this.props.mediaUpload
         };
       }
-      await this.props.editCampaign(
-        this.props.selectedCampaign.camp_id,
-        changes
-      );
-      await this.props.getCampaigns();
+      await this.props.editCampaign(this.props.selectedCampaign.camp_id, changes);
       this.props.navigation.goBack();
     }
   };
@@ -125,24 +121,6 @@ class CreateCampScreen extends React.Component {
               </View>
               <View style={styles.sections}>
                 <UploadMedia />
-                {/* <Text style={styles.sectionsText}>Campaign Image URL</Text>
-              <TextInput
-                ref={input => {
-                  this.campImgUrlInput = input;
-                }}
-                returnKeyType='next'
-                keyboardType='url'
-                placeholder='Please include full URL'
-                autoCapitalize='none'
-                style={styles.inputContain}
-                onChangeText={text => this.setState({ camp_img: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.campDetailsInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.camp_img}
-              /> */}
               </View>
 
               <View style={styles.sections}>

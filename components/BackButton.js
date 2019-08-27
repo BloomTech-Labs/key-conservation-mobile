@@ -2,9 +2,19 @@ import React from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
 
 const DoneButton = props => {
+  const handlePress = () => {
+    if (props.override) {
+      props.navigation.navigate('override')
+    } else if (props.popToTop) {
+      props.navigation.popToTop();
+    } else {
+      props.navigation.goBack(null);
+    }
+  }
+
   return (
     <TouchableOpacity
-      onPress={() => props.navigation.goBack(null)}
+      onPress={handlePress}
       style={{ padding: 18 }}
     >
       <View

@@ -121,6 +121,7 @@ export const editProfileData = (id, changes) => async dispatch => {
       formData.append(key, filteredChanges[key]);
     }
   });
+  console.log(formData)
 
   return axios
     .put(`https://key-conservation-staging.herokuapp.com/api/users/${id}`, formData, {
@@ -163,10 +164,20 @@ export const [
 
 export const getCampaigns = () => dispatch => {
   dispatch({ type: GET_CAMPAIGNS_START });
+  let campaigns;
   axios
     .get('https://key-conservation-staging.herokuapp.com/api/campaigns')
     .then(res => {
-      dispatch({ type: GET_CAMPAIGNS_SUCCESS, payload: res.data.camp });
+      campaigns = res.data.camp;
+      axios
+        .get('https://key-conservation-staging.herokuapp.com/api/updates')
+        .then(res => {
+          campaigns = campaigns.concat(res.data.campUpdate)
+          dispatch({ type: GET_CAMPAIGNS_SUCCESS, payload: campaigns });
+        })
+        .catch(err => {
+          dispatch({ type: GET_CAMPAIGNS_ERROR, payload: err });
+        })
     })
     .catch(err => {
       dispatch({ type: GET_CAMPAIGNS_ERROR, payload: err });
@@ -205,10 +216,9 @@ export const [
   POST_CAMPAIGN_START,
   POST_CAMPAIGN_ERROR,
   POST_CAMPAIGN_SUCCESS
-] = ['POST_CAMPAIGNS_START', 'POST_CAMPAIGNS_ERROR', 'POST_CAMPAIGNS_SUCCESS'];
+] = ['POST_CAMPAIGN_START', 'POST_CAMPAIGN_ERROR', 'POST_CAMPAIGN_SUCCESS'];
 
 export const postCampaign = camp => dispatch => {
-  // console.log('posting campign************************');
   dispatch({ type: POST_CAMPAIGN_START });
 
   const filteredCamp = filterUrls(['camp_cta'], camp);
@@ -249,9 +259,9 @@ export const [
   DELETE_CAMPAIGN_ERROR,
   DELETE_CAMPAIGN_SUCCESS
 ] = [
-  'DELETE_CAMPAIGNS_START',
-  'DELETE_CAMPAIGNS_ERROR',
-  'DELETE_CAMPAIGNS_SUCCESS'
+  'DELETE_CAMPAIGN_START',
+  'DELETE_CAMPAIGN_ERROR',
+  'DELETE_CAMPAIGN_SUCCESS'
 ];
 
 export const deleteCampaign = id => dispatch => {
@@ -298,8 +308,6 @@ export const editCampaign = (id, changes) => dispatch => {
     formData.append(key, changes[key]);
   });
 
-  // console.log('FORMDATA', formData);
-
   axios
     .put(
       `https://key-conservation-staging.herokuapp.com/api/campaigns/${id}`,
@@ -312,12 +320,145 @@ export const editCampaign = (id, changes) => dispatch => {
       }
     )
     .then(res => {
-      // console.log('RES', res.data.editCamp);
       dispatch({ type: EDIT_CAMPAIGN_SUCCESS, payload: res.data.editCamp });
     })
     .catch(err => {
-      // console.log('ERR', err);
       dispatch({ type: EDIT_CAMPAIGN_ERROR, payload: err });
+    });
+};
+
+export const [GET_CAMPAIGN_UPDATE_START, GET_CAMPAIGN_UPDATE_ERROR, GET_CAMPAIGN_UPDATE_SUCCESS] = [
+  'GET_CAMPAIGN_UPDATE_START',
+  'GET_CAMPAIGN_UPDATE_ERROR',
+  'GET_CAMPAIGN_UPDATE_SUCCESS'
+];
+
+export const getCampaignUpdate = id => dispatch => {
+  dispatch({ type: GET_CAMPAIGN_UPDATE_START });
+  axios
+    .get(`https://key-conservation-staging.herokuapp.com/api/updates/${id}`)
+    .then(res => {
+      dispatch({ type: GET_CAMPAIGN_UPDATE_SUCCESS, payload: res.data.campUpdate });
+    })
+    .catch(err => {
+      dispatch({ type: GET_CAMPAIGN_UPDATE_ERROR, payload: err });
+    });
+};
+
+export const [
+  POST_CAMPAIGN_UPDATE_START,
+  POST_CAMPAIGN_UPDATE_ERROR,
+  POST_CAMPAIGN_UPDATE_SUCCESS
+] = ['POST_CAMPAIGN_UPDATE_START', 'POST_CAMPAIGN_UPDATE_ERROR', 'POST_CAMPAIGN_UPDATE_SUCCESS'];
+
+export const postCampaignUpdate = campUpdate => dispatch => {
+  dispatch({ type: POST_CAMPAIGN_UPDATE_START });
+
+  const uri = campUpdate.update_img;
+
+  let uriParts = uri.split('.');
+  let fileType = uriParts[uriParts.length - 1];
+
+  let formData = new FormData();
+  formData.append('photo', {
+    uri,
+    name: `photo.${fileType}`,
+    type: `image/${fileType}`
+  });
+
+  formData.append('update_desc', campUpdate.update_desc);
+  formData.append('users_id', campUpdate.users_id);
+  formData.append('camp_id', campUpdate.camp_id);
+
+  axios
+    .post(
+      'https://key-conservation-staging.herokuapp.com/api/updates',
+      formData,
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    )
+    .then(res => {
+      dispatch({ type: POST_CAMPAIGN_UPDATE_SUCCESS, payload: res.data.newCampUpdates });
+    })
+    .catch(err => {
+      dispatch({ type: POST_CAMPAIGN_UPDATE_ERROR, payload: err });
+    });
+};
+
+export const [
+  EDIT_CAMPAIGN_UPDATE_START,
+  EDIT_CAMPAIGN_UPDATE_ERROR,
+  EDIT_CAMPAIGN_UPDATE_SUCCESS
+] = ['EDIT_CAMPAIGN_UPDATE_START', 'EDIT_CAMPAIGN_UPDATE_ERROR', 'EDIT_CAMPAIGN_UPDATE_SUCCESS'];
+
+export const editCampaignUpdate = (id, changes) => dispatch => {
+  dispatch({ type: EDIT_CAMPAIGN_UPDATE_START });
+
+  let formData = new FormData();
+
+  let keys = Object.keys(changes).filter(key => {
+    return key !== 'update_img';
+  });
+
+  if (changes.update_img) {
+    const uri = changes.update_img;
+
+    let uriParts = uri.split('.');
+    let fileType = uriParts[uriParts.length - 1];
+
+    formData.append('photo', {
+      uri,
+      name: `photo.${fileType}`,
+      type: `image/${fileType}`
+    });
+  }
+
+  keys.forEach(key => {
+    formData.append(key, changes[key]);
+  });
+
+  axios
+    .put(
+      `https://key-conservation-staging.herokuapp.com/api/updates/${id}`,
+      formData,
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    )
+    .then(res => {
+      dispatch({ type: EDIT_CAMPAIGN_UPDATE_SUCCESS, payload: res.data.editCampUpdate });
+    })
+    .catch(err => {
+      dispatch({ type: EDIT_CAMPAIGN_UPDATE_ERROR, payload: err });
+    });
+};
+
+export const [
+  DELETE_CAMPAIGN_UPDATE_START,
+  DELETE_CAMPAIGN_UPDATE_ERROR,
+  DELETE_CAMPAIGN_UPDATE_SUCCESS
+] = [
+  'DELETE_CAMPAIGN_UPDATE_START',
+  'DELETE_CAMPAIGN_UPDATE_ERROR',
+  'DELETE_CAMPAIGN_UPDATE_SUCCESS'
+];
+
+export const deleteCampaignUpdate = id => dispatch => {
+  dispatch({ type: DELETE_CAMPAIGN_UPDATE_START });
+  axios
+    .delete(`https://key-conservation-staging.herokuapp.com/api/updates/${id}`)
+    .then(res => {
+      dispatch({ type: DELETE_CAMPAIGN_UPDATE_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      dispatch({ type: DELETE_CAMPAIGN_UPDATE_ERROR, payload: err });
     });
 };
 

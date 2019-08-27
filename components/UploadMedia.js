@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
+import { TouchableOpacity, View, Text,Image} from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
-
 import { setMedia } from '../store/actions';
+
+import styles from '../constants/UploadMedia'
 
 class UploadMedia extends Component {
   state = {
@@ -13,7 +15,7 @@ class UploadMedia extends Component {
   };
 
   getPermissionAsync = async () => {
-    if (Constants.platform.ios) {
+    if (Constants.platform.ios || Constants.platform.android) {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
       if (status !== 'granted') {
         alert('Sorry, we need camera roll permissions to make this work!');
@@ -42,42 +44,39 @@ class UploadMedia extends Component {
     this.getPermissionAsync();
   }
 
+  clearState = () => {
+    this.setState({
+      media: ''
+    })
+  }
+
   render() {
     const { media } = this.state;
     return (
       <>
-        <TouchableOpacity
-          style={styles.sectionButton}
-          onPress={this._pickImage}
-        >
-          <Text style={styles.sectionsText}>Choose an image</Text>
-        </TouchableOpacity>
-        {media ? (
-          <Image source={{ uri: media }} style={styles.sectionImage} />
-        ) : null}
+        <NavigationEvents
+          onDidBlur={this.clearState}
+        />
+        <View style={styles.imageButton}>
+          <TouchableOpacity
+            onPress={this._pickImage}
+          >
+            <View style={styles.touchableView}>
+              <Text style={styles.touchableText}>Click here to choose an image</Text>
+            </View>
+          </TouchableOpacity>
+          </View>
+          <View style={styles.imageContain}>
+            {media ?
+            // to make profile image circular, border radius must be set at half of height/width
+            <Image source={{ uri: media }} style={{height: 300, width: 300, borderRadius: this.props.circular ? 150 : 0}}/> : null}
+          </View>
       </>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  sectionButton: {
-    alignSelf: 'center',
-    marginBottom: 10
-  },
-  sectionsText: {
-    fontFamily: 'OpenSans-SemiBold',
-    color: '#18A0FB',
-    fontSize: 20,
-    marginBottom: 10
-  },
-  sectionImage: {
-    alignSelf: 'center',
-    width: 300,
-    height: 300,
-    marginBottom: 10
-  }
-});
+
 
 export default connect(
   null,

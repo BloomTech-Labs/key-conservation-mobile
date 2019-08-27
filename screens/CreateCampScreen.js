@@ -4,7 +4,8 @@ import {
   Text,
   View,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  Alert
 } from 'react-native';
 import { ScrollView, NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -57,14 +58,17 @@ class CreateCampScreen extends React.Component {
       !this.state.camp_desc ||
       !this.state.camp_cta
     ) {
-      return;
+      return (
+        Alert.alert(
+          'Error',
+          'Please complete all campaign fields.'
+        ));
     } else {
       const camp = {
         ...this.state,
         camp_img: this.props.mediaUpload
       };
       await this.props.postCampaign(camp);
-      await this.props.getCampaigns();
       AmpEvent('Campaign Created');
       this.props.navigation.navigate('Home');
     }
@@ -93,7 +97,7 @@ class CreateCampScreen extends React.Component {
             }}
           >
             <NavigationEvents
-              onWillFocus={this.props.clearMedia}
+              onWillFocus={this.props.clearMedia} 
               onDidBlur={this.clearState}
             />
             <View style={styles.sectionContainer}>
@@ -117,24 +121,7 @@ class CreateCampScreen extends React.Component {
               </View>
               <View style={styles.sections}>
                 <UploadMedia />
-                {/* <Text style={styles.sectionsText}>Campaign Image URL</Text>
-              <TextInput
-                ref={input => {
-                  this.campImgUrlInput = input;
-                }}
-                returnKeyType='next'
-                keyboardType='url'
-                placeholder='Please include full URL'
-                autoCapitalize='none'
-                style={styles.inputContain}
-                onChangeText={text => this.setState({ camp_img: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.campDetailsInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.camp_img}
-              /> */}
+               
               </View>
 
               <View style={styles.sections}>

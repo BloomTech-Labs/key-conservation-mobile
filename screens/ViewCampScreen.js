@@ -1,14 +1,22 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Image
+} from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-navigation';
 import * as WebBrowser from 'expo-web-browser';
 import { connect } from 'react-redux';
 import SvgUri from 'react-native-svg-uri';
+import moment from 'moment';
 import { getProfileData } from '../store/actions';
 import BackButton from '../components/BackButton';
 import { AmpEvent } from '../components/withAmplitude';
-import styles from '../constants/screens/ViewCampScreen';
+import FeedUpdate from '../components/FeedScreen/FeedUpdate';
+
+import styles from '../constants/screens/ViewCampScreen'
 
 class ViewCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -23,7 +31,7 @@ class ViewCampScreen extends React.Component {
         flexGrow: 1,
         alignSelf: 'center'
       },
-      headerLeft: <BackButton navigation={navigation} />,
+      headerLeft: <BackButton navigation={navigation} popToTop />,
       headerRight: <View />
     };
   };
@@ -34,6 +42,13 @@ class ViewCampScreen extends React.Component {
   };
 
   render() {
+    let sortedUpdates = false;
+    if (this.props.selectedCampaign.updates && this.props.selectedCampaign.updates.length) {
+      sortedUpdates = this.props.selectedCampaign.updates.sort(function(a, b) {
+        return moment(a.created_at) - moment(b.created_at);
+      });
+    }
+
     return (
       <ScrollView>
         <View>
@@ -99,7 +114,22 @@ class ViewCampScreen extends React.Component {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={styles.whiteSpace} />
+          <View style={styles.feedContainer}>
+            {
+              sortedUpdates !== false &&
+              sortedUpdates.map(update => {
+                return (
+                  <FeedUpdate
+                    key={`update${update.update_id}`}
+                    data={update}
+                    toggled
+                    hideUsername
+                    navigation={this.props.navigation}
+                  />
+                )                
+              }
+            )}
+        </View>        
         </View>
       </ScrollView>
     );
@@ -109,6 +139,7 @@ class ViewCampScreen extends React.Component {
 const mapStateToProps = state => ({
   selectedCampaign: state.selectedCampaign
 });
+
 
 export default connect(
   mapStateToProps,

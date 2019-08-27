@@ -66,7 +66,7 @@ class EditProScreen extends React.Component {
     about_us: this.props.currentUserProfile.about_us,
     species_and_habitats: this.props.currentUserProfile.species_and_habitats,
     issues: this.props.currentUserProfile.issues,
-    // supportUs: this.props.currentUserProfile.support_us,
+    // supportUs: this.props.currentUserProfile.support_us, 
     org_cta: this.props.currentUserProfile.org_cta
   };
 
@@ -138,25 +138,7 @@ class EditProScreen extends React.Component {
             </View>
 
             <View style={styles.sections}>
-              <UploadMedia />
-              {/* <Text style={styles.sectionsText}>Profile Image URL</Text>
-              <TextInput
-                ref={input => {
-                  this.profileImageInput = input;
-                }}
-                returnKeyType='next'
-                keyboardType='url'
-                style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='Please include full URL'
-                onChangeText={text => this.setState({ profile_image: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.locationInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.profile_image}
-              /> */}
+              <UploadMedia circular />
             </View>
 
             <View style={styles.sections}>

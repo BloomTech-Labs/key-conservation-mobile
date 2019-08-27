@@ -47,18 +47,17 @@ export default class DetailHeader extends Component {
           <View style={styles.avatarInfoWrap}>
             <View style={styles.header}>
               <Avatar
-                size='large'
+                size={61}
                 rounded
                 source={{
                   uri: profile.profile_image
                 }}
               />
               <View style={styles.textContainer}>
-                <View>
-                  <Text style={styles.title}>{profile.org_name}</Text>
-                  <Text style={styles.location}>{profile.location}</Text>
-                </View>
+                <Text style={styles.titleText}>{profile.org_name}</Text>
+                <Text style={styles.userText}>{profile.location}</Text>
                 <Text
+                  style={styles.userText}
                   onPress={async () => {
                     profile.org_link_url &&
                       profile.org_link_url !== null &&
@@ -135,3 +134,4 @@ export default class DetailHeader extends Component {
     );
   }
 }
+

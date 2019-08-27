@@ -7,7 +7,7 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --watchAll",
-    "postinstall": "rndebugger-open"
+    "postinstall": "rndebugger-open --expo"
   },
   "jest": {
     "preset": "jest-expo"

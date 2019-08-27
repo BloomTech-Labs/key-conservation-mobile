@@ -52,9 +52,9 @@ export default (LoginScreen = props => {
     // console.log('********************', roles);
     dispatch(loginStart());
     const redirectUrl = AuthSession.getRedirectUrl();
-    // console.log(
-    //   `***************Redirect URL---place inside of Auth0 dashboard for callback url: ${redirectUrl}`
-    // );
+    console.log(
+      `***************Redirect URL---place inside of Auth0 dashboard for callback url: ${redirectUrl}`
+    );
 
     //this variable structures a query param for the /authorize API call to the auth0 API
     const queryParams = () => {

@@ -36,13 +36,15 @@ const ProfileHeader = props => {
         </TouchableOpacity>
       </View>
       <View style={styles.container}>
-        <Avatar
-          size='large'
-          rounded
-          source={{
-            uri: profile.profile_image
-          }}
-        />
+        <View style={styles.avatarContainer}>
+          <Avatar
+            size={61}
+            rounded
+            source={{
+              uri: profile.profile_image
+            }}
+          />
+        </View>
         <View style={styles.textContainer}>
           <Text style={styles.org}>{profile.org_name}</Text>
           <Text style={styles.location}>{profile.location}</Text>
