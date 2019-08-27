@@ -37,7 +37,7 @@ function toQueryString(params) {
   );
 }
 
-export default (LoginScreen = props => {
+export default LoginScreen = props => {
   navigationOptions = () => {
     return {
       header: null
@@ -52,9 +52,11 @@ export default (LoginScreen = props => {
   const login = async navigation => {
     dispatch(loginStart());
     const redirectUrl = AuthSession.getRedirectUrl();
-    console.log(
-      `***************Redirect URL---place inside of Auth0 dashboard for callback url: ${redirectUrl}`
-    );
+
+    //you will need to uncomment out this consolelog to find your callback url to add into auth0 allowed callback urls to be able to hit the auth0 endpoint.
+    // console.log(
+    //   `***************Redirect URL---place inside of Auth0 dashboard for callback url: ${redirectUrl}`
+    // );
 
     //this variable structures a query param for the /authorize API call to the auth0 API
     const queryParams = toQueryString({
@@ -112,7 +114,6 @@ export default (LoginScreen = props => {
         sub: decoded.sub
       };
       // const userLog2 = await SecureStore.getItemAsync("sub", {});
-      // console.log("*********async test user*************", userLog2);
 
       // dispatch(getProfileData(null, chosenDecoded.sub, true));
 
@@ -120,8 +121,6 @@ export default (LoginScreen = props => {
       await SecureStore.setItemAsync('email', chosenDecoded.email);
       await SecureStore.setItemAsync('roles', 'conservationist');
       const userLog = await SecureStore.getItemAsync('sub', {});
-      //console.log('*********async user*************', userLog);
-
       dispatch(loginSuccess(chosenDecoded));
 
       await dispatch(getProfileData(null, chosenDecoded.sub, true));
@@ -173,7 +172,7 @@ export default (LoginScreen = props => {
       </View>
     </ImageBackground>
   );
-});
+};
 
 const styles = StyleSheet.create({
   container: {

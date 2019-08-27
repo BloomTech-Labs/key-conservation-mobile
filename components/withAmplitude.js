@@ -5,8 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { getProfileData } from '../store/actions';
 
-
-//this function can be imported and is the HOC meaning you can wrap your component with it will pass down the props which in this case are functions that you can use. 
+//this function can be imported and is the HOC meaning you can wrap your component with and it will pass down the props which in this case are functions that you can use.
 export function withAmplitude(WrappedComponent, isApp) {
   if (isApp) {
     return function(props) {
@@ -27,7 +26,6 @@ export function withAmplitude(WrappedComponent, isApp) {
       setAmpId: id => Amplitude.setUserId(`${id}`)
     };
     if (userProps !== null) {
-      //console.log('*******userProps*******',userProps)
       AmpUserProps(userProps);
     }
     // Wraps the input component in a container, without mutating it. Good!
@@ -36,17 +34,14 @@ export function withAmplitude(WrappedComponent, isApp) {
 }
 
 export function AmpUserProps(properties) {
-  // console.log('*******properties**********', properties)
   if (typeof properties !== 'object') {
     return console.log('Properties need to be an object');
   } else if (properties) {
-    //console.log(properties, "properties from AmpUserProps");
     Amplitude.setUserProperties(properties);
   }
 }
-//this is one of the more important functions becasue it will fire off an an event to the amplitude analytics dashboard. this function will automatically know whether you set properties to the event or not. 
+//this is one of the more important functions becasue it will fire off an an event to the amplitude analytics dashboard. this function will automatically know whether you set properties to the event or not.
 export function AmpEvent(name, properties) {
-  //console.log(typeof properties);
   if (!name) {
     return console.log(
       'You need to include a name for your event, and can also send event properties.'
@@ -71,8 +66,7 @@ export function AmpEvent(name, properties) {
   }
 }
 
-
-//AmpInit initalizes the amplitude session for the user based on the subID from their auth0 login. 
+//AmpInit initalizes the amplitude session for the user based on the subID from their auth0 login.
 export async function AmpInit() {
   const id = await SecureStore.getItemAsync('id', {});
   const sub = await SecureStore.getItemAsync('sub', {});
