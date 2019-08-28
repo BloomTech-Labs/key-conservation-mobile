@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import BackButton from '../components/BackButton';
 import * as SecureStorage from 'expo-secure-store';
 import DoneButton from '../components/DoneButton';
+import { AmpEvent } from '../components/withAmplitude';
 import UploadMedia from '../components/UploadMedia';
 
 import { editProfileData, logout, clearMedia } from '../store/actions';
@@ -86,7 +87,6 @@ class EditProScreen extends React.Component {
     }
     return true;
   };
-
 
   done = () => {
     let changes = this.state;
