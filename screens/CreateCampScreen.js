@@ -52,18 +52,19 @@ class CreateCampScreen extends React.Component {
     this.props.navigation.setParams({ publish: this.publish });
   }
   publish = async () => {
+    let filteredState = filterUrls('camp_cta', this.state)
     if (
       !this.props.mediaUpload ||
-      !this.state.camp_name ||
-      !this.state.camp_desc ||
-      !this.state.camp_cta
+      !filteredState.camp_name ||
+      !filteredState.camp_desc ||
+      !filteredState.camp_cta
     ) {
       const errorMessage = 
         'Form incomplete. Please include:' +
         (this.props.mediaUpload ? '' : '\n    - Campaign Image') +
-        (this.state.camp_name ? '' : '\n    - Campaign Name') +
-        (this.state.camp_desc ? '' : '\n    - Campaign Details') +
-        (this.state.camp_cta ? '' : '\n    - Donation Link')
+        (filteredState.camp_name ? '' : '\n    - Campaign Name') +
+        (filteredState.camp_desc ? '' : '\n    - Campaign Details') +
+        (filteredState.camp_cta ? '' : '\n    - Donation Link')
       return (
         Alert.alert(
           'Error',
@@ -71,7 +72,7 @@ class CreateCampScreen extends React.Component {
         ));
     } else {
       const camp = {
-        ...this.state,
+        ...filteredState,
         camp_img: this.props.mediaUpload
       };
       await this.props.postCampaign(camp);

@@ -37,6 +37,8 @@ const SupProfileHeader = props => {
           <View style={styles.socialContainer}>
             <TouchableOpacity
               onPress={async () => {
+                profile.email &&
+                profile.email !== null &&
                 await Linking.openURL(`mailto:${profile.email}`);
               }}
             >

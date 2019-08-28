@@ -10,6 +10,13 @@ import styles from '../../constants/Profile/ProfileHeader';
 const ProfileHeader = props => {
   let profile = props.profile;
 
+  const WebsiteClick = async () => {
+    if (profile.org_link_url && profile.org_link_url !== null) {
+      await WebBrowser.openBrowserAsync(profile.org_link_url)
+      AmpEvent('Website Link Clicked', { orgName: profile.org_name })
+    }
+  }
+
   return (
     <ScrollView style={styles.pic}>
       <View style={styles.buttons}>
@@ -49,12 +56,7 @@ const ProfileHeader = props => {
           <Text style={styles.org}>{profile.org_name}</Text>
           <Text style={styles.location}>{profile.location}</Text>
           <Text
-            onPress={async () => {
-              profile.org_link_url &&
-                profile.org_link_url !== null &&
-                AmpEvent('Website Link Clicked', { orgName: profile.org_name });
-              await WebBrowser.openBrowserAsync(profile.org_link_url);
-            }}
+            onPress={WebsiteClick}
           >
             {profile.org_link_text}
           </Text>

@@ -13,7 +13,6 @@ import { connect } from 'react-redux';
 
 import { getProfileData, getCampaign } from '../store/actions';
 import BackButton from '../components/BackButton';
-import { AmpEvent } from '../components/withAmplitude';
 
 const deviceWidth = Dimensions.get('window').width;
 

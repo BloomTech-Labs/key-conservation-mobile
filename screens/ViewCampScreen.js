@@ -98,15 +98,11 @@ class ViewCampScreen extends React.Component {
                 onPress={async () =>
                   this.props.selectedCampaign.camp_cta &&
                   this.props.selectedCampaign.camp_cta !== null &&
+                  await WebBrowser.openBrowserAsync(this.props.selectedCampaign.camp_cta) &&
                   AmpEvent('Campaign Donation Button Clicked', {
                     username: this.props.username,
                     campId: this.props.selectedCampaign.camp_id
                   })
-                  (
-                    await WebBrowser.openBrowserAsync(
-                      this.props.selectedCampaign.camp_cta
-                    )
-                  )
                 }
               >
                 <View style={styles.touchableView}>
