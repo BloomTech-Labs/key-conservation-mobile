@@ -10,7 +10,6 @@ import * as WebBrowser from 'expo-web-browser';
 import { Avatar } from 'react-native-elements';
 import SvgUri from 'react-native-svg-uri';
 
-
 import styles from '../../constants/Profile/SupProfileHeader'
 
 const SupProfileHeader = props => {
@@ -37,6 +36,8 @@ const SupProfileHeader = props => {
           <View style={styles.socialContainer}>
             <TouchableOpacity
               onPress={async () => {
+                profile.email &&
+                profile.email !== null &&
                 await Linking.openURL(`mailto:${profile.email}`);
               }}
             >

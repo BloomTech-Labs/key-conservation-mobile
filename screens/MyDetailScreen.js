@@ -31,7 +31,7 @@ class MyDetailsScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView contentContainerStyle={{ backgroundColor: '#F2F2FB' }}>
+      <ScrollView contentContainerStyle={styles.scrollBG}>
         <DetailHeader
           navigation={this.props.navigation}
           myProfile={true}

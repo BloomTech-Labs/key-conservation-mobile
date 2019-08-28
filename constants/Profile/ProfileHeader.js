@@ -29,6 +29,11 @@ export default {
     fontSize: 16,
     fontFamily: 'OpenSans-SemiBold'
   },
+  userText: {
+    lineHeight: 19,
+    fontSize: 14,
+    fontFamily: 'OpenSans-Regular'
+  },
   pic: {
     flex: 1
   },

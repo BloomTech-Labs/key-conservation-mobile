@@ -26,6 +26,12 @@ import EditCampUpdateScreen from '../screens/EditCampUpdateScreen';
 const FeedStack = createStackNavigator(
   {
     Home: FeedScreen,
+    Search: {
+      screen: SearchScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
     Pro: {
       screen: ProScreen,
       navigationOptions: {
@@ -192,15 +198,6 @@ export const UsernameStack = createStackNavigator({
 
 export const LoginStack = createStackNavigator(
   { Login: LoginScreen },
-  {
-    headerMode: 'none'
-  }
-);
-
-export const SearchStack = createStackNavigator(
-  {
-    Search: SearchScreen
-  },
   {
     headerMode: 'none'
   }

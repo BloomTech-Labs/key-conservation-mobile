@@ -17,6 +17,7 @@ import { AmpEvent } from '../components/withAmplitude';
 import UploadMedia from '../components/UploadMedia';
 
 import { editProfileData, logout, clearMedia } from '../store/actions';
+import { AmpEvent } from '../components/withAmplitude';
 
 import styles from '../constants/screens/EditProScreen'; 
 
@@ -26,6 +27,8 @@ class EditProScreen extends React.Component {
     await SecureStorage.deleteItemAsync('email', {});
     await SecureStorage.deleteItemAsync('roles', {});
     await SecureStorage.deleteItemAsync('id', {});
+    await SecureStorage.deleteItemAsync('userId', {});
+    await SecureStorage.deleteItemAsync('accessToken', {});
     this.props.logout();
     this.props.navigation.navigate('Loading');
   };
@@ -73,7 +76,6 @@ class EditProScreen extends React.Component {
 
   componentDidMount() {
     this.props.navigation.setParams({ done: this.done });
-    console.log('****component mounted');
     if(this.isProfileComplete(this.state) === true) {
       return AmpEvent('Profile Completed')
     };
@@ -128,6 +130,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.org_name}
+                placeholder="Carribbean Sea Turtle Project"
               />
             </View>
 
@@ -146,6 +149,8 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.username}
+                placeholder="@CarribbeanSTP"
+                
               />
             </View>
 
@@ -168,6 +173,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.location}
+                placeholder="St. George’s, Grenada"
               />
             </View>
 
@@ -182,6 +188,7 @@ class EditProScreen extends React.Component {
                 onChangeText={text => this.setState({ mini_bio: text })}
                 multiline={true}
                 value={this.state.mini_bio}
+                placeholder="We have been working to conserve the sea turtles that visit our shores and surrounding ocean for the past 30 years."
               />
             </View>
 
@@ -202,6 +209,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.email}
+                placeholder="hello@carribbeanseaturtle.org"
               />
             </View>
 
@@ -223,6 +231,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.org_link_url}
+                placeholder="https://www.carribbbeanseaturtle.org"
               />
             </View>
 
@@ -263,6 +272,8 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.org_cta}
+                placeholder="https://www.carribbbeanseaturtle.org/donate"
+                
               />
             </View>
 
@@ -284,6 +295,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.facebook}
+                placeholder="www.facebook.com/CSTP"
               />
             </View>
 
@@ -305,6 +317,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.instagram}
+                placeholder="www.instagram.com/CSTP"
               />
             </View>
 
@@ -326,6 +339,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.twitter}
+                placeholder="www.twitter.com/CSTP"
               />
             </View>
 
@@ -340,6 +354,7 @@ class EditProScreen extends React.Component {
                 onChangeText={text => this.setState({ about_us: text })}
                 multiline={true}
                 value={this.state.about_us}
+                placeholder="We have been working to conserve the sea turtles that visit our shores and surrounding ocean for the past 30 years."
               />
             </View>
 
@@ -356,6 +371,10 @@ class EditProScreen extends React.Component {
                 }
                 multiline={true}
                 value={this.state.species_and_habitats}
+                placeholder="We work with Hawksbill sea turtles,
+                Leatherback sea turtles,Green sea turtles,
+                the Caribbean Ocean and Atlantic Ocean, as well as the Coral Reef
+                "
               />
             </View>
 
@@ -370,11 +389,12 @@ class EditProScreen extends React.Component {
                 onChangeText={text => this.setState({ issues: text })}
                 multiline={true}
                 value={this.state.issues}
+                placeholder="We are doing our best to tackle lights on the beach at night, as well as coral reef bleaching. We are aslo highly concerned with plastic pollution and working dilligently against it."
               />
             </View>
 
             <View style={styles.logoutSection}>
-              <Text style={styles.accountSettingsText}>Account Settings:</Text>
+              <Text style={styles.accountSettingsText}>Account Settings</Text>
               <TouchableOpacity
                 onPress={this.logoutPress}
                 style={styles.logoutButton}

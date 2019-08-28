@@ -16,8 +16,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { postCampaignUpdate, getCampaigns, clearMedia } from '../store/actions';
 import BackButton from '../components/BackButton';
 import PublishButton from '../components/PublishButton';
-import { AmpEvent } from '../components/withAmplitude';
-
 import UploadMedia from '../components/UploadMedia';
 
 class CreateCampUpdateScreen extends React.Component {
@@ -71,7 +69,6 @@ class CreateCampUpdateScreen extends React.Component {
         update_img: this.props.mediaUpload
       };
       await this.props.postCampaignUpdate(campUpdate);
-      // AmpEvent('Campaign Update Created');
       this.props.navigation.navigate('Home');
     }
   };

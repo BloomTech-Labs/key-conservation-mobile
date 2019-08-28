@@ -7,6 +7,7 @@ import FeedCampaign from '../components/FeedScreen/FeedCampaign';
 import FeedUpdate from '../components/FeedScreen/FeedUpdate';
 import SvgUri from 'react-native-svg-uri';
 import styles from '../constants/screens/FeedScreen';
+import { AmpInit } from '../components/withAmplitude'
 
 class FeedScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -26,7 +27,13 @@ class FeedScreen extends React.Component {
       headerRight: (
         <TouchableOpacity
           onPress={() => navigation.navigate('Search')}
-          style={{ marginRight: 15 }}
+          style={{
+            width: 70,
+            height: 45,
+            justifyContent: 'center',
+            alignItems: 'flex-end',
+            marginRight: 15
+          }}
         >
           <SvgUri
             fill='#fff'

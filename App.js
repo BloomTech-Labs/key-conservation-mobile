@@ -6,13 +6,13 @@ import { MenuProvider } from 'react-native-popup-menu';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 
 import AppNavigator from './navigation/AppNavigator';
-import { AmpInit, withAmplitude } from './components/withAmplitude';
+import { AmpInit, withAmplitude, AmpEvent } from './components/withAmplitude';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 
 const store = configureStore();
 
-export default withAmplitude(App, true);
+export default App
 
 function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -30,7 +30,7 @@ function App(props) {
         return action.routeName;
       }
     };
-    props.AmpEvent('Screen Navigation', { navigatedTo: routeSupply() });
+    AmpEvent('Screen Navigation', { navigatedTo: routeSupply() });
   };
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
@@ -39,8 +39,8 @@ function App(props) {
         startAsync={loadResourcesAsync}
         onError={handleLoadingError}
         onFinish={() => {
-          AmpInit();
           handleFinishLoading(setLoadingComplete);
+          AmpInit();
         }}
       />
     );

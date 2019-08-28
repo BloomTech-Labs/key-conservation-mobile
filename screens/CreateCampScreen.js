@@ -103,7 +103,7 @@ class CreateCampScreen extends React.Component {
             }}
           >
             <NavigationEvents
-              onWillFocus={this.props.clearMedia} 
+              onWillFocus={this.props.clearMedia}
               onDidBlur={this.clearState}
             />
             <View style={styles.sectionContainer}>
@@ -114,7 +114,7 @@ class CreateCampScreen extends React.Component {
                     this.campNameInput = input;
                   }}
                   returnKeyType='next'
-                  placeholder='Koala In Need!'
+                  placeholder='Add Campaign name'
                   style={styles.inputContain}
                   onChangeText={text => this.setState({ camp_name: text })}
                   onSubmitEditing={() => {
@@ -127,7 +127,6 @@ class CreateCampScreen extends React.Component {
               </View>
               <View style={styles.sections}>
                 <UploadMedia />
-               
               </View>
 
               <View style={styles.sections}>
@@ -152,6 +151,7 @@ class CreateCampScreen extends React.Component {
                     this.donationLinkInput = input;
                   }}
                   returnKeyType='next'
+                  placeholder='https://www.carribbeanseaturtle.com/donate'
                   keyboardType='url'
                   placeholder='Please include full URL'
                   autoCapitalize='none'

@@ -16,8 +16,8 @@ import {
   afterFirstLogin,
   loginSuccess
 } from '../store/actions';
-import { withAmplitude } from '../components/withAmplitude';
-
+import { withAmplitude, AmpEvent } from '../components/withAmplitude';
+import * as Amplitude from 'expo-analytics-amplitude'
 import styles from '../constants/screens/LoadingScreen';
 
 class LoadingScreen extends React.Component {
@@ -25,7 +25,8 @@ class LoadingScreen extends React.Component {
     // id in the auth0 database
     const sub = await SecureStore.getItemAsync('sub', {});
     const roles = await SecureStore.getItemAsync('roles', {});
-    // console.log("**********loading screen**********", roles);
+    const id = await SecureStore.getItemAsync('id',{});
+    //console.log("**********loading screen**********", roles);
     // id in the PG database
     this.props.getProfileData(null, sub, true);
     setTimeout(async () => {
@@ -33,26 +34,27 @@ class LoadingScreen extends React.Component {
         // console.log("data is present");
         // console.log(this.props.userId);
         if (this.props.userId) {
-          // console.log('yes', this.props.userRole, roles);
-          const userRole = this.props.userRole;
-          await SecureStore.setItemAsync('roles', `${userRole}`);
-          const newRole = await SecureStore.getItemAsync('roles', {});
+          //console.log('yes', this.props.userRole, roles);
+          //const userRole = this.props.userRole;
+          //await SecureStore.setItemAsync('roles', `${userRole}`);
+          //const newRole = await SecureStore.getItemAsync('roles', {});
           // console.log('yes', this.props.userRole, newRole);
-          await SecureStore.setItemAsync('id', `${this.props.userId}`);
-          this.props.getProfileData(this.props.userId, null, true);
-          this.props.setAmpId(this.props.userId);
-          this.props.AmpEvent('Login');
+          //await SecureStore.setItemAsync('id', `${this.props.userId}`);
+          //this.props.getProfileData(this.props.userId, null, true);
+          //setAmpId(this.props.userId);
+          Amplitude.setUserId(`${id}`)
+          AmpEvent('Login');
           let route;
           if (this.props.firstLogin) {
             this.props.afterFirstLogin();
             this.props.navigation.navigate(
-              this.props.userRole === 'conservationist'
+              roles === 'conservationist'
                 ? 'EditPro'
                 : 'EditSupPro'
             );
           } else {
             this.props.navigation.navigate(
-              this.props.userRole === 'conservationist'
+              roles === 'conservationist'
                 ? 'Conservationist'
                 : 'Supporter'
             );
@@ -88,6 +90,7 @@ class LoadingScreen extends React.Component {
 
 const mapStateToProps = state => ({
   error: state.error,
+  currentUserProfile:state.currentUserProfile,
   userId: state.currentUserProfile.id,
   firstLogin: state.firstLogin,
   userRole: state.currentUserProfile.roles
@@ -96,4 +99,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { getProfileData, afterFirstLogin }
-)(withAmplitude(LoadingScreen));
+)(LoadingScreen);

@@ -61,7 +61,7 @@ export default {
     width: '100%'
   },
   accountSettingsText: {
-    fontSize: 20,
+    fontSize: 25,
     fontFamily: 'OpenSans-SemiBold',
     marginBottom: 10
   },
@@ -72,7 +72,7 @@ export default {
     marginBottom: 20
   },
   buttonText: {
-    color: 'blue',
+    color: '#18A0FB',
     fontSize: 20
   }
 };
