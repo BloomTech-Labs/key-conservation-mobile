@@ -382,8 +382,11 @@ const reducer = (state = initialState, action) => {
         }
         return camp.update_id !== deletedUpdate;
       });
+
       const newCampaignsAndUpdatesB = newCampaignsAndUpdatesA.map(camp => {
+        console.log("YO")
         if (camp.camp_id === deletedFromCamp) {
+         console.log(camp)
           camp.updates = camp.updates.filter(update => {
             return update.update_id !== deletedUpdate;
           })

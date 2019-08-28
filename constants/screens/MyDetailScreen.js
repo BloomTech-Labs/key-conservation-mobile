@@ -1,12 +1,13 @@
 export default {
+  scrollBG: {
+    backgroundColor: '#fff'
+  },
   header: {
     flex: 1,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-around',
-
     paddingTop: 50,
-
     flexWrap: 'wrap'
   },
   buttons: {
@@ -31,6 +32,6 @@ export default {
     textTransform: 'uppercase',
     fontWeight: 'bold',
     letterSpacing: 2,
-    color: 'blue'
+    color: '#18A0FB'
   }
 };

@@ -119,6 +119,7 @@ class EditSupProScreen extends React.Component {
                   this.sup_nameInput = input;
                 }}
                 returnKeyType='next'
+                placeholder='John Doe'
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ sup_name: text })}
                 onSubmitEditing={() => {
@@ -137,6 +138,7 @@ class EditSupProScreen extends React.Component {
                   this.usernameInput = input;
                 }}
                 returnKeyType='next'
+                placeholder='@johndoe'
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ username: text })}
                 value={this.state.username}
@@ -154,6 +156,7 @@ class EditSupProScreen extends React.Component {
                   this.locationInput = input;
                 }}
                 returnKeyType='next'
+                placeholder='Miami, Flordia'
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ location: text })}
                 onSubmitEditing={() => {
@@ -172,6 +175,7 @@ class EditSupProScreen extends React.Component {
                   this.mini_bioInput = input;
                 }}
                 returnKeyType='next'
+                placeholder='Tell us about yourself!'
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ mini_bio: text })}
                 onSubmitEditing={() => {
@@ -190,7 +194,7 @@ class EditSupProScreen extends React.Component {
                   this.emailInput = input;
                 }}
                 returnKeyType='next'
-                placeholder='Email'
+                placeholder='youremail@gmail.com'
                 keyboardType='email-address'
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ email: text })}
@@ -203,7 +207,6 @@ class EditSupProScreen extends React.Component {
               />
             </View>
 
-
             <View style={styles.sections}>
               <Text style={styles.sectionsText}>Facebook</Text>
               <TextInput
@@ -211,10 +214,10 @@ class EditSupProScreen extends React.Component {
                   this.facebookInput = input;
                 }}
                 returnKeyType='next'
+                placeholder='https://www.facebook.com/orgname'
                 keyboardType='url'
                 style={styles.inputContain}
                 autoCapitalize='none'
-                placeholder='Please include full URL'
                 onChangeText={text => this.setState({ facebook: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
@@ -235,7 +238,7 @@ class EditSupProScreen extends React.Component {
                 keyboardType='url'
                 style={styles.inputContain}
                 autoCapitalize='none'
-                placeholder='Please include full URL'
+                placeholder='https://www.instagram.com/orgname'
                 onChangeText={text => this.setState({ instagram: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
@@ -256,7 +259,7 @@ class EditSupProScreen extends React.Component {
                 keyboardType='url'
                 style={styles.inputContain}
                 autoCapitalize='none'
-                placeholder='Please include full URL'
+                placeholder='https://www.twitter.com/orgname'
                 onChangeText={text => this.setState({ twitter: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
@@ -282,9 +285,9 @@ class EditSupProScreen extends React.Component {
                 value={this.state.species_and_habitats}
               />
             </View>
-            
+
             <View style={styles.logoutSection}>
-              <Text style={styles.accountSettingsText}>Account Settings:</Text>
+              <Text style={styles.accountSettingsText}>Account Settings</Text>
               <TouchableOpacity
                 onPress={this.logoutPress}
                 style={styles.logoutButton}

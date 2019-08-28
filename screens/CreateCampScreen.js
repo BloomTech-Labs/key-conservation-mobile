@@ -52,19 +52,18 @@ class CreateCampScreen extends React.Component {
     this.props.navigation.setParams({ publish: this.publish });
   }
   publish = async () => {
-    let filteredState = filterUrls('camp_cta', this.state)
     if (
       !this.props.mediaUpload ||
-      !filteredState.camp_name ||
-      !filteredState.camp_desc ||
-      !filteredState.camp_cta
+      !this.state.camp_name ||
+      !this.state.camp_desc ||
+      !this.state.camp_cta
     ) {
       const errorMessage = 
         'Form incomplete. Please include:' +
         (this.props.mediaUpload ? '' : '\n    - Campaign Image') +
-        (filteredState.camp_name ? '' : '\n    - Campaign Name') +
-        (filteredState.camp_desc ? '' : '\n    - Campaign Details') +
-        (filteredState.camp_cta ? '' : '\n    - Donation Link')
+        (this.state.camp_name ? '' : '\n    - Campaign Name') +
+        (this.state.camp_desc ? '' : '\n    - Campaign Details') +
+        (this.state.camp_cta ? '' : '\n    - Donation Link')
       return (
         Alert.alert(
           'Error',
@@ -72,7 +71,7 @@ class CreateCampScreen extends React.Component {
         ));
     } else {
       const camp = {
-        ...filteredState,
+        ...this.state,
         camp_img: this.props.mediaUpload
       };
       await this.props.postCampaign(camp);
@@ -104,7 +103,7 @@ class CreateCampScreen extends React.Component {
             }}
           >
             <NavigationEvents
-              onWillFocus={this.props.clearMedia} 
+              onWillFocus={this.props.clearMedia}
               onDidBlur={this.clearState}
             />
             <View style={styles.sectionContainer}>
@@ -115,7 +114,7 @@ class CreateCampScreen extends React.Component {
                     this.campNameInput = input;
                   }}
                   returnKeyType='next'
-                  placeholder='Koala In Need!'
+                  placeholder='Add Campaign name'
                   style={styles.inputContain}
                   onChangeText={text => this.setState({ camp_name: text })}
                   onSubmitEditing={() => {
@@ -128,7 +127,6 @@ class CreateCampScreen extends React.Component {
               </View>
               <View style={styles.sections}>
                 <UploadMedia />
-               
               </View>
 
               <View style={styles.sections}>
@@ -153,6 +151,7 @@ class CreateCampScreen extends React.Component {
                     this.donationLinkInput = input;
                   }}
                   returnKeyType='next'
+                  placeholder='https://www.carribbeanseaturtle.com/donate'
                   keyboardType='url'
                   placeholder='Please include full URL'
                   autoCapitalize='none'

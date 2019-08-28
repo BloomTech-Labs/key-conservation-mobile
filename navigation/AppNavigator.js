@@ -5,8 +5,7 @@ import {
   ConsNavigator,
   SupNavigator,
   LoginStack,
-  UsernameStack,
-  SearchStack
+  UsernameStack
 } from './MainNavigation';
 import LoadingScreen from '../screens/LoadingScreen';
 

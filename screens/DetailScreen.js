@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import DetailHeader from '../components/DetailScreen/DetailHeader';
 import DetailAboutUs from '../components/DetailScreen/DetailAboutUs';
 
-import styles from '../constants/screens/DetailScreen';
+import styles from '../constants/screens/MyDetailScreen';
 
 class DetailsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -29,7 +29,7 @@ class DetailsScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView contentContainerStyle={{ backgroundColor: '#F2F2FB' }}>
+      <ScrollView contentContainerStyle={styles.scrollBG}>
         <DetailHeader
           navigation={this.props.navigation}
           profile={this.props.selectedProfile}

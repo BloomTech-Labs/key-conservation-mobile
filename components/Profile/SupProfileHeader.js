@@ -10,7 +10,6 @@ import * as WebBrowser from 'expo-web-browser';
 import { Avatar } from 'react-native-elements';
 import SvgUri from 'react-native-svg-uri';
 
-
 import styles from '../../constants/Profile/SupProfileHeader'
 
 const SupProfileHeader = props => {

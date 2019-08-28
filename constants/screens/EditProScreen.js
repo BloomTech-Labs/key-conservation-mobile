@@ -61,7 +61,7 @@ export default {
     marginBottom: 20
   },
   buttonText: {
-    color: 'blue',
+    color: '#18A0FB',
     fontSize: 20
   }
 };

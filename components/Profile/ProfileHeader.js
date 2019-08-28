@@ -54,8 +54,9 @@ const ProfileHeader = props => {
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.org}>{profile.org_name}</Text>
-          <Text style={styles.location}>{profile.location}</Text>
+          <Text style={styles.userText}>{profile.location}</Text>
           <Text
+            style={styles.userText}
             onPress={WebsiteClick}
           >
             {profile.org_link_text}

@@ -1,7 +1,7 @@
 export default {
   container: {
-    margin: 15,
-    marginBottom: -10
+    height: 143,
+    flexDirection: 'row'
   },
   titleText: {
     lineHeight: 22,
@@ -55,16 +55,30 @@ export default {
     fontFamily: 'OpenSans-SemiBold'
   },
   SocialContainer: {
-    paddingTop: 30,
-    alignItems: 'baseline',
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '80%'
+    width: 175,
+    marginTop: 10,
+    marginLeft: 3,
+    justifyContent: 'space-between'
   },
   SocialIcon: {},
   avatarInfoWrap: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  rightContainer: {
+    paddingTop: 29,
+    flex: 1
+  },
+  leftContainer: {
+    paddingTop: 29,
+    flex: 0,
+    width: '30%',
+    alignItems: 'center'
+  },
+  textContainer: {
+    paddingTop: 2,
+    height: 61
   }
 };
