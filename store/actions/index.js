@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import * as SecureStore from 'expo-secure-store';
+
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in there URL this function will add it.
   // If they already include it it will be ignored. and if its capital "Https || Http" it will become lowercase.
@@ -62,12 +64,21 @@ export const getProfileData = (
   {
     !noDispatch && dispatch({ type: GET_PROFILE_START });
   }
+
   let user, url;
-  if (id) url = `https://key-conservation-staging.herokuapp.com/api/users/${id}`;
+  if (id)
+    url = `https://key-conservation-staging.herokuapp.com/api/users/${id}`;
   else if (sub)
     url = `https://key-conservation-staging.herokuapp.com/api/users/sub/${sub}`;
+  let token = await SecureStore.getItemAsync('accessToken');
   return axios
-    .get(url)
+    .get(url, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
     .then(res => {
       user = res.data.user;
       if (noDispatch) {
@@ -79,6 +90,7 @@ export const getProfileData = (
       }
     })
     .catch(err => {
+      console.log(err);
       dispatch({ type: GET_PROFILE_ERROR, payload: err });
     });
 };
@@ -121,15 +133,19 @@ export const editProfileData = (id, changes) => async dispatch => {
       formData.append(key, filteredChanges[key]);
     }
   });
-  console.log(formData)
-
+  let token = await SecureStore.getItemAsync('accessToken');
   return axios
-    .put(`https://key-conservation-staging.herokuapp.com/api/users/${id}`, formData, {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data'
+    .put(
+      `https://key-conservation-staging.herokuapp.com/api/users/${id}`,
+      formData,
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`
+        }
       }
-    })
+    )
     .then(res => {
       dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.editUser });
     })
@@ -144,10 +160,17 @@ export const [POST_USER_START, POST_USER_ERROR, POST_USER_SUCCESS] = [
   'POST_USER_SUCCESS'
 ];
 
-export const postUser = user => dispatch => {
+export const postUser = user => async dispatch => {
   dispatch({ type: POST_USER_START });
+  let token = await SecureStore.getItemAsync('accessToken');
   axios
-    .post('https://key-conservation-staging.herokuapp.com/api/users', user)
+    .post('https://key-conservation-staging.herokuapp.com/api/users', user, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
     .then(res => {
       dispatch({ type: POST_USER_SUCCESS, payload: res.data.newUser });
     })
@@ -162,22 +185,35 @@ export const [
   GET_CAMPAIGNS_SUCCESS
 ] = ['GET_CAMPAIGNS_START', 'GET_CAMPAIGNS_ERROR', 'GET_CAMPAIGNS_SUCCESS'];
 
-export const getCampaigns = () => dispatch => {
+export const getCampaigns = () => async dispatch => {
   dispatch({ type: GET_CAMPAIGNS_START });
   let campaigns;
+  let token = await SecureStore.getItemAsync('accessToken');
   axios
-    .get('https://key-conservation-staging.herokuapp.com/api/campaigns')
+    .get('https://key-conservation-staging.herokuapp.com/api/campaigns', {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
     .then(res => {
       campaigns = res.data.camp;
       axios
-        .get('https://key-conservation-staging.herokuapp.com/api/updates')
+        .get('https://key-conservation-staging.herokuapp.com/api/updates', {
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        })
         .then(res => {
-          campaigns = campaigns.concat(res.data.campUpdate)
+          campaigns = campaigns.concat(res.data.campUpdate);
           dispatch({ type: GET_CAMPAIGNS_SUCCESS, payload: campaigns });
         })
         .catch(err => {
           dispatch({ type: GET_CAMPAIGNS_ERROR, payload: err });
-        })
+        });
     })
     .catch(err => {
       dispatch({ type: GET_CAMPAIGNS_ERROR, payload: err });
@@ -190,10 +226,17 @@ export const [GET_CAMPAIGN_START, GET_CAMPAIGN_ERROR, GET_CAMPAIGN_SUCCESS] = [
   'GET_CAMPAIGN_SUCCESS'
 ];
 
-export const getCampaign = id => dispatch => {
+export const getCampaign = id => async dispatch => {
   dispatch({ type: GET_CAMPAIGN_START });
+  let token = await SecureStore.getItemAsync('accessToken');
   axios
-    .get(`https://key-conservation-staging.herokuapp.com/api/campaigns/${id}`)
+    .get(`https://key-conservation-staging.herokuapp.com/api/campaigns/${id}`, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
     .then(res => {
       // console.log(res.data);
       dispatch({ type: GET_CAMPAIGN_SUCCESS, payload: res.data.camp });
@@ -218,7 +261,7 @@ export const [
   POST_CAMPAIGN_SUCCESS
 ] = ['POST_CAMPAIGN_START', 'POST_CAMPAIGN_ERROR', 'POST_CAMPAIGN_SUCCESS'];
 
-export const postCampaign = camp => dispatch => {
+export const postCampaign = camp => async dispatch => {
   dispatch({ type: POST_CAMPAIGN_START });
 
   const filteredCamp = filterUrls(['camp_cta'], camp);
@@ -238,14 +281,21 @@ export const postCampaign = camp => dispatch => {
   formData.append('camp_desc', filteredCamp.camp_desc);
   formData.append('camp_name', filteredCamp.camp_name);
   formData.append('users_id', filteredCamp.users_id);
+  
+  let token = await SecureStore.getItemAsync('accessToken');
 
   axios
-    .post('https://key-conservation-staging.herokuapp.com/api/campaigns', formData, {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data'
+    .post(
+      'https://key-conservation-staging.herokuapp.com/api/campaigns',
+      formData,
+      {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data'
+        }
       }
-    })
+    )
     .then(res => {
       dispatch({ type: POST_CAMPAIGN_SUCCESS, payload: res.data.newCamps });
     })
@@ -264,10 +314,20 @@ export const [
   'DELETE_CAMPAIGN_SUCCESS'
 ];
 
-export const deleteCampaign = id => dispatch => {
+export const deleteCampaign = id => async dispatch => {
   dispatch({ type: DELETE_CAMPAIGN_START });
+  let token = await SecureStore.getItemAsync('accessToken');
   axios
-    .delete(`https://key-conservation-staging.herokuapp.com/api/campaigns/${id}`)
+    .delete(
+      `https://key-conservation-staging.herokuapp.com/api/campaigns/${id}`,
+      {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    )
     .then(res => {
       dispatch({ type: DELETE_CAMPAIGN_SUCCESS, payload: res.data });
     })
@@ -282,7 +342,7 @@ export const [
   EDIT_CAMPAIGN_SUCCESS
 ] = ['EDIT_CAMPAIGN_START', 'EDIT_CAMPAIGN_ERROR', 'EDIT_CAMPAIGN_SUCCESS'];
 
-export const editCampaign = (id, changes) => dispatch => {
+export const editCampaign = (id, changes) => async dispatch => {
   dispatch({ type: EDIT_CAMPAIGN_START });
 
   let formData = new FormData();
@@ -307,7 +367,7 @@ export const editCampaign = (id, changes) => dispatch => {
   keys.forEach(key => {
     formData.append(key, changes[key]);
   });
-
+  let token = await SecureStore.getItemAsync('accessToken');
   axios
     .put(
       `https://key-conservation-staging.herokuapp.com/api/campaigns/${id}`,
@@ -315,7 +375,8 @@ export const editCampaign = (id, changes) => dispatch => {
       {
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`
         }
       }
     )
@@ -331,9 +392,13 @@ export const [
   POST_CAMPAIGN_UPDATE_START,
   POST_CAMPAIGN_UPDATE_ERROR,
   POST_CAMPAIGN_UPDATE_SUCCESS
-] = ['POST_CAMPAIGN_UPDATE_START', 'POST_CAMPAIGN_UPDATE_ERROR', 'POST_CAMPAIGN_UPDATE_SUCCESS'];
+] = [
+  'POST_CAMPAIGN_UPDATE_START',
+  'POST_CAMPAIGN_UPDATE_ERROR',
+  'POST_CAMPAIGN_UPDATE_SUCCESS'
+];
 
-export const postCampaignUpdate = campUpdate => dispatch => {
+export const postCampaignUpdate = campUpdate => async dispatch => {
   dispatch({ type: POST_CAMPAIGN_UPDATE_START });
 
   const uri = campUpdate.update_img;
@@ -352,6 +417,8 @@ export const postCampaignUpdate = campUpdate => dispatch => {
   formData.append('users_id', campUpdate.users_id);
   formData.append('camp_id', campUpdate.camp_id);
 
+  let token = await SecureStore.getItemAsync('accessToken');
+
   axios
     .post(
       'https://key-conservation-staging.herokuapp.com/api/updates',
@@ -359,12 +426,16 @@ export const postCampaignUpdate = campUpdate => dispatch => {
       {
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`
         }
       }
     )
     .then(res => {
-      dispatch({ type: POST_CAMPAIGN_UPDATE_SUCCESS, payload: res.data.newCampUpdates });
+      dispatch({
+        type: POST_CAMPAIGN_UPDATE_SUCCESS,
+        payload: res.data.newCampUpdates
+      });
     })
     .catch(err => {
       dispatch({ type: POST_CAMPAIGN_UPDATE_ERROR, payload: err });
@@ -375,9 +446,13 @@ export const [
   EDIT_CAMPAIGN_UPDATE_START,
   EDIT_CAMPAIGN_UPDATE_ERROR,
   EDIT_CAMPAIGN_UPDATE_SUCCESS
-] = ['EDIT_CAMPAIGN_UPDATE_START', 'EDIT_CAMPAIGN_UPDATE_ERROR', 'EDIT_CAMPAIGN_UPDATE_SUCCESS'];
+] = [
+  'EDIT_CAMPAIGN_UPDATE_START',
+  'EDIT_CAMPAIGN_UPDATE_ERROR',
+  'EDIT_CAMPAIGN_UPDATE_SUCCESS'
+];
 
-export const editCampaignUpdate = (id, changes) => dispatch => {
+export const editCampaignUpdate = (id, changes) => async dispatch => {
   dispatch({ type: EDIT_CAMPAIGN_UPDATE_START });
 
   let formData = new FormData();
@@ -402,7 +477,7 @@ export const editCampaignUpdate = (id, changes) => dispatch => {
   keys.forEach(key => {
     formData.append(key, changes[key]);
   });
-
+  let token = await SecureStore.getItemAsync('accessToken');
   axios
     .put(
       `https://key-conservation-staging.herokuapp.com/api/updates/${id}`,
@@ -410,12 +485,16 @@ export const editCampaignUpdate = (id, changes) => dispatch => {
       {
         headers: {
           Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
         }
       }
     )
     .then(res => {
-      dispatch({ type: EDIT_CAMPAIGN_UPDATE_SUCCESS, payload: res.data.editCampUpdate });
+      dispatch({
+        type: EDIT_CAMPAIGN_UPDATE_SUCCESS,
+        payload: res.data.editCampUpdate
+      });
     })
     .catch(err => {
       dispatch({ type: EDIT_CAMPAIGN_UPDATE_ERROR, payload: err });
@@ -432,10 +511,20 @@ export const [
   'DELETE_CAMPAIGN_UPDATE_SUCCESS'
 ];
 
-export const deleteCampaignUpdate = id => dispatch => {
+export const deleteCampaignUpdate = id => async dispatch => {
   dispatch({ type: DELETE_CAMPAIGN_UPDATE_START });
+  let token = await SecureStore.getItemAsync('accessToken');
   axios
-    .delete(`https://key-conservation-staging.herokuapp.com/api/updates/${id}`)
+    .delete(
+      `https://key-conservation-staging.herokuapp.com/api/updates/${id}`,
+      {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    )
     .then(res => {
       dispatch({ type: DELETE_CAMPAIGN_UPDATE_SUCCESS, payload: res.data });
     })

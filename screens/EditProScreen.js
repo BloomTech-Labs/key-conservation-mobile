@@ -16,6 +16,7 @@ import DoneButton from '../components/DoneButton';
 import UploadMedia from '../components/UploadMedia';
 
 import { editProfileData, logout, clearMedia } from '../store/actions';
+import { AmpEvent } from '../components/withAmplitude';
 
 import styles from '../constants/screens/EditProScreen'; 
 
@@ -25,6 +26,8 @@ class EditProScreen extends React.Component {
     await SecureStorage.deleteItemAsync('email', {});
     await SecureStorage.deleteItemAsync('roles', {});
     await SecureStorage.deleteItemAsync('id', {});
+    await SecureStorage.deleteItemAsync('userId', {});
+    await SecureStorage.deleteItemAsync('accessToken', {});
     this.props.logout();
     this.props.navigation.navigate('Loading');
   };
@@ -72,7 +75,18 @@ class EditProScreen extends React.Component {
 
   componentDidMount() {
     this.props.navigation.setParams({ done: this.done });
+    if(this.isProfileComplete(this.state) === true) {
+      return AmpEvent('Profile Completed')
+    };
   }
+
+  isProfileComplete = profile => {
+    for (let p in profile) {
+      if (!profile[p]) return false;
+    }
+    return true;
+  };
+
 
   done = () => {
     let changes = this.state;

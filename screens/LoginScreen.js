@@ -113,7 +113,7 @@ export default (LoginScreen = props => {
 
       //set the access token to be assigned to state for later use
       const access_token = response.params.access_token;
-      // console.log("************* access token", access_token);
+      console.log("************* access token", access_token);
       // let role = jwtDecode(access_token);
       // if (role.permissions.length > 0) {
       //   role.permissions[0].replace("role:", "");
@@ -134,7 +134,7 @@ export default (LoginScreen = props => {
       // console.log("*********async test user*************", userLog2);
 
       // dispatch(getProfileData(null, chosenDecoded.sub, true));
-
+      await SecureStore.setItemAsync('accessToken', chosenDecoded.accessToken);
       await SecureStore.setItemAsync('sub', chosenDecoded.sub);
       await SecureStore.setItemAsync('email', chosenDecoded.email);
       await SecureStore.setItemAsync(

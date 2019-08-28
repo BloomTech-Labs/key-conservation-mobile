@@ -48,6 +48,15 @@ class SearchScreen extends React.Component {
     });
   }
 
+  startGettingCampaigns = () => {
+    this.props.getCampaigns();
+    this.refreshInterval = setInterval(() => this.props.getCampaigns(), 10000);
+  }
+
+  stopGettingCampaigns = () => {
+    clearInterval(this.refreshInterval);
+  }
+
   render() {
     const { navigation } = this.props;
     // filters in the map method
@@ -56,8 +65,11 @@ class SearchScreen extends React.Component {
     );
     return (
       <KeyboardAvoidingView behavior='height' enabled>
-        <ScrollView stickyHeaderIndices={[1]}>
-          <NavigationEvents onWillFocus={this.props.getCampaigns()} />
+        <NavigationEvents
+          onDidFocus={this.startGettingCampaigns}
+          onDidBlur={this.stopGettingCampaigns}
+        />
+        <ScrollView stickyHeaderIndices={[0]}>
           <Header
             containerStyle={{
               backgroundColor: '#323338',

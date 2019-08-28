@@ -46,6 +46,7 @@ class UsernameScreen extends React.Component {
     await SecureStore.deleteItemAsync('email', {});
     await SecureStore.deleteItemAsync('roles', {});
     await SecureStore.deleteItemAsync('id', {});
+    await SecureStore.deleteItemAsync('accessToken', {});
     this.props.logout();
     this.props.navigation.navigate('Loading');
   };

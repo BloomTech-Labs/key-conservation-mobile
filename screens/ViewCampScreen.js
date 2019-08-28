@@ -101,7 +101,8 @@ class ViewCampScreen extends React.Component {
                   AmpEvent('Campaign Donation Button Clicked', {
                     username: this.props.username,
                     campId: this.props.selectedCampaign.camp_id
-                  })(
+                  })
+                  (
                     await WebBrowser.openBrowserAsync(
                       this.props.selectedCampaign.camp_cta
                     )
