@@ -1,7 +1,6 @@
 import * as Amplitude from 'expo-analytics-amplitude';
 import * as SecureStore from 'expo-secure-store';
 
-import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { getProfileData } from '../store/actions';
 
@@ -23,7 +22,7 @@ export function withAmplitude(WrappedComponent, isApp) {
       ...props,
       AmpEvent: AmpEvent,
       AmpUserProps: AmpUserProps,
-      setAmpId: id => Amplitude.setUserId(`${id}`)
+      setAmpId: sub => Amplitude.setUserId(`${sub}`)
     };
     if (userProps !== null) {
       AmpUserProps(userProps);
@@ -68,11 +67,10 @@ export function AmpEvent(name, properties) {
 
 //AmpInit initalizes the amplitude session for the user based on the subID from their auth0 login.
 export async function AmpInit() {
-  const id = await SecureStore.getItemAsync('id', {});
   const sub = await SecureStore.getItemAsync('sub', {});
-  console.log('****** id from withamplitude', id);
-  if (id === null) {
-    console.log('id is null*******');
+  // console.log('****** id from withamplitude', id);
+  if (sub === null) {
+    console.log('sub is null*******');
     await Amplitude.initialize('fae81e5eeff3b6917f9d76566b67a7da');
     Amplitude.clearUserProperties();
     const message = {
@@ -80,9 +78,9 @@ export async function AmpInit() {
         'There is no local data available for the user on this device. This is there first time using the app on this device, it is their first use with the app, they have logged out and are signing back in, or they are using the guest view to see the Campaings Feed.'
     };
     AmpEvent(`User Connection`, message);
-  } else if (id) {
-    console.log('found their id', id);
-    const userData = getProfileData(id, null, true, true);
+  } else if (sub) {
+    console.log('found their sub id', sub);
+    const userData = getProfileData(null, sub, true, true);
     const data = await userData();
     if (data) {
       const profileData = {
@@ -97,10 +95,8 @@ export async function AmpInit() {
         sub: data.sub,
         username: data.username
       };
-      await Amplitude.initialize(
-        'fae81e5eeff3b6917f9d76566b67a7da'
-      );
-      Amplitude.setUserId(`${profileData.id}`);
+      await Amplitude.initialize('fae81e5eeff3b6917f9d76566b67a7da');
+      Amplitude.setUserId(`${profileData.sub}`);
       const message = {
         details:
           'Local data has been found for the user. Setting their data to user properties.'

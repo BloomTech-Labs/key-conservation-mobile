@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Text,
   View,
   Image,
-  Button,
   TouchableOpacity,
   ImageBackground
 } from 'react-native';
@@ -21,7 +20,6 @@ import {
 } from '../store/actions';
 
 import * as SecureStore from 'expo-secure-store';
-import Axios from 'axios';
 /*
  Converts an object to a query string to be used by the request to auth0 via the dashboard application
 */
@@ -49,7 +47,6 @@ export default LoginScreen = props => {
   let roles;
 
   const login = async navigation => {
-    // console.log('********************', roles);
     dispatch(loginStart());
     const redirectUrl = AuthSession.getRedirectUrl();
 
@@ -61,7 +58,6 @@ export default LoginScreen = props => {
     //this variable structures a query param for the /authorize API call to the auth0 API
     const queryParams = () => {
       if (roles === 'conservationist') {
-        // console.log('cons App');
         return toQueryString({
           //this must come from your auth0 dashboard.
           client_id: 'elyo5qK7vYReEsKAPEADW2T8LAMpIJaf',
@@ -75,7 +71,6 @@ export default LoginScreen = props => {
           nonce: 'nonce'
         });
       } else if (roles === 'supporter') {
-        // console.log('supporter App');
         return toQueryString({
           //this must come from your auth0 dashboard.
           client_id: 'DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S',
@@ -115,12 +110,7 @@ export default LoginScreen = props => {
 
       //set the access token to be assigned to state for later use
       const access_token = response.params.access_token;
-      console.log("************* access token", access_token);
-      // let role = jwtDecode(access_token);
-      // if (role.permissions.length > 0) {
-      //   role.permissions[0].replace("role:", "");
-      // }
-      // console.log("role *****", role);
+      console.log('************* access token', access_token);
       // Retrieve the JWT token and decode it using the jwtToken imported above
       const jwtToken = response.params.id_token;
       //decodes the token so we can access the available attributes of the users Auth0 profile
@@ -132,9 +122,7 @@ export default LoginScreen = props => {
         email: decoded.email,
         sub: decoded.sub
       };
-      // const userLog2 = await SecureStore.getItemAsync("sub", {});
 
-      // dispatch(getProfileData(null, chosenDecoded.sub, true));
       await SecureStore.setItemAsync('accessToken', chosenDecoded.accessToken);
       await SecureStore.setItemAsync('sub', chosenDecoded.sub);
       await SecureStore.setItemAsync('email', chosenDecoded.email);
@@ -142,13 +130,12 @@ export default LoginScreen = props => {
         'roles',
         roles === 'conservationist' ? 'conservationist' : 'supporter'
       );
-      const userLog = await SecureStore.getItemAsync('sub', {});
       dispatch(loginSuccess(chosenDecoded));
 
       await dispatch(getProfileData(null, chosenDecoded.sub, true));
       if (currentUser.id) {
-        await SecureStore.setItemAsync('id', currentUser.id)
-      };
+        await SecureStore.setItemAsync('id', currentUser.id);
+      }
       navigation.navigate('Loading');
     }
   };
@@ -188,16 +175,7 @@ export default LoginScreen = props => {
           <Text style={styles.buttonText}>GLOBAL SUPPORTER</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.needHelp}>
-        {/* <Text style={styles.needHelpText}>Not sure which one to pick?</Text>
-        <Button
-          title='Click Here'
-          style={styles.needHelpText}
-          onPress={() => {
-            null;
-          }}
-        /> */}
-      </View>
+      <View style={styles.needHelp}></View>
     </ImageBackground>
   );
 };

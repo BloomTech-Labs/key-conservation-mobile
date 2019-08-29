@@ -6,13 +6,13 @@ import { MenuProvider } from 'react-native-popup-menu';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 
 import AppNavigator from './navigation/AppNavigator';
-import { AmpInit, withAmplitude, AmpEvent } from './components/withAmplitude';
+import { AmpInit, AmpEvent } from './components/withAmplitude';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 
 const store = configureStore();
 
-export default App
+export default App;
 
 function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);

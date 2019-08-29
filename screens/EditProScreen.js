@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Platform,
-  StyleSheet,
   Text,
   View,
   TextInput,
@@ -18,7 +17,7 @@ import UploadMedia from '../components/UploadMedia';
 import { editProfileData, logout, clearMedia } from '../store/actions';
 import { AmpEvent } from '../components/withAmplitude';
 
-import styles from '../constants/screens/EditProScreen'; 
+import styles from '../constants/screens/EditProScreen';
 
 class EditProScreen extends React.Component {
   logoutPress = async () => {
@@ -69,15 +68,15 @@ class EditProScreen extends React.Component {
     about_us: this.props.currentUserProfile.about_us,
     species_and_habitats: this.props.currentUserProfile.species_and_habitats,
     issues: this.props.currentUserProfile.issues,
-    // supportUs: this.props.currentUserProfile.support_us, 
+    // supportUs: this.props.currentUserProfile.support_us,
     org_cta: this.props.currentUserProfile.org_cta
   };
 
   componentDidMount() {
     this.props.navigation.setParams({ done: this.done });
-    if(this.isProfileComplete(this.state) === true) {
-      return AmpEvent('Profile Completed')
-    };
+    if (this.isProfileComplete(this.state) === true) {
+      return AmpEvent('Profile Completed');
+    }
   }
 
   isProfileComplete = profile => {
@@ -129,7 +128,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.org_name}
-                placeholder="Carribbean Sea Turtle Project"
+                placeholder='Carribbean Sea Turtle Project'
               />
             </View>
 
@@ -148,8 +147,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.username}
-                placeholder="@CarribbeanSTP"
-                
+                placeholder='@CarribbeanSTP'
               />
             </View>
 
@@ -172,7 +170,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.location}
-                placeholder="St. George’s, Grenada"
+                placeholder='St. George’s, Grenada'
               />
             </View>
 
@@ -187,7 +185,7 @@ class EditProScreen extends React.Component {
                 onChangeText={text => this.setState({ mini_bio: text })}
                 multiline={true}
                 value={this.state.mini_bio}
-                placeholder="We have been working to conserve the sea turtles that visit our shores and surrounding ocean for the past 30 years."
+                placeholder='We have been working to conserve the sea turtles that visit our shores and surrounding ocean for the past 30 years.'
               />
             </View>
 
@@ -208,7 +206,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.email}
-                placeholder="hello@carribbeanseaturtle.org"
+                placeholder='hello@carribbeanseaturtle.org'
               />
             </View>
 
@@ -230,7 +228,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.org_link_url}
-                placeholder="https://www.carribbbeanseaturtle.org"
+                placeholder='https://www.carribbbeanseaturtle.org'
               />
             </View>
 
@@ -271,8 +269,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.org_cta}
-                placeholder="https://www.carribbbeanseaturtle.org/donate"
-                
+                placeholder='https://www.carribbbeanseaturtle.org/donate'
               />
             </View>
 
@@ -294,7 +291,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.facebook}
-                placeholder="www.facebook.com/CSTP"
+                placeholder='www.facebook.com/CSTP'
               />
             </View>
 
@@ -316,7 +313,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.instagram}
-                placeholder="www.instagram.com/CSTP"
+                placeholder='www.instagram.com/CSTP'
               />
             </View>
 
@@ -338,7 +335,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.twitter}
-                placeholder="www.twitter.com/CSTP"
+                placeholder='www.twitter.com/CSTP'
               />
             </View>
 
@@ -353,7 +350,7 @@ class EditProScreen extends React.Component {
                 onChangeText={text => this.setState({ about_us: text })}
                 multiline={true}
                 value={this.state.about_us}
-                placeholder="We have been working to conserve the sea turtles that visit our shores and surrounding ocean for the past 30 years."
+                placeholder='We have been working to conserve the sea turtles that visit our shores and surrounding ocean for the past 30 years.'
               />
             </View>
 
@@ -370,10 +367,10 @@ class EditProScreen extends React.Component {
                 }
                 multiline={true}
                 value={this.state.species_and_habitats}
-                placeholder="We work with Hawksbill sea turtles,
+                placeholder='We work with Hawksbill sea turtles,
                 Leatherback sea turtles,Green sea turtles,
                 the Caribbean Ocean and Atlantic Ocean, as well as the Coral Reef
-                "
+                '
               />
             </View>
 
@@ -388,7 +385,7 @@ class EditProScreen extends React.Component {
                 onChangeText={text => this.setState({ issues: text })}
                 multiline={true}
                 value={this.state.issues}
-                placeholder="We are doing our best to tackle lights on the beach at night, as well as coral reef bleaching. We are aslo highly concerned with plastic pollution and working dilligently against it."
+                placeholder='We are doing our best to tackle lights on the beach at night, as well as coral reef bleaching. We are aslo highly concerned with plastic pollution and working dilligently against it.'
               />
             </View>
 

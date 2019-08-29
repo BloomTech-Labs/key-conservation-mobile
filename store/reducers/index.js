@@ -1,8 +1,6 @@
 import * as SecureStore from 'expo-secure-store';
 import moment from 'moment';
 
-import * as Amplitude from 'expo-analytics-amplitude';
-
 import {
   LOGIN_START,
   LOGIN_ERROR,
@@ -165,7 +163,7 @@ const reducer = (state = initialState, action) => {
         error: ''
       };
     case POST_USER_SUCCESS:
-      SecureStore.setItemAsync('userId', `${action.payload.id}`);
+      SecureStore.setItemAsync('id', `${action.payload.id}`);
       return {
         ...state,
         pending: { ...state.pending, postUser: false },
@@ -307,13 +305,15 @@ const reducer = (state = initialState, action) => {
         error: ''
       };
     case POST_CAMPAIGN_UPDATE_SUCCESS:
-      const updateInsertedinCamp = state.currentUserProfile.campaigns.map(camp => {
-        let { update_id, camp_id } = action.payload;
-        if (camp.camp_id === camp_id && !camp.update_id) {
-          camp.updates = [...camp.updates, action.payload]
+      const updateInsertedinCamp = state.currentUserProfile.campaigns.map(
+        camp => {
+          let { update_id, camp_id } = action.payload;
+          if (camp.camp_id === camp_id && !camp.update_id) {
+            camp.updates = [...camp.updates, action.payload];
+          }
+          return camp;
         }
-        return camp
-      })
+      );
       return {
         ...state,
         pending: { ...state.pending, postCampaignUpdate: false },
@@ -322,7 +322,7 @@ const reducer = (state = initialState, action) => {
           campaigns: [...updateInsertedinCamp, action.payload]
         }
       };
-    case POST_CAMPAIGN_UPDATE_ERROR: 
+    case POST_CAMPAIGN_UPDATE_ERROR:
       return {
         ...state,
         pending: { ...state.pending, postCampaignUpdate: false },
@@ -335,23 +335,25 @@ const reducer = (state = initialState, action) => {
         error: ''
       };
     case EDIT_CAMPAIGN_UPDATE_SUCCESS:
-      const alteredCampaignsandUpdates = state.currentUserProfile.campaigns.map(camp => {
-        let { update_id, camp_id } = action.payload;
-        if (camp.update_id === update_id) {
-          return action.payload;
-        } else if (camp.camp_id === camp_id && !camp.update_id) {
-          camp.updates.map(update => {
-            if (update.update_id === update_id) {
-              return action.payload
-            } else {
-              return update
-            }
-          })
-          return camp;
-        } else {
-          return camp;
+      const alteredCampaignsandUpdates = state.currentUserProfile.campaigns.map(
+        camp => {
+          let { update_id, camp_id } = action.payload;
+          if (camp.update_id === update_id) {
+            return action.payload;
+          } else if (camp.camp_id === camp_id && !camp.update_id) {
+            camp.updates.map(update => {
+              if (update.update_id === update_id) {
+                return action.payload;
+              } else {
+                return update;
+              }
+            });
+            return camp;
+          } else {
+            return camp;
+          }
         }
-      });
+      );
       return {
         ...state,
         pending: { ...state.pending, editCampaignUpdate: false },
@@ -376,21 +378,23 @@ const reducer = (state = initialState, action) => {
     case DELETE_CAMPAIGN_UPDATE_SUCCESS:
       let deletedFromCamp;
       const deletedUpdate = Number(action.payload);
-      const newCampaignsAndUpdatesA = state.currentUserProfile.campaigns.filter(camp => {
-        if (camp.update_id === deletedUpdate) {
-          deletedFromCamp = camp.camp_id
+      const newCampaignsAndUpdatesA = state.currentUserProfile.campaigns.filter(
+        camp => {
+          if (camp.update_id === deletedUpdate) {
+            deletedFromCamp = camp.camp_id;
+          }
+          return camp.update_id !== deletedUpdate;
         }
-        return camp.update_id !== deletedUpdate;
-      });
+      );
 
       const newCampaignsAndUpdatesB = newCampaignsAndUpdatesA.map(camp => {
         if (camp.camp_id === deletedFromCamp && !camp.update_id) {
           camp.updates = camp.updates.filter(update => {
             return update.update_id !== deletedUpdate;
-          })
+          });
         }
         return camp;
-      })
+      });
 
       return {
         ...state,

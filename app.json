@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "Key Conservation",
+    "slug": "key-conservation",
+    "privacy": "unlisted",
+    "sdkVersion": "33.0.0",
+    "platforms": ["ios", "android"],
+    "version": "1.1.9",
+    "orientation": "portrait",
+    "icon": "./assets/images/keyapplogo.png",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.kc.keyconservation"
+    },
+    "description": "The Key Conservation App\n\nVersion 1.1.9",
+    "githubUrl": "https://github.com/labs14-key-conservation/Frontend-Mobile"
+  }
+}
