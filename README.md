@@ -29,7 +29,7 @@ You can find the deployed project at (https://expo.io/@labs14_key_conservation/k
 
 |                                                                         [Matthew Klein](https://github.com/duckeverlasting)                                                                         |                                                       [Cori Paris](https://github.com/coriagogo)                                                        |                                                      [Zach Christy](https://github.com/zchristy)                                                       |                                                       [Sam Jeffcoat](https://github.com/samjeffcoat)                                                        |
 | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/duckeverlasting) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/coriagogo) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/zchristy) | [<img src="https://bit.ly/2ZyVHCy" width = "200" />](https://github.com/samjeffcoat)|
+| [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/duckeverlasting) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/coriagogo) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/zchristy) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/samjeffcoat)|
 |                                                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/duckeverlasting)                                                  |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/coriagogo)                             |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/zchristy)                           |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/samjeffcoat)                          |
 |                                  [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/matthew-s-klein/)                                  |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/samjeffcoat/)                 |
 
@@ -129,28 +129,10 @@ In order for the app to function correctly, the user must set up their own envir
 
 🚫For all content - images, icons, etc, use this table to document permission of use. Remove the two placeholders and add you content to this table
 
-| Image Filename | Source / Creator | License                                                                      |
-| -------------- | ---------------- | ---------------------------------------------------------------------------- |
-| doodles.png    | Nicole Bennett   | [Creative Commons](https://www.toptal.com/designers/subtlepatterns/doodles/) |
-| rings.svg      | Sam Herbert      | [MIT](https://github.com/SamHerbert/SVG-Loaders)                             |
-
-# 4️⃣ Testing
-
-🚫Document what you used for testing and why
-
-# 4️⃣ Installation Instructions
-
-🚫explain how to install the required dependencies to get this project up and running with yarn and NPM
-
-## Other Scripts
-
-🚫replace these examples with your own
-
-    * typecheck - runs the TypeScript compiler
-    * build - creates a build of the application
-    * start - starts the production server after a build is created
-    * test - runs tests in **tests** directory \* eject - copy the configuration files and dependencies into the project so you have full control over them
-
+| Source / Creator | License          |
+| --------------   | ---------------- | ---------------------------------------------------------------------------- |
+| Font Awesome     |   Pro License    |  https://fontawesome.com
+  
 # Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
