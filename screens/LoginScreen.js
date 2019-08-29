@@ -146,6 +146,9 @@ export default LoginScreen = props => {
       dispatch(loginSuccess(chosenDecoded));
 
       await dispatch(getProfileData(null, chosenDecoded.sub, true));
+      if (currentUser.id) {
+        await SecureStore.setItemAsync('id', currentUser.id)
+      };
       navigation.navigate('Loading');
     }
   };

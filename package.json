@@ -50,7 +50,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0"
   },
-  "evDependencies": {
+  "devDependencies": {
     "babel-preset-expo": "^5.1.0",
     "jest-expo": "^33.0.0",
     "react-native-debugger-open": "^0.3.19"

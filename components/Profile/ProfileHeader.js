@@ -12,7 +12,7 @@ const ProfileHeader = props => {
 
   const WebsiteClick = async () => {
     if (profile.org_link_url && profile.org_link_url !== null) {
-      await WebBrowser.openBrowserAsync(profile.org_link_url)
+      await WebBrowser.openBrowserAsync(profile.org_link_url) &&
       AmpEvent('Website Link Clicked', { orgName: profile.org_name })
     }
   }
