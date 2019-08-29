@@ -4,19 +4,18 @@ import {
   TextInput,
   Text,
   View,
-  TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  Alert 
+  Alert
 } from 'react-native';
 import { ScrollView, NavigationEvents } from 'react-navigation';
-import { Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { postCampaignUpdate, getCampaigns, clearMedia } from '../store/actions';
 import BackButton from '../components/BackButton';
 import PublishButton from '../components/PublishButton';
 import UploadMedia from '../components/UploadMedia';
+import { AmpEvent } from '../components/withAmplitude';
 
 class CreateCampUpdateScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -42,25 +41,18 @@ class CreateCampUpdateScreen extends React.Component {
     };
   };
   state = {
-    update_desc: '', 
+    update_desc: ''
   };
   componentDidMount() {
     this.props.navigation.setParams({ publish: this.publish });
   }
   publish = async () => {
-    if (
-      !this.props.mediaUpload ||
-      !this.state.update_desc
-    ) {
-      const errorMessage = 
+    if (!this.props.mediaUpload || !this.state.update_desc) {
+      const errorMessage =
         'Form incomplete. Please include:' +
         (this.props.mediaUpload ? '' : '\n    - Update Image') +
-        (this.state.update_desc ? '' : '\n    - Update Details')
-      return (
-        Alert.alert(
-          'Error',
-          errorMessage
-        ));
+        (this.state.update_desc ? '' : '\n    - Update Details');
+      return Alert.alert('Error', errorMessage);
     } else {
       const campUpdate = {
         ...this.state,
@@ -69,12 +61,13 @@ class CreateCampUpdateScreen extends React.Component {
         update_img: this.props.mediaUpload
       };
       await this.props.postCampaignUpdate(campUpdate);
+      AmpEvent('Campaign Update Post', { campaignId: campUpdate.camp_id });
       this.props.navigation.navigate('Home');
     }
   };
   clearState = () => {
     this.setState({
-      update_desc: '',
+      update_desc: ''
     });
   };
   render() {
@@ -95,16 +88,18 @@ class CreateCampUpdateScreen extends React.Component {
               onWillFocus={this.props.clearMedia}
               onDidBlur={this.clearState}
             />
-            <View style={styles.sectionContainer}>              
+            <View style={styles.sectionContainer}>
               <View style={styles.sections}>
-                <UploadMedia />                
+                <UploadMedia />
               </View>
 
               <View style={styles.sections}>
                 <View style={styles.goToCampaignButton}>
                   <Text style={styles.goToCampaignText}>Update</Text>
                 </View>
-                <Text style={styles.sectionsText}>{this.props.selectedCampaign.camp_name}</Text>
+                <Text style={styles.sectionsText}>
+                  {this.props.selectedCampaign.camp_name}
+                </Text>
                 <TextInput
                   ref={input => {
                     this.campDetailsInput = input;
@@ -116,7 +111,7 @@ class CreateCampUpdateScreen extends React.Component {
                   multiline={true}
                   value={this.state.update_desc}
                 />
-              </View>            
+              </View>
             </View>
           </ScrollView>
         </KeyboardAwareScrollView>
@@ -207,17 +202,17 @@ const styles = StyleSheet.create({
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 20,
     marginBottom: 5,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   goToCampaignButton: {
     backgroundColor: '#00FF9D',
     alignItems: 'center',
     justifyContent: 'center',
     height: 37,
-    width: '100%',
+    width: '100%'
   },
   goToCampaignText: {
     fontFamily: 'OpenSans-SemiBold',
-    fontSize: 18,
-  },
+    fontSize: 18
+  }
 });
