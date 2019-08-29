@@ -53,7 +53,7 @@ class EditCampUpdateScreen extends React.Component {
     if (this.props.mediaUpload) {
       changes = {
         ...this.state,
-        camp_img: this.props.mediaUpload
+        update_img: this.props.mediaUpload
       };
     }
     await this.props.editCampaignUpdate(
