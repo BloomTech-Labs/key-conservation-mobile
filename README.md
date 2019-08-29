@@ -2,13 +2,15 @@
 
 You can find the deployed project at (https://expo.io/@labs14_key_conservation/key-conservation) if you are on iOS you will need the following information to log into the app...on the Expo Client app on your mobile device... log into the Expo Client with the following credentials ... email - labs14KeyCon@gmail.com pass - tester and you will find the project is under the profile view in "Deployed Projects"
 
-## Contributors
+# Contributors
+## Team Lead
 |                                                                         [Asa-Michael Shalom](https://github.com/AsaOfDiamonds)                                                                         |
 | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 | [<img src="https://avatars1.githubusercontent.com/u/36455310?s=460&v=4" width = "200" />](https://github.com/AsaOfDiamonds) |
 |                                                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/AsaOfDiamonds)                                                  |
 |                                  [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/shalom1/)                                  |
 
+## UX/UI
 
 |                                                                         [Luis Morabito](https://github.com/1ouie)                                                                         |                                                       [Gabby Loscalzo](https://github.com)                                                        |
 | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: |
@@ -17,7 +19,7 @@ You can find the deployed project at (https://expo.io/@labs14_key_conservation/k
 |                                  [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/luismorabito/)                                  |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |
 
 
-
+## Developers
 
 |                                                                         [Jay Maas](https://github.com/jay-maas)                                                                         |                                                       [Leonel Flores](https://github.com/lflores12)                                                        |                                                      [Bazen Berhane](https://github.com/ba-zen)                                                       |                                                       [Taslim Yakub](https://github.com/taslimy)                                                        |
 | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: |
