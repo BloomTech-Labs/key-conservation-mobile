@@ -9,8 +9,7 @@ import {
 import * as SecureStore from 'expo-secure-store';
 import { connect } from 'react-redux';
 import { getProfileData, afterFirstLogin } from '../store/actions';
-import { AmpEvent } from '../components/withAmplitude';
-import * as Amplitude from 'expo-analytics-amplitude';
+import { AmpEvent, AmpInit } from '../components/withAmplitude';
 import styles from '../constants/screens/LoadingScreen';
 
 class LoadingScreen extends React.Component {
@@ -22,7 +21,7 @@ class LoadingScreen extends React.Component {
       if (sub) {
         if (this.props.userId) {
           await SecureStore.setItemAsync('id', `${this.props.userId}`);
-          Amplitude.setUserId(`${sub}`);
+          AmpInit();
           AmpEvent('Login');
           if (this.props.firstLogin) {
             this.props.afterFirstLogin();
