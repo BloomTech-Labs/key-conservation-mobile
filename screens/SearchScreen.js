@@ -79,12 +79,12 @@ class SearchScreen extends React.Component {
               height:
                 Constants.deviceName === 'Iphone Xr' && Constants.deviceName === 'Iphone Xs' ?
                   null
-                  : 
+                  :
                   (100 && Constants.deviceName === 'Iphone 7') ||
                     'Iphone 8' ||
                     'Pixel' ||
                     'Pixel XL'
-                  ? 
+                  ?
                     null
                     :
                     80

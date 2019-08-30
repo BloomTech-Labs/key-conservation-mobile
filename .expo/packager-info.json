@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 20732,
-  "expoServerNgrokUrl": "https://sq-5cf.labs14-key-conservation.frontend-mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.sq-5cf.labs14-key-conservation.frontend-mobile.exp.direct",
-  "ngrokPid": 20624
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
