@@ -66,9 +66,10 @@ export const getProfileData = (
   }
 
   let user, url;
-  if (id) url = `https://key-conservation.herokuapp.com/api/users/${id}`;
+  if (id)
+    url = `https://key-conservation-staging.herokuapp.com/api/users/${id}`;
   else if (sub)
-    url = `https://key-conservation.herokuapp.com/api/users/sub/${sub}`;
+    url = `https://key-conservation-staging.herokuapp.com/api/users/sub/${sub}`;
   let token = await SecureStore.getItemAsync('accessToken');
   return axios
     .get(url, {
@@ -134,13 +135,17 @@ export const editProfileData = (id, changes) => async dispatch => {
   });
   let token = await SecureStore.getItemAsync('accessToken');
   return axios
-    .put(`https://key-conservation.herokuapp.com/api/users/${id}`, formData, {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${token}`
+    .put(
+      `https://key-conservation-staging.herokuapp.com/api/users/${id}`,
+      formData,
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`
+        }
       }
-    })
+    )
     .then(res => {
       dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.editUser });
     })
@@ -159,7 +164,7 @@ export const postUser = user => async dispatch => {
   dispatch({ type: POST_USER_START });
   let token = await SecureStore.getItemAsync('accessToken');
   axios
-    .post('https://key-conservation.herokuapp.com/api/users', user, {
+    .post('https://key-conservation-staging.herokuapp.com/api/users', user, {
       headers: {
         Accept: 'application/json',
         Authorization: `Bearer ${token}`,
@@ -185,7 +190,7 @@ export const getCampaigns = () => async dispatch => {
   let campaigns;
   let token = await SecureStore.getItemAsync('accessToken');
   axios
-    .get('https://key-conservation.herokuapp.com/api/campaigns', {
+    .get('https://key-conservation-staging.herokuapp.com/api/campaigns', {
       headers: {
         Accept: 'application/json',
         Authorization: `Bearer ${token}`,
@@ -195,7 +200,7 @@ export const getCampaigns = () => async dispatch => {
     .then(res => {
       campaigns = res.data.camp;
       axios
-        .get('https://key-conservation.herokuapp.com/api/updates', {
+        .get('https://key-conservation-staging.herokuapp.com/api/updates', {
           headers: {
             Accept: 'application/json',
             Authorization: `Bearer ${token}`,
@@ -225,7 +230,7 @@ export const getCampaign = id => async dispatch => {
   dispatch({ type: GET_CAMPAIGN_START });
   let token = await SecureStore.getItemAsync('accessToken');
   axios
-    .get(`https://key-conservation.herokuapp.com/api/campaigns/${id}`, {
+    .get(`https://key-conservation-staging.herokuapp.com/api/campaigns/${id}`, {
       headers: {
         Accept: 'application/json',
         Authorization: `Bearer ${token}`,
@@ -280,13 +285,17 @@ export const postCampaign = camp => async dispatch => {
   let token = await SecureStore.getItemAsync('accessToken');
 
   axios
-    .post('https://key-conservation.herokuapp.com/api/campaigns', formData, {
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data'
+    .post(
+      'https://key-conservation-staging.herokuapp.com/api/campaigns',
+      formData,
+      {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data'
+        }
       }
-    })
+    )
     .then(res => {
       dispatch({ type: POST_CAMPAIGN_SUCCESS, payload: res.data.newCamps });
     })
@@ -309,13 +318,16 @@ export const deleteCampaign = id => async dispatch => {
   dispatch({ type: DELETE_CAMPAIGN_START });
   let token = await SecureStore.getItemAsync('accessToken');
   axios
-    .delete(`https://key-conservation.herokuapp.com/api/campaigns/${id}`, {
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json'
+    .delete(
+      `https://key-conservation-staging.herokuapp.com/api/campaigns/${id}`,
+      {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
       }
-    })
+    )
     .then(res => {
       dispatch({ type: DELETE_CAMPAIGN_SUCCESS, payload: res.data });
     })
@@ -358,7 +370,7 @@ export const editCampaign = (id, changes) => async dispatch => {
   let token = await SecureStore.getItemAsync('accessToken');
   axios
     .put(
-      `https://key-conservation.herokuapp.com/api/campaigns/${id}`,
+      `https://key-conservation-staging.herokuapp.com/api/campaigns/${id}`,
       formData,
       {
         headers: {
@@ -408,13 +420,17 @@ export const postCampaignUpdate = campUpdate => async dispatch => {
   let token = await SecureStore.getItemAsync('accessToken');
 
   axios
-    .post('https://key-conservation.herokuapp.com/api/updates', formData, {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${token}`
+    .post(
+      'https://key-conservation-staging.herokuapp.com/api/updates',
+      formData,
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`
+        }
       }
-    })
+    )
     .then(res => {
       dispatch({
         type: POST_CAMPAIGN_UPDATE_SUCCESS,
@@ -463,13 +479,17 @@ export const editCampaignUpdate = (id, changes) => async dispatch => {
   });
   let token = await SecureStore.getItemAsync('accessToken');
   axios
-    .put(`https://key-conservation.herokuapp.com/api/updates/${id}`, formData, {
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data'
+    .put(
+      `https://key-conservation-staging.herokuapp.com/api/updates/${id}`,
+      formData,
+      {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data'
+        }
       }
-    })
+    )
     .then(res => {
       dispatch({
         type: EDIT_CAMPAIGN_UPDATE_SUCCESS,
@@ -495,13 +515,16 @@ export const deleteCampaignUpdate = id => async dispatch => {
   dispatch({ type: DELETE_CAMPAIGN_UPDATE_START });
   let token = await SecureStore.getItemAsync('accessToken');
   axios
-    .delete(`https://key-conservation.herokuapp.com/api/updates/${id}`, {
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json'
+    .delete(
+      `https://key-conservation-staging.herokuapp.com/api/updates/${id}`,
+      {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
       }
-    })
+    )
     .then(res => {
       dispatch({ type: DELETE_CAMPAIGN_UPDATE_SUCCESS, payload: res.data });
     })
