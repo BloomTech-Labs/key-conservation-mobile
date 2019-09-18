@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import * as SecureStore from 'expo-secure-store';
 
-const seturl = 'https://key-conservation.herokuapp.com/api/'
+const seturl = 'https://key-conservation-staging.herokuapp.com/api/'
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in there URL this function will add it.
