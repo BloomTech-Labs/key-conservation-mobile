@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import * as SecureStore from 'expo-secure-store';
 
-const seturl = 'https://key-conservation-staging.herokuapp.com/api/'
+const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in there URL this function will add it.
@@ -69,8 +69,7 @@ export const getProfileData = (
 
   let user, url;
   if (id) url = `${seturl}users/${id}`;
-  else if (sub)
-    url = `${seturl}users/sub/${sub}`;
+  else if (sub) url = `${seturl}users/sub/${sub}`;
   let token = await SecureStore.getItemAsync('accessToken');
   return axios
     .get(url, {
@@ -359,17 +358,13 @@ export const editCampaign = (id, changes) => async dispatch => {
   });
   let token = await SecureStore.getItemAsync('accessToken');
   axios
-    .put(
-      `${seturl}campaigns/${id}`,
-      formData,
-      {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`
-        }
+    .put(`${seturl}campaigns/${id}`, formData, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`
       }
-    )
+    })
     .then(res => {
       dispatch({ type: EDIT_CAMPAIGN_SUCCESS, payload: res.data.editCamp });
     })
