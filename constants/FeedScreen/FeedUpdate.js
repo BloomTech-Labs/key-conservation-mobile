@@ -3,66 +3,69 @@ import { Dimensions } from 'react-native';
 const deviceWidth = Dimensions.get('window').width;
 
 export default {
+  demarcation: {
+    height: 10,
+    width: '100%',
+    backgroundColor: '#dfe1eb'
+  },
   container: {
-    justifyContent: 'center', 
+    justifyContent: 'center',
     paddingBottom: 35
   },
-  orgTitleView: { 
+  orgTitleView: {
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 16,
     fontWeight: 'bold'
   },
-  campImgContain: { 
+  campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
     resizeMode: 'contain',
     height: deviceWidth <= 415 ? deviceWidth : 415
   },
-  goToCampaignButton: {  
+  goToCampaignButton: {
     backgroundColor: '#00FF9D',
     alignItems: 'center',
     justifyContent: 'center',
     height: 37,
     width: '100%'
   },
-  goToCampaignText: { 
+  goToCampaignText: {
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 18
   },
-  campDesc: { 
+  campDesc: {
     marginLeft: 15,
     paddingTop: 15,
     marginRight: 15
   },
-  campDescText: { 
+  campDescText: {
     fontFamily: 'OpenSans-Regular',
     fontSize: 14,
     lineHeight: 19
   },
-  campDescName: { 
+  campDescName: {
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 16
   },
-  timeText: { 
+  timeText: {
     color: '#929292',
     fontSize: 10,
     marginLeft: 15,
     marginTop: 10
   },
-  readMore: { 
+  readMore: {
     color: '#929292'
   },
-  updateBar: { 
+  updateBar: {
     backgroundColor: '#323338',
     alignItems: 'center',
     justifyContent: 'center',
     height: 37,
     width: '100%'
   },
-  updateBarText: { 
+  updateBarText: {
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 18,
     color: '#fff'
   }
 };
-
-

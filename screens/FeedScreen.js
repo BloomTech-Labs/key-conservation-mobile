@@ -7,7 +7,7 @@ import FeedCampaign from '../components/FeedScreen/FeedCampaign';
 import FeedUpdate from '../components/FeedScreen/FeedUpdate';
 import SvgUri from 'react-native-svg-uri';
 import styles from '../constants/screens/FeedScreen';
-import { AmpInit } from '../components/withAmplitude'
+import { AmpInit } from '../components/withAmplitude';
 
 class FeedScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -48,7 +48,7 @@ class FeedScreen extends React.Component {
 
   state = {
     campaignsVisible: 8
-  }
+  };
 
   componentDidMount() {
     this.props.navigation.setParams({
@@ -59,17 +59,17 @@ class FeedScreen extends React.Component {
   startGettingCampaigns = () => {
     this.props.getCampaigns();
     this.refreshInterval = setInterval(() => this.props.getCampaigns(), 10000);
-  }
+  };
 
   stopGettingCampaigns = () => {
     clearInterval(this.refreshInterval);
-  }
+  };
 
   addMoreCampaigns = () => {
     this.setState({
       campaignsVisible: this.state.campaignsVisible + 8
-    })
-  }
+    });
+  };
 
   render() {
     const { navigation } = this.props;
@@ -81,35 +81,44 @@ class FeedScreen extends React.Component {
         />
         <View style={styles.feedContainer}>
           {this.props.allCampaigns.length > 0 &&
-            this.props.allCampaigns.slice(0, this.state.campaignsVisible).map(camp => {
-              if (camp.update_id) {
-                return (
-                  <FeedUpdate
-                    key={`update${camp.update_id}`}
-                    data={camp}
-                    toggled={this.props.campaignsToggled.includes(`update${camp.update_id}`)}
-                    navigation={navigation}
-                  />
-                )
-              } else {
-                return (
-                  <FeedCampaign
-                    key={camp.camp_id}
-                    data={camp}
-                    toggled={this.props.campaignsToggled.includes(camp.camp_id)}
-                    navigation={navigation}
-                  />
-                );
-              }
-            })}
+            this.props.allCampaigns
+              .slice(0, this.state.campaignsVisible)
+              .map(camp => {
+                if (camp.update_id) {
+                  return (
+                    <FeedUpdate
+                      key={`update${camp.update_id}`}
+                      data={camp}
+                      toggled={this.props.campaignsToggled.includes(
+                        `update${camp.update_id}`
+                      )}
+                      navigation={navigation}
+                    />
+                  );
+                } else {
+                  return (
+                    <FeedCampaign
+                      key={camp.camp_id}
+                      data={camp}
+                      toggled={this.props.campaignsToggled.includes(
+                        camp.camp_id
+                      )}
+                      navigation={navigation}
+                    />
+                  );
+                }
+              })}
         </View>
-        {this.state.campaignsVisible < this.props.allCampaigns.length &&
+        {this.state.campaignsVisible < this.props.allCampaigns.length && (
           <View style={styles.loadMoreView}>
-            <TouchableOpacity onPress={this.addMoreCampaigns} style={styles.loadMoreTouchable}>
-                <Text style={styles.loadMoreText}>Load More Posts</Text>
+            <TouchableOpacity
+              onPress={this.addMoreCampaigns}
+              style={styles.loadMoreTouchable}
+            >
+              <Text style={styles.loadMoreText}>Load Morre Posts</Text>
             </TouchableOpacity>
           </View>
-        }
+        )}
       </ScrollView>
     );
   }

@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity
-} from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 
 import moment from 'moment';
-
 
 import { ListItem } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
@@ -77,7 +71,7 @@ const FeedUpdate = props => {
 
   const goToCampUpdate = () => {
     dispatch(setCampaign(data));
-    props.navigation.navigate('CampUpdate', {backBehavior: 'Home'});
+    props.navigation.navigate('CampUpdate', { backBehavior: 'Home' });
   };
 
   const toggleText = () => {
@@ -86,8 +80,7 @@ const FeedUpdate = props => {
 
   return (
     <View style={styles.container}>
-      {
-        props.hideUsername === undefined &&
+      {props.hideUsername === undefined && (
         <ListItem
           onPress={goToProfile}
           title={
@@ -98,7 +91,7 @@ const FeedUpdate = props => {
           leftAvatar={{ source: { uri: data.profile_image } }}
           subtitle={data.location}
         />
-      }
+      )}
       <View>
         <View style={styles.updateBar}>
           <Text style={styles.updateBarText}>UPDATE</Text>
@@ -131,6 +124,7 @@ const FeedUpdate = props => {
         )}
       </View>
       <Text style={styles.timeText}>{timeDiff}</Text>
+      <View style={styles.demarcation}></View>
     </View>
   );
 };
