@@ -33,8 +33,9 @@ export default {
   },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
-    resizeMode: 'contain',
-    height: deviceWidth <= 415 ? deviceWidth : 415
+    flex: 1,
+    height: deviceWidth,
+    width: deviceWidth,
   },
   goToCampaignButton: {
     backgroundColor: '#00FF9D',
