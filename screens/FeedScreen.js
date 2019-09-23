@@ -115,7 +115,7 @@ class FeedScreen extends React.Component {
               onPress={this.addMoreCampaigns}
               style={styles.loadMoreTouchable}
             >
-              <Text style={styles.loadMoreText}>Load Morre Posts</Text>
+              <Text style={styles.loadMoreText}>Load More Posts</Text>
             </TouchableOpacity>
           </View>
         )}

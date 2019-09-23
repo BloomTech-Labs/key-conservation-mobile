@@ -15,7 +15,6 @@ import {
 import styles from '../../constants/FeedScreen/FeedCampaign';
 
 const FeedCampaign = props => {
-  console.log(props.data, 'Data !!');
   const dispatch = useDispatch();
   const { data, toggled } = props;
   const shorten = (string, cutoff) => {
@@ -123,16 +122,14 @@ const FeedCampaign = props => {
           </Text>
         )}
       </View>
-      <View>
+      <View style={styles.comments}>
         {data.comments_length >= 1 ? (
           data.comments_length === 1 ? (
-            <Text>View {data.comments_length} comment...</Text>
+            <Text>{data.comments_length} comment</Text>
           ) : (
-            <Text>View all {data.comments_length} comments...</Text>
+            <Text>{data.comments_length} comments</Text>
           )
-        ) : (
-          <Text>NOBODY HAS AN OPINION</Text>
-        )}
+        ) : null}
       </View>
       {/* <FeedComment /> */}
       <Text style={styles.timeText}>{timeDiff}</Text>

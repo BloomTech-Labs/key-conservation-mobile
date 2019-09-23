@@ -43,7 +43,13 @@ import {
   DELETE_CAMPAIGN_UPDATE_SUCCESS,
   TOGGLE_CAMPAIGN_TEXT,
   MEDIA_UPLOAD,
-  MEDIA_CLEAR
+  MEDIA_CLEAR,
+  POST_COMMENT_START,
+  POST_COMMENT_ERROR,
+  POST_COMMENT_SUCCESS,
+  DELETE_COMMENT_START,
+  DELETE_COMMENT_ERROR,
+  DELETE_COMMENT_SUCCESS
 } from '../actions';
 
 const initialState = {
@@ -424,6 +430,48 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         mediaUpload: ''
+      };
+    case POST_COMMENT_START:
+      console.log('Start');
+      return {
+        ...state,
+        error: ''
+      };
+    case POST_COMMENT_SUCCESS:
+      console.log('please have mercy');
+      return {
+        ...state,
+        selectedCampaign: {
+          ...selectedCampaign,
+          comments: action.payload
+        }
+      };
+    case POST_COMMENT_ERROR:
+      return {
+        ...state,
+        error: action.payload
+      };
+    case DELETE_COMMENT_START:
+      console.log('Start');
+      return {
+        ...state,
+        error: ''
+      };
+    case DELETE_COMMENT_SUCCESS:
+      console.log('delelelteltetletlewtleletlel');
+      return {
+        ...state,
+        selectedCampaign: {
+          ...selectedCampaign,
+          comments: [
+            state.comments.filter(c => c.comment_id !== action.payload)
+          ]
+        }
+      };
+    case DELETE_COMMENT_ERROR:
+      return {
+        ...state,
+        error: action.payload
       };
     default:
       return state;

@@ -66,6 +66,10 @@ export default {
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 16
   },
+  comments: {
+    marginLeft: 15,
+    paddingTop: 15
+  },
   timeText: {
     color: '#929292',
     fontSize: 10,

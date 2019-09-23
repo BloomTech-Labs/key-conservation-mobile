@@ -1,22 +1,19 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  Image
-} from 'react-native';
+import { Text, View, TouchableOpacity, Image } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-navigation';
 import * as WebBrowser from 'expo-web-browser';
 import { connect } from 'react-redux';
 import SvgUri from 'react-native-svg-uri';
 import moment from 'moment';
+import { FontAwesome, Feather } from '@expo/vector-icons';
 import { getProfileData } from '../store/actions';
 import BackButton from '../components/BackButton';
 import { AmpEvent } from '../components/withAmplitude';
 import FeedUpdate from '../components/FeedScreen/FeedUpdate';
+import CommentsView from '../components/Comments/CommentsView';
 
-import styles from '../constants/screens/ViewCampScreen'
+import styles from '../constants/screens/ViewCampScreen';
 
 class ViewCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -36,6 +33,16 @@ class ViewCampScreen extends React.Component {
     };
   };
 
+  // state = {
+  //   comments: this.props.selectedCampaign.comments
+  // };
+
+  // componentDidMount() {
+  //   this.setState({
+  //     comments: this.props.selectedCampaign.comments
+  //   });
+  // }
+
   goToProfile = () => {
     this.props.getProfileData(this.props.selectedCampaign.users_id);
     this.props.navigation.navigate('Pro');
@@ -43,10 +50,43 @@ class ViewCampScreen extends React.Component {
 
   render() {
     let sortedUpdates = false;
-    if (this.props.selectedCampaign.updates && this.props.selectedCampaign.updates.length) {
+    if (
+      this.props.selectedCampaign.updates &&
+      this.props.selectedCampaign.updates.length
+    ) {
       sortedUpdates = this.props.selectedCampaign.updates.sort(function(a, b) {
         return moment(a.created_at) - moment(b.created_at);
       });
+    }
+
+    const createdAt = this.props.selectedCampaign.created_at;
+    const currentTime = moment();
+    const postTime = moment(createdAt);
+    let timeDiff;
+    if (currentTime.diff(postTime, 'days') < 1) {
+      if (currentTime.diff(postTime, 'hours') < 1) {
+        if (currentTime.diff(postTime, 'minutes') < 1) {
+          timeDiff = 'just now';
+        } else {
+          if (currentTime.diff(postTime, 'minutes') === 1) {
+            timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO`;
+          } else {
+            timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`;
+          }
+        }
+      } else {
+        if (currentTime.diff(postTime, 'hours') === 1) {
+          timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO`;
+        } else {
+          timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`;
+        }
+      }
+    } else {
+      if (currentTime.diff(postTime, 'days') === 1) {
+        timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO`;
+      } else {
+        timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
+      }
     }
 
     return (
@@ -70,6 +110,14 @@ class ViewCampScreen extends React.Component {
             source={{ uri: this.props.selectedCampaign.camp_img }}
             style={styles.campImgContain}
           />
+          <View style={styles.iconRow}>
+            <View>
+              <FontAwesome name='heart-o' style={styles.icon} />
+            </View>
+            <View>
+              <Feather name='edit' style={styles.icon} />
+            </View>
+          </View>
           <View style={styles.campDescContain}>
             <Text style={styles.campDescName}>
               {this.props.selectedCampaign.camp_name}
@@ -77,6 +125,10 @@ class ViewCampScreen extends React.Component {
             <Text style={styles.campDesc}>
               {this.props.selectedCampaign.camp_desc}
             </Text>
+            <Text style={styles.timeText}>{timeDiff}</Text>
+          </View>
+          <View style={styles.commentsView}>
+            <CommentsView />
           </View>
           <View style={styles.donateView}>
             <View style={styles.campMission}>
@@ -98,7 +150,9 @@ class ViewCampScreen extends React.Component {
                 onPress={async () =>
                   this.props.selectedCampaign.camp_cta &&
                   this.props.selectedCampaign.camp_cta !== null &&
-                  await WebBrowser.openBrowserAsync(this.props.selectedCampaign.camp_cta) &&
+                  (await WebBrowser.openBrowserAsync(
+                    this.props.selectedCampaign.camp_cta
+                  )) &&
                   AmpEvent('Campaign Donation Button Clicked', {
                     username: this.props.username,
                     campId: this.props.selectedCampaign.camp_id
@@ -112,8 +166,7 @@ class ViewCampScreen extends React.Component {
             </View>
           </View>
           <View style={styles.feedContainer}>
-            {
-              sortedUpdates !== false &&
+            {sortedUpdates !== false &&
               sortedUpdates.map(update => {
                 return (
                   <FeedUpdate
@@ -123,10 +176,9 @@ class ViewCampScreen extends React.Component {
                     hideUsername
                     navigation={this.props.navigation}
                   />
-                )                
-              }
-            )}
-        </View>        
+                );
+              })}
+          </View>
         </View>
       </ScrollView>
     );
@@ -136,7 +188,6 @@ class ViewCampScreen extends React.Component {
 const mapStateToProps = state => ({
   selectedCampaign: state.selectedCampaign
 });
-
 
 export default connect(
   mapStateToProps,

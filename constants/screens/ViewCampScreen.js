@@ -41,8 +41,20 @@ export default {
     lineHeight: 19,
     paddingTop: 10
   },
+  commentsView: {
+    marginLeft: 15,
+    // paddingTop: 15,
+    marginRight: 15,
+    fontSize: 14,
+    marginTop: 20,
+    paddingTop: 19,
+    borderTopWidth: 2,
+    borderTopColor: '#eee'
+  },
   campMission: {
-    width: '68%',
+    marginLeft: 15,
+    marginRight: 15,
+    // width: '68%',
     fontFamily: 'OpenSans-Regular',
     flexWrap: 'wrap',
     flexDirection: 'row',
@@ -85,5 +97,23 @@ export default {
   },
   whiteSpace: {
     height: 40
+  },
+  icon: {
+    fontSize: 28,
+    marginTop: 15,
+    marginLeft: 15,
+    marginRight: 5
+    // alignSelf: 'center',
+    // marginHorizontal: 5
+  },
+  iconRow: {
+    flexDirection: 'row'
+  },
+  timeText: {
+    color: '#929292',
+    fontSize: 10,
+    marginLeft: 5,
+    marginRight: 15,
+    marginTop: 10
   }
 };
