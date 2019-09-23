@@ -57,7 +57,7 @@ export default {
     color: '#929292'
   },
   updateBar: {
-    backgroundColor: '#323338',
+    backgroundColor: '#CAFF00',
     alignItems: 'center',
     justifyContent: 'center',
     height: 37,
@@ -66,6 +66,7 @@ export default {
   updateBarText: {
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 18,
-    color: '#fff'
+    letterSpacing: 6,
+    color: 'black'
   }
 };
