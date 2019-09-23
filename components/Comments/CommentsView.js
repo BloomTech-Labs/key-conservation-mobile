@@ -56,7 +56,7 @@ class CommentsView extends React.Component {
   //   }
   // }
 
-  // Attempts to provoke rerenders with changes  ^
+  // Attempts to provoke rerenders with changes  ^^^^
 
   // makeComment = () => {
   //   console.log('Step 11');
