@@ -4,7 +4,7 @@ const deviceWidth = Dimensions.get('window').width;
 
 export default {
   demarcation: {
-    height: 10,
+    height: 4,
     width: '100%',
     backgroundColor: '#dfe1eb'
   },

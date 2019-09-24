@@ -33,16 +33,6 @@ class ViewCampScreen extends React.Component {
     };
   };
 
-  // state = {
-  //   comments: this.props.selectedCampaign.comments
-  // };
-
-  // componentDidMount() {
-  //   this.setState({
-  //     comments: this.props.selectedCampaign.comments
-  //   });
-  // }
-
   goToProfile = () => {
     this.props.getProfileData(this.props.selectedCampaign.users_id);
     this.props.navigation.navigate('Pro');
@@ -128,7 +118,9 @@ class ViewCampScreen extends React.Component {
             <Text style={styles.timeText}>{timeDiff}</Text>
           </View>
           <View style={styles.commentsView}>
-            <CommentsView />
+            {this.props.selectedCampaign ? (
+              <CommentsView myTest={this.props.selectedCampaign} />
+            ) : null}
           </View>
           <View style={styles.donateView}>
             <View style={styles.campMission}>
@@ -186,7 +178,8 @@ class ViewCampScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  selectedCampaign: state.selectedCampaign
+  selectedCampaign: state.selectedCampaign,
+  currentUser: state.currentUser
 });
 
 export default connect(

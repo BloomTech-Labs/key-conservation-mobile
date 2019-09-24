@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 
@@ -10,7 +10,6 @@ import {
   getCampaign,
   toggleCampaignText
 } from '../../store/actions';
-// import FeedComment from './FeedComment'
 
 import styles from '../../constants/FeedScreen/FeedCampaign';
 
