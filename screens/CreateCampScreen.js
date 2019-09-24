@@ -5,7 +5,8 @@ import {
   View,
   KeyboardAvoidingView,
   Platform,
-  Alert
+  Alert,
+  TouchableOpacity
 } from 'react-native';
 import { ScrollView, NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -46,7 +47,8 @@ class CreateCampScreen extends React.Component {
     users_id: this.props.currentUserProfile.id,
     camp_name: '',
     camp_desc: '',
-    camp_cta: ''
+    camp_cta: '',
+    urgency: ''
   };
   componentDidMount() {
     this.props.navigation.setParams({ publish: this.publish });
@@ -88,7 +90,16 @@ class CreateCampScreen extends React.Component {
       camp_cta: ''
     });
   };
+
+  setUrgency = (urgencyLevel) => {
+    this.setState({
+      urgency: urgencyLevel
+    })
+  };
+
+  
   render() {
+    console.log(this.state, 'state')
     return (
       <KeyboardAvoidingView
         behavior='height'
@@ -160,6 +171,13 @@ class CreateCampScreen extends React.Component {
                   value={this.state.camp_cta}
                 />
               </View>
+              <View>
+                <Text style={styles.sectionsText}>Urgency Level</Text>
+                <TouchableOpacity onPress={() => this.setUrgency('Critical')}><Text>Critical</Text>{ this.state.urgency === 'Critical' ? <Text>X</Text> : null }</TouchableOpacity>
+                <TouchableOpacity onPress={() => this.setUrgency('Urgent')}><Text>Urgent</Text>{ this.state.urgency === 'Urgent' ? <Text>X</Text> : null }</TouchableOpacity>
+                <TouchableOpacity onPress={() => this.setUrgency('Pressing')}><Text>Pressing</Text>{ this.state.urgency === 'Pressing' ? <Text>X</Text> : null }</TouchableOpacity>
+                <TouchableOpacity onPress={() => this.setUrgency('Longterm')}><Text>Longterm</Text>{ this.state.urgency === 'Longterm' ? <Text>X</Text> : null }</TouchableOpacity>
+              </View>
             </View>
           </ScrollView>
         </KeyboardAwareScrollView>
@@ -167,6 +185,8 @@ class CreateCampScreen extends React.Component {
     );
   }
 }
+
+
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
   mediaUpload: state.mediaUpload
