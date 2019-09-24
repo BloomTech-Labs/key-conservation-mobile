@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 
@@ -121,7 +121,18 @@ const FeedCampaign = props => {
           </Text>
         )}
       </View>
+      <View style={styles.comments}>
+        {data.comments_length >= 1 ? (
+          data.comments_length === 1 ? (
+            <Text>{data.comments_length} comment</Text>
+          ) : (
+            <Text>{data.comments_length} comments</Text>
+          )
+        ) : null}
+      </View>
+      {/* <FeedComment /> */}
       <Text style={styles.timeText}>{timeDiff}</Text>
+      <View style={styles.demarcation}></View>
     </View>
   );
 };

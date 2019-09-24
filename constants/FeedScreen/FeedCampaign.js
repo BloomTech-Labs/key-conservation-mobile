@@ -2,6 +2,11 @@ import { Dimensions } from 'react-native';
 
 const deviceWidth = Dimensions.get('window').width;
 export default {
+  demarcation: {
+    height: 4,
+    width: '100%',
+    backgroundColor: '#dfe1eb'
+  },
   feedContainer: {
     flex: 1,
     backgroundColor: '#fff'
@@ -61,6 +66,10 @@ export default {
   campDescName: {
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 16
+  },
+  comments: {
+    marginLeft: 15,
+    paddingTop: 15
   },
   timeText: {
     color: '#929292',

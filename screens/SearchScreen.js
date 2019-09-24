@@ -1,38 +1,38 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView
-} from "react-native";
+} from 'react-native';
 
-import { NavigationEvents } from "react-navigation";
+import { NavigationEvents } from 'react-navigation';
 
-import { connect } from "react-redux";
-import { getCampaigns } from "../store/actions";
+import { connect } from 'react-redux';
+import { getCampaigns } from '../store/actions';
 
-import FeedCampaign from "../components/FeedScreen/FeedCampaign";
+import FeedCampaign from '../components/FeedScreen/FeedCampaign';
 
-import FeedUpdate from "../components/FeedScreen/FeedUpdate";
+import FeedUpdate from '../components/FeedScreen/FeedUpdate';
 
-import SvgUri from "react-native-svg-uri";
-import { Header, SearchBar } from "react-native-elements";
-import { createFilter } from "react-native-search-filter";
-import Constants from "expo-constants";
+import SvgUri from 'react-native-svg-uri';
+import { Header, SearchBar } from 'react-native-elements';
+import { createFilter } from 'react-native-search-filter';
+import Constants from 'expo-constants';
 
 // These are the keywords that filtered through the map. You can add more to do depending.
 const KEYS_TO_FILTERS = [
-  "camp_name",
-  "camp_desc",
-  "username",
-  "location",
-  "data",
-  "update_desc"
+  'camp_name',
+  'camp_desc',
+  'username',
+  'location',
+  'data',
+  'update_desc'
 ];
 
 class SearchScreen extends React.Component {
   state = {
-    searchTerm: ""
+    searchTerm: ''
   };
 
   // Changes based on the term that is searched
@@ -72,35 +72,35 @@ class SearchScreen extends React.Component {
         <ScrollView stickyHeaderIndices={[0]}>
           <Header
             containerStyle={{
-              backgroundColor: "#323338",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-around",
+              backgroundColor: '#323338',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-around',
               height:
-                Constants.deviceName === "Iphone Xr" &&
-                Constants.deviceName === "Iphone Xs"
+                Constants.deviceName === 'Iphone Xr' &&
+                Constants.deviceName === 'Iphone Xs'
                   ? null
-                  : (100 && Constants.deviceName === "Iphone 7") ||
-                    "Iphone 8" ||
-                    "Pixel" ||
-                    "Pixel XL"
+                  : (100 && Constants.deviceName === 'Iphone 7') ||
+                    'Iphone 8' ||
+                    'Pixel' ||
+                    'Pixel XL'
                   ? null
                   : 80
             }}
             leftComponent={
               <TouchableOpacity
-                onPress={() => navigation.navigate("Home")}
+                onPress={() => navigation.navigate('Home')}
                 style={{
                   width: 75,
                   height: 45,
-                  justifyContent: "center"
+                  justifyContent: 'center'
                 }}
               >
                 <SvgUri
                   fill='#fff'
                   width='25'
                   height='25'
-                  source={require("../assets/icons/chevron-left-solid.svg")}
+                  source={require('../assets/icons/chevron-left-solid.svg')}
                 />
               </TouchableOpacity>
             }
@@ -114,7 +114,7 @@ class SearchScreen extends React.Component {
                 onCancel={true}
                 placeholder='Search ...'
                 containerStyle={{
-                  backgroundColor: "transparent",
+                  backgroundColor: 'transparent',
                   borderTopWidth: 0,
                   borderBottomWidth: 0,
                   marginLeft: 60,
@@ -128,7 +128,7 @@ class SearchScreen extends React.Component {
                   borderRadius: 5,
                   margin: 2,
                   fontSize: 14,
-                  backgroundColor: "#fff",
+                  backgroundColor: '#fff',
                   paddingLeft: 10
                 }}
               />

@@ -3,6 +3,11 @@ import { Dimensions } from 'react-native';
 const deviceWidth = Dimensions.get('window').width;
 
 export default {
+  demarcation: {
+    height: 4,
+    width: '100%',
+    backgroundColor: '#dfe1eb'
+  },
   container: {
     justifyContent: 'center',
     paddingBottom: 35
@@ -62,7 +67,6 @@ export default {
   updateBarText: {
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 18,
-    letterSpacing: 6,
     color: 'black'
   }
 };
