@@ -132,7 +132,7 @@ class CommentsView extends React.Component {
           `${seturl}comments/${this.props.selectedCampaign.camp_id}`,
           {
             users_id: this.props.currentUserProfile.id,
-            comment_body: this.state.comment.replace(/\s/g, '')
+            comment_body: this.state.comment.trim()
           },
           {
             headers: {
