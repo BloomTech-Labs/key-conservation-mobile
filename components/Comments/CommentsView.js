@@ -169,7 +169,7 @@ class CommentsView extends React.Component {
         }
       })
       .then(res => {
-        console.log(res.data.data, 'deleteltletletletltl');
+        console.log(res.data.data, 'deleteltletletletlt');
         this.setState({
           ...this.state,
           campaignComments: this.state.campaignComments.filter(
