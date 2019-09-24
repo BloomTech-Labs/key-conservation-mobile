@@ -205,7 +205,11 @@ export const getCampaigns = () => async dispatch => {
         })
         .then(res => {
           campaigns = campaigns.concat(res.data.campUpdate);
-          dispatch({ type: GET_CAMPAIGNS_SUCCESS, payload: campaigns });
+          dispatch({
+            type: GET_CAMPAIGNS_SUCCESS,
+            payload: campaigns,
+            token: token
+          });
         })
         .catch(err => {
           dispatch({ type: GET_CAMPAIGNS_ERROR, payload: err });
@@ -531,11 +535,12 @@ export const clearMedia = () => {
   };
 };
 
-export const [POST_COMMENT_START, POST_COMMENT_ERROR, POST_COMMENT_SUCCESS] = [
-  'POST_COMMENT_START',
-  'POST_COMMENT_ERROR',
-  'POST_COMMENT_SUCCESS'
-];
+export const [
+  POST_COMMENT_START,
+  POST_COMMENT_ERROR,
+  POST_COMMENT_SUCCESS,
+  REFETCH_ALL_COMMENTS
+] = ['POST_COMMENT_START', 'POST_COMMENT_ERROR', 'POST_COMMENT_SUCCESS'];
 
 export const commentOnCampaign = (id, body) => async dispatch => {
   console.log('Did we crack it???');
@@ -555,8 +560,14 @@ export const commentOnCampaign = (id, body) => async dispatch => {
     )
     .then(res => {
       console.log('Did we get here?');
-      // console.log('My data is UP IN HUR---->', res.data.data);
       dispatch({ type: POST_COMMENT_SUCCESS, payload: res.data.data });
+      axios.get(`${seturl}comments/${id}`, {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${this.props.token}`,
+          'Content-Type': 'application/json'
+        }
+      });
     })
     .catch(err => {
       // console.lor("Here's my error =====>", err);

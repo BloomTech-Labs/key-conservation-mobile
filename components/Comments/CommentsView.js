@@ -25,7 +25,6 @@ import styles from '../../constants/Comments/Comments';
 import Comment from './Comment';
 
 const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
-const id = 50;
 
 class CommentsView extends React.Component {
   state = {
@@ -34,40 +33,27 @@ class CommentsView extends React.Component {
     token: '',
     commentsVisible: 3,
     err: '',
-    boolean: false,
-    hi: 'Hi'
+    comparison: ''
   };
 
-  componentDidMount = () => {
-    console.log('first stop on the pain train', this.props.myTest.camp_name);
-    SecureStore.getItemAsync('accessToken').then(async token => {
-      console.log('ALMOST');
-      if (this.state.token.length === 0) {
-        this.setState({
-          ...this.state,
-          token: token
-        });
-      }
-    });
-  };
-
-  componentDidUpdate = prevState => {
-    if (prevState.token !== this.state.token) {
-      this.getComments();
-      console.log(
-        'CHeck this out ---------->',
-        this.props.selectedCampaign.camp_name
-      );
+  componentDidUpdate = (prevProps, prevState) => {
+    if (
+      this.props.selectedCampaign.comments !==
+      prevProps.selectedCampaign.comments
+    ) {
+      this.setState({
+        campaignComments: this.props.selectedCampaign.comments,
+        comparison: this.props.selectedCampaign.comments.length
+      });
     }
   };
 
+  // Currently redux store changes are not triggering re-renders. Multiple devs have looked into why we need this componentDidUpdate despite having the redux store hooked up to our component. No solutions yet.
+
   render() {
-    // console.log(this.state);
-    console.log('WOOORK');
     if (
       this.state.campaignComments.length === 0 &&
       this.state.boolean === true
-      // this.props.selectedCampaign.comments.length > 0
     ) {
       return (
         <View style={styles.indicator}>
@@ -83,27 +69,6 @@ class CommentsView extends React.Component {
       >
         <ScrollView>
           <View>
-            {/* {this.state.campaignComments.map(comment => (
-              <Comment
-                comment={comment}
-                key={comment.comment_id}
-                currentUserProfile={this.props.currentUserProfile}
-                selectedCampaign={this.props.selectedCampaign}
-                deleteComment={this.props.deleteComment}
-              />;
-            )}} */}
-            {/* {this.state.campaignComments.length > 0 &&
-              this.state.campaignComments
-                .slice(0, this.state.commentsVisible)
-                .map(comment => {
-                  <Comment
-                    comment={comment}
-                    key={comment.comment_id}
-                    currentUserProfile={this.props.currentUserProfile}
-                    selectedCampaign={this.props.selectedCampaign}
-                    deleteComment={this.props.deleteComment}
-                  />;
-                })} */}
             <FlatList
               data={this.state.campaignComments.slice(
                 0,
@@ -116,7 +81,8 @@ class CommentsView extends React.Component {
                     comment={item}
                     currentUserProfile={this.props.currentUserProfile}
                     selectedCampaign={this.props.selectedCampaign}
-                    deleteComment={this.props.deleteComment}
+                    deleteComment={this.deleteComment}
+                    token={this.props.token}
                   />
                 );
               }}
@@ -159,85 +125,65 @@ class CommentsView extends React.Component {
     );
   }
 
-  getComments = () => {
+  makeComment = () => {
+    if (this.state.comment.length > 0) {
+      axios
+        .post(
+          `${seturl}comments/${this.props.selectedCampaign.camp_id}`,
+          {
+            users_id: this.props.currentUserProfile.id,
+            comment_body: this.state.comment.replace(/\s/g, '')
+          },
+          {
+            headers: {
+              Accept: 'application/json',
+              Authorization: `Bearer ${this.props.token}`,
+              'Content-Type': 'application/json'
+            }
+          }
+        )
+        .then(res => {
+          this.setState({
+            ...this.state,
+            campaignComments: res.data.data,
+            comment: ''
+          });
+        })
+        .catch(err => {
+          console.log(err);
+          this.setState({
+            ...this.state,
+            err: err
+          });
+        });
+    }
+  };
+
+  deleteComment = id => {
     axios
-      .get(`${seturl}comments/${this.props.selectedCampaign.camp_id}`, {
+      .delete(`${seturl}comments/com/${id}`, {
         headers: {
           Accept: 'application/json',
-          Authorization: `Bearer ${this.state.token}`,
+          Authorization: `Bearer ${this.props.token}`,
           'Content-Type': 'application/json'
         }
       })
       .then(res => {
-        // console.log(res.data.data, "What's up!");
+        console.log(res.data.data, 'deleteltletletletltl');
         this.setState({
           ...this.state,
-          campaignComments: res.data.data
+          campaignComments: this.state.campaignComments.filter(
+            c => c.comment_id !== res.data.data
+          )
         });
       })
       .catch(err => {
-        console.log('errrrrr', err);
+        console.log(err);
         this.setState({
           ...this.state,
           err: err
         });
       });
-  };
-
-  // componentDidUpdate(prevProps) {
-  //   if (prevProps.value !== this.props.value) {
-  //     this.setState({ value: this.props.value });
-  //   }
-  // }
-
-  // Attempts to provoke rerenders with changes  ^^^^
-
-  makeComment = () => {
-    console.log('Step 11');
-    axios
-      .post(
-        `${seturl}comments/${this.props.selectedCampaign.camp_id}`,
-        {
-          users_id: this.props.currentUserProfile.id,
-          comment_body: this.state.comment
-        },
-        {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${this.state.token}`,
-            'Content-Type': 'application/json'
-          }
-        }
-      )
-      .then(res => {
-        // console.log('My data is UP IN HUR---->', res.data.data);
-        this.setState({
-          ...this.state,
-          campaignComments: res.data.data
-        });
-      })
-      .catch(err => {
-        // console.lor("Here's my error =====>", err);
-        // dispatch({ type: POST_COMMENT_ERROR, payload: err });
-      });
-  };
-
-  // makeCommentAction = () => {
-  //   this.props.commentOnCampaign(this.props.selectedCampaign.camp_id, {
-  //     comment_body: this.state.comment,
-  //     users_id: this.props.currentUserProfile.id
-  //   });
-  //   this.setState({
-  //     ...this.state,
-  //     boolean: !this.state.boolean
-  //   });
-  // };
-
-  handleClick = () => {
-    this.props.commentOnCampaign(this.props.selectedCampaign.camp_id, {
-      comment_body: this.state.comment,
-      users_id: this.props.currentUserProfile.id
-    });
   };
 
   addMoreComments = () => {
@@ -246,16 +192,12 @@ class CommentsView extends React.Component {
       commentsVisible: this.state.commentsVisible + 9
     });
   };
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.SC !== this.props.SC) {
-  //     this.setState({ SC: this.props.SC });
-  //   }
-  // }
 }
 
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
-  selectedCampaign: state.selectedCampaign
+  selectedCampaign: state.selectedCampaign,
+  token: state.token
 });
 
 export default connect(

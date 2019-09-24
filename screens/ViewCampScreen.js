@@ -100,14 +100,15 @@ class ViewCampScreen extends React.Component {
             source={{ uri: this.props.selectedCampaign.camp_img }}
             style={styles.campImgContain}
           />
-          <View style={styles.iconRow}>
+          {/* <View style={styles.iconRow}>
             <View>
               <FontAwesome name='heart-o' style={styles.icon} />
             </View>
             <View>
               <Feather name='edit' style={styles.icon} />
             </View>
-          </View>
+          </View> */}
+          {/* Next release canvas ^^^ */}
           <View style={styles.campDescContain}>
             <Text style={styles.campDescName}>
               {this.props.selectedCampaign.camp_name}
@@ -118,9 +119,7 @@ class ViewCampScreen extends React.Component {
             <Text style={styles.timeText}>{timeDiff}</Text>
           </View>
           <View style={styles.commentsView}>
-            {this.props.selectedCampaign ? (
-              <CommentsView myTest={this.props.selectedCampaign} />
-            ) : null}
+            <CommentsView myTest={this.props.selectedCampaign} />
           </View>
           <View style={styles.donateView}>
             <View style={styles.campMission}>

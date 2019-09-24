@@ -66,7 +66,6 @@ export default {
   updateBarText: {
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 18,
-    letterSpacing: 6,
     color: 'black'
   }
 };

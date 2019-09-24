@@ -53,11 +53,7 @@ const Comment = ({
     }
   }
 
-  localDeleteComment = () => {
-    setConfirm(false);
-    deleteComment(comment.comment_id);
-  };
-
+  // console.log(props.deleteComment, 'DELETTEETT');
   return (
     <View style={styles.commentWrapper}>
       <View style={styles.commentView}>
@@ -78,13 +74,6 @@ const Comment = ({
               }}
             />
           )}
-          {/* <Avatar
-            rounded
-            containerStyle={{ borderWidth: 1, borderColor: '#00FF9D' }}
-            source={{
-              uri: comment.profile_image
-            }}
-          /> */}
         </View>
         <View style={styles.commentText}>
           <Text style={styles.username}>{comment.username}</Text>
@@ -105,7 +94,7 @@ const Comment = ({
             <Text style={styles.confirmText}>Are you sure?</Text>
             <Text
               style={styles.confirmText}
-              onPress={() => localDeleteComment()}
+              onPress={() => deleteComment(comment.comment_id)}
             >
               Yes
             </Text>

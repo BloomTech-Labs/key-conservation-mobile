@@ -74,7 +74,8 @@ const initialState = {
   allCampaigns: [],
   firstLogin: false,
   campaignsToggled: [],
-  mediaUpload: ''
+  mediaUpload: '',
+  token: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -197,7 +198,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getCampaigns: false },
-        allCampaigns: campaigns
+        allCampaigns: campaigns,
+        token: action.token
       };
     case GET_CAMPAIGNS_ERROR:
       return {

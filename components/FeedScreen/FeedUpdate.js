@@ -94,7 +94,7 @@ const FeedUpdate = props => {
       )}
       <View>
         <View style={styles.updateBar}>
-          <Text style={styles.updateBarText}>UPDATE</Text>
+          <Text style={styles.updateBarText}>Update</Text>
         </View>
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampUpdate}>
           <Image
