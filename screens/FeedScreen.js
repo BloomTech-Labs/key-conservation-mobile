@@ -14,7 +14,7 @@ class FeedScreen extends React.Component {
     return {
       title: 'Feed',
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: '#000000'
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
