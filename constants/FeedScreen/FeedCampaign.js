@@ -2,6 +2,11 @@ import { Dimensions } from 'react-native';
 
 const deviceWidth = Dimensions.get('window').width;
 export default {
+  demarcation: {
+    height: 4,
+    width: '100%',
+    backgroundColor: '#dfe1eb'
+  },
   feedContainer: {
     flex: 1,
     backgroundColor: '#fff'
@@ -33,8 +38,9 @@ export default {
   },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
-    resizeMode: 'contain',
-    height: deviceWidth <= 415 ? deviceWidth : 415
+    flex: 1,
+    height: deviceWidth,
+    width: deviceWidth,
   },
   goToCampaignButton: {
     backgroundColor: '#00FF9D',
@@ -61,6 +67,10 @@ export default {
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 16
   },
+  comments: {
+    marginLeft: 15,
+    paddingTop: 15
+  },
   timeText: {
     color: '#929292',
     fontSize: 10,
@@ -69,5 +79,17 @@ export default {
   },
   readMore: {
     color: '#929292'
+  },
+  urgencyBar: { 
+    backgroundColor: '#323338',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 37,
+    width: '100%'
+  },
+  urgencyBarText: { 
+    fontFamily: 'OpenSans-SemiBold',
+    fontSize: 18,
+    color: '#fff'
   }
 };

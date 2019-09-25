@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 
@@ -59,6 +59,8 @@ const FeedCampaign = props => {
     }
   }
 
+  // if (data.)
+
   const goToProfile = async () => {
     await dispatch(getProfileData(data.users_id));
     AmpEvent('Select Profile from Campaign', {
@@ -80,7 +82,7 @@ const FeedCampaign = props => {
   const toggleText = () => {
     dispatch(toggleCampaignText(data.camp_id));
   };
-
+  console.log('feed campaign, data check', data)
   return (
     <View style={styles.container}>
       <ListItem
@@ -93,6 +95,10 @@ const FeedCampaign = props => {
         leftAvatar={{ source: { uri: data.profile_image } }}
         subtitle={data.location}
       />
+      <View style={updateStyles}>
+      {/* <View style={styles.urgencyBar}> */}
+        <Text style={styles.urgencyBarText}>updddate here</Text>
+      </View>
       <View>
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
           <Image
@@ -121,9 +127,30 @@ const FeedCampaign = props => {
           </Text>
         )}
       </View>
+      <View style={styles.comments}>
+        {data.comments_length >= 1 ? (
+          data.comments_length === 1 ? (
+            <Text>{data.comments_length} comment</Text>
+          ) : (
+            <Text>{data.comments_length} comments</Text>
+          )
+        ) : null}
+      </View>
+      {/* <FeedComment /> */}
       <Text style={styles.timeText}>{timeDiff}</Text>
+      <View style={styles.demarcation}></View>
     </View>
   );
 };
+
+let updateColor;
+
+const updateStyles = {
+  backgroundColor: '#323338',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: 37,
+  width: '100%'
+}
 
 export default FeedCampaign;
