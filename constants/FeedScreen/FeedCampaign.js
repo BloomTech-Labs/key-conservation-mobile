@@ -1,56 +1,56 @@
-import { Dimensions } from 'react-native';
+import { Dimensions } from "react-native";
 
-const deviceWidth = Dimensions.get('window').width;
+const deviceWidth = Dimensions.get("window").width;
 export default {
   demarcation: {
     height: 4,
-    width: '100%',
-    backgroundColor: '#dfe1eb'
+    width: "100%",
+    backgroundColor: "#fff"
   },
   feedContainer: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: "#fff"
   },
   searchIcon: {
     marginRight: 20
   },
   container: {
-    justifyContent: 'center',
+    justifyContent: "center",
     paddingBottom: 35
   },
   feedContainer: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: "#fff"
   },
   searchIcon: {
     marginRight: 20
   },
   timeText: {
-    color: '#929292',
+    color: "#929292",
     fontSize: 10,
     marginLeft: 15,
     marginTop: 10
   },
   orgTitleView: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: "OpenSans-SemiBold",
     fontSize: 16,
-    fontWeight: 'bold'
+    fontWeight: "bold"
   },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
     flex: 1,
     height: deviceWidth,
-    width: deviceWidth,
+    width: deviceWidth
   },
   goToCampaignButton: {
-    backgroundColor: '#00FF9D',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#00FF9D",
+    alignItems: "center",
+    justifyContent: "center",
     height: 37,
-    width: '100%'
+    width: "100%"
   },
   goToCampaignText: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: "OpenSans-SemiBold",
     fontSize: 18
   },
   campDesc: {
@@ -59,12 +59,12 @@ export default {
     marginRight: 15
   },
   campDescText: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: "OpenSans-Regular",
     fontSize: 14,
     lineHeight: 19
   },
   campDescName: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: "OpenSans-SemiBold",
     fontSize: 16
   },
   comments: {
@@ -72,12 +72,12 @@ export default {
     paddingTop: 15
   },
   timeText: {
-    color: '#929292',
+    color: "#929292",
     fontSize: 10,
     marginLeft: 15,
     marginTop: 10
   },
   readMore: {
-    color: '#929292'
+    color: "#929292"
   }
 };
