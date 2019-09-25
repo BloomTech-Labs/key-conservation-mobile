@@ -41,8 +41,8 @@ export default {
   inputWrapper: {
     flexDirection: "row",
     height: 48,
-    width: 280,
-    marginLeft: 5,
+    width: 300,
+    marginLeft: 8,
     borderRadius: 5,
     backgroundColor: "#f7f9fc"
   },
@@ -110,6 +110,7 @@ export default {
   icon: {
     fontSize: 30,
     marginTop: 9,
+    marginRight: 10,
     color: "#00FF9D"
   }
 };
