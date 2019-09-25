@@ -1,37 +1,37 @@
-import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
-import { ScrollView, NavigationEvents } from 'react-navigation';
-import { connect } from 'react-redux';
-import { getCampaigns } from '../store/actions';
-import FeedCampaign from '../components/FeedScreen/FeedCampaign';
-import FeedUpdate from '../components/FeedScreen/FeedUpdate';
-import SvgUri from 'react-native-svg-uri';
-import styles from '../constants/screens/FeedScreen';
-import { AmpInit } from '../components/withAmplitude';
+import React from "react";
+import { Text, View, TouchableOpacity } from "react-native";
+import { ScrollView, NavigationEvents } from "react-navigation";
+import { connect } from "react-redux";
+import { getCampaigns } from "../store/actions";
+import FeedCampaign from "../components/FeedScreen/FeedCampaign";
+import FeedUpdate from "../components/FeedScreen/FeedUpdate";
+import SvgUri from "react-native-svg-uri";
+import styles from "../constants/screens/FeedScreen";
+import { AmpInit } from "../components/withAmplitude";
 
 class FeedScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Feed',
+      title: "Feed",
       headerStyle: {
-        backgroundColor: '#000000'
+        backgroundColor: "#323338"
       },
-      headerTintColor: '#fff',
+      headerTintColor: "#fff",
       headerTitleStyle: {
-        textAlign: 'center',
+        textAlign: "center",
         flexGrow: 1,
-        alignSelf: 'center',
-        fontFamily: 'OpenSans-SemiBold'
+        alignSelf: "center",
+        fontFamily: "OpenSans-SemiBold"
       },
       headerLeft: <View />,
       headerRight: (
         <TouchableOpacity
-          onPress={() => navigation.navigate('Search')}
+          onPress={() => navigation.navigate("Search")}
           style={{
             width: 70,
             height: 45,
-            justifyContent: 'center',
-            alignItems: 'flex-end',
+            justifyContent: "center",
+            alignItems: "flex-end",
             marginRight: 15
           }}
         >
@@ -39,7 +39,7 @@ class FeedScreen extends React.Component {
             fill='#fff'
             width='25'
             height='25'
-            source={require('../assets/icons/search-regular.svg')}
+            source={require("../assets/icons/search-regular.svg")}
           />
         </TouchableOpacity>
       )
