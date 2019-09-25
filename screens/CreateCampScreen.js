@@ -48,7 +48,7 @@ class CreateCampScreen extends React.Component {
     camp_name: "",
     camp_desc: "",
     camp_cta: "",
-    urgency: ""
+    urgency: null
   };
   componentDidMount() {
     this.props.navigation.setParams({ publish: this.publish });
@@ -72,6 +72,7 @@ class CreateCampScreen extends React.Component {
         ...this.state,
         camp_img: this.props.mediaUpload
       };
+      // console.log(camp, 'the posted camp')
       await this.props.postCampaign(camp);
       AmpEvent("Campaign Created");
       this.props.navigation.navigate("Home");
@@ -84,14 +85,14 @@ class CreateCampScreen extends React.Component {
       camp_name: "",
       camp_desc: "",
       camp_cta: "",
-      urgency: ""
+      urgency: null
     });
   };
 
   setUrgency = urgencyLevel => {
     if (this.state.urgency === urgencyLevel) {
       this.setState({
-        urgency: ''
+        urgency: null
       });
     } else {
       this.setState({
@@ -182,10 +183,6 @@ class CreateCampScreen extends React.Component {
                 <TouchableOpacity style={styles.urgencyOption} onPress={() => this.setUrgency("Urgent")}>
                   <Text>Urgent</Text>
                   {this.state.urgency === "Urgent" ? <Text>✔</Text> : null}
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.urgencyOption} onPress={() => this.setUrgency("Pressing")}>
-                  <Text>Pressing</Text>
-                  {this.state.urgency === "Pressing" ? <Text>✔</Text> : null}
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.urgencyOption} onPress={() => this.setUrgency("Longterm")}>
                   <Text>Longterm</Text>

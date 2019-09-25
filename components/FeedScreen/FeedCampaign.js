@@ -83,6 +83,7 @@ const FeedCampaign = props => {
 
   return (
     <View style={styles.container}>
+      <Text>{data.urgency}</Text>
       <ListItem
         onPress={goToProfile}
         title={
