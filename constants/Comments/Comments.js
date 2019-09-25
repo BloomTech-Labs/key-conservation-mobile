@@ -1,6 +1,7 @@
 export default {
   commentWrapper: {
-    flexDirection: "column"
+    flexDirection: "column",
+    marginLeft: 3
   },
   commentView: {
     flexDirection: "row"
@@ -13,7 +14,8 @@ export default {
   username: {
     marginLeft: 3,
     fontWeight: "bold",
-    fontFamily: "OpenSans-SemiBold"
+    fontFamily: "OpenSans-SemiBold",
+    paddingBottom: 3.5
   },
   commentBody: {
     marginLeft: 3

@@ -81,12 +81,13 @@ export default {
   },
   campDescName: {
     fontFamily: "OpenSans-SemiBold",
-    fontSize: 16,
-    lineHeight: 22
+    fontSize: 17,
+    lineHeight: 22,
+    paddingBottom: 10
   },
   campDesc: {
     fontFamily: "OpenSans-Regular",
-    fontSize: 14,
+    fontSize: 15,
     lineHeight: 19
   },
   listUsername: {
@@ -115,8 +116,8 @@ export default {
   timeText: {
     color: "#929292",
     fontSize: 10,
-    marginLeft: 5,
+    marginLeft: 0,
     marginRight: 15,
-    marginTop: 17
+    marginTop: 15
   }
 };
