@@ -60,18 +60,19 @@ export default {
   },
   campDescText: {
     fontFamily: "OpenSans-Regular",
-    fontSize: 14,
+    fontSize: 15,
     lineHeight: 19
   },
   campDescName: {
     fontFamily: "OpenSans-SemiBold",
-    fontSize: 16,
+    fontSize: 17,
     paddingBottom: 10
   },
   comments: {
+    fontFamily: "OpenSans-SemiBold",
+    fontSize: 14,
     marginLeft: 15,
-    paddingTop: 15,
-    fontWeight: "bold"
+    paddingTop: 12
   },
   timeText: {
     color: "#929292",
