@@ -7,18 +7,19 @@ export default {
     flexDirection: "row"
   },
   replyView: {
-    flexDirection: "row",
-    marginTop: 20
-    // justifyContent: 'center'
+    flexDirection: "row"
   },
   username: {
-    marginLeft: 3,
-    fontWeight: "bold",
     fontFamily: "OpenSans-SemiBold",
-    paddingBottom: 3.5
+    fontSize: 15,
+    paddingBottom: 3.5,
+    paddingLeft: 10,
+    marginTop: 3
   },
   commentBody: {
-    marginLeft: 3
+    paddingLeft: 10,
+    fontSize: 15,
+    paddingHeight: 20
   },
   commentText: {
     flexDirection: "column",
@@ -28,9 +29,6 @@ export default {
   input: {
     minHeight: 48,
     width: 250,
-    // fontFamily: 'OpenSans-SemiBold',
-    // borderWidth: 2,
-    // borderColor: 'black',
     paddingTop: 7,
     padding: 5,
     borderRadius: 5,
@@ -55,7 +53,7 @@ export default {
   timeText: {
     color: "#929292",
     fontSize: 10,
-    marginLeft: 38,
+    marginLeft: 42,
     marginRight: 15,
     marginTop: 10
   },
