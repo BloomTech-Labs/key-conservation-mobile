@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   TextInput,
   Text,
@@ -7,48 +7,48 @@ import {
   Platform,
   Alert,
   TouchableOpacity
-} from 'react-native';
-import { ScrollView, NavigationEvents } from 'react-navigation';
-import { connect } from 'react-redux';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { postCampaign, getCampaigns, clearMedia } from '../store/actions';
-import BackButton from '../components/BackButton';
-import PublishButton from '../components/PublishButton';
-import { AmpEvent } from '../components/withAmplitude';
+} from "react-native";
+import { ScrollView, NavigationEvents } from "react-navigation";
+import { connect } from "react-redux";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { postCampaign, getCampaigns, clearMedia } from "../store/actions";
+import BackButton from "../components/BackButton";
+import PublishButton from "../components/PublishButton";
+import { AmpEvent } from "../components/withAmplitude";
 
-import UploadMedia from '../components/UploadMedia';
+import UploadMedia from "../components/UploadMedia";
 
-import styles from '../constants/screens/CreateCampScreen';
+import styles from "../constants/screens/CreateCampScreen";
 
 class CreateCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'New Campaign',
+      title: "New Campaign",
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: "#323338"
       },
-      headerTintColor: '#fff',
+      headerTintColor: "#fff",
       headerTitleStyle: {
-        textAlign: 'center',
+        textAlign: "center",
         flexGrow: 1,
-        alignSelf: 'center',
-        fontFamily: 'OpenSans-SemiBold'
+        alignSelf: "center",
+        fontFamily: "OpenSans-SemiBold"
       },
       headerLeft: <BackButton navigation={navigation} />,
       headerRight: (
         <PublishButton
           navigation={navigation}
-          pressAction={navigation.getParam('publish')}
+          pressAction={navigation.getParam("publish")}
         />
       )
     };
   };
   state = {
     users_id: this.props.currentUserProfile.id,
-    camp_name: '',
-    camp_desc: '',
-    camp_cta: '',
-    urgency: ''
+    camp_name: "",
+    camp_desc: "",
+    camp_cta: "",
+    urgency: ""
   };
   componentDidMount() {
     this.props.navigation.setParams({ publish: this.publish });
@@ -60,57 +60,59 @@ class CreateCampScreen extends React.Component {
       !this.state.camp_desc ||
       !this.state.camp_cta
     ) {
-      const errorMessage = 
-        'Form incomplete. Please include:' +
-        (this.props.mediaUpload ? '' : '\n    - Campaign Image') +
-        (this.state.camp_name ? '' : '\n    - Campaign Name') +
-        (this.state.camp_desc ? '' : '\n    - Campaign Details') +
-        (this.state.camp_cta ? '' : '\n    - Donation Link')
-      return (
-        Alert.alert(
-          'Error',
-          errorMessage
-        ));
+      const errorMessage =
+        "Form incomplete. Please include:" +
+        (this.props.mediaUpload ? "" : "\n    - Campaign Image") +
+        (this.state.camp_name ? "" : "\n    - Campaign Name") +
+        (this.state.camp_desc ? "" : "\n    - Campaign Details") +
+        (this.state.camp_cta ? "" : "\n    - Donation Link");
+      return Alert.alert("Error", errorMessage);
     } else {
       const camp = {
         ...this.state,
         camp_img: this.props.mediaUpload
       };
       await this.props.postCampaign(camp);
-      AmpEvent('Campaign Created');
-      this.props.navigation.navigate('Home');
+      AmpEvent("Campaign Created");
+      this.props.navigation.navigate("Home");
     }
   };
   clearState = () => {
     this.setState({
       users_id: this.props.currentUserProfile.id,
       camp_img: this.props.mediaUpload,
-      camp_name: '',
-      camp_desc: '',
-      camp_cta: ''
+      camp_name: "",
+      camp_desc: "",
+      camp_cta: "",
+      urgency: ""
     });
   };
 
-  setUrgency = (urgencyLevel) => {
-    this.setState({
-      urgency: urgencyLevel
-    })
+  setUrgency = urgencyLevel => {
+    if (this.state.urgency === urgencyLevel) {
+      this.setState({
+        urgency: ''
+      });
+    } else {
+      this.setState({
+        urgency: urgencyLevel
+      });
+    }
   };
 
-  
   render() {
-    console.log(this.state, 'state')
+    console.log(this.state, "state");
     return (
       <KeyboardAvoidingView
         behavior='height'
         keyboardVerticalOffset={90}
-        enabled={Platform.OS === 'android' ? true : false}
+        enabled={Platform.OS === "android" ? true : false}
       >
         <KeyboardAwareScrollView>
           <ScrollView
             contentContainerStyle={{
-              backgroundColor: '#fff',
-              minHeight: '100%'
+              backgroundColor: "#fff",
+              minHeight: "100%"
             }}
           >
             <NavigationEvents
@@ -129,10 +131,10 @@ class CreateCampScreen extends React.Component {
                   style={styles.inputContain}
                   onChangeText={text => this.setState({ camp_name: text })}
                   onSubmitEditing={() => {
-                    if (Platform.OS === 'android') return;
+                    if (Platform.OS === "android") return;
                     this.campImgUrlInput.focus();
                   }}
-                  blurOnSubmit={Platform.OS === 'android'}
+                  blurOnSubmit={Platform.OS === "android"}
                   value={this.state.camp_name}
                 />
               </View>
@@ -173,10 +175,22 @@ class CreateCampScreen extends React.Component {
               </View>
               <View>
                 <Text style={styles.sectionsText}>Urgency Level</Text>
-                <TouchableOpacity onPress={() => this.setUrgency('Critical')}><Text>Critical</Text>{ this.state.urgency === 'Critical' ? <Text>X</Text> : null }</TouchableOpacity>
-                <TouchableOpacity onPress={() => this.setUrgency('Urgent')}><Text>Urgent</Text>{ this.state.urgency === 'Urgent' ? <Text>X</Text> : null }</TouchableOpacity>
-                <TouchableOpacity onPress={() => this.setUrgency('Pressing')}><Text>Pressing</Text>{ this.state.urgency === 'Pressing' ? <Text>X</Text> : null }</TouchableOpacity>
-                <TouchableOpacity onPress={() => this.setUrgency('Longterm')}><Text>Longterm</Text>{ this.state.urgency === 'Longterm' ? <Text>X</Text> : null }</TouchableOpacity>
+                <TouchableOpacity style={styles.urgencyOption} onPress={() => this.setUrgency("Critical")}>
+                  <Text>Critical</Text>
+                  {this.state.urgency === "Critical" ? <Text>✔</Text> : null}
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.urgencyOption} onPress={() => this.setUrgency("Urgent")}>
+                  <Text>Urgent</Text>
+                  {this.state.urgency === "Urgent" ? <Text>✔</Text> : null}
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.urgencyOption} onPress={() => this.setUrgency("Pressing")}>
+                  <Text>Pressing</Text>
+                  {this.state.urgency === "Pressing" ? <Text>✔</Text> : null}
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.urgencyOption} onPress={() => this.setUrgency("Longterm")}>
+                  <Text>Longterm</Text>
+                  {this.state.urgency === "Longterm" ? <Text>✔</Text> : null}
+                </TouchableOpacity>
               </View>
             </View>
           </ScrollView>
@@ -185,7 +199,6 @@ class CreateCampScreen extends React.Component {
     );
   }
 }
-
 
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,

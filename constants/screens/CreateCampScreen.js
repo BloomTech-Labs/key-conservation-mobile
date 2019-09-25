@@ -81,5 +81,12 @@ export default {
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 20,
     marginBottom: 5
+  },
+  urgencyOption: {
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
+    borderTopColor: 'gray',
+    borderTopWidth: 1,
   }
 };
