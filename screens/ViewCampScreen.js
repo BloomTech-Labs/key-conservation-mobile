@@ -25,7 +25,7 @@ import styles from '../constants/screens/ViewCampScreen';
 class ViewCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Campaignz',
+      title: 'Campaigns',
       headerStyle: {
         backgroundColor: '#323338'
       },
