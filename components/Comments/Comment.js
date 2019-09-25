@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { View, Text, Button, Image, TouchableOpacity } from 'react-native';
-import { Avatar } from 'react-native-elements';
-import { useDispatch } from 'react-redux';
-import moment from 'moment';
-import axios from 'axios';
-import { ListItem } from 'react-native-elements';
-import { AmpEvent } from '../withAmplitude';
+import React, { useState } from "react";
+import { View, Text, Button, Image, TouchableOpacity } from "react-native";
+import { Avatar } from "react-native-elements";
+import { useDispatch } from "react-redux";
+import moment from "moment";
+import axios from "axios";
+import { ListItem } from "react-native-elements";
+import { AmpEvent } from "../withAmplitude";
 import {
   getProfileData,
   getCampaign,
   toggleCampaignText
-} from '../../store/actions';
+} from "../../store/actions";
 
-import styles from '../../constants/Comments/Comments';
+import styles from "../../constants/Comments/Comments";
 
 const Comment = ({
   comment,
@@ -28,29 +28,29 @@ const Comment = ({
   const currentTime = moment();
   const postTime = moment(createdAt);
   let timeDiff;
-  if (currentTime.diff(postTime, 'days') < 1) {
-    if (currentTime.diff(postTime, 'hours') < 1) {
-      if (currentTime.diff(postTime, 'minutes') < 1) {
-        timeDiff = 'just now';
+  if (currentTime.diff(postTime, "days") < 1) {
+    if (currentTime.diff(postTime, "hours") < 1) {
+      if (currentTime.diff(postTime, "minutes") < 1) {
+        timeDiff = "just now";
       } else {
-        if (currentTime.diff(postTime, 'minutes') === 1) {
-          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO`;
+        if (currentTime.diff(postTime, "minutes") === 1) {
+          timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTE AGO`;
         } else {
-          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`;
+          timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTES AGO`;
         }
       }
     } else {
-      if (currentTime.diff(postTime, 'hours') === 1) {
-        timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO`;
+      if (currentTime.diff(postTime, "hours") === 1) {
+        timeDiff = `${currentTime.diff(postTime, "hours")} HOUR AGO`;
       } else {
-        timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`;
+        timeDiff = `${currentTime.diff(postTime, "hours")} HOURS AGO`;
       }
     }
   } else {
-    if (currentTime.diff(postTime, 'days') === 1) {
-      timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO`;
+    if (currentTime.diff(postTime, "days") === 1) {
+      timeDiff = `${currentTime.diff(postTime, "days")} DAY AGO`;
     } else {
-      timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
+      timeDiff = `${currentTime.diff(postTime, "days")} DAYS AGO`;
     }
   }
 
@@ -68,7 +68,7 @@ const Comment = ({
           {comment.users_id === selectedCampaign.users_id ? (
             <Avatar
               rounded
-              containerStyle={{ borderWidth: 1, borderColor: '#00FF9D' }}
+              containerStyle={{ borderWidth: 1, borderColor: "#00FF9D" }}
               source={{
                 uri: comment.profile_image
               }}
@@ -82,7 +82,7 @@ const Comment = ({
             />
           )}
         </View>
-        <View style={styles.commentText}>
+        <View>
           <Text style={styles.username}>{comment.username}</Text>
           <Text style={styles.commentBody}>{comment.comment_body}</Text>
         </View>
