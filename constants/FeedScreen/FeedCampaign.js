@@ -80,13 +80,6 @@ export default {
   readMore: {
     color: '#929292'
   },
-  urgencyBar: { 
-    backgroundColor: '#323338',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 37,
-    width: '100%'
-  },
   urgencyBarText: { 
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 18,

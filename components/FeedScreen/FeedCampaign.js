@@ -58,8 +58,17 @@ const FeedCampaign = props => {
       timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
     }
   }
-
-  // if (data.)
+  
+  let updateColor;
+  if (data.urgency === 'Critical') {
+    updateColor = '#FF6C7C'
+  } else if (data.urgency === 'Urgent') {
+    updateColor = '#FFDB11'
+  } else if (data.urgency === 'Longterm') {
+    updatecolor = '#66FFA5'
+  } else {
+    updateColor = '#323338'
+  }
 
   const goToProfile = async () => {
     await dispatch(getProfileData(data.users_id));
@@ -83,6 +92,7 @@ const FeedCampaign = props => {
     dispatch(toggleCampaignText(data.camp_id));
   };
   console.log('feed campaign, data check', data)
+  console.log('updateColor', updateColor)
   return (
     <View style={styles.container}>
       <ListItem
@@ -96,7 +106,6 @@ const FeedCampaign = props => {
         subtitle={data.location}
       />
       <View style={updateStyles}>
-      {/* <View style={styles.urgencyBar}> */}
         <Text style={styles.urgencyBarText}>updddate here</Text>
       </View>
       <View>
@@ -143,10 +152,9 @@ const FeedCampaign = props => {
   );
 };
 
-let updateColor;
-
 const updateStyles = {
   backgroundColor: '#323338',
+  // backgroundColor: updateColor, 
   alignItems: 'center',
   justifyContent: 'center',
   height: 37,

@@ -2,8 +2,8 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 17004,
+  "packagerPid": 3000,
   "expoServerNgrokUrl": "https://r5-zcz.samanthae.frontend-mobile.exp.direct",
   "packagerNgrokUrl": "https://packager.r5-zcz.samanthae.frontend-mobile.exp.direct",
-  "ngrokPid": 7248
+  "ngrokPid": 17000
 }
