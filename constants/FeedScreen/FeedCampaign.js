@@ -29,7 +29,7 @@ export default {
     color: "#929292",
     fontSize: 10,
     marginLeft: 15,
-    marginTop: 10
+    marginTop: 15
   },
   orgTitleView: {
     fontFamily: "OpenSans-SemiBold",
@@ -65,11 +65,13 @@ export default {
   },
   campDescName: {
     fontFamily: "OpenSans-SemiBold",
-    fontSize: 16
+    fontSize: 16,
+    paddingBottom: 10
   },
   comments: {
     marginLeft: 15,
-    paddingTop: 15
+    paddingTop: 15,
+    fontWeight: "bold"
   },
   timeText: {
     color: "#929292",
