@@ -93,7 +93,8 @@ export default {
   listUsername: {
     fontFamily: "OpenSans-SemiBold",
     fontSize: 16,
-    lineHeight: 22
+    lineHeight: 22,
+    fontWeight: 'bold'
   },
   donateView: {
     alignItems: "center",
