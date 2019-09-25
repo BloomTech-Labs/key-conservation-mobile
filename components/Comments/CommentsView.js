@@ -132,7 +132,7 @@ class CommentsView extends React.Component {
           `${seturl}comments/${this.props.selectedCampaign.camp_id}`,
           {
             users_id: this.props.currentUserProfile.id,
-            comment_body: this.state.comment.replace(/\s/g, '')
+            comment_body: this.state.comment.trim()
           },
           {
             headers: {
@@ -169,7 +169,7 @@ class CommentsView extends React.Component {
         }
       })
       .then(res => {
-        console.log(res.data.data, 'deleteltletletletltl');
+        console.log(res.data.data, 'deleteltletletletl');
         this.setState({
           ...this.state,
           campaignComments: this.state.campaignComments.filter(

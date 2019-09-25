@@ -1,12 +1,10 @@
 {
   "devToolsPort": 19002,
-
   "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 13244,
-  "expoServerNgrokUrl": "https://x3-dnc.jamieg44.frontend-mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.x3-dnc.jamieg44.frontend-mobile.exp.direct",
-  "ngrokPid": 17120,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "webpackServerPort": null
 }
-
