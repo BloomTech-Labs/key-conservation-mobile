@@ -107,9 +107,7 @@ export default {
     fontSize: 28,
     marginTop: 15,
     marginLeft: 15,
-    marginRight: 5
-    // alignSelf: 'center',
-    // marginHorizontal: 5
+    marginRight: 15
   },
   iconRow: {
     flexDirection: "row"
