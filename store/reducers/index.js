@@ -214,10 +214,14 @@ const reducer = (state = initialState, action) => {
         error: ''
       };
     case GET_CAMPAIGN_SUCCESS:
+      const campaign = action.payload;
+      campaign.comments.sort(function(a, b) {
+        return moment(a.created_at) - moment(b.created_at);
+      });
       return {
         ...state,
         pending: { ...state.pending, getCampaign: false },
-        selectedCampaign: action.payload
+        selectedCampaign: campaign
       };
     case GET_CAMPAIGN_ERROR:
       return {

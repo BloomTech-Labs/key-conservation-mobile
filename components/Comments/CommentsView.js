@@ -9,6 +9,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import moment from 'moment';
 import { ScrollView, NavigationEvents } from 'react-navigation';
 import { Avatar } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
@@ -29,6 +30,8 @@ const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 class CommentsView extends React.Component {
   state = {
     comment: '',
+    latestComment: '',
+    posted: false,
     campaignComments: [],
     token: '',
     commentsVisible: 3,
@@ -62,11 +65,7 @@ class CommentsView extends React.Component {
       );
     }
     return (
-      <KeyboardAvoidingView
-        behavior='height'
-        enabled
-        keyboardVerticalOffset={20}
-      >
+      <KeyboardAvoidingView>
         <ScrollView>
           <View>
             <FlatList
@@ -88,6 +87,47 @@ class CommentsView extends React.Component {
               }}
             />
           </View>
+          {this.state.posted === true &&
+          this.state.campaignComments.length > this.state.commentsVisible ? (
+            <View>
+              <View style={styles.commentView}>
+                <View style={styles.avatar}>
+                  {this.props.currentUserProfile.users_id ===
+                  this.props.selectedCampaign.users_id ? (
+                    <Avatar
+                      rounded
+                      containerStyle={{
+                        borderWidth: 1,
+                        borderColor: '#00FF9D'
+                      }}
+                      source={{
+                        uri: this.props.currentUserProfile.profile_image
+                      }}
+                    />
+                  ) : (
+                    <Avatar
+                      rounded
+                      source={{
+                        uri: this.props.currentUserProfile.profile_image
+                      }}
+                    />
+                  )}
+                  {/* Displays latest comment unless the user is viewing all the comments. */}
+                </View>
+                <View style={styles.commentText}>
+                  <Text style={styles.username}>
+                    {this.props.currentUserProfile.username}
+                  </Text>
+                  <Text style={styles.commentBody}>
+                    {this.state.latestComment}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.interaction}>
+                <Text style={styles.timeText}>just now</Text>
+              </View>
+            </View>
+          ) : null}
           {this.state.campaignComments.length > this.state.commentsVisible && (
             <View style={styles.moreContainer}>
               <TouchableOpacity onPress={() => this.addMoreComments()}>
@@ -97,8 +137,9 @@ class CommentsView extends React.Component {
               </TouchableOpacity>
             </View>
           )}
+          {/* View More Comments is visible if the length of campaignComments is greater than the value of commentsVisible */}
           <View style={styles.replyView}>
-            <View style={styles.replyAvatar}>
+            <View>
               <Avatar
                 rounded
                 source={{
@@ -109,11 +150,22 @@ class CommentsView extends React.Component {
             <View style={styles.inputWrapper}>
               <TextInput
                 placeholder='Be a part of the conversation...'
-                onChangeText={text => this.setState({ comment: text })}
-                multiline={true}
+                onChangeText={text =>
+                  this.setState({ comment: text, latestComment: text })
+                }
+                // multiline={true}
                 style={styles.input}
                 value={this.state.comment}
                 textAlignVertical={'center'}
+                onSubmitEditing={() => {
+                  if (Platform.OS === 'android') return;
+                  this.usernameInput.focus();
+                }}
+                blurOnSubmit={Platform.OS === 'android'}
+                ref={input => {
+                  this.commentInput = input;
+                }}
+                returnKeyType='next'
               />
               <TouchableOpacity onPress={() => this.makeComment()}>
                 <FontAwesome name='paper-plane' style={styles.icon} />
@@ -143,10 +195,14 @@ class CommentsView extends React.Component {
           }
         )
         .then(res => {
+          const comments = res.data.data.sort(function(a, b) {
+            return moment(a.created_at) - moment(b.created_at);
+          });
           this.setState({
             ...this.state,
-            campaignComments: res.data.data,
-            comment: ''
+            campaignComments: comments,
+            comment: '',
+            posted: true
           });
         })
         .catch(err => {

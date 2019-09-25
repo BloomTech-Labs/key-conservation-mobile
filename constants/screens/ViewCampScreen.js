@@ -72,7 +72,7 @@ export default {
     // height: deviceWidth <= 415 ? deviceWidth : 415
     flex: 1,
     height: deviceWidth,
-    width: deviceWidth,
+    width: deviceWidth
   },
   campDescContain: {
     marginLeft: 15,
@@ -92,7 +92,8 @@ export default {
   listUsername: {
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 16,
-    lineHeight: 22
+    lineHeight: 22,
+    fontWeight: 'bold'
   },
   donateView: {
     alignItems: 'center',
