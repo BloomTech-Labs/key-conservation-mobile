@@ -153,7 +153,6 @@ class CommentsView extends React.Component {
                 onChangeText={text =>
                   this.setState({ comment: text, latestComment: text })
                 }
-                // multiline={true}
                 style={styles.input}
                 value={this.state.comment}
                 textAlignVertical={'center'}
@@ -225,12 +224,13 @@ class CommentsView extends React.Component {
         }
       })
       .then(res => {
-        console.log(res.data.data, 'deleteltletletletl');
+        console.log(res.data.data, 'deleting stuff');
+        const filteredCampaigns = this.state.campaignComments.filter(
+          c => c.comment_id !== res.data.data
+        );
         this.setState({
           ...this.state,
-          campaignComments: this.state.campaignComments.filter(
-            c => c.comment_id !== res.data.data
-          )
+          campaignComments: filteredCampaigns
         });
       })
       .catch(err => {
@@ -241,6 +241,8 @@ class CommentsView extends React.Component {
         });
       });
   };
+
+  // Currently deletComment won't trigger a rerender
 
   addMoreComments = () => {
     this.setState({

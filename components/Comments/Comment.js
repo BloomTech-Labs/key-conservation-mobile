@@ -22,6 +22,7 @@ const Comment = ({
 }) => {
   // console.log(currentUserProfile, 'Proppps for comments and id');
   const [confirm, setConfirm] = useState(false);
+  const [deleted, setDeleted] = useState(false);
 
   const createdAt = comment.created_at;
   const currentTime = moment();
@@ -53,6 +54,12 @@ const Comment = ({
     }
   }
 
+  childDelete = id => {
+    setDeleted(true);
+    setConfirm(false);
+    deleteComment(id);
+  };
+
   // console.log(props.deleteComment, 'DELETTEETT');
   return (
     <View style={styles.commentWrapper}>
@@ -83,7 +90,7 @@ const Comment = ({
       <View style={styles.interaction}>
         <Text style={styles.timeText}>{timeDiff}</Text>
         {currentUserProfile.id === comment.users_id ? (
-          confirm === false ? (
+          confirm === false && deleted === false ? (
             <Text style={styles.deleteText} onPress={() => setConfirm(true)}>
               Delete
             </Text>
@@ -94,7 +101,7 @@ const Comment = ({
             <Text style={styles.confirmText}>Are you sure?</Text>
             <Text
               style={styles.confirmText}
-              onPress={() => deleteComment(comment.comment_id)}
+              onPress={() => childDelete(comment.comment_id)}
             >
               Yes
             </Text>
@@ -102,6 +109,11 @@ const Comment = ({
             <Text style={styles.confirmNo} onPress={() => setConfirm(false)}>
               No
             </Text>
+          </View>
+        ) : null}
+        {deleted === true ? (
+          <View style={styles.confirmation}>
+            <Text style={styles.confirmText}>Deleted</Text>
           </View>
         ) : null}
       </View>
