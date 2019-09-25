@@ -124,11 +124,11 @@ const FeedCampaign = props => {
       <View>
         {data.comments_length >= 1 ? (
           data.comments_length === 1 ? (
-            <Text style={styles.comments}>
+            <Text style={styles.comments} onPress={goToCampaign}>
               View {data.comments_length} comment
             </Text>
           ) : (
-            <Text style={styles.comments}>
+            <Text style={styles.comments} onPress={goToCampaign}>
               View all {data.comments_length} comments
             </Text>
           )
