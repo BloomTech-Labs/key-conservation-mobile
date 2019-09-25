@@ -6,7 +6,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   Alert,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from "react-native";
 import { ScrollView, NavigationEvents } from "react-navigation";
 import { connect } from "react-redux";
@@ -19,6 +20,7 @@ import { AmpEvent } from "../components/withAmplitude";
 import UploadMedia from "../components/UploadMedia";
 
 import styles from "../constants/screens/CreateCampScreen";
+import CheckMark from '../assets/icons/checkmark-24.png'
 
 class CreateCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -176,18 +178,21 @@ class CreateCampScreen extends React.Component {
               </View>
               <View>
                 <Text style={styles.sectionsText}>Urgency Level</Text>
-                <TouchableOpacity style={styles.urgencyOption} onPress={() => this.setUrgency("Critical")}>
-                  <Text>Critical</Text>
-                  {this.state.urgency === "Critical" ? <Text>✔</Text> : null}
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.urgencyOption} onPress={() => this.setUrgency("Urgent")}>
-                  <Text>Urgent</Text>
-                  {this.state.urgency === "Urgent" ? <Text>✔</Text> : null}
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.urgencyOption} onPress={() => this.setUrgency("Longterm")}>
-                  <Text>Longterm</Text>
-                  {this.state.urgency === "Longterm" ? <Text>✔</Text> : null}
-                </TouchableOpacity>
+                <Text style={{color: '#C4C4C4'}}>Select one. This can be changed at a future date.</Text>
+                <View style={styles.urgencyMenu}>
+                  <TouchableOpacity style={styles.urgencyOption} onPress={() => this.setUrgency("Critical")}>
+                    <Text style={{color: '#FF6C7C'}}>Critical</Text>
+                    {this.state.urgency === "Critical" ? <Image style={styles.checkMark} source={CheckMark} /> : null}
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.urgencyOption} onPress={() => this.setUrgency("Urgent")}>
+                    <Text style={{color: '#FFDB11'}}>Urgent</Text>
+                    {this.state.urgency === "Urgent" ? <Image style={styles.checkMark} source={CheckMark} /> : null}
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.urgencyOption} onPress={() => this.setUrgency("Longterm")}>
+                    <Text style={{color: '#00FF9D'}}>Longterm</Text>
+                    {this.state.urgency === "Longterm" ? <Image style={styles.checkMark} source={CheckMark} /> : null}
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           </ScrollView>

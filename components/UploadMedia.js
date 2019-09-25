@@ -27,7 +27,8 @@ class UploadMedia extends Component {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [1, 1]
+      aspect: [1, 1],
+      quality: 1
     });
     // console.log(result, 'Pick Image ----------------------------------');
     if (!result.cancelled) {

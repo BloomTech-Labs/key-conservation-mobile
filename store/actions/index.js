@@ -2,8 +2,7 @@ import axios from 'axios';
 
 import * as SecureStore from 'expo-secure-store';
 
-// url for heroku staging vs production branches
-const seturl = 'https://key-conservation-staging.herokuapp.com/api/'
+const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in there URL this function will add it.
@@ -70,8 +69,7 @@ export const getProfileData = (
 
   let user, url;
   if (id) url = `${seturl}users/${id}`;
-  else if (sub)
-    url = `${seturl}users/sub/${sub}`;
+  else if (sub) url = `${seturl}users/sub/${sub}`;
   let token = await SecureStore.getItemAsync('accessToken');
   return axios
     .get(url, {
@@ -207,8 +205,11 @@ export const getCampaigns = () => async dispatch => {
         })
         .then(res => {
           campaigns = campaigns.concat(res.data.campUpdate);
-          // console.log(campaigns, 'camps')
-          dispatch({ type: GET_CAMPAIGNS_SUCCESS, payload: campaigns });
+          dispatch({
+            type: GET_CAMPAIGNS_SUCCESS,
+            payload: campaigns,
+            token: token
+          });
         })
         .catch(err => {
           dispatch({ type: GET_CAMPAIGNS_ERROR, payload: err });
@@ -362,17 +363,13 @@ export const editCampaign = (id, changes) => async dispatch => {
   });
   let token = await SecureStore.getItemAsync('accessToken');
   axios
-    .put(
-      `${seturl}campaigns/${id}`,
-      formData,
-      {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`
-        }
+    .put(`${seturl}campaigns/${id}`, formData, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`
       }
-    )
+    })
     .then(res => {
       dispatch({ type: EDIT_CAMPAIGN_SUCCESS, payload: res.data.editCamp });
     })
@@ -537,4 +534,73 @@ export const clearMedia = () => {
   return {
     type: MEDIA_CLEAR
   };
+};
+
+export const [
+  POST_COMMENT_START,
+  POST_COMMENT_ERROR,
+  POST_COMMENT_SUCCESS,
+  REFETCH_ALL_COMMENTS
+] = ['POST_COMMENT_START', 'POST_COMMENT_ERROR', 'POST_COMMENT_SUCCESS'];
+
+export const commentOnCampaign = (id, body) => async dispatch => {
+  console.log('Did we crack it???');
+  // dispatch({ type: POST_COMMENT_START });
+  let token = await SecureStore.getItemAsync('accessToken');
+  axios
+    .post(
+      `${seturl}comments/${id}`,
+      { users_id: body.users_id, comment_body: body.comment_body },
+      {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    )
+    .then(res => {
+      console.log('Did we get here?');
+      dispatch({ type: POST_COMMENT_SUCCESS, payload: res.data.data });
+      axios.get(`${seturl}comments/${id}`, {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${this.props.token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+    })
+    .catch(err => {
+      // console.lor("Here's my error =====>", err);
+      // dispatch({ type: POST_COMMENT_ERROR, payload: err });
+    });
+};
+
+export const [
+  DELETE_COMMENT_START,
+  DELETE_COMMENT_ERROR,
+  DELETE_COMMENT_SUCCESS
+] = ['DELETE_COMMENT_START', 'DELETE_COMMENT_ERROR', 'DELETE_COMMENT_SUCCESS'];
+
+export const deleteComment = id => async dispatch => {
+  console.log('Did we start deleting it???');
+  dispatch({ type: DELETE_COMMENT_START });
+  let token = await SecureStore.getItemAsync('accessToken');
+  axios
+    .delete(`${seturl}comments/com/${id}`, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => {
+      console.log('Did we get to Delete Comment Succes?');
+      console.log('My data is UP IN HUR---->', res.data.data);
+      dispatch({ type: DELETE_COMMENT_SUCCESS, payload: res.data.data });
+    })
+    .catch(err => {
+      console.lor("Here's my error =====>", err);
+      dispatch({ type: DELETE_COMMENT_ERROR, payload: err });
+    });
 };
