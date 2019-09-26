@@ -166,11 +166,6 @@ class CommentsView extends React.Component {
                 }}
                 returnKeyType='next'
               />
-              {/* <TouchableOpacity onPress={() => this.makeComment()}>
-                <FontAwesome name='paper-plane' style={styles.icon} />
-              </TouchableOpacity> */}
-            </View>
-            <View>
               <TouchableOpacity onPress={() => this.makeComment()}>
                 <FontAwesome name='paper-plane' style={styles.icon} />
               </TouchableOpacity>
