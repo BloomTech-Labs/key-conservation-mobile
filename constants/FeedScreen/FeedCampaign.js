@@ -57,7 +57,8 @@ export default {
   campDesc: {
     marginLeft: 15,
     paddingTop: 15,
-    marginRight: 15
+    marginRight: 15,
+    marginBottom: 15
   },
   campDescText: {
     fontFamily: 'OpenSans-Regular',
