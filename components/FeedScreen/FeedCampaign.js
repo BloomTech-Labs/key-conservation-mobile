@@ -58,7 +58,8 @@ const FeedCampaign = props => {
       timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
     }
   }
-  
+
+  //// All styles for the urgency bar  
   let updateColor;
   if (data.urgency === 'Critical') {
     updateColor = '#FF6C7C'
@@ -69,6 +70,21 @@ const FeedCampaign = props => {
   } else {
     updateColor = '#323338'
   }
+
+  let updateStatus;
+  if (data.urgency) {
+    updateStatus = data.urgency
+  } else {
+    updateStatus = 'Standard'
+  }
+
+  const updateStyles = {
+    backgroundColor: updateColor, 
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 37,
+    width: '100%'
+  }  
 
   const goToProfile = async () => {
     await dispatch(getProfileData(data.users_id));
@@ -106,7 +122,7 @@ const FeedCampaign = props => {
         subtitle={data.location}
       />
       <View style={updateStyles}>
-        <Text style={styles.urgencyBarText}>{data.urgency}</Text>
+        <Text style={styles.urgencyBarText}>{updateStatus}</Text>
       </View>
       <View>
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
@@ -136,7 +152,7 @@ const FeedCampaign = props => {
           </Text>
         )}
       </View>
-      <View style={styles.comments}>
+      {/* <View style={styles.comments}>
         {data.comments_length >= 1 ? (
           data.comments_length === 1 ? (
             <Text>{data.comments_length} comment</Text>
@@ -144,21 +160,12 @@ const FeedCampaign = props => {
             <Text>{data.comments_length} comments</Text>
           )
         ) : null}
-      </View>
+      </View> */}
       {/* <FeedComment /> */}
       <Text style={styles.timeText}>{timeDiff}</Text>
       <View style={styles.demarcation}></View>
     </View>
   );
 };
-
-const updateStyles = {
-  backgroundColor: '#323338',
-  // backgroundColor: updateColor, 
-  alignItems: 'center',
-  justifyContent: 'center',
-  height: 37,
-  width: '100%'
-}
 
 export default FeedCampaign;
