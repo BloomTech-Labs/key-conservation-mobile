@@ -51,11 +51,11 @@ class SearchScreen extends React.Component {
   startGettingCampaigns = () => {
     this.props.getCampaigns();
     this.refreshInterval = setInterval(() => this.props.getCampaigns(), 10000);
-  }
+  };
 
   stopGettingCampaigns = () => {
     clearInterval(this.refreshInterval);
-  }
+  };
 
   render() {
     const { navigation } = this.props;
@@ -77,17 +77,15 @@ class SearchScreen extends React.Component {
               flexDirection: 'row',
               justifyContent: 'space-around',
               height:
-                Constants.deviceName === 'Iphone Xr' && Constants.deviceName === 'Iphone Xs' ?
-                  null
-                  :
-                  (100 && Constants.deviceName === 'Iphone 7') ||
+                Constants.deviceName === 'Iphone Xr' &&
+                Constants.deviceName === 'Iphone Xs'
+                  ? null
+                  : (100 && Constants.deviceName === 'Iphone 7') ||
                     'Iphone 8' ||
                     'Pixel' ||
                     'Pixel XL'
-                  ?
-                    null
-                    :
-                    80
+                  ? null
+                  : 80
             }}
             leftComponent={
               <TouchableOpacity
@@ -110,8 +108,9 @@ class SearchScreen extends React.Component {
               <SearchBar
                 onChangeText={this.searchUpdated}
                 value={this.state.searchTerm}
+                clearIcon={false}
                 searchIcon={false}
-                cancelIcon={true}
+                cancelIcon={false}
                 onCancel={true}
                 placeholder='Search ...'
                 containerStyle={{
