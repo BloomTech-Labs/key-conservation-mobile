@@ -27,7 +27,6 @@ export default {
   },
   input: {
     minHeight: 48,
-    width: 250,
     paddingTop: 7,
     padding: 5,
     borderRadius: 5,
@@ -40,7 +39,7 @@ export default {
   inputWrapper: {
     flexDirection: "row",
     height: 48,
-    width: 280,
+    width: "70%",
     marginLeft: 5,
     borderRadius: 5,
     backgroundColor: "#f7f9fc"
@@ -109,6 +108,8 @@ export default {
   icon: {
     fontSize: 30,
     marginTop: 9,
-    color: "#00FF9D"
+    color: "#00FF9D",
+    flexDirection: "row",
+    alignItems: "right"
   }
 };
