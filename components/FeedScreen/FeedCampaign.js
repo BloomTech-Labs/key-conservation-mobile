@@ -106,7 +106,7 @@ const FeedCampaign = props => {
         subtitle={data.location}
       />
       <View style={updateStyles}>
-        <Text style={styles.urgencyBarText}>updddate here</Text>
+        <Text style={styles.urgencyBarText}>{data.urgency}</Text>
       </View>
       <View>
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
