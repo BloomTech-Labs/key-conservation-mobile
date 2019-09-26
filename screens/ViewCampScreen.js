@@ -243,8 +243,9 @@ class ViewCampScreen extends React.Component {
                     <Text style={styles.supportMissionText}>
                       Support Our Mission
                     </Text>
+
                     <Text style={styles.campMissionText}>
-                      Your donation helps us more{'\n'}than you know. Thanks!
+                      Your donation helps us more than you know. Thanks!
                     </Text>
                   </View>
                   <View style={styles.donateButton}>
