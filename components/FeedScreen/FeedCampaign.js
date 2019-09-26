@@ -122,10 +122,10 @@ const FeedCampaign = props => {
           </Text>
         )}
       </View>
-      {/* <View>
+      <View style={{ marginLeft: 17 }}>
         <FlatList
           data={data.comments.slice(0, 2)}
-          // keyExtractor={comment => comment.comment_id}
+          keyExtractor={comment => comment.comment_id}
           renderItem={({ item }) => {
             return (
               <View style={styles2.commentWrapper}>
@@ -150,7 +150,7 @@ const FeedCampaign = props => {
             );
           }}
         />
-      </View> */}
+      </View>
       <View>
         {data.comments.length >= 1 ? (
           data.comments.length === 1 ? (

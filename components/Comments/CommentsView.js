@@ -51,7 +51,7 @@ class CommentsView extends React.Component {
     }
   };
 
-  // Currently redux store changes are not triggering re-renders. Multiple devs have looked into why we need this componentDidUpdate despite having the redux store hooked up to our component. No solutions yet.
+  // Currently redux store changes are not triggering re-renders. Multiple devs have looked into why we need this componentDidUpdate despite having the redux store hooked up to our component. No solutions yet though.
 
   render() {
     if (
