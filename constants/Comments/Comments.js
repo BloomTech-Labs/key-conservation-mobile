@@ -1,6 +1,7 @@
 export default {
   commentWrapper: {
-    flexDirection: "column"
+    flexDirection: "column",
+    width: "90%"
   },
   commentView: {
     flexDirection: "row"
