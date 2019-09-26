@@ -39,8 +39,8 @@ export default {
   inputWrapper: {
     flexDirection: "row",
     height: 48,
-    width: "70%",
-    marginLeft: 5,
+    width: "78%",
+    marginLeft: 6,
     borderRadius: 5,
     backgroundColor: "#f7f9fc"
   },
@@ -110,6 +110,7 @@ export default {
     marginTop: 9,
     color: "#00FF9D",
     flexDirection: "row",
-    alignItems: "right"
+    alignItems: "right",
+    marginLeft: 5
   }
 };
