@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 24700,
-  "expoServerNgrokUrl": "https://2q-xqi.jamieg44.frontend-mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.2q-xqi.jamieg44.frontend-mobile.exp.direct",
-  "ngrokPid": 27356,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "webpackServerPort": null
 }

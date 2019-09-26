@@ -139,7 +139,7 @@ class CommentsView extends React.Component {
           )}
           {/* View More Comments is visible if the length of campaignComments is greater than the value of commentsVisible */}
           <View style={styles.replyView}>
-            <View>
+            <View style={styles.replyAvatar}>
               <Avatar
                 rounded
                 source={{
