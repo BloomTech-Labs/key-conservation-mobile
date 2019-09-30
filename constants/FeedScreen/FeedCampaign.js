@@ -49,6 +49,20 @@ export default {
     height: 37,
     width: "100%"
   },
+  heartOutline: {
+    fontSize: 28,
+    marginLeft: 15,
+    marginTop: 15,
+  },
+  heartFill: {
+    fontSize: 28,
+    marginLeft: 15,
+    marginTop: 15,
+    color: 'red'
+  },
+  likes: {
+    marginLeft: 15
+  },
   goToCampaignText: {
     fontFamily: "OpenSans-SemiBold",
     fontSize: 18

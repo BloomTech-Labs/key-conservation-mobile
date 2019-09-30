@@ -1,20 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
 import moment from 'moment';
 import { Avatar } from 'react-native-elements';
 import { ListItem } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 import { AmpEvent } from '../withAmplitude';
+import { connect } from 'react-redux';
+import { FontAwesome } from '@expo/vector-icons';
 import {
   getProfileData,
   getCampaign,
-  toggleCampaignText
+  toggleCampaignText,
+  addLike
 } from '../../store/actions';
 
 import styles from '../../constants/FeedScreen/FeedCampaign';
 import styles2 from '../../constants/Comments/Comments';
 
 const FeedCampaign = props => {
+
+  const [likes, setLikes] = useState(data.likes.length)
+  const [userLiked, setUserLiked] = useState(false)
+
   const dispatch = useDispatch();
   const { data, toggled } = props;
   const shorten = (string, cutoff) => {
@@ -82,6 +89,10 @@ const FeedCampaign = props => {
     dispatch(toggleCampaignText(data.camp_id));
   };
 
+  const insert = () => {
+    props.addLike(data.camp_id, props.currentUserProfile.id)
+  }
+
   return (
     <View style={styles.container}>
       <ListItem
@@ -108,6 +119,10 @@ const FeedCampaign = props => {
       >
         <Text style={styles.goToCampaignText}>See Post {'>'}</Text>
       </TouchableOpacity>
+      <View>
+        { 1 > 0 ? <FontAwesome onPress={() => insert()} name='heart-o' style={styles.heartOutline} /> : <FontAwesome name='heart' style={styles.heartFill} />}
+      </View>
+      <Text style={styles.likes} >{data.likes.length} likes</Text>
       <View style={styles.campDesc}>
         <Text style={styles.campDescName}>{data.camp_name}</Text>
         {toggled || data.camp_desc.length < 80 ? (
@@ -170,4 +185,17 @@ const FeedCampaign = props => {
   );
 };
 
-export default FeedCampaign;
+const mapStateToProps = state => ({
+  currentUserProfile: state.currentUserProfile,
+  token: state.token
+});
+
+export default connect(
+  mapStateToProps,
+  { 
+    getProfileData,
+    getCampaign,
+    toggleCampaignText,
+    addLike 
+  }
+)(FeedCampaign);
