@@ -2,9 +2,8 @@ import axios from 'axios';
 
 import * as SecureStore from 'expo-secure-store';
 
-
 // url for heroku staging vs production branches
-const seturl = 'https://key-conservation-staging.herokuapp.com/api'
+const seturl = 'https://key-conservation.herokuapp.com/api/';
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in there URL this function will add it.
@@ -545,8 +544,7 @@ export const [
 ] = ['POST_COMMENT_START', 'POST_COMMENT_ERROR', 'POST_COMMENT_SUCCESS'];
 
 export const commentOnCampaign = (id, body) => async dispatch => {
-  console.log('Did we crack it???');
-  // dispatch({ type: POST_COMMENT_START });
+  dispatch({ type: POST_COMMENT_START });
   let token = await SecureStore.getItemAsync('accessToken');
   axios
     .post(
@@ -561,7 +559,6 @@ export const commentOnCampaign = (id, body) => async dispatch => {
       }
     )
     .then(res => {
-      console.log('Did we get here?');
       dispatch({ type: POST_COMMENT_SUCCESS, payload: res.data.data });
       axios.get(`${seturl}comments/${id}`, {
         headers: {
@@ -572,8 +569,7 @@ export const commentOnCampaign = (id, body) => async dispatch => {
       });
     })
     .catch(err => {
-      // console.lor("Here's my error =====>", err);
-      // dispatch({ type: POST_COMMENT_ERROR, payload: err });
+      dispatch({ type: POST_COMMENT_ERROR, payload: err });
     });
 };
 

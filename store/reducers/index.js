@@ -438,13 +438,11 @@ const reducer = (state = initialState, action) => {
         mediaUpload: ''
       };
     case POST_COMMENT_START:
-      console.log('Start');
       return {
         ...state,
         error: ''
       };
     case POST_COMMENT_SUCCESS:
-      console.log('please have mercy');
       return {
         ...state,
         selectedCampaign: {
@@ -458,13 +456,11 @@ const reducer = (state = initialState, action) => {
         error: action.payload
       };
     case DELETE_COMMENT_START:
-      console.log('Start');
       return {
         ...state,
         error: ''
       };
     case DELETE_COMMENT_SUCCESS:
-      console.log('delelelteltetletlewtleletlel');
       return {
         ...state,
         selectedCampaign: {
