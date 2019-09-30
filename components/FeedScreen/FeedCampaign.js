@@ -19,8 +19,15 @@ import styles2 from '../../constants/Comments/Comments';
 
 const FeedCampaign = props => {
 
-  const [likes, setLikes] = useState(data.likes.length)
+  // const [likes, setLikes] = useState(data.likes.length)
   const [userLiked, setUserLiked] = useState(false)
+
+  useEffect(() => {
+    const liked = data.likes.filter(l => l.users_id === props.currentUserProfile.id)
+    if (liked.length > 0) {
+      setUserLiked(true)
+    }
+  }, [])
 
   const dispatch = useDispatch();
   const { data, toggled } = props;
@@ -120,7 +127,7 @@ const FeedCampaign = props => {
         <Text style={styles.goToCampaignText}>See Post {'>'}</Text>
       </TouchableOpacity>
       <View>
-        { 1 > 0 ? <FontAwesome onPress={() => insert()} name='heart-o' style={styles.heartOutline} /> : <FontAwesome name='heart' style={styles.heartFill} />}
+        { !userLiked ? <FontAwesome onPress={() => insert()} name='heart-o' style={styles.heartOutline} /> : <FontAwesome name='heart' style={styles.heartFill} />}
       </View>
       <Text style={styles.likes} >{data.likes.length} likes</Text>
       <View style={styles.campDesc}>
