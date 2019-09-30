@@ -25,7 +25,7 @@ import {
 import styles from '../../constants/Comments/Comments';
 import Comment from './Comment';
 
-const seturl = 'https://key-conservation.herokuapp.com/api/';
+const seturl = 'https://key-conservation-staging.herokuapp.com/api';
 
 class CommentsView extends React.Component {
   state = {
