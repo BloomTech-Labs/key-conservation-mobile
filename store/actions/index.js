@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import * as SecureStore from 'expo-secure-store';
 
-// url for heroku staging vs production branches
+// url for heroku staging vs production server
 const seturl = 'https://key-conservation-staging.herokuapp.com/api';
 
 const filterUrls = (keys, object) => {
