@@ -72,9 +72,9 @@ class EditSupProScreen extends React.Component {
 
   componentDidMount() {
     this.props.navigation.setParams({ done: this.done });
-    if(this.isProfileComplete(this.state) === true) {
-      return AmpEvent('Profile Completed')
-    };
+    if (this.isProfileComplete(this.state) === true) {
+      return AmpEvent('Profile Completed');
+    }
   }
 
   isProfileComplete = profile => {

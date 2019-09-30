@@ -43,7 +43,13 @@ import {
   DELETE_CAMPAIGN_UPDATE_SUCCESS,
   TOGGLE_CAMPAIGN_TEXT,
   MEDIA_UPLOAD,
-  MEDIA_CLEAR
+  MEDIA_CLEAR,
+  POST_COMMENT_START,
+  POST_COMMENT_ERROR,
+  POST_COMMENT_SUCCESS,
+  DELETE_COMMENT_START,
+  DELETE_COMMENT_ERROR,
+  DELETE_COMMENT_SUCCESS
 } from '../actions';
 
 const initialState = {
@@ -68,7 +74,8 @@ const initialState = {
   allCampaigns: [],
   firstLogin: false,
   campaignsToggled: [],
-  mediaUpload: ''
+  mediaUpload: '',
+  token: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -191,7 +198,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getCampaigns: false },
-        allCampaigns: campaigns
+        allCampaigns: campaigns,
+        token: action.token
       };
     case GET_CAMPAIGNS_ERROR:
       return {
@@ -206,10 +214,14 @@ const reducer = (state = initialState, action) => {
         error: ''
       };
     case GET_CAMPAIGN_SUCCESS:
+      const campaign = action.payload;
+      campaign.comments.sort(function(a, b) {
+        return moment(a.created_at) - moment(b.created_at);
+      });
       return {
         ...state,
         pending: { ...state.pending, getCampaign: false },
-        selectedCampaign: action.payload
+        selectedCampaign: campaign
       };
     case GET_CAMPAIGN_ERROR:
       return {
@@ -424,6 +436,44 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         mediaUpload: ''
+      };
+    case POST_COMMENT_START:
+      return {
+        ...state,
+        error: ''
+      };
+    case POST_COMMENT_SUCCESS:
+      return {
+        ...state,
+        selectedCampaign: {
+          ...selectedCampaign,
+          comments: action.payload
+        }
+      };
+    case POST_COMMENT_ERROR:
+      return {
+        ...state,
+        error: action.payload
+      };
+    case DELETE_COMMENT_START:
+      return {
+        ...state,
+        error: ''
+      };
+    case DELETE_COMMENT_SUCCESS:
+      return {
+        ...state,
+        selectedCampaign: {
+          ...selectedCampaign,
+          comments: [
+            state.comments.filter(c => c.comment_id !== action.payload)
+          ]
+        }
+      };
+    case DELETE_COMMENT_ERROR:
+      return {
+        ...state,
+        error: action.payload
       };
     default:
       return state;

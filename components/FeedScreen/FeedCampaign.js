@@ -1,7 +1,7 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
 import moment from 'moment';
-
+import { Avatar } from 'react-native-elements';
 import { ListItem } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 import { AmpEvent } from '../withAmplitude';
@@ -12,6 +12,7 @@ import {
 } from '../../store/actions';
 
 import styles from '../../constants/FeedScreen/FeedCampaign';
+import styles2 from '../../constants/Comments/Comments';
 
 const FeedCampaign = props => {
   const dispatch = useDispatch();
@@ -121,7 +122,50 @@ const FeedCampaign = props => {
           </Text>
         )}
       </View>
+      <View style={{ marginLeft: 17 }}>
+        <FlatList
+          data={data.comments.slice(0, 2)}
+          keyExtractor={comment => comment.comment_id}
+          renderItem={({ item }) => {
+            return (
+              <View style={styles2.commentWrapper}>
+                <View style={styles2.commentView}>
+                  <View style={styles2.avatar}>
+                    <Avatar
+                      rounded
+                      source={{
+                        uri: item.profile_image
+                      }}
+                    />
+                  </View>
+                  <View>
+                    <Text style={styles2.username}>{item.username}</Text>
+                    <Text style={styles2.commentBody}>{item.comment_body}</Text>
+                  </View>
+                </View>
+                <View style={styles2.interaction}>
+                  <Text style={styles2.timeText}>{timeDiff}</Text>
+                </View>
+              </View>
+            );
+          }}
+        />
+      </View>
+      <View>
+        {data.comments.length >= 1 ? (
+          data.comments.length === 1 ? (
+            <Text style={styles.comments} onPress={goToCampaign}>
+              View {data.comments.length} comment
+            </Text>
+          ) : (
+            <Text style={styles.comments} onPress={goToCampaign}>
+              View all {data.comments.length} comments
+            </Text>
+          )
+        ) : null}
+      </View>
       <Text style={styles.timeText}>{timeDiff}</Text>
+      <View style={styles.demarcation}></View>
     </View>
   );
 };
