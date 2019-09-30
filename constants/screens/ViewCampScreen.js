@@ -7,7 +7,8 @@ export default {
     paddingTop: 25,
     paddingBottom: 25,
     width: "100%",
-    height: 50
+    height: 50,
+    alignItems: "center"
   },
   touchableView: {
     backgroundColor: "#00FF9D",
@@ -28,7 +29,9 @@ export default {
   donateButton: {
     fontFamily: "OpenSans-SemiBold",
     width: "60%",
-    alignSelf: "center"
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center"
   },
   supportMissionText: {
     fontFamily: "OpenSans-SemiBold",
@@ -39,7 +42,8 @@ export default {
     fontFamily: "OpenSans-Regular",
     fontSize: 14,
     lineHeight: 19,
-    paddingTop: 10
+    paddingTop: 10,
+    textAlign: "center"
   },
   commentsView: {
     marginLeft: 15,
@@ -48,13 +52,16 @@ export default {
     fontSize: 14,
     marginTop: 20,
     paddingTop: 19,
+    paddingBottom: 19,
     borderTopWidth: 2,
-    borderTopColor: "#eee"
+    borderTopColor: "#eee",
+    borderBottomWidth: 2,
+    borderBottomColor: "#eee"
   },
   campMission: {
     marginLeft: 15,
     marginRight: 15,
-    // width: '68%',
+    width: deviceWidth / 2,
     fontFamily: "OpenSans-Regular",
     flexWrap: "wrap",
     flexDirection: "row",
@@ -63,8 +70,8 @@ export default {
     fontSize: 14,
     marginTop: 20,
     paddingTop: 19,
-    borderTopWidth: 2,
-    borderTopColor: "#eee"
+    // borderTopWidth: 2,
+    // borderTopColor: "#eee"
   },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */

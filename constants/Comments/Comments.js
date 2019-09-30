@@ -1,6 +1,7 @@
 export default {
   commentWrapper: {
-    flexDirection: "column"
+    flexDirection: "column",
+    width: "90%"
   },
   commentView: {
     flexDirection: "row"
@@ -26,7 +27,6 @@ export default {
   },
   input: {
     minHeight: 48,
-    width: 250,
     paddingTop: 7,
     padding: 5,
     borderRadius: 5,
@@ -34,13 +34,13 @@ export default {
     marginLeft: 5,
     marginRight: 5,
     marginBottom: 20,
-    backgroundColor: "#f7f9fc"
+    backgroundColor: "#f7f9fc",
+    width: "80%"
   },
   inputWrapper: {
     flexDirection: "row",
     height: 48,
-    width: 280,
-    marginLeft: 5,
+    marginLeft: 6,
     borderRadius: 5,
     backgroundColor: "#f7f9fc"
   },
@@ -108,6 +108,9 @@ export default {
   icon: {
     fontSize: 30,
     marginTop: 9,
-    color: "#00FF9D"
+    color: "#7B7D88"
+    // flexDirection: "row",
+    // alignItems: "right",
+    // marginLeft: 40
   }
 };
