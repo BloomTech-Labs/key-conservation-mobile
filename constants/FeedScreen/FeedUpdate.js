@@ -10,7 +10,7 @@ export default {
   },
   container: {
     justifyContent: "center",
-    paddingBottom: 15
+    paddingBottom: 8
   },
   orgTitleView: {
     fontFamily: "OpenSans-SemiBold",
@@ -54,7 +54,7 @@ export default {
     fontSize: 10,
     marginLeft: 15,
     marginTop: 15,
-    paddingBottom: 15
+    paddingBottom: 10
   },
   readMore: {
     color: "#929292"
@@ -64,7 +64,8 @@ export default {
     alignItems: "center",
     justifyContent: "center",
     height: 37,
-    width: "100%"
+    width: "100%",
+    marginTop: 8
   },
   updateBarText: {
     fontFamily: "OpenSans-SemiBold",

@@ -16,7 +16,7 @@ export default {
   },
   container: {
     justifyContent: "center",
-    paddingBottom: 15
+    paddingBottom: 8
   },
   feedContainer: {
     flex: 1,
@@ -30,7 +30,7 @@ export default {
     fontSize: 10,
     marginLeft: 15,
     marginTop: 15,
-    paddingBottom: 15
+    paddingBottom: 8
   },
   orgTitleView: {
     fontFamily: "OpenSans-SemiBold",
@@ -41,7 +41,8 @@ export default {
     /* Must have a Width && Height or it won't display anything! */
     flex: 1,
     height: deviceWidth,
-    width: deviceWidth
+    width: deviceWidth,
+    marginTop: 8
   },
   goToCampaignButton: {
     backgroundColor: "#00FF9D",
