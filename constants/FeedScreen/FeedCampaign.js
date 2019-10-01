@@ -2,11 +2,6 @@ import { Dimensions } from "react-native";
 
 const deviceWidth = Dimensions.get("window").width;
 export default {
-  demarcation: {
-    marginTop: 15,
-    borderTopWidth: 2,
-    borderTopColor: "#eee"
-  },
   feedContainer: {
     flex: 1,
     backgroundColor: "#fff"
@@ -16,33 +11,19 @@ export default {
   },
   container: {
     justifyContent: "center",
-    paddingBottom: 8
-  },
-  feedContainer: {
-    flex: 1,
-    backgroundColor: "#fff"
-  },
-  searchIcon: {
-    marginRight: 20
-  },
-  timeText: {
-    color: "#929292",
-    fontSize: 10,
-    marginLeft: 15,
-    marginTop: 15,
-    paddingBottom: 8
+    paddingBottom: 2
   },
   orgTitleView: {
-    fontFamily: "OpenSans-SemiBold",
-    fontSize: 16,
-    fontWeight: "bold"
+    fontFamily: "OpenSans-Regular",
+    fontSize: 17,
+    paddingLeft: 0
   },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
     flex: 1,
     height: deviceWidth,
     width: deviceWidth,
-    marginTop: 8
+    marginTop: 2
   },
   goToCampaignButton: {
     backgroundColor: "#00FF9D",
@@ -61,15 +42,15 @@ export default {
     marginRight: 15,
     marginBottom: 15
   },
-  campDescText: {
-    fontFamily: "OpenSans-Regular",
-    fontSize: 14,
-    lineHeight: 19
-  },
   campDescName: {
     fontFamily: "OpenSans-SemiBold",
     fontSize: 16,
     paddingBottom: 10
+  },
+  campDescText: {
+    fontFamily: "OpenSans-Regular",
+    fontSize: 14,
+    lineHeight: 19
   },
   comments: {
     fontFamily: "OpenSans-Regular",
@@ -81,5 +62,17 @@ export default {
   },
   readMore: {
     color: "#929292"
+  },
+  timeText: {
+    color: "#929292",
+    fontSize: 10,
+    marginLeft: 15,
+    marginTop: 15,
+    paddingBottom: 8
+  },
+  demarcation: {
+    marginTop: 15,
+    borderTopWidth: 2,
+    borderTopColor: "#eee"
   }
 };

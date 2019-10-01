@@ -10,12 +10,11 @@ export default {
   },
   container: {
     justifyContent: "center",
-    paddingBottom: 8
+    paddingBottom: 2
   },
   orgTitleView: {
-    fontFamily: "OpenSans-SemiBold",
-    fontSize: 16,
-    fontWeight: "bold"
+    fontFamily: "OpenSans-Regular",
+    fontSize: 17
   },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
@@ -54,18 +53,18 @@ export default {
     fontSize: 10,
     marginLeft: 15,
     marginTop: 15,
-    paddingBottom: 10
+    paddingBottom: 3
   },
   readMore: {
     color: "#929292"
   },
   updateBar: {
-    backgroundColor: "#CAFF00",
+    backgroundColor: "rgba(202, 255, 0, 0.7)",
     alignItems: "center",
     justifyContent: "center",
     height: 37,
     width: "100%",
-    marginTop: 8
+    marginTop: 2
   },
   updateBarText: {
     fontFamily: "OpenSans-SemiBold",
