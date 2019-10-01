@@ -4,18 +4,17 @@ const deviceWidth = Dimensions.get("window").width;
 
 export default {
   demarcation: {
-    height: 4,
-    width: "100%",
-    backgroundColor: "#fff"
+    marginTop: 15,
+    borderTopWidth: 2,
+    borderTopColor: "#eee"
   },
   container: {
     justifyContent: "center",
-    paddingBottom: 35
+    paddingBottom: 2
   },
   orgTitleView: {
-    fontFamily: "OpenSans-SemiBold",
-    fontSize: 16,
-    fontWeight: "bold"
+    fontFamily: "OpenSans-Regular",
+    fontSize: 17
   },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
@@ -53,17 +52,19 @@ export default {
     color: "#929292",
     fontSize: 10,
     marginLeft: 15,
-    marginTop: 10
+    marginTop: 15,
+    paddingBottom: 3
   },
   readMore: {
     color: "#929292"
   },
   updateBar: {
-    backgroundColor: "#CAFF00",
+    backgroundColor: "rgba(202, 255, 0, 0.7)",
     alignItems: "center",
     justifyContent: "center",
     height: 37,
-    width: "100%"
+    width: "100%",
+    marginTop: 2
   },
   updateBarText: {
     fontFamily: "OpenSans-SemiBold",
