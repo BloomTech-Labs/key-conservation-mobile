@@ -3,7 +3,7 @@ import { Dimensions } from "react-native";
 const deviceWidth = Dimensions.get("window").width;
 export default {
   demarcation: {
-    marginTop: 20,
+    marginTop: 15,
     borderTopWidth: 2,
     borderTopColor: "#eee"
   },
@@ -16,7 +16,7 @@ export default {
   },
   container: {
     justifyContent: "center",
-    paddingBottom: 10
+    paddingBottom: 15
   },
   feedContainer: {
     flex: 1,
@@ -29,7 +29,8 @@ export default {
     color: "#929292",
     fontSize: 10,
     marginLeft: 15,
-    marginTop: 15
+    marginTop: 15,
+    paddingBottom: 15
   },
   orgTitleView: {
     fontFamily: "OpenSans-SemiBold",
@@ -76,12 +77,6 @@ export default {
     marginLeft: 15,
     paddingTop: 12,
     color: "#7B7D88"
-  },
-  timeText: {
-    color: "#929292",
-    fontSize: 10,
-    marginLeft: 15,
-    marginTop: 10
   },
   readMore: {
     color: "#929292"
