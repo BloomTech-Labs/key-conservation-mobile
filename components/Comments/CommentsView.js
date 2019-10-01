@@ -26,7 +26,7 @@ import styles from '../../constants/Comments/Comments';
 import Comment from './Comment';
 
 // url for heroku staging vs production server
-const seturl = 'https://key-conservation-staging.herokuapp.com/api';
+const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
 class CommentsView extends React.Component {
   state = {

@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { AmpEvent } from '../withAmplitude';
 import { connect } from 'react-redux';
 import { FontAwesome } from '@expo/vector-icons';
+import axios from 'axios';
 import {
   getProfileData,
   getCampaign,
@@ -17,17 +18,21 @@ import {
 import styles from '../../constants/FeedScreen/FeedCampaign';
 import styles2 from '../../constants/Comments/Comments';
 
-const FeedCampaign = props => {
+// url for heroku staging vs production server
+const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
-  // const [likes, setLikes] = useState(data.likes.length)
-  const [userLiked, setUserLiked] = useState(false)
+const FeedCampaign = props => {
+  const [likes, setLikes] = useState(props.data.likes.length);
+  const [userLiked, setUserLiked] = useState(false);
 
   useEffect(() => {
-    const liked = data.likes.filter(l => l.users_id === props.currentUserProfile.id)
+    const liked = data.likes.filter(
+      l => l.users_id === props.currentUserProfile.id
+    );
     if (liked.length > 0) {
-      setUserLiked(true)
+      setUserLiked(true);
     }
-  }, [])
+  }, []);
 
   const dispatch = useDispatch();
   const { data, toggled } = props;
@@ -96,9 +101,51 @@ const FeedCampaign = props => {
     dispatch(toggleCampaignText(data.camp_id));
   };
 
-  const insert = () => {
-    props.addLike(data.camp_id, props.currentUserProfile.id)
-  }
+  const addLike = () => {
+    axios
+      .post(
+        `${seturl}social/likes/${data.camp_id}`,
+        {
+          users_id: props.currentUserProfile.id,
+          camp_id: data.camp_id
+        },
+        {
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${props.token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      )
+      .then(res => {
+        setLikes(res.data.data.length);
+        setUserLiked(true);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const deleteLike = () => {
+    axios
+      .delete(
+        `${seturl}social/likes/${data.camp_id}/${props.currentUserProfile.id}`,
+        {
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${props.token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      )
+      .then(res => {
+        setLikes(likes - 1);
+        setUserLiked(false);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -127,9 +174,25 @@ const FeedCampaign = props => {
         <Text style={styles.goToCampaignText}>See Post {'>'}</Text>
       </TouchableOpacity>
       <View>
-        { !userLiked ? <FontAwesome onPress={() => insert()} name='heart-o' style={styles.heartOutline} /> : <FontAwesome name='heart' style={styles.heartFill} />}
+        {userLiked === false ? (
+          <FontAwesome
+            onPress={() => addLike()}
+            name='heart-o'
+            style={styles.heartOutline}
+          />
+        ) : (
+          <FontAwesome
+            onPress={() => deleteLike()}
+            name='heart'
+            style={styles.heartFill}
+          />
+        )}
       </View>
-      <Text style={styles.likes} >{data.likes.length} likes</Text>
+      {likes === 0 ? null : likes > 1 ? (
+        <Text style={styles.likes}>{likes} likes</Text>
+      ) : (
+        <Text style={styles.likes}>{likes} like</Text>
+      )}
       <View style={styles.campDesc}>
         <Text style={styles.campDescName}>{data.camp_name}</Text>
         {toggled || data.camp_desc.length < 80 ? (
@@ -199,10 +262,10 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { 
+  {
     getProfileData,
     getCampaign,
     toggleCampaignText,
-    addLike 
+    addLike
   }
 )(FeedCampaign);
