@@ -59,11 +59,15 @@ export default {
     color: "#929292"
   },
   updateBar: {
-    backgroundColor: "#CAFF00",
+    backgroundColor: "#CAFF001A",  // last two digits are opacity level -- https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4
+    // position: 'absolute',
+    // top: 0,
+    // left: 0,
     alignItems: "center",
     justifyContent: "center",
     height: 37,
-    width: "100%"
+    width: "100%",
+
   },
   updateBarText: {
     fontFamily: "OpenSans-SemiBold",
