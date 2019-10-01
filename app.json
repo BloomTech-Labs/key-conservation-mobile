@@ -23,13 +23,20 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "android": {
+      "package": "com.kc.keyconservation"
+    },
     "ios": {
       "infoPlist": {
-        "CFBundleURLTypes": [{
-          "CFBundleTypeRole": "None",
-          "CFBundleURLName": "auth0",
-          "CFBundleURLSchemes": ["com.kc.keyconservation"]
-          }],
+        "CFBundleURLTypes": [
+          {
+            "CFBundleTypeRole": "None",
+            "CFBundleURLName": "auth0",
+            "CFBundleURLSchemes": [
+              "com.kc.keyconservation"
+            ]
+          }
+        ]
       },
       "buildNumber": "4",
       "supportsTablet": true,
