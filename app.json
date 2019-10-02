@@ -9,7 +9,7 @@
       "ios",
       "android"
     ],
-    "version": "1.4.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/keyapplogo.png",
     "splash": {
@@ -39,11 +39,11 @@
           }
         ]
       },
-      "buildNumber": "4",
+      "buildNumber": "5",
       "supportsTablet": true,
       "bundleIdentifier": "com.kc.keyconservation"
     },
-    "description": "The Key Conservation App\n\nVersion 1.4.0",
+    "description": "The Key Conservation App\n\nVersion 2.0.0",
     "githubUrl": "https://github.com/labs14-key-conservation/Frontend-Mobile"
   }
 }
