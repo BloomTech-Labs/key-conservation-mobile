@@ -59,11 +59,20 @@ export default {
     color: "#929292"
   },
   updateBar: {
-    backgroundColor: "#CAFF00",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "rgba(202, 255, 0, 0.3)",
+    // alignItems: "center",
+    // justifyContent: "center",
     height: 37,
-    width: "100%"
+    width: "100%",
+    position: "absolute",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    justifyContent: "center",
+    alignItems: "center"
+    // backgroundColor: "gray",
+    // opacity: 0.9
   },
   updateBarText: {
     fontFamily: "OpenSans-SemiBold",
