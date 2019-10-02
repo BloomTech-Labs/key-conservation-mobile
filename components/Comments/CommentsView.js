@@ -6,7 +6,8 @@ import {
   FlatList,
   TextInput,
   KeyboardAvoidingView,
-  TouchableOpacity
+  TouchableOpacity,
+  Platform
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import moment from 'moment';

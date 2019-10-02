@@ -94,7 +94,12 @@ const FeedCampaign = props => {
       campaign: data.camp_name,
       profile: data.username
     });
-    props.navigation.navigate('Camp');
+    props.navigation.navigate('Camp', {
+      likes: likes,
+      userLiked: userLiked,
+      addLike: addLike,
+      deleteLike: deleteLike
+    });
   };
 
   const toggleText = () => {

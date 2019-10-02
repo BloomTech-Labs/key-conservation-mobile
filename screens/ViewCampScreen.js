@@ -4,7 +4,8 @@ import {
   View,
   TouchableOpacity,
   Image,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Platform
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ListItem } from 'react-native-elements';
@@ -13,6 +14,7 @@ import * as WebBrowser from 'expo-web-browser';
 import { connect } from 'react-redux';
 import SvgUri from 'react-native-svg-uri';
 import moment from 'moment';
+import axios from 'axios';
 import { FontAwesome, Feather } from '@expo/vector-icons';
 import { getProfileData } from '../store/actions';
 import BackButton from '../components/BackButton';
@@ -21,6 +23,9 @@ import FeedUpdate from '../components/FeedScreen/FeedUpdate';
 import CommentsView from '../components/Comments/CommentsView';
 
 import styles from '../constants/screens/ViewCampScreen';
+
+// url for heroku staging vs production server
+const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
 class ViewCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -38,6 +43,29 @@ class ViewCampScreen extends React.Component {
       headerLeft: <BackButton navigation={navigation} popToTop />,
       headerRight: <View />
     };
+  };
+
+  state = {
+    likes: this.props.navigation.state.params.likes,
+    userLiked: this.props.navigation.state.params.userLiked
+  };
+
+  addLike = () => {
+    this.setState({
+      ...this.state,
+      likes: this.state.likes + 1,
+      userLiked: true
+    });
+    this.props.navigation.state.params.addLike();
+  };
+
+  deleteLike = () => {
+    this.setState({
+      ...this.state,
+      likes: this.state.likes - 1,
+      userLiked: false
+    });
+    this.props.navigation.state.params.deleteLike();
   };
 
   goToProfile = () => {
@@ -114,14 +142,33 @@ class ViewCampScreen extends React.Component {
                   source={{ uri: this.props.selectedCampaign.camp_img }}
                   style={styles.campImgContain}
                 />
-                {/* <View style={styles.iconRow}>
-                    <View>
-                      <FontAwesome name='heart-o' style={styles.icon} />
-                    </View>
-                    <View>
-                      <Feather name='edit' style={styles.icon} />
-                    </View>
-                  </View> */}
+                <View style={styles.iconRow}>
+                  <View>
+                    {this.state.userLiked === false ? (
+                      <FontAwesome
+                        onPress={() => this.addLike()}
+                        name='heart-o'
+                        style={styles.heartOutline}
+                      />
+                    ) : (
+                      <FontAwesome
+                        onPress={() => this.deleteLike()}
+                        name='heart'
+                        style={styles.heartFill}
+                      />
+                    )}
+                  </View>
+                  <View>
+                    <Feather name='edit' style={styles.icon} />
+                  </View>
+                </View>
+                <View>
+                  {this.state.likes === 0 ? null : this.state.likes > 1 ? (
+                    <Text style={styles.likes}>{this.state.likes} likes</Text>
+                  ) : (
+                    <Text style={styles.likes}>{this.state.likes} like</Text>
+                  )}
+                </View>
                 {/* Next release canvas ^^^ */}
                 <View style={styles.campDescContain}>
                   <Text style={styles.campDescName}>
@@ -297,7 +344,8 @@ class ViewCampScreen extends React.Component {
 const mapStateToProps = state => ({
   selectedCampaign: state.selectedCampaign,
   currentUser: state.currentUser,
-  currentUserProfile: state.currentUserProfile
+  currentUserProfile: state.currentUserProfile,
+  token: state.token
 });
 
 export default connect(
