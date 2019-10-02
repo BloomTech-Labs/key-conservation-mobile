@@ -101,27 +101,13 @@ const FeedCampaign = props => {
         subtitle={data.location}
       />
       <View>
-        {/* <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
-          <Image
-            source={{ uri: data.camp_img }}
-            style={styles.campImgContain}
-          />
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity
-        style={styles.goToCampaignButton}
-        onPress={goToCampaign}
-      >
-        <Text style={styles.goToCampaignText}>See Post {'>'}</Text>
-      </TouchableOpacity> */}
-
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
           <ImageBackground
             source={{ uri: data.camp_img }}
             style={styles.campImgContain}
           >
             <View style={styles.goToCampaignButton} onPress={goToCampaign}>
-              <Text style={styles.goToCampaignText}>See Update {">"}</Text>
+              <Text style={styles.goToCampaignText}>See Post {">"}</Text>
             </View>
           </ImageBackground>
         </TouchableOpacity>
