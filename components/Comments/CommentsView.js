@@ -260,7 +260,7 @@ class CommentsView extends React.Component {
     this.props.navigation.navigate('Pro')
     console.log('?????')
     console.log('goToProfile in comment :', user)
-    console.log(this.props.selectedProfile, 'checking dat selected profile')
+    // console.log(this.props.selectedProfile, 'checking dat selected profile')
   }
 
   testingPress = () => {
@@ -271,8 +271,7 @@ class CommentsView extends React.Component {
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
   selectedCampaign: state.selectedCampaign,
-  token: state.token,
-  selectedProfile: state.selectedProfile
+  token: state.token
 });
 
 export default connect(

@@ -100,7 +100,7 @@ const FeedUpdate = props => {
             onPress={goToCampUpdate}
           >
             <View style={styles.updateBar}>
-              <Text style={styles.updateBarText}>Update</Text>
+              <Text style={styles.updateBarText}>REEEEhurgghyhhE</Text>
             </View>
 
             <View style={styles.goToCampaignButton} onPress={goToCampUpdate}>
