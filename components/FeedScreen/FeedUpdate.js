@@ -93,16 +93,6 @@ const FeedUpdate = props => {
         />
       )}
       <View>
-        {/* <ImageBackground
-          source={{ uri: data.update_img }}
-          style={styles.campImgContain}
-          onPress={goToCampUpdate}
-        >
-          <View style={styles.updateBar}>
-            <Text style={styles.updateBarText}>Update</Text>
-          </View>
-        </ImageBackground> */}
-
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampUpdate}>
           <ImageBackground
             source={{ uri: data.update_img }}
@@ -112,15 +102,14 @@ const FeedUpdate = props => {
             <View style={styles.updateBar}>
               <Text style={styles.updateBarText}>Update</Text>
             </View>
+
+            <View style={styles.goToCampaignButton} onPress={goToCampUpdate}>
+              <Text style={styles.goToCampaignText}>See Update {">"}</Text>
+            </View>
           </ImageBackground>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={styles.goToCampaignButton}
-        onPress={goToCampUpdate}
-      >
-        <Text style={styles.goToCampaignText}>See Update {">"}</Text>
-      </TouchableOpacity>
+
       <View style={styles.campDesc}>
         <Text style={styles.campDescName}>{data.camp_name}</Text>
         {toggled || data.update_desc.length < 80 ? (
