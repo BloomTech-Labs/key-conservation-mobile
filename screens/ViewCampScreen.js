@@ -133,7 +133,7 @@ class ViewCampScreen extends React.Component {
                   <Text style={styles.timeText}>{timeDiff}</Text>
                 </View>
                 <View style={styles.commentsView}>
-                  <CommentsView />
+                  <CommentsView navigation={this.props.navigation} />
                 </View>
                 <View style={styles.donateView}>
                   <View style={styles.campMission}>
@@ -230,7 +230,7 @@ class ViewCampScreen extends React.Component {
                   <Text style={styles.timeText}>{timeDiff}</Text>
                 </View>
                 <View style={styles.commentsView}>
-                  <CommentsView />
+                  <CommentsView navigation={this.props.navigation} />
                 </View>
                 <View style={styles.donateView}>
                   <View style={styles.campMission}>

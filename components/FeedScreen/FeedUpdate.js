@@ -95,7 +95,7 @@ const FeedUpdate = props => {
       <View>
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampUpdate}>
         <View style={styles.updateBar}>
-          <Text style={styles.updateBarText}>UpdateChang?aughhghh</Text>
+          <Text style={styles.updateBarText}>????PLEASE</Text>
         </View>
           <Image
             source={{ uri: data.update_img }}

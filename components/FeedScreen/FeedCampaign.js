@@ -69,6 +69,13 @@ const FeedCampaign = props => {
     props.navigation.navigate('Pro');
   };
 
+  const goToComProfile = async (comUser) => {
+    await dispatch(getProfileData(comUser));
+    props.navigation.navigate('Pro');
+    console.log('PLEASE DAD')
+    console.log(comUser, 'comUser in feed campaign')
+  };
+
   const goToCampaign = async () => {
     await dispatch(getCampaign(data.camp_id));
     AmpEvent('Select Profile from Campaign', {
@@ -131,12 +138,16 @@ const FeedCampaign = props => {
               <View style={styles2.commentWrapper}>
                 <View style={styles2.commentView}>
                   <View style={styles2.avatar}>
-                    <Avatar
-                      rounded
-                      source={{
-                        uri: item.profile_image
-                      }}
-                    />
+                    <TouchableOpacity
+                      activeOpacity={0.5}
+                      onPress={() => goToComProfile(item.users_id)}>
+                      <Avatar
+                        rounded
+                        source={{
+                          uri: item.profile_image
+                        }}
+                      />
+                    </TouchableOpacity>
                   </View>
                   <View>
                     <Text style={styles2.username}>{item.username}</Text>

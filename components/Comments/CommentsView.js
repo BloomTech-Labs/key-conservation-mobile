@@ -255,9 +255,9 @@ class CommentsView extends React.Component {
 
   // For navigating to commenter's profile
 
-  goToProfile = (user) => {
-    this.props.getProfileData(user)
-    // this.props.navigation.navigate('Pro')
+  goToProfile = async (user) => {
+    await dispatch(getProfileData(user))
+    this.props.navigation.navigate('Pro')
     console.log('?????')
     console.log('goToProfile in comment :', user)
     console.log(this.props.selectedProfile, 'checking dat selected profile')
