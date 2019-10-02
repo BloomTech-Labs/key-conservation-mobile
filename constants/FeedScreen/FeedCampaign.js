@@ -11,25 +11,26 @@ export default {
   },
   container: {
     justifyContent: "center",
-    paddingBottom: 2
+    paddingBottom: 3
   },
   orgTitleView: {
     fontFamily: "OpenSans-Regular",
-    fontSize: 17,
-    paddingLeft: 0
+    fontSize: 17
   },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
     flex: 1,
     height: deviceWidth,
     width: deviceWidth,
-    marginTop: 2
+    marginTop: 3
   },
   goToCampaignButton: {
-    backgroundColor: "#00FF9D",
+    backgroundColor: "rgba(0, 255, 157, 0.5)",
     alignItems: "center",
     justifyContent: "center",
     height: 37,
+    position: "absolute",
+    bottom: 0,
     width: "100%"
   },
   goToCampaignText: {
