@@ -24,7 +24,8 @@
       "**/*"
     ],
     "android": {
-      "package": "com.kc.keyconservation"
+      "package": "com.kc.keyconservation",
+      "versionCode": 2
     },
     "ios": {
       "infoPlist": {
