@@ -6,7 +6,8 @@ import {
   FlatList,
   TextInput,
   KeyboardAvoidingView,
-  TouchableOpacity
+  TouchableOpacity,
+  Platform
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import moment from 'moment';
@@ -25,7 +26,8 @@ import {
 import styles from '../../constants/Comments/Comments';
 import Comment from './Comment';
 
-const seturl = 'https://key-conservation.herokuapp.com/api/';
+// url for heroku staging vs production server
+const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
 class CommentsView extends React.Component {
   state = {
@@ -112,7 +114,7 @@ class CommentsView extends React.Component {
                       }}
                     />
                   )}
-                  {/* Displays latest comment unless the user is viewing all the comments. */}
+                  {/* Displays latest comment unless the user is viewing all the campaign comments. */}
                 </View>
                 <View style={styles.commentText}>
                   <Text style={styles.username}>
