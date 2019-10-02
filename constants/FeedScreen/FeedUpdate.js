@@ -5,12 +5,11 @@ const deviceWidth = Dimensions.get("window").width;
 export default {
   container: {
     justifyContent: "center",
-    paddingBottom: 35
+    paddingBottom: 2
   },
   orgTitleView: {
-    fontFamily: "OpenSans-SemiBold",
-    fontSize: 16,
-    fontWeight: "bold"
+    fontFamily: "OpenSans-Regular",
+    fontSize: 17
   },
   updateBar: {
     backgroundColor: "rgba(202, 255, 0, 0.5)",
@@ -70,7 +69,8 @@ export default {
     color: "#929292",
     fontSize: 10,
     marginLeft: 15,
-    marginTop: 10
+    marginTop: 15,
+    paddingBottom: 3
   },
   demarcation: {
     height: 4,
