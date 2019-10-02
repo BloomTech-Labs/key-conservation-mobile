@@ -18,7 +18,9 @@ const Comment = ({
   comment,
   currentUserProfile,
   selectedCampaign,
-  deleteComment
+  deleteComment,
+  goToProfile,
+  testingPress
 }) => {
   // console.log(currentUserProfile, 'Proppps for comments and id');
   const [confirm, setConfirm] = useState(false);
@@ -60,7 +62,7 @@ const Comment = ({
     deleteComment(id);
   };
 
-  // console.log(props.deleteComment, 'DELETTEETT');
+  console.log(comment.users_id, 'USERS ID, comment');
   return (
     <View>
       {deleted === false ? (
@@ -85,8 +87,10 @@ const Comment = ({
               )}
             </View>
             <View>
-              <Text style={styles.username}>{comment.username}</Text>
-              <Text style={styles.commentBody}>{comment.comment_body}</Text>
+              <TouchableOpacity activeOpacity={0.5} onPress={() => goToProfile(comment.users_id)} >
+                <Text style={styles.username}>{comment.username}</Text>
+                <Text style={styles.commentBody}>{comment.comment_body}</Text>
+              </TouchableOpacity>
             </View>
           </View>
           <View style={styles.interaction}>

@@ -20,7 +20,8 @@ import * as SecureStore from "expo-secure-store";
 import {
   commentOnCampaign,
   deleteComment,
-  getCampaign
+  getCampaign,
+  getProfileData
 } from "../../store/actions";
 import styles from "../../constants/Comments/Comments";
 import Comment from "./Comment";
@@ -83,6 +84,7 @@ class CommentsView extends React.Component {
                     selectedCampaign={this.props.selectedCampaign}
                     deleteComment={this.deleteComment}
                     token={this.props.token}
+                    goToProfile={this.goToProfile}
                   />
                 );
               }}
@@ -250,15 +252,30 @@ class CommentsView extends React.Component {
       commentsVisible: this.state.commentsVisible + 9
     });
   };
+
+  // For navigating to commenter's profile
+
+  goToProfile = (user) => {
+    this.props.getProfileData(user)
+    // this.props.navigation.navigate('Pro')
+    console.log('?????')
+    console.log('goToProfile in comment :', user)
+    console.log(this.props.selectedProfile, 'checking dat selected profile')
+  }
+
+  testingPress = () => {
+    console.log('testing press')
+  }
 }
 
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
   selectedCampaign: state.selectedCampaign,
-  token: state.token
+  token: state.token,
+  selectedProfile: state.selectedProfile
 });
 
 export default connect(
   mapStateToProps,
-  { commentOnCampaign, deleteComment, getCampaign }
+  { commentOnCampaign, deleteComment, getCampaign, getProfileData }
 )(CommentsView);

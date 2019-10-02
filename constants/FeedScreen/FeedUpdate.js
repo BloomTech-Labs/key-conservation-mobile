@@ -21,7 +21,10 @@ export default {
     /* Must have a Width && Height or it won't display anything! */
     flex: 1,
     height: deviceWidth,
-    width: deviceWidth
+    width: deviceWidth,
+    // position: 'relative',
+    // top: 2,
+    // left: 0
   },
   goToCampaignButton: {
     backgroundColor: "#00FF9D",
@@ -72,6 +75,9 @@ export default {
   updateBarText: {
     fontFamily: "OpenSans-SemiBold",
     fontSize: 18,
-    color: "black"
+    color: "black",
+    // position: 'absolute',
+    // top: 0,
+    // left: 0
   }
 };

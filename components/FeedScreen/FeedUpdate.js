@@ -93,16 +93,16 @@ const FeedUpdate = props => {
         />
       )}
       <View>
-        <View style={styles.updateBar}>
-          <Text style={styles.updateBarText}>UpdateChange</Text>
-        </View>
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampUpdate}>
+        <View style={styles.updateBar}>
+          <Text style={styles.updateBarText}>UpdateChang?aughhghh</Text>
+        </View>
           <Image
             source={{ uri: data.update_img }}
             style={styles.campImgContain} />
-              {/* <View style={styles.updateBar}>
-                <Text style={styles.updateBarText}>NewUpdate</Text> 
-              </View> */}
+              {/* <View style={styles.updateBar}> */}
+                {/* <Text style={styles.updateBarText}>NewUpdate</Text>  */}
+              {/* </View> */}
         </TouchableOpacity>
       </View>
       <TouchableOpacity
