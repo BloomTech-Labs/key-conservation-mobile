@@ -127,7 +127,7 @@ const reducer = (state = initialState, action) => {
         });
       }
       if (action.payload.myProfile) {
-        console.log('we hit action.payload.myProfile')
+        // console.log('we hit action.payload.myProfile')
         return {
           ...state,
           pending: { ...state.pending, getProfile: false },
@@ -135,7 +135,7 @@ const reducer = (state = initialState, action) => {
  
         };
       } else {
-        console.log('we in dat selectedProfile shiiii')
+        // console.log('we in dat selectedProfile shiiii')
         return {
           ...state,
           pending: { ...state.pending, getProfile: false },

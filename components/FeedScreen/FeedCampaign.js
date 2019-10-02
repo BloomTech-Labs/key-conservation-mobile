@@ -138,16 +138,16 @@ const FeedCampaign = props => {
               <View style={styles2.commentWrapper}>
                 <View style={styles2.commentView}>
                   <View style={styles2.avatar}>
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                       activeOpacity={0.5}
-                      onPress={() => goToComProfile(item.users_id)}>
+                      onPress={() => goToComProfile(item.users_id)}> */}
                       <Avatar
                         rounded
                         source={{
                           uri: item.profile_image
                         }}
                       />
-                    </TouchableOpacity>
+                    {/* </TouchableOpacity> */}
                   </View>
                   <View>
                     <Text style={styles2.username}>{item.username}</Text>
