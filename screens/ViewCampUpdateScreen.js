@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   StyleSheet,
   Text,
@@ -6,42 +6,66 @@ import {
   TouchableOpacity,
   Image,
   Dimensions
-} from 'react-native';
-import { ListItem } from 'react-native-elements';
-import { ScrollView } from 'react-navigation';
-import { connect } from 'react-redux';
+} from "react-native";
+import { ListItem } from "react-native-elements";
+import { ScrollView } from "react-navigation";
+import { connect } from "react-redux";
+import { FontAwesome } from "@expo/vector-icons";
 
-import { getProfileData, getCampaign } from '../store/actions';
-import BackButton from '../components/BackButton';
+import { getProfileData, getCampaign } from "../store/actions";
+import BackButton from "../components/BackButton";
 
-const deviceWidth = Dimensions.get('window').width;
+const deviceWidth = Dimensions.get("window").width;
 
 class ViewCampUpdateScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Update',
+      title: "Update",
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: "#323338"
       },
-      headerTintColor: '#fff',
+      headerTintColor: "#fff",
       headerTitleStyle: {
-        textAlign: 'center',
+        textAlign: "center",
         flexGrow: 1,
-        alignSelf: 'center'
+        alignSelf: "center"
       },
       headerLeft: <BackButton navigation={navigation} />,
       headerRight: <View />
     };
   };
 
+  state = {
+    likes: this.props.navigation.state.params.likes,
+    userLiked: this.props.navigation.state.params.userLiked
+  };
+
+  addLike = () => {
+    this.setState({
+      ...this.state,
+      likes: this.state.likes + 1,
+      userLiked: true
+    });
+    this.props.navigation.state.params.addLike();
+  };
+
+  deleteLike = () => {
+    this.setState({
+      ...this.state,
+      likes: this.state.likes - 1,
+      userLiked: false
+    });
+    this.props.navigation.state.params.deleteLike();
+  };
+
   goToProfile = async () => {
     await this.props.getProfileData(this.props.selectedCampaign.users_id);
-    this.props.navigation.navigate('Pro');
+    this.props.navigation.navigate("Pro");
   };
 
   goToCampaign = async () => {
     await this.props.getCampaign(this.props.selectedCampaign.camp_id);
-    this.props.navigation.navigate('Camp');
+    this.props.navigation.navigate("Camp");
   };
 
   render() {
@@ -66,6 +90,28 @@ class ViewCampUpdateScreen extends React.Component {
             source={{ uri: this.props.selectedCampaign.update_img }}
             style={styles.campImgContain}
           />
+          <View>
+            {this.state.userLiked === false ? (
+              <FontAwesome
+                onPress={() => this.addLike()}
+                name='heart-o'
+                style={styles.heartOutline}
+              />
+            ) : (
+              <FontAwesome
+                onPress={() => this.deleteLike()}
+                name='heart'
+                style={styles.heartFill}
+              />
+            )}
+          </View>
+          <View>
+            {this.state.likes === 0 ? null : this.state.likes > 1 ? (
+              <Text style={styles.likes}>{this.state.likes} likes</Text>
+            ) : (
+              <Text style={styles.likes}>{this.state.likes} like</Text>
+            )}
+          </View>
           <View style={styles.campDescContain}>
             <Text style={styles.campDescName}>
               {this.props.selectedCampaign.camp_name}
@@ -75,13 +121,13 @@ class ViewCampUpdateScreen extends React.Component {
             </Text>
           </View>
           <View style={styles.ogBorder} />
-          <View style={styles.ogPostView}>            
+          <View style={styles.ogPostView}>
             <View style={styles.ogPostButton}>
               <TouchableOpacity
                 style={styles.touchableButton}
                 // If these links are empty string and don't have an http:// or a https:// it will send you with unpromised rejections.
                 onPress={this.goToCampaign}
-              > 
+              >
                 <View style={styles.touchableView}>
                   <Text style={styles.touchableText}>View Original Post</Text>
                 </View>
@@ -103,48 +149,63 @@ const styles = StyleSheet.create({
   touchableButton: {
     paddingTop: 25,
     paddingBottom: 25,
-    width: '100%',
+    width: "100%",
     height: 50
   },
   touchableView: {
-    backgroundColor: '#00FF9D',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#00FF9D",
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 5,
     height: 48,
     width: 243
   },
   touchableText: {
-    fontFamily: 'OpenSans-Regular',
-    color: '#323338',
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
+    fontFamily: "OpenSans-Regular",
+    color: "#323338",
+    textTransform: "uppercase",
+    fontWeight: "bold",
     letterSpacing: 2,
     fontSize: 16
   },
   ogPostButton: {
-    fontFamily: 'OpenSans-SemiBold',
-    width: '60%',
-    alignSelf: 'center'
+    fontFamily: "OpenSans-SemiBold",
+    width: "60%",
+    alignSelf: "center"
   },
   supportMissionText: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: "OpenSans-SemiBold",
     fontSize: 14,
     paddingLeft: 10
   },
   campMissionText: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: "OpenSans-Regular",
     fontSize: 14,
     lineHeight: 19,
     paddingTop: 10
-  },  
+  },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
     // resizeMode: 'contain',
     // height: deviceWidth <= 415 ? deviceWidth : 415
     flex: 1,
     height: deviceWidth,
-    width: deviceWidth,
+    width: deviceWidth
+  },
+  heartOutline: {
+    fontSize: 28,
+    marginLeft: 15,
+    marginTop: 15,
+    color: '#00FF9D'
+  },
+  heartFill: {
+    fontSize: 28,
+    marginLeft: 15,
+    marginTop: 15,
+    color: '#00FF9D'
+  },
+  likes: {
+    marginLeft: 15
   },
   campDescContain: {
     marginLeft: 15,
@@ -152,31 +213,31 @@ const styles = StyleSheet.create({
     marginRight: 15
   },
   campDescName: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: "OpenSans-SemiBold",
     fontSize: 16,
     lineHeight: 22
   },
   campDesc: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: "OpenSans-Regular",
     fontSize: 14,
     lineHeight: 19,
-    paddingBottom: 15,
+    paddingBottom: 15
   },
   listUsername: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: "OpenSans-SemiBold",
     fontSize: 16,
     lineHeight: 22
   },
-  ogPostView: {    
-    alignItems: 'center'
+  ogPostView: {
+    alignItems: "center"
   },
   ogBorder: {
-    marginLeft: '16%',
-    marginRight: '16%',
+    marginLeft: "16%",
+    marginRight: "16%",
     marginTop: 20,
     paddingTop: 19,
     borderTopWidth: 2,
-    borderTopColor: '#eee',
+    borderTopColor: "#eee"
   },
   whiteSpace: {
     height: 40

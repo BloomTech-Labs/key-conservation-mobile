@@ -1,10 +1,10 @@
-import { Dimensions } from "react-native";
+import { Dimensions } from 'react-native';
 
-const deviceWidth = Dimensions.get("window").width;
+const deviceWidth = Dimensions.get('window').width;
 export default {
   feedContainer: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: '#fff'
   },
   searchIcon: {
     marginRight: 20
@@ -33,8 +33,23 @@ export default {
     bottom: 0,
     width: "100%"
   },
+  heartOutline: {
+    fontSize: 28,
+    marginLeft: 15,
+    marginTop: 15,
+    color: '#00FF9D'
+  },
+  heartFill: {
+    fontSize: 28,
+    marginLeft: 15,
+    marginTop: 15,
+    color: '#00FF9D'
+  },
+  likes: {
+    marginLeft: 15
+  },
   goToCampaignText: {
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: 'OpenSans-SemiBold',
     fontSize: 18
   },
   campDesc: {
@@ -44,7 +59,7 @@ export default {
     marginBottom: 15
   },
   campDescName: {
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: 'OpenSans-SemiBold',
     fontSize: 16,
     paddingBottom: 10
   },
@@ -54,18 +69,18 @@ export default {
     lineHeight: 19
   },
   comments: {
-    fontFamily: "OpenSans-Regular",
+    fontFamily: 'OpenSans-Regular',
     fontSize: 13,
     lineHeight: 16,
     marginLeft: 15,
     paddingTop: 12,
-    color: "#7B7D88"
+    color: '#7B7D88'
   },
   readMore: {
     color: "#929292"
   },
   timeText: {
-    color: "#929292",
+    color: '#929292',
     fontSize: 10,
     marginLeft: 15,
     marginTop: 15,

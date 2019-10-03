@@ -6,17 +6,17 @@ import {
   FlatList,
   TextInput,
   KeyboardAvoidingView,
-  TouchableOpacity
-} from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
-import moment from "moment";
-import { ScrollView, NavigationEvents } from "react-navigation";
-import { Avatar } from "react-native-elements";
-import { useDispatch } from "react-redux";
-import { connect } from "react-redux";
-import axios from "axios";
-import * as SecureStore from "expo-secure-store";
-
+  TouchableOpacity,
+  Platform
+} from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
+import moment from 'moment';
+import { ScrollView, NavigationEvents } from 'react-navigation';
+import { Avatar } from 'react-native-elements';
+import { useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import * as SecureStore from 'expo-secure-store';
 import {
   commentOnCampaign,
   deleteComment,
@@ -26,7 +26,7 @@ import styles from "../../constants/Comments/Comments";
 import Comment from "./Comment";
 
 // url for heroku staging vs production server
-const seturl = "https://key-conservation-staging.herokuapp.com/api/";
+const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
 class CommentsView extends React.Component {
   state = {
