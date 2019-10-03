@@ -176,13 +176,13 @@ class ViewCampScreen extends React.Component {
                     )}
                     {this.state.userBookmarked === false ? (
                       <FontAwesome
-                        onPress={() => addBookmark()}
+                        onPress={() => this.addBookmark()}
                         name='bookmark-o'
                         style={styles.outline}
                       />
                     ) : (
                       <FontAwesome
-                        onPress={() => deleteBookmark()}
+                        onPress={() => this.deleteBookmark()}
                         name='bookmark'
                         style={styles.fill}
                       />
