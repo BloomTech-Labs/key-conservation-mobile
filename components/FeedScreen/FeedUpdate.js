@@ -171,9 +171,9 @@ const FeedUpdate = props => {
               <Text style={styles.updateBarText}>Update</Text>
             </View>
 
-            <View style={styles.goToCampaignButton} onPress={goToCampUpdate}>
+            {/* <View style={styles.goToCampaignButton} onPress={goToCampUpdate}>
               <Text style={styles.goToCampaignText}>See Update {'>'}</Text>
-            </View>
+            </View> */}
           </ImageBackground>
         </TouchableOpacity>
       </View>

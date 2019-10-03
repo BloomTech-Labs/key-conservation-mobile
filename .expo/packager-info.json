@@ -1,9 +1,9 @@
 {
-  "devToolsPort": 19002,
+  "devToolsPort": 19004,
   "expoServerPort": 19000,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": "https://as-ida.brandon001.frontend-mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.as-ida.brandon001.frontend-mobile.exp.direct",
-  "ngrokPid": 13088
+  "packagerPort": 19003,
+  "packagerPid": 41603,
+  "expoServerNgrokUrl": "https://as-ida.katiefelten.frontend-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.as-ida.katiefelten.frontend-mobile.exp.direct",
+  "ngrokPid": 41611
 }

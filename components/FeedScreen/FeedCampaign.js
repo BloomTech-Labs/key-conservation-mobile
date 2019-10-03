@@ -175,9 +175,9 @@ const FeedCampaign = props => {
             source={{ uri: data.camp_img }}
             style={styles.campImgContain}
           >
-            <View style={styles.goToCampaignButton} onPress={goToCampaign}>
+            {/* <View style={styles.goToCampaignButton} onPress={goToCampaign}>
               <Text style={styles.goToCampaignText}>See Post {'>'}</Text>
-            </View>
+            </View> */}
           </ImageBackground>
         </TouchableOpacity>
       </View>
