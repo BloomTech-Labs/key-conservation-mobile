@@ -2,11 +2,6 @@ import { Dimensions } from 'react-native';
 
 const deviceWidth = Dimensions.get('window').width;
 export default {
-  demarcation: {
-    marginTop: 20,
-    borderTopWidth: 2,
-    borderTopColor: '#eee'
-  },
   feedContainer: {
     flex: 1,
     backgroundColor: '#fff'
@@ -15,39 +10,28 @@ export default {
     marginRight: 20
   },
   container: {
-    justifyContent: 'center',
-    paddingBottom: 10
-  },
-  feedContainer: {
-    flex: 1,
-    backgroundColor: '#fff'
-  },
-  searchIcon: {
-    marginRight: 20
-  },
-  timeText: {
-    color: '#929292',
-    fontSize: 10,
-    marginLeft: 15,
-    marginTop: 15
+    justifyContent: "center",
+    paddingBottom: 3
   },
   orgTitleView: {
-    fontFamily: 'OpenSans-SemiBold',
-    fontSize: 16,
-    fontWeight: 'bold'
+    fontFamily: "OpenSans-Regular",
+    fontSize: 17
   },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
     flex: 1,
     height: deviceWidth,
-    width: deviceWidth
+    width: deviceWidth,
+    marginTop: 3
   },
   goToCampaignButton: {
-    backgroundColor: '#00FF9D',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "rgba(0, 255, 157, 0.5)",
+    alignItems: "center",
+    justifyContent: "center",
     height: 37,
-    width: '100%'
+    position: "absolute",
+    bottom: 0,
+    width: "100%"
   },
   heartOutline: {
     fontSize: 28,
@@ -74,15 +58,15 @@ export default {
     marginRight: 15,
     marginBottom: 15
   },
-  campDescText: {
-    fontFamily: 'OpenSans-Regular',
-    fontSize: 14,
-    lineHeight: 19
-  },
   campDescName: {
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 16,
     paddingBottom: 10
+  },
+  campDescText: {
+    fontFamily: "OpenSans-Regular",
+    fontSize: 14,
+    lineHeight: 19
   },
   comments: {
     fontFamily: 'OpenSans-Regular',
@@ -92,13 +76,19 @@ export default {
     paddingTop: 12,
     color: '#7B7D88'
   },
+  readMore: {
+    color: "#929292"
+  },
   timeText: {
     color: '#929292',
     fontSize: 10,
     marginLeft: 15,
-    marginTop: 10
+    marginTop: 15,
+    paddingBottom: 8
   },
-  readMore: {
-    color: '#929292'
+  demarcation: {
+    marginTop: 15,
+    borderTopWidth: 2,
+    borderTopColor: "#eee"
   }
 };
