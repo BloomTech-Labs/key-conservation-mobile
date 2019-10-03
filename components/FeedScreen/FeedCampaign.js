@@ -235,31 +235,31 @@ const FeedCampaign = props => {
           </ImageBackground>
         </TouchableOpacity>
       </View>
-      <View>
+      <View style={styles.iconRow}>
         {userLiked === false ? (
           <FontAwesome
             onPress={() => addLike()}
             name='heart-o'
-            style={styles.heartOutline}
+            style={styles.outline}
           />
         ) : (
           <FontAwesome
             onPress={() => deleteLike()}
             name='heart'
-            style={styles.heartFill}
+            style={styles.fill}
           />
         )}
-        {userLiked === false ? (
+        {userBookmarked === false ? (
           <FontAwesome
             onPress={() => addBookmark()}
             name='bookmark-o'
-            // style={styles.heartOutline}
+            style={styles.outline}
           />
         ) : (
           <FontAwesome
             onPress={() => deleteBookmark()}
             name='bookmark'
-            // style={styles.heartFill}
+            style={styles.fill}
           />
         )}
       </View>
@@ -332,6 +332,7 @@ const FeedCampaign = props => {
 
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
+  currentUser: state.currentUser,
   token: state.token
 });
 

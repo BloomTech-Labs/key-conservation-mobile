@@ -165,26 +165,26 @@ class ViewCampScreen extends React.Component {
                       <FontAwesome
                         onPress={() => this.addLike()}
                         name='heart-o'
-                        style={styles.heartOutline}
+                        style={styles.outline}
                       />
                     ) : (
                       <FontAwesome
                         onPress={() => this.deleteLike()}
                         name='heart'
-                        style={styles.heartFill}
+                        style={styles.fill}
                       />
                     )}
-                    {userLiked === false ? (
+                    {this.state.userBookmarked === false ? (
                       <FontAwesome
                         onPress={() => addBookmark()}
                         name='bookmark-o'
-                        // style={styles.heartOutline}
+                        style={styles.outline}
                       />
                     ) : (
                       <FontAwesome
                         onPress={() => deleteBookmark()}
                         name='bookmark'
-                        // style={styles.heartFill}
+                        style={styles.fill}
                       />
                     )}
                   </View>

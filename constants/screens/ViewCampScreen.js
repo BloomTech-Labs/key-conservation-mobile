@@ -119,13 +119,13 @@ export default {
   iconRow: {
     flexDirection: 'row'
   },
-  heartOutline: {
+  outline: {
     fontSize: 28,
     marginLeft: 15,
     marginTop: 15,
     color: '#00FF9D'
   },
-  heartFill: {
+  fill: {
     fontSize: 28,
     marginLeft: 15,
     marginTop: 15,
