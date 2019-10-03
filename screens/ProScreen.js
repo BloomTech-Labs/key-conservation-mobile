@@ -31,7 +31,11 @@ class ProScreen extends React.Component {
     return (
       // creates sticky header
       <ScrollView stickyHeaderIndices={[0]}>
-        <ProfileHeader navigation={navigation} profile={this.props.selectedProfile} myProfile={false} />
+        <ProfileHeader
+          navigation={navigation}
+          profile={this.props.selectedProfile}
+          myProfile={false}
+        />
         {this.props.selectedProfile.campaigns.map(camp => {
           if (camp.update_id) {
             return (
@@ -41,7 +45,7 @@ class ProScreen extends React.Component {
                 toggled
                 navigation={navigation}
               />
-            )
+            );
           } else {
             return (
               <FeedCampaign

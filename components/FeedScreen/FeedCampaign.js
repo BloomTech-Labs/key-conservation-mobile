@@ -29,13 +29,20 @@ const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 const FeedCampaign = props => {
   const [likes, setLikes] = useState(props.data.likes.length);
   const [userLiked, setUserLiked] = useState(false);
+  const [userBookmarked, setUserBookmarked] = useState(false);
 
   useEffect(() => {
     const liked = data.likes.filter(
       l => l.users_id === props.currentUserProfile.id
     );
+    const bookmarked = props.currentUserProfile.bookmarks.filter(
+      b => b.camp_id === data.camp_id
+    );
     if (liked.length > 0) {
       setUserLiked(true);
+    }
+    if (bookmarked.length > 0) {
+      setUserBookmarked(true);
     }
   }, []);
 
@@ -103,7 +110,10 @@ const FeedCampaign = props => {
       likes: likes,
       userLiked: userLiked,
       addLike: addLike,
-      deleteLike: deleteLike
+      deleteLike: deleteLike,
+      userBookmarked: userBookmarked,
+      addBookmark: addBookmark,
+      deleteBookmark: deleteBookmark
     });
   };
 
@@ -157,6 +167,50 @@ const FeedCampaign = props => {
       });
   };
 
+  const addBookmark = () => {
+    axios
+      .post(
+        `${seturl}social/bookmark/${data.camp_id}`,
+        {
+          users_id: props.currentUserProfile.id,
+          camp_id: data.camp_id
+        },
+        {
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${props.token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      )
+      .then(res => {
+        setUserBookmarked(true);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const deleteBookmark = () => {
+    axios
+      .delete(
+        `${seturl}social/bookmark/${data.camp_id}/${props.currentUserProfile.id}`,
+        {
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${props.token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      )
+      .then(res => {
+        setUserBookmarked(false);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   return (
     <View style={styles.container}>
       <ListItem
@@ -193,6 +247,19 @@ const FeedCampaign = props => {
             onPress={() => deleteLike()}
             name='heart'
             style={styles.heartFill}
+          />
+        )}
+        {userLiked === false ? (
+          <FontAwesome
+            onPress={() => addBookmark()}
+            name='bookmark-o'
+            // style={styles.heartOutline}
+          />
+        ) : (
+          <FontAwesome
+            onPress={() => deleteBookmark()}
+            name='bookmark'
+            // style={styles.heartFill}
           />
         )}
       </View>

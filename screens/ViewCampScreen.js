@@ -47,7 +47,8 @@ class ViewCampScreen extends React.Component {
 
   state = {
     likes: this.props.navigation.state.params.likes,
-    userLiked: this.props.navigation.state.params.userLiked
+    userLiked: this.props.navigation.state.params.userLiked,
+    userBookmarked: this.props.navigation.state.params.userBookmarked
   };
 
   addLike = () => {
@@ -66,6 +67,22 @@ class ViewCampScreen extends React.Component {
       userLiked: false
     });
     this.props.navigation.state.params.deleteLike();
+  };
+
+  addBookmark = () => {
+    this.setState({
+      ...this.state,
+      userBookmarked: true
+    });
+    this.props.navigation.state.params.addBookmark();
+  };
+
+  deleteBookmark = () => {
+    this.setState({
+      ...this.state,
+      userBookmarked: false
+    });
+    this.props.navigation.state.params.deleteBookmark();
   };
 
   goToProfile = () => {
@@ -155,6 +172,19 @@ class ViewCampScreen extends React.Component {
                         onPress={() => this.deleteLike()}
                         name='heart'
                         style={styles.heartFill}
+                      />
+                    )}
+                    {userLiked === false ? (
+                      <FontAwesome
+                        onPress={() => addBookmark()}
+                        name='bookmark-o'
+                        // style={styles.heartOutline}
+                      />
+                    ) : (
+                      <FontAwesome
+                        onPress={() => deleteBookmark()}
+                        name='bookmark'
+                        // style={styles.heartFill}
                       />
                     )}
                   </View>
