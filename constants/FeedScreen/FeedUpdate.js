@@ -73,8 +73,8 @@ export default {
     paddingBottom: 3
   },
   demarcation: {
-    height: 4,
-    width: "100%",
-    backgroundColor: "#fff"
+    marginTop: 15,
+    borderTopWidth: 2,
+    borderTopColor: "#eee"
   }
 };

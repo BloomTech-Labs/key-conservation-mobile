@@ -2,8 +2,9 @@
   "devToolsPort": 19004,
   "expoServerPort": 19000,
   "packagerPort": 19003,
-  "packagerPid": 31247,
+  "packagerPid": 32775,
   "expoServerNgrokUrl": "https://f5-8fm.katiefelten.frontend-mobile.exp.direct",
   "packagerNgrokUrl": "https://packager.f5-8fm.katiefelten.frontend-mobile.exp.direct",
-  "ngrokPid": 31260
+  "ngrokPid": 32783,
+  "webpackServerPort": null
 }
