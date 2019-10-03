@@ -259,7 +259,7 @@ const FeedCampaign = props => {
           <FontAwesome
             onPress={() => deleteBookmark()}
             name='bookmark'
-            style={styles.fill}
+            style={styles.bookmarkFill}
           />
         )}
       </View>

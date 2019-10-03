@@ -184,7 +184,7 @@ class ViewCampScreen extends React.Component {
                       <FontAwesome
                         onPress={() => this.deleteBookmark()}
                         name='bookmark'
-                        style={styles.fill}
+                        style={styles.bookmarkFill}
                       />
                     )}
                   </View>
