@@ -1,6 +1,6 @@
 {
   "urlRandomness": "as-ida",
-  "hostType": "lan",
+  "hostType": "tunnel",
   "lanType": "ip",
   "dev": true,
   "minify": false,
