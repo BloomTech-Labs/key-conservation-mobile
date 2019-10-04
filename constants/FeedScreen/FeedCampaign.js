@@ -10,11 +10,11 @@ export default {
     marginRight: 20
   },
   container: {
-    justifyContent: "center",
+    justifyContent: 'center',
     paddingBottom: 3
   },
   orgTitleView: {
-    fontFamily: "OpenSans-Regular",
+    fontFamily: 'OpenSans-Regular',
     fontSize: 17
   },
   campImgContain: {
@@ -25,25 +25,34 @@ export default {
     marginTop: 3
   },
   goToCampaignButton: {
-    backgroundColor: "rgba(0, 255, 157, 0.5)",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: 'rgba(0, 255, 157, 0.5)',
+    alignItems: 'center',
+    justifyContent: 'center',
     height: 37,
-    position: "absolute",
+    position: 'absolute',
     bottom: 0,
-    width: "100%"
+    width: '100%'
   },
-  heartOutline: {
+  iconRow: {
+    flexDirection: 'row'
+  },
+  outline: {
     fontSize: 28,
     marginLeft: 15,
     marginTop: 15,
-    color: '#00FF9D'
+    color: 'black'
   },
-  heartFill: {
+  fill: {
     fontSize: 28,
     marginLeft: 15,
     marginTop: 15,
-    color: '#00FF9D'
+    color: '#e60024'
+  },
+  bookmarkFill: {
+    fontSize: 28,
+    marginLeft: 15,
+    marginTop: 15,
+    color: 'black'
   },
   likes: {
     marginLeft: 15
@@ -64,7 +73,7 @@ export default {
     paddingBottom: 10
   },
   campDescText: {
-    fontFamily: "OpenSans-Regular",
+    fontFamily: 'OpenSans-Regular',
     fontSize: 14,
     lineHeight: 19
   },
@@ -77,7 +86,7 @@ export default {
     color: '#7B7D88'
   },
   readMore: {
-    color: "#929292"
+    color: '#929292'
   },
   timeText: {
     color: '#929292',
@@ -89,6 +98,6 @@ export default {
   demarcation: {
     marginTop: 15,
     borderTopWidth: 2,
-    borderTopColor: "#eee"
+    borderTopColor: '#eee'
   }
 };

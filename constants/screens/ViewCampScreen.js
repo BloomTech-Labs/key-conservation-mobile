@@ -119,17 +119,23 @@ export default {
   iconRow: {
     flexDirection: 'row'
   },
-  heartOutline: {
+  outline: {
     fontSize: 28,
     marginLeft: 15,
     marginTop: 15,
-    color: '#00FF9D'
+    color: 'black'
   },
-  heartFill: {
+  fill: {
     fontSize: 28,
     marginLeft: 15,
     marginTop: 15,
-    color: '#00FF9D'
+    color: '#e60024'
+  },
+  bookmarkFill: {
+    fontSize: 28,
+    marginLeft: 15,
+    marginTop: 15,
+    color: 'black'
   },
   likes: {
     marginLeft: 15

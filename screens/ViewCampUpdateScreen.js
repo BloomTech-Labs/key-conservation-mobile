@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,29 +6,29 @@ import {
   TouchableOpacity,
   Image,
   Dimensions
-} from "react-native";
-import { ListItem } from "react-native-elements";
-import { ScrollView } from "react-navigation";
-import { connect } from "react-redux";
-import { FontAwesome } from "@expo/vector-icons";
+} from 'react-native';
+import { ListItem } from 'react-native-elements';
+import { ScrollView } from 'react-navigation';
+import { connect } from 'react-redux';
+import { FontAwesome } from '@expo/vector-icons';
 
-import { getProfileData, getCampaign } from "../store/actions";
-import BackButton from "../components/BackButton";
+import { getProfileData, getCampaign } from '../store/actions';
+import BackButton from '../components/BackButton';
 
-const deviceWidth = Dimensions.get("window").width;
+const deviceWidth = Dimensions.get('window').width;
 
 class ViewCampUpdateScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: "Update",
+      title: 'Update',
       headerStyle: {
-        backgroundColor: "#323338"
+        backgroundColor: '#323338'
       },
-      headerTintColor: "#fff",
+      headerTintColor: '#fff',
       headerTitleStyle: {
-        textAlign: "center",
+        textAlign: 'center',
         flexGrow: 1,
-        alignSelf: "center"
+        alignSelf: 'center'
       },
       headerLeft: <BackButton navigation={navigation} />,
       headerRight: <View />
@@ -60,12 +60,17 @@ class ViewCampUpdateScreen extends React.Component {
 
   goToProfile = async () => {
     await this.props.getProfileData(this.props.selectedCampaign.users_id);
-    this.props.navigation.navigate("Pro");
+    this.props.navigation.navigate('Pro');
   };
 
   goToCampaign = async () => {
     await this.props.getCampaign(this.props.selectedCampaign.camp_id);
-    this.props.navigation.navigate("Camp");
+    this.props.navigation.navigate('Camp', {
+      likes: this.props.navigation.state.params.likes,
+      userLiked: this.props.navigation.state.params.userLiked,
+      addLike: this.props.navigation.state.params.addLike,
+      deleteLike: this.props.navigation.state.params.deleteLike
+    });
   };
 
   render() {
@@ -149,37 +154,37 @@ const styles = StyleSheet.create({
   touchableButton: {
     paddingTop: 25,
     paddingBottom: 25,
-    width: "100%",
+    width: '100%',
     height: 50
   },
   touchableView: {
-    backgroundColor: "#00FF9D",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#00FF9D',
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 5,
     height: 48,
     width: 243
   },
   touchableText: {
-    fontFamily: "OpenSans-Regular",
-    color: "#323338",
-    textTransform: "uppercase",
-    fontWeight: "bold",
+    fontFamily: 'OpenSans-Regular',
+    color: '#323338',
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
     letterSpacing: 2,
     fontSize: 16
   },
   ogPostButton: {
-    fontFamily: "OpenSans-SemiBold",
-    width: "60%",
-    alignSelf: "center"
+    fontFamily: 'OpenSans-SemiBold',
+    width: '60%',
+    alignSelf: 'center'
   },
   supportMissionText: {
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: 'OpenSans-SemiBold',
     fontSize: 14,
     paddingLeft: 10
   },
   campMissionText: {
-    fontFamily: "OpenSans-Regular",
+    fontFamily: 'OpenSans-Regular',
     fontSize: 14,
     lineHeight: 19,
     paddingTop: 10
@@ -213,31 +218,31 @@ const styles = StyleSheet.create({
     marginRight: 15
   },
   campDescName: {
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: 'OpenSans-SemiBold',
     fontSize: 16,
     lineHeight: 22
   },
   campDesc: {
-    fontFamily: "OpenSans-Regular",
+    fontFamily: 'OpenSans-Regular',
     fontSize: 14,
     lineHeight: 19,
     paddingBottom: 15
   },
   listUsername: {
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: 'OpenSans-SemiBold',
     fontSize: 16,
     lineHeight: 22
   },
   ogPostView: {
-    alignItems: "center"
+    alignItems: 'center'
   },
   ogBorder: {
-    marginLeft: "16%",
-    marginRight: "16%",
+    marginLeft: '16%',
+    marginRight: '16%',
     marginTop: 20,
     paddingTop: 19,
     borderTopWidth: 2,
-    borderTopColor: "#eee"
+    borderTopColor: '#eee'
   },
   whiteSpace: {
     height: 40
