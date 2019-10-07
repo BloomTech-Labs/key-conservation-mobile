@@ -10,7 +10,7 @@ import BackButton from "../components/BackButton";
 class ProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: "Profiiile",
+      title: "Profile",
       headerStyle: {
         backgroundColor: "#323338"
       },
