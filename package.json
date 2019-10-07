@@ -24,6 +24,7 @@
     "expo-constants": "^5.0.0",
     "expo-font": "^5.0.0",
     "expo-image-picker": "^5.0.2",
+    "expo-module-scripts": "^1.1.1",
     "expo-permissions": "^5.0.1",
     "expo-secure-store": "^5.0.1",
     "expo-web-browser": "^5.0.0",
