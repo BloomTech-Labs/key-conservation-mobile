@@ -15,12 +15,12 @@ export default {
     justifyContent: "space-around",
     backgroundColor: "#fff",
     borderBottomColor: "whitesmoke",
-    borderRadius: 5
+    borderRadius: 5,
+    fontSize: 15
   },
   ButtonStyle: {
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 5,
     height: 35
   },
   ButtonText: {

@@ -1,17 +1,14 @@
 export default {
   container: {
     alignItems: "flex-start",
-    margin: 15,
+    margin: 8,
     textAlign: "justify",
     lineHeight: 30
-  },
-  title: {
-    fontSize: 20
   },
   body: {
     marginTop: 10,
     flexDirection: "column",
-    flexWrap: "nowrap", 
+    flexWrap: "nowrap",
     fontSize: 15
   },
   iconWrap: {
@@ -24,23 +21,24 @@ export default {
     paddingBottom: 20
   },
   sections: {
-    marginTop: 10,
+    marginTop: 8,
     backgroundColor: "#fff",
     width: "100%",
     padding: 25,
-    borderRadius: 5
+    borderRadius: 5,
+    fontSize: 15
   },
   title: {
     fontSize: 18,
     alignSelf: "center",
     marginLeft: 10,
-    fontFamily: "OpenSans-Regular"
+    fontFamily: "OpenSans-SemiBold"
   },
   donateButton: {
     alignItems: "center",
     width: "100%"
   },
   forcedMargin: {
-    marginTop: 10
+    marginTop: 5
   }
 };
