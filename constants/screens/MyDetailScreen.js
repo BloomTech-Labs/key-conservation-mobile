@@ -15,8 +15,7 @@ export default {
     justifyContent: "space-around",
     backgroundColor: "#fff",
     borderBottomColor: "whitesmoke",
-    borderRadius: 5,
-    fontSize: 15
+    borderRadius: 5
   },
   ButtonStyle: {
     alignItems: "center",
