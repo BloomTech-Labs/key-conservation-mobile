@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { TouchableOpacity, View, Text,Image} from 'react-native';
+import { TouchableOpacity, View, Text, Image, Platform } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import * as ImagePicker from 'expo-image-picker';
+import { Video } from 'expo-av';
+import * as DocumentPicker from 'expo-document-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import { setMedia } from '../store/actions';
 
-import styles from '../constants/UploadMedia'
+import styles from '../constants/UploadMedia';
 
 class UploadMedia extends Component {
   state = {
@@ -24,6 +26,7 @@ class UploadMedia extends Component {
   };
 
   _pickImage = async () => {
+    // let result = await DocumentPicker.getDocumentAsync({});
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -48,36 +51,67 @@ class UploadMedia extends Component {
   clearState = () => {
     this.setState({
       media: ''
-    })
-  }
+    });
+  };
 
   render() {
+    console.log(this.state);
     const { media } = this.state;
     return (
       <>
-        <NavigationEvents
-          onDidBlur={this.clearState}
-        />
+        <NavigationEvents onDidBlur={this.clearState} />
         <View style={styles.imageButton}>
-          <TouchableOpacity
-            onPress={this._pickImage}
-          >
+          <TouchableOpacity onPress={this._pickImage}>
             <View style={styles.touchableView}>
-              <Text style={styles.touchableText}>Click here to choose an image</Text>
+              <Text style={styles.touchableText}>
+                Click here to choose an image or video
+              </Text>
             </View>
           </TouchableOpacity>
-          </View>
-          <View style={styles.imageContain}>
-            {media ?
-            // to make profile image circular, border radius must be set at half of height/width
-            <Image source={{ uri: media }} style={{height: 300, width: 300, borderRadius: this.props.circular ? 150 : 0}}/> : null}
-          </View>
+        </View>
+        <View style={styles.imageContain}>
+          {media ? (
+            Platform.OS === 'android' ? (
+              <Image
+                source={{
+                  uri: media
+                }}
+                style={{
+                  height: 300,
+                  width: 300,
+                  borderRadius: this.props.circular ? 150 : 0
+                }}
+              />
+            ) : media.includes('.mp4') ||
+              media.includes('.mp3') ||
+              media.includes('.mov') ? (
+              <Video
+                source={{ uri: media }}
+                rate={1.0}
+                volume={1.0}
+                isMuted={false}
+                resizeMode='cover'
+                useNativeControls={true}
+                style={{ width: 300, height: 300 }}
+              />
+            ) : (
+              <Image
+                source={{
+                  uri: media
+                }}
+                style={{
+                  height: 300,
+                  width: 300,
+                  borderRadius: this.props.circular ? 150 : 0
+                }}
+              />
+            )
+          ) : null}
+        </View>
       </>
     );
   }
 }
-
-
 
 export default connect(
   null,
