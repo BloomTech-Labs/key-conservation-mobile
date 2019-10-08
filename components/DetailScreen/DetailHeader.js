@@ -9,7 +9,7 @@ import styles from "../../constants/DetailScreen/DetailHeader";
 
 export default class DetailHeader extends Component {
   makeCall = () => {
-    let phoneNumber = profile.phone_number
+    let phoneNumber = this.props.profile.phone_number
     // let phoneNumber = 123456789 -- used for testing purposes
 
     if (Platform.OS === 'android') {
@@ -24,7 +24,9 @@ export default class DetailHeader extends Component {
 
   render() {
     let profile = this.props.profile;
-    // console.log(profile, 'this here be the profile')
+    console.log(profile.phone_number, 'this here be the profile')
+    console.log(this.props.myProfile, 'myProf here')
+    console.log('this fucking saved')
 
     return (
       <View>
@@ -112,7 +114,7 @@ export default class DetailHeader extends Component {
               ) : (
                 <TouchableOpacity
                 style={{ padding: 0, padding: 0 }}
-                onPress={() => this.makeCall}
+                onPress={this.makeCall}
               >
                 <SvgUri
                   fill='#3b3b3b'
