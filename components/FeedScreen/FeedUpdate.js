@@ -167,24 +167,33 @@ const FeedUpdate = props => {
           {data.update_img.includes('.mov') ||
           data.update_img.includes('.mp3') ||
           data.update_img.includes('.mp4') ? (
-            <Video
-              source={{
-                uri: data.update_img
-              }}
-              rate={1.0}
-              volume={1.0}
-              isMuted={true}
-              useNativeControls={true}
-              resizeMode='cover'
-              // shouldPlay
-              // isLooping
-              style={styles.campImgContain}
-            />
+            <View>
+              <View style={styles.updateBar}>
+                <Text style={styles.updateBarText}>UPDATE</Text>
+              </View>
+              <Video
+                source={{
+                  uri: data.update_img
+                }}
+                rate={1.0}
+                volume={1.0}
+                isMuted={true}
+                useNativeControls={true}
+                resizeMode='cover'
+                // shouldPlay
+                // isLooping
+                style={styles.campImgContain}
+              />
+            </View>
           ) : (
             <ImageBackground
               source={{ uri: data.update_img }}
               style={styles.campImgContain}
-            ></ImageBackground>
+            >
+              <View style={styles.updateBar}>
+                <Text style={styles.updateBarText}>UPDATE</Text>
+              </View>
+            </ImageBackground>
           )}
         </TouchableOpacity>
       </View>
