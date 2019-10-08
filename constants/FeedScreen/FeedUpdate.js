@@ -47,17 +47,20 @@ export default {
     fontFamily: "OpenSans-SemiBold",
     fontSize: 18
   },
+  likesContainer: {
+    flexDirection: 'row',
+    marginTop: 15,
+    alignItems: 'center'
+  },
   heartOutline: {
     fontSize: 28,
     marginLeft: 15,
-    marginTop: 15,
-    color: "#00FF9D"
+    color: "black"
   },
   heartFill: {
     fontSize: 28,
     marginLeft: 15,
-    marginTop: 15,
-    color: "#00FF9D"
+    color: '#e60024'
   },
   likes: {
     marginLeft: 15

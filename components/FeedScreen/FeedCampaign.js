@@ -236,24 +236,31 @@ const FeedCampaign = props => {
         </TouchableOpacity>
       </View>
       <View style={styles.iconRow}>
-        {userLiked === false ? (
-          <FontAwesome
-            onPress={() => addLike()}
-            name='heart-o'
-            style={styles.outline}
-          />
-        ) : (
-          <FontAwesome
-            onPress={() => deleteLike()}
-            name='heart'
-            style={styles.fill}
-          />
-        )}
+        <View style={styles.likesContainer}>
+          {userLiked === false ? (
+            <FontAwesome
+              onPress={() => addLike()}
+              name='heart-o'
+              style={styles.heartOutline}
+            />
+          ) : (
+            <FontAwesome
+              onPress={() => deleteLike()}
+              name='heart'
+              style={styles.heartFill}
+            />
+          )}
+          {likes === 0 ? null : likes > 1 ? (
+            <Text style={styles.likes}>{likes} likes</Text>
+          ) : (
+            <Text style={styles.likes}>{likes} like</Text>
+          )}
+        </View>
         {userBookmarked === false ? (
           <FontAwesome
             onPress={() => addBookmark()}
             name='bookmark-o'
-            style={styles.outline}
+            style={styles.bookmarkOutline}
           />
         ) : (
           <FontAwesome
@@ -263,11 +270,6 @@ const FeedCampaign = props => {
           />
         )}
       </View>
-      {likes === 0 ? null : likes > 1 ? (
-        <Text style={styles.likes}>{likes} likes</Text>
-      ) : (
-        <Text style={styles.likes}>{likes} like</Text>
-      )}
       <View style={styles.campDesc}>
         <Text style={styles.campDescName}>{data.camp_name}</Text>
         {toggled || data.camp_desc.length < 80 ? (

@@ -177,27 +177,28 @@ const FeedUpdate = props => {
           </ImageBackground>
         </TouchableOpacity>
       </View>
-
-      <View>
-        {userLiked === false ? (
-          <FontAwesome
-            onPress={() => addLike()}
-            name='heart-o'
-            style={styles.heartOutline}
-          />
+      <View style={styles.likesContainer}>
+        <View>
+          {userLiked === false ? (
+            <FontAwesome
+              onPress={() => addLike()}
+              name='heart-o'
+              style={styles.heartOutline}
+            />
+          ) : (
+            <FontAwesome
+              onPress={() => deleteLike()}
+              name='heart'
+              style={styles.heartFill}
+            />
+          )}
+        </View>
+        {likes === 0 ? null : likes > 1 ? (
+          <Text style={styles.likes}>{likes} likes</Text>
         ) : (
-          <FontAwesome
-            onPress={() => deleteLike()}
-            name='heart'
-            style={styles.heartFill}
-          />
+          <Text style={styles.likes}>{likes} like</Text>
         )}
       </View>
-      {likes === 0 ? null : likes > 1 ? (
-        <Text style={styles.likes}>{likes} likes</Text>
-      ) : (
-        <Text style={styles.likes}>{likes} like</Text>
-      )}
       <View style={styles.campDesc}>
         <Text style={styles.campDescName}>{data.camp_name}</Text>
         {toggled || data.update_desc.length < 80 ? (

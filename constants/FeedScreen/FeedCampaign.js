@@ -34,25 +34,33 @@ export default {
     width: '100%'
   },
   iconRow: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 15,
   },
-  outline: {
+  likesContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  heartOutline: {
     fontSize: 28,
     marginLeft: 15,
-    marginTop: 15,
     color: 'black'
   },
-  fill: {
+  heartFill: {
     fontSize: 28,
     marginLeft: 15,
-    marginTop: 15,
     color: '#e60024'
+  },
+  bookmarkOutline: {
+    fontSize: 28,
+    marginRight: 20,
+    color: 'black'
   },
   bookmarkFill: {
     fontSize: 28,
-    marginLeft: 15,
-    marginTop: 15,
-    color: 'black'
+    marginRight: 20,
+    color: '#00FF9D'
   },
   likes: {
     marginLeft: 15
