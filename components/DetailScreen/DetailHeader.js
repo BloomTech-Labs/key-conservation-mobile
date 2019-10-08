@@ -75,8 +75,8 @@ export default class DetailHeader extends Component {
               >
                 <SvgUri
                   fill='#3b3b3b'
-                  width='25'
-                  height='25'
+                  width='31'
+                  height='31'
                   source={require("../../assets/icons/envelope.svg")}
                 />
               </TouchableOpacity>
@@ -88,9 +88,9 @@ export default class DetailHeader extends Component {
                     onPress={() => this.props.navigation.navigate("EditPro")}
                   >
                     <SvgUri
-                      width='25'
-                      height='25'
-                      source={require("../../assets/icons/instagramadd.svg")}
+                      width='31'
+                      height='31'
+                      source={require("../../assets/icons/igadd.svg")}
                     />
                   </TouchableOpacity>
                 ) : null
@@ -101,8 +101,8 @@ export default class DetailHeader extends Component {
                 >
                   <SvgUri
                     fill='#3b3b3b'
-                    width='25'
-                    height='25'
+                    width='31'
+                    height='31'
                     source={require("../../assets/icons/instagram.svg")}
                   />
                 </TouchableOpacity>
@@ -115,9 +115,9 @@ export default class DetailHeader extends Component {
                     onPress={() => this.props.navigation.navigate("EditPro")}
                   >
                     <SvgUri
-                      width='25'
-                      height='25'
-                      source={require("../../assets/icons/twitteradd.svg")}
+                      width='31'
+                      height='31'
+                      source={require("../../assets/icons/twittadd.svg")}
                     />
                   </TouchableOpacity>
                 ) : null
@@ -127,8 +127,8 @@ export default class DetailHeader extends Component {
                 >
                   <SvgUri
                     fill='#3b3b3b'
-                    width='25'
-                    height='25'
+                    width='31'
+                    height='31'
                     source={require("../../assets/icons/twitter.svg")}
                   />
                 </TouchableOpacity>
@@ -141,9 +141,9 @@ export default class DetailHeader extends Component {
                     onPress={() => this.props.navigation.navigate("EditPro")}
                   >
                     <SvgUri
-                      width='25'
-                      height='25'
-                      source={require("../../assets/icons/facebookadd.svg")}
+                      width='31'
+                      height='31'
+                      source={require("../../assets/icons/fbadd.svg")}
                     />
                   </TouchableOpacity>
                 ) : null
@@ -153,8 +153,8 @@ export default class DetailHeader extends Component {
                 >
                   <SvgUri
                     fill='#3b3b3b'
-                    width='25'
-                    height='25'
+                    width='31'
+                    height='31'
                     source={require("../../assets/icons/facebook.svg")}
                   />
                 </TouchableOpacity>
