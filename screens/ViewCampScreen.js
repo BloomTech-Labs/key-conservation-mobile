@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   Platform
 } from 'react-native';
+import { Video } from 'expo-av';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-navigation';
@@ -14,7 +15,6 @@ import * as WebBrowser from 'expo-web-browser';
 import { connect } from 'react-redux';
 import SvgUri from 'react-native-svg-uri';
 import moment from 'moment';
-import axios from 'axios';
 import { FontAwesome, Feather } from '@expo/vector-icons';
 import { getProfileData } from '../store/actions';
 import BackButton from '../components/BackButton';
@@ -23,9 +23,6 @@ import FeedUpdate from '../components/FeedScreen/FeedUpdate';
 import CommentsView from '../components/Comments/CommentsView';
 
 import styles from '../constants/screens/ViewCampScreen';
-
-// url for heroku staging vs production server
-const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
 class ViewCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -155,10 +152,28 @@ class ViewCampScreen extends React.Component {
                   }}
                   subtitle={this.props.selectedCampaign.location}
                 />
-                <Image
-                  source={{ uri: this.props.selectedCampaign.camp_img }}
-                  style={styles.campImgContain}
-                />
+                {this.props.navigation.state.params.media.includes('.mov') ||
+                this.props.navigation.state.params.media.includes('.mp3') ||
+                this.props.navigation.state.params.media.includes('.mp4') ? (
+                  <Video
+                    source={{
+                      uri: this.props.selectedCampaign.camp_img
+                    }}
+                    rate={1.0}
+                    volume={1.0}
+                    isMuted={true}
+                    useNativeControls={true}
+                    resizeMode='cover'
+                    // shouldPlay
+                    // isLooping
+                    style={styles.campImgContain}
+                  />
+                ) : (
+                  <Image
+                    source={{ uri: this.props.selectedCampaign.camp_img }}
+                    style={styles.campImgContain}
+                  />
+                )}
                 <View style={styles.iconRow}>
                   <View>
                     {this.state.userLiked === false ? (
@@ -188,9 +203,6 @@ class ViewCampScreen extends React.Component {
                       />
                     )}
                   </View>
-                  <View>
-                    <Feather name='edit' style={styles.icon} />
-                  </View>
                 </View>
                 <View>
                   {this.state.likes === 0 ? null : this.state.likes > 1 ? (
@@ -199,7 +211,6 @@ class ViewCampScreen extends React.Component {
                     <Text style={styles.likes}>{this.state.likes} like</Text>
                   )}
                 </View>
-                {/* Next release canvas ^^^ */}
                 <View style={styles.campDescContain}>
                   <Text style={styles.campDescName}>
                     {this.props.selectedCampaign.camp_name}
@@ -284,19 +295,65 @@ class ViewCampScreen extends React.Component {
                   }}
                   subtitle={this.props.selectedCampaign.location}
                 />
-                <Image
-                  source={{ uri: this.props.selectedCampaign.camp_img }}
-                  style={styles.campImgContain}
-                />
-                {/* <View style={styles.iconRow}>
-              <View>
-                <FontAwesome name='heart-o' style={styles.icon} />
-              </View>
-              <View>
-                <Feather name='edit' style={styles.icon} />
-              </View>
-            </View> */}
-                {/* Next release canvas ^^^ */}
+                {this.props.navigation.state.params.media.includes('.mov') ||
+                this.props.navigation.state.params.media.includes('.mp3') ||
+                this.props.navigation.state.params.media.includes('.mp4') ? (
+                  <Video
+                    source={{
+                      uri: this.props.selectedCampaign.camp_img
+                    }}
+                    rate={1.0}
+                    volume={1.0}
+                    isMuted={true}
+                    useNativeControls={true}
+                    resizeMode='cover'
+                    // shouldPlay
+                    // isLooping
+                    style={styles.campImgContain}
+                  />
+                ) : (
+                  <Image
+                    source={{ uri: this.props.selectedCampaign.camp_img }}
+                    style={styles.campImgContain}
+                  />
+                )}
+                <View style={styles.iconRow}>
+                  <View>
+                    {this.state.userLiked === false ? (
+                      <FontAwesome
+                        onPress={() => this.addLike()}
+                        name='heart-o'
+                        style={styles.outline}
+                      />
+                    ) : (
+                      <FontAwesome
+                        onPress={() => this.deleteLike()}
+                        name='heart'
+                        style={styles.fill}
+                      />
+                    )}
+                    {this.state.userBookmarked === false ? (
+                      <FontAwesome
+                        onPress={() => this.addBookmark()}
+                        name='bookmark-o'
+                        style={styles.outline}
+                      />
+                    ) : (
+                      <FontAwesome
+                        onPress={() => this.deleteBookmark()}
+                        name='bookmark'
+                        style={styles.bookmarkFill}
+                      />
+                    )}
+                  </View>
+                </View>
+                <View>
+                  {this.state.likes === 0 ? null : this.state.likes > 1 ? (
+                    <Text style={styles.likes}>{this.state.likes} likes</Text>
+                  ) : (
+                    <Text style={styles.likes}>{this.state.likes} like</Text>
+                  )}
+                </View>
                 <View style={styles.campDescContain}>
                   <Text style={styles.campDescName}>
                     {this.props.selectedCampaign.camp_name}

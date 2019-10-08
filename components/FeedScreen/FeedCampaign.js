@@ -7,6 +7,7 @@ import {
   FlatList
 } from 'react-native';
 import moment from 'moment';
+import { Video } from 'expo-av';
 import { Avatar } from 'react-native-elements';
 import { ListItem } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
@@ -113,7 +114,8 @@ const FeedCampaign = props => {
       deleteLike: deleteLike,
       userBookmarked: userBookmarked,
       addBookmark: addBookmark,
-      deleteBookmark: deleteBookmark
+      deleteBookmark: deleteBookmark,
+      media: data.camp_img
     });
   };
 
@@ -225,14 +227,28 @@ const FeedCampaign = props => {
       />
       <View>
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
-          <ImageBackground
-            source={{ uri: data.camp_img }}
-            style={styles.campImgContain}
-          >
-            {/* <View style={styles.goToCampaignButton} onPress={goToCampaign}>
-              <Text style={styles.goToCampaignText}>See Post {'>'}</Text>
-            </View> */}
-          </ImageBackground>
+          {data.camp_img.includes('.mov') ||
+          data.camp_img.includes('.mp3') ||
+          data.camp_img.includes('.mp4') ? (
+            <Video
+              source={{
+                uri: data.camp_img
+              }}
+              rate={1.0}
+              volume={1.0}
+              isMuted={true}
+              useNativeControls={true}
+              resizeMode='cover'
+              // shouldPlay
+              // isLooping
+              style={styles.campImgContain}
+            />
+          ) : (
+            <ImageBackground
+              source={{ uri: data.camp_img }}
+              style={styles.campImgContain}
+            ></ImageBackground>
+          )}
         </TouchableOpacity>
       </View>
       <View style={styles.iconRow}>

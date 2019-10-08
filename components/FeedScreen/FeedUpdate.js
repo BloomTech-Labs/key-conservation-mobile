@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ImageBackground, TouchableOpacity } from 'react-native';
 import moment from 'moment';
+import { Video } from 'expo-av';
 import { ListItem } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 import { AmpEvent } from '../withAmplitude';
@@ -92,7 +93,8 @@ const FeedUpdate = props => {
       likes: likes,
       userLiked: userLiked,
       addLike: addLike,
-      deleteLike: deleteLike
+      deleteLike: deleteLike,
+      media: data.update_img
     });
   };
 
@@ -162,19 +164,28 @@ const FeedUpdate = props => {
       )}
       <View>
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampUpdate}>
-          <ImageBackground
-            source={{ uri: data.update_img }}
-            style={styles.campImgContain}
-            onPress={goToCampUpdate}
-          >
-            <View style={styles.updateBar}>
-              <Text style={styles.updateBarText}>Update</Text>
-            </View>
-
-            {/* <View style={styles.goToCampaignButton} onPress={goToCampUpdate}>
-              <Text style={styles.goToCampaignText}>See Update {'>'}</Text>
-            </View> */}
-          </ImageBackground>
+          {data.update_img.includes('.mov') ||
+          data.update_img.includes('.mp3') ||
+          data.update_img.includes('.mp4') ? (
+            <Video
+              source={{
+                uri: data.update_img
+              }}
+              rate={1.0}
+              volume={1.0}
+              isMuted={true}
+              useNativeControls={true}
+              resizeMode='cover'
+              // shouldPlay
+              // isLooping
+              style={styles.campImgContain}
+            />
+          ) : (
+            <ImageBackground
+              source={{ uri: data.update_img }}
+              style={styles.campImgContain}
+            ></ImageBackground>
+          )}
         </TouchableOpacity>
       </View>
 
