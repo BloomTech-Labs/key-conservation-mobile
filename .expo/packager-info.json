@@ -2,8 +2,8 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 23780,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "packagerPid": 1864,
+  "expoServerNgrokUrl": "https://pg-upj.brandon001.frontend-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.pg-upj.brandon001.frontend-mobile.exp.direct",
+  "ngrokPid": 32208
 }

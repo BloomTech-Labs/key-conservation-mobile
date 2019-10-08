@@ -160,25 +160,31 @@ class ViewCampScreen extends React.Component {
                   style={styles.campImgContain}
                 />
                 <View style={styles.iconRow}>
-                  <View>
+                  <View style={styles.likesContainer}>
                     {this.state.userLiked === false ? (
                       <FontAwesome
                         onPress={() => this.addLike()}
                         name='heart-o'
-                        style={styles.outline}
+                        style={styles.heartOutline}
                       />
                     ) : (
                       <FontAwesome
                         onPress={() => this.deleteLike()}
                         name='heart'
-                        style={styles.fill}
+                        style={styles.heartFill}
                       />
                     )}
+                    {this.state.likes === 0 ? null : this.state.likes > 1 ? (
+                      <Text style={styles.likes}>{this.state.likes} likes</Text>
+                    ) : (
+                      <Text style={styles.likes}>{this.state.likes} like</Text>
+                    )}
+                  </View>
                     {this.state.userBookmarked === false ? (
                       <FontAwesome
                         onPress={() => this.addBookmark()}
                         name='bookmark-o'
-                        style={styles.outline}
+                        style={styles.bookmarkOutline}
                       />
                     ) : (
                       <FontAwesome
@@ -187,17 +193,9 @@ class ViewCampScreen extends React.Component {
                         style={styles.bookmarkFill}
                       />
                     )}
-                  </View>
-                  <View>
+                  {/* <View>
                     <Feather name='edit' style={styles.icon} />
-                  </View>
-                </View>
-                <View>
-                  {this.state.likes === 0 ? null : this.state.likes > 1 ? (
-                    <Text style={styles.likes}>{this.state.likes} likes</Text>
-                  ) : (
-                    <Text style={styles.likes}>{this.state.likes} like</Text>
-                  )}
+                  </View> */}
                 </View>
                 {/* Next release canvas ^^^ */}
                 <View style={styles.campDescContain}>

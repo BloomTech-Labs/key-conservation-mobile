@@ -1,8 +1,8 @@
 {
-  "urlRandomness": "3q-7jw",
   "hostType": "lan",
   "lanType": "ip",
   "dev": true,
   "minify": false,
+  "urlRandomness": "pg-upj",
   "https": false
 }

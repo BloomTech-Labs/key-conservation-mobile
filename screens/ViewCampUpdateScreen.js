@@ -95,7 +95,7 @@ class ViewCampUpdateScreen extends React.Component {
             source={{ uri: this.props.selectedCampaign.update_img }}
             style={styles.campImgContain}
           />
-          <View>
+          <View style={styles.likesContainer}>
             {this.state.userLiked === false ? (
               <FontAwesome
                 onPress={() => this.addLike()}
@@ -109,8 +109,6 @@ class ViewCampUpdateScreen extends React.Component {
                 style={styles.heartFill}
               />
             )}
-          </View>
-          <View>
             {this.state.likes === 0 ? null : this.state.likes > 1 ? (
               <Text style={styles.likes}>{this.state.likes} likes</Text>
             ) : (
@@ -197,17 +195,20 @@ const styles = StyleSheet.create({
     height: deviceWidth,
     width: deviceWidth
   },
+  likesContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 15,
+  },
   heartOutline: {
     fontSize: 28,
     marginLeft: 15,
-    marginTop: 15,
-    color: '#00FF9D'
+    color: 'black'
   },
   heartFill: {
     fontSize: 28,
     marginLeft: 15,
-    marginTop: 15,
-    color: '#00FF9D'
+    color: '#e60024'
   },
   likes: {
     marginLeft: 15
