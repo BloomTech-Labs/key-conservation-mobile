@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, TouchableOpacity, Linking } from "react-native";
+import { Text, View, TouchableOpacity, Linking, Platform } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import { Avatar } from "react-native-elements";
 import SvgUri from "react-native-svg-uri";
@@ -8,8 +8,23 @@ import { AmpEvent } from "../withAmplitude";
 import styles from "../../constants/DetailScreen/DetailHeader";
 
 export default class DetailHeader extends Component {
+  makeCall = () => {
+    let phoneNumber = profile.phone_number
+    // let phoneNumber = 123456789 -- used for testing purposes
+
+    if (Platform.OS === 'android') {
+      phoneNumber = `tel:${phoneNumber}`
+    } else {
+      phoneNumber = `telprompt:${phoneNumber}`
+    }
+
+    Linking.openURL(phoneNumber)
+    console.log(phoneNumber, 'This be the phone number')
+  }
+
   render() {
     let profile = this.props.profile;
+    // console.log(profile, 'this here be the profile')
 
     return (
       <View>
@@ -80,6 +95,33 @@ export default class DetailHeader extends Component {
                   source={require("../../assets/icons/envelope.svg")}
                 />
               </TouchableOpacity>
+
+              {profile.phone_number === null ? (
+                this.props.myProfile === true ? (
+                  <TouchableOpacity
+                  style={{ padding: 0, padding: 0 }}
+                  onPress={() => this.props.navigation.navigate("EditPro")}
+                >
+                  <SvgUri
+                    width='31'
+                    height='31'
+                    source={require("../../assets/icons/phoneadd.svg")}
+                  />
+                </TouchableOpacity>
+                ) : null
+              ) : (
+                <TouchableOpacity
+                style={{ padding: 0, padding: 0 }}
+                onPress={() => this.makeCall}
+              >
+                <SvgUri
+                  fill='#3b3b3b'
+                  width='31'
+                  height='31'
+                  source={require("../../assets/icons/phoneadd.svg")}
+                />
+              </TouchableOpacity>
+              )}
 
               {profile.instagram === null ? (
                 this.props.myProfile === true ? (
