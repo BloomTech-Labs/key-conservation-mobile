@@ -51,7 +51,7 @@ export default {
     fontSize: 28,
     marginLeft: 15,
     marginTop: 15,
-    color: "#e60024"
+    color: "black"
   },
   heartFill: {
     fontSize: 28,
