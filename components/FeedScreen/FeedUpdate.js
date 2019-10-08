@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity } from 'react-native';
-import moment from 'moment';
-import { ListItem } from 'react-native-elements';
-import { useDispatch } from 'react-redux';
-import { AmpEvent } from '../withAmplitude';
-import { connect } from 'react-redux';
-import { FontAwesome } from '@expo/vector-icons';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { View, Text, ImageBackground, TouchableOpacity } from "react-native";
+import moment from "moment";
+import { ListItem } from "react-native-elements";
+import { useDispatch } from "react-redux";
+import { AmpEvent } from "../withAmplitude";
+import { connect } from "react-redux";
+import { FontAwesome } from "@expo/vector-icons";
+import axios from "axios";
 import {
   getProfileData,
   setCampaign,
   toggleCampaignText
-} from '../../store/actions';
+} from "../../store/actions";
 
-import styles from '../../constants/FeedScreen/FeedUpdate';
+import styles from "../../constants/FeedScreen/FeedUpdate";
 
 // url for heroku staging vs production server
-const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+const seturl = "https://key-conservation-staging.herokuapp.com/api/";
 
 const FeedUpdate = props => {
   const [likes, setLikes] = useState(props.data.likes.length);
@@ -38,7 +38,7 @@ const FeedUpdate = props => {
       return string;
     } else {
       let end = cutoff;
-      const avoidChars = [' ', ',', '.', '!'];
+      const avoidChars = [" ", ",", ".", "!"];
       while (avoidChars.includes(string.charAt(end)) && end >= cutoff - 10) {
         end--;
       }
@@ -50,45 +50,45 @@ const FeedUpdate = props => {
   const currentTime = moment();
   const postTime = moment(createdAt);
   let timeDiff;
-  if (currentTime.diff(postTime, 'days') < 1) {
-    if (currentTime.diff(postTime, 'hours') < 1) {
-      if (currentTime.diff(postTime, 'minutes') < 1) {
-        timeDiff = 'just now';
+  if (currentTime.diff(postTime, "days") < 1) {
+    if (currentTime.diff(postTime, "hours") < 1) {
+      if (currentTime.diff(postTime, "minutes") < 1) {
+        timeDiff = "just now";
       } else {
-        if (currentTime.diff(postTime, 'minutes') === 1) {
-          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO`;
+        if (currentTime.diff(postTime, "minutes") === 1) {
+          timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTE AGO`;
         } else {
-          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`;
+          timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTES AGO`;
         }
       }
     } else {
-      if (currentTime.diff(postTime, 'hours') === 1) {
-        timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO`;
+      if (currentTime.diff(postTime, "hours") === 1) {
+        timeDiff = `${currentTime.diff(postTime, "hours")} HOUR AGO`;
       } else {
-        timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`;
+        timeDiff = `${currentTime.diff(postTime, "hours")} HOURS AGO`;
       }
     }
   } else {
-    if (currentTime.diff(postTime, 'days') === 1) {
-      timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO`;
+    if (currentTime.diff(postTime, "days") === 1) {
+      timeDiff = `${currentTime.diff(postTime, "days")} DAY AGO`;
     } else {
-      timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
+      timeDiff = `${currentTime.diff(postTime, "days")} DAYS AGO`;
     }
   }
 
   const goToProfile = async () => {
     await dispatch(getProfileData(data.users_id));
-    AmpEvent('Select Profile from Campaign', {
+    AmpEvent("Select Profile from Campaign", {
       profile: data.username,
       campaign: data.camp_name
     });
-    props.navigation.navigate('Pro');
+    props.navigation.navigate("Pro");
   };
 
   const goToCampUpdate = () => {
     dispatch(setCampaign(data));
-    props.navigation.navigate('CampUpdate', {
-      backBehavior: 'Home',
+    props.navigation.navigate("CampUpdate", {
+      backBehavior: "Home",
       likes: likes,
       userLiked: userLiked,
       addLike: addLike,
@@ -110,9 +110,9 @@ const FeedUpdate = props => {
         },
         {
           headers: {
-            Accept: 'application/json',
+            Accept: "application/json",
             Authorization: `Bearer ${props.token}`,
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
           }
         }
       )
@@ -131,9 +131,9 @@ const FeedUpdate = props => {
         `${seturl}social/likes/${data.camp_id}/${props.currentUserProfile.id}`,
         {
           headers: {
-            Accept: 'application/json',
+            Accept: "application/json",
             Authorization: `Bearer ${props.token}`,
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
           }
         }
       )
@@ -170,10 +170,6 @@ const FeedUpdate = props => {
             <View style={styles.updateBar}>
               <Text style={styles.updateBarText}>Update</Text>
             </View>
-
-            {/* <View style={styles.goToCampaignButton} onPress={goToCampUpdate}>
-              <Text style={styles.goToCampaignText}>See Update {'>'}</Text>
-            </View> */}
           </ImageBackground>
         </TouchableOpacity>
       </View>
