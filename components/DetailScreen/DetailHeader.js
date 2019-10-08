@@ -10,7 +10,6 @@ import styles from "../../constants/DetailScreen/DetailHeader";
 export default class DetailHeader extends Component {
   render() {
     let profile = this.props.profile;
-    console.log(this.props.myProfile, "checking my prof");
 
     return (
       <View>
@@ -109,22 +108,6 @@ export default class DetailHeader extends Component {
                 </TouchableOpacity>
               )}
 
-              {/* <TouchableOpacity
-                style={{ padding: 0, padding: 0 }}
-                onPress={async () =>
-                  profile.instagram &&
-                  profile.instagram !== null &&
-                  (await WebBrowser.openBrowserAsync(profile.instagram))
-                }
-              >
-                <SvgUri
-                  fill='#3b3b3b'
-                  width='25'
-                  height='25'
-                  source={require('../../assets/icons/instagram.svg')}
-                />
-              </TouchableOpacity> */}
-
               {profile.twitter === null ? (
                 this.props.myProfile === true ? (
                   <TouchableOpacity
@@ -151,21 +134,6 @@ export default class DetailHeader extends Component {
                 </TouchableOpacity>
               )}
 
-              {/* <TouchableOpacity
-                onPress={async () =>
-                  profile.twitter &&
-                  profile.twitter !== null &&
-                  (await WebBrowser.openBrowserAsync(profile.twitter))
-                }
-              >
-                <SvgUri
-                  fill='#3b3b3b'
-                  width='25'
-                  height='25'
-                  source={require("../../assets/icons/twitter.svg")}
-                />
-              </TouchableOpacity> */}
-
               {profile.facebook === null ? (
                 this.props.myProfile === true ? (
                   <TouchableOpacity
@@ -191,21 +159,6 @@ export default class DetailHeader extends Component {
                   />
                 </TouchableOpacity>
               )}
-
-              {/* <TouchableOpacity
-                onPress={async () =>
-                  profile.facebook &&
-                  profile.facebook !== null &&
-                  (await WebBrowser.openBrowserAsync(profile.facebook))
-                }
-              >
-                <SvgUri
-                  fill='#3b3b3b'
-                  width='25'
-                  height='25'
-                  source={require("../../assets/icons/facebook.svg")}
-                />
-              </TouchableOpacity> */}
             </View>
           </View>
         </View>
