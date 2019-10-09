@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, ImageBackground, TouchableOpacity } from "react-native";
-import moment from "moment";
-import { ListItem } from "react-native-elements";
-import { useDispatch } from "react-redux";
-import { AmpEvent } from "../withAmplitude";
-import { connect } from "react-redux";
-import { FontAwesome } from "@expo/vector-icons";
-import axios from "axios";
+
+import React, { useState, useEffect } from 'react';
+import { View, Text, ImageBackground, TouchableOpacity } from 'react-native';
+import moment from 'moment';
+import { Video } from 'expo-av';
+import { ListItem } from 'react-native-elements';
+import { useDispatch } from 'react-redux';
+import { AmpEvent } from '../withAmplitude';
+import { connect } from 'react-redux';
+import { FontAwesome } from '@expo/vector-icons';
+import axios from 'axios';
+
 import {
   getProfileData,
   setCampaign,
@@ -92,7 +95,8 @@ const FeedUpdate = props => {
       likes: likes,
       userLiked: userLiked,
       addLike: addLike,
-      deleteLike: deleteLike
+      deleteLike: deleteLike,
+      media: data.update_img
     });
   };
 
@@ -162,15 +166,39 @@ const FeedUpdate = props => {
       )}
       <View>
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampUpdate}>
-          <ImageBackground
-            source={{ uri: data.update_img }}
-            style={styles.campImgContain}
-            onPress={goToCampUpdate}
-          >
-            <View style={styles.updateBar}>
-              <Text style={styles.updateBarText}>Update</Text>
+          {data.update_img.includes('.mov') ||
+          data.update_img.includes('.mp3') ||
+          data.update_img.includes('.mp4') ? (
+            <View>
+              <View style={styles.updateBar}>
+                <Text style={styles.updateBarText}>UPDATE</Text>
+              </View>
+              <Video
+                source={{
+                  uri: data.update_img
+                }}
+                rate={1.0}
+                volume={1.0}
+                isMuted={true}
+                useNativeControls={true}
+                resizeMode='cover'
+                // shouldPlay
+                // isLooping
+                style={styles.campImgContain}
+              />
             </View>
-          </ImageBackground>
+
+          ) : (
+            <ImageBackground
+              source={{ uri: data.update_img }}
+              style={styles.campImgContain}
+            >
+              <View style={styles.updateBar}>
+                <Text style={styles.updateBarText}>UPDATE</Text>
+              </View>
+            </ImageBackground>
+          )}
+
         </TouchableOpacity>
       </View>
 

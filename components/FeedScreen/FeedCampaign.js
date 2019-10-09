@@ -5,15 +5,17 @@ import {
   ImageBackground,
   TouchableOpacity,
   FlatList
-} from "react-native";
-import moment from "moment";
-import { Avatar } from "react-native-elements";
-import { ListItem } from "react-native-elements";
-import { useDispatch } from "react-redux";
-import { AmpEvent } from "../withAmplitude";
-import { connect } from "react-redux";
-import { FontAwesome } from "@expo/vector-icons";
-import axios from "axios";
+
+} from 'react-native';
+import moment from 'moment';
+import { Video } from 'expo-av';
+import { Avatar } from 'react-native-elements';
+import { ListItem } from 'react-native-elements';
+import { useDispatch } from 'react-redux';
+import { AmpEvent } from '../withAmplitude';
+import { connect } from 'react-redux';
+import { FontAwesome } from '@expo/vector-icons';
+import axios from 'axios';
 import {
   getProfileData,
   getCampaign,
@@ -113,7 +115,8 @@ const FeedCampaign = props => {
       deleteLike: deleteLike,
       userBookmarked: userBookmarked,
       addBookmark: addBookmark,
-      deleteBookmark: deleteBookmark
+      deleteBookmark: deleteBookmark,
+      media: data.camp_img
     });
   };
 
@@ -225,10 +228,30 @@ const FeedCampaign = props => {
       />
       <View>
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
-          <ImageBackground
-            source={{ uri: data.camp_img }}
-            style={styles.campImgContain}
-          ></ImageBackground>
+
+          {data.camp_img.includes('.mov') ||
+          data.camp_img.includes('.mp3') ||
+          data.camp_img.includes('.mp4') ? (
+            <Video
+              source={{
+                uri: data.camp_img
+              }}
+              rate={1.0}
+              volume={1.0}
+              isMuted={true}
+              useNativeControls={true}
+              resizeMode='cover'
+              // shouldPlay
+              // isLooping
+              style={styles.campImgContain}
+            />
+          ) : (
+            <ImageBackground
+              source={{ uri: data.camp_img }}
+              style={styles.campImgContain}
+            ></ImageBackground>
+          )}
+
         </TouchableOpacity>
       </View>
       <View style={styles.iconRow}>
