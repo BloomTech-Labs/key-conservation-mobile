@@ -68,9 +68,9 @@ export default {
   },
   SocialContainer: {
     flexDirection: "row",
-    width: 280,
+    width: "80%",
     marginTop: 15,
-    marginLeft: 20,
+    marginLeft: 35,
     paddingBottom: 10,
     justifyContent: "space-around",
     position: "absolute",
