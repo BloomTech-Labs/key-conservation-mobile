@@ -68,6 +68,7 @@ class EditProScreen extends React.Component {
     about_us: this.props.currentUserProfile.about_us,
     species_and_habitats: this.props.currentUserProfile.species_and_habitats,
     issues: this.props.currentUserProfile.issues,
+    phone_number: this.props.currentUserProfile.phone_number,
     // supportUs: this.props.currentUserProfile.support_us,
     org_cta: this.props.currentUserProfile.org_cta
   };
@@ -270,6 +271,28 @@ class EditProScreen extends React.Component {
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.org_cta}
                 placeholder='https://www.carribbbeanseaturtle.org/donate'
+              />
+            </View>
+
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>Phone Number</Text>
+              <TextInput
+                ref={input => {
+                  this.phoneInput = input;
+                }}
+                returnKeyType='next'
+                keyboardType='number'
+                style={styles.inputContain}
+                autoCapitalize='none'
+                placeholder='Please include full URL'
+                onChangeText={text => this.setState({ phone_number: text })}
+                onSubmitEditing={() => {
+                  if (Platform.OS === 'android') return;
+                  this.facebookInput.focus();
+                }}
+                blurOnSubmit={Platform.OS === 'android'}
+                value={this.state.phone_number}
+                placeholder='9998884747'
               />
             </View>
 
