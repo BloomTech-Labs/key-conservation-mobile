@@ -8,15 +8,15 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   Platform
-} from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
-import moment from 'moment';
-import { ScrollView, NavigationEvents } from 'react-navigation';
-import { Avatar } from 'react-native-elements';
-import { useDispatch } from 'react-redux';
-import { connect } from 'react-redux';
-import axios from 'axios';
-import * as SecureStore from 'expo-secure-store';
+} from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
+import moment from "moment";
+import { ScrollView, NavigationEvents } from "react-navigation";
+import { Avatar } from "react-native-elements";
+import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
+import axios from "axios";
+import * as SecureStore from "expo-secure-store";
 import {
   commentOnCampaign,
   deleteComment,
@@ -26,7 +26,7 @@ import styles from "../../constants/Comments/Comments";
 import Comment from "./Comment";
 
 // url for heroku staging vs production server
-const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+const seturl = "https://key-conservation-staging.herokuapp.com/api/";
 
 class CommentsView extends React.Component {
   state = {
@@ -51,8 +51,6 @@ class CommentsView extends React.Component {
       });
     }
   };
-
-  // Currently redux store changes are not triggering re-renders. Multiple devs have looked into why we need this componentDidUpdate despite having the redux store hooked up to our component. No solutions yet though.
 
   render() {
     if (
@@ -124,9 +122,9 @@ class CommentsView extends React.Component {
                   </Text>
                 </View>
               </View>
-              <View style={styles.interaction}>
+              {/* <View style={styles.interaction}>
                 <Text style={styles.timeText}>just now</Text>
-              </View>
+              </View> */}
             </View>
           ) : null}
           {this.state.campaignComments.length > this.state.commentsVisible && (

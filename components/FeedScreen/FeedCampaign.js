@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
   ImageBackground,
   TouchableOpacity,
   FlatList
+
 } from 'react-native';
 import moment from 'moment';
+import { Video } from 'expo-av';
 import { Avatar } from 'react-native-elements';
 import { ListItem } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
@@ -18,13 +20,13 @@ import {
   getProfileData,
   getCampaign,
   toggleCampaignText
-} from '../../store/actions';
+} from "../../store/actions";
 
-import styles from '../../constants/FeedScreen/FeedCampaign';
-import styles2 from '../../constants/Comments/Comments';
+import styles from "../../constants/FeedScreen/FeedCampaign";
+import styles2 from "../../constants/Comments/Comments";
 
 // url for heroku staging vs production server
-const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+const seturl = "https://key-conservation-staging.herokuapp.com/api/";
 
 const FeedCampaign = props => {
   const [likes, setLikes] = useState(props.data.likes.length);
@@ -53,7 +55,7 @@ const FeedCampaign = props => {
       return string;
     } else {
       let end = cutoff;
-      const avoidChars = [' ', ',', '.', '!'];
+      const avoidChars = [" ", ",", ".", "!"];
       while (avoidChars.includes(string.charAt(end)) && end >= cutoff - 10) {
         end--;
       }
@@ -65,55 +67,56 @@ const FeedCampaign = props => {
   const currentTime = moment();
   const postTime = moment(createdAt);
   let timeDiff;
-  if (currentTime.diff(postTime, 'days') < 1) {
-    if (currentTime.diff(postTime, 'hours') < 1) {
-      if (currentTime.diff(postTime, 'minutes') < 1) {
-        timeDiff = 'just now';
+  if (currentTime.diff(postTime, "days") < 1) {
+    if (currentTime.diff(postTime, "hours") < 1) {
+      if (currentTime.diff(postTime, "minutes") < 1) {
+        timeDiff = "just now";
       } else {
-        if (currentTime.diff(postTime, 'minutes') === 1) {
-          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO`;
+        if (currentTime.diff(postTime, "minutes") === 1) {
+          timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTE AGO`;
         } else {
-          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`;
+          timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTES AGO`;
         }
       }
     } else {
-      if (currentTime.diff(postTime, 'hours') === 1) {
-        timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO`;
+      if (currentTime.diff(postTime, "hours") === 1) {
+        timeDiff = `${currentTime.diff(postTime, "hours")} HOUR AGO`;
       } else {
-        timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`;
+        timeDiff = `${currentTime.diff(postTime, "hours")} HOURS AGO`;
       }
     }
   } else {
-    if (currentTime.diff(postTime, 'days') === 1) {
-      timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO`;
+    if (currentTime.diff(postTime, "days") === 1) {
+      timeDiff = `${currentTime.diff(postTime, "days")} DAY AGO`;
     } else {
-      timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
+      timeDiff = `${currentTime.diff(postTime, "days")} DAYS AGO`;
     }
   }
 
   const goToProfile = async () => {
     await dispatch(getProfileData(data.users_id));
-    AmpEvent('Select Profile from Campaign', {
+    AmpEvent("Select Profile from Campaign", {
       profile: data.username,
       campaign: data.camp_name
     });
-    props.navigation.navigate('Pro');
+    props.navigation.navigate("Pro");
   };
 
   const goToCampaign = async () => {
     await dispatch(getCampaign(data.camp_id));
-    AmpEvent('Select Profile from Campaign', {
+    AmpEvent("Select Profile from Campaign", {
       campaign: data.camp_name,
       profile: data.username
     });
-    props.navigation.navigate('Camp', {
+    props.navigation.navigate("Camp", {
       likes: likes,
       userLiked: userLiked,
       addLike: addLike,
       deleteLike: deleteLike,
       userBookmarked: userBookmarked,
       addBookmark: addBookmark,
-      deleteBookmark: deleteBookmark
+      deleteBookmark: deleteBookmark,
+      media: data.camp_img
     });
   };
 
@@ -131,9 +134,9 @@ const FeedCampaign = props => {
         },
         {
           headers: {
-            Accept: 'application/json',
+            Accept: "application/json",
             Authorization: `Bearer ${props.token}`,
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
           }
         }
       )
@@ -152,9 +155,9 @@ const FeedCampaign = props => {
         `${seturl}social/likes/${data.camp_id}/${props.currentUserProfile.id}`,
         {
           headers: {
-            Accept: 'application/json',
+            Accept: "application/json",
             Authorization: `Bearer ${props.token}`,
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
           }
         }
       )
@@ -177,9 +180,9 @@ const FeedCampaign = props => {
         },
         {
           headers: {
-            Accept: 'application/json',
+            Accept: "application/json",
             Authorization: `Bearer ${props.token}`,
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
           }
         }
       )
@@ -197,9 +200,9 @@ const FeedCampaign = props => {
         `${seturl}social/bookmark/${data.camp_id}/${props.currentUserProfile.id}`,
         {
           headers: {
-            Accept: 'application/json',
+            Accept: "application/json",
             Authorization: `Bearer ${props.token}`,
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
           }
         }
       )
@@ -225,14 +228,30 @@ const FeedCampaign = props => {
       />
       <View>
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
-          <ImageBackground
-            source={{ uri: data.camp_img }}
-            style={styles.campImgContain}
-          >
-            {/* <View style={styles.goToCampaignButton} onPress={goToCampaign}>
-              <Text style={styles.goToCampaignText}>See Post {'>'}</Text>
-            </View> */}
-          </ImageBackground>
+
+          {data.camp_img.includes('.mov') ||
+          data.camp_img.includes('.mp3') ||
+          data.camp_img.includes('.mp4') ? (
+            <Video
+              source={{
+                uri: data.camp_img
+              }}
+              rate={1.0}
+              volume={1.0}
+              isMuted={true}
+              useNativeControls={true}
+              resizeMode='cover'
+              // shouldPlay
+              // isLooping
+              style={styles.campImgContain}
+            />
+          ) : (
+            <ImageBackground
+              source={{ uri: data.camp_img }}
+              style={styles.campImgContain}
+            ></ImageBackground>
+          )}
+
         </TouchableOpacity>
       </View>
       <View style={styles.iconRow}>
@@ -290,7 +309,7 @@ const FeedCampaign = props => {
             return (
               <View style={styles2.commentWrapper}>
                 <View style={styles2.commentView}>
-                  <View style={styles2.avatar}>
+                  <View style={styles2.feedAvatar}>
                     <Avatar
                       rounded
                       source={{
@@ -298,13 +317,10 @@ const FeedCampaign = props => {
                       }}
                     />
                   </View>
-                  <View>
+                  <View style={styles2.feedCommentWrapper}>
                     <Text style={styles2.username}>{item.username}</Text>
                     <Text style={styles2.commentBody}>{item.comment_body}</Text>
                   </View>
-                </View>
-                <View style={styles2.interaction}>
-                  <Text style={styles2.timeText}>{timeDiff}</Text>
                 </View>
               </View>
             );
