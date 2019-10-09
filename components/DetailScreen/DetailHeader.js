@@ -20,7 +20,7 @@ export default class DetailHeader extends Component {
   };
   render() {
     let profile = this.props.profile;
-
+    console.log("lol can u not");
     return (
       <View>
         <View style={styles.buttons}>
