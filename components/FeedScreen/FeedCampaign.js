@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
-import moment from 'moment';
-=======
 import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, ImageBackground } from "react-native";
 import moment from "moment";
->>>>>>> 719dffd4ab08632292a4841b13ce1ec018b385a6
 
 import { ListItem } from "react-native-elements";
 import { useDispatch } from "react-redux";
@@ -68,28 +62,30 @@ const FeedCampaign = props => {
   //// All styles for the urgency bar  
   let updateColor;
   if (data.urgency === 'Critical') {
-    updateColor = '#FF6C7C'
+    updateColor = '#FF476DBF'
   } else if (data.urgency === 'Urgent') {
-    updateColor = '#FFDB11'
+    updateColor = '#FFE743BF'
   } else if (data.urgency === 'Longterm') {
-    updatecolor = '#66FFA5'
+    updatecolor = '#74FB3BF'
   } else {
-    updateColor = '#323338'
+    updateColor = '#323338BF'
   }
 
   let updateStatus;
   if (data.urgency) {
-    updateStatus = data.urgency
+    updateStatus = data.urgency.toUpperCase()
   } else {
     updateStatus = 'Standard'
   }
 
   const updateStyles = {
     backgroundColor: updateColor, 
-    alignItems: 'center',
-    justifyContent: 'center',
     height: 37,
-    width: '100%'
+    width: "100%",
+    position: "absolute",
+    top: 0,
+    justifyContent: "center",
+    alignItems: "center"
   }  
 
   const goToProfile = async () => {
@@ -113,8 +109,9 @@ const FeedCampaign = props => {
   const toggleText = () => {
     dispatch(toggleCampaignText(data.camp_id));
   };
-  console.log('feed campaign, data check', data)
-  console.log('updateColor', updateColor)
+  // console.log('feed campaign, data check', data)
+  // console.log('updateColor', updateColor)
+  console.log('updated21232', data.urgency)
   return (
     <View style={styles.container}>
       <ListItem
@@ -127,24 +124,19 @@ const FeedCampaign = props => {
         leftAvatar={{ source: { uri: data.profile_image } }}
         subtitle={data.location}
       />
-      <View style={updateStyles}>
-        <Text style={styles.urgencyBarText}>{updateStatus}</Text>
-      </View>
       <View>
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
-          <Text>{data.urgency}</Text>
-          <Image
-            source={{ uri: data.camp_img }}
-            style={styles.campImgContain}
-          />
+            <ImageBackground
+              source={{ uri: data.camp_img }}
+              style={styles.campImgContain}>
+                {data.urgency ?                 
+                <View style={updateStyles}>
+                  <Text style={styles.urgencyBarText}>{updateStatus}</Text>
+                </View>
+                : null }
+            </ImageBackground>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={styles.goToCampaignButton}
-        onPress={goToCampaign}
-      >
-        <Text style={styles.goToCampaignText}>See Post {">"}</Text>
-      </TouchableOpacity>
       <View style={styles.campDesc}>
         <Text style={styles.campDescName}>{data.camp_name}</Text>
         {toggled || data.camp_desc.length < 80 ? (
@@ -159,18 +151,6 @@ const FeedCampaign = props => {
           </Text>
         )}
       </View>
-<<<<<<< HEAD
-      {/* <View style={styles.comments}>
-        {data.comments_length >= 1 ? (
-          data.comments_length === 1 ? (
-            <Text>{data.comments_length} comment</Text>
-          ) : (
-            <Text>{data.comments_length} comments</Text>
-          )
-        ) : null}
-      </View> */}
-      {/* <FeedComment /> */}
-=======
       <View>
         {data.comments_length >= 1 ? (
           data.comments_length === 1 ? (
@@ -180,7 +160,6 @@ const FeedCampaign = props => {
           )
         ) : null}
       </View>
->>>>>>> 719dffd4ab08632292a4841b13ce1ec018b385a6
       <Text style={styles.timeText}>{timeDiff}</Text>
       <View style={styles.demarcation}></View>
     </View>

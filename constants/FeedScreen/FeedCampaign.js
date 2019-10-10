@@ -3,16 +3,9 @@ import { Dimensions } from "react-native";
 const deviceWidth = Dimensions.get("window").width;
 export default {
   demarcation: {
-<<<<<<< HEAD
-    paddingTop: 15,
-    height: 4,
-    width: '100%',
-    backgroundColor: '#dfe1eb'
-=======
-    height: 4,
-    width: "100%",
-    backgroundColor: "#fff"
->>>>>>> 719dffd4ab08632292a4841b13ce1ec018b385a6
+    marginTop: 15,
+    borderTopWidth: 2,
+    borderTopColor: '#eee'
   },
   feedContainer: {
     flex: 1,
@@ -47,11 +40,7 @@ export default {
     /* Must have a Width && Height or it won't display anything! */
     flex: 1,
     height: deviceWidth,
-<<<<<<< HEAD
-    width: deviceWidth,
-=======
     width: deviceWidth
->>>>>>> 719dffd4ab08632292a4841b13ce1ec018b385a6
   },
   goToCampaignButton: {
     backgroundColor: "#00FF9D",
@@ -96,15 +85,11 @@ export default {
     marginTop: 10
   },
   readMore: {
-<<<<<<< HEAD
     color: '#929292'
   },
   urgencyBarText: { 
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 18,
-    color: '#fff'
-=======
-    color: "#929292"
->>>>>>> 719dffd4ab08632292a4841b13ce1ec018b385a6
+    color: 'black'
   }
 };
