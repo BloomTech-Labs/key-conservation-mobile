@@ -37,33 +37,36 @@ export default {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 15,
+    height: 30
   },
   likesContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+  },
+  hearts: {
+    marginHorizontal: 15
   },
   heartOutline: {
     fontSize: 28,
-    marginLeft: 15,
-    color: 'black'
+    color: 'black',
   },
   heartFill: {
     fontSize: 28,
-    marginLeft: 15,
-    color: '#e60024'
+    color: '#e60024',
+    zIndex: 1
+  },
+  bookmarks: {
+    marginHorizontal: 20
   },
   bookmarkOutline: {
     fontSize: 28,
-    marginRight: 20,
     color: 'black'
   },
   bookmarkFill: {
     fontSize: 28,
-    marginRight: 20,
     color: '#00FF9D'
   },
   likes: {
-    marginLeft: 15
+    marginTop: 5
   },
   goToCampaignText: {
     fontFamily: 'OpenSans-SemiBold',
