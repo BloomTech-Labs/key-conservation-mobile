@@ -100,7 +100,7 @@ const FeedCampaign = props => {
   } else if (data.urgency === 'Urgent') {
     urgencyColor = '#FFE743BF';
   } else if (data.urgency === 'Longterm') {
-    urgencyColor = '#74FB3BF';
+    urgencyColor = '#74F7B3BF'
   } else {
     urgencyColor = '#323338BF';
   }
