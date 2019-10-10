@@ -161,11 +161,8 @@ class ViewCampScreen extends React.Component {
                     }}
                     rate={1.0}
                     volume={1.0}
-                    isMuted={true}
                     useNativeControls={true}
                     resizeMode='cover'
-                    // shouldPlay
-                    // isLooping
                     style={styles.campImgContain}
                   />
                 ) : (

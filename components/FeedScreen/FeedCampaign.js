@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
   ImageBackground,
   TouchableOpacity,
-  FlatList,
-  Image } from 'react-native'
-import moment from 'moment'
-
+  FlatList
 } from 'react-native';
 import moment from 'moment';
 import { Video } from 'expo-av';
@@ -22,13 +19,13 @@ import {
   getProfileData,
   getCampaign,
   toggleCampaignText
-} from "../../store/actions";
+} from '../../store/actions';
 
-import styles from "../../constants/FeedScreen/FeedCampaign";
-import styles2 from "../../constants/Comments/Comments";
+import styles from '../../constants/FeedScreen/FeedCampaign';
+import styles2 from '../../constants/Comments/Comments';
 
 // url for heroku staging vs production server
-const seturl = "https://key-conservation-staging.herokuapp.com/api/";
+const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
 const FeedCampaign = props => {
   const [likes, setLikes] = useState(props.data.likes.length);
@@ -57,7 +54,7 @@ const FeedCampaign = props => {
       return string;
     } else {
       let end = cutoff;
-      const avoidChars = [" ", ",", ".", "!"];
+      const avoidChars = [' ', ',', '.', '!'];
       while (avoidChars.includes(string.charAt(end)) && end >= cutoff - 10) {
         end--;
       }
@@ -69,77 +66,77 @@ const FeedCampaign = props => {
   const currentTime = moment();
   const postTime = moment(createdAt);
   let timeDiff;
-  if (currentTime.diff(postTime, "days") < 1) {
-    if (currentTime.diff(postTime, "hours") < 1) {
-      if (currentTime.diff(postTime, "minutes") < 1) {
-        timeDiff = "just now";
+  if (currentTime.diff(postTime, 'days') < 1) {
+    if (currentTime.diff(postTime, 'hours') < 1) {
+      if (currentTime.diff(postTime, 'minutes') < 1) {
+        timeDiff = 'just now';
       } else {
-        if (currentTime.diff(postTime, "minutes") === 1) {
-          timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTE AGO`;
+        if (currentTime.diff(postTime, 'minutes') === 1) {
+          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO`;
         } else {
-          timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTES AGO`;
+          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`;
         }
       }
     } else {
-      if (currentTime.diff(postTime, "hours") === 1) {
-        timeDiff = `${currentTime.diff(postTime, "hours")} HOUR AGO`;
+      if (currentTime.diff(postTime, 'hours') === 1) {
+        timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO`;
       } else {
-        timeDiff = `${currentTime.diff(postTime, "hours")} HOURS AGO`;
+        timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`;
       }
     }
   } else {
-    if (currentTime.diff(postTime, "days") === 1) {
-      timeDiff = `${currentTime.diff(postTime, "days")} DAY AGO`;
+    if (currentTime.diff(postTime, 'days') === 1) {
+      timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO`;
     } else {
-      timeDiff = `${currentTime.diff(postTime, "days")} DAYS AGO`;
+      timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
     }
   }
 
-  //// All styles for the urgency bar  
+  //// All styles for the urgency bar
   let updateColor;
   if (data.urgency === 'Critical') {
-    updateColor = '#FF476DBF'
+    updateColor = '#FF476DBF';
   } else if (data.urgency === 'Urgent') {
-    updateColor = '#FFE743BF'
+    updateColor = '#FFE743BF';
   } else if (data.urgency === 'Longterm') {
-    updatecolor = '#74FB3BF'
+    updatecolor = '#74FB3BF';
   } else {
-    updateColor = '#323338BF'
+    updateColor = '#323338BF';
   }
 
   let updateStatus;
   if (data.urgency) {
-    updateStatus = data.urgency.toUpperCase()
+    updateStatus = data.urgency.toUpperCase();
   } else {
-    updateStatus = 'Standard'
+    updateStatus = 'Standard';
   }
 
   const updateStyles = {
-    backgroundColor: updateColor, 
+    backgroundColor: updateColor,
     height: 37,
-    width: "100%",
-    position: "absolute",
+    width: '100%',
+    position: 'absolute',
     top: 0,
-    justifyContent: "center",
-    alignItems: "center"
-  }  
+    justifyContent: 'center',
+    alignItems: 'center'
+  };
 
   const goToProfile = async () => {
     await dispatch(getProfileData(data.users_id));
-    AmpEvent("Select Profile from Campaign", {
+    AmpEvent('Select Profile from Campaign', {
       profile: data.username,
       campaign: data.camp_name
     });
-    props.navigation.navigate("Pro");
+    props.navigation.navigate('Pro');
   };
 
   const goToCampaign = async () => {
     await dispatch(getCampaign(data.camp_id));
-    AmpEvent("Select Profile from Campaign", {
+    AmpEvent('Select Profile from Campaign', {
       campaign: data.camp_name,
       profile: data.username
     });
-    props.navigation.navigate("Camp", {
+    props.navigation.navigate('Camp', {
       likes: likes,
       userLiked: userLiked,
       addLike: addLike,
@@ -165,9 +162,9 @@ const FeedCampaign = props => {
         },
         {
           headers: {
-            Accept: "application/json",
+            Accept: 'application/json',
             Authorization: `Bearer ${props.token}`,
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
           }
         }
       )
@@ -186,9 +183,9 @@ const FeedCampaign = props => {
         `${seturl}social/likes/${data.camp_id}/${props.currentUserProfile.id}`,
         {
           headers: {
-            Accept: "application/json",
+            Accept: 'application/json',
             Authorization: `Bearer ${props.token}`,
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
           }
         }
       )
@@ -211,9 +208,9 @@ const FeedCampaign = props => {
         },
         {
           headers: {
-            Accept: "application/json",
+            Accept: 'application/json',
             Authorization: `Bearer ${props.token}`,
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
           }
         }
       )
@@ -231,9 +228,9 @@ const FeedCampaign = props => {
         `${seturl}social/bookmark/${data.camp_id}/${props.currentUserProfile.id}`,
         {
           headers: {
-            Accept: "application/json",
+            Accept: 'application/json',
             Authorization: `Bearer ${props.token}`,
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
           }
         }
       )
@@ -268,11 +265,8 @@ const FeedCampaign = props => {
               }}
               rate={1.0}
               volume={1.0}
-              isMuted={true}
               useNativeControls={true}
               resizeMode='cover'
-              // shouldPlay
-              // isLooping
               style={styles.campImgContain}
             />
           ) : (
@@ -280,14 +274,13 @@ const FeedCampaign = props => {
               source={{ uri: data.camp_img }}
               style={styles.campImgContain}
             >
-                {data.urgency ?                 
+              {data.urgency ? (
                 <View style={updateStyles}>
                   <Text style={styles.urgencyBarText}>{updateStatus}</Text>
                 </View>
-                : null }
+              ) : null}
             </ImageBackground>
           )}
-
         </TouchableOpacity>
       </View>
       <View style={styles.iconRow}>
@@ -339,7 +332,7 @@ const FeedCampaign = props => {
       </View>
       <View style={{ marginLeft: 17 }}>
         <FlatList
-          data={data.comments.slice(0, 2)}
+          data={data.comments.slice(0, 1)}
           keyExtractor={comment => comment.comment_id}
           renderItem={({ item }) => {
             return (
