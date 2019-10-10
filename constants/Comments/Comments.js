@@ -6,13 +6,18 @@ export default {
   commentView: {
     flexDirection: "row"
   },
+  feedCommentWrapper: {
+    flexDirection: "column",
+    width: "90%",
+    marginTop: 5
+  },
   replyView: {
     flexDirection: "row",
     marginTop: 20
   },
   username: {
     marginLeft: 7,
-    paddingBottom: 5,
+    paddingBottom: 3,
     marginTop: 5,
     fontWeight: "bold",
     fontFamily: "OpenSans-SemiBold"
@@ -62,6 +67,9 @@ export default {
   },
   avatar: {
     marginTop: 5
+  },
+  feedAvatar: {
+    marginTop: 8
   },
   replyAvatar: {
     marginTop: 7

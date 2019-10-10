@@ -4,7 +4,6 @@ import { TouchableOpacity, View, Text, Image, Platform } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import * as ImagePicker from 'expo-image-picker';
 import { Video } from 'expo-av';
-import * as DocumentPicker from 'expo-document-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import { setMedia } from '../store/actions';
@@ -64,7 +63,7 @@ class UploadMedia extends Component {
           <TouchableOpacity onPress={this._pickImage}>
             <View style={styles.touchableView}>
               <Text style={styles.touchableText}>
-                Click here to choose an image or video
+                Choose your image or video
               </Text>
             </View>
           </TouchableOpacity>
@@ -107,6 +106,7 @@ class UploadMedia extends Component {
               />
             )
           ) : null}
+          {/* Couldn't coerce android to display a full video preview, only an image of the video. iOS, on the other hand, cannot display an image of the video. */}
         </View>
       </>
     );

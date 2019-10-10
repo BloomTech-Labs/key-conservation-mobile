@@ -7,6 +7,7 @@ import {
   Image,
   Dimensions
 } from 'react-native';
+import { Video } from 'expo-av';
 import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -91,11 +92,27 @@ class ViewCampUpdateScreen extends React.Component {
             }}
             subtitle={this.props.selectedCampaign.location}
           />
-          <Image
-            source={{ uri: this.props.selectedCampaign.update_img }}
-            style={styles.campImgContain}
-          />
-          <View style={styles.likesContainer}>
+          {this.props.navigation.state.params.media.includes('.mov') ||
+          this.props.navigation.state.params.media.includes('.mp3') ||
+          this.props.navigation.state.params.media.includes('.mp4') ? (
+            <Video
+              source={{
+                uri: this.props.selectedCampaign.update_img
+              }}
+              rate={1.0}
+              volume={1.0}
+              useNativeControls={true}
+              resizeMode='cover'
+              style={styles.campImgContain}
+            />
+          ) : (
+            <Image
+              source={{ uri: this.props.selectedCampaign.update_img }}
+              style={styles.campImgContain}
+            />
+          )}
+
+          <View>
             {this.state.userLiked === false ? (
               <FontAwesome
                 onPress={() => this.addLike()}

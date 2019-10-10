@@ -5,7 +5,7 @@ export default {
     backgroundColor: "#fff",
     marginLeft: 8,
     marginRight: 8,
-    marginTop: 15,
+    marginTop: 10,
     marginBottom: 0,
     borderRadius: 5
   },
@@ -18,6 +18,12 @@ export default {
     lineHeight: 19,
     fontSize: 14,
     fontFamily: "OpenSans-Regular"
+  },
+  urlText: {
+    lineHeight: 19,
+    fontSize: 14,
+    fontFamily: "OpenSans-SemiBold",
+    color: "#7B7D88"
   },
   header: {
     flex: 1,
@@ -62,23 +68,27 @@ export default {
   },
   SocialContainer: {
     flexDirection: "row",
-    width: 175,
-    marginTop: 10,
-    marginLeft: 3,
-    justifyContent: "space-between"
+    width: "80%",
+    marginTop: 15,
+    marginLeft: 35,
+    paddingBottom: 10,
+    justifyContent: "space-around",
+    position: "absolute",
+    bottom: 0
+    // borderColor: "#000",
+    // borderWidth: 1
   },
-  SocialIcon: {},
   avatarInfoWrap: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between"
   },
   rightContainer: {
-    paddingTop: 29,
+    paddingTop: 19,
     flex: 1
   },
   leftContainer: {
-    paddingTop: 29,
+    paddingTop: 19,
     flex: 0,
     width: "30%",
     alignItems: "center"

@@ -282,6 +282,7 @@ export const postCampaign = camp => async dispatch => {
   formData.append('camp_desc', filteredCamp.camp_desc);
   formData.append('camp_name', filteredCamp.camp_name);
   formData.append('users_id', filteredCamp.users_id);
+  formData.append('urgency', filteredCamp.urgency)
 
   let token = await SecureStore.getItemAsync('accessToken');
 

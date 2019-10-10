@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   Text,
@@ -21,23 +21,23 @@ import {
   commentOnCampaign,
   deleteComment,
   getCampaign
-} from "../../store/actions";
-import styles from "../../constants/Comments/Comments";
-import Comment from "./Comment";
+} from '../../store/actions';
+import styles from '../../constants/Comments/Comments';
+import Comment from './Comment';
 
 // url for heroku staging vs production server
 const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
 class CommentsView extends React.Component {
   state = {
-    comment: "",
-    latestComment: "",
+    comment: '',
+    latestComment: '',
     posted: false,
     campaignComments: [],
-    token: "",
+    token: '',
     commentsVisible: 3,
-    err: "",
-    comparison: ""
+    err: '',
+    comparison: ''
   };
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -51,8 +51,6 @@ class CommentsView extends React.Component {
       });
     }
   };
-
-  // Currently redux store changes are not triggering re-renders. Multiple devs have looked into why we need this componentDidUpdate despite having the redux store hooked up to our component. No solutions yet though.
 
   render() {
     if (
@@ -99,7 +97,7 @@ class CommentsView extends React.Component {
                       rounded
                       containerStyle={{
                         borderWidth: 1,
-                        borderColor: "#00FF9D"
+                        borderColor: '#00FF9D'
                       }}
                       source={{
                         uri: this.props.currentUserProfile.profile_image
@@ -113,7 +111,6 @@ class CommentsView extends React.Component {
                       }}
                     />
                   )}
-                  {/* Displays latest comment unless the user is viewing all the campaign comments. */}
                 </View>
                 <View style={styles.commentText}>
                   <Text style={styles.username}>
@@ -124,11 +121,12 @@ class CommentsView extends React.Component {
                   </Text>
                 </View>
               </View>
-              <View style={styles.interaction}>
+              {/* <View style={styles.interaction}>
                 <Text style={styles.timeText}>just now</Text>
-              </View>
+              </View> */}
             </View>
           ) : null}
+          {/* Displays latest comment unless the user is viewing all the campaign comments. */}
           {this.state.campaignComments.length > this.state.commentsVisible && (
             <View style={styles.moreContainer}>
               <TouchableOpacity onPress={() => this.addMoreComments()}>
@@ -156,12 +154,12 @@ class CommentsView extends React.Component {
                 }
                 style={styles.input}
                 value={this.state.comment}
-                textAlignVertical={"center"}
+                textAlignVertical={'center'}
                 onSubmitEditing={() => {
-                  if (Platform.OS === "android") return;
+                  if (Platform.OS === 'android') return;
                   this.usernameInput.focus();
                 }}
-                blurOnSubmit={Platform.OS === "android"}
+                blurOnSubmit={Platform.OS === 'android'}
                 ref={input => {
                   this.commentInput = input;
                 }}
@@ -188,9 +186,9 @@ class CommentsView extends React.Component {
           },
           {
             headers: {
-              Accept: "application/json",
+              Accept: 'application/json',
               Authorization: `Bearer ${this.props.token}`,
-              "Content-Type": "application/json"
+              'Content-Type': 'application/json'
             }
           }
         )
@@ -201,7 +199,7 @@ class CommentsView extends React.Component {
           this.setState({
             ...this.state,
             campaignComments: comments,
-            comment: "",
+            comment: '',
             posted: true
           });
         })
@@ -219,9 +217,9 @@ class CommentsView extends React.Component {
     axios
       .delete(`${seturl}comments/com/${id}`, {
         headers: {
-          Accept: "application/json",
+          Accept: 'application/json',
           Authorization: `Bearer ${this.props.token}`,
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json'
         }
       })
       .then(res => {

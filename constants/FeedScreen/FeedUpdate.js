@@ -16,6 +16,7 @@ export default {
     height: 37,
     width: '100%',
     position: 'absolute',
+    zIndex: 1,
     top: 0,
     right: 0,
     bottom: 0,

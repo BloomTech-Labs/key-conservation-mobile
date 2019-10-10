@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { View } from "react-native-animatable";
 import moment from "moment";
+import { Video } from 'expo-av';
 import { Avatar } from "react-native-elements";
 import { ListItem } from "react-native-elements";
 import { useDispatch } from "react-redux";
@@ -15,6 +16,7 @@ import { AmpEvent } from "../withAmplitude";
 import { connect } from "react-redux";
 import { FontAwesome } from "@expo/vector-icons";
 import axios from "axios";
+
 import {
   getProfileData,
   getCampaign,
@@ -92,6 +94,35 @@ const FeedCampaign = props => {
     }
   }
 
+  //// All styles for the urgency bar
+  let updateColor;
+  if (data.urgency === 'Critical') {
+    updateColor = '#FF476DBF';
+  } else if (data.urgency === 'Urgent') {
+    updateColor = '#FFE743BF';
+  } else if (data.urgency === 'Longterm') {
+    updatecolor = '#74FB3BF';
+  } else {
+    updateColor = '#323338BF';
+  }
+
+  let updateStatus;
+  if (data.urgency) {
+    updateStatus = data.urgency.toUpperCase();
+  } else {
+    updateStatus = 'Standard';
+  }
+
+  const updateStyles = {
+    backgroundColor: updateColor,
+    height: 37,
+    width: '100%',
+    position: 'absolute',
+    top: 0,
+    justifyContent: 'center',
+    alignItems: 'center'
+  };
+
   const goToProfile = async () => {
     await dispatch(getProfileData(data.users_id));
     AmpEvent("Select Profile from Campaign", {
@@ -114,7 +145,8 @@ const FeedCampaign = props => {
       deleteLike: deleteLike,
       userBookmarked: userBookmarked,
       addBookmark: addBookmark,
-      deleteBookmark: deleteBookmark
+      deleteBookmark: deleteBookmark,
+      media: data.camp_img
     });
   };
 
@@ -226,14 +258,31 @@ const FeedCampaign = props => {
       />
       <View>
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
-          <ImageBackground
-            source={{ uri: data.camp_img }}
-            style={styles.campImgContain}
-          >
-            {/* <View style={styles.goToCampaignButton} onPress={goToCampaign}>
-              <Text style={styles.goToCampaignText}>See Post {'>'}</Text>
-            </View> */}
-          </ImageBackground>
+          {data.camp_img.includes('.mov') ||
+          data.camp_img.includes('.mp3') ||
+          data.camp_img.includes('.mp4') ? (
+            <Video
+              source={{
+                uri: data.camp_img
+              }}
+              rate={1.0}
+              volume={1.0}
+              useNativeControls={true}
+              resizeMode='cover'
+              style={styles.campImgContain}
+            />
+          ) : (
+            <ImageBackground
+              source={{ uri: data.camp_img }}
+              style={styles.campImgContain}
+            >
+              {data.urgency ? (
+                <View style={updateStyles}>
+                  <Text style={styles.urgencyBarText}>{updateStatus}</Text>
+                </View>
+              ) : null}
+            </ImageBackground>
+          )}
         </TouchableOpacity>
       </View>
       <View style={styles.iconRow}>
@@ -310,13 +359,13 @@ const FeedCampaign = props => {
       </View>
       <View style={{ marginLeft: 17 }}>
         <FlatList
-          data={data.comments.slice(0, 2)}
+          data={data.comments.slice(0, 1)}
           keyExtractor={comment => comment.comment_id}
           renderItem={({ item }) => {
             return (
               <View style={styles2.commentWrapper}>
                 <View style={styles2.commentView}>
-                  <View style={styles2.avatar}>
+                  <View style={styles2.feedAvatar}>
                     <Avatar
                       rounded
                       source={{
@@ -324,13 +373,10 @@ const FeedCampaign = props => {
                       }}
                     />
                   </View>
-                  <View>
+                  <View style={styles2.feedCommentWrapper}>
                     <Text style={styles2.username}>{item.username}</Text>
                     <Text style={styles2.commentBody}>{item.comment_body}</Text>
                   </View>
-                </View>
-                <View style={styles2.interaction}>
-                  <Text style={styles2.timeText}>{timeDiff}</Text>
                 </View>
               </View>
             );

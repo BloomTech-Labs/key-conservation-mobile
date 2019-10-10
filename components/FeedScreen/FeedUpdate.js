@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ImageBackground, TouchableOpacity } from 'react-native';
 import moment from 'moment';
+import { Video } from 'expo-av';
 import { ListItem } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 import { AmpEvent } from '../withAmplitude';
@@ -12,7 +13,6 @@ import {
   setCampaign,
   toggleCampaignText
 } from '../../store/actions';
-
 import styles from '../../constants/FeedScreen/FeedUpdate';
 
 // url for heroku staging vs production server
@@ -92,7 +92,8 @@ const FeedUpdate = props => {
       likes: likes,
       userLiked: userLiked,
       addLike: addLike,
-      deleteLike: deleteLike
+      deleteLike: deleteLike,
+      media: data.update_img
     });
   };
 
@@ -103,10 +104,10 @@ const FeedUpdate = props => {
   const addLike = () => {
     axios
       .post(
-        `${seturl}social/likes/${data.camp_id}`,
+        `${seturl}social/update/${data.update_id}`,
         {
           users_id: props.currentUserProfile.id,
-          camp_id: data.camp_id
+          update_id: data.update_id
         },
         {
           headers: {
@@ -126,9 +127,10 @@ const FeedUpdate = props => {
   };
 
   const deleteLike = () => {
+    console.log('Hi');
     axios
       .delete(
-        `${seturl}social/likes/${data.camp_id}/${props.currentUserProfile.id}`,
+        `${seturl}social/update/${data.update_id}/${props.currentUserProfile.id}`,
         {
           headers: {
             Accept: 'application/json',
@@ -162,19 +164,34 @@ const FeedUpdate = props => {
       )}
       <View>
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampUpdate}>
-          <ImageBackground
-            source={{ uri: data.update_img }}
-            style={styles.campImgContain}
-            onPress={goToCampUpdate}
-          >
-            <View style={styles.updateBar}>
-              <Text style={styles.updateBarText}>Update</Text>
+          {data.update_img.includes('.mov') ||
+          data.update_img.includes('.mp3') ||
+          data.update_img.includes('.mp4') ? (
+            <View>
+              <View style={styles.updateBar}>
+                <Text style={styles.updateBarText}>UPDATE</Text>
+              </View>
+              <Video
+                source={{
+                  uri: data.update_img
+                }}
+                rate={1.0}
+                volume={1.0}
+                useNativeControls={true}
+                resizeMode='cover'
+                style={styles.campImgContain}
+              />
             </View>
-
-            {/* <View style={styles.goToCampaignButton} onPress={goToCampUpdate}>
-              <Text style={styles.goToCampaignText}>See Update {'>'}</Text>
-            </View> */}
-          </ImageBackground>
+          ) : (
+            <ImageBackground
+              source={{ uri: data.update_img }}
+              style={styles.campImgContain}
+            >
+              <View style={styles.updateBar}>
+                <Text style={styles.updateBarText}>UPDATE</Text>
+              </View>
+            </ImageBackground>
+          )}
         </TouchableOpacity>
       </View>
       <View style={styles.likesContainer}>
@@ -218,12 +235,10 @@ const FeedUpdate = props => {
     </View>
   );
 };
-
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
   token: state.token
 });
-
 export default connect(
   mapStateToProps,
   {
