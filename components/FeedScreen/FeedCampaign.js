@@ -20,18 +20,15 @@ import {
   getCampaign,
   toggleCampaignText
 } from '../../store/actions';
-
 import styles from '../../constants/FeedScreen/FeedCampaign';
 import styles2 from '../../constants/Comments/Comments';
-
 // url for heroku staging vs production server
 const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
-
 const FeedCampaign = props => {
   const [likes, setLikes] = useState(props.data.likes.length);
   const [userLiked, setUserLiked] = useState(false);
   const [userBookmarked, setUserBookmarked] = useState(false);
-
+  const [urgTop, setUrgTop] = useState(0);
   useEffect(() => {
     const liked = data.likes.filter(
       l => l.users_id === props.currentUserProfile.id
@@ -45,8 +42,14 @@ const FeedCampaign = props => {
     if (bookmarked.length > 0) {
       setUserBookmarked(true);
     }
+    if (
+      data.camp_img.includes('.mov') ||
+      data.camp_img.includes('.mp3') ||
+      data.camp_img.includes('.mp4')
+    ) {
+      setUrgTop(3);
+    }
   }, []);
-
   const dispatch = useDispatch();
   const { data, toggled } = props;
   const shorten = (string, cutoff) => {
@@ -61,7 +64,6 @@ const FeedCampaign = props => {
       return `${string.substring(0, end)}...`;
     }
   };
-
   const createdAt = data.created_at;
   const currentTime = moment();
   const postTime = moment(createdAt);
@@ -91,36 +93,33 @@ const FeedCampaign = props => {
       timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
     }
   }
-
   //// All styles for the urgency bar
-  let updateColor;
+  let urgencyColor;
   if (data.urgency === 'Critical') {
-    updateColor = '#FF476DBF';
+    urgencyColor = '#FF476DBF';
   } else if (data.urgency === 'Urgent') {
-    updateColor = '#FFE743BF';
+    urgencyColor = '#FFE743BF';
   } else if (data.urgency === 'Longterm') {
-    updatecolor = '#74FB3BF';
+    urgencyColor = '#74FB3BF';
   } else {
-    updateColor = '#323338BF';
+    urgencyColor = '#323338BF';
   }
-
-  let updateStatus;
+  let urgencyStatus;
   if (data.urgency) {
-    updateStatus = data.urgency.toUpperCase();
+    urgencyStatus = data.urgency.toUpperCase();
   } else {
-    updateStatus = 'Standard';
+    urgencyStatus = 'Standard';
   }
-
-  const updateStyles = {
-    backgroundColor: updateColor,
+  const urgencyStyles = {
+    backgroundColor: urgencyColor,
     height: 37,
     width: '100%',
     position: 'absolute',
-    top: 0,
+    top: urgTop,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    zIndex: 1
   };
-
   const goToProfile = async () => {
     await dispatch(getProfileData(data.users_id));
     AmpEvent('Select Profile from Campaign', {
@@ -129,7 +128,6 @@ const FeedCampaign = props => {
     });
     props.navigation.navigate('Pro');
   };
-
   const goToCampaign = async () => {
     await dispatch(getCampaign(data.camp_id));
     AmpEvent('Select Profile from Campaign', {
@@ -147,11 +145,9 @@ const FeedCampaign = props => {
       media: data.camp_img
     });
   };
-
   const toggleText = () => {
     dispatch(toggleCampaignText(data.camp_id));
   };
-
   const addLike = () => {
     axios
       .post(
@@ -176,7 +172,6 @@ const FeedCampaign = props => {
         console.log(err);
       });
   };
-
   const deleteLike = () => {
     axios
       .delete(
@@ -197,7 +192,6 @@ const FeedCampaign = props => {
         console.log(err);
       });
   };
-
   const addBookmark = () => {
     axios
       .post(
@@ -221,7 +215,6 @@ const FeedCampaign = props => {
         console.log(err);
       });
   };
-
   const deleteBookmark = () => {
     axios
       .delete(
@@ -241,7 +234,6 @@ const FeedCampaign = props => {
         console.log(err);
       });
   };
-
   return (
     <View style={styles.container}>
       <ListItem
@@ -259,24 +251,31 @@ const FeedCampaign = props => {
           {data.camp_img.includes('.mov') ||
           data.camp_img.includes('.mp3') ||
           data.camp_img.includes('.mp4') ? (
-            <Video
-              source={{
-                uri: data.camp_img
-              }}
-              rate={1.0}
-              volume={1.0}
-              useNativeControls={true}
-              resizeMode='cover'
-              style={styles.campImgContain}
-            />
+            <View>
+              {data.urgency ? (
+                <View style={urgencyStyles}>
+                  <Text style={styles.urgencyBarText}>{urgencyStatus}</Text>
+                </View>
+              ) : null}
+              <Video
+                source={{
+                  uri: data.camp_img
+                }}
+                rate={1.0}
+                volume={1.0}
+                useNativeControls={true}
+                resizeMode='cover'
+                style={styles.campImgContain}
+              />
+            </View>
           ) : (
             <ImageBackground
               source={{ uri: data.camp_img }}
               style={styles.campImgContain}
             >
               {data.urgency ? (
-                <View style={updateStyles}>
-                  <Text style={styles.urgencyBarText}>{updateStatus}</Text>
+                <View style={urgencyStyles}>
+                  <Text style={styles.urgencyBarText}>{urgencyStatus}</Text>
                 </View>
               ) : null}
             </ImageBackground>
@@ -374,13 +373,11 @@ const FeedCampaign = props => {
     </View>
   );
 };
-
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
   currentUser: state.currentUser,
   token: state.token
 });
-
 export default connect(
   mapStateToProps,
   {
