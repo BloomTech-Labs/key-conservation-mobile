@@ -50,7 +50,7 @@ export default {
     color: 'black',
   },
   heartFill: {
-    fontSize: 28,
+    fontSize: 30,
     color: '#e60024',
     zIndex: 1
   },
@@ -62,7 +62,7 @@ export default {
     color: 'black'
   },
   bookmarkFill: {
-    fontSize: 28,
+    fontSize: 30,
     color: '#00FF9D'
   },
   likes: {

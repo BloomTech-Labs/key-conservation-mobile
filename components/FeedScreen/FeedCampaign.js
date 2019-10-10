@@ -3,7 +3,8 @@ import {
   Text,
   ImageBackground,
   TouchableOpacity,
-  FlatList
+  FlatList,
+  Platform
 } from "react-native";
 import { View } from "react-native-animatable";
 import moment from "moment";
@@ -238,7 +239,7 @@ const FeedCampaign = props => {
       <View style={styles.iconRow}>
         <View style={styles.likesContainer}>
           <View style={styles.hearts}>
-            <View style={ !userLiked ? {zIndex: 1} : {zIndex: -1}} >
+            <View style={!userLiked ? { zIndex: 1 } : { zIndex: -1 }}>
               <FontAwesome
                 onPress={() => addLike()}
                 name='heart-o'
@@ -247,7 +248,12 @@ const FeedCampaign = props => {
             </View>
             <View
               animation={userLiked ? "zoomIn" : "zoomOut"}
-              style={ userLiked ? {zIndex: 1} : {zIndex: -1}, { marginTop: -28.5 } }
+              style={
+                (userLiked ? { zIndex: 1 } : { zIndex: -1 },
+                Platform.OS === "android"
+                  ? { marginTop: -29, marginLeft: -1.25 }
+                  : { marginTop: -28.75, marginLeft: -1.25 })
+              }
               duration={300}
             >
               <FontAwesome
@@ -264,7 +270,7 @@ const FeedCampaign = props => {
           )}
         </View>
         <View style={styles.bookmarks}>
-          <View style={ !userBookmarked ? {zIndex: 1} : {zIndex: -1}}>
+          <View style={!userBookmarked ? { zIndex: 1 } : { zIndex: -1 }}>
             <FontAwesome
               onPress={() => addBookmark()}
               name='bookmark-o'
@@ -273,7 +279,11 @@ const FeedCampaign = props => {
           </View>
           <View
             animation={userBookmarked ? "zoomIn" : "zoomOut"}
-            style={ userBookmarked ? {zIndex: 1} : {zIndex: -1}, { marginTop: -28.5 }}
+            style={
+              (userBookmarked ? { zIndex: 1 } : { zIndex: -1 },
+                { marginTop: -28.75, marginLeft: -1.25 }
+              )
+            }
             duration={300}
           >
             <FontAwesome
