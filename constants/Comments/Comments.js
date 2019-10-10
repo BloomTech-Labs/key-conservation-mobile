@@ -1,22 +1,29 @@
 export default {
   commentWrapper: {
-    flexDirection: "column"
+    flexDirection: "column",
+    width: "90%"
   },
   commentView: {
     flexDirection: "row"
   },
+  feedCommentWrapper: {
+    flexDirection: "column",
+    width: "90%",
+    marginTop: 5
+  },
   replyView: {
     flexDirection: "row",
     marginTop: 20
-    // justifyContent: 'center'
   },
   username: {
-    marginLeft: 3,
+    marginLeft: 7,
+    paddingBottom: 3,
+    marginTop: 5,
     fontWeight: "bold",
     fontFamily: "OpenSans-SemiBold"
   },
   commentBody: {
-    marginLeft: 3
+    marginLeft: 7
   },
   commentText: {
     flexDirection: "column",
@@ -25,10 +32,6 @@ export default {
   },
   input: {
     minHeight: 48,
-    width: 250,
-    // fontFamily: 'OpenSans-SemiBold',
-    // borderWidth: 2,
-    // borderColor: 'black',
     paddingTop: 7,
     padding: 5,
     borderRadius: 5,
@@ -36,13 +39,13 @@ export default {
     marginLeft: 5,
     marginRight: 5,
     marginBottom: 20,
-    backgroundColor: "#f7f9fc"
+    backgroundColor: "#f7f9fc",
+    width: "80%"
   },
   inputWrapper: {
     flexDirection: "row",
     height: 48,
-    width: 280,
-    marginLeft: 5,
+    marginLeft: 6,
     borderRadius: 5,
     backgroundColor: "#f7f9fc"
   },
@@ -53,7 +56,7 @@ export default {
   timeText: {
     color: "#929292",
     fontSize: 10,
-    marginLeft: 38,
+    marginLeft: 43,
     marginRight: 15,
     marginTop: 10
   },
@@ -64,6 +67,9 @@ export default {
   },
   avatar: {
     marginTop: 5
+  },
+  feedAvatar: {
+    marginTop: 8
   },
   replyAvatar: {
     marginTop: 7
@@ -110,6 +116,9 @@ export default {
   icon: {
     fontSize: 30,
     marginTop: 9,
-    color: "#00FF9D"
+    color: "#7B7D88"
+    // flexDirection: "row",
+    // alignItems: "right",
+    // marginLeft: 40
   }
 };

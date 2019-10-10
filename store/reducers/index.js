@@ -214,10 +214,14 @@ const reducer = (state = initialState, action) => {
         error: ''
       };
     case GET_CAMPAIGN_SUCCESS:
+      const campaign = action.payload;
+      campaign.comments.sort(function(a, b) {
+        return moment(a.created_at) - moment(b.created_at);
+      });
       return {
         ...state,
         pending: { ...state.pending, getCampaign: false },
-        selectedCampaign: action.payload
+        selectedCampaign: campaign
       };
     case GET_CAMPAIGN_ERROR:
       return {
@@ -434,13 +438,11 @@ const reducer = (state = initialState, action) => {
         mediaUpload: ''
       };
     case POST_COMMENT_START:
-      console.log('Start');
       return {
         ...state,
         error: ''
       };
     case POST_COMMENT_SUCCESS:
-      console.log('please have mercy');
       return {
         ...state,
         selectedCampaign: {
@@ -454,13 +456,11 @@ const reducer = (state = initialState, action) => {
         error: action.payload
       };
     case DELETE_COMMENT_START:
-      console.log('Start');
       return {
         ...state,
         error: ''
       };
     case DELETE_COMMENT_SUCCESS:
-      console.log('delelelteltetletlewtleletlel');
       return {
         ...state,
         selectedCampaign: {

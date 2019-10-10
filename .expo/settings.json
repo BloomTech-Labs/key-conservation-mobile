@@ -1,8 +1,8 @@
 {
-  "hostType": "lan",
+  "urlRandomness": "4n-vzu",
+  "hostType": "tunnel",
   "lanType": "ip",
-  "dev": false,
-  "minify": true,
-  "urlRandomness": "r5-zcz",
+  "dev": true,
+  "minify": false,
   "https": false
 }

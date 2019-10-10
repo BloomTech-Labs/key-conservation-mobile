@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   View,
   Text,
@@ -6,34 +6,38 @@ import {
   FlatList,
   TextInput,
   KeyboardAvoidingView,
-  TouchableOpacity
-} from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
-import { ScrollView, NavigationEvents } from 'react-navigation';
-import { Avatar } from 'react-native-elements';
-import { useDispatch } from 'react-redux';
-import { connect } from 'react-redux';
-import axios from 'axios';
-import * as SecureStore from 'expo-secure-store';
-
+  TouchableOpacity,
+  Platform
+} from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
+import moment from "moment";
+import { ScrollView, NavigationEvents } from "react-navigation";
+import { Avatar } from "react-native-elements";
+import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
+import axios from "axios";
+import * as SecureStore from "expo-secure-store";
 import {
   commentOnCampaign,
   deleteComment,
   getCampaign
-} from '../../store/actions';
-import styles from '../../constants/Comments/Comments';
-import Comment from './Comment';
+} from "../../store/actions";
+import styles from "../../constants/Comments/Comments";
+import Comment from "./Comment";
 
-const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+// url for heroku staging vs production server
+const seturl = "https://key-conservation-staging.herokuapp.com/api/";
 
 class CommentsView extends React.Component {
   state = {
-    comment: '',
+    comment: "",
+    latestComment: "",
+    posted: false,
     campaignComments: [],
-    token: '',
+    token: "",
     commentsVisible: 3,
-    err: '',
-    comparison: ''
+    err: "",
+    comparison: ""
   };
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -48,8 +52,6 @@ class CommentsView extends React.Component {
     }
   };
 
-  // Currently redux store changes are not triggering re-renders. Multiple devs have looked into why we need this componentDidUpdate despite having the redux store hooked up to our component. No solutions yet.
-
   render() {
     if (
       this.state.campaignComments.length === 0 &&
@@ -62,11 +64,7 @@ class CommentsView extends React.Component {
       );
     }
     return (
-      <KeyboardAvoidingView
-        behavior='height'
-        enabled
-        keyboardVerticalOffset={20}
-      >
+      <KeyboardAvoidingView>
         <ScrollView>
           <View>
             <FlatList
@@ -88,6 +86,47 @@ class CommentsView extends React.Component {
               }}
             />
           </View>
+          {this.state.posted === true &&
+          this.state.campaignComments.length > this.state.commentsVisible ? (
+            <View>
+              <View style={styles.commentView}>
+                <View style={styles.avatar}>
+                  {this.props.currentUserProfile.users_id ===
+                  this.props.selectedCampaign.users_id ? (
+                    <Avatar
+                      rounded
+                      containerStyle={{
+                        borderWidth: 1,
+                        borderColor: "#00FF9D"
+                      }}
+                      source={{
+                        uri: this.props.currentUserProfile.profile_image
+                      }}
+                    />
+                  ) : (
+                    <Avatar
+                      rounded
+                      source={{
+                        uri: this.props.currentUserProfile.profile_image
+                      }}
+                    />
+                  )}
+                  {/* Displays latest comment unless the user is viewing all the campaign comments. */}
+                </View>
+                <View style={styles.commentText}>
+                  <Text style={styles.username}>
+                    {this.props.currentUserProfile.username}
+                  </Text>
+                  <Text style={styles.commentBody}>
+                    {this.state.latestComment}
+                  </Text>
+                </View>
+              </View>
+              {/* <View style={styles.interaction}>
+                <Text style={styles.timeText}>just now</Text>
+              </View> */}
+            </View>
+          ) : null}
           {this.state.campaignComments.length > this.state.commentsVisible && (
             <View style={styles.moreContainer}>
               <TouchableOpacity onPress={() => this.addMoreComments()}>
@@ -97,6 +136,7 @@ class CommentsView extends React.Component {
               </TouchableOpacity>
             </View>
           )}
+          {/* View More Comments is visible if the length of campaignComments is greater than the value of commentsVisible */}
           <View style={styles.replyView}>
             <View style={styles.replyAvatar}>
               <Avatar
@@ -109,11 +149,21 @@ class CommentsView extends React.Component {
             <View style={styles.inputWrapper}>
               <TextInput
                 placeholder='Be a part of the conversation...'
-                onChangeText={text => this.setState({ comment: text })}
-                multiline={true}
+                onChangeText={text =>
+                  this.setState({ comment: text, latestComment: text })
+                }
                 style={styles.input}
                 value={this.state.comment}
-                textAlignVertical={'center'}
+                textAlignVertical={"center"}
+                onSubmitEditing={() => {
+                  if (Platform.OS === "android") return;
+                  this.usernameInput.focus();
+                }}
+                blurOnSubmit={Platform.OS === "android"}
+                ref={input => {
+                  this.commentInput = input;
+                }}
+                returnKeyType='next'
               />
               <TouchableOpacity onPress={() => this.makeComment()}>
                 <FontAwesome name='paper-plane' style={styles.icon} />
@@ -136,17 +186,21 @@ class CommentsView extends React.Component {
           },
           {
             headers: {
-              Accept: 'application/json',
+              Accept: "application/json",
               Authorization: `Bearer ${this.props.token}`,
-              'Content-Type': 'application/json'
+              "Content-Type": "application/json"
             }
           }
         )
         .then(res => {
+          const comments = res.data.data.sort(function(a, b) {
+            return moment(a.created_at) - moment(b.created_at);
+          });
           this.setState({
             ...this.state,
-            campaignComments: res.data.data,
-            comment: ''
+            campaignComments: comments,
+            comment: "",
+            posted: true
           });
         })
         .catch(err => {
@@ -163,18 +217,18 @@ class CommentsView extends React.Component {
     axios
       .delete(`${seturl}comments/com/${id}`, {
         headers: {
-          Accept: 'application/json',
+          Accept: "application/json",
           Authorization: `Bearer ${this.props.token}`,
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json"
         }
       })
       .then(res => {
-        console.log(res.data.data, 'deleteltletletletl');
+        const filteredCampaigns = this.state.campaignComments.filter(
+          c => c.comment_id !== res.data.data
+        );
         this.setState({
           ...this.state,
-          campaignComments: this.state.campaignComments.filter(
-            c => c.comment_id !== res.data.data
-          )
+          campaignComments: filteredCampaigns
         });
       })
       .catch(err => {
@@ -185,6 +239,8 @@ class CommentsView extends React.Component {
         });
       });
   };
+
+  // Currently deletComment won't trigger a rerender
 
   addMoreComments = () => {
     this.setState({

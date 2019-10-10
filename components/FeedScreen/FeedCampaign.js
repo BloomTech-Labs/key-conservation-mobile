@@ -1,10 +1,23 @@
-import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity, ImageBackground } from "react-native";
-import moment from "moment";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  FlatList,
+  Image } from 'react-native'
+import moment from 'moment'
 
-import { ListItem } from "react-native-elements";
-import { useDispatch } from "react-redux";
-import { AmpEvent } from "../withAmplitude";
+} from 'react-native';
+import moment from 'moment';
+import { Video } from 'expo-av';
+import { Avatar } from 'react-native-elements';
+import { ListItem } from 'react-native-elements';
+import { useDispatch } from 'react-redux';
+import { AmpEvent } from '../withAmplitude';
+import { connect } from 'react-redux';
+import { FontAwesome } from '@expo/vector-icons';
+import axios from 'axios';
 import {
   getProfileData,
   getCampaign,
@@ -12,8 +25,31 @@ import {
 } from "../../store/actions";
 
 import styles from "../../constants/FeedScreen/FeedCampaign";
+import styles2 from "../../constants/Comments/Comments";
+
+// url for heroku staging vs production server
+const seturl = "https://key-conservation-staging.herokuapp.com/api/";
 
 const FeedCampaign = props => {
+  const [likes, setLikes] = useState(props.data.likes.length);
+  const [userLiked, setUserLiked] = useState(false);
+  const [userBookmarked, setUserBookmarked] = useState(false);
+
+  useEffect(() => {
+    const liked = data.likes.filter(
+      l => l.users_id === props.currentUserProfile.id
+    );
+    const bookmarked = props.currentUserProfile.bookmarks.filter(
+      b => b.camp_id === data.camp_id
+    );
+    if (liked.length > 0) {
+      setUserLiked(true);
+    }
+    if (bookmarked.length > 0) {
+      setUserBookmarked(true);
+    }
+  }, []);
+
   const dispatch = useDispatch();
   const { data, toggled } = props;
   const shorten = (string, cutoff) => {
@@ -103,15 +139,112 @@ const FeedCampaign = props => {
       campaign: data.camp_name,
       profile: data.username
     });
-    props.navigation.navigate("Camp");
+    props.navigation.navigate("Camp", {
+      likes: likes,
+      userLiked: userLiked,
+      addLike: addLike,
+      deleteLike: deleteLike,
+      userBookmarked: userBookmarked,
+      addBookmark: addBookmark,
+      deleteBookmark: deleteBookmark,
+      media: data.camp_img
+    });
   };
 
   const toggleText = () => {
     dispatch(toggleCampaignText(data.camp_id));
   };
-  // console.log('feed campaign, data check', data)
-  // console.log('updateColor', updateColor)
-  console.log('updated21232', data.urgency)
+
+  const addLike = () => {
+    axios
+      .post(
+        `${seturl}social/likes/${data.camp_id}`,
+        {
+          users_id: props.currentUserProfile.id,
+          camp_id: data.camp_id
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${props.token}`,
+            "Content-Type": "application/json"
+          }
+        }
+      )
+      .then(res => {
+        setLikes(res.data.data.length);
+        setUserLiked(true);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const deleteLike = () => {
+    axios
+      .delete(
+        `${seturl}social/likes/${data.camp_id}/${props.currentUserProfile.id}`,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${props.token}`,
+            "Content-Type": "application/json"
+          }
+        }
+      )
+      .then(res => {
+        setLikes(likes - 1);
+        setUserLiked(false);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const addBookmark = () => {
+    axios
+      .post(
+        `${seturl}social/bookmark/${data.camp_id}`,
+        {
+          users_id: props.currentUserProfile.id,
+          camp_id: data.camp_id
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${props.token}`,
+            "Content-Type": "application/json"
+          }
+        }
+      )
+      .then(res => {
+        setUserBookmarked(true);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const deleteBookmark = () => {
+    axios
+      .delete(
+        `${seturl}social/bookmark/${data.camp_id}/${props.currentUserProfile.id}`,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${props.token}`,
+            "Content-Type": "application/json"
+          }
+        }
+      )
+      .then(res => {
+        setUserBookmarked(false);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   return (
     <View style={styles.container}>
       <ListItem
@@ -126,17 +259,70 @@ const FeedCampaign = props => {
       />
       <View>
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
+          {data.camp_img.includes('.mov') ||
+          data.camp_img.includes('.mp3') ||
+          data.camp_img.includes('.mp4') ? (
+            <Video
+              source={{
+                uri: data.camp_img
+              }}
+              rate={1.0}
+              volume={1.0}
+              isMuted={true}
+              useNativeControls={true}
+              resizeMode='cover'
+              // shouldPlay
+              // isLooping
+              style={styles.campImgContain}
+            />
+          ) : (
             <ImageBackground
               source={{ uri: data.camp_img }}
-              style={styles.campImgContain}>
+              style={styles.campImgContain}
+            >
                 {data.urgency ?                 
                 <View style={updateStyles}>
                   <Text style={styles.urgencyBarText}>{updateStatus}</Text>
                 </View>
                 : null }
             </ImageBackground>
+          )}
+
         </TouchableOpacity>
       </View>
+      <View style={styles.iconRow}>
+        {userLiked === false ? (
+          <FontAwesome
+            onPress={() => addLike()}
+            name='heart-o'
+            style={styles.outline}
+          />
+        ) : (
+          <FontAwesome
+            onPress={() => deleteLike()}
+            name='heart'
+            style={styles.fill}
+          />
+        )}
+        {userBookmarked === false ? (
+          <FontAwesome
+            onPress={() => addBookmark()}
+            name='bookmark-o'
+            style={styles.outline}
+          />
+        ) : (
+          <FontAwesome
+            onPress={() => deleteBookmark()}
+            name='bookmark'
+            style={styles.bookmarkFill}
+          />
+        )}
+      </View>
+      {likes === 0 ? null : likes > 1 ? (
+        <Text style={styles.likes}>{likes} likes</Text>
+      ) : (
+        <Text style={styles.likes}>{likes} like</Text>
+      )}
       <View style={styles.campDesc}>
         <Text style={styles.campDescName}>{data.camp_name}</Text>
         {toggled || data.camp_desc.length < 80 ? (
@@ -151,12 +337,42 @@ const FeedCampaign = props => {
           </Text>
         )}
       </View>
+      <View style={{ marginLeft: 17 }}>
+        <FlatList
+          data={data.comments.slice(0, 2)}
+          keyExtractor={comment => comment.comment_id}
+          renderItem={({ item }) => {
+            return (
+              <View style={styles2.commentWrapper}>
+                <View style={styles2.commentView}>
+                  <View style={styles2.feedAvatar}>
+                    <Avatar
+                      rounded
+                      source={{
+                        uri: item.profile_image
+                      }}
+                    />
+                  </View>
+                  <View style={styles2.feedCommentWrapper}>
+                    <Text style={styles2.username}>{item.username}</Text>
+                    <Text style={styles2.commentBody}>{item.comment_body}</Text>
+                  </View>
+                </View>
+              </View>
+            );
+          }}
+        />
+      </View>
       <View>
-        {data.comments_length >= 1 ? (
-          data.comments_length === 1 ? (
-            <Text style={styles.comments}>{data.comments_length} comment</Text>
+        {data.comments.length >= 1 ? (
+          data.comments.length === 1 ? (
+            <Text style={styles.comments} onPress={goToCampaign}>
+              View {data.comments.length} comment
+            </Text>
           ) : (
-            <Text style={styles.comments}>{data.comments_length} comments</Text>
+            <Text style={styles.comments} onPress={goToCampaign}>
+              View all {data.comments.length} comments
+            </Text>
           )
         ) : null}
       </View>
@@ -166,4 +382,17 @@ const FeedCampaign = props => {
   );
 };
 
-export default FeedCampaign;
+const mapStateToProps = state => ({
+  currentUserProfile: state.currentUserProfile,
+  currentUser: state.currentUser,
+  token: state.token
+});
+
+export default connect(
+  mapStateToProps,
+  {
+    getProfileData,
+    getCampaign,
+    toggleCampaignText
+  }
+)(FeedCampaign);

@@ -1,21 +1,33 @@
-import { Dimensions } from "react-native";
+import { Dimensions } from 'react-native';
 
-const deviceWidth = Dimensions.get("window").width;
+const deviceWidth = Dimensions.get('window').width;
 
 export default {
-  demarcation: {
-    height: 4,
-    width: "100%",
-    backgroundColor: "#fff"
-  },
   container: {
-    justifyContent: "center",
-    paddingBottom: 35
+    justifyContent: 'center',
+    paddingBottom: 2
   },
   orgTitleView: {
-    fontFamily: "OpenSans-SemiBold",
-    fontSize: 16,
-    fontWeight: "bold"
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 17
+  },
+  updateBar: {
+    backgroundColor: 'rgba(202, 255, 0, 0.5)',
+    height: 37,
+    width: '100%',
+    position: 'absolute',
+    zIndex: 1,
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  updateBarText: {
+    fontFamily: 'OpenSans-SemiBold',
+    fontSize: 18,
+    color: 'black'
   },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
@@ -24,50 +36,61 @@ export default {
     width: deviceWidth
   },
   goToCampaignButton: {
-    backgroundColor: "#00FF9D",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: 'rgba(0, 255, 157, 0.5)',
+    alignItems: 'center',
+    justifyContent: 'center',
     height: 37,
-    width: "100%"
+    position: 'absolute',
+    bottom: 0,
+    width: '100%'
   },
   goToCampaignText: {
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: 'OpenSans-SemiBold',
     fontSize: 18
+  },
+  heartOutline: {
+    fontSize: 28,
+    marginLeft: 15,
+    marginTop: 15,
+    color: 'black'
+  },
+  heartFill: {
+    fontSize: 28,
+    marginLeft: 15,
+    marginTop: 15,
+    color: '#e60024'
+  },
+  likes: {
+    marginLeft: 15
   },
   campDesc: {
     marginLeft: 15,
     paddingTop: 15,
     marginRight: 15
   },
-  campDescText: {
-    fontFamily: "OpenSans-Regular",
-    fontSize: 14,
-    lineHeight: 19
-  },
   campDescName: {
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: 'OpenSans-SemiBold',
     fontSize: 16,
     paddingBottom: 10
   },
-  timeText: {
-    color: "#929292",
-    fontSize: 10,
-    marginLeft: 15,
-    marginTop: 10
+  campDescText: {
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 14,
+    lineHeight: 19
   },
   readMore: {
-    color: "#929292"
+    color: '#929292'
   },
-  updateBar: {
-    backgroundColor: "#CAFF00",
-    alignItems: "center",
-    justifyContent: "center",
-    height: 37,
-    width: "100%"
+  timeText: {
+    color: '#929292',
+    fontSize: 10,
+    marginLeft: 15,
+    marginTop: 15,
+    paddingBottom: 3
   },
-  updateBarText: {
-    fontFamily: "OpenSans-SemiBold",
-    fontSize: 18,
-    color: "black"
+  demarcation: {
+    marginTop: 15,
+    borderTopWidth: 2,
+    borderTopColor: '#eee'
   }
 };
