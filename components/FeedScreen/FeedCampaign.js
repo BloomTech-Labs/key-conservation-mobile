@@ -4,7 +4,9 @@ import {
   Text,
   ImageBackground,
   TouchableOpacity,
-  FlatList
+  FlatList,
+  Image } from 'react-native'
+import moment from 'moment'
 
 } from 'react-native';
 import moment from 'moment';
@@ -92,6 +94,35 @@ const FeedCampaign = props => {
       timeDiff = `${currentTime.diff(postTime, "days")} DAYS AGO`;
     }
   }
+
+  //// All styles for the urgency bar  
+  let updateColor;
+  if (data.urgency === 'Critical') {
+    updateColor = '#FF476DBF'
+  } else if (data.urgency === 'Urgent') {
+    updateColor = '#FFE743BF'
+  } else if (data.urgency === 'Longterm') {
+    updatecolor = '#74FB3BF'
+  } else {
+    updateColor = '#323338BF'
+  }
+
+  let updateStatus;
+  if (data.urgency) {
+    updateStatus = data.urgency.toUpperCase()
+  } else {
+    updateStatus = 'Standard'
+  }
+
+  const updateStyles = {
+    backgroundColor: updateColor, 
+    height: 37,
+    width: "100%",
+    position: "absolute",
+    top: 0,
+    justifyContent: "center",
+    alignItems: "center"
+  }  
 
   const goToProfile = async () => {
     await dispatch(getProfileData(data.users_id));
@@ -228,7 +259,6 @@ const FeedCampaign = props => {
       />
       <View>
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
-
           {data.camp_img.includes('.mov') ||
           data.camp_img.includes('.mp3') ||
           data.camp_img.includes('.mp4') ? (
@@ -249,7 +279,13 @@ const FeedCampaign = props => {
             <ImageBackground
               source={{ uri: data.camp_img }}
               style={styles.campImgContain}
-            ></ImageBackground>
+            >
+                {data.urgency ?                 
+                <View style={updateStyles}>
+                  <Text style={styles.urgencyBarText}>{updateStatus}</Text>
+                </View>
+                : null }
+            </ImageBackground>
           )}
 
         </TouchableOpacity>

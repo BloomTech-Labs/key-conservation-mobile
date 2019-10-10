@@ -88,12 +88,24 @@ export default {
   readMore: {
     color: '#929292'
   },
+  comments: {
+    marginLeft: 15,
+    paddingTop: 15
+  },
   timeText: {
     color: '#929292',
     fontSize: 10,
     marginLeft: 15,
     marginTop: 15,
     paddingBottom: 8
+  },
+  readMore: {
+    color: '#929292'
+  },
+  urgencyBarText: { 
+    fontFamily: 'OpenSans-SemiBold',
+    fontSize: 18,
+    color: 'black'
   },
   demarcation: {
     marginTop: 15,
