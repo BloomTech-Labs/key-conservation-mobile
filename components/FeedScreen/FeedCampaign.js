@@ -1,29 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
-  View,
   Text,
   ImageBackground,
   TouchableOpacity,
-  FlatList
-} from 'react-native';
-import moment from 'moment';
+  FlatList,
+  Platform
+} from "react-native";
+import { View } from "react-native-animatable";
+import moment from "moment";
 import { Video } from 'expo-av';
-import { Avatar } from 'react-native-elements';
-import { ListItem } from 'react-native-elements';
-import { useDispatch } from 'react-redux';
-import { AmpEvent } from '../withAmplitude';
-import { connect } from 'react-redux';
-import { FontAwesome } from '@expo/vector-icons';
-import axios from 'axios';
+import { Avatar } from "react-native-elements";
+import { ListItem } from "react-native-elements";
+import { useDispatch } from "react-redux";
+import { AmpEvent } from "../withAmplitude";
+import { connect } from "react-redux";
+import { FontAwesome } from "@expo/vector-icons";
+import axios from "axios";
+
 import {
   getProfileData,
   getCampaign,
   toggleCampaignText
-} from '../../store/actions';
-import styles from '../../constants/FeedScreen/FeedCampaign';
-import styles2 from '../../constants/Comments/Comments';
+} from "../../store/actions";
+
+import styles from "../../constants/FeedScreen/FeedCampaign";
+import styles2 from "../../constants/Comments/Comments";
+
 // url for heroku staging vs production server
-const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+const seturl = "https://key-conservation-staging.herokuapp.com/api/";
+
+
 const FeedCampaign = props => {
   const [likes, setLikes] = useState(props.data.likes.length);
   const [userLiked, setUserLiked] = useState(false);
@@ -57,7 +63,7 @@ const FeedCampaign = props => {
       return string;
     } else {
       let end = cutoff;
-      const avoidChars = [' ', ',', '.', '!'];
+      const avoidChars = [" ", ",", ".", "!"];
       while (avoidChars.includes(string.charAt(end)) && end >= cutoff - 10) {
         end--;
       }
@@ -68,29 +74,29 @@ const FeedCampaign = props => {
   const currentTime = moment();
   const postTime = moment(createdAt);
   let timeDiff;
-  if (currentTime.diff(postTime, 'days') < 1) {
-    if (currentTime.diff(postTime, 'hours') < 1) {
-      if (currentTime.diff(postTime, 'minutes') < 1) {
-        timeDiff = 'just now';
+  if (currentTime.diff(postTime, "days") < 1) {
+    if (currentTime.diff(postTime, "hours") < 1) {
+      if (currentTime.diff(postTime, "minutes") < 1) {
+        timeDiff = "just now";
       } else {
-        if (currentTime.diff(postTime, 'minutes') === 1) {
-          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO`;
+        if (currentTime.diff(postTime, "minutes") === 1) {
+          timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTE AGO`;
         } else {
-          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`;
+          timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTES AGO`;
         }
       }
     } else {
-      if (currentTime.diff(postTime, 'hours') === 1) {
-        timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO`;
+      if (currentTime.diff(postTime, "hours") === 1) {
+        timeDiff = `${currentTime.diff(postTime, "hours")} HOUR AGO`;
       } else {
-        timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`;
+        timeDiff = `${currentTime.diff(postTime, "hours")} HOURS AGO`;
       }
     }
   } else {
-    if (currentTime.diff(postTime, 'days') === 1) {
-      timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO`;
+    if (currentTime.diff(postTime, "days") === 1) {
+      timeDiff = `${currentTime.diff(postTime, "days")} DAY AGO`;
     } else {
-      timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
+      timeDiff = `${currentTime.diff(postTime, "days")} DAYS AGO`;
     }
   }
   //// All styles for the urgency bar
@@ -122,19 +128,19 @@ const FeedCampaign = props => {
   };
   const goToProfile = async () => {
     await dispatch(getProfileData(data.users_id));
-    AmpEvent('Select Profile from Campaign', {
+    AmpEvent("Select Profile from Campaign", {
       profile: data.username,
       campaign: data.camp_name
     });
-    props.navigation.navigate('Pro');
+    props.navigation.navigate("Pro");
   };
   const goToCampaign = async () => {
     await dispatch(getCampaign(data.camp_id));
-    AmpEvent('Select Profile from Campaign', {
+    AmpEvent("Select Profile from Campaign", {
       campaign: data.camp_name,
       profile: data.username
     });
-    props.navigation.navigate('Camp', {
+    props.navigation.navigate("Camp", {
       likes: likes,
       userLiked: userLiked,
       addLike: addLike,
@@ -158,9 +164,9 @@ const FeedCampaign = props => {
         },
         {
           headers: {
-            Accept: 'application/json',
+            Accept: "application/json",
             Authorization: `Bearer ${props.token}`,
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
           }
         }
       )
@@ -178,9 +184,9 @@ const FeedCampaign = props => {
         `${seturl}social/likes/${data.camp_id}/${props.currentUserProfile.id}`,
         {
           headers: {
-            Accept: 'application/json',
+            Accept: "application/json",
             Authorization: `Bearer ${props.token}`,
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
           }
         }
       )
@@ -202,9 +208,9 @@ const FeedCampaign = props => {
         },
         {
           headers: {
-            Accept: 'application/json',
+            Accept: "application/json",
             Authorization: `Bearer ${props.token}`,
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
           }
         }
       )
@@ -221,9 +227,9 @@ const FeedCampaign = props => {
         `${seturl}social/bookmark/${data.camp_id}/${props.currentUserProfile.id}`,
         {
           headers: {
-            Accept: 'application/json',
+            Accept: "application/json",
             Authorization: `Bearer ${props.token}`,
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
           }
         }
       )
@@ -283,38 +289,63 @@ const FeedCampaign = props => {
         </TouchableOpacity>
       </View>
       <View style={styles.iconRow}>
-        {userLiked === false ? (
-          <FontAwesome
-            onPress={() => addLike()}
-            name='heart-o'
-            style={styles.outline}
-          />
-        ) : (
-          <FontAwesome
-            onPress={() => deleteLike()}
-            name='heart'
-            style={styles.fill}
-          />
-        )}
-        {userBookmarked === false ? (
-          <FontAwesome
-            onPress={() => addBookmark()}
-            name='bookmark-o'
-            style={styles.outline}
-          />
-        ) : (
-          <FontAwesome
-            onPress={() => deleteBookmark()}
-            name='bookmark'
-            style={styles.bookmarkFill}
-          />
-        )}
+        <View style={styles.likesContainer}>
+          <View style={styles.hearts}>
+            <View style={!userLiked ? { zIndex: 1 } : { zIndex: -1 }}>
+              <FontAwesome
+                onPress={() => addLike()}
+                name='heart-o'
+                style={styles.heartOutline}
+              />
+            </View>
+            <View
+              animation={userLiked ? "zoomIn" : "zoomOut"}
+              style={
+                (userLiked ? { zIndex: 1 } : { zIndex: -1 },
+                Platform.OS === "android"
+                  ? { marginTop: -29, marginLeft: -1.25 }
+                  : { marginTop: -28.75, marginLeft: -1.25 })
+              }
+              duration={300}
+            >
+              <FontAwesome
+                onPress={() => deleteLike()}
+                name='heart'
+                style={styles.heartFill}
+              />
+            </View>
+          </View>
+          {likes === 0 ? null : likes > 1 ? (
+            <Text style={styles.likes}>{likes} likes</Text>
+          ) : (
+            <Text style={styles.likes}>{likes} like</Text>
+          )}
+        </View>
+        <View style={styles.bookmarks}>
+          <View style={!userBookmarked ? { zIndex: 1 } : { zIndex: -1 }}>
+            <FontAwesome
+              onPress={() => addBookmark()}
+              name='bookmark-o'
+              style={styles.bookmarkOutline}
+            />
+          </View>
+          <View
+            animation={userBookmarked ? "zoomIn" : "zoomOut"}
+            style={
+              (userBookmarked ? { zIndex: 1 } : { zIndex: -1 },
+                { marginTop: -28.75, marginLeft: -1.25 }
+              )
+            }
+            duration={300}
+          >
+            <FontAwesome
+              onPress={() => deleteBookmark()}
+              name='bookmark'
+              style={styles.bookmarkFill}
+            />
+          </View>
+        </View>
       </View>
-      {likes === 0 ? null : likes > 1 ? (
-        <Text style={styles.likes}>{likes} likes</Text>
-      ) : (
-        <Text style={styles.likes}>{likes} like</Text>
-      )}
       <View style={styles.campDesc}>
         <Text style={styles.campDescName}>{data.camp_name}</Text>
         {toggled || data.camp_desc.length < 80 ? (
