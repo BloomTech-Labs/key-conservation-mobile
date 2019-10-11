@@ -125,28 +125,27 @@ export default {
     flexDirection: 'row',
     alignItems: 'center'
   },
+  hearts: {
+    marginHorizontal: 15,
+  },
   heartOutline: {
     fontSize: 28,
-    marginLeft: 15,
     color: 'black'
   },
   heartFill: {
-    fontSize: 28,
-    marginLeft: 15,
+    fontSize: 30,
     color: '#e60024'
+  },
+  bookmarks: {
+    marginHorizontal: 15
   },
   bookmarkOutline: {
     fontSize: 28,
-    marginRight: 15,
     color: 'black'
   },
   bookmarkFill: {
-    fontSize: 28,
-    marginRight: 15,
+    fontSize: 30,
     color: '#00FF9D'
-  },
-  likes: {
-    marginLeft: 15
   },
   timeText: {
     color: '#929292',

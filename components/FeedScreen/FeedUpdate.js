@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity } from 'react-native';
+import { Text, ImageBackground, TouchableOpacity, Platform } from 'react-native';
+import { View } from 'react-native-animatable'
 import moment from 'moment';
 import { Video } from 'expo-av';
 import { ListItem } from 'react-native-elements';
@@ -195,20 +196,30 @@ const FeedUpdate = props => {
         </TouchableOpacity>
       </View>
       <View style={styles.likesContainer}>
-        <View>
-          {userLiked === false ? (
+        <View style={styles.hearts}>
+          <View style={!userLiked ? { zIndex: 1 } : { zIndex: -1 }}>
             <FontAwesome
               onPress={() => addLike()}
               name='heart-o'
               style={styles.heartOutline}
             />
-          ) : (
+          </View>
+          <View
+            animation={userLiked ? "zoomIn" : "zoomOut"}
+            style={
+              (userLiked ? { zIndex: 1 } : { zIndex: -1 },
+              Platform.OS === "android"
+                ? { marginTop: -29, marginLeft: -1.25 }
+                : { marginTop: -28.75, marginLeft: -1.25 })
+            }
+            duration={300}
+          >
             <FontAwesome
               onPress={() => deleteLike()}
               name='heart'
               style={styles.heartFill}
             />
-          )}
+          </View>
         </View>
         {likes === 0 ? null : likes > 1 ? (
           <Text style={styles.likes}>{likes} likes</Text>

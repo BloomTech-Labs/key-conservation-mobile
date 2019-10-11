@@ -2,11 +2,12 @@ import React from 'react';
 import {
   StyleSheet,
   Text,
-  View,
   TouchableOpacity,
   Image,
-  Dimensions
+  Dimensions,
+  Platform
 } from 'react-native';
+import { View } from 'react-native-animatable'
 import { Video } from 'expo-av';
 import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-navigation';
@@ -112,20 +113,32 @@ class ViewCampUpdateScreen extends React.Component {
             />
           )}
 
-          <View>
-            {this.state.userLiked === false ? (
-              <FontAwesome
-                onPress={() => this.addLike()}
-                name='heart-o'
-                style={styles.heartOutline}
-              />
-            ) : (
-              <FontAwesome
-                onPress={() => this.deleteLike()}
-                name='heart'
-                style={styles.heartFill}
-              />
-            )}
+          <View style={styles.likesContainer}>
+            <View style={styles.hearts}>
+              <View style={ !this.state.userLiked ? { zIndex: 1 } : { zIndex: -1 }}>
+                <FontAwesome
+                  onPress={() => this.addLike()}
+                  name='heart-o'
+                  style={styles.heartOutline}
+                />
+              </View>
+              <View
+                animation={this.state.userLiked ? "zoomIn" : "zoomOut"}
+                style={
+                  (this.state.userLiked ? { zIndex: 1 } : { zIndex: -1 },
+                  Platform.OS === "android"
+                    ? { marginTop: -29, marginLeft: -1.25 }
+                    : { marginTop: -28.75, marginLeft: -1.25 })
+                }
+                duration={300}
+              >
+                <FontAwesome
+                  onPress={() => this.deleteLike()}
+                  name='heart'
+                  style={styles.heartFill}
+                />
+              </View>
+            </View>
             {this.state.likes === 0 ? null : this.state.likes > 1 ? (
               <Text style={styles.likes}>{this.state.likes} likes</Text>
             ) : (
@@ -217,18 +230,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 15,
   },
+  hearts: {
+    marginHorizontal: 15
+  },
   heartOutline: {
     fontSize: 28,
-    marginLeft: 15,
     color: 'black'
   },
   heartFill: {
-    fontSize: 28,
-    marginLeft: 15,
+    fontSize: 30,
     color: '#e60024'
-  },
-  likes: {
-    marginLeft: 15
   },
   campDescContain: {
     marginLeft: 15,

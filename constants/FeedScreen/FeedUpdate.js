@@ -53,18 +53,16 @@ export default {
     marginTop: 15,
     alignItems: 'center'
   },
+  hearts: {
+    marginHorizontal: 15
+  },
   heartOutline: {
     fontSize: 28,
-    marginLeft: 15,
     color: "black"
   },
   heartFill: {
-    fontSize: 28,
-    marginLeft: 15,
+    fontSize: 30,
     color: '#e60024'
-  },
-  likes: {
-    marginLeft: 15
   },
   campDesc: {
     marginLeft: 15,
