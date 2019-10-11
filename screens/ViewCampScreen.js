@@ -357,35 +357,35 @@ class ViewCampScreen extends React.Component {
                           style={styles.heartFill}
                         />
                       </View>
-                      {this.state.likes === 0 ? null : this.state.likes > 1 ? (
-                        <Text style={styles.likes}>{this.state.likes} likes</Text>
-                      ) : (
-                        <Text style={styles.likes}>{this.state.likes} like</Text>
-                      )}
                     </View>
-                    <View style={styles.bookmarks}>
-                      <View style={!this.state.userBookmarked ? { zIndex: 1 } : { zIndex: -1 }}>
-                        <FontAwesome
-                          onPress={() => this.addBookmark()}
-                          name='bookmark-o'
-                          style={styles.bookmarkOutline}
-                        />
-                      </View>
-                      <View
-                        animation={this.state.userBookmarked ? "zoomIn" : "zoomOut"}
-                        style={
-                          (this.state.userBookmarked ? { zIndex: 1 } : { zIndex: -1 },
-                            { marginTop: -28.75, marginLeft: -1.25 }
-                          )
-                        }
-                        duration={300}
-                      >
-                        <FontAwesome
-                          onPress={() => this.deleteBookmark()}
-                          name='bookmark'
-                          style={styles.bookmarkFill}
-                        />
-                      </View>
+                    {this.state.likes === 0 ? null : this.state.likes > 1 ? (
+                      <Text style={styles.likes}>{this.state.likes} likes</Text>
+                    ) : (
+                        <Text style={styles.likes}>{this.state.likes} like</Text>
+                    )}
+                  </View>
+                  <View style={styles.bookmarks}>
+                    <View style={!this.state.userBookmarked ? { zIndex: 1 } : { zIndex: -1 }}>
+                      <FontAwesome
+                        onPress={() => this.addBookmark()}
+                        name='bookmark-o'
+                        style={styles.bookmarkOutline}
+                      />
+                    </View>
+                    <View
+                      animation={this.state.userBookmarked ? "zoomIn" : "zoomOut"}
+                      style={
+                        (this.state.userBookmarked ? { zIndex: 1 } : { zIndex: -1 },
+                          { marginTop: -28.75, marginLeft: -1.25 }
+                        )
+                      }
+                      duration={300}
+                    >
+                      <FontAwesome
+                        onPress={() => this.deleteBookmark()}
+                        name='bookmark'
+                        style={styles.bookmarkFill}
+                      />
                     </View>
                   </View>
                 </View>
