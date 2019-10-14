@@ -1,38 +1,44 @@
 export default {
   container: {
     flex: 1,
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: '#e1e8ed',
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-around",
     paddingTop: 29,
-    flexWrap: 'wrap'
+    flexWrap: "wrap"
   },
   avatarContainer: {
-    width: '30%',
+    width: "30%",
     flex: 0,
-    alignItems: 'center'
+    alignItems: "center"
   },
   bioContainer: {
     marginTop: 25,
     marginBottom: 25,
-    marginLeft: 90,
-    marginRight: 60,
-    textAlign: 'center',
-    alignItems: 'center'
+    // marginLeft: 90,
+    // marginRight: 60,
+    width: "80%",
+    textAlign: "center",
+    alignItems: "center"
+    // borderColor: "#fff",
+    // borderWidth: 1
   },
   bio: {
-    marginBottom: 50
+    marginBottom: 10,
+    color: "#fff",
+    textAlign: "center"
   },
   org: {
     lineHeight: 22,
     fontSize: 16,
-    fontFamily: 'OpenSans-SemiBold'
+    fontFamily: "OpenSans-SemiBold",
+    color: "#fff"
   },
   userText: {
     lineHeight: 19,
     fontSize: 14,
-    fontFamily: 'OpenSans-Regular'
+    fontFamily: "OpenSans-Regular",
+    color: "#fff"
   },
   pic: {
     flex: 1
@@ -43,11 +49,11 @@ export default {
     height: 61
   },
   buttons: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    borderBottomColor: '#f5f5f5',
-    backgroundColor: '#fff',
-    shadowColor: '#000',
+    flexDirection: "row",
+    justifyContent: "space-around",
+    borderBottomColor: "#f5f5f5",
+    backgroundColor: "#fff",
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 3
@@ -60,9 +66,9 @@ export default {
     flex: 1
   },
   ButtonStyle: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: '#eee',
+    alignItems: "center",
+    justifyContent: "center",
+    borderColor: "#eee",
     marginTop: 12,
     marginBottom: 12,
     flex: 1
@@ -70,14 +76,14 @@ export default {
 
   CampaignButton: {
     fontSize: 18,
-    color: '#000',
-    fontWeight: 'bold',
-    fontFamily: 'OpenSans-SemiBold'
+    color: "#000",
+    fontWeight: "bold",
+    fontFamily: "OpenSans-SemiBold"
   },
   DetailButton: {
     fontSize: 18,
-    color: '#C4C4C4',
-    fontWeight: 'bold',
-    fontFamily: 'OpenSans-SemiBold'
+    color: "#C4C4C4",
+    fontWeight: "bold",
+    fontFamily: "OpenSans-SemiBold"
   }
 };
