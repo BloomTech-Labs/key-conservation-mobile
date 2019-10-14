@@ -278,11 +278,19 @@ export const postCampaign = camp => async dispatch => {
     name: `photo.${fileType}`,
     type: `image/${fileType}`
   });
+<<<<<<< HEAD
   formData.append("camp_cta", filteredCamp.camp_cta);
   formData.append("camp_desc", filteredCamp.camp_desc);
   formData.append("camp_name", filteredCamp.camp_name);
   formData.append("users_id", filteredCamp.users_id);
   formData.append("urgency", filteredCamp.urgency);
+=======
+  formData.append('camp_cta', filteredCamp.camp_cta);
+  formData.append('camp_desc', filteredCamp.camp_desc);
+  formData.append('camp_name', filteredCamp.camp_name);
+  formData.append('users_id', filteredCamp.users_id);
+  formData.append('urgency', filteredCamp.urgency)
+>>>>>>> e7d907e1571c74a47a4a7b518718e55ff29f7df4
 
   let token = await SecureStore.getItemAsync("accessToken");
 

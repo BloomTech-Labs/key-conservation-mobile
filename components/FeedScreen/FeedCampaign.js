@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from "react";
 import {
-  View,
   Text,
   ImageBackground,
   TouchableOpacity,
-  FlatList
-
-} from 'react-native';
-import moment from 'moment';
+  FlatList,
+  Platform
+} from "react-native";
+import { View } from "react-native-animatable";
+import moment from "moment";
 import { Video } from 'expo-av';
-import { Avatar } from 'react-native-elements';
-import { ListItem } from 'react-native-elements';
-import { useDispatch } from 'react-redux';
-import { AmpEvent } from '../withAmplitude';
-import { connect } from 'react-redux';
-import { FontAwesome } from '@expo/vector-icons';
-import axios from 'axios';
+import { Avatar } from "react-native-elements";
+import { ListItem } from "react-native-elements";
+import { useDispatch } from "react-redux";
+import { AmpEvent } from "../withAmplitude";
+import { connect } from "react-redux";
+import { FontAwesome } from "@expo/vector-icons";
+import axios from "axios";
+
 import {
   getProfileData,
   getCampaign,
@@ -28,11 +29,12 @@ import styles2 from "../../constants/Comments/Comments";
 // url for heroku staging vs production server
 const seturl = "https://key-conservation-staging.herokuapp.com/api/";
 
+
 const FeedCampaign = props => {
   const [likes, setLikes] = useState(props.data.likes.length);
   const [userLiked, setUserLiked] = useState(false);
   const [userBookmarked, setUserBookmarked] = useState(false);
-
+  const [urgTop, setUrgTop] = useState(0);
   useEffect(() => {
     const liked = data.likes.filter(
       l => l.users_id === props.currentUserProfile.id
@@ -46,8 +48,14 @@ const FeedCampaign = props => {
     if (bookmarked.length > 0) {
       setUserBookmarked(true);
     }
+    if (
+      data.camp_img.includes('.mov') ||
+      data.camp_img.includes('.mp3') ||
+      data.camp_img.includes('.mp4')
+    ) {
+      setUrgTop(3);
+    }
   }, []);
-
   const dispatch = useDispatch();
   const { data, toggled } = props;
   const shorten = (string, cutoff) => {
@@ -62,7 +70,6 @@ const FeedCampaign = props => {
       return `${string.substring(0, end)}...`;
     }
   };
-
   const createdAt = data.created_at;
   const currentTime = moment();
   const postTime = moment(createdAt);
@@ -92,7 +99,33 @@ const FeedCampaign = props => {
       timeDiff = `${currentTime.diff(postTime, "days")} DAYS AGO`;
     }
   }
-
+  //// All styles for the urgency bar
+  let urgencyColor;
+  if (data.urgency === 'Critical') {
+    urgencyColor = '#FF476DBF';
+  } else if (data.urgency === 'Urgent') {
+    urgencyColor = '#FFE743BF';
+  } else if (data.urgency === 'Longterm') {
+    urgencyColor = '#74F7B3BF'
+  } else {
+    urgencyColor = '#323338BF';
+  }
+  let urgencyStatus;
+  if (data.urgency) {
+    urgencyStatus = data.urgency.toUpperCase();
+  } else {
+    urgencyStatus = 'Standard';
+  }
+  const urgencyStyles = {
+    backgroundColor: urgencyColor,
+    height: 37,
+    width: '100%',
+    position: 'absolute',
+    top: urgTop,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1
+  };
   const goToProfile = async () => {
     await dispatch(getProfileData(data.users_id));
     AmpEvent("Select Profile from Campaign", {
@@ -101,7 +134,6 @@ const FeedCampaign = props => {
     });
     props.navigation.navigate("Pro");
   };
-
   const goToCampaign = async () => {
     await dispatch(getCampaign(data.camp_id));
     AmpEvent("Select Profile from Campaign", {
@@ -119,11 +151,9 @@ const FeedCampaign = props => {
       media: data.camp_img
     });
   };
-
   const toggleText = () => {
     dispatch(toggleCampaignText(data.camp_id));
   };
-
   const addLike = () => {
     axios
       .post(
@@ -148,7 +178,6 @@ const FeedCampaign = props => {
         console.log(err);
       });
   };
-
   const deleteLike = () => {
     axios
       .delete(
@@ -169,7 +198,6 @@ const FeedCampaign = props => {
         console.log(err);
       });
   };
-
   const addBookmark = () => {
     axios
       .post(
@@ -193,7 +221,6 @@ const FeedCampaign = props => {
         console.log(err);
       });
   };
-
   const deleteBookmark = () => {
     axios
       .delete(
@@ -213,7 +240,6 @@ const FeedCampaign = props => {
         console.log(err);
       });
   };
-
   return (
     <View style={styles.container}>
       <ListItem
@@ -228,65 +254,98 @@ const FeedCampaign = props => {
       />
       <View>
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
-
           {data.camp_img.includes('.mov') ||
           data.camp_img.includes('.mp3') ||
           data.camp_img.includes('.mp4') ? (
-            <Video
-              source={{
-                uri: data.camp_img
-              }}
-              rate={1.0}
-              volume={1.0}
-              isMuted={true}
-              useNativeControls={true}
-              resizeMode='cover'
-              // shouldPlay
-              // isLooping
-              style={styles.campImgContain}
-            />
+            <View>
+              {data.urgency ? (
+                <View style={urgencyStyles}>
+                  <Text style={styles.urgencyBarText}>{urgencyStatus}</Text>
+                </View>
+              ) : null}
+              <Video
+                source={{
+                  uri: data.camp_img
+                }}
+                rate={1.0}
+                volume={1.0}
+                useNativeControls={true}
+                resizeMode='cover'
+                style={styles.campImgContain}
+              />
+            </View>
           ) : (
             <ImageBackground
               source={{ uri: data.camp_img }}
               style={styles.campImgContain}
-            ></ImageBackground>
+            >
+              {data.urgency ? (
+                <View style={urgencyStyles}>
+                  <Text style={styles.urgencyBarText}>{urgencyStatus}</Text>
+                </View>
+              ) : null}
+            </ImageBackground>
           )}
-
         </TouchableOpacity>
       </View>
       <View style={styles.iconRow}>
-        {userLiked === false ? (
-          <FontAwesome
-            onPress={() => addLike()}
-            name='heart-o'
-            style={styles.outline}
-          />
-        ) : (
-          <FontAwesome
-            onPress={() => deleteLike()}
-            name='heart'
-            style={styles.fill}
-          />
-        )}
-        {userBookmarked === false ? (
-          <FontAwesome
-            onPress={() => addBookmark()}
-            name='bookmark-o'
-            style={styles.outline}
-          />
-        ) : (
-          <FontAwesome
-            onPress={() => deleteBookmark()}
-            name='bookmark'
-            style={styles.bookmarkFill}
-          />
-        )}
+        <View style={styles.likesContainer}>
+          <View style={styles.hearts}>
+            <View style={!userLiked ? { zIndex: 1 } : { zIndex: -1 }}>
+              <FontAwesome
+                onPress={() => addLike()}
+                name='heart-o'
+                style={styles.heartOutline}
+              />
+            </View>
+            <View
+              animation={userLiked ? "zoomIn" : "zoomOut"}
+              style={
+                (userLiked ? { zIndex: 1 } : { zIndex: -1 },
+                Platform.OS === "android"
+                  ? { marginTop: -29, marginLeft: -1.25 }
+                  : { marginTop: -28.75, marginLeft: -1.25 })
+              }
+              duration={300}
+            >
+              <FontAwesome
+                onPress={() => deleteLike()}
+                name='heart'
+                style={styles.heartFill}
+              />
+            </View>
+          </View>
+          {likes === 0 ? null : likes > 1 ? (
+            <Text style={styles.likes}>{likes} likes</Text>
+          ) : (
+            <Text style={styles.likes}>{likes} like</Text>
+          )}
+        </View>
+        <View style={styles.bookmarks}>
+          <View style={!userBookmarked ? { zIndex: 1 } : { zIndex: -1 }}>
+            <FontAwesome
+              onPress={() => addBookmark()}
+              name='bookmark-o'
+              style={styles.bookmarkOutline}
+            />
+          </View>
+          <View
+            animation={userBookmarked ? "zoomIn" : "zoomOut"}
+            style={
+              (userBookmarked ? { zIndex: 1 } : { zIndex: -1 },
+                { marginTop: -28.75, marginLeft: -1.25 }
+              )
+            }
+            duration={300}
+          >
+            <FontAwesome
+              onPress={() => deleteBookmark()}
+              name='bookmark'
+              style={styles.bookmarkFill}
+            />
+          </View>
+        </View>
       </View>
-      {likes === 0 ? null : likes > 1 ? (
-        <Text style={styles.likes}>{likes} likes</Text>
-      ) : (
-        <Text style={styles.likes}>{likes} like</Text>
-      )}
       <View style={styles.campDesc}>
         <Text style={styles.campDescName}>{data.camp_name}</Text>
         {toggled || data.camp_desc.length < 80 ? (
@@ -303,7 +362,7 @@ const FeedCampaign = props => {
       </View>
       <View style={{ marginLeft: 17 }}>
         <FlatList
-          data={data.comments.slice(0, 2)}
+          data={data.comments.slice(0, 1)}
           keyExtractor={comment => comment.comment_id}
           renderItem={({ item }) => {
             return (
@@ -345,13 +404,11 @@ const FeedCampaign = props => {
     </View>
   );
 };
-
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
   currentUser: state.currentUser,
   token: state.token
 });
-
 export default connect(
   mapStateToProps,
   {

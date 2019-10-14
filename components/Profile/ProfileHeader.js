@@ -49,6 +49,7 @@ const ProfileHeader = props => {
           </View>
         </TouchableOpacity>
       </View>
+      
       {profile.org_name === null ? (
       <View style={styles.container}>
         <View style={styles.avatarContainer}>

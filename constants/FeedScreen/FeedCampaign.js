@@ -34,28 +34,39 @@ export default {
     width: '100%'
   },
   iconRow: {
-    flexDirection: 'row'
-  },
-  outline: {
-    fontSize: 28,
-    marginLeft: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: 15,
+    height: 30
+  },
+  likesContainer: {
+    flexDirection: 'row',
+  },
+  hearts: {
+    marginHorizontal: 15
+  },
+  heartOutline: {
+    fontSize: 28,
+    color: 'black',
+  },
+  heartFill: {
+    fontSize: 30,
+    color: '#e60024',
+    zIndex: 1
+  },
+  bookmarks: {
+    marginHorizontal: 20
+  },
+  bookmarkOutline: {
+    fontSize: 28,
     color: 'black'
-  },
-  fill: {
-    fontSize: 28,
-    marginLeft: 15,
-    marginTop: 15,
-    color: '#e60024'
   },
   bookmarkFill: {
-    fontSize: 28,
-    marginLeft: 15,
-    marginTop: 15,
-    color: 'black'
+    fontSize: 30,
+    color: '#00FF9D'
   },
   likes: {
-    marginLeft: 15
+    marginTop: 5
   },
   goToCampaignText: {
     fontFamily: 'OpenSans-SemiBold',
@@ -88,12 +99,24 @@ export default {
   readMore: {
     color: '#929292'
   },
+  comments: {
+    marginLeft: 15,
+    paddingTop: 15
+  },
   timeText: {
     color: '#929292',
     fontSize: 10,
     marginLeft: 15,
     marginTop: 15,
     paddingBottom: 8
+  },
+  readMore: {
+    color: '#929292'
+  },
+  urgencyBarText: { 
+    fontFamily: 'OpenSans-SemiBold',
+    fontSize: 18,
+    color: 'black'
   },
   demarcation: {
     marginTop: 15,

@@ -81,5 +81,23 @@ export default {
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 20,
     marginBottom: 5
+  },
+  urgencyMenu: {
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  checkMark: {
+    height: 14, width: 14
+  },
+  urgencyOption: {
+    flexDirection: 'row',
+    width: '95%',
+    justifyContent: 'space-between',
+    borderTopColor: '#E5E5E5',
+    borderTopWidth: 1,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    margin: 'auto',
+    fontSize: 20
   }
 };
