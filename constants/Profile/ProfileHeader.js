@@ -5,16 +5,12 @@ export default {
     flexDirection: "row",
     justifyContent: "space-around",
     paddingTop: 29,
-    flexWrap: "wrap",
-    borderColor: "green",
-    borderWidth: 3
+    flexWrap: "wrap"
   },
   avatarContainer: {
     width: "30%",
     flex: 0,
-    alignItems: "center",
-    borderColor: "#fff",
-    borderWidth: 1
+    alignItems: "center"
   },
   bioContainer: {
     marginTop: 25,
@@ -60,12 +56,8 @@ export default {
   },
   textContainer: {
     flex: 1,
-    // paddingTop: 2,
-    // height: "50",
-    alignItems: "center",
+    alignItems: "left",
     color: "white"
-    // borderColor: "#fff",
-    // borderWidth: 1
   },
   buttons: {
     flexDirection: "row",

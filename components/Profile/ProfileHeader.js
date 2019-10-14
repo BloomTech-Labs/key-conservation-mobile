@@ -81,9 +81,17 @@ const ProfileHeader = props => {
                 {profile.location}
               </Text>
             )}
-            <Text style={styles.websiteText} onPress={WebsiteClick}>
-              {profile.org_link_text}
-            </Text>
+            {profile.org_link_url || profile.org_link_url !== "" ? (
+              profile.org_link_text || profile.org_link_text !== "" ? (
+                <Text style={styles.websiteText} onPress={WebsiteClick}>
+                  {profile.org_link_text}
+                </Text>
+              ) : (
+                <Text style={styles.websiteText} onPress={WebsiteClick}>
+                  {profile.org_link_url}
+                </Text>
+              )
+            ) : null}
           </View>
           <View style={styles.bioContainer}>
             <Text style={styles.bio}>{profile.mini_bio}</Text>
