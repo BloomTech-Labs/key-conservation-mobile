@@ -18,19 +18,15 @@ export default {
     width: "80%",
     textAlign: "center",
     alignItems: "center"
-    // borderColor: "#fff",
-    // borderWidth: 1
   },
   bio: {
-    marginBottom: 10,
-    color: "#fff",
-    textAlign: "center"
+    color: "white"
   },
   org: {
     lineHeight: 22,
     fontSize: 16,
     fontFamily: "OpenSans-Bold",
-    color: "#fff"
+    color: "white"
   },
   outline: {
     fontSize: 15,
@@ -41,27 +37,27 @@ export default {
     lineHeight: 19,
     fontSize: 14,
     fontFamily: "OpenSans-Regular",
-    color: "#fff"
+    color: "white"
   },
   userText: {
     lineHeight: 19,
     fontSize: 14,
     fontFamily: "OpenSans-Regular",
-    color: "#fff"
+    color: "white"
   },
   websiteText: {
     lineHeight: 19,
     fontSize: 14,
     fontFamily: "OpenSans-SemiBold",
-    color: "#fff"
+    color: "white"
   },
   pic: {
     flex: 1
   },
   textContainer: {
     flex: 1,
-    paddingTop: 2,
-    height: 61
+    alignItems: "left",
+    color: "white"
   },
   buttons: {
     flexDirection: "row",

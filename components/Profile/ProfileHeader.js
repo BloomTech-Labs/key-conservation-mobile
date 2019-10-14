@@ -70,14 +70,28 @@ const ProfileHeader = props => {
             />
           </View>
           <View style={styles.textContainer}>
-            <Text style={styles.org}>{profile.org_name}</Text>
-            <Text style={styles.locationText}>
-              <FontAwesome name='map-pin' style={styles.outline} />{" "}
-              {profile.location}
-            </Text>
-            <Text style={styles.websiteText} onPress={WebsiteClick}>
-              {profile.org_link_text}
-            </Text>
+            {profile.org_name === null || profile.org_name === "" ? (
+              <Text style={styles.org}>{profile.username}</Text>
+            ) : (
+              <Text style={styles.org}>{profile.org_name}</Text>
+            )}
+            {profile.location === null || profile.location === "" ? null : (
+              <Text style={styles.locationText}>
+                <FontAwesome name='map-pin' style={styles.outline} />{" "}
+                {profile.location}
+              </Text>
+            )}
+            {profile.org_link_url || profile.org_link_url !== "" ? (
+              profile.org_link_text || profile.org_link_text !== "" ? (
+                <Text style={styles.websiteText} onPress={WebsiteClick}>
+                  {profile.org_link_text}
+                </Text>
+              ) : (
+                <Text style={styles.websiteText} onPress={WebsiteClick}>
+                  {profile.org_link_url}
+                </Text>
+              )
+            ) : null}
           </View>
           <View style={styles.bioContainer}>
             <Text style={styles.bio}>{profile.mini_bio}</Text>
