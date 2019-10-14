@@ -49,7 +49,32 @@ const ProfileHeader = props => {
           </View>
         </TouchableOpacity>
       </View>
-
+      {profile.org_name === null ? (
+      <View style={styles.container}>
+        <View style={styles.avatarContainer}>
+          <Avatar
+            size={61}
+            rounded
+            source={{
+              uri: profile.profile_image
+            }}
+          />
+        </View>
+        <View style={styles.textContainer}>
+          <Text style={styles.org}>{profile.org_name}</Text>
+          <Text style={styles.locationText}>
+            <FontAwesome name='map-pin' style={styles.outline} />{" "}
+            {profile.location}
+          </Text>
+          <Text style={styles.websiteText} onPress={WebsiteClick}>
+            {profile.org_link_text}
+          </Text>
+        </View>
+        <View style={styles.bioContainer}>
+          <Text style={styles.bio}>{profile.mini_bio}</Text>
+        </View>
+      </View>
+      )} :
       <ImageBackground
         source={require("../../assets/images/whaleshark.png")}
         style={{
