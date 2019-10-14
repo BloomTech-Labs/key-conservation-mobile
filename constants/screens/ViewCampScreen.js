@@ -117,28 +117,35 @@ export default {
     marginRight: 15
   },
   iconRow: {
-    flexDirection: 'row'
-  },
-  outline: {
-    fontSize: 28,
-    marginLeft: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: 15,
+  },
+  likesContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  hearts: {
+    marginHorizontal: 15,
+  },
+  heartOutline: {
+    fontSize: 28,
     color: 'black'
   },
-  fill: {
-    fontSize: 28,
-    marginLeft: 15,
-    marginTop: 15,
+  heartFill: {
+    fontSize: 30,
     color: '#e60024'
   },
-  bookmarkFill: {
+  bookmarks: {
+    marginHorizontal: 15
+  },
+  bookmarkOutline: {
     fontSize: 28,
-    marginLeft: 15,
-    marginTop: 15,
     color: 'black'
   },
-  likes: {
-    marginLeft: 15
+  bookmarkFill: {
+    fontSize: 30,
+    color: '#00FF9D'
   },
   timeText: {
     color: '#929292',
