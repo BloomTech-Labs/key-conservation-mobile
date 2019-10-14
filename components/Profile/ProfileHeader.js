@@ -24,6 +24,7 @@ const ProfileHeader = props => {
     }
   };
 
+  console.log("okay");
   return (
     <ScrollView style={styles.pic}>
       <View style={styles.buttons}>
