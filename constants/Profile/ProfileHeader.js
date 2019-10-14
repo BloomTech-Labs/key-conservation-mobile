@@ -15,8 +15,6 @@ export default {
   bioContainer: {
     marginTop: 25,
     marginBottom: 25,
-    // marginLeft: 90,
-    // marginRight: 60,
     width: "80%",
     textAlign: "center",
     alignItems: "center"
@@ -31,13 +29,30 @@ export default {
   org: {
     lineHeight: 22,
     fontSize: 16,
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: "OpenSans-Bold",
+    color: "#fff"
+  },
+  outline: {
+    fontSize: 15,
+    color: "white"
+  },
+  locationText: {
+    flexDirection: "row",
+    lineHeight: 19,
+    fontSize: 14,
+    fontFamily: "OpenSans-Regular",
     color: "#fff"
   },
   userText: {
     lineHeight: 19,
     fontSize: 14,
     fontFamily: "OpenSans-Regular",
+    color: "#fff"
+  },
+  websiteText: {
+    lineHeight: 19,
+    fontSize: 14,
+    fontFamily: "OpenSans-SemiBold",
     color: "#fff"
   },
   pic: {

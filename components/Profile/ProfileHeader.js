@@ -10,6 +10,7 @@ import { ScrollView } from "react-navigation";
 import * as WebBrowser from "expo-web-browser";
 import { Avatar } from "react-native-elements";
 import { AmpEvent } from "../withAmplitude";
+import { FontAwesome } from "@expo/vector-icons";
 
 import styles from "../../constants/Profile/ProfileHeader";
 
@@ -70,15 +71,11 @@ const ProfileHeader = props => {
           </View>
           <View style={styles.textContainer}>
             <Text style={styles.org}>{profile.org_name}</Text>
-            {/* <Image
-              source={require("../../assets/icons/locationpin.svg")}
-              style={{
-                width: "100%",
-                height: "100%"
-              }}
-            ></Image> */}
-            <Text style={styles.userText}>{profile.location}</Text>
-            <Text style={styles.userText} onPress={WebsiteClick}>
+            <Text style={styles.locationText}>
+              <FontAwesome name='map-pin' style={styles.outline} />{" "}
+              {profile.location}
+            </Text>
+            <Text style={styles.websiteText} onPress={WebsiteClick}>
               {profile.org_link_text}
             </Text>
           </View>
