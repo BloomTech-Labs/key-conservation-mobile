@@ -17,6 +17,7 @@ import { connect } from 'react-redux';
 import { FontAwesome } from '@expo/vector-icons';
 import axios from 'axios';
 
+
 import {
   getProfileData,
   getCampaign,
@@ -35,6 +36,7 @@ const Placeholder = () => <View style={styles.campImgContain} />;
 const ViewportAwareVideo = Viewport.Aware(
   Viewport.WithPlaceholder(Video, Placeholder)
 );
+
 
 const FeedCampaign = props => {
   const [likes, setLikes] = useState(props.data.likes.length);
@@ -55,9 +57,9 @@ const FeedCampaign = props => {
       setUserBookmarked(true);
     }
     if (
-      data.camp_img.includes('.mov') ||
-      data.camp_img.includes('.mp3') ||
-      data.camp_img.includes('.mp4')
+      data.camp_img.includes(".mov") ||
+      data.camp_img.includes(".mp3") ||
+      data.camp_img.includes(".mp4")
     ) {
       setUrgTop(3);
     }
@@ -107,29 +109,30 @@ const FeedCampaign = props => {
   }
   //// All styles for the urgency bar
   let urgencyColor;
-  if (data.urgency === 'Critical') {
-    urgencyColor = '#FF476DBF';
-  } else if (data.urgency === 'Urgent') {
-    urgencyColor = '#FFE743BF';
-  } else if (data.urgency === 'Longterm') {
-    urgencyColor = '#74F7B3BF';
+  if (data.urgency === "Critical") {
+    urgencyColor = "rgba(227,16,89,0.7)";
+  } else if (data.urgency === "Urgent") {
+    urgencyColor = "rgba(255,199,0,0.7)";
+  } else if (data.urgency === "Longterm") {
+    urgencyColor = "rgba(0,255,157,0.7)";
+
   } else {
-    urgencyColor = '#323338BF';
+    urgencyColor = "#323338BF";
   }
   let urgencyStatus;
   if (data.urgency) {
     urgencyStatus = data.urgency.toUpperCase();
   } else {
-    urgencyStatus = 'Standard';
+    urgencyStatus = "Standard";
   }
   const urgencyStyles = {
     backgroundColor: urgencyColor,
     height: 37,
-    width: '100%',
-    position: 'absolute',
+    width: "100%",
+    position: "absolute",
     top: urgTop,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     zIndex: 1
   };
   const goToProfile = async () => {
@@ -260,9 +263,9 @@ const FeedCampaign = props => {
       />
       <View>
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
-          {data.camp_img.includes('.mov') ||
-          data.camp_img.includes('.mp3') ||
-          data.camp_img.includes('.mp4') ? (
+          {data.camp_img.includes(".mov") ||
+          data.camp_img.includes(".mp3") ||
+          data.camp_img.includes(".mp4") ? (
             <View>
               {data.urgency ? (
                 <View style={urgencyStyles}>

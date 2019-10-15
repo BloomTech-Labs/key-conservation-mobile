@@ -75,8 +75,6 @@ export default {
     justifyContent: "space-around",
     position: "absolute",
     bottom: 0
-    // borderColor: "#000",
-    // borderWidth: 1
   },
   avatarInfoWrap: {
     display: "flex",
