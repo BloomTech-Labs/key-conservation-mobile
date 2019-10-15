@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 6867,
+  "expoServerNgrokUrl": "https://vj-hcf.katiefelten.frontend-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.vj-hcf.katiefelten.frontend-mobile.exp.direct",
+  "ngrokPid": 6875,
   "webpackServerPort": null
 }
