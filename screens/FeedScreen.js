@@ -8,6 +8,7 @@ import FeedUpdate from '../components/FeedScreen/FeedUpdate';
 import SvgUri from 'react-native-svg-uri';
 import styles from '../constants/screens/FeedScreen';
 import { AmpInit } from '../components/withAmplitude';
+import { Viewport } from '@skele/components';
 
 class FeedScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -36,9 +37,9 @@ class FeedScreen extends React.Component {
           }}
         >
           <SvgUri
-            fill='#fff'
-            width='25'
-            height='25'
+            fill="#fff"
+            width="25"
+            height="25"
             source={require('../assets/icons/search-regular.svg')}
           />
         </TouchableOpacity>
@@ -74,52 +75,54 @@ class FeedScreen extends React.Component {
   render() {
     const { navigation } = this.props;
     return (
-      <ScrollView>
-        <NavigationEvents
-          onDidFocus={this.startGettingCampaigns}
-          onDidBlur={this.stopGettingCampaigns}
-        />
-        <View style={styles.feedContainer}>
-          {this.props.allCampaigns.length > 0 &&
-            this.props.allCampaigns
-              .slice(0, this.state.campaignsVisible)
-              .map(camp => {
-                if (camp.update_id) {
-                  return (
-                    <FeedUpdate
-                      key={`update${camp.update_id}`}
-                      data={camp}
-                      toggled={this.props.campaignsToggled.includes(
-                        `update${camp.update_id}`
-                      )}
-                      navigation={navigation}
-                    />
-                  );
-                } else {
-                  return (
-                    <FeedCampaign
-                      key={camp.camp_id}
-                      data={camp}
-                      toggled={this.props.campaignsToggled.includes(
-                        camp.camp_id
-                      )}
-                      navigation={navigation}
-                    />
-                  );
-                }
-              })}
-        </View>
-        {this.state.campaignsVisible < this.props.allCampaigns.length && (
-          <View style={styles.loadMoreView}>
-            <TouchableOpacity
-              onPress={this.addMoreCampaigns}
-              style={styles.loadMoreTouchable}
-            >
-              <Text style={styles.loadMoreText}>View More Campaigns</Text>
-            </TouchableOpacity>
+      <Viewport.Tracker>
+        <ScrollView scrollEventThrottle={16}>
+          <NavigationEvents
+            onDidFocus={this.startGettingCampaigns}
+            onDidBlur={this.stopGettingCampaigns}
+          />
+          <View style={styles.feedContainer}>
+            {this.props.allCampaigns.length > 0 &&
+              this.props.allCampaigns
+                .slice(0, this.state.campaignsVisible)
+                .map(camp => {
+                  if (camp.update_id) {
+                    return (
+                      <FeedUpdate
+                        key={`update${camp.update_id}`}
+                        data={camp}
+                        toggled={this.props.campaignsToggled.includes(
+                          `update${camp.update_id}`
+                        )}
+                        navigation={navigation}
+                      />
+                    );
+                  } else {
+                    return (
+                      <FeedCampaign
+                        key={camp.camp_id}
+                        data={camp}
+                        toggled={this.props.campaignsToggled.includes(
+                          camp.camp_id
+                        )}
+                        navigation={navigation}
+                      />
+                    );
+                  }
+                })}
           </View>
-        )}
-      </ScrollView>
+          {this.state.campaignsVisible < this.props.allCampaigns.length && (
+            <View style={styles.loadMoreView}>
+              <TouchableOpacity
+                onPress={this.addMoreCampaigns}
+                style={styles.loadMoreTouchable}
+              >
+                <Text style={styles.loadMoreText}>View More Campaigns</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </ScrollView>
+      </Viewport.Tracker>
     );
   }
 }
