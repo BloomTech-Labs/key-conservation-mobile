@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Text, ImageBackground, TouchableOpacity, Platform } from 'react-native';
-import { View } from 'react-native-animatable'
+import {
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  Platform
+} from 'react-native';
+import { View } from 'react-native-animatable';
 import moment from 'moment';
 import { Video } from 'expo-av';
 import { ListItem } from 'react-native-elements';
@@ -15,9 +20,16 @@ import {
   toggleCampaignText
 } from '../../store/actions';
 import styles from '../../constants/FeedScreen/FeedUpdate';
+import { Viewport } from '@skele/components';
 
 // url for heroku staging vs production server
 const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+
+const Placeholder = () => <View style={styles.campImgContain} />;
+
+const ViewportAwareVideo = Viewport.Aware(
+  Viewport.WithPlaceholder(Video, Placeholder)
+);
 
 const FeedUpdate = props => {
   const [likes, setLikes] = useState(props.data.likes.length);
@@ -172,14 +184,17 @@ const FeedUpdate = props => {
               <View style={styles.updateBar}>
                 <Text style={styles.updateBarText}>UPDATE</Text>
               </View>
-              <Video
+              <ViewportAwareVideo
                 source={{
-                  uri: data.update_img
+                  uri: data.camp_img
                 }}
+                retainOnceInViewport={false}
+                preTriggerRatio={-0.1}
                 rate={1.0}
-                volume={1.0}
-                useNativeControls={true}
-                resizeMode='cover'
+                isMuted={false}
+                shouldPlay={true}
+                isLooping
+                resizeMode="cover"
                 style={styles.campImgContain}
               />
             </View>
@@ -200,15 +215,15 @@ const FeedUpdate = props => {
           <View style={!userLiked ? { zIndex: 1 } : { zIndex: -1 }}>
             <FontAwesome
               onPress={() => addLike()}
-              name='heart-o'
+              name="heart-o"
               style={styles.heartOutline}
             />
           </View>
           <View
-            animation={userLiked ? "zoomIn" : "zoomOut"}
+            animation={userLiked ? 'zoomIn' : 'zoomOut'}
             style={
               (userLiked ? { zIndex: 1 } : { zIndex: -1 },
-              Platform.OS === "android"
+              Platform.OS === 'android'
                 ? { marginTop: -29, marginLeft: -1.25 }
                 : { marginTop: -28.75, marginLeft: -1.25 })
             }
@@ -216,7 +231,7 @@ const FeedUpdate = props => {
           >
             <FontAwesome
               onPress={() => deleteLike()}
-              name='heart'
+              name="heart"
               style={styles.heartFill}
             />
           </View>

@@ -30,7 +30,11 @@ import { Viewport } from '@skele/components';
 // url for heroku staging vs production server
 const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
-const ViewportAwareVideo = Viewport.Aware(Video);
+const Placeholder = () => <View style={styles.campImgContain} />;
+
+const ViewportAwareVideo = Viewport.Aware(
+  Viewport.WithPlaceholder(Video, Placeholder)
+);
 
 const FeedCampaign = props => {
   const [likes, setLikes] = useState(props.data.likes.length);
@@ -269,21 +273,11 @@ const FeedCampaign = props => {
                 source={{
                   uri: data.camp_img
                 }}
-                innerRef={ref => (video = ref)}
-                onViewportEnter={() =>
-                  video.setStatusAsync({
-                    shouldPlay: true,
-                    positionMillis: 0
-                  })
-                }
-                onViewportLeave={() =>
-                  video.setStatusAsync({
-                    shouldPlay: false,
-                    positionMillis: 0
-                  })
-                }
+                retainOnceInViewport={false}
+                preTriggerRatio={-0.1}
                 rate={1.0}
-                isMuted={true}
+                isMuted={false}
+                shouldPlay={true}
                 isLooping
                 resizeMode="cover"
                 style={styles.campImgContain}
