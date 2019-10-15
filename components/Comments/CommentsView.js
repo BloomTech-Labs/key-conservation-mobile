@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   View,
   Text,
@@ -8,36 +8,36 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   Platform
-} from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
-import moment from 'moment';
-import { ScrollView, NavigationEvents } from 'react-navigation';
-import { Avatar } from 'react-native-elements';
-import { useDispatch } from 'react-redux';
-import { connect } from 'react-redux';
-import axios from 'axios';
-import * as SecureStore from 'expo-secure-store';
+} from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
+import moment from "moment";
+import { ScrollView, NavigationEvents } from "react-navigation";
+import { Avatar } from "react-native-elements";
+import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
+import axios from "axios";
+import * as SecureStore from "expo-secure-store";
 import {
   commentOnCampaign,
   deleteComment,
   getCampaign
-} from '../../store/actions';
-import styles from '../../constants/Comments/Comments';
-import Comment from './Comment';
+} from "../../store/actions";
+import styles from "../../constants/Comments/Comments";
+import Comment from "./Comment";
 
 // url for heroku staging vs production server
-const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+const seturl = "https://key-conservation-staging.herokuapp.com/api/";
 
 class CommentsView extends React.Component {
   state = {
-    comment: '',
-    latestComment: '',
+    comment: "",
+    latestComment: "",
     posted: false,
     campaignComments: [],
-    token: '',
+    token: "",
     commentsVisible: 3,
-    err: '',
-    comparison: ''
+    err: "",
+    comparison: ""
   };
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -97,7 +97,7 @@ class CommentsView extends React.Component {
                       rounded
                       containerStyle={{
                         borderWidth: 1,
-                        borderColor: '#00FF9D'
+                        borderColor: "#00FF9D"
                       }}
                       source={{
                         uri: this.props.currentUserProfile.profile_image
@@ -154,12 +154,12 @@ class CommentsView extends React.Component {
                 }
                 style={styles.input}
                 value={this.state.comment}
-                textAlignVertical={'center'}
+                textAlignVertical={"center"}
                 onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
+                  if (Platform.OS === "android") return;
                   this.usernameInput.focus();
                 }}
-                blurOnSubmit={Platform.OS === 'android'}
+                blurOnSubmit={Platform.OS === "android"}
                 ref={input => {
                   this.commentInput = input;
                 }}
@@ -186,9 +186,9 @@ class CommentsView extends React.Component {
           },
           {
             headers: {
-              Accept: 'application/json',
+              Accept: "application/json",
               Authorization: `Bearer ${this.props.token}`,
-              'Content-Type': 'application/json'
+              "Content-Type": "application/json"
             }
           }
         )
@@ -199,12 +199,11 @@ class CommentsView extends React.Component {
           this.setState({
             ...this.state,
             campaignComments: comments,
-            comment: '',
+            comment: "",
             posted: true
           });
         })
         .catch(err => {
-          console.log(err);
           this.setState({
             ...this.state,
             err: err
@@ -217,9 +216,9 @@ class CommentsView extends React.Component {
     axios
       .delete(`${seturl}comments/com/${id}`, {
         headers: {
-          Accept: 'application/json',
+          Accept: "application/json",
           Authorization: `Bearer ${this.props.token}`,
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json"
         }
       })
       .then(res => {
