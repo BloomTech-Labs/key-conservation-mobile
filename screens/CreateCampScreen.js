@@ -74,7 +74,6 @@ class CreateCampScreen extends React.Component {
         ...this.state,
         camp_img: this.props.mediaUpload
       };
-      // console.log(camp, 'the posted camp')
       await this.props.postCampaign(camp);
       AmpEvent("Campaign Created");
       this.props.navigation.navigate("Home");
@@ -114,7 +113,7 @@ class CreateCampScreen extends React.Component {
         <KeyboardAwareScrollView>
           <ScrollView
             contentContainerStyle={{
-              backgroundColor: "#fff",
+              backgroundColor: "#DCDCDC",
               minHeight: "100%"
             }}
           >
@@ -141,7 +140,7 @@ class CreateCampScreen extends React.Component {
                   value={this.state.camp_name}
                 />
               </View>
-              <View style={styles.sections}>
+              <View style={styles.mediaSection}>
                 <UploadMedia />
               </View>
 
@@ -176,9 +175,9 @@ class CreateCampScreen extends React.Component {
                   value={this.state.camp_cta}
                 />
               </View>
-              <View>
+              <View style={styles.sections}>
                 <Text style={styles.sectionsText}>Urgency Level</Text>
-                <Text style={{ color: "#C4C4C4" }}>
+                <Text style={styles.bodyText}>
                   Select one. This can be changed at a future date.
                 </Text>
                 <View style={styles.urgencyMenu}>
@@ -191,6 +190,12 @@ class CreateCampScreen extends React.Component {
                       <Image style={styles.checkMark} source={CheckMark} />
                     ) : null}
                   </TouchableOpacity>
+                  <View>
+                    <Text style={styles.urgencyText}>
+                      Dire consequences may occur if no immediate support made
+                      available.
+                    </Text>
+                  </View>
                   <TouchableOpacity
                     style={styles.urgencyOption}
                     onPress={() => this.setUrgency("Urgent")}
@@ -200,6 +205,11 @@ class CreateCampScreen extends React.Component {
                       <Image style={styles.checkMark} source={CheckMark} />
                     ) : null}
                   </TouchableOpacity>
+                  <View>
+                    <Text style={styles.urgencyText}>
+                      Immediate support needed but it's not critical.
+                    </Text>
+                  </View>
                   <TouchableOpacity
                     style={styles.urgencyOption}
                     onPress={() => this.setUrgency("Longterm")}
@@ -209,6 +219,12 @@ class CreateCampScreen extends React.Component {
                       <Image style={styles.checkMark} source={CheckMark} />
                     ) : null}
                   </TouchableOpacity>
+                  <View>
+                    <Text style={styles.urgencyText}>
+                      Support is needed but can be reaised over a longer period
+                      of time.
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
