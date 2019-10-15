@@ -176,46 +176,83 @@ const FeedUpdate = props => {
         />
       )}
       <View>
-        <TouchableOpacity activeOpacity={0.5} onPress={goToCampUpdate}>
-          {data.update_img.includes('.mov') ||
-          data.update_img.includes('.mp3') ||
-          data.update_img.includes('.mp4') ? (
-            <View>
-              <View style={styles.updateBar}>
-                <Text style={styles.updateBarText}>UPDATE</Text>
+        {props.fromCampScreen ? (
+          <View>
+            {data.update_img.includes('.mov') ||
+            data.update_img.includes('.mp3') ||
+            data.update_img.includes('.mp4') ? (
+              <View>
+                <View style={styles.updateBar}>
+                  <Text style={styles.updateBarText}>UPDATE</Text>
+                </View>
+                <ViewportAwareVideo
+                  source={{
+                    uri: data.camp_img
+                  }}
+                  retainOnceInViewport={false}
+                  preTriggerRatio={-0.1}
+                  rate={1.0}
+                  isMuted={false}
+                  shouldPlay={true}
+                  isLooping
+                  resizeMode='cover'
+                  style={styles.campImgContain}
+                />
               </View>
-              <ViewportAwareVideo
-                source={{
-                  uri: data.camp_img
-                }}
-                retainOnceInViewport={false}
-                preTriggerRatio={-0.1}
-                rate={1.0}
-                isMuted={false}
-                shouldPlay={true}
-                isLooping
-                resizeMode="cover"
+            ) : (
+              <ImageBackground
+                source={{ uri: data.update_img }}
                 style={styles.campImgContain}
-              />
-            </View>
-          ) : (
-            <ImageBackground
-              source={{ uri: data.update_img }}
-              style={styles.campImgContain}
-            >
-              <View style={styles.updateBar}>
-                <Text style={styles.updateBarText}>UPDATE</Text>
+              >
+                <View style={styles.updateBar}>
+                  <Text style={styles.updateBarText}>UPDATE</Text>
+                </View>
+              </ImageBackground>
+            )}
+          </View>
+        ) : (
+          <TouchableOpacity activeOpacity={0.5} onPress={goToCampUpdate}>
+            {data.update_img.includes('.mov') ||
+            data.update_img.includes('.mp3') ||
+            data.update_img.includes('.mp4') ? (
+              <View>
+                <View style={styles.updateBar}>
+                  <Text style={styles.updateBarText}>UPDATE</Text>
+                </View>
+                <ViewportAwareVideo
+                  source={{
+                    uri: data.camp_img
+                  }}
+                  retainOnceInViewport={false}
+                  preTriggerRatio={-0.1}
+                  rate={1.0}
+                  isMuted={false}
+                  shouldPlay={true}
+                  isLooping
+                  resizeMode='cover'
+                  style={styles.campImgContain}
+                />
               </View>
-            </ImageBackground>
-          )}
-        </TouchableOpacity>
+            ) : (
+              <ImageBackground
+                source={{ uri: data.update_img }}
+                style={styles.campImgContain}
+              >
+                <View style={styles.updateBar}>
+                  <Text style={styles.updateBarText}>UPDATE</Text>
+                </View>
+              </ImageBackground>
+            )}
+          </TouchableOpacity>
+        )}
       </View>
+      {/* Checks to see if the FeedUpdate is being displayed in the Feed or in the ViewCampScreen */}
       <View style={styles.likesContainer}>
         <View style={styles.hearts}>
           <View style={!userLiked ? { zIndex: 1 } : { zIndex: -1 }}>
             <FontAwesome
               onPress={() => addLike()}
-              name="heart-o"
+              name='heart-o'
               style={styles.heartOutline}
             />
           </View>
@@ -231,7 +268,7 @@ const FeedUpdate = props => {
           >
             <FontAwesome
               onPress={() => deleteLike()}
-              name="heart"
+              name='heart'
               style={styles.heartFill}
             />
           </View>
