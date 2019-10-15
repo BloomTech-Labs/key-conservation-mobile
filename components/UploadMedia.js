@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { TouchableOpacity, View, Text, Image, Platform } from 'react-native';
-import { NavigationEvents } from 'react-navigation';
-import * as ImagePicker from 'expo-image-picker';
-import { Video } from 'expo-av';
-import Constants from 'expo-constants';
-import * as Permissions from 'expo-permissions';
-import { setMedia } from '../store/actions';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { TouchableOpacity, View, Text, Image, Platform } from "react-native";
+import { NavigationEvents } from "react-navigation";
+import * as ImagePicker from "expo-image-picker";
+import { Video } from "expo-av";
+import Constants from "expo-constants";
+import * as Permissions from "expo-permissions";
+import { setMedia } from "../store/actions";
 
-import styles from '../constants/UploadMedia';
+import styles from "../constants/UploadMedia";
 
 class UploadMedia extends Component {
   state = {
-    media: ''
+    media: ""
   };
 
   getPermissionAsync = async () => {
     if (Constants.platform.ios || Constants.platform.android) {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-      if (status !== 'granted') {
-        alert('Sorry, we need camera roll permissions to make this work!');
+      if (status !== "granted") {
+        alert("Sorry, we need camera roll permissions to make this work!");
       }
     }
   };
@@ -49,12 +49,11 @@ class UploadMedia extends Component {
 
   clearState = () => {
     this.setState({
-      media: ''
+      media: ""
     });
   };
 
   render() {
-    console.log(this.state);
     const { media } = this.state;
     return (
       <>
@@ -70,7 +69,7 @@ class UploadMedia extends Component {
         </View>
         <View style={styles.imageContain}>
           {media ? (
-            Platform.OS === 'android' ? (
+            Platform.OS === "android" ? (
               <Image
                 source={{
                   uri: media
@@ -81,9 +80,9 @@ class UploadMedia extends Component {
                   borderRadius: this.props.circular ? 150 : 0
                 }}
               />
-            ) : media.includes('.mp4') ||
-              media.includes('.mp3') ||
-              media.includes('.mov') ? (
+            ) : media.includes(".mp4") ||
+              media.includes(".mp3") ||
+              media.includes(".mov") ? (
               <Video
                 source={{ uri: media }}
                 rate={1.0}
