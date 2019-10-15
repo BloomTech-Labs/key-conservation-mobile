@@ -114,51 +114,96 @@ const FeedUpdate = props => {
     dispatch(toggleCampaignText(`update${data.update_id}`));
   };
 
-  const addLike = () => {
-    axios
-      .post(
-        `${seturl}social/update/${data.update_id}`,
-        {
-          users_id: props.currentUserProfile.id,
-          update_id: data.update_id
-        },
-        {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${props.token}`,
-            'Content-Type': 'application/json'
+  const addLike = (campId, updateId) => {
+    if (updateId) {
+      axios
+        .post(
+          `${seturl}social/update/${data.update_id}`,
+          {
+            users_id: props.currentUserProfile.id,
+            update_id: data.update_id
+          },
+          {
+            headers: {
+              Accept: 'application/json',
+              Authorization: `Bearer ${props.token}`,
+              'Content-Type': 'application/json'
+            }
           }
-        }
-      )
-      .then(res => {
-        setLikes(res.data.data.length);
-        setUserLiked(true);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+        )
+        .then(res => {
+          setLikes(res.data.data.length);
+          setUserLiked(true);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } else {
+      axios
+        .post(
+          `${seturl}social/likes/${campId}`,
+          {
+            users_id: props.currentUserProfile.id,
+            camp_id: campId
+          },
+          {
+            headers: {
+              Accept: 'application/json',
+              Authorization: `Bearer ${props.token}`,
+              'Content-Type': 'application/json'
+            }
+          }
+        )
+        .then(res => {
+          setLikes(res.data.data.length);
+          setUserLiked(true);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   };
 
-  const deleteLike = () => {
-    console.log('Hi');
-    axios
-      .delete(
-        `${seturl}social/update/${data.update_id}/${props.currentUserProfile.id}`,
-        {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${props.token}`,
-            'Content-Type': 'application/json'
+  const deleteLike = (campId, updateId) => {
+    if (updateId) {
+      axios
+        .delete(
+          `${seturl}social/update/${data.update_id}/${props.currentUserProfile.id}`,
+          {
+            headers: {
+              Accept: 'application/json',
+              Authorization: `Bearer ${props.token}`,
+              'Content-Type': 'application/json'
+            }
           }
-        }
-      )
-      .then(res => {
-        setLikes(likes - 1);
-        setUserLiked(false);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+        )
+        .then(res => {
+          setLikes(likes - 1);
+          setUserLiked(false);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } else {
+      axios
+        .delete(
+          `${seturl}social/likes/${campId}/${props.currentUserProfile.id}`,
+          {
+            headers: {
+              Accept: 'application/json',
+              Authorization: `Bearer ${props.token}`,
+              'Content-Type': 'application/json'
+            }
+          }
+        )
+        .then(res => {
+          setLikes(likes - 1);
+          setUserLiked(false);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   };
 
   return (
@@ -251,7 +296,7 @@ const FeedUpdate = props => {
         <View style={styles.hearts}>
           <View style={!userLiked ? { zIndex: 1 } : { zIndex: -1 }}>
             <FontAwesome
-              onPress={() => addLike()}
+              onPress={() => addLike(data.camp_id, data.update_id)}
               name='heart-o'
               style={styles.heartOutline}
             />
@@ -267,7 +312,7 @@ const FeedUpdate = props => {
             duration={300}
           >
             <FontAwesome
-              onPress={() => deleteLike()}
+              onPress={() => deleteLike(data.camp_id, data.update_id)}
               name='heart'
               style={styles.heartFill}
             />

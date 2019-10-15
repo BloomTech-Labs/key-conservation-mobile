@@ -48,22 +48,22 @@ class ViewCampScreen extends React.Component {
     userBookmarked: this.props.navigation.state.params.userBookmarked
   };
 
-  addLike = () => {
+  addLike = campId => {
     this.setState({
       ...this.state,
       likes: this.state.likes + 1,
       userLiked: true
     });
-    this.props.navigation.state.params.addLike();
+    this.props.navigation.state.params.addLike(campId);
   };
 
-  deleteLike = () => {
+  deleteLike = campId => {
     this.setState({
       ...this.state,
       likes: this.state.likes - 1,
       userLiked: false
     });
-    this.props.navigation.state.params.deleteLike();
+    this.props.navigation.state.params.deleteLike(campId);
   };
 
   addBookmark = () => {
@@ -180,7 +180,9 @@ class ViewCampScreen extends React.Component {
                         }
                       >
                         <FontAwesome
-                          onPress={() => this.addLike()}
+                          onPress={() =>
+                            this.addLike(this.props.selectedCampaign.camp_id)
+                          }
                           name='heart-o'
                           style={styles.heartOutline}
                         />
@@ -196,7 +198,9 @@ class ViewCampScreen extends React.Component {
                         duration={300}
                       >
                         <FontAwesome
-                          onPress={() => this.deleteLike()}
+                          onPress={() =>
+                            this.deleteLike(this.props.selectedCampaign.camp_id)
+                          }
                           name='heart'
                           style={styles.heartFill}
                         />
@@ -358,7 +362,9 @@ class ViewCampScreen extends React.Component {
                         }
                       >
                         <FontAwesome
-                          onPress={() => this.addLike()}
+                          onPress={() =>
+                            this.addLike(this.props.selectedCampaign.camp_id)
+                          }
                           name='heart-o'
                           style={styles.heartOutline}
                         />
@@ -374,7 +380,9 @@ class ViewCampScreen extends React.Component {
                         duration={300}
                       >
                         <FontAwesome
-                          onPress={() => this.deleteLike()}
+                          onPress={() =>
+                            this.deleteLike(this.props.selectedCampaign.camp_id)
+                          }
                           name='heart'
                           style={styles.heartFill}
                         />
