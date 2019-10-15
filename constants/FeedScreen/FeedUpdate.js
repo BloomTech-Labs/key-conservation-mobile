@@ -36,7 +36,7 @@ export default {
     width: deviceWidth
   },
   goToCampaignButton: {
-    backgroundColor: "rgba(0, 255, 157, 0.5)",
+    backgroundColor: "rgba(0, 255, 157, 0.7)",
     alignItems: "center",
     justifyContent: "center",
     height: 37,

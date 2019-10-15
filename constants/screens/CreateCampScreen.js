@@ -1,41 +1,41 @@
 export default {
   sectionContainer: {
-    flexDirection: 'column',
-    flexWrap: 'wrap',
+    flexDirection: "column",
+    flexWrap: "wrap",
     margin: 15
   },
   buttons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: '#fff',
-    borderBottomColor: '#f5f5f5',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "#fff",
+    borderBottomColor: "#f5f5f5",
     paddingLeft: 10,
     paddingRight: 10,
     height: 75
   },
   TouchableOpacity: {},
   ButtonStyle: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: '#eee',
+    alignItems: "center",
+    justifyContent: "center",
+    borderColor: "#eee",
     marginTop: 12,
     marginBottom: 12,
     flex: 1
   },
   CancelButton: {
     fontSize: 16,
-    color: 'black'
+    color: "black"
   },
   PublishButton: {
     fontSize: 16,
-    color: 'black',
-    fontWeight: 'bold'
+    color: "black",
+    fontWeight: "bold"
   },
   camera: {
-    backgroundColor: '#C4C4C4',
-    width: '100%',
+    backgroundColor: "#C4C4C4",
+    width: "100%",
     height: 150,
-    flexDirection: 'row'
+    flexDirection: "row"
   },
   CameraContainerButton: {
     marginTop: 120,
@@ -45,7 +45,7 @@ export default {
   inputContain: {
     height: 48,
     borderWidth: 2,
-    borderColor: '#C4C4C4',
+    borderColor: "#C4C4C4",
     padding: 5,
     borderRadius: 5,
     fontSize: 20,
@@ -54,50 +54,86 @@ export default {
   inputContain2: {
     height: 140,
     borderWidth: 2,
-    borderColor: '#C4C4C4',
+    borderColor: "#C4C4C4",
     padding: 5,
     borderRadius: 5,
     fontSize: 20,
     marginBottom: 25,
-    textAlignVertical: 'top'
+    textAlignVertical: "top"
   },
   Card: {
     marginTop: 20,
-    backgroundColor: '#fff',
-    width: '100%',
+    backgroundColor: "#fff",
+    width: "100%",
     padding: 25
   },
   cardText: {
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 10,
     fontSize: 25
   },
   cardPara: {
     marginTop: 10,
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 13
   },
   sectionsText: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: "OpenSans-SemiBold",
     fontSize: 20,
     marginBottom: 5
   },
   urgencyMenu: {
-    alignItems: 'center',
-    marginTop: 10,
+    alignItems: "center",
+    marginTop: 10
   },
   checkMark: {
-    height: 14, width: 14
+    height: 14,
+    width: 14
   },
   urgencyOption: {
-    flexDirection: 'row',
-    width: '95%',
-    justifyContent: 'space-between',
-    borderTopColor: '#E5E5E5',
+    flexDirection: "row",
+    width: "95%",
+    justifyContent: "space-between",
+    borderTopColor: "#E5E5E5",
     borderTopWidth: 1,
     paddingVertical: 5,
     paddingHorizontal: 10,
-    margin: 'auto',
-    fontSize: 20
+    margin: "auto"
+  },
+  criticalUrgency: {
+    color: "#000",
+    backgroundColor: "#E31059",
+    fontSize: 18,
+    fontFamily: "OpenSans-SemiBold",
+    textTransform: "uppercase",
+    height: 37,
+    width: "100%",
+    justifyContent: "center",
+    textAlign: "center",
+    paddingTop: 5
+  },
+  urgentUrgency: {
+    color: "#000",
+    backgroundColor: "#FFC700",
+    fontSize: 18,
+    fontFamily: "OpenSans-SemiBold",
+    textTransform: "uppercase",
+    height: 37,
+    width: "100%",
+    justifyContent: "center",
+    textAlign: "center",
+    paddingTop: 5
+  },
+  longtermUrgency: {
+    color: "#000",
+    backgroundColor: "#00FF9D",
+    fontSize: 18,
+    fontFamily: "OpenSans-SemiBold",
+    textTransform: "uppercase",
+    height: 37,
+    width: "100%",
+    justifyContent: "center",
+    textAlign: "center",
+    paddingTop: 5
   }
 };
