@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Platform
 } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 import { View } from 'react-native-animatable';
 import moment from 'moment';
 import { Video } from 'expo-av';
@@ -34,6 +35,7 @@ const ViewportAwareVideo = Viewport.Aware(
 const FeedUpdate = props => {
   const [likes, setLikes] = useState(props.data.likes.length);
   const [userLiked, setUserLiked] = useState(false);
+  const [mute, setMute] = useState(false);
 
   useEffect(() => {
     const liked = data.likes.filter(
@@ -208,6 +210,10 @@ const FeedUpdate = props => {
 
   return (
     <View style={styles.container}>
+      <NavigationEvents
+        onDidFocus={() => setMute(false)}
+        onDidBlur={() => setMute(true)}
+      />
       {props.hideUsername === undefined && (
         <ListItem
           onPress={goToProfile}
@@ -232,12 +238,12 @@ const FeedUpdate = props => {
                 </View>
                 <ViewportAwareVideo
                   source={{
-                    uri: data.camp_img
+                    uri: data.update_img
                   }}
                   retainOnceInViewport={false}
                   preTriggerRatio={-0.1}
                   rate={1.0}
-                  isMuted={false}
+                  isMuted={mute}
                   shouldPlay={true}
                   isLooping
                   resizeMode='cover'
@@ -266,12 +272,12 @@ const FeedUpdate = props => {
                 </View>
                 <ViewportAwareVideo
                   source={{
-                    uri: data.camp_img
+                    uri: data.update_img
                   }}
                   retainOnceInViewport={false}
                   preTriggerRatio={-0.1}
                   rate={1.0}
-                  isMuted={false}
+                  isMuted={mute}
                   shouldPlay={true}
                   isLooping
                   resizeMode='cover'
@@ -291,7 +297,7 @@ const FeedUpdate = props => {
           </TouchableOpacity>
         )}
       </View>
-      {/* Checks to see if the FeedUpdate is being displayed in the Feed or in the ViewCampScreen */}
+      {/* Above checks to see if the FeedUpdate is being displayed in the Feed or in the ViewCampScreen */}
       <View style={styles.likesContainer}>
         <View style={styles.hearts}>
           <View style={!userLiked ? { zIndex: 1 } : { zIndex: -1 }}>

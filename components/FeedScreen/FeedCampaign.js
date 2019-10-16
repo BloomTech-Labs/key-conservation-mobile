@@ -6,6 +6,7 @@ import {
   FlatList,
   Platform
 } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 import { View } from 'react-native-animatable';
 import moment from 'moment';
 import { Video } from 'expo-av';
@@ -41,6 +42,7 @@ const FeedCampaign = props => {
   const [userLiked, setUserLiked] = useState(false);
   const [userBookmarked, setUserBookmarked] = useState(false);
   const [urgTop, setUrgTop] = useState(0);
+  const [mute, setMute] = useState(false);
 
   useEffect(() => {
     const liked = data.likes.filter(
@@ -308,6 +310,10 @@ const FeedCampaign = props => {
 
   return (
     <View style={styles.container}>
+      <NavigationEvents
+        onDidFocus={() => setMute(false)}
+        onDidBlur={() => setMute(true)}
+      />
       <ListItem
         onPress={goToProfile}
         title={
@@ -336,7 +342,7 @@ const FeedCampaign = props => {
                 retainOnceInViewport={false}
                 preTriggerRatio={-0.1}
                 rate={1.0}
-                isMuted={false}
+                isMuted={mute}
                 shouldPlay={true}
                 isLooping
                 resizeMode='cover'
