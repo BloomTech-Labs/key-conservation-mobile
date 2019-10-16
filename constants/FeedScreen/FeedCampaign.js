@@ -72,7 +72,7 @@ export default {
   },
   bookmarkFill: {
     fontSize: 30,
-    color: '#000'
+    color: "#00FF9D"
   },
   likes: {
     marginTop: 5
