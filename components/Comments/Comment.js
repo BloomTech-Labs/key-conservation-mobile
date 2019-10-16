@@ -19,8 +19,7 @@ const Comment = ({
   currentUserProfile,
   selectedCampaign,
   deleteComment,
-  goToProfile,
-  testingPress
+  goToComProfile
 }) => {
   // console.log(currentUserProfile, 'Proppps for comments and id');
   const [confirm, setConfirm] = useState(false);
@@ -87,7 +86,7 @@ const Comment = ({
               )}
             </View>
             <View>
-              <TouchableOpacity activeOpacity={0.5} onPress={() => goToProfile(comment.users_id)} >
+              <TouchableOpacity activeOpacity={0.5} onPress={() => goToComProfile(comment.users_id)} >
                 <Text style={styles.username}>{comment.username}</Text>
                 <Text style={styles.commentBody}>{comment.comment_body}</Text>
               </TouchableOpacity>

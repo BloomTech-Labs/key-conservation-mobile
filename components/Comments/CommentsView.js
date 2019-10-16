@@ -84,7 +84,7 @@ class CommentsView extends React.Component {
                     selectedCampaign={this.props.selectedCampaign}
                     deleteComment={this.deleteComment}
                     token={this.props.token}
-                    goToProfile={this.goToProfile}
+                    goToComProfile={this.goToComProfile}
                   />
                 );
               }}
@@ -255,23 +255,19 @@ class CommentsView extends React.Component {
 
   // For navigating to commenter's profile
 
-  goToProfile = async (user) => {
-    await dispatch(getProfileData(user))
-    this.props.navigation.navigate('Pro')
-    console.log('?????')
-    console.log('goToProfile in comment :', user)
-    // console.log(this.props.selectedProfile, 'checking dat selected profile')
-  }
-
-  testingPress = () => {
-    console.log('testing press')
+  goToComProfile = async (commProf) => {
+    await dispatch(this.props.getProfileData(commProf));
+    // this.props.navigation.navigate('Pro');
+    console.log(commProf, 'commprof updateddddd')
+    console.log(typeof commProf, 'checking type')
   }
 }
 
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
   selectedCampaign: state.selectedCampaign,
-  token: state.token
+  token: state.token,
+  selectedProfile: state.selectedProfile
 });
 
 export default connect(

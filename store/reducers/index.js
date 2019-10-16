@@ -127,6 +127,8 @@ const reducer = (state = initialState, action) => {
         });
       }
       if (action.payload.myProfile) {
+        console.log('we hit dis bish')
+        console.log('action.payload.myProfile', action.payload.myProfile)
         return {
           ...state,
           pending: { ...state.pending, getProfile: false },

@@ -67,6 +67,7 @@ export const getProfileData = (
   {
     !noDispatch && dispatch({ type: GET_PROFILE_START });
   }
+  console.log('in getProfileData')
 
   let user, url;
   if (id) url = `${seturl}users/${id}`;
@@ -83,6 +84,7 @@ export const getProfileData = (
     .then(res => {
       user = res.data.user;
       if (noDispatch) {
+        console.log(user, 'user in getProfileData .then')
         return user;
       }
       {

@@ -71,7 +71,7 @@ const FeedCampaign = props => {
 
   const goToComProfile = async (comUser) => {
     await dispatch(getProfileData(comUser));
-    // props.navigation.navigate('Pro');
+    props.navigation.navigate('Pro');
     console.log('PLEASE DAD')
     console.log(comUser, 'comUser in feed campaign')
   };
@@ -113,7 +113,7 @@ const FeedCampaign = props => {
         style={styles.goToCampaignButton}
         onPress={goToCampaign}
       >
-        <Text style={styles.goToCampaignText}>See Post {'>'}</Text>
+        <Text style={styles.goToCampaignText}>See asdfPost {'>'}</Text>
       </TouchableOpacity>
       <View style={styles.campDesc}>
         <Text style={styles.campDescName}>{data.camp_name}</Text>
