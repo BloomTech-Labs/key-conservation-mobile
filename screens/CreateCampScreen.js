@@ -103,7 +103,6 @@ class CreateCampScreen extends React.Component {
   };
 
   render() {
-    console.log(this.state, "state");
     return (
       <KeyboardAvoidingView
         behavior='height'
@@ -221,7 +220,7 @@ class CreateCampScreen extends React.Component {
                   </TouchableOpacity>
                   <View>
                     <Text style={styles.urgencyText}>
-                      Support is needed but can be reaised over a longer period
+                      Support is needed but can be raised over a longer period
                       of time.
                     </Text>
                   </View>
