@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Text,
   ImageBackground,
+  ActivityIndicator,
   TouchableOpacity,
   Platform
 } from 'react-native';
@@ -36,6 +37,7 @@ const FeedUpdate = props => {
   const [likes, setLikes] = useState(props.data.likes.length);
   const [userLiked, setUserLiked] = useState(false);
   const [mute, setMute] = useState(false);
+  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
     const liked = data.likes.filter(
@@ -114,6 +116,14 @@ const FeedUpdate = props => {
 
   const toggleText = () => {
     dispatch(toggleCampaignText(`update${data.update_id}`));
+  };
+
+  const onPlaybackStatusUpdate = status => {
+    if (status.isBuffering && !status.isPlaying) {
+      setLoader(true);
+    } else {
+      setLoader(false);
+    }
   };
 
   const addLike = (campId, updateId) => {
@@ -233,6 +243,11 @@ const FeedUpdate = props => {
             data.update_img.includes('.mp3') ||
             data.update_img.includes('.mp4') ? (
               <View>
+                {loader ? (
+                  <View style={styles.indicator}>
+                    <ActivityIndicator size='large' color='#00FF9D' />
+                  </View>
+                ) : null}
                 <View style={styles.updateBar}>
                   <Text style={styles.updateBarText}>UPDATE</Text>
                 </View>
@@ -247,6 +262,7 @@ const FeedUpdate = props => {
                   shouldPlay={true}
                   isLooping
                   resizeMode='cover'
+                  onPlaybackStatusUpdate={onPlaybackStatusUpdate}
                   style={styles.campImgContain}
                 />
               </View>
@@ -267,6 +283,11 @@ const FeedUpdate = props => {
             data.update_img.includes('.mp3') ||
             data.update_img.includes('.mp4') ? (
               <View>
+                {loader ? (
+                  <View style={styles.indicator}>
+                    <ActivityIndicator size='large' color='#00FF9D' />
+                  </View>
+                ) : null}
                 <View style={styles.updateBar}>
                   <Text style={styles.updateBarText}>UPDATE</Text>
                 </View>
@@ -281,6 +302,7 @@ const FeedUpdate = props => {
                   shouldPlay={true}
                   isLooping
                   resizeMode='cover'
+                  onPlaybackStatusUpdate={onPlaybackStatusUpdate}
                   style={styles.campImgContain}
                 />
               </View>

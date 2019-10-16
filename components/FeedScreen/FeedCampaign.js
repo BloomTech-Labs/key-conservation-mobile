@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Text,
   ImageBackground,
+  ActivityIndicator,
   TouchableOpacity,
   FlatList,
   Platform
@@ -43,6 +44,7 @@ const FeedCampaign = props => {
   const [userBookmarked, setUserBookmarked] = useState(false);
   const [urgTop, setUrgTop] = useState(0);
   const [mute, setMute] = useState(false);
+  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
     const liked = data.likes.filter(
@@ -170,6 +172,14 @@ const FeedCampaign = props => {
 
   const toggleText = () => {
     dispatch(toggleCampaignText(data.camp_id));
+  };
+
+  const onPlaybackStatusUpdate = status => {
+    if (status.isBuffering && !status.isPlaying) {
+      setLoader(true);
+    } else {
+      setLoader(false);
+    }
   };
 
   const addLike = (campId, updateId) => {
@@ -335,6 +345,11 @@ const FeedCampaign = props => {
                   <Text style={styles.urgencyBarText}>{urgencyStatus}</Text>
                 </View>
               ) : null}
+              {loader ? (
+                <View style={styles.indicator}>
+                  <ActivityIndicator size='large' color='#00FF9D' />
+                </View>
+              ) : null}
               <ViewportAwareVideo
                 source={{
                   uri: data.camp_img
@@ -346,6 +361,7 @@ const FeedCampaign = props => {
                 shouldPlay={true}
                 isLooping
                 resizeMode='cover'
+                onPlaybackStatusUpdate={onPlaybackStatusUpdate}
                 style={styles.campImgContain}
               />
             </View>

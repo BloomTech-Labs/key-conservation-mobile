@@ -24,6 +24,12 @@ export default {
     width: deviceWidth,
     marginTop: 3
   },
+  indicator: {
+    position: 'absolute',
+    marginTop: 180,
+    marginLeft: 162,
+    zIndex: 2
+  },
   goToCampaignButton: {
     backgroundColor: 'rgba(0, 255, 157, 0.7)',
     alignItems: 'center',
