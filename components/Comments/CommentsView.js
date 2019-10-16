@@ -72,7 +72,7 @@ class CommentsView extends React.Component {
                 0,
                 this.state.commentsVisible
               )}
-              keyExtractor={comment => comment.comment_id}
+              keyExtractor={comment => comment.comment_id.toString()}
               renderItem={({ item }) => {
                 return (
                   <Comment
