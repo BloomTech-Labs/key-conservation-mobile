@@ -37,9 +37,9 @@ class FeedScreen extends React.Component {
           }}
         >
           <SvgUri
-            fill="#fff"
-            width="25"
-            height="25"
+            fill='#fff'
+            width='25'
+            height='25'
             source={require('../assets/icons/search-regular.svg')}
           />
         </TouchableOpacity>
