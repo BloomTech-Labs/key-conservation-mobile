@@ -1,20 +1,20 @@
-import { Dimensions } from "react-native";
+import { Dimensions } from 'react-native';
 
-const deviceWidth = Dimensions.get("window").width;
+const deviceWidth = Dimensions.get('window').width;
 export default {
   feedContainer: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: '#fff'
   },
   searchIcon: {
     marginRight: 20
   },
   container: {
-    justifyContent: "center",
+    justifyContent: 'center',
     paddingBottom: 3
   },
   orgTitleView: {
-    fontFamily: "OpenSans-Regular",
+    fontFamily: 'OpenSans-Regular',
     fontSize: 17
   },
   campImgContain: {
@@ -24,34 +24,40 @@ export default {
     width: deviceWidth,
     marginTop: 3
   },
+  indicator: {
+    position: 'absolute',
+    marginTop: 180,
+    marginLeft: 162,
+    zIndex: 2
+  },
   goToCampaignButton: {
-    backgroundColor: "rgba(0, 255, 157, 0.7)",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: 'rgba(0, 255, 157, 0.7)',
+    alignItems: 'center',
+    justifyContent: 'center',
     height: 37,
-    position: "absolute",
+    position: 'absolute',
     bottom: 0,
-    width: "100%"
+    width: '100%'
   },
   iconRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: 15,
     height: 30
   },
   likesContainer: {
-    flexDirection: "row"
+    flexDirection: 'row'
   },
   hearts: {
     marginHorizontal: 15
   },
   heartOutline: {
     fontSize: 28,
-    color: "black"
+    color: 'black'
   },
   heartFill: {
     fontSize: 30,
-    color: "#e60024",
+    color: '#e60024',
     zIndex: 1
   },
   bookmarks: {
@@ -59,17 +65,17 @@ export default {
   },
   bookmarkOutline: {
     fontSize: 28,
-    color: "black"
+    color: 'black'
   },
   bookmarkFill: {
     fontSize: 30,
-    color: "#000"
+    color: '#000'
   },
   likes: {
     marginTop: 5
   },
   goToCampaignText: {
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: 'OpenSans-SemiBold',
     fontSize: 18
   },
   campDesc: {
@@ -79,48 +85,48 @@ export default {
     marginBottom: 15
   },
   campDescName: {
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: 'OpenSans-SemiBold',
     fontSize: 16,
     paddingBottom: 10
   },
   campDescText: {
-    fontFamily: "OpenSans-Regular",
+    fontFamily: 'OpenSans-Regular',
     fontSize: 14,
     lineHeight: 19
   },
   comments: {
-    fontFamily: "OpenSans-Regular",
+    fontFamily: 'OpenSans-Regular',
     fontSize: 13,
     lineHeight: 16,
     marginLeft: 15,
     paddingTop: 12,
-    color: "#7B7D88"
+    color: '#7B7D88'
   },
   readMore: {
-    color: "#929292"
+    color: '#929292'
   },
   comments: {
     marginLeft: 15,
     paddingTop: 15
   },
   timeText: {
-    color: "#929292",
+    color: '#929292',
     fontSize: 10,
     marginLeft: 15,
     marginTop: 15,
     paddingBottom: 8
   },
   readMore: {
-    color: "#929292"
+    color: '#929292'
   },
   urgencyBarText: {
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: 'OpenSans-SemiBold',
     fontSize: 18,
-    color: "black"
+    color: 'black'
   },
   demarcation: {
     marginTop: 15,
     borderTopWidth: 2,
-    borderTopColor: "#eee"
+    borderTopColor: '#eee'
   }
 };
