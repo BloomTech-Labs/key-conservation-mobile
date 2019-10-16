@@ -56,7 +56,6 @@ export default {
   },
   textContainer: {
     flex: 1,
-    alignItems: "left",
     color: "white"
   },
   buttons: {

@@ -102,7 +102,6 @@ export default {
     paddingLeft: 15
   },
   urgencyMenu: {
-    alignItems: "left",
     marginTop: 10,
     paddingLeft: 10,
     paddingRight: 10,
