@@ -26,9 +26,12 @@ export default {
   },
   indicator: {
     position: 'absolute',
-    marginTop: 180,
-    marginLeft: 162,
-    zIndex: 2
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   goToCampaignButton: {
     backgroundColor: 'rgba(0, 255, 157, 0.7)',
