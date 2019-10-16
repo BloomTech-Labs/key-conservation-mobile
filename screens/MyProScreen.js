@@ -85,15 +85,11 @@ class MyProScreen extends React.Component {
 
   goToCampUpdate = camp => {
     this.props.setCampaign(camp);
-<<<<<<< HEAD
     this.props.navigation.navigate('CampUpdate', {
       backBehavior: 'MyPro',
       likes: camp.likes.length,
       media: camp.update_img
     });
-=======
-    this.props.navigation.navigate('CampUpdate', { backBehavior: 'MyPro' });
->>>>>>> 3368407b664673ee9fd8b1dfac73d23b02f86e22
   };
 
   goToEditCampUpdate = camp => {
