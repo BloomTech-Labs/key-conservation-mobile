@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { connect } from 'react-redux';
-import { getProfileData, afterFirstLogin } from '../store/actions';
+import { getLoadingData, getProfileData, afterFirstLogin } from '../store/actions';
 import { AmpEvent, AmpInit } from '../components/withAmplitude';
 import styles from '../constants/screens/LoadingScreen';
 
@@ -84,5 +84,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getProfileData, afterFirstLogin }
+  { getLoadingData, getProfileData, afterFirstLogin }
 )(LoadingScreen);
