@@ -68,7 +68,7 @@ export const getLoadingData = (
   sub,
 ) => async dispatch => {
 
-  let url = `${seturl}users/subCheck/${sub}`
+  let url = `${seturl}users/subcheck/${sub}`
 
   let token = await SecureStore.getItemAsync('accessToken')
   return axios
