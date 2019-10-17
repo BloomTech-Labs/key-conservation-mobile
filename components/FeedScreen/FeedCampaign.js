@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   Text,
   ImageBackground,
@@ -6,31 +6,31 @@ import {
   TouchableOpacity,
   FlatList,
   Platform
-} from "react-native";
-import { NavigationEvents } from "react-navigation";
-import { View } from "react-native-animatable";
-import moment from "moment";
-import { Video } from "expo-av";
-import { Avatar } from "react-native-elements";
-import { ListItem } from "react-native-elements";
-import { useDispatch } from "react-redux";
-import { AmpEvent } from "../withAmplitude";
-import { connect } from "react-redux";
-import { FontAwesome } from "@expo/vector-icons";
-import axios from "axios";
+} from 'react-native';
+import { NavigationEvents, withNavigationFocus } from 'react-navigation';
+import { View } from 'react-native-animatable';
+import moment from 'moment';
+import { Video } from 'expo-av';
+import { Avatar } from 'react-native-elements';
+import { ListItem } from 'react-native-elements';
+import { useDispatch } from 'react-redux';
+import { AmpEvent } from '../withAmplitude';
+import { connect } from 'react-redux';
+import { FontAwesome } from '@expo/vector-icons';
+import axios from 'axios';
 
 import {
   getProfileData,
   getCampaign,
   toggleCampaignText
-} from "../../store/actions";
+} from '../../store/actions';
 
-import styles from "../../constants/FeedScreen/FeedCampaign";
-import styles2 from "../../constants/Comments/Comments";
-import { Viewport } from "@skele/components";
+import styles from '../../constants/FeedScreen/FeedCampaign';
+import styles2 from '../../constants/Comments/Comments';
+import { Viewport } from '@skele/components';
 
 // url for heroku staging vs production server
-const seturl = "https://key-conservation-staging.herokuapp.com/api/";
+const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
@@ -43,7 +43,6 @@ const FeedCampaign = props => {
   const [userLiked, setUserLiked] = useState(false);
   const [userBookmarked, setUserBookmarked] = useState(false);
   const [urgTop, setUrgTop] = useState(0);
-  const [mute, setMute] = useState(false);
   const [loader, setLoader] = useState(true);
 
   useEffect(() => {
@@ -60,9 +59,9 @@ const FeedCampaign = props => {
       setUserBookmarked(true);
     }
     if (
-      data.camp_img.includes(".mov") ||
-      data.camp_img.includes(".mp3") ||
-      data.camp_img.includes(".mp4")
+      data.camp_img.includes('.mov') ||
+      data.camp_img.includes('.mp3') ||
+      data.camp_img.includes('.mp4')
     ) {
       setUrgTop(3);
     }
@@ -76,7 +75,7 @@ const FeedCampaign = props => {
       return string;
     } else {
       let end = cutoff;
-      const avoidChars = [" ", ",", ".", "!"];
+      const avoidChars = [' ', ',', '.', '!'];
       while (avoidChars.includes(string.charAt(end)) && end >= cutoff - 10) {
         end--;
       }
@@ -88,77 +87,77 @@ const FeedCampaign = props => {
   const currentTime = moment();
   const postTime = moment(createdAt);
   let timeDiff;
-  if (currentTime.diff(postTime, "days") < 1) {
-    if (currentTime.diff(postTime, "hours") < 1) {
-      if (currentTime.diff(postTime, "minutes") < 1) {
-        timeDiff = "just now";
+  if (currentTime.diff(postTime, 'days') < 1) {
+    if (currentTime.diff(postTime, 'hours') < 1) {
+      if (currentTime.diff(postTime, 'minutes') < 1) {
+        timeDiff = 'just now';
       } else {
-        if (currentTime.diff(postTime, "minutes") === 1) {
-          timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTE AGO`;
+        if (currentTime.diff(postTime, 'minutes') === 1) {
+          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO`;
         } else {
-          timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTES AGO`;
+          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`;
         }
       }
     } else {
-      if (currentTime.diff(postTime, "hours") === 1) {
-        timeDiff = `${currentTime.diff(postTime, "hours")} HOUR AGO`;
+      if (currentTime.diff(postTime, 'hours') === 1) {
+        timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO`;
       } else {
-        timeDiff = `${currentTime.diff(postTime, "hours")} HOURS AGO`;
+        timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`;
       }
     }
   } else {
-    if (currentTime.diff(postTime, "days") === 1) {
-      timeDiff = `${currentTime.diff(postTime, "days")} DAY AGO`;
+    if (currentTime.diff(postTime, 'days') === 1) {
+      timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO`;
     } else {
-      timeDiff = `${currentTime.diff(postTime, "days")} DAYS AGO`;
+      timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
     }
   }
 
   //// All styles for the urgency bar
   let urgencyColor;
-  if (data.urgency === "Critical") {
-    urgencyColor = "rgba(227,16,89,0.7)";
-  } else if (data.urgency === "Urgent") {
-    urgencyColor = "rgba(255,199,0,0.7)";
-  } else if (data.urgency === "Longterm") {
-    urgencyColor = "rgba(0,255,157,0.7)";
+  if (data.urgency === 'Critical') {
+    urgencyColor = 'rgba(227,16,89,0.7)';
+  } else if (data.urgency === 'Urgent') {
+    urgencyColor = 'rgba(255,199,0,0.7)';
+  } else if (data.urgency === 'Longterm') {
+    urgencyColor = 'rgba(0,255,157,0.7)';
   } else {
-    urgencyColor = "#323338BF";
+    urgencyColor = '#323338BF';
   }
   let urgencyStatus;
   if (data.urgency) {
     urgencyStatus = data.urgency.toUpperCase();
   } else {
-    urgencyStatus = "Standard";
+    urgencyStatus = 'Standard';
   }
 
   const urgencyStyles = {
     backgroundColor: urgencyColor,
     height: 37,
-    width: "100%",
-    position: "absolute",
+    width: '100%',
+    position: 'absolute',
     top: urgTop,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     zIndex: 1
   };
 
   const goToProfile = async () => {
     await dispatch(getProfileData(data.users_id));
-    AmpEvent("Select Profile from Campaign", {
+    AmpEvent('Select Profile from Campaign', {
       profile: data.username,
       campaign: data.camp_name
     });
-    props.navigation.navigate("Pro");
+    props.navigation.navigate('Pro');
   };
 
   const goToCampaign = async () => {
     await dispatch(getCampaign(data.camp_id));
-    AmpEvent("Select Profile from Campaign", {
+    AmpEvent('Select Profile from Campaign', {
       campaign: data.camp_name,
       profile: data.username
     });
-    props.navigation.navigate("Camp", {
+    props.navigation.navigate('Camp', {
       likes: likes,
       userLiked: userLiked,
       addLike: addLike,
@@ -193,9 +192,9 @@ const FeedCampaign = props => {
           },
           {
             headers: {
-              Accept: "application/json",
+              Accept: 'application/json',
               Authorization: `Bearer ${props.token}`,
-              "Content-Type": "application/json"
+              'Content-Type': 'application/json'
             }
           }
         )
@@ -216,9 +215,9 @@ const FeedCampaign = props => {
           },
           {
             headers: {
-              Accept: "application/json",
+              Accept: 'application/json',
               Authorization: `Bearer ${props.token}`,
-              "Content-Type": "application/json"
+              'Content-Type': 'application/json'
             }
           }
         )
@@ -239,9 +238,9 @@ const FeedCampaign = props => {
           `${seturl}social/update/${data.update_id}/${props.currentUserProfile.id}`,
           {
             headers: {
-              Accept: "application/json",
+              Accept: 'application/json',
               Authorization: `Bearer ${props.token}`,
-              "Content-Type": "application/json"
+              'Content-Type': 'application/json'
             }
           }
         )
@@ -258,9 +257,9 @@ const FeedCampaign = props => {
           `${seturl}social/likes/${campId}/${props.currentUserProfile.id}`,
           {
             headers: {
-              Accept: "application/json",
+              Accept: 'application/json',
               Authorization: `Bearer ${props.token}`,
-              "Content-Type": "application/json"
+              'Content-Type': 'application/json'
             }
           }
         )
@@ -284,9 +283,9 @@ const FeedCampaign = props => {
         },
         {
           headers: {
-            Accept: "application/json",
+            Accept: 'application/json',
             Authorization: `Bearer ${props.token}`,
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
           }
         }
       )
@@ -304,9 +303,9 @@ const FeedCampaign = props => {
         `${seturl}social/bookmark/${data.camp_id}/${props.currentUserProfile.id}`,
         {
           headers: {
-            Accept: "application/json",
+            Accept: 'application/json',
             Authorization: `Bearer ${props.token}`,
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
           }
         }
       )
@@ -320,10 +319,6 @@ const FeedCampaign = props => {
 
   return (
     <View style={styles.container}>
-      <NavigationEvents
-        onDidFocus={() => setMute(false)}
-        onDidBlur={() => setMute(true)}
-      />
       <ListItem
         onPress={goToProfile}
         title={
@@ -336,9 +331,9 @@ const FeedCampaign = props => {
       />
       <View>
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
-          {data.camp_img.includes(".mov") ||
-          data.camp_img.includes(".mp3") ||
-          data.camp_img.includes(".mp4") ? (
+          {data.camp_img.includes('.mov') ||
+          data.camp_img.includes('.mp3') ||
+          data.camp_img.includes('.mp4') ? (
             <View>
               {data.urgency ? (
                 <View style={urgencyStyles}>
@@ -350,20 +345,22 @@ const FeedCampaign = props => {
                   <ActivityIndicator size='large' color='#00FF9D' />
                 </View>
               ) : null}
-              <ViewportAwareVideo
-                source={{
-                  uri: data.camp_img
-                }}
-                retainOnceInViewport={false}
-                preTriggerRatio={-0.1}
-                rate={1.0}
-                isMuted={mute}
-                shouldPlay={true}
-                isLooping
-                resizeMode='cover'
-                onPlaybackStatusUpdate={onPlaybackStatusUpdate}
-                style={styles.campImgContain}
-              />
+              {props.isFocused && (
+                <ViewportAwareVideo
+                  source={{
+                    uri: data.camp_img
+                  }}
+                  retainOnceInViewport={false}
+                  preTriggerRatio={-0.1}
+                  rate={1.0}
+                  isMuted={false}
+                  shouldPlay={true}
+                  isLooping
+                  resizeMode='cover'
+                  onPlaybackStatusUpdate={onPlaybackStatusUpdate}
+                  style={styles.campImgContain}
+                />
+              )}
             </View>
           ) : (
             <ImageBackground
@@ -390,10 +387,10 @@ const FeedCampaign = props => {
               />
             </View>
             <View
-              animation={userLiked ? "zoomIn" : "zoomOut"}
+              animation={userLiked ? 'zoomIn' : 'zoomOut'}
               style={
                 (userLiked ? { zIndex: 1 } : { zIndex: -1 },
-                Platform.OS === "android"
+                Platform.OS === 'android'
                   ? { marginTop: -29, marginLeft: -1.25 }
                   : { marginTop: -28.75, marginLeft: -1.25 })
               }
@@ -421,7 +418,7 @@ const FeedCampaign = props => {
             />
           </View>
           <View
-            animation={userBookmarked ? "zoomIn" : "zoomOut"}
+            animation={userBookmarked ? 'zoomIn' : 'zoomOut'}
             style={
               (userBookmarked ? { zIndex: 1 } : { zIndex: -1 },
               { marginTop: -28.75, marginLeft: -1.25 })
@@ -506,4 +503,5 @@ export default connect(
     getCampaign,
     toggleCampaignText
   }
-)(FeedCampaign);
+)(withNavigationFocus(FeedCampaign));
+// withNavigationFocus unmounts video and prevents audio playing across the navigation stack
