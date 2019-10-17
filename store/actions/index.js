@@ -72,6 +72,10 @@ export const getProfileData = (
   if (id) url = `${seturl}users/${id}`;
   else if (sub) url = `${seturl}users/sub/${sub}`;
   let token = await SecureStore.getItemAsync("accessToken");
+  console.log('user, in getProfileData', user)
+  console.log('id in getProfileData', id)
+  console.log('sub in getProfileData', sub)
+  console.log('token in getProfileData', token)
   return axios
     .get(url, {
       headers: {
@@ -82,6 +86,9 @@ export const getProfileData = (
     })
     .then(res => {
       user = res.data.user;
+      console.log('.THEN .THEN. .THEN')
+      console.log('res.data in .then', res.data)
+      console.log('dispatch in .then', noDispatch)
       if (noDispatch) {
         return user;
       }
@@ -91,8 +98,15 @@ export const getProfileData = (
       }
     })
     .catch(err => {
-      console.log(err);
-      () => dispatch({ type: GET_PROFILE_ERROR, payload: err.message });
+      () => Promise.all([
+        SecureStore.deleteItemAsync('sub', {}),
+        SecureStore.deleteItemAsync('email', {}),
+        SecureStore.deleteItemAsync('roles', {}),
+        SecureStore.deleteItemAsync('id', {}),
+        SecureStore.deleteItemAsync('accessToken', {}),
+        console.log('we in da catch', sub, email, roles, id, accessToken)
+      ])
+      dispatch({ type: GET_PROFILE_ERROR, payload: err.message });
     });
 };
 

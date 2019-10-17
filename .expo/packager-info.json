@@ -2,9 +2,9 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 5984,
-  "expoServerNgrokUrl": "https://vj-hcf.ntsum.frontend-mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.vj-hcf.ntsum.frontend-mobile.exp.direct",
-  "ngrokPid": 9932,
+  "packagerPid": 6776,
+  "expoServerNgrokUrl": "https://vj-hcf.samanthae.frontend-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.vj-hcf.samanthae.frontend-mobile.exp.direct",
+  "ngrokPid": 6804,
   "webpackServerPort": null
 }

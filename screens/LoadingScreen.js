@@ -18,28 +18,41 @@ class LoadingScreen extends React.Component {
     const roles = await SecureStore.getItemAsync('roles', {});
     this.props.getProfileData(null, sub, true);
     setTimeout(async () => {
-      if (sub) {
-        if (this.props.userId) {
-          await SecureStore.setItemAsync('id', `${this.props.userId}`);
-          AmpInit();
-          AmpEvent('Login');
-          if (this.props.firstLogin) {
-            this.props.afterFirstLogin();
-            this.props.navigation.navigate(
-              roles === 'conservationist' ? 'EditPro' : 'EditSupPro'
-            );
+      console.log(sub, 'first sub check')
+      console.log('profileRESET in loading', this.props.profileReset)
+      if (this.props.profileReset === true) {
+        console.log('we in da profile reset', this.props.profileReset)
+        this.props.profileReset = false
+        this.props.navigation.navigate('Login')
+      } else {
+        if (sub) {
+          if (this.props.userId) {
+            console.log(sub, 'sub in loading screen')
+            await SecureStore.setItemAsync('id', `${this.props.userId}`);
+            AmpInit();
+            AmpEvent('Login');
+            if (this.props.firstLogin) {
+              console.log(this.props.firstLogin, 'firstLogin LoadingScreen')
+              this.props.afterFirstLogin();
+              this.props.navigation.navigate(
+                roles === 'conservationist' ? 'EditPro' : 'EditSupPro'
+              );
+            } else {
+              console.log('first else, navigation')
+              console.log(this.props.userId, sub, 'userId & sub in first else')
+              this.props.navigation.navigate(
+                roles === 'conservationist' ? 'Conservationist' : 'Supporter'
+              );
+            }
           } else {
-            this.props.navigation.navigate(
-              roles === 'conservationist' ? 'Conservationist' : 'Supporter'
-            );
+            console.log('Create Account else nav')
+            this.props.navigation.navigate('CreateAccount');
           }
         } else {
-          this.props.navigation.navigate('CreateAccount');
+          this.props.navigation.navigate('Login');
         }
-      } else {
-        this.props.navigation.navigate('Login');
       }
-    }, 3000);
+    }, 3000)
   }
   render() {
     return (
@@ -65,7 +78,8 @@ const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
   userId: state.currentUserProfile.id,
   firstLogin: state.firstLogin,
-  userRole: state.currentUserProfile.roles
+  userRole: state.currentUserProfile.roles,
+  profileReset: state.profileReset
 });
 
 export default connect(
