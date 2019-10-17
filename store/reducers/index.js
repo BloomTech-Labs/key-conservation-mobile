@@ -123,8 +123,6 @@ const reducer = (state = initialState, action) => {
       };
     case GET_PROFILE_SUCCESS:
       let { user } = action.payload;
-      console.log(user, 'dispatch, USER GET_PROFILE_SUCCESS')
-      console.log(action.payload.myProfile, 'myProfile, IN DISPATCH')
       if (user.campaigns) {
         user.campaigns.sort(function(a, b) {
           return moment(b.created_at) - moment(a.created_at);

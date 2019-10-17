@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Platform
 } from 'react-native';
-import { NavigationEvents } from 'react-navigation';
+import { NavigationEvents, withNavigationFocus } from 'react-navigation';
 import { View } from 'react-native-animatable';
 import moment from 'moment';
 import { Video } from 'expo-av';
@@ -36,7 +36,6 @@ const ViewportAwareVideo = Viewport.Aware(
 const FeedUpdate = props => {
   const [likes, setLikes] = useState(props.data.likes.length);
   const [userLiked, setUserLiked] = useState(false);
-  const [mute, setMute] = useState(false);
   const [loader, setLoader] = useState(true);
 
   useEffect(() => {
@@ -220,10 +219,6 @@ const FeedUpdate = props => {
 
   return (
     <View style={styles.container}>
-      <NavigationEvents
-        onDidFocus={() => setMute(false)}
-        onDidBlur={() => setMute(true)}
-      />
       {props.hideUsername === undefined && (
         <ListItem
           onPress={goToProfile}
@@ -251,20 +246,22 @@ const FeedUpdate = props => {
                 <View style={styles.updateBar}>
                   <Text style={styles.updateBarText}>UPDATE</Text>
                 </View>
-                <ViewportAwareVideo
-                  source={{
-                    uri: data.update_img
-                  }}
-                  retainOnceInViewport={false}
-                  preTriggerRatio={-0.1}
-                  rate={1.0}
-                  isMuted={mute}
-                  shouldPlay={true}
-                  isLooping
-                  resizeMode='cover'
-                  onPlaybackStatusUpdate={onPlaybackStatusUpdate}
-                  style={styles.campImgContain}
-                />
+                {props.isFocused && (
+                  <ViewportAwareVideo
+                    source={{
+                      uri: data.update_img
+                    }}
+                    retainOnceInViewport={false}
+                    preTriggerRatio={-0.1}
+                    rate={1.0}
+                    isMuted={false}
+                    shouldPlay={true}
+                    isLooping
+                    resizeMode='cover'
+                    onPlaybackStatusUpdate={onPlaybackStatusUpdate}
+                    style={styles.campImgContain}
+                  />
+                )}
               </View>
             ) : (
               <ImageBackground
@@ -291,20 +288,22 @@ const FeedUpdate = props => {
                 <View style={styles.updateBar}>
                   <Text style={styles.updateBarText}>UPDATE</Text>
                 </View>
-                <ViewportAwareVideo
-                  source={{
-                    uri: data.update_img
-                  }}
-                  retainOnceInViewport={false}
-                  preTriggerRatio={-0.1}
-                  rate={1.0}
-                  isMuted={mute}
-                  shouldPlay={true}
-                  isLooping
-                  resizeMode='cover'
-                  onPlaybackStatusUpdate={onPlaybackStatusUpdate}
-                  style={styles.campImgContain}
-                />
+                {props.isFocused && (
+                  <ViewportAwareVideo
+                    source={{
+                      uri: data.update_img
+                    }}
+                    retainOnceInViewport={false}
+                    preTriggerRatio={-0.1}
+                    rate={1.0}
+                    isMuted={false}
+                    shouldPlay={true}
+                    isLooping
+                    resizeMode='cover'
+                    onPlaybackStatusUpdate={onPlaybackStatusUpdate}
+                    style={styles.campImgContain}
+                  />
+                )}
               </View>
             ) : (
               <ImageBackground
@@ -382,4 +381,5 @@ export default connect(
     setCampaign,
     toggleCampaignText
   }
-)(FeedUpdate);
+)(withNavigationFocus(FeedUpdate));
+// withNavigationFocus unmounts video and prevents audio playing across the navigation stack
