@@ -14,11 +14,15 @@ import styles from '../constants/screens/LoadingScreen';
 
 class LoadingScreen extends React.Component {
   async componentDidMount() {
-    const sub = await SecureStore.getItemAsync('sub', {});
-    const roles = await SecureStore.getItemAsync('roles', {});
-    this.props.getProfileData(null, sub, true);
-    console.log('*****LOADING STATS', sub, this.props.profileReset)
-    setTimeout(async () => {
+    const userInfo = Promise.all([
+      sub = await SecureStore.getItemAsync('sub', {}),
+      roles = await SecureStore.getItemAsync('roles', {}),
+      this.props.getLoadingData(sub)
+    ])
+    userInfo()
+    if (userRegistered === true) {
+      this.props.getProfileData(null, sub, true);
+      console.log('*****LOADING STATS', sub, this.props.profileReset)
       if (this.props.profileReset === true) {
         console.log('we hit da reset')
         this.props.profileReset = false
@@ -46,14 +50,17 @@ class LoadingScreen extends React.Component {
               );
             }
           } else {
-            this.props.navigation.navigate('CreateAccount');
+
           }
         } else {
           this.props.navigation.navigate('Login');
         }
       }
-    }, 3000)
+    } else {
+      this.props.navigation.navigate('CreateAccount');
+    }
   }
+  
   render() {
     return (
       <ImageBackground
@@ -79,7 +86,8 @@ const mapStateToProps = state => ({
   userId: state.currentUserProfile.id,
   firstLogin: state.firstLogin,
   userRole: state.currentUserProfile.roles,
-  profileReset: state.profileReset
+  profileReset: state.profileReset,
+  userRegistered: state.userRegistered
 });
 
 export default connect(
