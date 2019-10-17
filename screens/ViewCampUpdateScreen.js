@@ -133,7 +133,7 @@ class ViewCampUpdateScreen extends React.Component {
               rate={1.0}
               volume={1.0}
               useNativeControls={true}
-              resizeMode='cover'
+              resizeMode="cover"
               style={styles.campImgContain}
             />
           ) : (
@@ -155,7 +155,7 @@ class ViewCampUpdateScreen extends React.Component {
                       this.props.selectedCampaign.update_id
                     )
                   }
-                  name='heart-o'
+                  name="heart-o"
                   style={styles.heartOutline}
                 />
               </View>
@@ -176,7 +176,7 @@ class ViewCampUpdateScreen extends React.Component {
                       this.props.selectedCampaign.update_id
                     )
                   }
-                  name='heart'
+                  name="heart"
                   style={styles.heartFill}
                 />
               </View>
