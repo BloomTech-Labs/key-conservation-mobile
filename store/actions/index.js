@@ -71,7 +71,9 @@ export const getProfileData = (
   let user, url;
   if (id) url = `${seturl}users/${id}`;
   else if (sub) url = `${seturl}users/sub/${sub}`;
+  console.log('sub & id in getProfileData', sub, id)
   let token = await SecureStore.getItemAsync("accessToken");
+  console.log('token in getProfileData', token)
   return axios
     .get(url, {
       headers: {
@@ -81,6 +83,7 @@ export const getProfileData = (
       }
     })
     .then(res => {
+      console.log('WE IN .THEN')
       user = res.data.user;
       if (noDispatch) {
         return user;
@@ -97,6 +100,7 @@ export const getProfileData = (
         SecureStore.deleteItemAsync('roles', {}),
         SecureStore.deleteItemAsync('id', {}),
         SecureStore.deleteItemAsync('accessToken', {}),
+        console.log('*****WE IN DA CATCH', sub, email, roles, id, accessToken)
       ])
       dispatch({ type: GET_PROFILE_ERROR, payload: err.message });
     });

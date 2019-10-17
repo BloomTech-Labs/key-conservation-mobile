@@ -148,7 +148,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         pending: { ...state.pending, getProfile: false },
         error: action.payload,
-        profileReset: true
+        profileReset: true,
+
       };
     case EDIT_PROFILE_START:
       return {

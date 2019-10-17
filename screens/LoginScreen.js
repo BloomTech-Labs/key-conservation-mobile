@@ -49,6 +49,7 @@ export default LoginScreen = props => {
   const login = async navigation => {
     dispatch(loginStart());
     const redirectUrl = AuthSession.getRedirectUrl();
+    console.log(currentUser)
 
     //you will need to uncomment out this consolelog to find your callback url to add into auth0 allowed callback urls to be able to hit the auth0 endpoint.
     // console.log(

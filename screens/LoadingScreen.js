@@ -17,14 +17,22 @@ class LoadingScreen extends React.Component {
     const sub = await SecureStore.getItemAsync('sub', {});
     const roles = await SecureStore.getItemAsync('roles', {});
     this.props.getProfileData(null, sub, true);
+    console.log('*****LOADING STATS', sub, this.props.profileReset)
     setTimeout(async () => {
       if (this.props.profileReset === true) {
+        console.log('we hit da reset')
         this.props.profileReset = false
         this.props.navigation.navigate('Login')
       } else {
         if (sub) {
+          console.log('IF SUB INFO')
+          console.log('we passed sub')
+          console.log('this.props.firstLogin', this.props.firstLogin)
+          console.log('this.props.userId', this.props.userId)
+          console.log('IF SUB INFO DONE')
           if (this.props.userId) {
             await SecureStore.setItemAsync('id', `${this.props.userId}`);
+            console.log('this.props.userId', this.props.userId)
             AmpInit();
             AmpEvent('Login');
             if (this.props.firstLogin) {
