@@ -345,7 +345,7 @@ const FeedCampaign = props => {
                   <ActivityIndicator size='large' color='#00FF9D' />
                 </View>
               ) : null}
-              {props.isFocused && (
+              {props.isFocused ? (
                 <ViewportAwareVideo
                   source={{
                     uri: data.camp_img
@@ -360,6 +360,8 @@ const FeedCampaign = props => {
                   onPlaybackStatusUpdate={onPlaybackStatusUpdate}
                   style={styles.campImgContain}
                 />
+              ) : (
+                <View style={styles.campImgContain} />
               )}
             </View>
           ) : (

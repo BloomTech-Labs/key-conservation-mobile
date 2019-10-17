@@ -18,9 +18,12 @@ import { postCampaign, getCampaigns, clearMedia } from '../store/actions';
 import BackButton from '../components/BackButton';
 import PublishButton from '../components/PublishButton';
 import { AmpEvent } from '../components/withAmplitude';
+
 import UploadMedia from '../components/UploadMedia';
+
 import styles from '../constants/screens/CreateCampScreen';
 import CheckMark from '../assets/icons/checkmark-24.png';
+
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in there URL this function will add it.
   // If they already include it it will be ignored. and if its capital "Https || Http" it will become lowercase.

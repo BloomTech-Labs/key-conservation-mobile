@@ -91,8 +91,14 @@ export const getProfileData = (
       }
     })
     .catch(err => {
-      console.log(err);
-      () => dispatch({ type: GET_PROFILE_ERROR, payload: err.message });
+      () => Promise.all([
+        SecureStore.deleteItemAsync('sub', {}),
+        SecureStore.deleteItemAsync('email', {}),
+        SecureStore.deleteItemAsync('roles', {}),
+        SecureStore.deleteItemAsync('id', {}),
+        SecureStore.deleteItemAsync('accessToken', {}),
+      ])
+      dispatch({ type: GET_PROFILE_ERROR, payload: err.message });
     });
 };
 

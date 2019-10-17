@@ -75,7 +75,8 @@ const initialState = {
   firstLogin: false,
   campaignsToggled: [],
   mediaUpload: '',
-  token: ''
+  token: '',
+  profileReset: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -117,7 +118,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getProfile: true },
-        error: ''
+        error: '',
+        profileReset: false
       };
     case GET_PROFILE_SUCCESS:
       let { user } = action.payload;
@@ -130,20 +132,23 @@ const reducer = (state = initialState, action) => {
         return {
           ...state,
           pending: { ...state.pending, getProfile: false },
-          currentUserProfile: user
+          currentUserProfile: user,
+          profileReset: false
         };
       } else {
         return {
           ...state,
           pending: { ...state.pending, getProfile: false },
-          selectedProfile: user
+          selectedProfile: user,
+          profileReset: false
         };
       }
     case GET_PROFILE_ERROR:
       return {
         ...state,
         pending: { ...state.pending, getProfile: false },
-        error: action.payload
+        error: action.payload,
+        profileReset: true
       };
     case EDIT_PROFILE_START:
       return {
