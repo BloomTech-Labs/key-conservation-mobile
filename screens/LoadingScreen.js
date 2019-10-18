@@ -18,50 +18,78 @@ class LoadingScreen extends React.Component {
     const roles = await SecureStore.getItemAsync('roles', {});
     // This checks to see if the sub id is a user on the DB
     console.log('THIS IS THE SUB****', sub)
-    await this.props.getLoadingData(sub)
-
-    if (this.props.userRegistered === true) {
-      this.props.getProfileData(null, sub, true);
-      console.log('*****LOADING STATS', sub, this.props.profileReset)
-      if (this.props.profileReset === true) {
-        console.log('we hit da reset')
-        this.props.profileReset = false
-        this.props.navigation.navigate('Login')
-      } else {
-        if (sub) {
-          console.log('IF SUB INFO')
-          console.log('we passed sub')
-          console.log('this.props.firstLogin', this.props.firstLogin)
+    if (!sub) {
+      this.props.navigation.navigate('Login')
+    } else {
+      await this.props.getLoadingData(sub)
+      if (this.props.userRegistered === true) {
+        this.props.getProfileData(null, sub, true)
+        console.log('*****LOADING STATS', sub, this.props.profileReset)
+        if (this.props.userId) {
+          await SecureStore.setItemAsync('id', `${this.props.userId}`);
           console.log('this.props.userId', this.props.userId)
-          console.log('IF SUB INFO DONE')
-          if (this.props.userId) {
-            await SecureStore.setItemAsync('id', `${this.props.userId}`);
-            console.log('this.props.userId', this.props.userId)
-            AmpInit();
-            AmpEvent('Login');
-            if (this.props.firstLogin) {
-              this.props.afterFirstLogin();
-              this.props.navigation.navigate(
-                roles === 'conservationist' ? 'EditPro' : 'EditSupPro'
-              );
-            } else {
-              this.props.navigation.navigate(
-                roles === 'conservationist' ? 'Conservationist' : 'Supporter'
-              );
-            }
+          AmpInit();
+          AmpEvent('Login');
+          if (this.props.firstLogin) {
+            this.props.afterFirstLogin();
+            this.props.navigation.navigate(
+              roles === 'conservationist' ? 'EditPro' : 'EditSupPro'
+            );
           } else {
-            this.props.navigation.navigate('Login');
-          }
-        } else {
-          this.props.navigation.navigate('Login')
-        }
-       }}
-        else {
-      if (sub) {
-        this.props.navigation.navigate('CreateAccount');
+            this.props.navigation.navigate(
+              roles === 'conservationist' ? 'Conservationist' : 'Supporter'
+            )
+          } 
       } else {
         this.props.navigation.navigate('Login')
       }
+    } else {
+      this.props.navigation.navigate('CreateAccount')
+    }
+  }
+
+    // if (this.props.userRegistered === true) {
+    //   this.props.getProfileData(null, sub, true);
+    //   console.log('*****LOADING STATS', sub, this.props.profileReset)
+    //   if (this.props.profileReset === true) {
+    //     console.log('we hit da reset')
+    //     this.props.profileReset = false
+    //     this.props.navigation.navigate('Login')
+    //   } else {
+    //     if (sub) {
+    //       console.log('IF SUB INFO')
+    //       console.log('we passed sub')
+    //       console.log('this.props.firstLogin', this.props.firstLogin)
+    //       console.log('this.props.userId', this.props.userId)
+    //       console.log('IF SUB INFO DONE')
+    //       if (this.props.userId) {
+    //         await SecureStore.setItemAsync('id', `${this.props.userId}`);
+    //         console.log('this.props.userId', this.props.userId)
+    //         AmpInit();
+    //         AmpEvent('Login');
+    //         if (this.props.firstLogin) {
+    //           this.props.afterFirstLogin();
+    //           this.props.navigation.navigate(
+    //             roles === 'conservationist' ? 'EditPro' : 'EditSupPro'
+    //           );
+    //         } else {
+    //           this.props.navigation.navigate(
+    //             roles === 'conservationist' ? 'Conservationist' : 'Supporter'
+    //           );
+    //         }
+    //       } else {
+    //         this.props.navigation.navigate('Login');
+    //       }
+    //     } else {
+    //       this.props.navigation.navigate('Login')
+    //     }
+    //    }}
+    //     else {
+    //   if (sub) {
+    //     this.props.navigation.navigate('CreateAccount');
+    //   } else {
+    //     this.props.navigation.navigate('Login')
+    //   }
     }
   }
 
