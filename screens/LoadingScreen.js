@@ -47,6 +47,7 @@ class LoadingScreen extends React.Component {
       this.props.navigation.navigate('CreateAccount')
     }
   }
+}
 
     // if (this.props.userRegistered === true) {
     //   this.props.getProfileData(null, sub, true);
@@ -90,10 +91,6 @@ class LoadingScreen extends React.Component {
     //   } else {
     //     this.props.navigation.navigate('Login')
     //   }
-    }
-  }
-
-
 
   render() {
     return (
