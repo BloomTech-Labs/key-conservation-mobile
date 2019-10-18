@@ -14,13 +14,12 @@ import styles from '../constants/screens/LoadingScreen';
 
 class LoadingScreen extends React.Component {
   async componentDidMount() {
-    const userInfo = Promise.all([
-      sub = await SecureStore.getItemAsync('sub', {}),
-      roles = await SecureStore.getItemAsync('roles', {}),
-      this.props.getLoadingData(sub)
-    ])
-    userInfo()
-    if (userRegistered === true) {
+    const sub = await SecureStore.getItemAsync('sub', {});
+    const roles = await SecureStore.getItemAsync('roles', {});
+    // This checks to see if the sub id is a user on the DB
+    this.props.getLoadingData(sub)
+    
+    if (this.props.userRegistered === true) {
       this.props.getProfileData(null, sub, true);
       console.log('*****LOADING STATS', sub, this.props.profileReset)
       if (this.props.profileReset === true) {
@@ -60,7 +59,6 @@ class LoadingScreen extends React.Component {
       this.props.navigation.navigate('CreateAccount');
     }
   }
-  
   render() {
     return (
       <ImageBackground
