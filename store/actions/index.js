@@ -213,7 +213,9 @@ export const [POST_USER_START, POST_USER_ERROR, POST_USER_SUCCESS] = [
 
 export const postUser = user => async dispatch => {
   dispatch({ type: POST_USER_START });
+  console.log('we in postUser')
   let token = await SecureStore.getItemAsync("accessToken");
+  console.log(user, token, 'USER TOKEN in postUSER *****')
   axios
     .post(`${seturl}users`, user, {
       headers: {
@@ -226,6 +228,7 @@ export const postUser = user => async dispatch => {
       dispatch({ type: POST_USER_SUCCESS, payload: res.data.newUser });
     })
     .catch(err => {
+      console.log(err, 'err in postUser')
       dispatch({ type: POST_USER_ERROR, payload: err });
     });
 };

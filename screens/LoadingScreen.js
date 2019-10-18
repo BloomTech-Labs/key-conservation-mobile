@@ -50,16 +50,23 @@ class LoadingScreen extends React.Component {
               );
             }
           } else {
-
+            this.props.navigation.navigate('Login');
           }
         } else {
-          this.props.navigation.navigate('Login');
+          this.props.navigation.navigate('Login')
         }
+       }}
+        else {
+      if (sub) {
+        this.props.navigation.navigate('CreateAccount');
+      } else {
+        this.props.navigation.navigate('Login')
       }
-    } else {
-      this.props.navigation.navigate('CreateAccount');
     }
   }
+
+
+
   render() {
     return (
       <ImageBackground
@@ -78,6 +85,7 @@ class LoadingScreen extends React.Component {
     );
   }
 }
+
 
 const mapStateToProps = state => ({
   error: state.error,
