@@ -69,23 +69,25 @@ export const getLoadingData = (
 ) => async dispatch => {
 
   let url = `${seturl}users/subcheck/${sub}`
+  console.log('????!!?!? LOADING PLS', sub)
 
   let token = await SecureStore.getItemAsync('accessToken')
   return axios
     .get(url, {
       headers: {
         Accept: "application/json",
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json"
       }
     })
     .then(response => {
       console.log('we hit da response in getLoadingData')
-      console.log('*** response.data', response.data)
-      let dbCheck = response.data
+      console.log('*** response.data', response.data.check)
+      let dbCheck = response.data.check
       if (dbCheck === true) {
-        dispatch ({ GET_AUTH_USER, payload: dbCheck })
+        dispatch ({ type: GET_AUTH_USER, payload: dbCheck })
       } else {
-        dispatch ({ GET_AUTH_REGISTER, payload: dbCheck })
+        dispatch ({ type: GET_AUTH_REGISTER, payload: dbCheck })
       }
     })
     .catch(error => {

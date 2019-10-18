@@ -17,8 +17,9 @@ class LoadingScreen extends React.Component {
     const sub = await SecureStore.getItemAsync('sub', {});
     const roles = await SecureStore.getItemAsync('roles', {});
     // This checks to see if the sub id is a user on the DB
-    this.props.getLoadingData(sub)
-    
+    console.log('THIS IS THE SUB****', sub)
+    await this.props.getLoadingData(sub)
+
     if (this.props.userRegistered === true) {
       this.props.getProfileData(null, sub, true);
       console.log('*****LOADING STATS', sub, this.props.profileReset)
