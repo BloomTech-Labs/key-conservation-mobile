@@ -1,8 +1,8 @@
 {
   "hostType": "tunnel",
   "lanType": "ip",
-  "dev": false,
-  "minify": true,
-  "urlRandomness": "f5-8fm",
+  "dev": true,
+  "minify": false,
+  "urlRandomness": "vj-hcf",
   "https": false
 }
