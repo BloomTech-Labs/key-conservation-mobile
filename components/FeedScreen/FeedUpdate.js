@@ -12,22 +12,28 @@ import moment from 'moment';
 import { Video } from 'expo-av';
 import { ListItem } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
-import { AmpEvent } from '../withAmplitude';
 import { connect } from 'react-redux';
 import { FontAwesome } from '@expo/vector-icons';
 import axios from 'axios';
+import { Viewport } from '@skele/components';
+
 import {
   getProfileData,
   setCampaign,
   toggleCampaignText
 } from '../../store/actions';
+import { AmpEvent } from '../withAmplitude';
+
 import styles from '../../constants/FeedScreen/FeedUpdate';
-import { Viewport } from '@skele/components';
 
 // url for heroku staging vs production server
 const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
+
+// Redux gave us a hard time on this project. We worked on comments first and when our commentOnCampaign action failed to trigger the re-render we expected, and when we couldn't solve the
+// issue in labs_help, we settled for in-component axios calls. Not elegant. Probably not super scalable—but it worked. Hopefully a more talented team can solve what we couldn't.
+// In the meantime, ViewCampScreen, ViewCampUpdateScreen, FeedCampaign, and FeedUpdate are all interconnected, sharing props (state, functions) via React-Navigation.
 
 const ViewportAwareVideo = Viewport.Aware(
   Viewport.WithPlaceholder(Video, Placeholder)
@@ -374,10 +380,12 @@ const FeedUpdate = props => {
     </View>
   );
 };
+
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
   token: state.token
 });
+
 export default connect(
   mapStateToProps,
   {
