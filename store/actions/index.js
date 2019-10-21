@@ -52,6 +52,46 @@ export const afterFirstLogin = () => ({
   type: AFTER_FIRST_LOGIN
 });
 
+//// These actions are for the loading page to determine if:
+// A) The user is logged in
+// B) The account exists and user is not logged in
+// C) The user has a sub and needs to register
+// D) The user needs to make a sub and to register
+export const [GET_AUTH_START, GET_AUTH_USER, GET_AUTH_REGISTER, GET_AUTH_ERROR] = [
+  'GET_AUTH_START',
+  'GET_AUTH_USER',
+  'GET_AUTH_REGISTER',
+  'GET_AUTH_ERROR'
+]
+
+export const getLoadingData = (
+  sub,
+) => async dispatch => {
+
+  let url = `${seturl}users/subcheck/${sub}`
+
+  let token = await SecureStore.getItemAsync('accessToken')
+  return axios
+    .get(url, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => {
+      let dbCheck = response.data.check
+      if (dbCheck === true) {
+        dispatch ({ type: GET_AUTH_USER, payload: dbCheck })
+      } else {
+        dispatch ({ type: GET_AUTH_REGISTER, payload: dbCheck })
+      }
+    })
+    .catch(error => {
+      dispatch({ type: GET_AUTH_ERROR, payload: error.message })
+    })
+}
+
 export const [GET_PROFILE_START, GET_PROFILE_ERROR, GET_PROFILE_SUCCESS] = [
   "GET_PROFILE_START",
   "GET_PROFILE_ERROR",
@@ -71,7 +111,9 @@ export const getProfileData = (
   let user, url;
   if (id) url = `${seturl}users/${id}`;
   else if (sub) url = `${seturl}users/sub/${sub}`;
+
   let token = await SecureStore.getItemAsync("accessToken");
+
   return axios
     .get(url, {
       headers: {
@@ -165,7 +207,9 @@ export const [POST_USER_START, POST_USER_ERROR, POST_USER_SUCCESS] = [
 
 export const postUser = user => async dispatch => {
   dispatch({ type: POST_USER_START });
+  console.log('we in postUser')
   let token = await SecureStore.getItemAsync("accessToken");
+  console.log(user, token, 'USER TOKEN in postUSER *****')
   axios
     .post(`${seturl}users`, user, {
       headers: {
@@ -178,6 +222,7 @@ export const postUser = user => async dispatch => {
       dispatch({ type: POST_USER_SUCCESS, payload: res.data.newUser });
     })
     .catch(err => {
+      console.log(err, 'err in postUser')
       dispatch({ type: POST_USER_ERROR, payload: err });
     });
 };

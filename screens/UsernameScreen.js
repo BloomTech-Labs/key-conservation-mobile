@@ -30,7 +30,6 @@ class UsernameScreen extends React.Component {
         roles: role,
         email: email
       };
-      // console.log('******click from username', user);
       await this.props.postUser(user);
       AmpEvent('Account Created')
       this.props.navigation.navigate(
@@ -54,7 +53,6 @@ class UsernameScreen extends React.Component {
   };
 
   render() {
-    //console.log(this.props);
     return (
       <ScrollView>
         <View style={styles.sectionContainer}>
