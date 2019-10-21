@@ -14,11 +14,11 @@ import axios from 'axios';
 import { ScrollView, NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 import { postCampaign, getCampaigns, clearMedia } from '../store/actions';
 import BackButton from '../components/BackButton';
 import PublishButton from '../components/PublishButton';
 import { AmpEvent } from '../components/withAmplitude';
-
 import UploadMedia from '../components/UploadMedia';
 
 import styles from '../constants/screens/CreateCampScreen';
@@ -40,6 +40,7 @@ const filterUrls = (keys, object) => {
   });
   return object;
 };
+
 class CreateCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -63,6 +64,7 @@ class CreateCampScreen extends React.Component {
       )
     };
   };
+
   state = {
     users_id: this.props.currentUserProfile.id,
     camp_name: '',
@@ -71,117 +73,22 @@ class CreateCampScreen extends React.Component {
     urgency: null,
     loading: false
   };
+
   componentDidMount() {
     this.props.navigation.setParams({ publish: this.publish });
   }
-  publish = async () => {
-    this.setState({
-      ...this.state,
-      loading: true
-    });
-    if (
-      !this.props.mediaUpload ||
-      !this.state.camp_name ||
-      !this.state.camp_desc ||
-      !this.state.camp_cta
-    ) {
-      const errorMessage =
-        'Form incomplete. Please include:' +
-        (this.props.mediaUpload ? '' : '\n    - Campaign Image') +
-        (this.state.camp_name ? '' : '\n    - Campaign Name') +
-        (this.state.camp_desc ? '' : '\n    - Campaign Details') +
-        (this.state.camp_cta ? '' : '\n    - Donation Link');
-      return Alert.alert('Error', errorMessage);
-    } else {
-      const camp = {
-        users_id: this.props.currentUserProfile.id,
-        camp_name: this.state.camp_name,
-        camp_desc: this.state.camp_desc,
-        camp_cta: this.state.camp_cta,
-        urgency: this.state.urgency,
-        camp_img: this.props.mediaUpload
-      };
-      this.postCampaign(camp);
-    }
-  };
-  clearState = () => {
-    this.setState({
-      loading: false,
-      users_id: this.props.currentUserProfile.id,
-      camp_img: this.props.mediaUpload,
-      camp_name: '',
-      camp_desc: '',
-      camp_cta: '',
-      urgency: null
-    });
-  };
-  postCampaign = camp => {
-    if (
-      this.props.mediaUpload.includes('.mov') ||
-      this.props.mediaUpload.includes('.mp3') ||
-      this.props.mediaUpload.includes('.mp4')
-    ) {
-      Alert.alert("We're uploading your video!");
-    }
-    const filteredCamp = filterUrls(['camp_cta'], camp);
-    const uri = filteredCamp.camp_img;
-    let uriParts = uri.split('.');
-    let fileType = uriParts[uriParts.length - 1];
-    let formData = new FormData();
-    formData.append('photo', {
-      uri,
-      name: `photo.${fileType}`,
-      type: `image/${fileType}`
-    });
-    formData.append('camp_cta', filteredCamp.camp_cta);
-    formData.append('camp_desc', filteredCamp.camp_desc);
-    formData.append('camp_name', filteredCamp.camp_name);
-    formData.append('users_id', filteredCamp.users_id);
-    formData.append('urgency', filteredCamp.urgency);
-    axios
-      .post(
-        `https://key-conservation-staging.herokuapp.com/api/campaigns/`,
-        formData,
-        {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${this.props.token}`,
-            'Content-Type': 'application/json'
-          }
-        }
-      )
-      .then(async res => {
-        console.log('SUCCESS', res.data.newCamps);
-        AmpEvent('Campaign Created');
-        // await this.props.postCampaign(res.data.newCamps);
-        this.props.navigation.navigate('Home');
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-  setUrgency = urgencyLevel => {
-    if (this.state.urgency === urgencyLevel) {
-      this.setState({
-        urgency: null
-      });
-    } else {
-      this.setState({
-        urgency: urgencyLevel
-      });
-    }
-  };
+
   render() {
     if (this.state.loading === true) {
       return (
         <View style={styles.indicator}>
-          <ActivityIndicator size="large" color="#00FF9D" />
+          <ActivityIndicator size='large' color='#00FF9D' />
         </View>
       );
     }
     return (
       <KeyboardAvoidingView
-        behavior="height"
+        behavior='height'
         keyboardVerticalOffset={90}
         enabled={Platform.OS === 'android' ? true : false}
       >
@@ -203,8 +110,8 @@ class CreateCampScreen extends React.Component {
                   ref={input => {
                     this.campNameInput = input;
                   }}
-                  returnKeyType="next"
-                  placeholder="Add Campaign name"
+                  returnKeyType='next'
+                  placeholder='Add Campaign name'
                   style={styles.inputContain}
                   onChangeText={text => this.setState({ camp_name: text })}
                   onSubmitEditing={() => {
@@ -224,8 +131,8 @@ class CreateCampScreen extends React.Component {
                   ref={input => {
                     this.campDetailsInput = input;
                   }}
-                  returnKeyType="next"
-                  placeholder="Add campaign details and list of monetary needs."
+                  returnKeyType='next'
+                  placeholder='Add campaign details and list of monetary needs.'
                   style={styles.inputContain2}
                   onChangeText={text => this.setState({ camp_desc: text })}
                   multiline={true}
@@ -238,11 +145,11 @@ class CreateCampScreen extends React.Component {
                   ref={input => {
                     this.donationLinkInput = input;
                   }}
-                  returnKeyType="next"
-                  placeholder="https://www.carribbeanseaturtle.com/donate"
-                  keyboardType="url"
-                  placeholder="Please include full URL"
-                  autoCapitalize="none"
+                  returnKeyType='next'
+                  placeholder='https://www.carribbeanseaturtle.com/donate'
+                  keyboardType='url'
+                  placeholder='Please include full URL'
+                  autoCapitalize='none'
                   style={styles.inputContain}
                   onChangeText={text => this.setState({ camp_cta: text })}
                   value={this.state.camp_cta}
@@ -306,13 +213,116 @@ class CreateCampScreen extends React.Component {
       </KeyboardAvoidingView>
     );
   }
+
+  setUrgency = urgencyLevel => {
+    if (this.state.urgency === urgencyLevel) {
+      this.setState({
+        urgency: null
+      });
+    } else {
+      this.setState({
+        urgency: urgencyLevel
+      });
+    }
+  };
+
+  publish = async () => {
+    this.setState({
+      ...this.state,
+      loading: true
+    });
+    if (
+      !this.props.mediaUpload ||
+      !this.state.camp_name ||
+      !this.state.camp_desc ||
+      !this.state.camp_cta
+    ) {
+      const errorMessage =
+        'Form incomplete. Please include:' +
+        (this.props.mediaUpload ? '' : '\n    - Campaign Image') +
+        (this.state.camp_name ? '' : '\n    - Campaign Name') +
+        (this.state.camp_desc ? '' : '\n    - Campaign Details') +
+        (this.state.camp_cta ? '' : '\n    - Donation Link');
+      return Alert.alert('Error', errorMessage);
+    } else {
+      const camp = {
+        users_id: this.props.currentUserProfile.id,
+        camp_name: this.state.camp_name,
+        camp_desc: this.state.camp_desc,
+        camp_cta: this.state.camp_cta,
+        urgency: this.state.urgency,
+        camp_img: this.props.mediaUpload
+      };
+      this.postCampaign(camp);
+    }
+  };
+
+  postCampaign = camp => {
+    if (
+      this.props.mediaUpload.includes('.mov') ||
+      this.props.mediaUpload.includes('.mp3') ||
+      this.props.mediaUpload.includes('.mp4')
+    ) {
+      Alert.alert("We're uploading your video!");
+    }
+    const filteredCamp = filterUrls(['camp_cta'], camp);
+    const uri = filteredCamp.camp_img;
+    let uriParts = uri.split('.');
+    let fileType = uriParts[uriParts.length - 1];
+    let formData = new FormData();
+    formData.append('photo', {
+      uri,
+      name: `photo.${fileType}`,
+      type: `image/${fileType}`
+    });
+    formData.append('camp_cta', filteredCamp.camp_cta);
+    formData.append('camp_desc', filteredCamp.camp_desc);
+    formData.append('camp_name', filteredCamp.camp_name);
+    formData.append('users_id', filteredCamp.users_id);
+    formData.append('urgency', filteredCamp.urgency);
+    axios
+      .post(
+        `https://key-conservation-staging.herokuapp.com/api/campaigns/`,
+        formData,
+        {
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${this.props.token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      )
+      .then(async res => {
+        console.log('SUCCESS', res.data.newCamps);
+        AmpEvent('Campaign Created');
+        // await this.props.postCampaign(res.data.newCamps);
+        this.props.navigation.navigate('Home');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  clearState = () => {
+    this.setState({
+      loading: false,
+      users_id: this.props.currentUserProfile.id,
+      camp_img: this.props.mediaUpload,
+      camp_name: '',
+      camp_desc: '',
+      camp_cta: '',
+      urgency: null
+    });
+  };
 }
+
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
   mediaUpload: state.mediaUpload,
   allCampaigns: state.allCampaigns,
   token: state.token
 });
+
 export default connect(
   mapStateToProps,
   { postCampaign, getCampaigns, clearMedia }
