@@ -69,7 +69,6 @@ export const getLoadingData = (
 ) => async dispatch => {
 
   let url = `${seturl}users/subcheck/${sub}`
-  console.log('????!!?!? LOADING PLS', sub)
 
   let token = await SecureStore.getItemAsync('accessToken')
   return axios
@@ -81,8 +80,6 @@ export const getLoadingData = (
       }
     })
     .then(response => {
-      console.log('we hit da response in getLoadingData')
-      console.log('*** response.data', response.data.check)
       let dbCheck = response.data.check
       if (dbCheck === true) {
         dispatch ({ type: GET_AUTH_USER, payload: dbCheck })
@@ -91,7 +88,6 @@ export const getLoadingData = (
       }
     })
     .catch(error => {
-      console.log('ERROR IN .catch getLoadingData', error)
       dispatch({ type: GET_AUTH_ERROR, payload: error.message })
     })
 }
@@ -115,9 +111,9 @@ export const getProfileData = (
   let user, url;
   if (id) url = `${seturl}users/${id}`;
   else if (sub) url = `${seturl}users/sub/${sub}`;
-  console.log('sub & id in getProfileData', sub, id)
+
   let token = await SecureStore.getItemAsync("accessToken");
-  console.log('token in getProfileData', token)
+
   return axios
     .get(url, {
       headers: {
@@ -127,7 +123,6 @@ export const getProfileData = (
       }
     })
     .then(res => {
-      console.log('WE IN .THEN')
       user = res.data.user;
       if (noDispatch) {
         return user;
@@ -144,7 +139,6 @@ export const getProfileData = (
         SecureStore.deleteItemAsync('roles', {}),
         SecureStore.deleteItemAsync('id', {}),
         SecureStore.deleteItemAsync('accessToken', {}),
-        console.log('*****WE IN DA CATCH', sub, email, roles, id, accessToken)
       ])
       dispatch({ type: GET_PROFILE_ERROR, payload: err.message });
     });
