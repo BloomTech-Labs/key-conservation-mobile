@@ -1,11 +1,13 @@
 import React from 'react';
 import {
   Text,
-  View,
   TouchableOpacity,
   Image,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Platform
 } from 'react-native';
+import { View } from 'react-native-animatable';
+import { Video } from 'expo-av';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-navigation';
@@ -14,6 +16,8 @@ import { connect } from 'react-redux';
 import SvgUri from 'react-native-svg-uri';
 import moment from 'moment';
 import { FontAwesome, Feather } from '@expo/vector-icons';
+import { Viewport } from '@skele/components';
+
 import { getProfileData } from '../store/actions';
 import BackButton from '../components/BackButton';
 import { AmpEvent } from '../components/withAmplitude';
@@ -21,6 +25,10 @@ import FeedUpdate from '../components/FeedScreen/FeedUpdate';
 import CommentsView from '../components/Comments/CommentsView';
 
 import styles from '../constants/screens/ViewCampScreen';
+
+// Redux gave us a hard time on this project. We worked on comments first and when our commentOnCampaign action failed to trigger the re-render we expected, and when we couldn't solve the
+// issue in labs_help, we settled for in-component axios calls. Not elegant. Probably not super scalable—but it worked. Hopefully a more talented team can solve what we couldn't.
+// In the meantime, ViewCampScreen, ViewCampUpdateScreen, FeedCampaign, and FeedUpdate are all interconnected, sharing props (state, functions) via React-Navigation.
 
 class ViewCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -40,9 +48,10 @@ class ViewCampScreen extends React.Component {
     };
   };
 
-  goToProfile = () => {
-    this.props.getProfileData(this.props.selectedCampaign.users_id);
-    this.props.navigation.navigate('Pro');
+  state = {
+    likes: this.props.navigation.state.params.likes,
+    userLiked: this.props.navigation.state.params.userLiked,
+    userBookmarked: this.props.navigation.state.params.userBookmarked
   };
 
   render() {
@@ -94,210 +103,439 @@ class ViewCampScreen extends React.Component {
             keyboardVerticalOffset={86}
             behavior='height'
           >
-            <ScrollView>
-              <View>
-                <ListItem
-                  onPress={this.goToProfile}
-                  title={
-                    <View>
-                      <Text style={styles.listUsername}>
-                        {this.props.selectedCampaign.username}
+            <Viewport.Tracker>
+              <ScrollView>
+                <View>
+                  <ListItem
+                    onPress={this.goToProfile}
+                    title={
+                      <View>
+                        <Text style={styles.listUsername}>
+                          {this.props.selectedCampaign.username}
+                        </Text>
+                      </View>
+                    }
+                    leftAvatar={{
+                      source: { uri: this.props.selectedCampaign.profile_image }
+                    }}
+                    subtitle={this.props.selectedCampaign.location}
+                  />
+                  {this.props.navigation.state.params.media.includes('.mov') ||
+                  this.props.navigation.state.params.media.includes('.mp3') ||
+                  this.props.navigation.state.params.media.includes('.mp4') ? (
+                    <Video
+                      source={{
+                        uri: this.props.selectedCampaign.camp_img
+                      }}
+                      rate={1.0}
+                      volume={1.0}
+                      useNativeControls={true}
+                      resizeMode='cover'
+                      style={styles.campImgContain}
+                    />
+                  ) : (
+                    <Image
+                      source={{ uri: this.props.selectedCampaign.camp_img }}
+                      style={styles.campImgContain}
+                    />
+                  )}
+                  <View style={styles.iconRow}>
+                    <View style={styles.likesContainer}>
+                      <View style={styles.hearts}>
+                        <View
+                          style={
+                            !this.state.userLiked
+                              ? { zIndex: 1 }
+                              : { zIndex: -1 }
+                          }
+                        >
+                          <FontAwesome
+                            onPress={() =>
+                              this.addLike(this.props.selectedCampaign.camp_id)
+                            }
+                            name='heart-o'
+                            style={styles.heartOutline}
+                          />
+                        </View>
+                        <View
+                          animation={
+                            this.state.userLiked ? 'zoomIn' : 'zoomOut'
+                          }
+                          style={
+                            (this.state.userLiked
+                              ? { zIndex: 1 }
+                              : { zIndex: -1 },
+                            { marginTop: -29, marginLeft: -1.25 })
+                          }
+                          duration={300}
+                        >
+                          <FontAwesome
+                            onPress={() =>
+                              this.deleteLike(
+                                this.props.selectedCampaign.camp_id
+                              )
+                            }
+                            name='heart'
+                            style={styles.heartFill}
+                          />
+                        </View>
+                      </View>
+                      {this.state.likes === 0 ? null : this.state.likes > 1 ? (
+                        <Text style={styles.likes}>
+                          {this.state.likes} likes
+                        </Text>
+                      ) : (
+                        <Text style={styles.likes}>
+                          {this.state.likes} like
+                        </Text>
+                      )}
+                    </View>
+                    <View style={styles.bookmarks}>
+                      <View
+                        style={
+                          !this.state.userBookmarked
+                            ? { zIndex: 1 }
+                            : { zIndex: -1 }
+                        }
+                      >
+                        <FontAwesome
+                          onPress={() => this.addBookmark()}
+                          name='bookmark-o'
+                          style={styles.bookmarkOutline}
+                        />
+                      </View>
+                      <View
+                        animation={
+                          this.state.userBookmarked ? 'zoomIn' : 'zoomOut'
+                        }
+                        style={
+                          (this.state.userBookmarked
+                            ? { zIndex: 1 }
+                            : { zIndex: -1 },
+                          { marginTop: -28.75, marginLeft: -1.25 })
+                        }
+                        duration={300}
+                      >
+                        <FontAwesome
+                          onPress={() => this.deleteBookmark()}
+                          name='bookmark'
+                          style={styles.bookmarkFill}
+                        />
+                      </View>
+                    </View>
+                  </View>
+                  <View style={styles.campDescContain}>
+                    <Text style={styles.campDescName}>
+                      {this.props.selectedCampaign.camp_name}
+                    </Text>
+                    <Text style={styles.campDesc}>
+                      {this.props.selectedCampaign.camp_desc}
+                    </Text>
+                    <Text style={styles.timeText}>{timeDiff}</Text>
+                  </View>
+                  <View style={styles.commentsView}>
+                    <CommentsView />
+                  </View>
+                  <View style={styles.donateView}>
+                    <View style={styles.campMission}>
+                      <SvgUri
+                        fill='#3b3b3b'
+                        width='25'
+                        height='25'
+                        source={require('../assets/icons/hand.svg')}
+                      />
+                      <Text style={styles.supportMissionText}>
+                        Support Our Mission
+                      </Text>
+                      <Text style={styles.campMissionText}>
+                        Your donation helps us more{'\n'}than you know. Thanks!
                       </Text>
                     </View>
-                  }
-                  leftAvatar={{
-                    source: { uri: this.props.selectedCampaign.profile_image }
-                  }}
-                  subtitle={this.props.selectedCampaign.location}
-                />
-                <Image
-                  source={{ uri: this.props.selectedCampaign.camp_img }}
-                  style={styles.campImgContain}
-                />
-                {/* <View style={styles.iconRow}>
-                    <View>
-                      <FontAwesome name='heart-o' style={styles.icon} />
+                    <View style={styles.donateButton}>
+                      <TouchableOpacity
+                        style={styles.touchableButton}
+                        // If these links are empty string and don't have an http:// or a https:// it will send you with unpromised rejections.
+                        onPress={async () =>
+                          this.props.selectedCampaign.camp_cta &&
+                          this.props.selectedCampaign.camp_cta !== null &&
+                          (await WebBrowser.openBrowserAsync(
+                            this.props.selectedCampaign.camp_cta
+                          )) &&
+                          AmpEvent('Campaign Donation Button Clicked', {
+                            username: this.props.username,
+                            campId: this.props.selectedCampaign.camp_id
+                          })
+                        }
+                      >
+                        <View style={styles.touchableView}>
+                          <Text style={styles.touchableText}>Donate</Text>
+                        </View>
+                      </TouchableOpacity>
                     </View>
-                    <View>
-                      <Feather name='edit' style={styles.icon} />
-                    </View>
-                  </View> */}
-                {/* Next release canvas ^^^ */}
-                <View style={styles.campDescContain}>
-                  <Text style={styles.campDescName}>
-                    {this.props.selectedCampaign.camp_name}
-                  </Text>
-                  <Text style={styles.campDesc}>
-                    {this.props.selectedCampaign.camp_desc}
-                  </Text>
-                  <Text style={styles.timeText}>{timeDiff}</Text>
-                </View>
-                <View style={styles.commentsView}>
-                  <CommentsView />
-                </View>
-                <View style={styles.donateView}>
-                  <View style={styles.campMission}>
-                    <SvgUri
-                      fill='#3b3b3b'
-                      width='25'
-                      height='25'
-                      source={require('../assets/icons/hand.svg')}
-                    />
-                    <Text style={styles.supportMissionText}>
-                      Support Our Mission
-                    </Text>
-                    <Text style={styles.campMissionText}>
-                      Your donation helps us more{'\n'}than you know. Thanks!
-                    </Text>
                   </View>
-                  <View style={styles.donateButton}>
-                    <TouchableOpacity
-                      style={styles.touchableButton}
-                      // If these links are empty string and don't have an http:// or a https:// it will send you with unpromised rejections.
-                      onPress={async () =>
-                        this.props.selectedCampaign.camp_cta &&
-                        this.props.selectedCampaign.camp_cta !== null &&
-                        (await WebBrowser.openBrowserAsync(
-                          this.props.selectedCampaign.camp_cta
-                        )) &&
-                        AmpEvent('Campaign Donation Button Clicked', {
-                          username: this.props.username,
-                          campId: this.props.selectedCampaign.camp_id
-                        })
-                      }
-                    >
-                      <View style={styles.touchableView}>
-                        <Text style={styles.touchableText}>Donate</Text>
-                      </View>
-                    </TouchableOpacity>
+                  <View style={styles.feedContainer}>
+                    {sortedUpdates !== false &&
+                      sortedUpdates.map(update => {
+                        return (
+                          <FeedUpdate
+                            key={`update${update.update_id}`}
+                            data={update}
+                            toggled
+                            hideUsername
+                            navigation={this.props.navigation}
+                            fromCampScreen={true}
+                          />
+                        );
+                      })}
                   </View>
                 </View>
-                <View style={styles.feedContainer}>
-                  {sortedUpdates !== false &&
-                    sortedUpdates.map(update => {
-                      return (
-                        <FeedUpdate
-                          key={`update${update.update_id}`}
-                          data={update}
-                          toggled
-                          hideUsername
-                          navigation={this.props.navigation}
-                        />
-                      );
-                    })}
-                </View>
-              </View>
-            </ScrollView>
+              </ScrollView>
+            </Viewport.Tracker>
           </KeyboardAvoidingView>
         ) : (
           <KeyboardAwareScrollView extraScrollHeight={50}>
-            <ScrollView>
-              <View>
-                <ListItem
-                  onPress={this.goToProfile}
-                  title={
-                    <View>
-                      <Text style={styles.listUsername}>
-                        {this.props.selectedCampaign.username}
+            <Viewport.Tracker>
+              <ScrollView>
+                <View>
+                  <ListItem
+                    onPress={this.goToProfile}
+                    title={
+                      <View>
+                        <Text style={styles.listUsername}>
+                          {this.props.selectedCampaign.username}
+                        </Text>
+                      </View>
+                    }
+                    leftAvatar={{
+                      source: { uri: this.props.selectedCampaign.profile_image }
+                    }}
+                    subtitle={this.props.selectedCampaign.location}
+                  />
+                  {this.props.navigation.state.params.media.includes('.mov') ||
+                  this.props.navigation.state.params.media.includes('.mp3') ||
+                  this.props.navigation.state.params.media.includes('.mp4') ? (
+                    <Video
+                      source={{
+                        uri: this.props.selectedCampaign.camp_img
+                      }}
+                      rate={1.0}
+                      volume={1.0}
+                      isMuted={true}
+                      useNativeControls={true}
+                      resizeMode='cover'
+                      style={styles.campImgContain}
+                    />
+                  ) : (
+                    <Image
+                      source={{ uri: this.props.selectedCampaign.camp_img }}
+                      style={styles.campImgContain}
+                    />
+                  )}
+                  <View style={styles.iconRow}>
+                    <View style={styles.likesContainer}>
+                      <View style={styles.hearts}>
+                        <View
+                          style={
+                            !this.state.userLiked
+                              ? { zIndex: 1 }
+                              : { zIndex: -1 }
+                          }
+                        >
+                          <FontAwesome
+                            onPress={() =>
+                              this.addLike(this.props.selectedCampaign.camp_id)
+                            }
+                            name='heart-o'
+                            style={styles.heartOutline}
+                          />
+                        </View>
+                        <View
+                          animation={
+                            this.state.userLiked ? 'zoomIn' : 'zoomOut'
+                          }
+                          style={
+                            (this.state.userLiked
+                              ? { zIndex: 1 }
+                              : { zIndex: -1 },
+                            { marginTop: -28.75, marginLeft: -1.25 })
+                          }
+                          duration={300}
+                        >
+                          <FontAwesome
+                            onPress={() =>
+                              this.deleteLike(
+                                this.props.selectedCampaign.camp_id
+                              )
+                            }
+                            name='heart'
+                            style={styles.heartFill}
+                          />
+                        </View>
+                      </View>
+                      {this.state.likes === 0 ? null : this.state.likes > 1 ? (
+                        <Text style={styles.likes}>
+                          {this.state.likes} likes
+                        </Text>
+                      ) : (
+                        <Text style={styles.likes}>
+                          {this.state.likes} like
+                        </Text>
+                      )}
+                    </View>
+                    <View style={styles.bookmarks}>
+                      <View
+                        style={
+                          !this.state.userBookmarked
+                            ? { zIndex: 1 }
+                            : { zIndex: -1 }
+                        }
+                      >
+                        <FontAwesome
+                          onPress={() => this.addBookmark()}
+                          name='bookmark-o'
+                          style={styles.bookmarkOutline}
+                        />
+                      </View>
+                      <View
+                        animation={
+                          this.state.userBookmarked ? 'zoomIn' : 'zoomOut'
+                        }
+                        style={
+                          (this.state.userBookmarked
+                            ? { zIndex: 1 }
+                            : { zIndex: -1 },
+                          { marginTop: -28.75, marginLeft: -1.25 })
+                        }
+                        duration={300}
+                      >
+                        <FontAwesome
+                          onPress={() => this.deleteBookmark()}
+                          name='bookmark'
+                          style={styles.bookmarkFill}
+                        />
+                      </View>
+                    </View>
+                  </View>
+                  <View style={styles.campDescContain}>
+                    <Text style={styles.campDescName}>
+                      {this.props.selectedCampaign.camp_name}
+                    </Text>
+                    <Text style={styles.campDesc}>
+                      {this.props.selectedCampaign.camp_desc}
+                    </Text>
+                    <Text style={styles.timeText}>{timeDiff}</Text>
+                  </View>
+                  <View style={styles.commentsView}>
+                    <CommentsView />
+                  </View>
+                  <View style={styles.donateView}>
+                    <View style={styles.campMission}>
+                      <SvgUri
+                        fill='#3b3b3b'
+                        width='25'
+                        height='25'
+                        source={require('../assets/icons/hand.svg')}
+                      />
+                      <Text style={styles.supportMissionText}>
+                        Support Our Mission
+                      </Text>
+
+                      <Text style={styles.campMissionText}>
+                        Your donation helps us more than you know. Thanks!
                       </Text>
                     </View>
-                  }
-                  leftAvatar={{
-                    source: { uri: this.props.selectedCampaign.profile_image }
-                  }}
-                  subtitle={this.props.selectedCampaign.location}
-                />
-                <Image
-                  source={{ uri: this.props.selectedCampaign.camp_img }}
-                  style={styles.campImgContain}
-                />
-                {/* <View style={styles.iconRow}>
-              <View>
-                <FontAwesome name='heart-o' style={styles.icon} />
-              </View>
-              <View>
-                <Feather name='edit' style={styles.icon} />
-              </View>
-            </View> */}
-                {/* Next release canvas ^^^ */}
-                <View style={styles.campDescContain}>
-                  <Text style={styles.campDescName}>
-                    {this.props.selectedCampaign.camp_name}
-                  </Text>
-                  <Text style={styles.campDesc}>
-                    {this.props.selectedCampaign.camp_desc}
-                  </Text>
-                  <Text style={styles.timeText}>{timeDiff}</Text>
-                </View>
-                <View style={styles.commentsView}>
-                  <CommentsView />
-                </View>
-                <View style={styles.donateView}>
-                  <View style={styles.campMission}>
-                    <SvgUri
-                      fill='#3b3b3b'
-                      width='25'
-                      height='25'
-                      source={require('../assets/icons/hand.svg')}
-                    />
-                    <Text style={styles.supportMissionText}>
-                      Support Our Mission
-                    </Text>
-
-                    <Text style={styles.campMissionText}>
-                      Your donation helps us more than you know. Thanks!
-                    </Text>
+                    <View style={styles.donateButton}>
+                      <TouchableOpacity
+                        style={styles.touchableButton}
+                        // If these links are empty string and don't have an http:// or a https:// it will send you with unpromised rejections.
+                        onPress={async () =>
+                          this.props.selectedCampaign.camp_cta &&
+                          this.props.selectedCampaign.camp_cta !== null &&
+                          (await WebBrowser.openBrowserAsync(
+                            this.props.selectedCampaign.camp_cta
+                          )) &&
+                          AmpEvent('Campaign Donation Button Clicked', {
+                            username: this.props.username,
+                            campId: this.props.selectedCampaign.camp_id
+                          })
+                        }
+                      >
+                        <View style={styles.touchableView}>
+                          <Text style={styles.touchableText}>Donate</Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
                   </View>
-                  <View style={styles.donateButton}>
-                    <TouchableOpacity
-                      style={styles.touchableButton}
-                      // If these links are empty string and don't have an http:// or a https:// it will send you with unpromised rejections.
-                      onPress={async () =>
-                        this.props.selectedCampaign.camp_cta &&
-                        this.props.selectedCampaign.camp_cta !== null &&
-                        (await WebBrowser.openBrowserAsync(
-                          this.props.selectedCampaign.camp_cta
-                        )) &&
-                        AmpEvent('Campaign Donation Button Clicked', {
-                          username: this.props.username,
-                          campId: this.props.selectedCampaign.camp_id
-                        })
-                      }
-                    >
-                      <View style={styles.touchableView}>
-                        <Text style={styles.touchableText}>Donate</Text>
-                      </View>
-                    </TouchableOpacity>
+                  <View style={styles.feedContainer}>
+                    {sortedUpdates !== false &&
+                      sortedUpdates.map(update => {
+                        return (
+                          <FeedUpdate
+                            key={`update${update.update_id}`}
+                            data={update}
+                            toggled
+                            hideUsername
+                            navigation={this.props.navigation}
+                            fromCampScreen={true}
+                          />
+                        );
+                      })}
                   </View>
                 </View>
-                <View style={styles.feedContainer}>
-                  {sortedUpdates !== false &&
-                    sortedUpdates.map(update => {
-                      return (
-                        <FeedUpdate
-                          key={`update${update.update_id}`}
-                          data={update}
-                          toggled
-                          hideUsername
-                          navigation={this.props.navigation}
-                        />
-                      );
-                    })}
-                </View>
-              </View>
-            </ScrollView>
+              </ScrollView>
+            </Viewport.Tracker>
           </KeyboardAwareScrollView>
         )}
         {/* Two different views to support iOS keyboard awareness for an input inside a child component */}
       </View>
     );
   }
+
+  addLike = campId => {
+    this.setState({
+      ...this.state,
+      likes: this.state.likes + 1,
+      userLiked: true
+    });
+    this.props.navigation.state.params.addLike(campId);
+  };
+
+  deleteLike = campId => {
+    this.setState({
+      ...this.state,
+      likes: this.state.likes - 1,
+      userLiked: false
+    });
+    this.props.navigation.state.params.deleteLike(campId);
+  };
+
+  addBookmark = () => {
+    this.setState({
+      ...this.state,
+      userBookmarked: true
+    });
+    this.props.navigation.state.params.addBookmark();
+  };
+
+  deleteBookmark = () => {
+    this.setState({
+      ...this.state,
+      userBookmarked: false
+    });
+    this.props.navigation.state.params.deleteBookmark();
+  };
+
+  goToProfile = () => {
+    this.props.getProfileData(this.props.selectedCampaign.users_id);
+    this.props.navigation.navigate('Pro');
+  };
 }
 
 const mapStateToProps = state => ({
   selectedCampaign: state.selectedCampaign,
   currentUser: state.currentUser,
-  currentUserProfile: state.currentUserProfile
+  currentUserProfile: state.currentUserProfile,
+  token: state.token
 });
 
 export default connect(

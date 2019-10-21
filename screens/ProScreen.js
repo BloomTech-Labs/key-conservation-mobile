@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
+import { Viewport } from '@skele/components';
 import { getProfileData } from '../store/actions';
 import FeedCampaign from '../components/FeedScreen/FeedCampaign';
 import FeedUpdate from '../components/FeedScreen/FeedUpdate';
@@ -30,30 +31,36 @@ class ProScreen extends React.Component {
     const { navigation } = this.props;
     return (
       // creates sticky header
-      <ScrollView stickyHeaderIndices={[0]}>
-        <ProfileHeader navigation={navigation} profile={this.props.selectedProfile} myProfile={false} />
-        {this.props.selectedProfile.campaigns.map(camp => {
-          if (camp.update_id) {
-            return (
-              <FeedUpdate
-                key={`update${camp.update_id}`}
-                data={camp}
-                toggled
-                navigation={navigation}
-              />
-            )
-          } else {
-            return (
-              <FeedCampaign
-                key={camp.camp_id}
-                data={camp}
-                toggled
-                navigation={navigation}
-              />
-            );
-          }
-        })}
-      </ScrollView>
+      <Viewport.Tracker>
+        <ScrollView stickyHeaderIndices={[0]}>
+          <ProfileHeader
+            navigation={navigation}
+            profile={this.props.selectedProfile}
+            myProfile={false}
+          />
+          {this.props.selectedProfile.campaigns.map(camp => {
+            if (camp.update_id) {
+              return (
+                <FeedUpdate
+                  key={`update${camp.update_id}`}
+                  data={camp}
+                  toggled
+                  navigation={navigation}
+                />
+              );
+            } else {
+              return (
+                <FeedCampaign
+                  key={camp.camp_id}
+                  data={camp}
+                  toggled
+                  navigation={navigation}
+                />
+              );
+            }
+          })}
+        </ScrollView>
+      </Viewport.Tracker>
     );
   }
 }

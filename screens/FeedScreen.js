@@ -1,37 +1,38 @@
-import React from "react";
-import { Text, View, TouchableOpacity } from "react-native";
-import { ScrollView, NavigationEvents } from "react-navigation";
-import { connect } from "react-redux";
-import { getCampaigns } from "../store/actions";
-import FeedCampaign from "../components/FeedScreen/FeedCampaign";
-import FeedUpdate from "../components/FeedScreen/FeedUpdate";
-import SvgUri from "react-native-svg-uri";
-import styles from "../constants/screens/FeedScreen";
-import { AmpInit } from "../components/withAmplitude";
+import React from 'react';
+import { Text, View, TouchableOpacity } from 'react-native';
+import { ScrollView, NavigationEvents } from 'react-navigation';
+import { connect } from 'react-redux';
+import { getCampaigns } from '../store/actions';
+import FeedCampaign from '../components/FeedScreen/FeedCampaign';
+import FeedUpdate from '../components/FeedScreen/FeedUpdate';
+import SvgUri from 'react-native-svg-uri';
+import styles from '../constants/screens/FeedScreen';
+import { AmpInit } from '../components/withAmplitude';
+import { Viewport } from '@skele/components';
 
 class FeedScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: "Feed",
+      title: 'Feed',
       headerStyle: {
-        backgroundColor: "#323338"
+        backgroundColor: '#323338'
       },
-      headerTintColor: "#fff",
+      headerTintColor: '#fff',
       headerTitleStyle: {
-        textAlign: "center",
+        textAlign: 'center',
         flexGrow: 1,
-        alignSelf: "center",
-        fontFamily: "OpenSans-SemiBold"
+        alignSelf: 'center',
+        fontFamily: 'OpenSans-SemiBold'
       },
       headerLeft: <View />,
       headerRight: (
         <TouchableOpacity
-          onPress={() => navigation.navigate("Search")}
+          onPress={() => navigation.navigate('Search')}
           style={{
             width: 70,
             height: 45,
-            justifyContent: "center",
-            alignItems: "flex-end",
+            justifyContent: 'center',
+            alignItems: 'flex-end',
             marginRight: 15
           }}
         >
@@ -39,7 +40,7 @@ class FeedScreen extends React.Component {
             fill='#fff'
             width='25'
             height='25'
-            source={require("../assets/icons/search-regular.svg")}
+            source={require('../assets/icons/search-regular.svg')}
           />
         </TouchableOpacity>
       )
@@ -74,52 +75,54 @@ class FeedScreen extends React.Component {
   render() {
     const { navigation } = this.props;
     return (
-      <ScrollView>
-        <NavigationEvents
-          onDidFocus={this.startGettingCampaigns}
-          onDidBlur={this.stopGettingCampaigns}
-        />
-        <View style={styles.feedContainer}>
-          {this.props.allCampaigns.length > 0 &&
-            this.props.allCampaigns
-              .slice(0, this.state.campaignsVisible)
-              .map(camp => {
-                if (camp.update_id) {
-                  return (
-                    <FeedUpdate
-                      key={`update${camp.update_id}`}
-                      data={camp}
-                      toggled={this.props.campaignsToggled.includes(
-                        `update${camp.update_id}`
-                      )}
-                      navigation={navigation}
-                    />
-                  );
-                } else {
-                  return (
-                    <FeedCampaign
-                      key={camp.camp_id}
-                      data={camp}
-                      toggled={this.props.campaignsToggled.includes(
-                        camp.camp_id
-                      )}
-                      navigation={navigation}
-                    />
-                  );
-                }
-              })}
-        </View>
-        {this.state.campaignsVisible < this.props.allCampaigns.length && (
-          <View style={styles.loadMoreView}>
-            <TouchableOpacity
-              onPress={this.addMoreCampaigns}
-              style={styles.loadMoreTouchable}
-            >
-              <Text style={styles.loadMoreText}>Load More Posts</Text>
-            </TouchableOpacity>
+      <Viewport.Tracker>
+        <ScrollView scrollEventThrottle={16}>
+          <NavigationEvents
+            onDidFocus={this.startGettingCampaigns}
+            onDidBlur={this.stopGettingCampaigns}
+          />
+          <View style={styles.feedContainer}>
+            {this.props.allCampaigns.length > 0 &&
+              this.props.allCampaigns
+                .slice(0, this.state.campaignsVisible)
+                .map(camp => {
+                  if (camp.update_id) {
+                    return (
+                      <FeedUpdate
+                        key={`update${camp.update_id}`}
+                        data={camp}
+                        toggled={this.props.campaignsToggled.includes(
+                          `update${camp.update_id}`
+                        )}
+                        navigation={navigation}
+                      />
+                    );
+                  } else {
+                    return (
+                      <FeedCampaign
+                        key={camp.camp_id}
+                        data={camp}
+                        toggled={this.props.campaignsToggled.includes(
+                          camp.camp_id
+                        )}
+                        navigation={navigation}
+                      />
+                    );
+                  }
+                })}
           </View>
-        )}
-      </ScrollView>
+          {this.state.campaignsVisible < this.props.allCampaigns.length && (
+            <View style={styles.loadMoreView}>
+              <TouchableOpacity
+                onPress={this.addMoreCampaigns}
+                style={styles.loadMoreTouchable}
+              >
+                <Text style={styles.loadMoreText}>View More Campaigns</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </ScrollView>
+      </Viewport.Tracker>
     );
   }
 }

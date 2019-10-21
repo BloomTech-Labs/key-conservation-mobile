@@ -1,16 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, Button, Image, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import { Avatar } from 'react-native-elements';
-import { useDispatch } from 'react-redux';
 import moment from 'moment';
-import axios from 'axios';
-import { ListItem } from 'react-native-elements';
-import { AmpEvent } from '../withAmplitude';
-import {
-  getProfileData,
-  getCampaign,
-  toggleCampaignText
-} from '../../store/actions';
 
 import styles from '../../constants/Comments/Comments';
 
@@ -20,7 +11,6 @@ const Comment = ({
   selectedCampaign,
   deleteComment
 }) => {
-  // console.log(currentUserProfile, 'Proppps for comments and id');
   const [confirm, setConfirm] = useState(false);
   const [deleted, setDeleted] = useState(false);
 
@@ -60,7 +50,6 @@ const Comment = ({
     deleteComment(id);
   };
 
-  // console.log(props.deleteComment, 'DELETTEETT');
   return (
     <View>
       {deleted === false ? (

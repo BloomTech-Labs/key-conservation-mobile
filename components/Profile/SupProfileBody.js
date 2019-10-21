@@ -1,10 +1,10 @@
-import React from 'react';
-import { Text, View } from 'react-native';
-import { ScrollView } from 'react-navigation';
+import React from "react";
+import { Text, View } from "react-native";
+import { ScrollView } from "react-navigation";
 
-import SvgUri from 'react-native-svg-uri';
+import SvgUri from "react-native-svg-uri";
 
-import styles from '../../constants/Profile/SupProfileBody';
+import styles from "../../constants/Profile/SupProfileBody";
 
 const SupProfileBody = props => {
   let profile = props.profile;
@@ -18,9 +18,9 @@ const SupProfileBody = props => {
               fill='#3b3b3b'
               width='25'
               height='25'
-              source={require('../../assets/icons/clipboard.svg')}
+              source={require("../../assets/icons/clipboard.svg")}
             />
-            <Text style={styles.titleText}>{'About Me'}</Text>
+            <Text style={styles.titleText}>{"About Me"}</Text>
           </View>
           <View style={styles.body}>
             <Text style={styles.bodyText}>{profile.mini_bio}</Text>
@@ -33,9 +33,9 @@ const SupProfileBody = props => {
               fill='#3b3b3b'
               width='25'
               height='25'
-              source={require('../../assets/icons/seedling.svg')}
+              source={require("../../assets/icons/seedling.svg")}
             />
-            <Text style={styles.titleText}>{'Species & Habitats'}</Text>
+            <Text style={styles.titleText}>{"Species & Habitats"}</Text>
           </View>
           <View style={styles.body}>
             <Text style={styles.bodyText}>{profile.species_and_habitats}</Text>

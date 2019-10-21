@@ -6,26 +6,31 @@ import {
   FlatList,
   TextInput,
   KeyboardAvoidingView,
-  TouchableOpacity
+  TouchableOpacity,
+  Platform
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import moment from 'moment';
 import { ScrollView, NavigationEvents } from 'react-navigation';
 import { Avatar } from 'react-native-elements';
-import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import * as SecureStore from 'expo-secure-store';
 
 import {
   commentOnCampaign,
   deleteComment,
   getCampaign
 } from '../../store/actions';
-import styles from '../../constants/Comments/Comments';
 import Comment from './Comment';
 
-const seturl = 'https://key-conservation.herokuapp.com/api/';
+import styles from '../../constants/Comments/Comments';
+
+// url for heroku staging vs production server
+const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+
+// If you check out the actions and reducer, you'll see we have a commentOnCampaign action. Despite that, we simply could not trigger a re-render and decided to use
+// axios calls in the component itself. We presume this issue has something to do with the ansychronous nature of what's happening, but...
+// We eventually settled on using componentDidUpdate to get what we want, but it ain't pretty.
 
 class CommentsView extends React.Component {
   state = {
@@ -51,8 +56,6 @@ class CommentsView extends React.Component {
     }
   };
 
-  // Currently redux store changes are not triggering re-renders. Multiple devs have looked into why we need this componentDidUpdate despite having the redux store hooked up to our component. No solutions yet though.
-
   render() {
     if (
       this.state.campaignComments.length === 0 &&
@@ -73,7 +76,7 @@ class CommentsView extends React.Component {
                 0,
                 this.state.commentsVisible
               )}
-              keyExtractor={comment => comment.comment_id}
+              keyExtractor={comment => comment.comment_id.toString()}
               renderItem={({ item }) => {
                 return (
                   <Comment
@@ -112,7 +115,6 @@ class CommentsView extends React.Component {
                       }}
                     />
                   )}
-                  {/* Displays latest comment unless the user is viewing all the comments. */}
                 </View>
                 <View style={styles.commentText}>
                   <Text style={styles.username}>
@@ -123,11 +125,12 @@ class CommentsView extends React.Component {
                   </Text>
                 </View>
               </View>
-              <View style={styles.interaction}>
+              {/* <View style={styles.interaction}>
                 <Text style={styles.timeText}>just now</Text>
-              </View>
+              </View> */}
             </View>
           ) : null}
+          {/* Displays latest comment unless the user is viewing all the campaign comments. */}
           {this.state.campaignComments.length > this.state.commentsVisible && (
             <View style={styles.moreContainer}>
               <TouchableOpacity onPress={() => this.addMoreComments()}>
@@ -205,7 +208,6 @@ class CommentsView extends React.Component {
           });
         })
         .catch(err => {
-          console.log(err);
           this.setState({
             ...this.state,
             err: err

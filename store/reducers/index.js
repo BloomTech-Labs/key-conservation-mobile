@@ -7,6 +7,10 @@ import {
   LOGIN_SUCCESS,
   LOGOUT,
   AFTER_FIRST_LOGIN,
+  GET_AUTH_START,
+  GET_AUTH_USER,
+  GET_AUTH_REGISTER,
+  GET_AUTH_ERROR,
   GET_PROFILE_START,
   GET_PROFILE_ERROR,
   GET_PROFILE_SUCCESS,
@@ -75,7 +79,9 @@ const initialState = {
   firstLogin: false,
   campaignsToggled: [],
   mediaUpload: '',
-  token: ''
+  token: '',
+  profileReset: false,
+  userRegistered: true
 };
 
 const reducer = (state = initialState, action) => {
@@ -113,11 +119,32 @@ const reducer = (state = initialState, action) => {
         ...state,
         firstLogin: false
       };
+    case GET_AUTH_START:
+      return {
+        ...state,
+      };
+    case GET_AUTH_USER:
+      return {
+        ...state,
+        userRegistered: true
+      };
+    case GET_AUTH_REGISTER:
+      return {
+        ...state,
+        userRegistered: false
+      };
+    case GET_AUTH_ERROR:
+      return {
+        ...state,
+        pending: { ...state.pending, getAuth: false },
+        error: action.payload
+      };
     case GET_PROFILE_START:
       return {
         ...state,
         pending: { ...state.pending, getProfile: true },
-        error: ''
+        error: '',
+        profileReset: false
       };
     case GET_PROFILE_SUCCESS:
       let { user } = action.payload;
@@ -130,20 +157,24 @@ const reducer = (state = initialState, action) => {
         return {
           ...state,
           pending: { ...state.pending, getProfile: false },
-          currentUserProfile: user
+          currentUserProfile: user,
+          profileReset: false
         };
       } else {
         return {
           ...state,
           pending: { ...state.pending, getProfile: false },
-          selectedProfile: user
+          selectedProfile: user,
+          profileReset: false
         };
       }
     case GET_PROFILE_ERROR:
       return {
         ...state,
         pending: { ...state.pending, getProfile: false },
-        error: action.payload
+        error: action.payload,
+        profileReset: true,
+
       };
     case EDIT_PROFILE_START:
       return {

@@ -73,7 +73,8 @@ export default {
     justifyContent: 'center',
     borderRadius: 5,
     height: 28,
-    width: 243
+    width: 243,
+    marginTop: 20
   },
   loadMoreText: {
     fontSize: 14,

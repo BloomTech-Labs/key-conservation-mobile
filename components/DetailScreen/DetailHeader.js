@@ -1,13 +1,23 @@
-import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, Linking } from 'react-native';
-import * as WebBrowser from 'expo-web-browser';
-import { Avatar } from 'react-native-elements';
-import SvgUri from 'react-native-svg-uri';
-import { AmpEvent } from '../withAmplitude';
+import React, { Component } from "react";
+import { Text, View, TouchableOpacity, Linking, Platform } from "react-native";
+import * as WebBrowser from "expo-web-browser";
+import { Avatar } from "react-native-elements";
+import SvgUri from "react-native-svg-uri";
+import { AmpEvent } from "../withAmplitude";
 
-import styles from '../../constants/DetailScreen/DetailHeader';
+import styles from "../../constants/DetailScreen/DetailHeader";
 
 export default class DetailHeader extends Component {
+  makeCall = () => {
+    let phoneNumber = this.props.profile.phone_number;
+    // let phoneNumber = 123456789 -- used for testing purposes
+    if (Platform.OS === "android") {
+      phoneNumber = `tel:${phoneNumber}`;
+    } else {
+      phoneNumber = `telprompt:${phoneNumber}`;
+    }
+    Linking.openURL(phoneNumber);
+  };
   render() {
     let profile = this.props.profile;
 
@@ -18,7 +28,7 @@ export default class DetailHeader extends Component {
             style={[styles.TouchableOpacity]}
             onPress={() =>
               this.props.navigation.navigate(
-                this.props.myProfile ? 'MyPro' : 'Pro'
+                this.props.myProfile ? "MyPro" : "Pro"
               )
             }
           >
@@ -29,7 +39,7 @@ export default class DetailHeader extends Component {
           <TouchableOpacity
             style={[
               styles.TouchableOpacity,
-              null ? {} : { borderBottomColor: '#00FF9D', borderBottomWidth: 2 }
+              null ? {} : { borderBottomColor: "#00FF9D", borderBottomWidth: 2 }
             ]}
           >
             <View style={styles.ButtonStyle}>
@@ -52,11 +62,11 @@ export default class DetailHeader extends Component {
               <Text style={styles.titleText}>{profile.org_name}</Text>
               <Text style={styles.userText}>{profile.location}</Text>
               <Text
-                style={styles.userText}
+                style={styles.urlText}
                 onPress={async () => {
                   profile.org_link_url &&
                     profile.org_link_url !== null &&
-                    (await AmpEvent('Website Link Clicked', {
+                    (await AmpEvent("Website Link Clicked", {
                       orgName: profile.org_name
                     }));
                   await WebBrowser.openBrowserAsync(profile.org_link_url);
@@ -65,65 +75,124 @@ export default class DetailHeader extends Component {
                 {profile.org_link_text}
               </Text>
             </View>
-            <View style={styles.SocialContainer}>
-              <TouchableOpacity
-                onPress={async () => {
-                  profile.email &&
-                    profile.email !== null &&
-                    (await Linking.openURL(`mailto:${profile.email}`));
-                }}
-              >
-                <SvgUri
-                  fill='#3b3b3b'
-                  width='25'
-                  height='25'
-                  source={require('../../assets/icons/envelope.svg')}
-                />
-              </TouchableOpacity>
+          </View>
+          <View style={styles.SocialContainer}>
+            <TouchableOpacity
+              onPress={async () => {
+                profile.email &&
+                  profile.email !== null &&
+                  (await Linking.openURL(`mailto:${profile.email}`));
+              }}
+            >
+              <SvgUri
+                fill='#3b3b3b'
+                width='31'
+                height='31'
+                source={require("../../assets/icons/envelope.svg")}
+              />
+            </TouchableOpacity>
+            {profile.phone_number === null ? (
+              this.props.myProfile === true ? (
+                <TouchableOpacity
+                  style={{ padding: 0, padding: 0 }}
+                  onPress={() => this.props.navigation.navigate("EditPro")}
+                >
+                  <SvgUri
+                    width='31'
+                    height='31'
+                    source={require("../../assets/icons/phoneadd.svg")}
+                  />
+                </TouchableOpacity>
+              ) : null
+            ) : (
               <TouchableOpacity
                 style={{ padding: 0, padding: 0 }}
-                onPress={async () =>
-                  profile.instagram &&
-                  profile.instagram !== null &&
-                  (await WebBrowser.openBrowserAsync(profile.instagram))
-                }
+                onPress={this.makeCall}
               >
                 <SvgUri
                   fill='#3b3b3b'
-                  width='25'
-                  height='25'
-                  source={require('../../assets/icons/instagram.svg')}
+                  width='31'
+                  height='31'
+                  source={require("../../assets/icons/phone.svg")}
                 />
               </TouchableOpacity>
+            )}
+            {profile.instagram === null ? (
+              this.props.myProfile === true ? (
+                <TouchableOpacity
+                  style={{ padding: 0, padding: 0 }}
+                  onPress={() => this.props.navigation.navigate("EditPro")}
+                >
+                  <SvgUri
+                    width='31'
+                    height='31'
+                    source={require("../../assets/icons/igadd.svg")}
+                  />
+                </TouchableOpacity>
+              ) : null
+            ) : (
               <TouchableOpacity
-                onPress={async () =>
-                  profile.twitter &&
-                  profile.twitter !== null &&
-                  (await WebBrowser.openBrowserAsync(profile.twitter))
-                }
+                style={{ padding: 0, padding: 0 }}
+                onPress={() => WebBrowser.openBrowserAsync(profile.instagram)}
               >
                 <SvgUri
                   fill='#3b3b3b'
-                  width='25'
-                  height='25'
-                  source={require('../../assets/icons/twitter.svg')}
+                  width='31'
+                  height='31'
+                  source={require("../../assets/icons/instagram.svg")}
                 />
               </TouchableOpacity>
+            )}
+            {profile.twitter === null ? (
+              this.props.myProfile === true ? (
+                <TouchableOpacity
+                  style={{ padding: 0, padding: 0 }}
+                  onPress={() => this.props.navigation.navigate("EditPro")}
+                >
+                  <SvgUri
+                    width='31'
+                    height='31'
+                    source={require("../../assets/icons/twittadd.svg")}
+                  />
+                </TouchableOpacity>
+              ) : null
+            ) : (
               <TouchableOpacity
-                onPress={async () =>
-                  profile.facebook &&
-                  profile.facebook !== null &&
-                  (await WebBrowser.openBrowserAsync(profile.facebook))
-                }
+                onPress={() => WebBrowser.openBrowserAsync(profile.twitter)}
               >
                 <SvgUri
                   fill='#3b3b3b'
-                  width='25'
-                  height='25'
-                  source={require('../../assets/icons/facebook.svg')}
+                  width='31'
+                  height='31'
+                  source={require("../../assets/icons/twitter.svg")}
                 />
               </TouchableOpacity>
-            </View>
+            )}
+            {profile.facebook === null ? (
+              this.props.myProfile === true ? (
+                <TouchableOpacity
+                  style={{ padding: 0, padding: 0 }}
+                  onPress={() => this.props.navigation.navigate("EditPro")}
+                >
+                  <SvgUri
+                    width='31'
+                    height='31'
+                    source={require("../../assets/icons/fbadd.svg")}
+                  />
+                </TouchableOpacity>
+              ) : null
+            ) : (
+              <TouchableOpacity
+                onPress={() => WebBrowser.openBrowserAsync(profile.facebook)}
+              >
+                <SvgUri
+                  fill='#3b3b3b'
+                  width='31'
+                  height='31'
+                  source={require("../../assets/icons/facebook.svg")}
+                />
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </View>
