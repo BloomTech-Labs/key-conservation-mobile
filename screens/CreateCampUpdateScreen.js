@@ -6,11 +6,14 @@ import {
   View,
   KeyboardAvoidingView,
   Platform,
-  Alert
+  Alert,
+  ActivityIndicator
 } from 'react-native';
 import { ScrollView, NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 import { postCampaignUpdate, getCampaigns, clearMedia } from '../store/actions';
 import BackButton from '../components/BackButton';
 import PublishButton from '../components/PublishButton';
@@ -40,37 +43,24 @@ class CreateCampUpdateScreen extends React.Component {
       )
     };
   };
+
   state = {
-    update_desc: ''
+    update_desc: '',
+    loading: false
   };
+
   componentDidMount() {
     this.props.navigation.setParams({ publish: this.publish });
   }
-  publish = async () => {
-    if (!this.props.mediaUpload || !this.state.update_desc) {
-      const errorMessage =
-        'Form incomplete. Please include:' +
-        (this.props.mediaUpload ? '' : '\n    - Update Image') +
-        (this.state.update_desc ? '' : '\n    - Update Details');
-      return Alert.alert('Error', errorMessage);
-    } else {
-      const campUpdate = {
-        ...this.state,
-        users_id: this.props.currentUserProfile.id,
-        camp_id: this.props.selectedCampaign.camp_id,
-        update_img: this.props.mediaUpload
-      };
-      await this.props.postCampaignUpdate(campUpdate);
-      AmpEvent('Campaign Update Post', { campaignId: campUpdate.camp_id });
-      this.props.navigation.navigate('Home');
-    }
-  };
-  clearState = () => {
-    this.setState({
-      update_desc: ''
-    });
-  };
+
   render() {
+    if (this.state.loading === true) {
+      return (
+        <View style={styles.indicator}>
+          <ActivityIndicator size='large' color='#00FF9D' />
+        </View>
+      );
+    }
     return (
       <KeyboardAvoidingView
         behavior='padding'
@@ -118,16 +108,87 @@ class CreateCampUpdateScreen extends React.Component {
       </KeyboardAvoidingView>
     );
   }
+
+  publish = async () => {
+    this.setState({
+      ...this.state,
+      loading: true
+    });
+    if (!this.props.mediaUpload || !this.state.update_desc) {
+      const errorMessage =
+        'Form incomplete. Please include:' +
+        (this.props.mediaUpload ? '' : '\n    - Update Image') +
+        (this.state.update_desc ? '' : '\n    - Update Details');
+      return Alert.alert('Error', errorMessage);
+    } else {
+      const campUpdate = {
+        update_desc: this.state.update_desc,
+        users_id: this.props.currentUserProfile.id,
+        camp_id: this.props.selectedCampaign.camp_id,
+        update_img: this.props.mediaUpload
+      };
+      this.postCampaignUpdate(campUpdate);
+    }
+  };
+
+  postCampaignUpdate = campUpdate => {
+    if (
+      this.props.mediaUpload.includes('.mov') ||
+      this.props.mediaUpload.includes('.mp3') ||
+      this.props.mediaUpload.includes('.mp4')
+    ) {
+      Alert.alert("We're uploading your video!");
+    }
+    const uri = campUpdate.update_img;
+
+    let uriParts = uri.split('.');
+    let fileType = uriParts[uriParts.length - 1];
+
+    let formData = new FormData();
+    formData.append('photo', {
+      uri,
+      name: `photo.${fileType}`,
+      type: `image/${fileType}`
+    });
+
+    formData.append('update_desc', campUpdate.update_desc);
+    formData.append('users_id', campUpdate.users_id);
+    formData.append('camp_id', campUpdate.camp_id);
+
+    axios
+      .post(`https://key-conservation.herokuapp.com/api/updates`, formData, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${this.props.token}`
+        }
+      })
+      .then(res => {
+        console.log('SUCCESS', res.data.newCamps);
+        this.props.navigation.navigate('Home');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  clearState = () => {
+    this.setState({
+      update_desc: ''
+    });
+  };
 }
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
   selectedCampaign: state.selectedCampaign,
-  mediaUpload: state.mediaUpload
+  mediaUpload: state.mediaUpload,
+  token: state.token
 });
 export default connect(
   mapStateToProps,
   { postCampaignUpdate, getCampaigns, clearMedia }
 )(CreateCampUpdateScreen);
+
 const styles = StyleSheet.create({
   sectionContainer: {
     flexDirection: 'column',
@@ -214,5 +275,14 @@ const styles = StyleSheet.create({
   goToCampaignText: {
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 18
+  },
+  indicator: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });

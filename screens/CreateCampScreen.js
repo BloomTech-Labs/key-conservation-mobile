@@ -281,17 +281,13 @@ class CreateCampScreen extends React.Component {
     formData.append('users_id', filteredCamp.users_id);
     formData.append('urgency', filteredCamp.urgency);
     axios
-      .post(
-        `https://key-conservation-staging.herokuapp.com/api/campaigns/`,
-        formData,
-        {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${this.props.token}`,
-            'Content-Type': 'application/json'
-          }
+      .post(`https://key-conservation.herokuapp.com/api/campaigns/`, formData, {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${this.props.token}`,
+          'Content-Type': 'application/json'
         }
-      )
+      })
       .then(async res => {
         console.log('SUCCESS', res.data.newCamps);
         AmpEvent('Campaign Created');

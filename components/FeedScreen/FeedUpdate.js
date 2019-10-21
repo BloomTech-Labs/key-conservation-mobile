@@ -27,7 +27,7 @@ import { AmpEvent } from '../withAmplitude';
 import styles from '../../constants/FeedScreen/FeedUpdate';
 
 // url for heroku staging vs production server
-const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+const seturl = 'https://key-conservation.herokuapp.com/api/';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
