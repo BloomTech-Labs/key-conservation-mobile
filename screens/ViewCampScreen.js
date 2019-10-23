@@ -1,30 +1,30 @@
-import React from 'react';
+import React from "react";
 import {
   Text,
   TouchableOpacity,
   Image,
   KeyboardAvoidingView,
   Platform
-} from 'react-native';
-import { View } from 'react-native-animatable';
-import { Video } from 'expo-av';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { ListItem } from 'react-native-elements';
-import { ScrollView } from 'react-navigation';
-import * as WebBrowser from 'expo-web-browser';
-import { connect } from 'react-redux';
-import SvgUri from 'react-native-svg-uri';
-import moment from 'moment';
-import { FontAwesome, Feather } from '@expo/vector-icons';
-import { Viewport } from '@skele/components';
+} from "react-native";
+import { View } from "react-native-animatable";
+import { Video } from "expo-av";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { ListItem } from "react-native-elements";
+import { ScrollView } from "react-navigation";
+import * as WebBrowser from "expo-web-browser";
+import { connect } from "react-redux";
+import SvgUri from "react-native-svg-uri";
+import moment from "moment";
+import { FontAwesome, Feather } from "@expo/vector-icons";
+import { Viewport } from "@skele/components";
 
-import { getProfileData } from '../store/actions';
-import BackButton from '../components/BackButton';
-import { AmpEvent } from '../components/withAmplitude';
-import FeedUpdate from '../components/FeedScreen/FeedUpdate';
-import CommentsView from '../components/Comments/CommentsView';
+import { getProfileData } from "../store/actions";
+import BackButton from "../components/BackButton";
+import { AmpEvent } from "../components/withAmplitude";
+import FeedUpdate from "../components/FeedScreen/FeedUpdate";
+import CommentsView from "../components/Comments/CommentsView";
 
-import styles from '../constants/screens/ViewCampScreen';
+import styles from "../constants/screens/ViewCampScreen";
 
 // Redux gave us a hard time on this project. We worked on comments first and when our commentOnCampaign action failed to trigger the re-render we expected, and when we couldn't solve the
 // issue in labs_help, we settled for in-component axios calls. Not elegant. Probably not super scalable—but it worked. Hopefully a more talented team can solve what we couldn't.
@@ -33,15 +33,15 @@ import styles from '../constants/screens/ViewCampScreen';
 class ViewCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Campaign',
+      title: "Campaign",
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: "#323338"
       },
-      headerTintColor: '#fff',
+      headerTintColor: "#fff",
       headerTitleStyle: {
-        textAlign: 'center',
+        textAlign: "center",
         flexGrow: 1,
-        alignSelf: 'center'
+        alignSelf: "center"
       },
       headerLeft: <BackButton navigation={navigation} popToTop />,
       headerRight: <View />
@@ -69,35 +69,35 @@ class ViewCampScreen extends React.Component {
     const currentTime = moment();
     const postTime = moment(createdAt);
     let timeDiff;
-    if (currentTime.diff(postTime, 'days') < 1) {
-      if (currentTime.diff(postTime, 'hours') < 1) {
-        if (currentTime.diff(postTime, 'minutes') < 1) {
-          timeDiff = 'just now';
+    if (currentTime.diff(postTime, "days") < 1) {
+      if (currentTime.diff(postTime, "hours") < 1) {
+        if (currentTime.diff(postTime, "minutes") < 1) {
+          timeDiff = "just now";
         } else {
-          if (currentTime.diff(postTime, 'minutes') === 1) {
-            timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO`;
+          if (currentTime.diff(postTime, "minutes") === 1) {
+            timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTE AGO`;
           } else {
-            timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`;
+            timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTES AGO`;
           }
         }
       } else {
-        if (currentTime.diff(postTime, 'hours') === 1) {
-          timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO`;
+        if (currentTime.diff(postTime, "hours") === 1) {
+          timeDiff = `${currentTime.diff(postTime, "hours")} HOUR AGO`;
         } else {
-          timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`;
+          timeDiff = `${currentTime.diff(postTime, "hours")} HOURS AGO`;
         }
       }
     } else {
-      if (currentTime.diff(postTime, 'days') === 1) {
-        timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO`;
+      if (currentTime.diff(postTime, "days") === 1) {
+        timeDiff = `${currentTime.diff(postTime, "days")} DAY AGO`;
       } else {
-        timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
+        timeDiff = `${currentTime.diff(postTime, "days")} DAYS AGO`;
       }
     }
 
     return (
       <View>
-        {Platform.OS === 'android' ? (
+        {Platform.OS === "android" ? (
           <KeyboardAvoidingView
             enabled
             keyboardVerticalOffset={86}
@@ -120,9 +120,9 @@ class ViewCampScreen extends React.Component {
                     }}
                     subtitle={this.props.selectedCampaign.location}
                   />
-                  {this.props.navigation.state.params.media.includes('.mov') ||
-                  this.props.navigation.state.params.media.includes('.mp3') ||
-                  this.props.navigation.state.params.media.includes('.mp4') ? (
+                  {this.props.navigation.state.params.media.includes(".mov") ||
+                  this.props.navigation.state.params.media.includes(".mp3") ||
+                  this.props.navigation.state.params.media.includes(".mp4") ? (
                     <Video
                       source={{
                         uri: this.props.selectedCampaign.camp_img
@@ -159,7 +159,7 @@ class ViewCampScreen extends React.Component {
                         </View>
                         <View
                           animation={
-                            this.state.userLiked ? 'zoomIn' : 'zoomOut'
+                            this.state.userLiked ? "zoomIn" : "zoomOut"
                           }
                           style={
                             (this.state.userLiked
@@ -206,7 +206,7 @@ class ViewCampScreen extends React.Component {
                       </View>
                       <View
                         animation={
-                          this.state.userBookmarked ? 'zoomIn' : 'zoomOut'
+                          this.state.userBookmarked ? "zoomIn" : "zoomOut"
                         }
                         style={
                           (this.state.userBookmarked
@@ -242,13 +242,13 @@ class ViewCampScreen extends React.Component {
                         fill='#3b3b3b'
                         width='25'
                         height='25'
-                        source={require('../assets/icons/hand.svg')}
+                        source={require("../assets/icons/hand.svg")}
                       />
                       <Text style={styles.supportMissionText}>
                         Support Our Mission
                       </Text>
                       <Text style={styles.campMissionText}>
-                        Your donation helps us more{'\n'}than you know. Thanks!
+                        Your donation helps us more{"\n"}than you know. Thanks!
                       </Text>
                     </View>
                     <View style={styles.donateButton}>
@@ -261,7 +261,7 @@ class ViewCampScreen extends React.Component {
                           (await WebBrowser.openBrowserAsync(
                             this.props.selectedCampaign.camp_cta
                           )) &&
-                          AmpEvent('Campaign Donation Button Clicked', {
+                          AmpEvent("Campaign Donation Button Clicked", {
                             username: this.props.username,
                             campId: this.props.selectedCampaign.camp_id
                           })
@@ -311,9 +311,9 @@ class ViewCampScreen extends React.Component {
                     }}
                     subtitle={this.props.selectedCampaign.location}
                   />
-                  {this.props.navigation.state.params.media.includes('.mov') ||
-                  this.props.navigation.state.params.media.includes('.mp3') ||
-                  this.props.navigation.state.params.media.includes('.mp4') ? (
+                  {this.props.navigation.state.params.media.includes(".mov") ||
+                  this.props.navigation.state.params.media.includes(".mp3") ||
+                  this.props.navigation.state.params.media.includes(".mp4") ? (
                     <Video
                       source={{
                         uri: this.props.selectedCampaign.camp_img
@@ -351,7 +351,7 @@ class ViewCampScreen extends React.Component {
                         </View>
                         <View
                           animation={
-                            this.state.userLiked ? 'zoomIn' : 'zoomOut'
+                            this.state.userLiked ? "zoomIn" : "zoomOut"
                           }
                           style={
                             (this.state.userLiked
@@ -398,7 +398,7 @@ class ViewCampScreen extends React.Component {
                       </View>
                       <View
                         animation={
-                          this.state.userBookmarked ? 'zoomIn' : 'zoomOut'
+                          this.state.userBookmarked ? "zoomIn" : "zoomOut"
                         }
                         style={
                           (this.state.userBookmarked
@@ -434,7 +434,7 @@ class ViewCampScreen extends React.Component {
                         fill='#3b3b3b'
                         width='25'
                         height='25'
-                        source={require('../assets/icons/hand.svg')}
+                        source={require("../assets/icons/hand.svg")}
                       />
                       <Text style={styles.supportMissionText}>
                         Support Our Mission
@@ -454,7 +454,7 @@ class ViewCampScreen extends React.Component {
                           (await WebBrowser.openBrowserAsync(
                             this.props.selectedCampaign.camp_cta
                           )) &&
-                          AmpEvent('Campaign Donation Button Clicked', {
+                          AmpEvent("Campaign Donation Button Clicked", {
                             username: this.props.username,
                             campId: this.props.selectedCampaign.camp_id
                           })
@@ -527,7 +527,7 @@ class ViewCampScreen extends React.Component {
 
   goToProfile = () => {
     this.props.getProfileData(this.props.selectedCampaign.users_id);
-    this.props.navigation.navigate('Pro');
+    this.props.navigation.navigate("Pro");
   };
 }
 
