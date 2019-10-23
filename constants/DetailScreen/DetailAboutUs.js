@@ -36,6 +36,26 @@ export default {
     marginLeft: 10,
     fontFamily: "OpenSans-SemiBold"
   },
+  campMission: {
+    backgroundColor: "#fff",
+    padding: 25,
+    borderRadius: 5,
+    width: "100%",
+    fontFamily: "OpenSans-Regular",
+    flexWrap: "wrap",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: 15,
+    marginTop: 8,
+    marginBottom: 8
+  },
+  donateTitle: {
+    fontSize: 18,
+    textAlign: "center",
+    marginLeft: 10,
+    fontFamily: "OpenSans-SemiBold"
+  },
   donateButton: {
     alignItems: "center",
     width: "100%"
