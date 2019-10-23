@@ -5,7 +5,7 @@ export default {
     backgroundColor: "#fff",
     marginLeft: 8,
     marginRight: 8,
-    marginTop: 10,
+    marginTop: 8,
     marginBottom: 0,
     borderRadius: 5
   },

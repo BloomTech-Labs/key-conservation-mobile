@@ -1,77 +1,72 @@
-import { Dimensions } from 'react-native';
+import { Dimensions } from "react-native";
 
-const deviceWidth = Dimensions.get('window').width;
+const deviceWidth = Dimensions.get("window").width;
 
 export default {
   touchableButton: {
     paddingTop: 25,
     paddingBottom: 25,
-    width: '100%',
+    width: "100%",
     height: 50,
-    alignItems: 'center'
+    alignItems: "center"
   },
   touchableView: {
-    backgroundColor: '#00FF9D',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#00FF9D",
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 5,
     height: 48,
     width: 243
   },
   touchableText: {
-    fontFamily: 'OpenSans-Regular',
-    color: '#323338',
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
+    fontFamily: "OpenSans-Bold",
+    color: "#323338",
+    textTransform: "uppercase",
     letterSpacing: 2,
     fontSize: 16
   },
   donateButton: {
-    fontFamily: 'OpenSans-SemiBold',
-    width: '60%',
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center'
+    width: "60%",
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center"
   },
   supportMissionText: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: "OpenSans-SemiBold",
     fontSize: 14,
     paddingLeft: 10
   },
   campMissionText: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: "OpenSans-Regular",
     fontSize: 14,
     lineHeight: 19,
     paddingTop: 10,
-    textAlign: 'center'
+    textAlign: "center"
   },
   commentsView: {
     marginLeft: 15,
-    // paddingTop: 15,
     marginRight: 15,
     fontSize: 14,
     marginTop: 20,
     paddingTop: 19,
     paddingBottom: 19,
     borderTopWidth: 2,
-    borderTopColor: '#eee',
+    borderTopColor: "#eee",
     borderBottomWidth: 2,
-    borderBottomColor: '#eee'
+    borderBottomColor: "#eee"
   },
   campMission: {
     marginLeft: 15,
     marginRight: 15,
     width: deviceWidth / 2,
-    fontFamily: 'OpenSans-Regular',
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    fontFamily: "OpenSans-Regular",
+    flexWrap: "wrap",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     fontSize: 14,
     marginTop: 20,
     paddingTop: 19
-    // borderTopWidth: 2,
-    // borderTopColor: "#eee"
   },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
@@ -87,24 +82,24 @@ export default {
     marginRight: 15
   },
   campDescName: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: "OpenSans-SemiBold",
     fontSize: 17,
     lineHeight: 22,
     paddingBottom: 10
   },
   campDesc: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: "OpenSans-Regular",
     fontSize: 15,
     lineHeight: 19
   },
   listUsername: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: "OpenSans-SemiBold",
     fontSize: 16,
     lineHeight: 22,
-    fontWeight: 'bold'
+    fontWeight: "bold"
   },
   donateView: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 50
   },
   whiteSpace: {
@@ -117,38 +112,38 @@ export default {
     marginRight: 15
   },
   iconRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 15,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 15
   },
   likesContainer: {
-    flexDirection: 'row',
-    alignItems: 'center'
+    flexDirection: "row",
+    alignItems: "center"
   },
   hearts: {
-    marginHorizontal: 15,
+    marginHorizontal: 15
   },
   heartOutline: {
     fontSize: 28,
-    color: 'black'
+    color: "black"
   },
   heartFill: {
     fontSize: 30,
-    color: '#e60024'
+    color: "#e60024"
   },
   bookmarks: {
     marginHorizontal: 15
   },
   bookmarkOutline: {
     fontSize: 28,
-    color: 'black'
+    color: "black"
   },
   bookmarkFill: {
     fontSize: 30,
-    color: '#00FF9D'
+    color: "#00FF9D"
   },
   timeText: {
-    color: '#929292',
+    color: "#929292",
     fontSize: 10,
     marginLeft: 0,
     marginRight: 15,

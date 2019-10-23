@@ -53,7 +53,7 @@ const DetailAboutUs = props => {
             <Text style={styles.body}>{profile.issues}</Text>
           </View>
         </View>
-        <View style={styles.sections}>
+        <View style={styles.campMission}>
           <View style={styles.iconWrap}>
             <SvgUri
               fill='#3b3b3b'
@@ -61,10 +61,12 @@ const DetailAboutUs = props => {
               height='25'
               source={require("../../assets/icons/hand.svg")}
             />
-            <Text style={styles.title}>{"Support Our Mission"}</Text>
+            <Text style={styles.donateTitle}>{"Support Our Mission"}</Text>
           </View>
           <View>
-            <Text style={styles.body}>{profile.support_us}</Text>
+            <Text style={styles.donateText}>
+              Your donation helps us more{"\n"}than you know. Thanks!
+            </Text>
             <View style={styles.donateButton}>
               <TouchableOpacity
                 onPress={async () =>
