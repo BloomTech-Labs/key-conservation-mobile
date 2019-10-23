@@ -27,7 +27,7 @@ import Comment from "./Comment";
 import styles from "../../constants/Comments/Comments";
 
 // url for heroku staging vs production server
-const seturl = "https://key-conservation-staging.herokuapp.com/api/";
+const seturl = 'https://key-conservation.herokuapp.com/api/';
 
 // If you check out the actions and reducer, you'll see we have a commentOnCampaign action. Despite that, we simply could not trigger a re-render and decided to use
 // axios calls in the component itself. We presume this issue has something to do with the ansychronous nature of what's happening, but...
@@ -126,9 +126,6 @@ class CommentsView extends React.Component {
                   </Text>
                 </View>
               </View>
-              {/* <View style={styles.interaction}>
-                <Text style={styles.timeText}>just now</Text>
-              </View> */}
             </View>
           ) : null}
           {/* Displays latest comment unless the user is viewing all the campaign comments. */}
