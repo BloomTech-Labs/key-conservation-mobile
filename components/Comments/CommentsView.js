@@ -126,9 +126,6 @@ class CommentsView extends React.Component {
                   </Text>
                 </View>
               </View>
-              {/* <View style={styles.interaction}>
-                <Text style={styles.timeText}>just now</Text>
-              </View> */}
             </View>
           ) : null}
           {/* Displays latest comment unless the user is viewing all the campaign comments. */}
@@ -170,15 +167,26 @@ class CommentsView extends React.Component {
                 }}
                 returnKeyType='next'
               />
-              <TouchableOpacity onPress={() => this.makeComment()}>
-                <FontAwesome name='paper-plane' style={styles.icon} />
-                {/* <SvgUri
-                  fill='#3b3b3b'
-                  width='31'
-                  height='31'
-                  source={require("../../assets/icons/active_comment.svg")}
-                /> */}
-              </TouchableOpacity>
+              {this.state.comment === null || this.state.comment === "" ? (
+                <TouchableOpacity style={styles.commentButton}>
+                  <SvgUri
+                    width='26'
+                    height='26'
+                    source={require("../../assets/icons/inactive_comment.svg")}
+                  />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={styles.commentButton}
+                  onPress={() => this.makeComment()}
+                >
+                  <SvgUri
+                    width='26'
+                    height='26'
+                    source={require("../../assets/icons/active_comment.svg")}
+                  />
+                </TouchableOpacity>
+              )}
             </View>
           </View>
         </ScrollView>
