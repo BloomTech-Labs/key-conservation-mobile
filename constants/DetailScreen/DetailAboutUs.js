@@ -1,7 +1,9 @@
 export default {
   container: {
     alignItems: "flex-start",
-    margin: 8,
+    top: 0,
+    marginLeft: 8,
+    marginRight: 8,
     textAlign: "justify",
     lineHeight: 30
   },
@@ -37,6 +39,11 @@ export default {
   donateButton: {
     alignItems: "center",
     width: "100%"
+  },
+  donateText: {
+    marginTop: 10,
+    fontSize: 15,
+    textAlign: "center"
   },
   forcedMargin: {
     marginTop: 5

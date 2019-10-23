@@ -64,7 +64,9 @@ const DetailAboutUs = props => {
             <Text style={styles.title}>{"Support Our Mission"}</Text>
           </View>
           <View>
-            <Text style={styles.body}>{profile.support_us}</Text>
+            <Text style={styles.donateText}>
+              Your donation helps us more{"\n"}than you know. Thanks!
+            </Text>
             <View style={styles.donateButton}>
               <TouchableOpacity
                 onPress={async () =>
