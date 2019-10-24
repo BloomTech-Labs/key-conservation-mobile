@@ -11,6 +11,9 @@ export default {
     width: "90%",
     marginTop: 5
   },
+  commentButton: {
+    marginTop: 10
+  },
   replyView: {
     flexDirection: "row",
     marginTop: 20
@@ -117,8 +120,5 @@ export default {
     fontSize: 30,
     marginTop: 9,
     color: "#7B7D88"
-    // flexDirection: "row",
-    // alignItems: "right",
-    // marginLeft: 40
   }
 };
