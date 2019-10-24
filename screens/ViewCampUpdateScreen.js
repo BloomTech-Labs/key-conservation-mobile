@@ -189,7 +189,7 @@ class ViewCampUpdateScreen extends React.Component {
   getCampaign = () => {
     axios
       .get(
-        `https://key-conservation-staging.herokuapp.com/api/campaigns/${this.props.selectedCampaign.camp_id}`,
+        `https://key-conservation.herokuapp.com/api/campaigns/${this.props.selectedCampaign.camp_id}`,
         {
           headers: {
             Accept: 'application/json',
