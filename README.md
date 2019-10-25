@@ -85,6 +85,11 @@ Additionally, supporters of conservation organizations want more transparency as
 - Supporter profiles to donate to campaigns
 - Search campaigns 
 - All users can edit/personalize profile
+- Commenting on campaigns
+- Video uploading
+- Urgency levels for campaign posts
+- Liking and Bookmarking posts
+
 
 ## Tech Stack
 
