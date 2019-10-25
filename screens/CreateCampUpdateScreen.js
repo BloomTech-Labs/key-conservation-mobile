@@ -163,8 +163,12 @@ class CreateCampUpdateScreen extends React.Component {
           Authorization: `Bearer ${this.props.token}`
         }
       })
-      .then(res => {
+      .then(async res => {
         console.log('SUCCESS', res.data.newCamps);
+        await this.setState({
+          ...this.state,
+          loading: false
+        });
         this.props.navigation.navigate('Home');
       })
       .catch(err => {
