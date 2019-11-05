@@ -1,75 +1,62 @@
 # Key Conservation
 
-You can find the deployed project at (https://expo.io/@labs14_key_conservation/key-conservation) if you are on iOS you will need the following information to log into the app...on the Expo Client app on your mobile device... log into the Expo Client with the following credentials ... email - labs14KeyCon@gmail.com pass - tester and you will find the project is under the profile view in "Deployed Projects"
+Current version: 3.1.0
+
+You can find the deployed project at [Expo - Key Conservation](https://expo.io/@labs14_key_conservation/key-conservation). This app is currently in Test Flight for iOS and Android.
 
 # Contributors
+
 ## Team Lead
-|                                                                         [Asa-Michael Shalom](https://github.com/AsaOfDiamonds)                                                          |                                                       [Pearl Paris](https://github.com/coriagogo)                                             |
-| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://avatars1.githubusercontent.com/u/36455310?s=460&v=4" width = "200" />](https://github.com/AsaOfDiamonds)                                                             | <img src="https://i.ibb.co/LtfLjDv/square-prof.jpg" width = "200" />                                                                          |
-|                                                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/AsaOfDiamonds)                                             |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/coriagogo)                             |
-|                                  [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/shalom1/)                               |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/pearl-paris)      |
+
+|                                    [Katie Rose Felten](https://github.com/katie-rose)                                    |
+| :----------------------------------------------------------------------------------------------------------------------: |
+| [<img src="https://avatars3.githubusercontent.com/u/32432575?s=460&v=4" width = "200" />](https://github.com/katie-rose) |  |
+|                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/katie-rose)                  |  |
+| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/kfelten/) |
 
 ## UX/UI
 
-|                                                                         [Luis Morabito](https://github.com/1ouie)                                                                       |                                                       [Gabby Loscalzo](https://github.com)                                                    |        
-| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/1ouie) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com)                                           |
-|                                                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/1ouie)                                                     |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                                      |
-|                                  [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/luismorabito/)                          |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                                                                     
-
-|                                                                         [Daniel Stadler](https://github.com)                                                                       |                                                       [Colton Mortensen](https://github.com)                                                    |        
-| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://media.licdn.com/dms/image/C5603AQGYGMwhkE_YdQ/profile-displayphoto-shrink_800_800/0?e=1576713600&v=beta&t=f-0Is_uSg8PCSaFzhioH5aTXILFX-i1TtJMfzYVYFiU" width = "200" />](https://github.com) | [<img src="https://media.licdn.com/dms/image/C5603AQG8UoaXnN4ZUA/profile-displayphoto-shrink_800_800/0?e=1576713600&v=beta&t=-5fMtYkTkQm8D2YYjvU_zpUvByxKTN8MEsK6Mp2Kd3Q" width = "200" />](https://github.com)                                           |
-|                                                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com)                                                     |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                                      |
-|                                  [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/danstad/)                          |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/colton-mortensen/)                 |     
+|                                                                                       [Nilpa Jhaveri](https://www.linkedin.com/in/njhaveri/)                                                                                       |                                                                                     [Dylan Stephenson](https://www.linkedin.com/in/dylan-stephenson-068b33aa/)                                                                                      |
+| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| [<img src="https://media.licdn.com/dms/image/C5603AQEoQzPPaqXg6Q/profile-displayphoto-shrink_200_200/0?e=1578528000&v=beta&t=TdH4Un-mxzvLXv-CobohEWRGPdCPq5RgDLBzDy6J_GY" width = "200" />](https://www.linkedin.com/in/njhaveri/) | [<img src="https://media.licdn.com/dms/image/C4E03AQHhGFjnDwCI9w/profile-displayphoto-shrink_200_200/0?e=1578528000&v=beta&t=6aRqVD3-Vk93SNKYiQ8HzIoEaS8jqptBHSDOmWSXXSw" width = "200" />](https://www.linkedin.com/in/dylan-stephenson-068b33aa/) |  |
+|                                                     [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/njhaveri/)                                                      |                                                     [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/dylan-stephenson-068b33aa//)                                                     |
 
 ## Developers
 
-|                                                                         [Jay Maas](https://github.com/jay-maas)                                                                         |                                                       [Leonel Flores](https://github.com/lflores12)                                                        |                                                      [Bazen Berhane](https://github.com/ba-zen)                                                       |                                                       [Taslim Yakub](https://github.com/taslimy)                                                        |
-| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://pbs.twimg.com/profile_images/1153735485547634688/od2u_aC4_400x400.jpg" width = "200" />](https://www.notion.so/jaymaasdev/Jay-Maas-0077a20ca7fc4f9b8d09468946b2ce62) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/lflores12) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UFHK0RRD2-a21be64e16d7-512" width = "200" />](https://github.com/ba-zen) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UGBT424KA-6b3076147380-512" width = "200" />](https://github.com/taslimy)|
-|                                                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/jay-maas)                                                  |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/lflores12)                             |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/ba-zen)                           |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/taslimy)                          |
-|                                  [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/jay-maas)                                  |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/taslim-yakub-244070186/)                 |
+|                                                                                     [Cameron Alvarado](https://github.com/CameronAlvarado)                                                                                      |                                                                                      [Julie Gumerman](https://github.com/JulieGumerman)                                                                                       |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| [<img src="https://media.licdn.com/dms/image/C5603AQESBm9WPaVdfg/profile-displayphoto-shrink_200_200/0?e=1578528000&v=beta&t=_xIlcmdK-iQArDpnsWYZNBMu9T5GNNF7sdvt2Mcz4vc" width = "200" />](https://github.com/CameronAlvarado) | [<img src="https://media.licdn.com/dms/image/C4E03AQEDjBGHYHnvaA/profile-displayphoto-shrink_200_200/0?e=1578528000&v=beta&t=Mm_uagxh1DGxPaC_ULxVwhteBYxMawVeUtOtHAztBDU" width = "200" />](https://github.com/JulieGumerman) |
+|                                                                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/CameronAlvarado)                                                                   |                                                                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/JulieGumerman)                                                                   |
+|                                           [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/cameron-alvarado-7200a1193/)                                           |                                                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/julie-gumerman/)                                                |
 
-|                                                                         [Matthew Klein](https://github.com/duckeverlasting)                                                             |                                                       [Pearl Paris](https://github.com/coriagogo)                                             |                                                      [Zach Christy](https://github.com/zchristy)                                                       |                                                       [Sam Jeffcoat](https://github.com/samjeffcoat)                                                        |
-| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/duckeverlasting)                              | <img src="https://i.ibb.co/LtfLjDv/square-prof.jpg" width = "200" />                                                                          | [<img src="https://bit.ly/348Ch78" width = "200" />](https://github.com/zchristy)                                                           | [<img src="https://bit.ly/2L5alJN" width = "200" />](https://github.com/samjeffcoat)|
-|                                                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/duckeverlasting)                                           |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/coriagogo)                             |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/zchristy)                              |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/samjeffcoat)                          |
-|                                  [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/matthew-s-klein/)                       |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/pearl-paris)      |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/zach-christy/)    |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/samjeffcoat/)                 |
+|                                                                                      [Jonathan Solari](https://github.com/jonsolari)                                                                                      |                                                                                        [Yi Lun Weng](https://github.com/wengyilun)                                                                                        |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| [<img src="https://media.licdn.com/dms/image/C5103AQFWoYsT27f3lw/profile-displayphoto-shrink_200_200/0?e=1578528000&v=beta&t=XRIuh69sovKa6ehUKg-NjcjrlkbszgwEuMPoYrVxLgA" width = "200" />](https://github.com/jonsolari) | [<img src="https://media.licdn.com/dms/image/C4D03AQEl0PRW7CHlpA/profile-displayphoto-shrink_200_200/0?e=1578528000&v=beta&t=6j7RQQrEhIizJK1PhZR4tDS_db_ztYwOYZg56iqbeKQ" width = "200" />](https://github.com/wengyilun) |
+|                                                                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/jonsolari)                                                                   |                                                                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wengyilun)                                                                   |
+|                                                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jonsolari/)                                                 |                                                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/wengellen/)                                                 |
 
-|                                                                         [Mary Sabol](https://github.com/ntsum)                                                             |                                                       [Jamie Goodnight](https://github.com/jamiegoodnight)                                             |                                                      [Katie Felten](https://github.com/katie-rose)                                                       |                                                       [Cesar Aponte](https://github.com/cjaponte)                                                        |
-| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://avatars2.githubusercontent.com/u/47530560?s=460&v=4" width = "200" />](https://github.com/ntsum)                              |                      [<img src="https://avatars1.githubusercontent.com/u/46494592?s=460&v=4" width = "200" />](https://github.com/jamiegoodnight)                                                   | [<img src="https://avatars3.githubusercontent.com/u/32432575?s=460&v=4" width = "200" />](https://github.com/katie-rose)                                                           | [<img src="https://avatars2.githubusercontent.com/u/40814020?s=460&v=4" width = "200" />](https://github.com/cjaponte)|
-|                                                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/ntsum)                                           |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/jamiegoodnight)                             |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/katie-rose)                              |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/cjaponte)                          |
-|                                  [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/marycodes/)                       |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/jamiegoodnight)      |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/kfelten/)    |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com)                 |
-
-|                                                                         [Brandon Harrison](https://github.com/BrandonHarrison01)                                                             |                                                       [Samantha Egge](https://github.com/samanthaegge)                                                                                                                                               |                                                                                   
-| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://media.licdn.com/dms/image/C5603AQHabYNGNxnMng/profile-displayphoto-shrink_800_800/0?e=1576713600&v=beta&t=Na1mPA-yllBVTuQs1z_1ooeHb-aCzGWJWA6MbLRDUUA" width = "200" />](https://github.com/BrandonHarrison01)                              | [<img src="https://media.licdn.com/dms/image/C5603AQGjJt2ymORKvQ/profile-displayphoto-shrink_800_800/0?e=1576713600&v=beta&t=Po2lJqXnB8GZbbNCBSotC7Z-ltGY_XakENS-q5SlGGc" width = "200" />](https://github.com/samanthaegge)                                                                                          
-|                                                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/BrandonHarrison01)                                           |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/samanthaegge)                            
-|                                  [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/brandon-harrison-01/)                       |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/samantha-egge)      
+|                                                                                        [Blake Goms](https://github.com/Blake-Goms)                                                                                         |                                                                                        [Iris Jitomo](https://github.com/irisjitomo)                                                                                        |
+| :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| [<img src="https://media.licdn.com/dms/image/C5603AQHa7-CB6XmmoQ/profile-displayphoto-shrink_200_200/0?e=1578528000&v=beta&t=-aLaIgRpPqpx4vd-6MyklOzjQx2vnQO43lfcD9mib7A" width = "200" />](https://github.com/Blake-Goms) | [<img src="https://media.licdn.com/dms/image/C4E03AQHuJmgWZhCUxA/profile-displayphoto-shrink_200_200/0?e=1578528000&v=beta&t=umKakH50LhOFpI_jKRUTWUMxhfrjMU7NiQO2sjWRog0" width = "200" />](https://github.com/irisjitomo) |
+|                                                                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Blake-Goms)                                                                   |                                                                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/irisjitomo)                                                                   |
+|                                                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/blakegoms/)                                                 |                                           [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/iris-jitomo-ab891b191/)                                           |
 
 <br>
 <br>
-
 
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 ![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)
 ![Typescript](https://img.shields.io/npm/types/typescript.svg?style=flat)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b5c4db1c-b10d-42c3-b157-3746edd9e81d/deploy-status)](netlify link goes in these parenthesis)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b5c4db1c-b10d-42c3-b157-3746edd9e81d/deploy-status)]
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-
 
 ## Project Overview
 
-[Trello Board](https://trello.com/b/7DY1HPEA/labs-14-key-conservation)
+[Trello Board](https://trello.com/b/cUouSxH7/key-conservation-labs-18)
 
-[Product Canvas](https://www.notion.so/Key-Conservation-1bac0b83dc724231a95727a1306eeaf2)
+[Product Canvas](https://www.notion.so/Key-Conservation-9de81dcdeca546ba85509f2982d211cc)
 
-[UX Design files](https://www.figma.com/file/HKuxR6nWrYrXuGhOJisQ0qlA/Lambda-Labs-14-Key-Conservation?node-id=718%3A2510)
-
-Project Description
+## Project Description
 
 Key Conservation is helping conservationists gain critical funding and global support through a mobile app that provides real-time updates on day-to-day campaigns.
 
@@ -83,24 +70,36 @@ Additionally, supporters of conservation organizations want more transparency as
 - Conservation profiles to create campaigns
 - Create/Update/Delete campaigns
 - Supporter profiles to donate to campaigns
-- Search campaigns 
+- Search campaigns
 - All users can edit/personalize profile
+- Commenting on campaigns
+- Video uploading
+- Urgency levels for campaign posts
+- Liking and Bookmarking posts
 
 ## Tech Stack
 
 ### Front end built using:
 
 #### Expo (https://www.npmjs.com/package/expo)
-   - Prefered Choice of Stakeholder
-   - Expo is able to produce code base for iOS and Android
-   - Relatable to current React experience for Development Team
-   - Expo is widely supported and used by many companies
+
+- Prefered Choice of Stakeholder
+- Expo is able to produce code base for iOS and Android
+- Relatable to current React experience for Development Team
+- Expo is widely supported and used by many companies
+
 #### React (https://www.npmjs.com/package/react)
+
 #### React-Native (https://www.npmjs.com/package/react-native)
+
 #### Redux (https://www.npmjs.com/package/redux)
+
 #### React-Redux (https://www.npmjs.com/package/react-redux)
+
 #### React-Navigation (https://www.npmjs.com/package/react-navigation)
+
 #### React-Native-SVG-URI (https://www.npmjs.com/package/react-native-svg-uri)
+
 #### React-Native-Search-Filter (https://www.npmjs.com/package/react-native-search-filter)
 
 #### Front end Published to `Expo`
@@ -123,30 +122,26 @@ Auth0 provides authentication and authorization as a service and includes a whol
 
 Amplitude provides analytics for our app in a way that is easiest to work with Expo without having to eject.
 
-We have setup a HOC to wrap desired components to have analytics. The component is called withAmplitude.js. There are functions in there as well that can be imported for easier and quicker use. 
+We have setup a HOC to wrap desired components to have analytics. The component is called withAmplitude.js. There are functions in there as well that can be imported for easier and quicker use.
 
 ## Staging API here
+
 (https://key-conservation-staging.herokuapp.com)
 
-
 ## Production API here
+
 (https://key-conservation.herokuapp.com)
 
 # Environment Variables
 
 In order for the app to function correctly, the user must set up their own environment variables. There should be a .env file containing the following:
 
-🚫These are just examples, replace them with the specifics for your app
+# Content Licenses
 
-    
-# 5️⃣ Content Licenses
+| Source / Creator | License     |
+| ---------------- | ----------- |
+| Font Awesome     | Pro License | https://fontawesome.com |
 
-🚫For all content - images, icons, etc, use this table to document permission of use. Remove the two placeholders and add you content to this table
-
-| Source / Creator | License          |
-| --------------   | ---------------- | ---------------------------------------------------------------------------- |
-| Font Awesome     |   Pro License    |  https://fontawesome.com
-  
 # Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
@@ -186,4 +181,4 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 ## Documentation
 
-See [Backend Documentation](https://github.com/labs14-key-conservation/backend) for details on the backend of our project.
+See [PVD - Technical Research](https://www.notion.so/Technical-Research-bcfbf8b7612842a0ab87bec772565c3e) for details on overall archiecture.
