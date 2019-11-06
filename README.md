@@ -2,8 +2,6 @@
 
 Current version: 3.1.0
 
-blpwfopefepgeptge
-
 You can find the deployed project at [Expo - Key Conservation](https://expo.io/@labs14_key_conservation/key-conservation). This app is currently in Test Flight for iOS and Android.
 
 # Contributors
