@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 23748,
-  "expoServerNgrokUrl": "https://vj-hcf.katiefelten.key-conservation-mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.vj-hcf.katiefelten.key-conservation-mobile.exp.direct",
-  "ngrokPid": 23760,
+  "packagerPort": 19003,
+  "packagerPid": 4136,
+  "expoServerNgrokUrl": "https://vj-hcf.jonsolari.key-conservation-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.vj-hcf.jonsolari.key-conservation-mobile.exp.direct",
+  "ngrokPid": 4152,
   "webpackServerPort": null
 }
