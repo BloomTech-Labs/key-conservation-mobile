@@ -1,10 +1,9 @@
 {
-  "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": 19003,
-  "packagerPid": 4136,
-  "expoServerNgrokUrl": "https://vj-hcf.jonsolari.key-conservation-mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.vj-hcf.jonsolari.key-conservation-mobile.exp.direct",
-  "ngrokPid": 4152,
-  "webpackServerPort": null
+  "expoServerNgrokUrl": "https://3y-32n.jonsolari.key-conservation-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.3y-32n.jonsolari.key-conservation-mobile.exp.direct",
+  "ngrokPid": 12293,
+  "devToolsPort": 19002,
+  "packagerPort": 19004,
+  "packagerPid": 12277
 }
