@@ -60,8 +60,31 @@ export default {
     backgroundColor: 'white',
     marginBottom: 20
   },
+  buttonContainer: {
+    width: '30%',
+    height: 30,
+    marginBottom: 18,
+    borderRadius: 4,
+    fontFamily: 'OpenSans-Regular',
+    backgroundColor: '#00FF9D',
+    // shadowColor: 'rgba(0, 0, 0, 0.25)',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 4
+    // },
+    // shadowRadius: 4,
+    // shadowOpacity: 1,
+    justifyContent: 'center'
+  },
   buttonText: {
-    color: '#18A0FB',
-    fontSize: 20
-  }
+    fontWeight: 'bold',
+    color: 'black',
+    fontWeight: 'bold',
+    letterSpacing: 1,
+    textAlign: 'center',
+    color: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 13
+  },
 };
