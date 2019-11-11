@@ -22,6 +22,7 @@ import EditSupProScreen from '../screens/EditSupProScreen';
 import ViewCampUpdateScreen from '../screens/ViewCampUpdateScreen';
 import CreateCampUpdateScreen from '../screens/CreateCampUpdateScreen';
 import EditCampUpdateScreen from '../screens/EditCampUpdateScreen';
+import LogoutScreen from '../screens/LogoutScreen';
 
 const FeedStack = createStackNavigator(
   {
@@ -31,6 +32,9 @@ const FeedStack = createStackNavigator(
       navigationOptions: {
         header: null
       }
+    },
+    Logout: {
+      screen: LogoutScreen
     },
     Pro: {
       screen: ProScreen,

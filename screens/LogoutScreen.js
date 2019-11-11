@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet, Button, ImageBackground } from "react-native";
+import { Text, StyleSheet, ImageBackground } from "react-native";
 
 import styles from "../constants/screens/LoadingScreen";
 
@@ -13,7 +13,7 @@ const LogoutScreen = (props) => {
         <TouchableOpacity 
             style={stylie.buttonContainer}
             onPress={() => {
-            props.navigation.navigate({routeName: "Login"})
+            props.navigation.navigate({routeName: "Loading"})
         }}>
             <Text style={stylie.buttonText}>Log back in!</Text>
         </TouchableOpacity>
