@@ -22,6 +22,7 @@ import EditSupProScreen from '../screens/EditSupProScreen';
 import ViewCampUpdateScreen from '../screens/ViewCampUpdateScreen';
 import CreateCampUpdateScreen from '../screens/CreateCampUpdateScreen';
 import EditCampUpdateScreen from '../screens/EditCampUpdateScreen';
+import AccountSettingsScreen from '../screens/AccountSettingsScreen';
 
 const FeedStack = createStackNavigator(
   {

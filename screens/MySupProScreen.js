@@ -4,6 +4,7 @@ import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
 import { getProfileData } from '../store/actions';
 import EditButton from '../components/EditButton';
+import SettingsButton from '../components/SettingsButton';
 import SupProfileHeader from '../components/Profile/SupProfileHeader';
 import SupProfileBody from '../components/Profile/SupProfileBody';
 
@@ -11,7 +12,9 @@ class MySupProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'My Profile',
-      headerLeft: <View />,
+      headerLeft: (
+        <SettingsButton />
+      ),
       headerStyle: {
         backgroundColor: '#323338'
       },
