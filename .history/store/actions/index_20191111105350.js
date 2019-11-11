@@ -6,8 +6,8 @@ import * as SecureStore from 'expo-secure-store'
 const seturl = 'https://key-conservation.herokuapp.com/api/'
 
 const filterUrls = (keys, object) => {
-  // If a user doesn't include http or https in their URL this function will add it.
-  // If they already include it it will be ignored. and if it is capital "Https || Http" it will become lowercase.
+  // If a user doesn't include http or https in there URL this function will add it.
+  // If they already include it it will be ignored. and if its capital "Https || Http" it will become lowercase.
   keys.forEach(key => {
     if (
       object[key] &&
@@ -630,6 +630,7 @@ export const [
 ] = ['DELETE_COMMENT_START', 'DELETE_COMMENT_ERROR', 'DELETE_COMMENT_SUCCESS']
 
 export const deleteComment = id => async dispatch => {
+  console.log('Did we start deleting it???')
   dispatch({ type: DELETE_COMMENT_START })
   let token = await SecureStore.getItemAsync('accessToken')
   axios
@@ -641,15 +642,18 @@ export const deleteComment = id => async dispatch => {
       }
     })
     .then(res => {
+      console.log('Did we get to Delete Comment Succes?')
       console.log('My data is UP IN HUR---->', res.data.data)
       dispatch({ type: DELETE_COMMENT_SUCCESS, payload: res.data.data })
     })
     .catch(err => {
+      console.lor("Here's my error =====>", err)
       dispatch({ type: DELETE_COMMENT_ERROR, payload: err })
     })
 }
 
 export const addLike = (id, userId) => async dispatch => {
+  console.log('id', id, 'user id', userId)
   let token = await SecureStore.getItemAsync('accessToken')
   axios
     .post(
