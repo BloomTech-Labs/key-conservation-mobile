@@ -7,7 +7,7 @@ const SettingsButton = props => {
   return (
     <TouchableOpacity
     onPress={() => {
-        navigation.navigate(props.editRoute);
+        navigation.navigate(props.settingsRoute);
       }}
       style={{ padding: 18,
                paddingTop: 20}}

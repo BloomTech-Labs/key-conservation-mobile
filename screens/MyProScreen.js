@@ -37,7 +37,7 @@ class MyProScreen extends React.Component {
         alignSelf: 'center',
         fontFamily: 'OpenSans-SemiBold'
       },
-      headerLeft: <SettingsButton />,
+      headerLeft: <SettingsButton navigation={navigation} settingsRoute={'AccountSettings'} />,
       headerRight: <EditButton navigation={navigation} editRoute={'EditPro'} />
     };
   };

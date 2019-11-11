@@ -124,7 +124,8 @@ const MyProStack = createStackNavigator(
     EditCamp: EditCampScreen,
     CampUpdate: ViewCampUpdateScreen,
     CreateCampUpdate: CreateCampUpdateScreen,
-    EditCampUpdate: EditCampUpdateScreen
+    EditCampUpdate: EditCampUpdateScreen,
+    AccountSettings: AccountSettingsScreen
   },
   {
     transitionConfig: () => ({
