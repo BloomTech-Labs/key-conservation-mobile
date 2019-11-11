@@ -287,10 +287,9 @@ class EditSupProScreen extends React.Component {
             </View>
 
             <View style={styles.logoutSection}>
-              <Text style={styles.accountSettingsText}>Account Settings</Text>
               <TouchableOpacity
                 onPress={this.logoutPress}
-                style={styles.logoutButton}
+                style={styles.buttonContainer}
               >
                 <Text style={styles.buttonText}>Logout</Text>
               </TouchableOpacity>
