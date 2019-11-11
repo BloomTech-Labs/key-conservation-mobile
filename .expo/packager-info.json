@@ -1,10 +1,10 @@
 {
-  "devToolsPort": 19002,
+  "devToolsPort": 19003,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 14687,
-  "expoServerNgrokUrl": "https://vj-hcf.pkcparis.frontend-mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.vj-hcf.pkcparis.frontend-mobile.exp.direct",
-  "ngrokPid": 14696,
+  "packagerPid": 2446,
+  "expoServerNgrokUrl": "https://vj-hcf.camerona.key-conservation-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.vj-hcf.camerona.key-conservation-mobile.exp.direct",
+  "ngrokPid": 2458,
   "webpackServerPort": null
 }
