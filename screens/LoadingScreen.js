@@ -60,7 +60,7 @@ class LoadingScreen extends React.Component {
           style={styles.logo}
           source={require('../assets/images/keyFullWhite.png')}
         />
-        <Text style={styles.text}>Empowering Hope</Text>
+        {/* <Text style={styles.text}>Empowering Hope</Text> */}
         <View style={styles.indicator}>
           <ActivityIndicator size='large' color='white' />
         </View>
