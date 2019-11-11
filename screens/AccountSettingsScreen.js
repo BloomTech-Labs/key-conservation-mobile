@@ -34,6 +34,14 @@ class AccountSettingsScreen extends React.Component{
         };
       };
 
+      componentDidMount() {
+        this.props.navigation.setParams({ done: this.done });
+      }
+
+      done = () => {
+          this.props.navigation.goBack();
+      };
+
       render(){
           return(
             <ScrollView>
