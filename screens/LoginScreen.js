@@ -52,9 +52,9 @@ export default LoginScreen = props => {
     console.log('CURRENTUSER', currentUser)
 
     //you will need to uncomment out this consolelog to find your callback url to add into auth0 allowed callback urls to be able to hit the auth0 endpoint.
-    // console.log(
-    //   `***************Redirect URL---place inside of Auth0 dashboard for callback url: ${redirectUrl}`
-    // );
+    console.log(
+      `***************Redirect URL---place inside of Auth0 dashboard for callback url: ${redirectUrl}`
+    );
 
     //this variable structures a query param for the /authorize API call to the auth0 API
     const queryParams = () => {
