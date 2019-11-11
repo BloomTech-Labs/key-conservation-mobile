@@ -33,9 +33,6 @@ const FeedStack = createStackNavigator(
         header: null
       }
     },
-    Logout: {
-      screen: LogoutScreen
-    },
     Pro: {
       screen: ProScreen,
       navigationOptions: {
@@ -115,6 +112,7 @@ const CreateCampStack = createStackNavigator(
     }
   }
 );
+
 const MyProStack = createStackNavigator(
   {
     MyPro: { screen: MyProScreen },
@@ -206,6 +204,12 @@ export const LoginStack = createStackNavigator(
     headerMode: 'none'
   }
 );
+
+export const LogoutStack = createStackNavigator({
+  Logout: {
+    screen: LogoutScreen
+  },
+})
 
 export const ConsNavigator = createBottomTabNavigator(
   {

@@ -5,7 +5,8 @@ import {
   ConsNavigator,
   SupNavigator,
   LoginStack,
-  UsernameStack
+  UsernameStack,
+  LogoutStack
 } from './MainNavigation';
 import LoadingScreen from '../screens/LoadingScreen';
 
@@ -17,6 +18,7 @@ export default createAppContainer(
     Login: LoginStack,
     CreateAccount: UsernameStack,
     Conservationist: ConsNavigator,
-    Supporter: SupNavigator
+    Supporter: SupNavigator,
+    Logout: LogoutStack
   })
 );
