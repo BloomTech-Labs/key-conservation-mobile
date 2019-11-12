@@ -412,14 +412,7 @@ class EditProScreen extends React.Component {
               />
             </View>
 
-            <View style={styles.logoutSection}>
-              <TouchableOpacity
-                onPress={this.logoutPress}
-                style={styles.buttonContainer}
-              >
-                <Text style={styles.buttonText}>Logout</Text>
-              </TouchableOpacity>
-            </View>
+            
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
