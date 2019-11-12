@@ -6,7 +6,7 @@ import styles from "../constants/screens/LoadingScreen";
 const LogoutScreen = (props) => {
     return (
         <ImageBackground
-            source={require("'../assets/images/FurBackground.png'")}
+            source={require("../assets/images/FurBackground.png")}
             style={styles.container}
         >
        <Text style={styles.text}>Logout successful!</Text>
