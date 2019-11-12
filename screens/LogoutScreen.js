@@ -1,12 +1,12 @@
 import React from "react";
-import { Text, StyleSheet, ImageBackground } from "react-native";
+import { Text, StyleSheet, TouchableOpacity, ImageBackground } from "react-native";
 
 import styles from "../constants/screens/LoadingScreen";
 
 const LogoutScreen = (props) => {
     return (
         <ImageBackground
-            source={require("'../assets/images/FurBackground.png'")}
+            source={require("../assets/images/FurBackground.png")}
             style={styles.container}
         >
        <Text style={styles.text}>Logout successful!</Text>
