@@ -40,3 +40,4 @@ const CantScreen = (props) => {
 };
 
 export default CantScreen
+
