@@ -32,7 +32,7 @@ class EditSupProScreen extends React.Component {
     await SecureStorage.deleteItemAsync('userId', {});
     await SecureStorage.deleteItemAsync('accessToken', {});
     this.props.logout();
-    this.props.navigation.navigate('Loading');
+    this.props.navigation.navigate('Logout');
   };
 
   static navigationOptions = ({ navigation }) => {
