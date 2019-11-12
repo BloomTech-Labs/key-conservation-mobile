@@ -31,7 +31,9 @@ const CanScreen = (props) => {
 				</View>
 			</View>
 			<View>
-				<TouchableOpacity>
+				<TouchableOpacity onPress={() => {
+					props.navigation.navigate("Cant")
+				}}>
 					<Text>Next</Text>
 				</TouchableOpacity>
 			</View>

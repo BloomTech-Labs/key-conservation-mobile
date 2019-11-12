@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, View, StyleSheet, Text, TextInput} from "react-native";
 
-const TellAboutOrganizationScreen = () => {
+const TellAboutOrganizationScreen = (props) => {
     return (
         <View>
             <Text>Tell us about your organization.</Text>
@@ -17,6 +17,7 @@ const TellAboutOrganizationScreen = () => {
             <Button 
                 title="Next"
                 onPress={() => {
+                    props.navigation.navigate("VerifyDocumentation")
                 }}
             />
         </View>

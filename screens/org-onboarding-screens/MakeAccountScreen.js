@@ -49,7 +49,11 @@ const MakeAccountScreen = (props) => {
 					</View>
 
                     <View>
-                        <TouchableOpacity>
+                        <TouchableOpacity
+							onPress={() => {
+								props.navigation.navigate("TellAboutOrganization")
+							}}
+						>
                             <Text>Let's do this!</Text>
                         </TouchableOpacity>
                     </View>

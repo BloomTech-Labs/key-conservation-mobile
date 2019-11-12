@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Text, View} from "react-native";
 
-const VerifyOrganizationScreen = () => {
+const VerifyOrganizationScreen = (props) => {
     return (
         <View>
             <Text>Verify your organization</Text>
@@ -9,7 +9,11 @@ const VerifyOrganizationScreen = () => {
             <Text>An external link</Text>
             <Text>Bank account</Text>
             <Text>Checking account</Text>
-            <Button title="next"/>
+            <Button title="next"
+                onPress={() => {
+                    props.navigation.navigate()
+                }}
+            />
         </View>
     );
 }

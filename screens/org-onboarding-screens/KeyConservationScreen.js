@@ -1,7 +1,7 @@
 import React from "react";
 import {Text, Button, View} from "react-native";
 
-const KeyConservationScreen = () => {
+const KeyConservationScreen = (props) => {
     return (
         <View>
             <Text>
@@ -9,7 +9,9 @@ const KeyConservationScreen = () => {
             </Text>
             <Button 
                 title="Next"
-                onPress={() => {}}
+                onPress={() => {
+                    props.navigation.navigate("Can")
+                }}
             />
         </View>
     );

@@ -31,7 +31,11 @@ const CantScreen = (props) => {
 				</View>
 			</View>
 			<View>
-				<TouchableOpacity>
+				<TouchableOpacity
+					onPress={() => {
+						props.navigation.navigate("MakeAccount")
+					}}
+				>
 					<Text>Next</Text>
 				</TouchableOpacity>
 			</View>
