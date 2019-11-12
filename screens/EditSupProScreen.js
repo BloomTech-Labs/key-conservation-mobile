@@ -214,7 +214,7 @@ class EditSupProScreen extends React.Component {
                 }}
                 returnKeyType='next'
                 placeholder='https://www.facebook.com/orgname'
-                keyboardType='url'
+                keyboardType='default'
                 style={styles.inputContain}
                 autoCapitalize='none'
                 onChangeText={text => this.setState({ facebook: text })}
@@ -234,7 +234,7 @@ class EditSupProScreen extends React.Component {
                   this.instagramInput = input;
                 }}
                 returnKeyType='next'
-                keyboardType='url'
+                keyboardType='default'
                 style={styles.inputContain}
                 autoCapitalize='none'
                 placeholder='https://www.instagram.com/orgname'
@@ -255,7 +255,7 @@ class EditSupProScreen extends React.Component {
                   this.twitterInput = input;
                 }}
                 returnKeyType='next'
-                keyboardType='url'
+                keyboardType='default'
                 style={styles.inputContain}
                 autoCapitalize='none'
                 placeholder='https://www.twitter.com/orgname'

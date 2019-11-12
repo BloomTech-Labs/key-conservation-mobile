@@ -147,7 +147,7 @@ class CreateCampScreen extends React.Component {
                   }}
                   returnKeyType='next'
                   placeholder='https://www.carribbeanseaturtle.com/donate'
-                  keyboardType='url'
+                  keyboardType='default'
                   placeholder='Please include full URL'
                   autoCapitalize='none'
                   style={styles.inputContain}

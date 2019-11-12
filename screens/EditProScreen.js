@@ -218,7 +218,7 @@ class EditProScreen extends React.Component {
                   this.org_link_urlInput = input;
                 }}
                 returnKeyType='next'
-                keyboardType='url'
+                keyboardType='default'
                 style={styles.inputContain}
                 autoCapitalize='none'
                 placeholder='Please include full URL'
@@ -259,7 +259,7 @@ class EditProScreen extends React.Component {
                   this.org_ctaInput = input;
                 }}
                 returnKeyType='next'
-                keyboardType='url'
+                keyboardType='default'
                 style={styles.inputContain}
                 autoCapitalize='none'
                 placeholder='Please include full URL'
@@ -281,7 +281,7 @@ class EditProScreen extends React.Component {
                   this.phoneInput = input;
                 }}
                 returnKeyType='next'
-                keyboardType='numeric'
+                keyboardType='default'
                 style={styles.inputContain}
                 autoCapitalize='none'
                 placeholder='Please include full URL'
@@ -303,7 +303,7 @@ class EditProScreen extends React.Component {
                   this.facebookInput = input;
                 }}
                 returnKeyType='next'
-                keyboardType='url'
+                keyboardType='default'
                 style={styles.inputContain}
                 autoCapitalize='none'
                 placeholder='Please include full URL'
@@ -325,7 +325,7 @@ class EditProScreen extends React.Component {
                   this.instagramInput = input;
                 }}
                 returnKeyType='next'
-                keyboardType='url'
+                keyboardType='default'
                 style={styles.inputContain}
                 autoCapitalize='none'
                 placeholder='Please include full URL'
@@ -347,7 +347,7 @@ class EditProScreen extends React.Component {
                   this.twitterInput = input;
                 }}
                 returnKeyType='next'
-                keyboardType='url'
+                keyboardType='default'
                 style={styles.inputContain}
                 autoCapitalize='none'
                 placeholder='Please include full URL'
