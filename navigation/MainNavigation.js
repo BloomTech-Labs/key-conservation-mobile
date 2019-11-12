@@ -22,6 +22,7 @@ import EditSupProScreen from '../screens/EditSupProScreen';
 import ViewCampUpdateScreen from '../screens/ViewCampUpdateScreen';
 import CreateCampUpdateScreen from '../screens/CreateCampUpdateScreen';
 import EditCampUpdateScreen from '../screens/EditCampUpdateScreen';
+import AccountSettingsScreen from '../screens/AccountSettingsScreen';
 import LogoutScreen from '../screens/LogoutScreen';
 
 const FeedStack = createStackNavigator(
@@ -125,7 +126,8 @@ const MyProStack = createStackNavigator(
     EditCamp: EditCampScreen,
     CampUpdate: ViewCampUpdateScreen,
     CreateCampUpdate: CreateCampUpdateScreen,
-    EditCampUpdate: EditCampUpdateScreen
+    EditCampUpdate: EditCampUpdateScreen,
+    AccountSettings: AccountSettingsScreen
   },
   {
     transitionConfig: () => ({

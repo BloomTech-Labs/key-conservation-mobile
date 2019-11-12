@@ -7,6 +7,7 @@ import DetailHeader from '../components/DetailScreen/DetailHeader';
 import DetailAboutUs from '../components/DetailScreen/DetailAboutUs';
 
 import EditButton from '../components/EditButton';
+import SettingsButton from '../components/SettingsButton';
 
 import styles from '../constants/screens/MyDetailScreen';
 
@@ -24,7 +25,7 @@ class MyDetailsScreen extends React.Component {
         alignSelf: 'center',
         fontFamily: 'OpenSans-SemiBold'
       },
-      headerLeft: <View />,
+      headerLeft: <SettingsButton navigation={navigation} settingsRoute={'AccountSettings'} />,
       headerRight: <EditButton navigation={navigation} editRoute={'EditPro'} />
     };
   };
