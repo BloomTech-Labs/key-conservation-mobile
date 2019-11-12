@@ -24,7 +24,7 @@ const CantScreen = (props) => {
 				</View>
 				<View>
 					<Text>
-						Commodo enim cupidatat consequat cupidatat ea Lorem cupidatat consequat aliquip aliqua ullamco
+						Commodo enim  cupidatat consequat cupidatat ea Lorem cupidatat consequat aliquip aliqua ullamco
 						id. Consequat sit elit ea labore fugiat culpa eiusmod proident duis. Elit mollit veniam
 						cupidatat minim est incididunt ullamco et laboris minim velit in.
 					</Text>
