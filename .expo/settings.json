@@ -1,8 +1,3 @@
-{
-  "hostType": "tunnel",
-  "lanType": "ip",
-  "dev": true,
-  "minify": false,
-  "urlRandomness": "3y-32n",
-  "https": false
-}
+
+{}
+

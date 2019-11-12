@@ -52,9 +52,9 @@ export default LoginScreen = props => {
     // console.log('CURRENTUSER', currentUser)
 
     //you will need to uncomment out this consolelog to find your callback url to add into auth0 allowed callback urls to be able to hit the auth0 endpoint.
-    console.log(
-      `***************Redirect URL---place inside of Auth0 dashboard for callback url: ${redirectUrl}`
-    );
+    // console.log(
+    //   `***************Redirect URL---place inside of Auth0 dashboard for callback url: ${redirectUrl}`
+    // );
 
     //this variable structures a query param for the /authorize API call to the auth0 API
     const queryParams = () => {
@@ -111,7 +111,9 @@ export default LoginScreen = props => {
 
       //set the access token to be assigned to state for later use
       const access_token = response.params.access_token;
-      console.log("************* access token", access_token);
+
+      // console.log('************* access token', access_token);
+
       // Retrieve the JWT token and decode it using the jwtToken imported above
       const jwtToken = response.params.id_token;
       //decodes the token so we can access the available attributes of the users Auth0 profile
