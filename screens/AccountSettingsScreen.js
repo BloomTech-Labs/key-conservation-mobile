@@ -2,7 +2,8 @@ import React from "react";
 import {
   Text,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  Linking
 } from "react-native";
 import { ScrollView, NavigationEvents } from "react-navigation";
 import { connect } from "react-redux";
@@ -54,6 +55,16 @@ class AccountSettingsScreen extends React.Component{
         await SecureStorage.deleteItemAsync("accessToken", {});
         this.props.logout();
         this.props.navigation.navigate("Loading");
+
+        const logoutURL = 'https://key-conservation.auth0.com/v2/logout?federated&client_id=elyo5qK7vYReEsKAPEADW2T8LAMpIJaf';
+
+        Linking.canOpenURL(logoutURL).then(supported => {
+          if (supported) {
+            Linking.openURL(logoutURL);
+          } else {
+            console.log("Don't know how to open URI: " + logoutURL);
+          }
+        });
       };
 
       render(){
