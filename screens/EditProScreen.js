@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Platform,
   Text,
@@ -6,48 +6,48 @@ import {
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView
-} from 'react-native';
-import { ScrollView, NavigationEvents } from 'react-navigation';
-import { connect } from 'react-redux';
-import BackButton from '../components/BackButton';
-import * as SecureStorage from 'expo-secure-store';
-import DoneButton from '../components/DoneButton';
-import UploadMedia from '../components/UploadMedia';
+} from "react-native";
+import { ScrollView, NavigationEvents } from "react-navigation";
+import { connect } from "react-redux";
+import BackButton from "../components/BackButton";
+import * as SecureStorage from "expo-secure-store";
+import DoneButton from "../components/DoneButton";
+import UploadMedia from "../components/UploadMedia";
 
-import { editProfileData, logout, clearMedia } from '../store/actions';
-import { AmpEvent } from '../components/withAmplitude';
+import { editProfileData, logout, clearMedia } from "../store/actions";
+import { AmpEvent } from "../components/withAmplitude";
 
-import styles from '../constants/screens/EditProScreen';
+import styles from "../constants/screens/EditProScreen";
 
 class EditProScreen extends React.Component {
   logoutPress = async () => {
-    await SecureStorage.deleteItemAsync('sub', {});
-    await SecureStorage.deleteItemAsync('email', {});
-    await SecureStorage.deleteItemAsync('roles', {});
-    await SecureStorage.deleteItemAsync('id', {});
-    await SecureStorage.deleteItemAsync('userId', {});
-    await SecureStorage.deleteItemAsync('accessToken', {});
+    await SecureStorage.deleteItemAsync("sub", {});
+    await SecureStorage.deleteItemAsync("email", {});
+    await SecureStorage.deleteItemAsync("roles", {});
+    await SecureStorage.deleteItemAsync("id", {});
+    await SecureStorage.deleteItemAsync("userId", {});
+    await SecureStorage.deleteItemAsync("accessToken", {});
     this.props.logout();
-    this.props.navigation.navigate('Loading');
+    this.props.navigation.navigate("Loading");
   };
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Edit Profile',
+      title: "Edit Profile",
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: "#323338"
       },
-      headerTintColor: '#fff',
+      headerTintColor: "#fff",
       headerTitleStyle: {
-        textAlign: 'center',
+        textAlign: "center",
         flexGrow: 1,
-        alignSelf: 'center'
+        alignSelf: "center"
       },
       headerLeft: <BackButton navigation={navigation} />,
       headerRight: (
         <DoneButton
           navigation={navigation}
-          pressAction={navigation.getParam('done')}
+          pressAction={navigation.getParam("done")}
         />
       )
     };
@@ -76,7 +76,7 @@ class EditProScreen extends React.Component {
   componentDidMount() {
     this.props.navigation.setParams({ done: this.done });
     if (this.isProfileComplete(this.state) === true) {
-      return AmpEvent('Profile Completed');
+      return AmpEvent("Profile Completed");
     }
   }
 
@@ -97,7 +97,7 @@ class EditProScreen extends React.Component {
     }
     this.props.editProfileData(this.props.currentUserProfile.id, changes);
     if (this.props.firstLogin) {
-      this.props.navigation.navigate('Home');
+      this.props.navigation.navigate("Home");
     } else {
       this.props.navigation.goBack();
     }
@@ -124,10 +124,10 @@ class EditProScreen extends React.Component {
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ org_name: text })}
                 onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
+                  if (Platform.OS === "android") return;
                   this.usernameInput.focus();
                 }}
-                blurOnSubmit={Platform.OS === 'android'}
+                blurOnSubmit={Platform.OS === "android"}
                 value={this.state.org_name}
                 placeholder='Carribbean Sea Turtle Project'
               />
@@ -143,10 +143,10 @@ class EditProScreen extends React.Component {
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ username: text })}
                 onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
+                  if (Platform.OS === "android") return;
                   this.profileImageInput.focus();
                 }}
-                blurOnSubmit={Platform.OS === 'android'}
+                blurOnSubmit={Platform.OS === "android"}
                 value={this.state.username}
                 placeholder='@CarribbeanSTP'
               />
@@ -166,10 +166,10 @@ class EditProScreen extends React.Component {
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ location: text })}
                 onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
+                  if (Platform.OS === "android") return;
                   this.mini_bioInput.focus();
                 }}
-                blurOnSubmit={Platform.OS === 'android'}
+                blurOnSubmit={Platform.OS === "android"}
                 value={this.state.location}
                 placeholder='St. George’s, Grenada'
               />
@@ -202,10 +202,10 @@ class EditProScreen extends React.Component {
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ email: text })}
                 onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
+                  if (Platform.OS === "android") return;
                   this.orgLinkUrlInput.focus();
                 }}
-                blurOnSubmit={Platform.OS === 'android'}
+                blurOnSubmit={Platform.OS === "android"}
                 value={this.state.email}
                 placeholder='hello@carribbeanseaturtle.org'
               />
@@ -224,10 +224,10 @@ class EditProScreen extends React.Component {
                 placeholder='Please include full URL'
                 onChangeText={text => this.setState({ org_link_url: text })}
                 onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
+                  if (Platform.OS === "android") return;
                   this.orgLinkTextInput.focus();
                 }}
-                blurOnSubmit={Platform.OS === 'android'}
+                blurOnSubmit={Platform.OS === "android"}
                 value={this.state.org_link_url}
                 placeholder='https://www.carribbbeanseaturtle.org'
               />
@@ -244,10 +244,10 @@ class EditProScreen extends React.Component {
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ org_link_text: text })}
                 onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
+                  if (Platform.OS === "android") return;
                   this.orgCtaInput.focus();
                 }}
-                blurOnSubmit={Platform.OS === 'android'}
+                blurOnSubmit={Platform.OS === "android"}
                 value={this.state.org_link_text}
               />
             </View>
@@ -265,10 +265,10 @@ class EditProScreen extends React.Component {
                 placeholder='Please include full URL'
                 onChangeText={text => this.setState({ org_cta: text })}
                 onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
+                  if (Platform.OS === "android") return;
                   this.facebookInput.focus();
                 }}
-                blurOnSubmit={Platform.OS === 'android'}
+                blurOnSubmit={Platform.OS === "android"}
                 value={this.state.org_cta}
                 placeholder='https://www.carribbbeanseaturtle.org/donate'
               />
@@ -281,16 +281,16 @@ class EditProScreen extends React.Component {
                   this.phoneInput = input;
                 }}
                 returnKeyType='next'
-                keyboardType='number'
+                keyboardType='numeric'
                 style={styles.inputContain}
                 autoCapitalize='none'
                 placeholder='Please include full URL'
                 onChangeText={text => this.setState({ phone_number: text })}
                 onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
+                  if (Platform.OS === "android") return;
                   this.facebookInput.focus();
                 }}
-                blurOnSubmit={Platform.OS === 'android'}
+                blurOnSubmit={Platform.OS === "android"}
                 value={this.state.phone_number}
                 placeholder='9998884747'
               />
@@ -309,10 +309,10 @@ class EditProScreen extends React.Component {
                 placeholder='Please include full URL'
                 onChangeText={text => this.setState({ facebook: text })}
                 onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
+                  if (Platform.OS === "android") return;
                   this.instagramInput.focus();
                 }}
-                blurOnSubmit={Platform.OS === 'android'}
+                blurOnSubmit={Platform.OS === "android"}
                 value={this.state.facebook}
                 placeholder='www.facebook.com/CSTP'
               />
@@ -331,10 +331,10 @@ class EditProScreen extends React.Component {
                 placeholder='Please include full URL'
                 onChangeText={text => this.setState({ instagram: text })}
                 onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
+                  if (Platform.OS === "android") return;
                   this.twitterInput.focus();
                 }}
-                blurOnSubmit={Platform.OS === 'android'}
+                blurOnSubmit={Platform.OS === "android"}
                 value={this.state.instagram}
                 placeholder='www.instagram.com/CSTP'
               />
@@ -353,10 +353,10 @@ class EditProScreen extends React.Component {
                 placeholder='Please include full URL'
                 onChangeText={text => this.setState({ twitter: text })}
                 onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
+                  if (Platform.OS === "android") return;
                   this.aboutUsInput.focus();
                 }}
-                blurOnSubmit={Platform.OS === 'android'}
+                blurOnSubmit={Platform.OS === "android"}
                 value={this.state.twitter}
                 placeholder='www.twitter.com/CSTP'
               />
@@ -412,14 +412,7 @@ class EditProScreen extends React.Component {
               />
             </View>
 
-            <View style={styles.logoutSection}>
-              <TouchableOpacity
-                onPress={this.logoutPress}
-                style={styles.buttonContainer}
-              >
-                <Text style={styles.buttonText}>Logout</Text>
-              </TouchableOpacity>
-            </View>
+            
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

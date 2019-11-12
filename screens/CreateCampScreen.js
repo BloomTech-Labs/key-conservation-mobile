@@ -292,6 +292,10 @@ class CreateCampScreen extends React.Component {
         console.log('SUCCESS', res.data.newCamps);
         AmpEvent('Campaign Created');
         // await this.props.postCampaign(res.data.newCamps);
+        await this.setState({
+          ...this.state,
+          loading: false
+        });
         this.props.navigation.navigate('Home');
       })
       .catch(err => {

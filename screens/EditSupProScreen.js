@@ -24,7 +24,6 @@ import styles from '../constants/screens/EditSupProScreen';
 
 class EditSupProScreen extends React.Component {
   logoutPress = async () => {
-    //console.log('pressed button');
     await SecureStorage.deleteItemAsync('id', {});
     await SecureStorage.deleteItemAsync('sub', {});
     await SecureStorage.deleteItemAsync('email', {});
