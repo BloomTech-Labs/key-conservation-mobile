@@ -59,11 +59,11 @@ class AccountSettingsScreen extends React.Component{
       render(){
           return(
             <ScrollView>
-              <View style={styles.logoutSection}>
-                <TouchableOpacity
-                style={styles.logoutButton}
+          <View style={styles.logoutSection}>
+              <TouchableOpacity
                 onPress={this.logoutPress}
-                >
+                style={styles.buttonContainer}
+              >
                 <Text style={styles.buttonText}>Logout</Text>
               </TouchableOpacity>
             </View>

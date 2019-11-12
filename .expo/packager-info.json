@@ -1,3 +1,9 @@
-
-{}
-
+{
+  "devToolsPort": 19002,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 1721,
+  "expoServerNgrokUrl": "https://5h-r8w.jonsolari.key-conservation-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.5h-r8w.jonsolari.key-conservation-mobile.exp.direct",
+  "ngrokPid": 1736
+}
