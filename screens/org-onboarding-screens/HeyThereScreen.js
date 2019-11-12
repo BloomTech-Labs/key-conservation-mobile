@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Button } from "react-native";
 
-const HeyThereScreen = () => {
+const HeyThereScreen = props => {
     return (
         <View>
             <Text>Hey There!</Text>
@@ -9,7 +9,9 @@ const HeyThereScreen = () => {
             <Text>After just a brief overview of our process, you'll be on your way to creating a custom page for your organization.</Text>
             <Button 
                 title="Next"
-                onPress={() => {}}
+                onPress={() => {
+                    props.navigation.navigate("ToExpect");
+                }}
             />
         </View>
     );

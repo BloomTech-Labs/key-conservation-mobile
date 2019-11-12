@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Button } from "react-native";
 
-const ToExpectScreen = () => {
+const ToExpectScreen = props => {
     return (
         <View>
             <Text>Here's what you can expect:</Text>
@@ -15,7 +15,9 @@ const ToExpectScreen = () => {
             <Text>Once we verify your organization, you're all set up to go visible and start adding campaigns.</Text>
             <Button 
                 title="next"
-                onPress={() => {}}
+                onPress={() => {
+                    props.navigation.navigate("KeyConservation")
+                }}
             />
         </View>
     );
