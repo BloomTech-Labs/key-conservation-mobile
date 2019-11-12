@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Platform,
-  StyleSheet,
+  Linking,
   Text,
   View,
   TextInput,
@@ -21,6 +21,7 @@ import { editProfileData, logout, clearMedia } from '../store/actions';
 import { AmpEvent } from '../components/withAmplitude';
 
 import styles from '../constants/screens/EditSupProScreen';
+import Axios from 'axios';
 
 class EditSupProScreen extends React.Component {
   logoutPress = async () => {
@@ -33,6 +34,28 @@ class EditSupProScreen extends React.Component {
     await SecureStorage.deleteItemAsync('accessToken', {});
     this.props.logout();
     this.props.navigation.navigate('Logout');
+
+    const PBI = 'com.kc.keyconservation';
+    const myDomain = 'http://localhost:19002';
+    // com.kc.keyconservation://http://localhost:19002/ios/com.kc.keyconservation/callback
+
+    Linking.canOpenURL(`https://key-conservation.auth0.com/v2/logout?federated&client_id=DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S`).then(supported => {
+      if (supported) {
+        Linking.openURL(`https://key-conservation.auth0.com/v2/logout?federated&client_id=DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S`);
+      } else {
+        console.log("Don't know how to open URI: " + `https://key-conservation.auth0.com/v2/logout?federated&client_id=DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S`);
+      }
+    });
+
+    // Axios
+    // .get(`https://key-conservation.auth0.com/v2/logout?federated&client_id=DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S`)
+    // .then(res => {
+    //   // Axios
+    //   // .get(`http://key-conservation.auth0.com/v2/logout?client-id=elyo5qK7vYReEsKAPEADW2T8LAMpIJaf`)
+    //   // .then(res => console.log(res.data))
+    //   return console.log(res.data);
+    // })
+    // .catch(err => console.log(err))
   };
 
   static navigationOptions = ({ navigation }) => {

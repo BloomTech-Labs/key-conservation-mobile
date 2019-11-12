@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet, ImageBackground } from "react-native";
+import { Text, StyleSheet, ImageBackground, TouchableOpacity } from "react-native";
 
 import styles from "../constants/screens/LoadingScreen";
 import background from "../assets/images/FurBackground.png";
