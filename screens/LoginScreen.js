@@ -111,7 +111,7 @@ export default LoginScreen = props => {
 
       //set the access token to be assigned to state for later use
       const access_token = response.params.access_token;
-      console.log("************* access token", access_token);
+      // console.log('************* access token', access_token);
       // Retrieve the JWT token and decode it using the jwtToken imported above
       const jwtToken = response.params.id_token;
       //decodes the token so we can access the available attributes of the users Auth0 profile

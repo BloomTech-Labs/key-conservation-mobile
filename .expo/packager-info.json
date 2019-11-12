@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "devToolsPort": 19002,
   "expoServerPort": 19000,
@@ -8,3 +9,6 @@
   "ngrokPid": 23760,
   "webpackServerPort": null
 }
+=======
+{}
+>>>>>>> 1af9d0e1ca86a493dbcaf22b1b80540fc04feb8b

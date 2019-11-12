@@ -6,14 +6,14 @@ import * as SecureStore from 'expo-secure-store'
 const seturl = 'https://key-conservation.herokuapp.com/api/'
 
 const filterUrls = (keys, object) => {
-  // If a user doesn't include http or https in their URL this function will add it.
-  // If they already include it it will be ignored. and if it is capital "Https || Http" it will become lowercase.
+  // If a user doesn't include http or https in there URL this function will add it.
+  // If they already include it it will be ignored. and if its capital "Https || Http" it will become lowercase.
   keys.forEach(key => {
     if (
       object[key] &&
       object[key] !== null &&
-      object[key].indexOf("http://") !== 0 &&
-      object[key].indexOf("https://") !== 0
+      object[key].indexOf('http://') !== 0 &&
+      object[key].indexOf('https://') !== 0
     ) {
       object[key] = object[key].toLowerCase()
       object[key] = 'https://' + object[key]
@@ -71,9 +71,9 @@ export const getLoadingData = sub => async dispatch => {
   return axios
     .get(url, {
       headers: {
-        Accept: "application/json",
+        Accept: 'application/json',
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       }
     })
     .then(response => {
@@ -114,9 +114,9 @@ export const getProfileData = (
   return axios
     .get(url, {
       headers: {
-        Accept: "application/json",
+        Accept: 'application/json',
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       }
     })
     .then(res => {
@@ -152,7 +152,7 @@ export const editProfileData = (id, changes) => async dispatch => {
   dispatch({ type: EDIT_PROFILE_START })
 
   const filteredChanges = filterUrls(
-    ["facebook", "twitter", "instagram", "org_link_url", "org_cta"],
+    ['facebook', 'twitter', 'instagram', 'org_link_url', 'org_cta'],
     changes
   )
 
@@ -168,7 +168,7 @@ export const editProfileData = (id, changes) => async dispatch => {
     let uriParts = uri.split('.')
     let fileType = uriParts[uriParts.length - 1]
 
-    formData.append("photo", {
+    formData.append('photo', {
       uri,
       name: `photo.${fileType}`,
       type: `image/${fileType}`
@@ -184,8 +184,8 @@ export const editProfileData = (id, changes) => async dispatch => {
   return axios
     .put(`${seturl}users/${id}`, formData, {
       headers: {
-        Accept: "application/json",
-        "Content-Type": "multipart/form-data",
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`
       }
     })
@@ -211,9 +211,9 @@ export const postUser = user => async dispatch => {
   axios
     .post(`${seturl}users`, user, {
       headers: {
-        Accept: "application/json",
+        Accept: 'application/json',
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       }
     })
     .then(res => {
@@ -238,9 +238,9 @@ export const getCampaigns = () => async dispatch => {
   axios
     .get(`${seturl}campaigns`, {
       headers: {
-        Accept: "application/json",
+        Accept: 'application/json',
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       }
     })
     .then(res => {
@@ -248,9 +248,9 @@ export const getCampaigns = () => async dispatch => {
       axios
         .get(`${seturl}updates`, {
           headers: {
-            Accept: "application/json",
+            Accept: 'application/json',
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
           }
         })
         .then(res => {
@@ -282,9 +282,9 @@ export const getCampaign = id => async dispatch => {
   axios
     .get(`${seturl}campaigns/${id}`, {
       headers: {
-        Accept: "application/json",
+        Accept: 'application/json',
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       }
     })
     .then(res => {
@@ -338,9 +338,9 @@ export const postCampaign = camp => async dispatch => {
   axios
     .post(`${seturl}campaigns`, formData, {
       headers: {
-        Accept: "application/json",
+        Accept: 'application/json',
         Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data"
+        'Content-Type': 'multipart/form-data'
       }
     })
     .then(res => {
@@ -367,9 +367,9 @@ export const deleteCampaign = id => async dispatch => {
   axios
     .delete(`${seturl}campaigns/${id}`, {
       headers: {
-        Accept: "application/json",
+        Accept: 'application/json',
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       }
     })
     .then(res => {
@@ -401,7 +401,7 @@ export const editCampaign = (id, changes) => async dispatch => {
     let uriParts = uri.split('.')
     let fileType = uriParts[uriParts.length - 1]
 
-    formData.append("photo", {
+    formData.append('photo', {
       uri,
       name: `photo.${fileType}`,
       type: `image/${fileType}`
@@ -415,8 +415,8 @@ export const editCampaign = (id, changes) => async dispatch => {
   axios
     .put(`${seturl}campaigns/${id}`, formData, {
       headers: {
-        Accept: "application/json",
-        "Content-Type": "multipart/form-data",
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`
       }
     })
@@ -462,8 +462,8 @@ export const postCampaignUpdate = campUpdate => async dispatch => {
   axios
     .post(`${seturl}updates`, formData, {
       headers: {
-        Accept: "application/json",
-        "Content-Type": "multipart/form-data",
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`
       }
     })
@@ -503,7 +503,7 @@ export const editCampaignUpdate = (id, changes) => async dispatch => {
     let uriParts = uri.split('.')
     let fileType = uriParts[uriParts.length - 1]
 
-    formData.append("photo", {
+    formData.append('photo', {
       uri,
       name: `photo.${fileType}`,
       type: `image/${fileType}`
@@ -517,9 +517,9 @@ export const editCampaignUpdate = (id, changes) => async dispatch => {
   axios
     .put(`${seturl}updates/${id}`, formData, {
       headers: {
-        Accept: "application/json",
+        Accept: 'application/json',
         Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data"
+        'Content-Type': 'multipart/form-data'
       }
     })
     .then(res => {
@@ -549,9 +549,9 @@ export const deleteCampaignUpdate = id => async dispatch => {
   axios
     .delete(`${seturl}updates/${id}`, {
       headers: {
-        Accept: "application/json",
+        Accept: 'application/json',
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       }
     })
     .then(res => {
@@ -602,9 +602,9 @@ export const commentOnCampaign = (id, body) => async dispatch => {
       { users_id: body.users_id, comment_body: body.comment_body },
       {
         headers: {
-          Accept: "application/json",
+          Accept: 'application/json',
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json'
         }
       }
     )
@@ -612,9 +612,9 @@ export const commentOnCampaign = (id, body) => async dispatch => {
       dispatch({ type: POST_COMMENT_SUCCESS, payload: res.data.data })
       axios.get(`${seturl}comments/${id}`, {
         headers: {
-          Accept: "application/json",
+          Accept: 'application/json',
           Authorization: `Bearer ${this.props.token}`,
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json'
         }
       })
     })
@@ -630,26 +630,30 @@ export const [
 ] = ['DELETE_COMMENT_START', 'DELETE_COMMENT_ERROR', 'DELETE_COMMENT_SUCCESS']
 
 export const deleteComment = id => async dispatch => {
+  console.log('Did we start deleting it???')
   dispatch({ type: DELETE_COMMENT_START })
   let token = await SecureStore.getItemAsync('accessToken')
   axios
     .delete(`${seturl}comments/com/${id}`, {
       headers: {
-        Accept: "application/json",
+        Accept: 'application/json',
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       }
     })
     .then(res => {
+      console.log('Did we get to Delete Comment Succes?')
       console.log('My data is UP IN HUR---->', res.data.data)
       dispatch({ type: DELETE_COMMENT_SUCCESS, payload: res.data.data })
     })
     .catch(err => {
+      console.lor("Here's my error =====>", err)
       dispatch({ type: DELETE_COMMENT_ERROR, payload: err })
     })
 }
 
 export const addLike = (id, userId) => async dispatch => {
+  console.log('id', id, 'user id', userId)
   let token = await SecureStore.getItemAsync('accessToken')
   axios
     .post(
