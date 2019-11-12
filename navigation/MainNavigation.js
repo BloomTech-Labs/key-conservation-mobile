@@ -39,6 +39,15 @@ import LogoutScreen from '../screens/LogoutScreen';
 
 
 export const OrgOnboardStack = createStackNavigator({
+  HeyThere: HeyThereScreen,
+  ToExpect: ToExpectScreen,
+  KeyConservation: KeyConservationScreen,
+  Can: CanScreen,
+  Cant: CantScreen,
+  MakeAccount: MakeAccountScreen,
+  TellAboutOrganization: TellAboutOrganizationScreen,
+  VerifyDocumentation: VerifyDocumentationScreen,
+  VerifyOrganization: VerifyOrganizationScreen
 
 });
 
