@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Platform,
-  StyleSheet,
+  Linking,
   Text,
   View,
   TextInput,
@@ -21,6 +21,7 @@ import { editProfileData, logout, clearMedia } from '../store/actions';
 import { AmpEvent } from '../components/withAmplitude';
 
 import styles from '../constants/screens/EditSupProScreen';
+import Axios from 'axios';
 
 class EditSupProScreen extends React.Component {
   logoutPress = async () => {
@@ -32,6 +33,16 @@ class EditSupProScreen extends React.Component {
     await SecureStorage.deleteItemAsync('accessToken', {});
     this.props.logout();
     this.props.navigation.navigate('Logout');
+
+    const logoutURL = 'https://key-conservation.auth0.com/v2/logout?federated&client_id=DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S';
+
+    Linking.canOpenURL(logoutURL).then(supported => {
+      if (supported) {
+        Linking.openURL(logoutURL);
+      } else {
+        console.log("Don't know how to open URI: " + logoutURL);
+      }
+    });
   };
 
   static navigationOptions = ({ navigation }) => {
