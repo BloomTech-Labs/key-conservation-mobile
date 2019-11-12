@@ -7,7 +7,7 @@ import background from "../assets/images/FurBackground.png";
 const LogoutScreen = (props) => {
     return (
         <ImageBackground
-            source={background}
+            source={require("../assets/images/FurBackground.png")}
             style={styles.container}
         >
        <Text style={styles.text}>Logout successful!</Text>

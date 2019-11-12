@@ -25,7 +25,6 @@ import Axios from 'axios';
 
 class EditSupProScreen extends React.Component {
   logoutPress = async () => {
-    //console.log('pressed button');
     await SecureStorage.deleteItemAsync('id', {});
     await SecureStorage.deleteItemAsync('sub', {});
     await SecureStorage.deleteItemAsync('email', {});

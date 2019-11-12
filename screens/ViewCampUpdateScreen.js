@@ -53,7 +53,6 @@ class ViewCampUpdateScreen extends React.Component {
   };
 
   render() {
-    console.log(this.state.campaign);
     return (
       <ScrollView>
         <View>
