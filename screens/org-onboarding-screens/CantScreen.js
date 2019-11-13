@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Button, StyleSheet } from 'react-native';
-import styles from '../../constants/screens/org-onboarding-styles/OnboardingStyles';
+import styles from '../../constants/screens/org-onboarding-styles/OnboardingStyles.js';
 
 const CantScreen = (props) => {
 	return (
@@ -10,21 +10,21 @@ const CantScreen = (props) => {
 			</View>
 			<View>
 				<View>
-					<Text style={style.obText}>
+					<Text style={styles.obText}>
 						Commodo enim cupidatat consequat cupidatat ea Lorem cupidatat consequat aliquip aliqua ullamco
 						id. Consequat sit elit ea labore fugiat culpa eiusmod proident duis. Elit mollit veniam
 						cupidatat minim est incididunt ullamco et laboris minim velit in.
 					</Text>
 				</View>
 				<View>
-					<Text style={style.obText}>
+					<Text style={styles.obText}>
 						Commodo enim cupidatat consequat cupidatat ea Lorem cupidatat consequat aliquip aliqua ullamco
 						id. Consequat sit elit ea labore fugiat culpa eiusmod proident duis. Elit mollit veniam
 						cupidatat minim est incididunt ullamco et laboris minim velit in.
 					</Text>
 				</View>
 				<View>
-					<Text style={style.obText}>
+					<Text style={styles.obText}>
 						Commodo enim  cupidatat consequat cupidatat ea Lorem cupidatat consequat aliquip aliqua ullamco
 						id. Consequat sit elit ea labore fugiat culpa eiusmod proident duis. Elit mollit veniam
 						cupidatat minim est incididunt ullamco et laboris minim velit in.
@@ -37,7 +37,7 @@ const CantScreen = (props) => {
 						props.navigation.navigate("MakeAccount")
 					}}
 				>
-					<Text style={style.obFwdBtnText}>Next</Text>
+					<Text style={styles.obFwdBtnText}>Next</Text>
 				</TouchableOpacity>
 			</View>
 		</View>

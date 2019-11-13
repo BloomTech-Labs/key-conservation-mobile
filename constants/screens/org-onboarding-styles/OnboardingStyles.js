@@ -1,23 +1,24 @@
 export default {
 
     obBody: {
+        flex: 1,
         backgroundColor: '#E5E5E5'
     },
     obText: {
         color: '#000000',
-        fontFamily: 'openSans',
+        // fontFamily: 'Open_Sans',
         fontSize: 18,
         lineHeight: 25
     },
     obTitle: {
         color: '#000000',
-        fontFamily: 'openSans',
+        // fontFamily: 'Open_Sans',
         fontSize: 28,
         lineHeight: 38
     },
     obSubtitle: {
         color: '#000000',
-        fontFamily: 'openSans',
+        // fontFamily: 'Open_Sans',
         fontSize: 21,
         lineHeight: 29
     },
@@ -28,7 +29,7 @@ export default {
         borderRadius: 5
     },
     obFwdBtnText: {
-        fontFamily: 'openSans',
+        // fontFamily: 'Open_Sans',
         fontStyle: 'normal',
         fontWeight: 'bold',
         fontSize: 18,
@@ -58,7 +59,7 @@ export default {
         borderColor: '#00FF9D'
     },
     obFieldName: {
-        fontFamily: 'openSans',
+        // fontFamily: 'Open_Sans',
         fontWeight: 300,
         fontSize: 14,
         lineHeight: 19,

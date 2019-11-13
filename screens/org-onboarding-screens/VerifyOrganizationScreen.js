@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Text, View, TouchableOpacity} from "react-native";
-import styles from '../../constants/screens/org-onboarding-styles/OnboardingStyles';
+import styles from '../../constants/screens/org-onboarding-styles/OnboardingStyles.js';
 
 const VerifyOrganizationScreen = (props) => {
 

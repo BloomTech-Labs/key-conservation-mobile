@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, TouchableOpacityBase } from 'react-native';
-import styles from '../../constants/screens/org-onboarding-styles/OnboardingStyles';
+import styles from '../../constants/screens/org-onboarding-styles/OnboardingStyles.js';
 
 const MakeAccountScreen = (props) => {
 	return (
@@ -9,10 +9,10 @@ const MakeAccountScreen = (props) => {
 			<View style={styles.obBody}>
 				<View>
 					<View>
-						<Text  style={style.obTitle}>First let's make your account</Text>
+						<Text  style={styles.obTitle}>First let's make your account</Text>
 					</View>
 					<View>
-						<Text style={style.obText}>
+						<Text style={styles.obText}>
 							We want to make sure we can autosave your progress. So first things first let's get you some
 							login credentials.
 						</Text>
@@ -20,11 +20,11 @@ const MakeAccountScreen = (props) => {
 				</View>
 				<View>
 					<View>
-						<Text style={style.obSubtitle}>Create Account</Text>
+						<Text style={styles.obSubtitle}>Create Account</Text>
 					</View>
 
 					<View>
-						<Text style={style.obFieldName}>Full Name</Text>
+						<Text style={styles.obFieldName}>Full Name</Text>
 						<TextInput style={styles.obTextInput}returnKeyType="next" />
 					</View>
 
