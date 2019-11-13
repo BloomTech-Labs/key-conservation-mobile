@@ -39,7 +39,7 @@ import LogoutScreen from '../screens/LogoutScreen';
 
 
 export const OrgOnboardStack = createStackNavigator({
-  // HeyThere: HeyThereScreen,
+  HeyThere: HeyThereScreen,
   ToExpect: ToExpectScreen,
   KeyConservation: KeyConservationScreen,
   Can: CanScreen,
@@ -208,13 +208,13 @@ const SupProStack = createStackNavigator(
   }
 );
 
-//UserNameStack can probably go after we figure all this out; we won't need it anymore because "HeyTHereScreen" will take its place.
+
 
 export const UsernameStack = createStackNavigator({
   Username: {
-    screen: HeyThereScreen,
-    
+   
     // screen: HeyThereScreen,
+    screen: UsernameScreen,
 
     navigationOptions: {
       title: 'Sign Up',
