@@ -13,6 +13,8 @@ Because there are so many onboarding screens, we have provided you with this lis
 7. TellAboutOrganizationScreen
 8. VerifyDocumentationScreen
 9. VerifyOrganizationScreen
+10. AlmostDoneScreen
+11. ThankYouScreen
 
 
 Yours Truly, 

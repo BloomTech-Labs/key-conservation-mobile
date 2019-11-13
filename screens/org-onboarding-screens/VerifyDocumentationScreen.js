@@ -8,12 +8,16 @@ const VerifyDocumentationScreen = (props) => {
             <Text>To prevent fraud, we need to properly vet organization credentials.</Text>
             <Text>Proof of organization</Text>
             <Text>Please provide a clear photo of your 501c3 or other state-approved documentation.</Text>
-            <Button title="Photo of documentation" 
+            <Button 
+                title="photo of documentation" 
+
+            />
+            <Button
+                title="next"
                 onPress={() => {
                     props.navigation.navigate("VerifyOrganization")
-                }}
-            />
-            <Button>Next</Button>
+                }}            
+            >Next</Button>
         </View>
     );
 }
