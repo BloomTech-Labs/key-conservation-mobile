@@ -27,9 +27,9 @@ const TellAboutOrganizationScreen = (props) => {
 }
  export default TellAboutOrganizationScreen;
 
- const styles = StyleSheet.create({
-     inputfield: {
-        borderColor: "black",
-        borderWidth: 1
-     }
- })
+//  const styles = StyleSheet.create({
+//      inputfield: {
+//         borderColor: "black",
+//         borderWidth: 1
+//      }
+//  })
