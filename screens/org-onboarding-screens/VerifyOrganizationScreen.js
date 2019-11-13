@@ -13,7 +13,7 @@ const VerifyOrganizationScreen = (props) => {
             <Text>Checking account</Text>
             <TouchableOpacity
                 onPress={() => {
-                    props.navigation.navigate()
+                    props.navigation.navigate("AlmostDone")
                 }}
             >
                 <Text>Next</Text>

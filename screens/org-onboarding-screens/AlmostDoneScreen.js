@@ -13,7 +13,9 @@ const AlmostDoneScreen = props => {
                 </Text>
             </View>
             <TouchableOpacity 
-                onPress={() => {}}
+                onPress={() => {
+                    props.navigation.navigate('ThankYou')
+                }}
                 > 
                 <Text>Survey</Text> 
                 </TouchableOpacity>

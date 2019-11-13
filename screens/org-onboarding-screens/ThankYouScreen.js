@@ -12,7 +12,7 @@ const ThankYouScreen = props => {
                     <Text style={{fontWeight: "bold"}}>here.</Text>
                 </Text>
             </View>
-            <Button />
+            <Button title="done"/>
         </View>
     )
 }
