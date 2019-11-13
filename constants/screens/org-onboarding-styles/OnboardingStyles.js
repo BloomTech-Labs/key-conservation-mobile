@@ -81,6 +81,12 @@ export default {
     obUploadBtn: {
         backgroundColor: '#00FF9D',
         borderRadius: 8
+    },
+    obOrgBtn: {
+        backgroundColor: '#C4C4C4',
+        borderRadius: 24,
+        width: 214,
+        height: 68
     }
 
 }
