@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, TouchableOpacity } from "react-native";
 
 const ToExpectScreen = props => {
     return (
@@ -13,12 +13,13 @@ const ToExpectScreen = props => {
             </Text>
             <Text>Go Visible!</Text>
             <Text>Once we verify your organization, you're all set up to go visible and start adding campaigns.</Text>
-            <Button 
-                title="next"
+            <TouchableOpacity
                 onPress={() => {
                     props.navigation.navigate("KeyConservation")
                 }}
-            />
+            >
+                <Text>Next</Text>
+            </TouchableOpacity>
         </View>
     );
 }

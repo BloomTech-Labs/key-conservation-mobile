@@ -1,5 +1,6 @@
 import React from "react";
-import {Text, Button, View} from "react-native";
+import { Button, View, Text, TouchableOpacity } from "react-native";
+
 
 const KeyConservationScreen = (props) => {
     return (
@@ -7,12 +8,13 @@ const KeyConservationScreen = (props) => {
             <Text>
                 Let's go over how Key Conservation works
             </Text>
-            <Button 
-                title="Next"
+            <TouchableOpacity 
                 onPress={() => {
                     props.navigation.navigate("Can")
                 }}
-            />
+            >
+                <Text>Next</Text>
+            </TouchableOpacity>
         </View>
     );
 }

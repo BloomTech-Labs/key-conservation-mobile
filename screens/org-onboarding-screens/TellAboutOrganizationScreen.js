@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, View, StyleSheet, Text, TextInput} from "react-native";
+import { Button, View, StyleSheet, Text, TextInput, TouchableOpacity} from "react-native";
 
 const TellAboutOrganizationScreen = (props) => {
     return (
@@ -14,12 +14,13 @@ const TellAboutOrganizationScreen = (props) => {
             <TextInput style={styles.inputfield}/>
             <Text>WebsiteURL</Text>
             <TextInput style={styles.inputfield}/>
-            <Button 
-                title="Next"
+            <TouchableOpacity
                 onPress={() => {
                     props.navigation.navigate("VerifyDocumentation")
                 }}
-            />
+            >
+                <Text>Next</Text>
+            </TouchableOpacity>
         </View>
     );
 }

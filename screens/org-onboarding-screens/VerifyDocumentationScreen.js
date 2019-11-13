@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Text, View } from "react-native";
+import { Button, Text, View, TouchableOpacity } from "react-native";
 
 const VerifyDocumentationScreen = (props) => {
     return (
@@ -12,12 +12,13 @@ const VerifyDocumentationScreen = (props) => {
                 title="photo of documentation" 
 
             />
-            <Button
-                title="next"
+            <TouchableOpacity
                 onPress={() => {
                     props.navigation.navigate("VerifyOrganization")
                 }}            
-            >Next</Button>
+            >
+                <Text>Next</Text>
+            </TouchableOpacity>
         </View>
     );
 }

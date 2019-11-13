@@ -1,14 +1,24 @@
 import React from "react";
-import { Button, View, Text } from "react-native";
+import { Button, View, Text, TouchableOpacity } from "react-native";
 
 const AlmostDoneScreen = props => {
     return (
         <View>
-            <Text>Almost done!!!</Text>
-            <Button 
-                title="Next" 
-                onPress={() => {}}
-            />
+            <Text>You're Almost done!</Text>
+            <View>
+                <Text>
+                    We want to know a little bit more about your organization so we can best improve
+                    your experience. To finish verifying please fill out this quick survey (12 mins 
+                    or less).
+                </Text>
+            </View>
+            <TouchableOpacity 
+                onPress={() => {
+                    props.navigation.navigate('ThankYou')
+                }}
+                > 
+                <Text>Survey</Text> 
+                </TouchableOpacity>
         </View>
     );
 }
