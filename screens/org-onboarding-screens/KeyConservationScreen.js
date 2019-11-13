@@ -4,16 +4,16 @@ import { Button, View, Text, TouchableOpacity } from "react-native";
 
 const KeyConservationScreen = (props) => {
     return (
-        <View>
-            <Text>
+        <View style={styles.obBody}>
+            <Text style={styles.obTitle}>
                 Let's go over how Key Conservation works
             </Text>
-            <TouchableOpacity 
+            <TouchableOpacity style={styles.obFwdContainer}
                 onPress={() => {
                     props.navigation.navigate("Can")
                 }}
             >
-                <Text>Next</Text>
+                <Text style={styles.obFwdBtnText}>Next</Text>
             </TouchableOpacity>
         </View>
     );
