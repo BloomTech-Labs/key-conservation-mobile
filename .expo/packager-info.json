@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 7780,
-  "expoServerNgrokUrl": "https://9m-sek.irisjitomo.key-conservation-mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.9m-sek.irisjitomo.key-conservation-mobile.exp.direct",
-  "ngrokPid": 6884
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }

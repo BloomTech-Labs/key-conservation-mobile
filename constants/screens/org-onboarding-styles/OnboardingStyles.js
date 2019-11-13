@@ -1,33 +1,33 @@
 export default {
 
-    onboardBody: {
+    obBody: {
         backgroundColor: '#E5E5E5'
     },
-    onboardText: {
+    obText: {
         color: '#000000',
         fontFamily: 'openSans',
         fontSize: 18,
         lineHeight: 25
     },
-    onboardTitle: {
+    obTitle: {
         color: '#000000',
         fontFamily: 'openSans',
         fontSize: 28,
         lineHeight: 38
     },
-    onboardSubtitle: {
+    obSubtitle: {
         color: '#000000',
         fontFamily: 'openSans',
         fontSize: 21,
         lineHeight: 29
     },
-    onboardForwardContainer: {
+    obFwdContainer: {
         width: 112,
         height: 46,
         backgroundColor: '#C4C4C4',
         borderRadius: 5
     },
-    onboardForwardBtnText: {
+    obFwdBtnText: {
         fontFamily: 'openSans',
         fontStyle: 'normal',
         fontWeight: 'bold',
@@ -35,7 +35,7 @@ export default {
         lineHeight: 25,
         color: '#000000'
     },
-    onboardRectangle1: {
+    obRectangle1: {
         position: 'absolute',
         width: 241,
         height: 241,
@@ -46,7 +46,7 @@ export default {
         borderStyle: 'solid',
         borderColor: '#C4C4C4'
     },
-    onboardRectangle2: {
+    obRectangle2: {
         position: 'absolute',
         width: 241,
         height: 241,
@@ -57,28 +57,28 @@ export default {
         borderStyle: 'solid',
         borderColor: '#00FF9D'
     },
-    onboardFieldName: {
+    obFieldName: {
         fontFamily: 'openSans',
         fontWeight: 300,
         fontSize: 14,
         lineHeight: 19,
         color: '#000000'
     },
-    onboardTextInput: {
+    obTextInput: {
         marginLeft: 20,
         marginBottom: 20,
         backgroundColor: 'rgba(196, 196, 196, 0.5)',
         borderRadius: 8,
         keyboardType: default
     },
-    onboardNumInput: {
+    obNumInput: {
         marginLeft: 20,
         marginBottom: 20,
         backgroundColor: 'rgba(196, 196, 196, 0.5)',
         borderRadius: 8,
         keyboardType: phone-pad
     },
-    onboardUploadBtn: {
+    obUploadBtn: {
         backgroundColor: '#00FF9D',
         borderRadius: 8
     }
