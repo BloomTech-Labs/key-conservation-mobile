@@ -66,52 +66,15 @@ class UsernameScreen extends React.Component {
                 }}
             />
         </View>
-        {/* <View style={styles.sectionContainer}>
-          <View style={styles.Card} />
-          <View style={styles.textContainer}>
-            <Text style={{ textAlign: 'center' }}>Thanks for signing up!</Text>
-          </View>
-          <TextInput
-            returnKeyType='go'
-            placeholder='ex: carribbeanturtleproject'
-            style={styles.inputContain}
-            onChangeText={text => this.setState({ usernameInput: text })}
-            value={this.state.usernameInput}
-            required
-          />
-        </View>
-        <View style={{ height: 20, margin: 25 }}>
-          {this.state.error ? (
-            <Text style={{ textAlign: 'center', color: 'red' }}>
-              {this.state.error}
-            </Text>
-          ) : this.props.error.config &&
-            this.props.error.config.method === 'get' ? (
-            <Text style={{ textAlign: 'center', color: 'green' }}>
-              Please choose a username and enter it above
-            </Text>
-          ) : this.props.error.message ? (
-            <Text style={{ textAlign: 'center', color: 'red' }}>
-              Failed to create user. Please try another username
-            </Text>
-          ) : null}
-        </View> */}
+
         {/* <TouchableOpacity
-          onPress={this.handlePress}
-          style={styles.touchableButton}
-        >
-          <View style={styles.touchableView}>
-            <Text style={styles.touchableText}>Continue</Text>
-          </View>
-        </TouchableOpacity> */}
-        <TouchableOpacity
           onPress={this.logoutPress}
           style={styles.touchableButton}
         >
           <View style={styles.touchableView}>
             <Text style={styles.touchableText}>Logout</Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </ScrollView>
     );
   }
