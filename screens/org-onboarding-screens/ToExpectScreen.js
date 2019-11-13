@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, Button, TouchableOpacity } from "react-native";
+import styles from '../../constants/screens/org-onboarding-styles/OnboardingStyles';
 
 const ToExpectScreen = props => {
     return (

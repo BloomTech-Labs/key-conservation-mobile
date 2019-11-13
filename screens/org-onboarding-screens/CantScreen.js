@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Button, StyleSheet } from 'react-native';
+import styles from '../../constants/screens/org-onboarding-styles/OnboardingStyles';
 
 const CantScreen = (props) => {
 	return (

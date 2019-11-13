@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, TouchableOpacityBase } from 'react-native';
+import styles from '../../constants/screens/org-onboarding-styles/OnboardingStyles';
 
 const MakeAccountScreen = (props) => {
 	return (
