@@ -1,1 +1,9 @@
-{}
+{
+  "expoServerPort": 19000,
+  "expoServerNgrokUrl": "https://9m-sek.katiefelten.key-conservation-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.9m-sek.katiefelten.key-conservation-mobile.exp.direct",
+  "ngrokPid": 13681,
+  "devToolsPort": 19002,
+  "packagerPort": 19003,
+  "packagerPid": 13668
+}

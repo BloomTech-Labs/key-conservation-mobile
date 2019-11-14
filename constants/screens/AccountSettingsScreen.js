@@ -1,37 +1,8 @@
 export default {
-    sectionContainer: {
-      flexDirection: 'row'
-    },
-    logoutSection: {
-      margin: 'auto',
-      marginTop: '15%'
-    },
-    Card: {
-      marginTop: 10,
-      backgroundColor: '#fff',
-      width: '100%',
-      height: 20
-    },
-    inputContain: {
-      height: 48,
-      borderWidth: 2,
-      borderColor: '#C4C4C4',
-      padding: 5,
-      borderRadius: 5,
-      fontSize: 20,
-      marginBottom: 25
-    },
-    inputContain2: {
-      height: 140,
-      borderWidth: 2,
-      borderColor: '#C4C4C4',
-      padding: 5,
-      borderRadius: 5,
-      fontSize: 20,
-      marginBottom: 25,
-      textAlignVertical: 'top'
-    },
-  
+    scrollBG: {
+    backgroundColor: "#E5E5E5",
+    height: '100%'
+  },
     touchableView: {
       backgroundColor: 'black',
       alignItems: 'center',
@@ -45,37 +16,51 @@ export default {
       fontWeight: 'bold',
       letterSpacing: 2
     },
-    sections: {
-      // marginTop: 20,
-      backgroundColor: '#fff',
-      width: '100%'
-    },
-    sectionsText: {
-      fontFamily: 'OpenSans-SemiBold',
-      fontSize: 20,
-      marginBottom: 5
-    },
-  
+   sections: {
+    marginTop: 8,
+    backgroundColor: "#fff",
+    width: "100%",
+    marginLeft: 8,
+    marginRight: 8,
+    padding: 25,
+    borderRadius: 5,
+    fontSize: 15
+  },
+  title: {
+    fontSize: 18,
+    alignSelf: "center",
+    marginLeft: 10,
+    fontFamily: "OpenSans-SemiBold"
+  },
+    iconWrap: {
+    flexWrap: "wrap",
+    alignItems: "center",
+    flexDirection: "row",
+    borderBottomColor: "#eee",
+    borderBottomWidth: 1,
+    marginBottom: 2,
+    paddingBottom: 20
+  },
     buttonContainer: {
       width: '30%',
       height: 30,
+      marginTop: 10,
+      flexDirection: "column",
+      flexWrap: "nowrap",
       marginLeft: '35%',
       marginRight: '35%',
       borderRadius: 4,
-      fontFamily: 'OpenSans-Regular',
       backgroundColor: '#00FF9D',
       justifyContent: 'center'
     },
     buttonText: {
-      fontWeight: 'bold',
-      color: 'black',
-      fontWeight: 'bold',
-      letterSpacing: 1,
+      fontFamily: 'OpenSans-Bold',
+      letterSpacing: .8,
       textAlign: 'center',
       color: 'black',
       justifyContent: 'center',
       alignItems: 'center',
-      fontSize: 13
+      fontSize: 16
     },
   };
   
