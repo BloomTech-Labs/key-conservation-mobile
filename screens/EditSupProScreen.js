@@ -12,13 +12,7 @@ import { ScrollView, NavigationEvents } from "react-navigation";
 import { connect } from "react-redux";
 import BackButton from "../components/BackButton";
 
-<<<<<<< HEAD
-import AuthSession from 'expo';
-
-import * as SecureStorage from 'expo-secure-store';
-=======
 import * as SecureStorage from "expo-secure-store";
->>>>>>> development
 
 import DoneButton from "../components/DoneButton";
 import UploadMedia from "../components/UploadMedia";
@@ -39,8 +33,7 @@ class EditSupProScreen extends React.Component {
     await SecureStorage.deleteItemAsync("accessToken", {});
     this.props.logout();
     this.props.navigation.navigate("Logout");
-
-=======
+    
     const logoutURL =
       "https://key-conservation.auth0.com/v2/logout?federated&client_id=DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S";
 
@@ -51,7 +44,6 @@ class EditSupProScreen extends React.Component {
         console.log("Don't know how to open URI: " + logoutURL);
       }
     });
->>>>>>> development
   };
 
   static navigationOptions = ({ navigation }) => {
