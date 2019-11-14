@@ -8,7 +8,8 @@ const HeyThereScreen = props => {
             <Text style={styles.obTitle}>Hey There!</Text>
             <Text style={styles.obSubtitle}>We can't wait to get your organization on board.</Text>
             <Text style={styles.obText}>After just a brief overview of our process, you'll be on your way to creating a custom page for your organization.</Text>
-            <TouchableOpacity style={styles.obBackContainer}
+            <TouchableOpacity 
+                style={styles.obBackContainer}
                 onPress={() => {
                     props.navigation.navigate("ToExpect");
                 }}
