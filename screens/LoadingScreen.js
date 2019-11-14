@@ -45,7 +45,8 @@ class LoadingScreen extends React.Component {
         this.props.navigation.navigate('Login')
       }
     } else {
-      this.props.navigation.navigate('CreateAccount')
+      // this.props.navigation.navigate('CreateAccount')
+      this.props.navigation.navigate(roles === 'conservationist' ? 'OrgOnboard' : 'CreateAccount')
     }
   }
 }
