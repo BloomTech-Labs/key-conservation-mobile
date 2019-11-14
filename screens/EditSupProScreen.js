@@ -12,6 +12,8 @@ import { ScrollView, NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import BackButton from '../components/BackButton';
 
+import AuthSession from 'expo';
+
 import * as SecureStorage from 'expo-secure-store';
 
 import DoneButton from '../components/DoneButton';
@@ -34,15 +36,7 @@ class EditSupProScreen extends React.Component {
     this.props.logout();
     this.props.navigation.navigate('Logout');
 
-    const logoutURL = 'https://key-conservation.auth0.com/v2/logout?federated&client_id=DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S';
-
-    Linking.canOpenURL(logoutURL).then(supported => {
-      if (supported) {
-        Linking.openURL(logoutURL);
-      } else {
-        console.log("Don't know how to open URI: " + logoutURL);
-      }
-    });
+    // const logoutURL = 'https://key-conservation.auth0.com/v2/logout?federated&client_id=DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S';
   };
 
   static navigationOptions = ({ navigation }) => {
