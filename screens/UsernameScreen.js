@@ -67,14 +67,14 @@ class UsernameScreen extends React.Component {
             />
         </View>
 
-        {/* <TouchableOpacity
+        <TouchableOpacity
           onPress={this.logoutPress}
           style={styles.touchableButton}
         >
           <View style={styles.touchableView}>
             <Text style={styles.touchableText}>Logout</Text>
           </View>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
       </ScrollView>
     );
   }
