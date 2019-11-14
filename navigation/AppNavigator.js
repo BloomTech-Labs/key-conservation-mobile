@@ -6,7 +6,8 @@ import {
   SupNavigator,
   LoginStack,
   UsernameStack,
-  LogoutStack
+  LogoutStack,
+  OrgOnboardStack
 } from './MainNavigation';
 import LoadingScreen from '../screens/LoadingScreen';
 
@@ -15,6 +16,7 @@ export default createAppContainer(
   createSwitchNavigator({
     // First three routes deal with login / onboarding of users
     Loading: LoadingScreen,
+    OrgOnboard: OrgOnboardStack,
     Login: LoginStack,
     CreateAccount: UsernameStack,
     Conservationist: ConsNavigator,

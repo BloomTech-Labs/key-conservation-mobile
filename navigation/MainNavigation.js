@@ -4,6 +4,18 @@ import {
   createBottomTabNavigator
 } from 'react-navigation';
 
+import CanScreen from "../screens/org-onboarding-screens/CanScreen";
+import CantScreen from "../screens/org-onboarding-screens/CantScreen";
+import HeyThereScreen from "../screens/org-onboarding-screens/HeyThereScreen";
+import KeyConservationScreen from "../screens/org-onboarding-screens/KeyConservationScreen";
+import MakeAccountScreen from "../screens/org-onboarding-screens/MakeAccountScreen";
+import TellAboutOrganizationScreen from "../screens/org-onboarding-screens/TellAboutOrganizationScreen";
+import ToExpectScreen from "../screens/org-onboarding-screens/ToExpectScreen";
+import VerifyDocumentationScreen from "../screens/org-onboarding-screens/VerifyDocumentationScreen";
+import VerifyOrganizationScreen from "../screens/org-onboarding-screens/VerifyOrganizationScreen";
+import AlmostDone from '../screens/org-onboarding-screens/AlmostDoneScreen';
+import ThankYouScreen from '../screens/org-onboarding-screens/ThankYouScreen';
+
 import FeedScreen from '../screens/FeedScreen';
 import CreateCampScreen from '../screens/CreateCampScreen';
 import ProScreen from '../screens/ProScreen';
@@ -23,7 +35,24 @@ import ViewCampUpdateScreen from '../screens/ViewCampUpdateScreen';
 import CreateCampUpdateScreen from '../screens/CreateCampUpdateScreen';
 import EditCampUpdateScreen from '../screens/EditCampUpdateScreen';
 import AccountSettingsScreen from '../screens/AccountSettingsScreen';
+
 import LogoutScreen from '../screens/LogoutScreen';
+
+
+
+export const OrgOnboardStack = createStackNavigator({
+  HeyThere: HeyThereScreen,
+  ToExpect: ToExpectScreen,
+  KeyConservation: KeyConservationScreen,
+  Can: CanScreen,
+  Cant: CantScreen,
+  MakeAccount: MakeAccountScreen,
+  TellAboutOrganization: TellAboutOrganizationScreen,
+  VerifyDocumentation: VerifyDocumentationScreen,
+  VerifyOrganization: VerifyOrganizationScreen,
+  AlmostDone: AlmostDone,
+  ThankYou: ThankYouScreen,
+});
 
 const FeedStack = createStackNavigator(
   {
@@ -182,8 +211,12 @@ const SupProStack = createStackNavigator(
   }
 );
 
+
+
 export const UsernameStack = createStackNavigator({
   Username: {
+   
+    // screen: HeyThereScreen,
     screen: UsernameScreen,
 
     navigationOptions: {

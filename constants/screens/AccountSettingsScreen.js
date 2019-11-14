@@ -1,9 +1,10 @@
 export default {
     sectionContainer: {
-      flexDirection: 'column',
-      flexWrap: 'wrap',
-      marginLeft: 15,
-      marginRight: 15
+      flexDirection: 'row'
+    },
+    logoutSection: {
+      margin: 'auto',
+      marginTop: '15%'
     },
     Card: {
       marginTop: 10,
@@ -54,15 +55,27 @@ export default {
       fontSize: 20,
       marginBottom: 5
     },
-    logoutButton: {
-      fontSize: 20,
-      padding: 50,
-      alignItems: 'center',
-      backgroundColor: 'white'
+  
+    buttonContainer: {
+      width: '30%',
+      height: 30,
+      marginLeft: '35%',
+      marginRight: '35%',
+      borderRadius: 4,
+      fontFamily: 'OpenSans-Regular',
+      backgroundColor: '#00FF9D',
+      justifyContent: 'center'
     },
     buttonText: {
-      color: '#18A0FB',
-      fontSize: 20
-    }
+      fontWeight: 'bold',
+      color: 'black',
+      fontWeight: 'bold',
+      letterSpacing: 1,
+      textAlign: 'center',
+      color: 'black',
+      justifyContent: 'center',
+      alignItems: 'center',
+      fontSize: 13
+    },
   };
   
