@@ -35,7 +35,7 @@ class EditSupProScreen extends React.Component {
     // this.props.logout();
     await AuthSession.dismiss();
     this.props.navigation.navigate("Logout");
-
+    
     const logoutURL =
       "https://key-conservation.auth0.com/v2/logout?federated&client_id=DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S";
 
