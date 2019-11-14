@@ -1,8 +1,21 @@
 import React from "react";
 import { View, Text, Button, TouchableOpacity } from "react-native";
 import styles from '../../constants/screens/org-onboarding-styles/OnboardingStyles.js';
+import * as SecureStore from 'expo-secure-store';
+
+import { logout } from "../../store/actions";
 
 const HeyThereScreen = props => {
+
+  logoutPress = async () => {
+    await SecureStore.deleteItemAsync('sub', {});
+    await SecureStore.deleteItemAsync('email', {});
+    await SecureStore.deleteItemAsync('roles', {});
+    await SecureStore.deleteItemAsync('id', {});
+    await SecureStore.deleteItemAsync('accessToken', {});
+    logout();
+    props.navigation.navigate('Loading');
+  };
     return (
         <View style={styles.obBody}>
             <Text style={styles.obTitle}>Hey There!</Text>
@@ -14,6 +27,15 @@ const HeyThereScreen = props => {
                 }}
             >
                 <Text style={styles.obFwdBtnText}>Next</Text>
+                <TouchableOpacity
+          onPress={this.logoutPress}
+          style={styles.touchableButton}
+        >
+          <View style={styles.touchableView}>
+            <Text style={styles.touchableText}>Logout</Text>
+          </View>
+        </TouchableOpacity> 
+
             </TouchableOpacity>
         </View>
     );
