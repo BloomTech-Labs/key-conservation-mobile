@@ -9,6 +9,7 @@ const VerifyDocumentationScreen = (props) => {
             <Text style={styles.obText}>To prevent fraud, we need to properly vet organization credentials.</Text>
             <Text style={styles.obSubtitle}>Proof of organization</Text>
             <Text style={styles.obText}>Please provide a clear photo of your 501(c)(3) or other state-approved documentation.</Text>
+            <View style={styles.spacer} />
             <TouchableOpacity style={styles.obUploadBtn}>
                 <Text style={styles.obText}>
                     Photo of Documentation
