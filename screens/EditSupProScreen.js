@@ -22,16 +22,18 @@ import { AmpEvent } from "../components/withAmplitude";
 
 import styles from "../constants/screens/EditSupProScreen";
 import Axios from "axios";
+import AuthSession from "expo";
 
 class EditSupProScreen extends React.Component {
   logoutPress = async () => {
-    await SecureStorage.deleteItemAsync("id", {});
-    await SecureStorage.deleteItemAsync("sub", {});
-    await SecureStorage.deleteItemAsync("email", {});
-    await SecureStorage.deleteItemAsync("roles", {});
-    await SecureStorage.deleteItemAsync("userId", {});
-    await SecureStorage.deleteItemAsync("accessToken", {});
-    this.props.logout();
+    // await SecureStorage.deleteItemAsync("id", {});
+    // await SecureStorage.deleteItemAsync("sub", {});
+    // await SecureStorage.deleteItemAsync("email", {});
+    // await SecureStorage.deleteItemAsync("roles", {});
+    // await SecureStorage.deleteItemAsync("userId", {});
+    // await SecureStorage.deleteItemAsync("accessToken", {});
+    // this.props.logout();
+    await AuthSession.dismiss();
     this.props.navigation.navigate("Logout");
 
     const logoutURL =
@@ -297,14 +299,14 @@ class EditSupProScreen extends React.Component {
               />
             </View>
 
-            <View style={styles.logoutSection}>
+            {/* <View style={styles.logoutSection}>
               <TouchableOpacity
                 onPress={this.logoutPress}
                 style={styles.buttonContainer}
               >
                 <Text style={styles.buttonText}>Logout</Text>
               </TouchableOpacity>
-            </View>
+            </View> */}
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
