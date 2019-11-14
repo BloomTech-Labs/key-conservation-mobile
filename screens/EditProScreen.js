@@ -20,16 +20,6 @@ import { AmpEvent } from "../components/withAmplitude";
 import styles from "../constants/screens/EditProScreen";
 
 class EditProScreen extends React.Component {
-  logoutPress = async () => {
-    await SecureStorage.deleteItemAsync("sub", {});
-    await SecureStorage.deleteItemAsync("email", {});
-    await SecureStorage.deleteItemAsync("roles", {});
-    await SecureStorage.deleteItemAsync("id", {});
-    await SecureStorage.deleteItemAsync("userId", {});
-    await SecureStorage.deleteItemAsync("accessToken", {});
-    this.props.logout();
-    this.props.navigation.navigate("Loading");
-  };
 
   static navigationOptions = ({ navigation }) => {
     return {

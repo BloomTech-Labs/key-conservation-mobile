@@ -12,9 +12,11 @@ class MySupProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'My Profile',
-      headerLeft: (
-        <SettingsButton />
-      ),
+      headerLeft:
+      <SettingsButton
+         navigation={navigation}
+         settingsRoute={'AccountSettings'}
+       />,
       headerStyle: {
         backgroundColor: '#323338'
       },
