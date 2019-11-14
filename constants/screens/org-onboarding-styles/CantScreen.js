@@ -2,6 +2,8 @@ export default {
 
     obBody: {
         flex: 1,
+        paddingTop: '5%',
+        paddingBottom: '5%',
         backgroundColor: '#E5E5E5',
         justifyContent: 'center'
     },
@@ -15,6 +17,16 @@ export default {
         marginBottom: '2%',
         marginRight: '7%',      
     },
+    obTextBottom: {
+        color: '#000000',
+        fontFamily: 'OpenSans-Regular',
+        fontSize: 18,
+        lineHeight: 25,
+        marginLeft: '5%',
+        marginTop: '2%',
+        marginBottom: '7%',
+        marginRight: '7%',      
+    },
     obTitle: {
         color: '#000000',
         fontFamily: 'OpenSans-Bold',
@@ -22,7 +34,7 @@ export default {
         lineHeight: 38,
         marginLeft: '5%',
         marginTop: '2%',
-        marginBottom: '2%',
+        marginBottom: '7%',
         marginRight: '7%',
     },
     obSubtitle: {
@@ -45,44 +57,14 @@ export default {
         justifyContent: 'center',
         alignItems: 'center',
         alignContent: 'center',
-        marginRight: '5%',
-        marginTop: '6%',
-        marginBottom: '5%'
-    },
-    obBackContainer: {
-        width: 112,
-        height: 46,
-        backgroundColor: '#C4C4C4',
-        borderRadius: 5,
-        alignSelf: 'flex-start',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignContent: 'center',
-        marginLeft: '5%',
-        marginTop: '6%'
-    },
-    obCtrContainer: {
-        width: 112,
-        height: 46,
-        backgroundColor: '#C4C4C4',
-        borderRadius: 5,
-        alignSelf: 'flex-start',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignContent: 'center',
-        marginLeft: '50%',
-        marginRight: '50%',
-        marginTop: '6%'
+        marginRight: '5%'
     },
     obFwdBtnText: {
         fontFamily: 'OpenSans-Bold',
         fontStyle: 'normal',
         fontSize: 18,
         lineHeight: 25,
-        color: '#000000',
-        marginTop: '8%'
+        color: '#000000'
     },
     obRectangle1: {
         position: 'absolute',
@@ -111,16 +93,13 @@ export default {
         fontWeight: 300,
         fontSize: 14,
         lineHeight: 19,
-        color: '#000000',
-        marginLeft: '5%',
-        marginTop: '3%'
+        color: '#000000'
     },
     obTextInput: {
+        marginLeft: 20,
+        marginBottom: 20,
         backgroundColor: 'rgba(196, 196, 196, 0.5)',
         borderRadius: 8,
-        marginLeft: '5%',
-        marginRight: '5%',
-        lineHeight: 50,
         keyboardType: 'default'
     },
     obNumInput: {

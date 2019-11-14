@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, ScrollView, Button, TouchableOpacity, StyleSheet } from 'react-native';
-import styles from '../../constants/screens/org-onboarding-styles/OnboardingStyles.js';
+import styles from '../../constants/screens/org-onboarding-styles/CanScreen.js';
 
 const CanScreen = (props) => {
 	return (
@@ -25,7 +25,7 @@ const CanScreen = (props) => {
 					</Text>
 				</View>
 				<View>
-					<Text style={styles.obText}>
+					<Text style={styles.obTextBottom}>
 						Commodo enim cupidatat consequat cupidatat ea Lorem cupidatat consequat aliquip aliqua ullamco
 						id. Consequat sit elit ea labore fugiat culpa eiusmod proident duis. Elit mollit veniam
 						cupidatat minim est incididunt ullamco et laboris minim velit in.

@@ -1,15 +1,16 @@
 import React from 'react';
 
-import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, TouchableOpacityBase } from 'react-native';
-import styles from '../../constants/screens/org-onboarding-styles/OnboardingStyles.js';
+import { View, Text, TextInput, ScrollView, TouchableOpacity, KeyboardAvoidingView, TouchableOpacityBase } from 'react-native';
+import styles from '../../constants/screens/org-onboarding-styles/MakeAccount.js';
 
 const MakeAccountScreen = (props) => {
 	return (
-		<KeyboardAvoidingView behavior="height" keyboardVerticalOffset={86} enabled>
-			<View style={styles.obBody}>
+		<KeyboardAvoidingView style={styles.obBody}
+		behavior="height" keyboardVerticalOffset={86} enabled>
+			<ScrollView>
 				<View>
 					<View>
-						<Text  style={styles.obTitle}>First let's make your account</Text>
+						<Text style={styles.obTitle}>First let's make your account</Text>
 					</View>
 					<View>
 						<Text style={styles.obText}>
@@ -25,17 +26,22 @@ const MakeAccountScreen = (props) => {
 
 					<View>
 						<Text style={styles.obFieldName}>Full Name</Text>
-						<TextInput style={styles.obTextInput}returnKeyType="next" />
+						<TextInput 
+						style={styles.obTextInput}
+						returnKeyType="next" />
 					</View>
 
                     <View>
 						<Text style={styles.obFieldName}>Email</Text>
-						<TextInput style={styles.obTextInput}returnKeyType="next" />
+						<TextInput 
+						style={styles.obTextInput}
+						returnKeyType="next" />
 					</View>
 
                     <View>
 						<Text style={styles.obFieldName}>Password</Text>
-                        <TextInput style={styles.obTextInput}
+                        <TextInput
+						style={styles.obTextInput}
                         returnKeyType="next" 
                         secureTextEntry={true}
                         />
@@ -43,14 +49,16 @@ const MakeAccountScreen = (props) => {
 
                     <View>
 						<Text style={styles.obFieldName}>Re-type password</Text>
-                        <TextInput style={styles.obTextInput}
+                        <TextInput
+						style={styles.obTextInput}
                         returnKeyType="next" 
                         secureTextEntry={true}
                         />
 					</View>
 
                     <View>
-                        <TouchableOpacity style={styles.obFwdContainer}
+                        <TouchableOpacity
+						style={styles.obFwdContainer}
 							onPress={() => {
 								props.navigation.navigate("TellAboutOrganization")
 							}}
@@ -59,7 +67,7 @@ const MakeAccountScreen = (props) => {
                         </TouchableOpacity>
                     </View>
 				</View>
-			</View>
+			</ScrollView>
 		</KeyboardAvoidingView>
 	);
 };

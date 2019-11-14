@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, View, Text, TouchableOpacity } from "react-native";
-import styles from '../../constants/screens/org-onboarding-styles/OnboardingStyles.js';
+import styles from '../../constants/screens/org-onboarding-styles/KeyConservation.js';
 
 
 const KeyConservationScreen = (props) => {
