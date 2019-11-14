@@ -45,44 +45,14 @@ export default {
         justifyContent: 'center',
         alignItems: 'center',
         alignContent: 'center',
-        marginRight: '5%',
-        marginTop: '6%',
-        marginBottom: '5%'
-    },
-    obBackContainer: {
-        width: 112,
-        height: 46,
-        backgroundColor: '#C4C4C4',
-        borderRadius: 5,
-        alignSelf: 'flex-start',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignContent: 'center',
-        marginLeft: '5%',
-        marginTop: '6%'
-    },
-    obCtrContainer: {
-        width: 112,
-        height: 46,
-        backgroundColor: '#C4C4C4',
-        borderRadius: 5,
-        alignSelf: 'flex-start',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignContent: 'center',
-        marginLeft: '50%',
-        marginRight: '50%',
-        marginTop: '6%'
+        marginRight: '5%'
     },
     obFwdBtnText: {
         fontFamily: 'OpenSans-Bold',
         fontStyle: 'normal',
         fontSize: 18,
         lineHeight: 25,
-        color: '#000000',
-        marginTop: '8%'
+        color: '#000000'
     },
     obRectangle1: {
         position: 'absolute',
@@ -131,7 +101,15 @@ export default {
     },
     obUploadBtn: {
         backgroundColor: '#00FF9D',
-        borderRadius: 8
+        borderRadius: 8,
+        width: '80%',
+        marginLeft: '10%',
+        height: 38,
+        flexDirection: 'column',
+        paddingLeft: '10%'
+    },
+    spacer: {
+        height: '10%'
     },
     obOrgBtn: {
         backgroundColor: '#C4C4C4',

@@ -45,44 +45,14 @@ export default {
         justifyContent: 'center',
         alignItems: 'center',
         alignContent: 'center',
-        marginRight: '5%',
-        marginTop: '6%',
-        marginBottom: '5%'
-    },
-    obBackContainer: {
-        width: 112,
-        height: 46,
-        backgroundColor: '#C4C4C4',
-        borderRadius: 5,
-        alignSelf: 'flex-start',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignContent: 'center',
-        marginLeft: '5%',
-        marginTop: '6%'
-    },
-    obCtrContainer: {
-        width: 112,
-        height: 46,
-        backgroundColor: '#C4C4C4',
-        borderRadius: 5,
-        alignSelf: 'flex-start',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignContent: 'center',
-        marginLeft: '50%',
-        marginRight: '50%',
-        marginTop: '6%'
+        marginRight: '5%'
     },
     obFwdBtnText: {
         fontFamily: 'OpenSans-Bold',
         fontStyle: 'normal',
         fontSize: 18,
         lineHeight: 25,
-        color: '#000000',
-        marginTop: '8%'
+        color: '#000000'
     },
     obRectangle1: {
         position: 'absolute',
@@ -108,7 +78,6 @@ export default {
     },
     obFieldName: {
         fontFamily: 'OpenSans-Regular',
-        fontWeight: 300,
         fontSize: 14,
         lineHeight: 19,
         color: '#000000',
@@ -120,6 +89,14 @@ export default {
         borderRadius: 8,
         marginLeft: '5%',
         marginRight: '5%',
+        lineHeight: 50
+    },
+    obTextInputBottom: {
+        backgroundColor: 'rgba(196, 196, 196, 0.5)',
+        borderRadius: 8,
+        marginLeft: '5%',
+        marginRight: '5%',
+        marginBottom: '5%',
         lineHeight: 50
     },
     obNumInput: {
