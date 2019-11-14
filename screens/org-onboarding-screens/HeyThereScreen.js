@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Button, TouchableOpacity } from "react-native";
+import { View, Text, Button, TouchableOpacity, Linking } from "react-native";
 import styles from '../../constants/screens/org-onboarding-styles/OnboardingStyles.js';
 import * as SecureStore from 'expo-secure-store';
 
@@ -15,6 +15,16 @@ const HeyThereScreen = props => {
     await SecureStore.deleteItemAsync('accessToken', {});
     logout();
     props.navigation.navigate('Loading');
+
+    const logoutURL = 'https://key-conservation.auth0.com/v2/logout?federated';
+
+    Linking.canOpenURL(logoutURL).then(supported => {
+      if (supported) {
+        Linking.openURL(logoutURL);
+      } else {
+        console.log("Don't know how to open URI: " + logoutURL);
+      }
+    });
   };
     return (
         <View style={styles.obBody}>
