@@ -33,6 +33,7 @@ class EditSupProScreen extends React.Component {
     await SecureStorage.deleteItemAsync("accessToken", {});
     this.props.logout();
     this.props.navigation.navigate("Logout");
+    
     const logoutURL =
       "https://key-conservation.auth0.com/v2/logout?federated&client_id=DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S";
 
