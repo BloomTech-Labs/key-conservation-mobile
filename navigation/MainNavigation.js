@@ -240,11 +240,8 @@ export const LoginStack = createStackNavigator(
   }
 );
 
-export const LogoutStack = createStackNavigator({
-  Logout: {
-    screen: LogoutScreen
-  },
-})
+export const LogoutStack = createStackNavigator(
+  { Logout: LogoutScreen })
 
 export const ConsNavigator = createBottomTabNavigator(
   {

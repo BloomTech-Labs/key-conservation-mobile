@@ -13,6 +13,7 @@ import BackButton from "../components/BackButton";
 import DoneButton from "../components/DoneButton";
 
 import styles from "../constants/screens/AccountSettingsScreen";
+
 import { AuthSession } from "expo";
 
 class AccountSettingsScreen extends React.Component{
@@ -47,18 +48,20 @@ class AccountSettingsScreen extends React.Component{
           this.props.navigation.goBack();
       };
 
-      logoutPress = async () => {
-        // await SecureStorage.deleteItemAsync("sub", {});
-        // await SecureStorage.deleteItemAsync("email", {});
-        // await SecureStorage.deleteItemAsync("roles", {});
-        // await SecureStorage.deleteItemAsync("id", {});
-        // await SecureStorage.deleteItemAsync("userId", {});
-        // await SecureStorage.deleteItemAsync("accessToken", {});
-        // this.props.logout();
-        await AuthSession.dismiss();
-        this.props.navigation.navigate("Logout");
 
-        const logoutURL = 'https://key-conservation.auth0.com/v2/logout?federated&client_id=elyo5qK7vYReEsKAPEADW2T8LAMpIJaf';
+      logoutPress = async () => {
+        await SecureStorage.deleteItemAsync("sub", {});
+        await SecureStorage.deleteItemAsync("email", {});
+        await SecureStorage.deleteItemAsync("roles", {});
+        await SecureStorage.deleteItemAsync("id", {});
+        await SecureStorage.deleteItemAsync("userId", {});
+        await SecureStorage.deleteItemAsync("accessToken", {});
+        // await AuthSession.dismiss();
+        this.props.logout();
+        this.props.navigation.navigate("Logout");
+        console.log("account settings logout hit")
+
+        const logoutURL = 'https://key-conservation.auth0.com/v2/logout?federated';
 
         Linking.canOpenURL(logoutURL).then(supported => {
           if (supported) {

@@ -25,28 +25,6 @@ import Axios from "axios";
 import AuthSession from "expo";
 
 class EditSupProScreen extends React.Component {
-  logoutPress = async () => {
-    // await SecureStorage.deleteItemAsync("id", {});
-    // await SecureStorage.deleteItemAsync("sub", {});
-    // await SecureStorage.deleteItemAsync("email", {});
-    // await SecureStorage.deleteItemAsync("roles", {});
-    // await SecureStorage.deleteItemAsync("userId", {});
-    // await SecureStorage.deleteItemAsync("accessToken", {});
-    // this.props.logout();
-    await AuthSession.dismiss();
-    this.props.navigation.navigate("Logout");
-    
-    const logoutURL =
-      "https://key-conservation.auth0.com/v2/logout?federated&client_id=DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S";
-
-    Linking.canOpenURL(logoutURL).then(supported => {
-      if (supported) {
-        Linking.openURL(logoutURL);
-      } else {
-        console.log("Don't know how to open URI: " + logoutURL);
-      }
-    });
-  };
 
   static navigationOptions = ({ navigation }) => {
     return {
