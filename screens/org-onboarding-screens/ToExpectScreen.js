@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Button, TouchableOpacity } from "react-native";
-import styles from '../../constants/screens/org-onboarding-styles/OnboardingStyles.js';
+import styles from '../../constants/screens/org-onboarding-styles/ToExpect.js';
 
 const ToExpectScreen = props => {
     return (
@@ -14,13 +14,15 @@ const ToExpectScreen = props => {
             </Text>
             <Text style={styles.obSubtitle}>Go Visible!</Text>
             <Text style={styles.obText}>Once we verify your organization, you're all set up to go visible and start adding campaigns.</Text>
-            <TouchableOpacity style={styles.ObFwdContainer}
+            <View>
+                <TouchableOpacity style={styles.ObFwdContainer}
                 onPress={() => {
                     props.navigation.navigate("KeyConservation")
                 }}
-            >
+                >
                 <Text style={styles.obFwdBtnText}>Next</Text>
-            </TouchableOpacity>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }

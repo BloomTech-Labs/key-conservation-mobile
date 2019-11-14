@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Button, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Button, StyleSheet } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/OnboardingStyles.js';
 
 const CantScreen = (props) => {
 	return (
 		<View style={styles.obBody}>
+			<ScrollView>
 			<View>
 				<Text style={styles.obTitle}>What we cannot do...</Text>
 			</View>
@@ -40,6 +41,7 @@ const CantScreen = (props) => {
 					<Text style={styles.obFwdBtnText}>Next</Text>
 				</TouchableOpacity>
 			</View>
+			</ScrollView>
 		</View>
 	);
 };
