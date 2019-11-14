@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Linking
 } from "react-native";
+import SvgUri from "react-native-svg-uri";
 import { ScrollView, NavigationEvents } from "react-navigation";
 import { connect } from "react-redux";
 import { logout } from "../store/actions";
@@ -74,14 +75,24 @@ class AccountSettingsScreen extends React.Component{
 
       render(){
           return(
-            <ScrollView>
-          <View style={styles.logoutSection}>
+           <ScrollView contentContainerStyle={styles.scrollBG}>
+      <View style={styles.container}>
+        <View style={styles.sections}>
+          <View style={styles.iconWrap}>
+            <SvgUri
+              fill='#3b3b3b'
+              width='25'
+              height='25'
+              source={require("../assets/icons/user.svg")}
+            />
+            <Text style={styles.title}>Logout Of Your Profile</Text>
+                </View>
               <TouchableOpacity
                 onPress={this.logoutPress}
-                style={styles.buttonContainer}
-              >
+                style={styles.buttonContainer}>
                 <Text style={styles.buttonText}>Logout</Text>
               </TouchableOpacity>
+            </View>
             </View>
             </ScrollView>
           );
