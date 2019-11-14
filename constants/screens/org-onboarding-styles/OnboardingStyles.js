@@ -6,19 +6,19 @@ export default {
     },
     obText: {
         color: '#000000',
-        // fontFamily: 'Open_Sans',
+        fontFamily: 'OpenSans-Regular',
         fontSize: 18,
         lineHeight: 25
     },
     obTitle: {
         color: '#000000',
-        // fontFamily: 'Open_Sans',
+        fontFamily: 'OpenSans-Regular',
         fontSize: 28,
         lineHeight: 38
     },
     obSubtitle: {
         color: '#000000',
-        // fontFamily: 'Open_Sans',
+        fontFamily: 'OpenSans-Regular',
         fontSize: 21,
         lineHeight: 29
     },
@@ -26,15 +26,20 @@ export default {
         width: 112,
         height: 46,
         backgroundColor: '#C4C4C4',
-        borderRadius: 5
+        borderRadius: 5,
+        alignSelf: 'flex-end',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     obFwdBtnText: {
-        // fontFamily: 'Open_Sans',
+        fontFamily: 'OpenSans-Regular',
         fontStyle: 'normal',
         fontWeight: 'bold',
         fontSize: 18,
         lineHeight: 25,
-        color: '#000000'
+        color: '#000000',
+        alignSelf: 'center'
     },
     obRectangle1: {
         position: 'absolute',
@@ -59,7 +64,7 @@ export default {
         borderColor: '#00FF9D'
     },
     obFieldName: {
-        // fontFamily: 'Open_Sans',
+        fontFamily: 'OpenSans-Regular',
         fontWeight: 300,
         fontSize: 14,
         lineHeight: 19,
