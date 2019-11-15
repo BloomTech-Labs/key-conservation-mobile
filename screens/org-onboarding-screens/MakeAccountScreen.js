@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, TouchableOpacityBase } from 'react-native';
-import styles from '../../constants/screens/org-onboarding-styles/OnboardingStyles.js';
+import { View, ScrollView, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, TouchableOpacityBase } from 'react-native';
+import styles from '../../constants/screens/org-onboarding-styles/MakeAccount.js';
 
 const MakeAccountScreen = (props) => {
 	return (
-		<KeyboardAvoidingView behavior="height" keyboardVerticalOffset={86} enabled>
-			<View style={styles.obBody}>
+		<KeyboardAvoidingView style={styles.obBody} behavior="height" keyboardVerticalOffset={86} enabled>
+			<ScrollView>
 				<View>
 					<View>
 						<Text  style={styles.obTitle}>First let's make your account</Text>
@@ -59,7 +59,7 @@ const MakeAccountScreen = (props) => {
                         </TouchableOpacity>
                     </View>
 				</View>
-			</View>
+			</ScrollView>
 		</KeyboardAvoidingView>
 	);
 };

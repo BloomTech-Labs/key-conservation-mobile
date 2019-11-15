@@ -15,16 +15,6 @@ export default {
         marginBottom: '2%',
         marginRight: '7%',      
     },
-    obTextBottom: {
-        color: '#000000',
-        fontFamily: 'OpenSans-Regular',
-        fontSize: 18,
-        lineHeight: 25,
-        marginLeft: '5%',
-        marginTop: '2%',
-        marginBottom: '7%',
-        marginRight: '7%',      
-    },
     obTitle: {
         color: '#000000',
         fontFamily: 'OpenSans-Bold',
@@ -45,6 +35,33 @@ export default {
         marginBottom: '2%',
         marginRight: '7%',
     },
+    obBackContainer: {
+        width: 112,
+        height: 46,
+        backgroundColor: '#C4C4C4',
+        borderRadius: 5,
+        alignSelf: 'flex-start',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignContent: 'center',
+        marginLeft: '5%',
+        marginTop: '6%'
+    },
+    obCtrContainer: {
+        width: 112,
+        height: 46,
+        backgroundColor: '#C4C4C4',
+        borderRadius: 5,
+        alignSelf: 'flex-start',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignContent: 'center',
+        marginLeft: '50%',
+        marginRight: '50%',
+        marginTop: '6%'
+    },
     obFwdContainer: {
         width: 112,
         height: 46,
@@ -62,7 +79,8 @@ export default {
         fontStyle: 'normal',
         fontSize: 18,
         lineHeight: 25,
-        color: '#000000'
+        color: '#000000',
+        marginTop: '9%'
     },
     obRectangle1: {
         position: 'absolute',
@@ -111,21 +129,16 @@ export default {
     },
     obUploadBtn: {
         backgroundColor: '#00FF9D',
-        borderRadius: 8,
-        width: '80%',
-        marginLeft: '10%',
-        height: 38,
-        flexDirection: 'column',
-        paddingLeft: '10%'
-    },
-    spacer: {
-        height: '10%'
+        borderRadius: 8
     },
     obOrgBtn: {
         backgroundColor: '#C4C4C4',
         borderRadius: 24,
         width: 214,
         height: 68
+    },
+    spacer: {
+        height: '5%'
     }
 
 }

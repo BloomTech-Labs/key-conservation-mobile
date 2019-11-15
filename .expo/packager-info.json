@@ -1,8 +1,9 @@
 {
-  "expoServerPort": 19005,
-  "packagerPort": 19006,
-  "packagerPid": 26338,
-  "expoServerNgrokUrl": "https://9m-sek.camerona.key-conservation-mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.9m-sek.camerona.key-conservation-mobile.exp.direct",
-  "ngrokPid": 26357
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 1590,
+  "expoServerNgrokUrl": "https://9m-sek.jonsolari.key-conservation-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.9m-sek.jonsolari.key-conservation-mobile.exp.direct",
+  "ngrokPid": 1611,
+  "devToolsPort": 19002
 }

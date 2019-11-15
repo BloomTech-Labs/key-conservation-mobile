@@ -107,6 +107,9 @@ export default {
         borderRadius: 24,
         width: 214,
         height: 68
+    },
+    spacer: {
+        height: '10%'
     }
 
 }

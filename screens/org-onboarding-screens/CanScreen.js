@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, Button, TouchableOpacity, StyleSheet } from 'react-native';
-import styles from '../../constants/screens/org-onboarding-styles/OnboardingStyles.js';
+import { View, ScrollView, Text, Button, TouchableOpacity, StyleSheet } from 'react-native';
+import styles from '../../constants/screens/org-onboarding-styles/CanScreen.js';
 
 const CanScreen = (props) => {
 	return (
 		<View style={styles.obBody}>
+			<ScrollView>
 			<View>
 				<Text style={styles.obTitle}>What we can do to help your organization...</Text>
 			</View>
@@ -24,7 +25,7 @@ const CanScreen = (props) => {
 					</Text>
 				</View>
 				<View>
-					<Text style={styles.obText}>
+					<Text style={styles.obTextBottom}>
 						Commodo enim cupidatat consequat cupidatat ea Lorem cupidatat consequat aliquip aliqua ullamco
 						id. Consequat sit elit ea labore fugiat culpa eiusmod proident duis. Elit mollit veniam
 						cupidatat minim est incididunt ullamco et laboris minim velit in.
@@ -38,6 +39,7 @@ const CanScreen = (props) => {
 					<Text style={styles.obFwdBtnText}>Next</Text>
 				</TouchableOpacity>
 			</View>
+			</ScrollView>
 		</View>
 	);
 };
