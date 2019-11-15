@@ -15,6 +15,16 @@ export default {
         marginBottom: '2%',
         marginRight: '7%',      
     },
+    obTextBottom: {
+        color: '#000000',
+        fontFamily: 'OpenSans-Regular',
+        fontSize: 18,
+        lineHeight: 25,
+        marginLeft: '5%',
+        marginTop: '2%',
+        marginBottom: '7%',
+        marginRight: '7%',      
+    },
     obTitle: {
         color: '#000000',
         fontFamily: 'OpenSans-Bold',

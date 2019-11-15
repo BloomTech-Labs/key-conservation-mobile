@@ -2,36 +2,81 @@ export default {
 
     obBody: {
         flex: 1,
-        backgroundColor: '#E5E5E5'
+        backgroundColor: '#E5E5E5',
+        justifyContent: 'center'
     },
     obText: {
         color: '#000000',
-        // fontFamily: 'Open_Sans',
+        fontFamily: 'OpenSans-Regular',
         fontSize: 18,
-        lineHeight: 25
+        lineHeight: 25,
+        marginLeft: '5%',
+        marginTop: '2%',
+        marginBottom: '2%',
+        marginRight: '7%',      
     },
     obTitle: {
         color: '#000000',
-        // fontFamily: 'Open_Sans',
+        fontFamily: 'OpenSans-Bold',
         fontSize: 28,
-        lineHeight: 38
+        lineHeight: 38,
+        marginLeft: '5%',
+        marginTop: '2%',
+        marginBottom: '2%',
+        marginRight: '7%',
     },
     obSubtitle: {
         color: '#000000',
-        // fontFamily: 'Open_Sans',
+        fontFamily: 'OpenSans-Bold',
         fontSize: 21,
-        lineHeight: 29
+        lineHeight: 29,
+        marginLeft: '5%',
+        marginTop: '2%',
+        marginBottom: '2%',
+        marginRight: '7%',
+    },
+    obBackContainer: {
+        width: 112,
+        height: 46,
+        backgroundColor: '#C4C4C4',
+        borderRadius: 5,
+        alignSelf: 'flex-start',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignContent: 'center',
+        marginLeft: '5%',
+        marginTop: '6%'
+    },
+    obCtrContainer: {
+        width: 112,
+        height: 46,
+        backgroundColor: '#C4C4C4',
+        borderRadius: 5,
+        alignSelf: 'flex-start',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignContent: 'center',
+        marginLeft: '50%',
+        marginRight: '50%',
+        marginTop: '6%'
     },
     obFwdContainer: {
         width: 112,
         height: 46,
         backgroundColor: '#C4C4C4',
-        borderRadius: 5
+        borderRadius: 5,
+        alignSelf: 'flex-end',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignContent: 'center',
+        marginRight: '5%'
     },
     obFwdBtnText: {
-        // fontFamily: 'Open_Sans',
+        fontFamily: 'OpenSans-Bold',
         fontStyle: 'normal',
-        fontWeight: 'bold',
         fontSize: 18,
         lineHeight: 25,
         color: '#000000'
@@ -59,18 +104,20 @@ export default {
         borderColor: '#00FF9D'
     },
     obFieldName: {
-        // fontFamily: 'Open_Sans',
+        fontFamily: 'OpenSans-Regular',
         fontWeight: 300,
         fontSize: 14,
         lineHeight: 19,
-        color: '#000000'
+        color: '#000000',
+        marginLeft: '5%',
+        marginTop: '3%'
     },
     obTextInput: {
-        marginLeft: 20,
-        marginBottom: 20,
         backgroundColor: 'rgba(196, 196, 196, 0.5)',
         borderRadius: 8,
-        keyboardType: 'default'
+        marginLeft: '5%',
+        marginRight: '5%',
+        lineHeight: 50
     },
     obNumInput: {
         marginLeft: 20,
@@ -88,6 +135,9 @@ export default {
         borderRadius: 24,
         width: 214,
         height: 68
+    },
+    spacer: {
+        height: '5%'
     }
 
 }
