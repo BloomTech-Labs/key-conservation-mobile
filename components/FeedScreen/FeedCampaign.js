@@ -7,7 +7,7 @@ import {
   FlatList,
   Platform
 } from 'react-native';
-import { NavigationEvents, withNavigationFocus } from 'react-navigation';
+import { withNavigationFocus } from 'react-navigation';
 import { View } from 'react-native-animatable';
 import moment from 'moment';
 import { Video } from 'expo-av';
@@ -28,6 +28,8 @@ import { AmpEvent } from '../withAmplitude';
 
 import styles from '../../constants/FeedScreen/FeedCampaign';
 import styles2 from '../../constants/Comments/Comments';
+
+import ShareButton from '../Sharing/ShareButton';
 
 // url for heroku staging vs production server
 const seturl = 'https://key-conservation.herokuapp.com/api/';
@@ -346,7 +348,7 @@ const FeedCampaign = props => {
               ) : null}
               {loader ? (
                 <View style={styles.indicator}>
-                  <ActivityIndicator size='large' color='#00FF9D' />
+                  <ActivityIndicator size="large" color="#00FF9D" />
                 </View>
               ) : null}
               {props.isFocused ? (
@@ -360,7 +362,7 @@ const FeedCampaign = props => {
                   isMuted={false}
                   shouldPlay={true}
                   isLooping
-                  resizeMode='cover'
+                  resizeMode="cover"
                   onPlaybackStatusUpdate={onPlaybackStatusUpdate}
                   style={styles.campImgContain}
                 />
@@ -388,10 +390,11 @@ const FeedCampaign = props => {
             <View style={!userLiked ? { zIndex: 1 } : { zIndex: -1 }}>
               <FontAwesome
                 onPress={() => addLike(data.camp_id)}
-                name='heart-o'
+                name="heart-o"
                 style={styles.heartOutline}
               />
             </View>
+
             <View
               animation={userLiked ? 'zoomIn' : 'zoomOut'}
               style={
@@ -404,7 +407,7 @@ const FeedCampaign = props => {
             >
               <FontAwesome
                 onPress={() => deleteLike(data.camp_id)}
-                name='heart'
+                name="heart"
                 style={styles.heartFill}
               />
             </View>
@@ -415,11 +418,14 @@ const FeedCampaign = props => {
             <Text style={styles.likes}>{likes} like</Text>
           )}
         </View>
+
+        <ShareButton />
+
         <View style={styles.bookmarks}>
           <View style={!userBookmarked ? { zIndex: 1 } : { zIndex: -1 }}>
             <FontAwesome
               onPress={() => addBookmark()}
-              name='bookmark-o'
+              name="bookmark-o"
               style={styles.bookmarkOutline}
             />
           </View>
@@ -433,7 +439,7 @@ const FeedCampaign = props => {
           >
             <FontAwesome
               onPress={() => deleteBookmark()}
-              name='bookmark'
+              name="bookmark"
               style={styles.bookmarkFill}
             />
           </View>
