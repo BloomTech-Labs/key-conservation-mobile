@@ -22,7 +22,7 @@ const SettingsButton = props => {
            <AntDesign
                 name='setting'
                 color='#fff'
-                size='23'
+                size={23}
             />
         </View>
     </TouchableOpacity>
