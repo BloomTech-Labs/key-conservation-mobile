@@ -1,10 +1,10 @@
 import React from "react";
-import { Button, View, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity} from "react-native";
+import { Button, View, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity} from "react-native";
 import styles from '../../constants/screens/org-onboarding-styles/TellAboutOrg.js';
 
 const TellAboutOrganizationScreen = (props) => {
     return (
-        <View style={styles.obBody}>
+        <KeyboardAvoidingView style={styles.obBody} behavior="height" keyboardVerticalOffset={86} enabled>
             <ScrollView>
             <Text style={styles.obTitle}>Tell us about your organization.</Text>
             <Text style={styles.obText}>We will want to make sure we can autosave your progress. So first things first: let's get you some login credentials.</Text>
@@ -24,7 +24,7 @@ const TellAboutOrganizationScreen = (props) => {
                 <Text style={styles.obFwdBtnText}>Next</Text>
             </TouchableOpacity>
             </ScrollView>
-        </View>
+        </KeyboardAvoidingView>
     );
 }
  export default TellAboutOrganizationScreen;
