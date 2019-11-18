@@ -92,14 +92,17 @@ export default {
         borderRadius: 8,
         marginLeft: '5%',
         marginRight: '5%',
-        lineHeight: 50
+        height: 50,
+        paddingLeft: 10,
+        fontFamily: 'OpenSans-Regular',
+        fontSize: 14,
+        color: '#000000'
     },
     obNumInput: {
         marginLeft: 20,
         marginBottom: 20,
         backgroundColor: 'rgba(196, 196, 196, 0.5)',
-        borderRadius: 8,
-        keyboardType: 'phone-pad'
+        borderRadius: 8
     },
     obUploadBtn: {
         backgroundColor: '#00FF9D',

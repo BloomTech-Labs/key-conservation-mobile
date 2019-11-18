@@ -25,7 +25,8 @@ const MakeAccountScreen = (props) => {
 
 					<View>
 						<Text style={styles.obFieldName}>Full Name</Text>
-						<TextInput style={styles.obTextInput}returnKeyType="next" />
+						<TextInput style={styles.obTextInput}
+						returnKeyType="next" />
 					</View>
 
                     <View>
