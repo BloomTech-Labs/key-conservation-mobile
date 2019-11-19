@@ -78,7 +78,7 @@ export default {
     },
     obFieldName: {
         fontFamily: 'OpenSans-Regular',
-        fontWeight: 300,
+        fontWeight: '300',
         fontSize: 14,
         lineHeight: 19,
         color: '#000000',
