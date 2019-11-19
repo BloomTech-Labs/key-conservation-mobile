@@ -17,12 +17,15 @@ const HeyThereScreen = props => {
     await SecureStore.deleteItemAsync('id', {});
     await SecureStore.deleteItemAsync('accessToken', {});
     logout();
-    props.navigation.navigate('Loading');
+    // props.navigation.navigate('Loading');
 
     const logoutURL = 'https://key-conservation.auth0.com/v2/logout?federated';
 
-    let result = WebBrowser.openBrowserAsync(logoutURL)
-    setState({result})
+    await WebBrowser.openBrowserAsync(logoutURL)
+    .then(result => {
+      setState({result})
+    props.navigation.navigate('Loading');
+    })
   };
     return (
         <View style={styles.obBody}>
