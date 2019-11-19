@@ -98,7 +98,6 @@ const SharingDialog = ({ onClose, data }) => {
     });
 
     let url = 'https://twitter.com/intent/tweet' + parameters;
-    console.log('url', url);
 
     WebBrowser.openBrowserAsync(url)
       .then(data => {
@@ -133,7 +132,6 @@ const SharingDialog = ({ onClose, data }) => {
     });
 
     let url = 'https://www.facebook.com/sharer/sharer.php' + parameters;
-    console.log('url', url);
 
     WebBrowser.openBrowserAsync(url)
       .then(data => {
@@ -153,7 +151,6 @@ const SharingDialog = ({ onClose, data }) => {
 
   return (
     <View style={styles.container}>
-      {console.log(data)}
       <Text style={styles.headline}>Click to Share Post</Text>
       <View style={styles.socialRow}>
         {getSocialButton('twitter')}
