@@ -15,7 +15,7 @@ const VerifyDocumentationScreen = (props) => {
         <View style={styles.spacer} />
             <TouchableOpacity style={styles.obFwdContainer}
                 onPress={() => {
-                    props.navigation.navigate("VerifyOrganization")
+                    props.navigation.navigate("AlmostDone")
                 }}            
             >
                 <Text style={styles.obFwdBtnText}>Next</Text>

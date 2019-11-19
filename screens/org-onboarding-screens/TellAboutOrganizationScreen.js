@@ -12,13 +12,15 @@ const TellAboutOrganizationScreen = (props) => {
             <TextInput style={styles.obTextInput} />
             <Text style={styles.obFieldName}>Organization Address</Text>
             <TextInput style={styles.obTextInput}/>
+            <Text style={styles.obFieldName}>Organization Country</Text>
+            <TextInput style={styles.obTextInput}/>
             <Text style={styles.obFieldName}>Organization Phone</Text>
             <TextInput style={styles.obTextInput}/>
             <Text style={styles.obFieldName}>Website URL</Text>
             <TextInput style={styles.obTextInputBottom}/>
             <TouchableOpacity style={styles.obFwdContainer}
                 onPress={() => {
-                    props.navigation.navigate("VerifyDocumentation")
+                    props.navigation.navigate("VerifyOrganization")
                 }}
             >
                 <Text style={styles.obFwdBtnText}>Next</Text>
