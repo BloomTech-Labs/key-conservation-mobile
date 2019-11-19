@@ -30,7 +30,7 @@
     "expo-image-picker": "^7.0.0",
     "expo-permissions": "^7.0.0",
     "expo-secure-store": "^7.0.0",
-    "expo-web-browser": "^7.0.0",
+    "expo-web-browser": "^7.0.1",
     "jwt-decode": "^2.2.0",
     "lottie-react-native": "^2.6.1",
     "moment": "^2.24.0",
@@ -43,8 +43,9 @@
     "react-native-animatable": "^1.3.2",
     "react-native-elements": "^1.1.0",
     "react-native-gesture-handler": "~1.3.0",
-    "react-native-inappbrowser-reborn": "^3.3.1",
+    "react-native-inappbrowser-reborn": "^3.3.2",
     "react-native-keyboard-aware-scroll-view": "^0.8.0",
+    "react-native-popover-view": "^2.0.5",
     "react-native-popup-menu": "^0.15.6",
     "react-native-search-filter": "^0.1.4",
     "react-native-sticky-header-footer-scroll-view": "^2.1.3",
@@ -58,8 +59,7 @@
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0",
-    "react-native-popover-view": "^2.0.5"
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.1.0",

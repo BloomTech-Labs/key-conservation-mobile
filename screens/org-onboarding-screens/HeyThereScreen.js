@@ -2,6 +2,8 @@ import React from "react";
 import { View, Text, Button, TouchableOpacity, Linking } from "react-native";
 import styles from '../../constants/screens/org-onboarding-styles/HeyThere.js';
 import * as SecureStore from 'expo-secure-store';
+import * as WebBrowser from 'expo-web-browser';
+
 
 import { logout } from "../../store/actions";
 
