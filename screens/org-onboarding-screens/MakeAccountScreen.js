@@ -8,58 +8,15 @@ const MakeAccountScreen = (props) => {
 		<KeyboardAvoidingView style={styles.obBody} behavior="height" keyboardVerticalOffset={86} enabled>
 			<ScrollView>
 				<View>
-					<View>
-						<Text  style={styles.obTitle}>First let's make your account</Text>
-					</View>
-					<View>
-						<Text style={styles.obText}>
-							We want to make sure we can autosave your progress. So first things first let's get you some
-							login credentials.
-						</Text>
-					</View>
+					<Text>Let's get started</Text>
 				</View>
-				<View>
-					<View>
-						<Text style={styles.obSubtitle}>Create Account</Text>
-					</View>
-
-					<View>
-						<Text style={styles.obFieldName}>Full Name</Text>
-						<TextInput style={styles.obTextInput}
-						returnKeyType="next" />
-					</View>
-
-                    <View>
-						<Text style={styles.obFieldName}>Email</Text>
-						<TextInput style={styles.obTextInput}returnKeyType="next" />
-					</View>
-
-                    <View>
-						<Text style={styles.obFieldName}>Password</Text>
-                        <TextInput style={styles.obTextInput}
-                        returnKeyType="next" 
-                        secureTextEntry={true}
-                        />
-					</View>
-
-                    <View>
-						<Text style={styles.obFieldName}>Re-type password</Text>
-                        <TextInput style={styles.obTextInput}
-                        returnKeyType="next" 
-                        secureTextEntry={true}
-                        />
-					</View>
-
-                    <View>
-                        <TouchableOpacity style={styles.obFwdContainer}
-							onPress={() => {
-								props.navigation.navigate("TellAboutOrganization")
-							}}
-						>
-                            <Text style={styles.obFwdBtnText}>Let's do this!</Text>
-                        </TouchableOpacity>
-                    </View>
-				</View>
+				<TouchableOpacity style={styles.obFwdContainer}
+                onPress={() => {
+                    props.navigation.navigate("TellAboutOrganization")
+                }}
+            >
+                <Text style={styles.obFwdBtnText}>Next</Text>
+            </TouchableOpacity>
 			</ScrollView>
 		</KeyboardAvoidingView>
 	);

@@ -5,12 +5,10 @@ import styles from '../../constants/screens/org-onboarding-styles/AlmostDone.js'
 const AlmostDoneScreen = props => {
     return (
         <View style={styles.obBody}>
-            <Text style={styles.obTitle}>You're Almost done!</Text>
+            <Text style={styles.obTitle}>Review your info</Text>
             <View>
                 <Text style={styles.obTextBottom}>
-                    We want to know a little bit more about your organization so we can best improve
-                    your experience. To finish verifying please fill out this quick survey (12 mins 
-                    or less).
+                    Check that everything looks good and tap submit, or go back and edit.
                 </Text>
             </View>
             <TouchableOpacity  style={styles.obFwdContainer}
@@ -18,7 +16,7 @@ const AlmostDoneScreen = props => {
                     props.navigation.navigate('ThankYou')
                 }}
                 > 
-                <Text style={styles.obFwdBtnText}>Survey</Text> 
+                <Text style={styles.obFwdBtnText}>Submit</Text> 
                 </TouchableOpacity>
         </View>
     );

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Text, View, TouchableOpacity} from "react-native";
+import { Button, Text, TextInput, View, TouchableOpacity} from "react-native";
 import styles from '../../constants/screens/org-onboarding-styles/VerifyOrg.js';
 
 const VerifyOrganizationScreen = (props) => {
@@ -7,22 +7,18 @@ const VerifyOrganizationScreen = (props) => {
     //PLEASE NOTE: THE "NEXT BUTTON ON HERE DOES NOT WORK..."
     return (
         <View style={styles.obBody}>
-            <Text style={styles.obTitle}>Verify your organization</Text>
-            <Text style={styles.obText}>How will you be receiving payments?</Text>
-            <View style={styles.spacer} />
-            <TouchableOpacity style={styles.obOrgBtn}>
-                <Text style={styles.obOrgBtnText}>An external link</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.obOrgBtn}>
-                <Text style={styles.obOrgBtnText}>Bank account</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.obOrgBtn}>
-                <Text style={styles.obOrgBtnText}>Checking account</Text>
-            </TouchableOpacity>
-            <View style={styles.spacer} />
+            <Text style={styles.obTitle}>Tell us more about your organization</Text>
+            <Text style={styles.obFieldName}>In what countries does your organization work?</Text>
+            <TextInput style={styles.obTextInput} />
+            <Text style={styles.obFieldName}>Projects your organization is working on:</Text>
+            <TextInput style={styles.obTextInput}/>
+            <Text style={styles.obFieldName}>Current partnerships and affiliations:</Text>
+            <TextInput style={styles.obTextInput}/>
+
+
             <TouchableOpacity style={styles.obFwdContainer}
                 onPress={() => {
-                    props.navigation.navigate("AlmostDone")
+                    props.navigation.navigate("VerifyDocumentation")
                 }}
             >
                 <Text style={styles.obFwdBtnText}>Next</Text>
