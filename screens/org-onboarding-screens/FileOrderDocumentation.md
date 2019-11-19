@@ -11,8 +11,8 @@ Because there are so many onboarding screens, we have provided you with this lis
 5. CantScreen
 6. MakeAccountScreen
 7. TellAboutOrganizationScreen
+8. VerifyOrganizationScreen
 8. VerifyDocumentationScreen
-9. VerifyOrganizationScreen
 10. AlmostDoneScreen
 11. ThankYouScreen
 

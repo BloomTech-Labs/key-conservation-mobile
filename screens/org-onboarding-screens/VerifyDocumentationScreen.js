@@ -38,7 +38,7 @@ export default class VerifyDocumentationScreen extends Component {
         <View style={styles.spacer} />
             <TouchableOpacity style={styles.obFwdContainer}
                 onPress={() => {
-                    navigation.navigate("VerifyOrganization")
+                    navigation.navigate("AlmostDone")
                 }}            
             >
                 <Text style={styles.obFwdBtnText}>Next</Text>

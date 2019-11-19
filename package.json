@@ -6,8 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest --watchAll",
-    "postinstall": "rndebugger-open --expo"
+    "test": "jest --watchAll"
   },
   "jest": {
     "preset": "jest-expo"
@@ -63,8 +62,7 @@
   },
   "devDependencies": {
     "babel-preset-expo": "^5.1.0",
-    "jest-expo": "^33.0.0",
-    "react-native-debugger-open": "^0.3.19"
+    "jest-expo": "^33.0.0"
   },
   "private": true
 }
