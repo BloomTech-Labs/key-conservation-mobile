@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Platform, TouchableOpacity } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Platform,
+  TouchableOpacity,
+  Text
+} from 'react-native';
 
 import Popover from 'react-native-popover-view';
 import SharingDialog from './SharingDialog';
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons';
 
 class ShareButton extends Component {
   state = {
@@ -11,7 +17,7 @@ class ShareButton extends Component {
   };
 
   showPopover() {
-    this.setState({ isVisible: true })
+    this.setState({ isVisible: true });
   }
 
   closePopover() {
@@ -25,17 +31,18 @@ class ShareButton extends Component {
           ref={ref => (this.touchable = ref)}
           onPress={() => this.showPopover()}
         >
-          <Ionicons name={Platform.OS === 'ios' ? 'ios-share' : 'md-share'}
+          <Ionicons
+            name={Platform.OS === 'ios' ? 'ios-share' : 'md-share'}
             size={30}
           />
         </TouchableOpacity>
-
         <Popover
           isVisible={this.state.isVisible}
           fromView={this.touchable}
           onRequestClose={() => this.closePopover()}
         >
           <SharingDialog
+            data={this.props.data}
             navigation={this.props.navigation}
             onClose={() => this.closePopover()}
           />

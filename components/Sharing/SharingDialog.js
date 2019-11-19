@@ -1,109 +1,65 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  Clipboard
+} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
 
-function getBrand(brand) {
-  const brands = {
-    twitter: {
-      displayName: 'Twitter',
-      getIcon() {
-        return (
-          <View style={styles.button}>
-            <FontAwesome name="twitter" size={35} />
-          </View>
-        );
+const SharingDialog = ({ onClose, data }) => {
+  function getBrand(brand) {
+    const brands = {
+      twitter: {
+        displayName: 'Twitter',
+        getIcon() {
+          return (
+            <View style={styles.button}>
+              <FontAwesome name="twitter" size={35} />
+            </View>
+          );
+        },
+        share: shareToTwitter
       },
-      share: shareToTwitter,
-    },
-    facebook: {
-      displayName: 'Facebook',
-      getIcon() {
-        return (
-          <View style={styles.button}>
-            <FontAwesome name="facebook-official" size={35} />
-          </View>
-        );
+      facebook: {
+        displayName: 'Facebook',
+        getIcon() {
+          return (
+            <View style={styles.button}>
+              <FontAwesome name="facebook-official" size={35} />
+            </View>
+          );
+        },
+        share: shareToFacebook
       },
-      share: shareToFacebook,
-    },
-    linkedIn: {
-      displayName: 'LinkedIn',
-      getIcon() {
-        return (
-          <View style={styles.button}>
-            <FontAwesome name="linkedin-square" size={35} />
-          </View>
-        );
+      instagram: {
+        displayName: 'Instagram',
+        getIcon() {
+          return (
+            <View style={styles.button}>
+              <FontAwesome name="instagram" size={35} />
+            </View>
+          );
+        },
+        share: shareToInstagram
+      },
+      linkedIn: {
+        displayName: 'LinkedIn',
+        getIcon() {
+          return (
+            <View style={styles.button}>
+              <FontAwesome name="linkedin-square" size={35} />
+            </View>
+          );
+        },
+        share: shareToLinkedIn
       }
-    },
-    instagram: {
-      displayName: 'Instagram',
-      getIcon() {
-        return (
-          <View style={styles.button}>
-            <FontAwesome name="instagram" size={35} />
-          </View>
-        );
-      }
-    }
-  };
-  return typeof brand === 'undefined' ? brands : brands[brand];
-}
+    };
+    return typeof brand === 'undefined' ? brands : brands[brand];
+  }
 
-function shareToFacebook() {
-  let parameters = '';
-  const params = {
-    u: 'https://expo.io/artifacts/f3dab764-00e4-45e3-b7de-8bc7a8afd392',
-    t: 'Hello Guys, This is a testing of twitter share example',
-  };
-
-  Object.keys(params).map((key, index) => {
-    if (index === 0) {
-      parameters += '?';
-    }
-    parameters += `${key}=${encodeURI(params[key])}&`;
-  });
-
-  let url = 'https://www.facebook.com/sharer/sharer.php' + parameters;
-  console.log('url', url);
-
-  WebBrowser.openBrowserAsync(url)
-    .then(data => {
-      alert('Posted');
-    })
-    .catch(() => {
-      alert('Something went wrong');
-    });
-}
-
-function shareToTwitter() {
-  let parameters = '';
-  const params = {
-    url: 'https://expo.io/artifacts/f3dab764-00e4-45e3-b7de-8bc7a8afd392',
-    content: 'Hello Guys, This is a testing of twitter share example',
-  };
-
-  Object.keys(params).map((key, index) => {
-    if (index === 0) {
-      parameters += '?';
-    }
-    parameters += `${key}=${encodeURI(params[key])}&`;
-  });
-
-  let url = 'https://twitter.com/intent/tweet' + parameters;
-  console.log('url', url);
-
-  WebBrowser.openBrowserAsync(url)
-    .then(data => {
-      alert('tweeted');
-    })
-    .catch(() => {
-      alert('Something went wrong');
-    });
-}
-
-const SharingDialog = ({ navigation, onClose }) => {
   function getSocialButton(brand) {
     const brandObj = getBrand(brand);
     return (
@@ -117,14 +73,90 @@ const SharingDialog = ({ navigation, onClose }) => {
       </TouchableOpacity>
     );
   }
+
+  const shorten = (string, cutoff) => {
+    return `${string.substr(0, cutoff)}...`;
+  };
+
+  function shareToTwitter() {
+    let parameters = '';
+    const params = {
+      url: data.profile_image,
+      text: shorten(
+        `${data.camp_name} \nBy ${data.username}\n${data.location}\n${data.camp_desc}\n`,
+        220
+      ),
+      via: 'keyconservation.org',
+      hashtag: `${data.urgency}`
+    };
+
+    Object.keys(params).map((key, index) => {
+      if (index === 0) {
+        parameters += '?';
+      }
+      parameters += `${key}=${encodeURI(params[key])}&`;
+    });
+
+    let url = 'https://twitter.com/intent/tweet' + parameters;
+
+    WebBrowser.openBrowserAsync(url)
+      .then(data => {
+      })
+      .catch(() => {
+        alert('Something went wrong');
+      });
+  }
+
+  writeToClipboard = async text => {
+    await Clipboard.setString(text);
+    alert('Copied Campaign Info to Clipboard!');
+  };
+
+  function shareToFacebook() {
+    let parameters = '';
+    const text = shorten(
+      `${data.camp_name} \nBy ${data.username}\n${data.location}\n${data.camp_desc}\n`,
+      500
+    );
+    writeToClipboard(text);
+    
+    const params = {
+      u: data.profile_image,
+    };
+
+    Object.keys(params).map((key, index) => {
+      if (index === 0) {
+        parameters += '?';
+      }
+      parameters += `${key}=${encodeURI(params[key])}&`;
+    });
+
+    let url = 'https://www.facebook.com/sharer/sharer.php' + parameters;
+
+    WebBrowser.openBrowserAsync(url)
+      .then(data => {
+      })
+      .catch(() => {
+        alert('Something went wrong');
+      });
+  }
+
+  function shareToInstagram() {
+    let parameters = '';
+  }
+
+  function shareToLinkedIn() {
+    let parameters = '';
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.headline}>Click to Share Post</Text>
       <View style={styles.socialRow}>
         {getSocialButton('twitter')}
         {getSocialButton('facebook')}
-        {getSocialButton('linkedIn')}
-        {getSocialButton('instagram')}
+        {/* {getSocialButton('linkedIn')}
+        {getSocialButton('instagram')} */}
       </View>
     </View>
   );
