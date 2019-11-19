@@ -325,6 +325,7 @@ const FeedCampaign = props => {
 
   return (
     <View style={styles.container}>
+    
       <ListItem
         onPress={goToProfile}
         title={
@@ -419,7 +420,7 @@ const FeedCampaign = props => {
           )}
         </View>
 
-        <ShareButton />
+        <ShareButton data={data}/>
 
         <View style={styles.bookmarks}>
           <View style={!userBookmarked ? { zIndex: 1 } : { zIndex: -1 }}>
