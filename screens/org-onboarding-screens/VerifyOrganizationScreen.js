@@ -1,10 +1,15 @@
-import React from "react";
-import { Button, Text, TextInput, View, TouchableOpacity} from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Switch, Text, TextInput, View, TouchableOpacity} from "react-native";
 import styles from '../../constants/screens/org-onboarding-styles/VerifyOrg.js';
+
 
 const VerifyOrganizationScreen = (props) => {
 
-    //PLEASE NOTE: THE "NEXT BUTTON ON HERE DOES NOT WORK..."
+
+
+    const [consOptimism, setConsOptimism] = useState(false);
+    const [smartPhone, setSmartPhone] = useState(false);
+    
     return (
         <View style={styles.obBody}>
             <Text style={styles.obTitle}>Tell us more about your organization</Text>
@@ -14,7 +19,16 @@ const VerifyOrganizationScreen = (props) => {
             <TextInput style={styles.obTextInput}/>
             <Text style={styles.obFieldName}>Current partnerships and affiliations:</Text>
             <TextInput style={styles.obTextInput}/>
-
+            <Text>Will you join us in Conservation Optimism?</Text>
+            <Switch 
+                value={consOptimism}
+                onValueChange={newValue => setConsOptimism(newValue)}
+            />
+            <Text>Does your organization have access to a smartphone?</Text>
+            <Switch 
+                value={smartPhone}
+                onValueChange={newValue => setSmartPhone(newValue)}
+            />
 
             <TouchableOpacity style={styles.obFwdContainer}
                 onPress={() => {
