@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { View, Text, Button, TouchableOpacity, Linking } from "react-native";
 import styles from '../../constants/screens/org-onboarding-styles/HeyThere.js';
 import * as SecureStore from 'expo-secure-store';
@@ -8,6 +8,7 @@ import * as WebBrowser from 'expo-web-browser';
 import { logout } from "../../store/actions";
 
 const HeyThereScreen = props => {
+  const [state, setState] = useState(null)
 
   logoutPress = async () => {
     await SecureStore.deleteItemAsync('sub', {});
@@ -20,13 +21,8 @@ const HeyThereScreen = props => {
 
     const logoutURL = 'https://key-conservation.auth0.com/v2/logout?federated';
 
-    Linking.canOpenURL(logoutURL).then(supported => {
-      if (supported) {
-        Linking.openURL(logoutURL);
-      } else {
-        console.log("Don't know how to open URI: " + logoutURL);
-      }
-    });
+    let result = WebBrowser.openBrowserAsync(logoutURL)
+    setState({result})
   };
     return (
         <View style={styles.obBody}>
