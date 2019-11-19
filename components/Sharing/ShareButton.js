@@ -53,6 +53,7 @@ class ShareButton extends Component {
 }
 var styles = StyleSheet.create({
   container: {
+    display:'flex',
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: 'center'
