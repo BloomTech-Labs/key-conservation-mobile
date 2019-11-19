@@ -10,7 +10,7 @@
     "orientation": "portrait",
     "icon": "./assets/images/keyapplogo.png",
     "splash": {
-      "image": "./assets/images/splash2.png",
+      "image": "./assets/images/splash4.png",
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
