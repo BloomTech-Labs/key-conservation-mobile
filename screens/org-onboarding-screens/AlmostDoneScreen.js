@@ -7,21 +7,27 @@ import * as WebBrowser from 'expo-web-browser';
 export default class AlmostDoneScreen extends Component {
 	state = {
 		result: null
-    };
-    
-    _handlePressButtonAsync = async () => {
-        try {
-        let result = await WebBrowser.openAuthSessionAsync('https://airtable.com/shr5OS4sz84gmXgdh');
-        let redirectData;
-        if (result.url) {
-            redirectData = "https://airtable.com/shr5OS4sz84gmXgdh"
-        }
-        this.setState({ result, redirectData });
-    } catch (error) {
-        alert(error);
-    }
-    };
+	};
 
+	_handlePressButtonAsync = async () => {
+		try {
+			let result = await WebBrowser.openAuthSessionAsync('https://airtable.com/shr5OS4sz84gmXgdh');
+			let redirectData;
+			if (result.url) {
+				redirectData = 'https://airtable.com/shr5OS4sz84gmXgdh';
+			}
+			this.setState({ result, redirectData });
+		} catch (error) {
+			alert(error);
+		}
+	};
+
+	checkBoxTest() {
+		this.setState({
+			check: !this.state.check
+		});
+		alert('hello');
+	}
 	render() {
 		return (
 			<View style={styles.obBody}>
@@ -32,14 +38,10 @@ export default class AlmostDoneScreen extends Component {
 						experience. To finish verifying please fill out this quick survey (12 mins or less).
 					</Text>
 				</View>
-				<TouchableOpacity
-					style={styles.obFwdContainer}
-					onPress={this._handlePressButtonAsync}
-				>
+				<TouchableOpacity style={styles.obFwdContainer} onPress={this._handlePressButtonAsync}>
 					<Text style={styles.obFwdBtnText}>Survey</Text>
 				</TouchableOpacity>
 			</View>
 		);
 	}
 }
-
