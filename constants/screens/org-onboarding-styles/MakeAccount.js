@@ -2,7 +2,7 @@ export default {
 
     obBody: {
         flex: 1,
-        backgroundColor: '#E5E5E5',
+        backgroundColor: 'white',
         justifyContent: 'center'
     },
     obText: {

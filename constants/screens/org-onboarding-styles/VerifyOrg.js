@@ -2,7 +2,7 @@ export default {
 
     obBody: {
         flex: 1,
-        backgroundColor: '#E5E5E5',
+        backgroundColor: 'white',
         justifyContent: 'center'
     },
     obText: {
@@ -21,7 +21,7 @@ export default {
         fontSize: 28,
         lineHeight: 38,
         marginLeft: '5%',
-        marginTop: '2%',
+        marginTop: '18%',
         marginBottom: '2%',
         marginRight: '7%',
     },
@@ -37,15 +37,15 @@ export default {
     },
     obFwdContainer: {
         width: 112,
-        height: 46,
-        backgroundColor: '#C4C4C4',
-        borderRadius: 5,
+        height: 40,
+        backgroundColor: '#00FF98',
+        borderRadius: 20,
         alignSelf: 'flex-end',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         alignContent: 'center',
-        marginRight: '5%'
+        marginRight: '5%',
     },
     obFwdBtnText: {
         fontFamily: 'OpenSans-Bold',
@@ -86,11 +86,37 @@ export default {
         marginTop: '3%'
     },
     obTextInput: {
-        backgroundColor: 'rgba(196, 196, 196, 0.5)',
-        borderRadius: 8,
+        backgroundColor: 'white',
+        borderRadius: 50,
         marginLeft: '5%',
         marginRight: '5%',
-        lineHeight: 50
+        marginBottom: '2%',
+        marginTop: '2%',
+        height: 50,
+        paddingLeft: 20,
+        fontFamily: 'OpenSans-Regular',
+        fontSize: 14,
+        color: '#000000',
+        borderColor: '#DEDEDE',
+        borderWidth: 0.5,
+    },
+    obSwitchButton: {
+        marginLeft: '5%',
+        marginBottom: '1%',
+        marginTop: '2%'
+    },
+    obTextInputBottom: {
+        backgroundColor: 'white',
+        borderRadius: 50,
+        marginLeft: '5%',
+        marginRight: '5%',
+        marginBottom: '5%',
+        marginTop: '2%',
+        height: 50,
+        paddingLeft: 20,
+        fontFamily: 'OpenSans-Regular',
+        borderColor: '#DEDEDE',
+        borderWidth: 0.5,
     },
     obNumInput: {
         marginLeft: 20,

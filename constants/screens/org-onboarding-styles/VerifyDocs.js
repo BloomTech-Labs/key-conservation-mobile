@@ -2,7 +2,7 @@ export default {
 
     obBody: {
         flex: 1,
-        backgroundColor: '#E5E5E5',
+        backgroundColor: 'white',
         justifyContent: 'center'
     },
     obText: {
@@ -15,23 +15,13 @@ export default {
         marginBottom: '2%',
         marginRight: '7%',      
     },
-    obTextBottom: {
-        color: '#000000',
-        fontFamily: 'OpenSans-Regular',
-        fontSize: 18,
-        lineHeight: 25,
-        marginLeft: '5%',
-        marginTop: '2%',
-        marginBottom: '7%',
-        marginRight: '7%',      
-    },
     obTitle: {
         color: '#000000',
         fontFamily: 'OpenSans-Bold',
         fontSize: 28,
         lineHeight: 38,
         marginLeft: '5%',
-        marginTop: '2%',
+        marginTop: '18%',
         marginBottom: '2%',
         marginRight: '7%',
     },
@@ -45,11 +35,21 @@ export default {
         marginBottom: '2%',
         marginRight: '7%',
     },
+    obTextBottom: {
+        color: '#000000',
+        fontFamily: 'OpenSans-Regular',
+        fontSize: 18,
+        lineHeight: 25,
+        marginLeft: '5%',
+        marginTop: '2%',
+        marginBottom: '7%',
+        marginRight: '7%',      
+    },
     obFwdContainer: {
         width: 112,
-        height: 46,
-        backgroundColor: '#C4C4C4',
-        borderRadius: 5,
+        height: 40,
+        backgroundColor: '#00FF98',
+        borderRadius: 20,
         alignSelf: 'flex-end',
         flexDirection: 'column',
         justifyContent: 'center',
