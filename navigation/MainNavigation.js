@@ -52,6 +52,8 @@ export const OrgOnboardStack = createStackNavigator({
   VerifyOrganization: VerifyOrganizationScreen,
   AlmostDone: AlmostDone,
   ThankYou: ThankYouScreen,
+}, {
+  headerMode: "none"
 });
 
 const FeedStack = createStackNavigator(
