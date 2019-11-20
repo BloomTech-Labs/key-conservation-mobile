@@ -17,44 +17,52 @@ const SharingDialog = ({ onClose, data }) => {
         getIcon() {
           return (
             <View style={styles.button}>
-              <FontAwesome name="twitter" size={35} />
+              <FontAwesome name="twitter" size={35} color={'#00acee'} />
             </View>
           );
         },
-        share: shareToTwitter
+        share: shareToTwitter,
+        disabled: false
       },
       facebook: {
         displayName: 'Facebook',
         getIcon() {
           return (
             <View style={styles.button}>
-              <FontAwesome name="facebook-official" size={35} />
+              <FontAwesome
+                name="facebook-official"
+                size={35}
+                color={'#3b5998'}
+              />
             </View>
           );
         },
-        share: shareToFacebook
+        share: shareToFacebook,
+        disabled: false
       },
       instagram: {
         displayName: 'Instagram',
         getIcon() {
           return (
             <View style={styles.button}>
-              <FontAwesome name="instagram" size={35} />
+              <FontAwesome name="instagram" size={35} color={'#d3d3d3'} />
             </View>
           );
         },
-        share: shareToInstagram
+        share: shareToInstagram,
+        disabled: true
       },
       linkedIn: {
         displayName: 'LinkedIn',
         getIcon() {
           return (
             <View style={styles.button}>
-              <FontAwesome name="linkedin-square" size={35} />
+              <FontAwesome name="linkedin-square" size={35} color={'#d3d3d3'} />
             </View>
           );
         },
-        share: shareToLinkedIn
+        share: shareToLinkedIn,
+        disabled: true
       }
     };
     return typeof brand === 'undefined' ? brands : brands[brand];
@@ -64,6 +72,7 @@ const SharingDialog = ({ onClose, data }) => {
     const brandObj = getBrand(brand);
     return (
       <TouchableOpacity
+        disabled={brand === 'linkedIn' || brand === 'instagram'}
         onPress={() => {
           brandObj.share();
           onClose();
@@ -83,7 +92,9 @@ const SharingDialog = ({ onClose, data }) => {
     const params = {
       url: data.profile_image,
       text: shorten(
-        `${data.camp_name} \nBy ${data.username}\n${data.location}\n${data.camp_desc}\n`,
+        `${data.camp_name} \nBy ${data.username}\n${data.location}\n${
+          data.camp_desc ? data.camp_desc : data.update_desc
+        }\n`,
         220
       ),
       via: 'keyconservation.org',
@@ -100,8 +111,7 @@ const SharingDialog = ({ onClose, data }) => {
     let url = 'https://twitter.com/intent/tweet' + parameters;
 
     WebBrowser.openBrowserAsync(url)
-      .then(data => {
-      })
+      .then(data => {})
       .catch(() => {
         alert('Something went wrong');
       });
@@ -114,14 +124,17 @@ const SharingDialog = ({ onClose, data }) => {
 
   function shareToFacebook() {
     let parameters = '';
+
     const text = shorten(
-      `${data.camp_name} \nBy ${data.username}\n${data.location}\n${data.camp_desc}\n`,
+      `${data.camp_name} \nBy ${data.username}\n${data.location}\n${
+        data.camp_desc ? data.camp_desc : data.update_desc
+      }\n`,
       500
     );
     writeToClipboard(text);
-    
+
     const params = {
-      u: data.profile_image,
+      u: data.profile_image
     };
 
     Object.keys(params).map((key, index) => {
@@ -134,8 +147,7 @@ const SharingDialog = ({ onClose, data }) => {
     let url = 'https://www.facebook.com/sharer/sharer.php' + parameters;
 
     WebBrowser.openBrowserAsync(url)
-      .then(data => {
-      })
+      .then(data => {})
       .catch(() => {
         alert('Something went wrong');
       });
@@ -155,8 +167,8 @@ const SharingDialog = ({ onClose, data }) => {
       <View style={styles.socialRow}>
         {getSocialButton('twitter')}
         {getSocialButton('facebook')}
-        {/* {getSocialButton('linkedIn')}
-        {getSocialButton('instagram')} */}
+        {getSocialButton('linkedIn')}
+        {getSocialButton('instagram')}
       </View>
     </View>
   );
@@ -172,6 +184,8 @@ var styles = StyleSheet.create({
   socialRow: {
     flex: 1,
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginLeft: 10,
     marginRight: 10
   },

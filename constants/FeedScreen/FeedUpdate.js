@@ -29,6 +29,14 @@ export default {
     fontSize: 18,
     color: 'black'
   },
+  iconRow: {
+    display:"flex",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginRight:20
+    // marginTop: 15,
+    // height: 30
+  },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
     flex: 1,
