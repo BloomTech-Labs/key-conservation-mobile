@@ -2,8 +2,8 @@ export default {
 
     obBody: {
         flex: 1,
-        backgroundColor: '#E5E5E5',
-        justifyContent: 'center',
+        backgroundColor: 'white',
+        justifyContent: 'center'
     },
     obText: {
         fontFamily: 'OpenSans-Bold',
