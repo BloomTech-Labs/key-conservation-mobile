@@ -1,56 +1,41 @@
-var Airtable = require('airtable');
-Airtable.configure({
-    endpointUrl: 'https://api.airtable.com',
-    apiKey: 'keysBuwAO4KtektL1'
-});
+import React from 'react';
 
-var base = new Airtable({apiKey: 'keysBuwAO4KtektL1'}).base('appbPeeXUSNCQWwnQ');
+const Airtable = (props) => {
 
-var test = 'Lorem Ipsum'
-
-base('Table 1').create([
-  { 
-    'fields': {
-      "What is your organization’s name?": test,
-      "Name of your point of contact": test,
-      "What is your contact email?": test,
-      "What is your organization’s website?": test,
-      "What city and country is your organization based?": test,
-      "Are there other countries that your organization works in?": test,
-      // "Does your org have access to smartphone?": "Yes",
-      "If you have access to a smartphone, what type do you have?": ["iOS (Apple) "],
-      "What are your current partnerships and affiliations": test,
-      "Position": test,
-      // "Country": test,
-      // "Will you join us in practicing Conservation Optimism?": "Yes",
-      // "Do you have multiple projects within your organization?": "Yes",
-      "If you have multiple projects within your organization please name them below": test
-    }
-  }
-], function(err, records) {
-  if (err) {
-    console.error(err + "*** test ***");
-    return;
-  }
-  records.forEach(function (record) {
-    console.log(record.getId());
+  var Airtable = require('airtable');
+  Airtable.configure({
+      endpointUrl: 'https://api.airtable.com',
+      apiKey: 'keybUdphipr0RgMaa'
   });
-});
 
-// ---------------------------------------------------------
+  var base = new Airtable({apiKey: 'keybUdphipr0RgMaa'}).base('appbPeeXUSNCQWwnQ');
 
-base('Table 1').create([
-  { 
-    'fields': {
-      "Attachments": test,
-    }
+  if (props.org_name && props.website && props.address && props.country !== null)
+    {
+    base('Table 1').create([
+      { 
+        'fields': {
+          "org_name": props.org_name,
+          "website": props.website,
+          "address": props.address,
+          "country": props.country,
+          "point_of_contact": props.point_of_contact,
+          "poc_position": props.poc_position
+        }
+      }
+    ], function(err, records) {
+      if (err) {
+        console.error(err + "*** test ***");
+        return;
+      }
+      records.forEach(function (record) {
+        console.log(record.getId());
+      });
+    });
+  } else {
+    console.log("props are null")
+    return null;
   }
-], function(err, records) {
-  if (err) {
-    console.error(err + "*** test ***");
-    return;
-  }
-  records.forEach(function (record) {
-    console.log(record.getId());
-  });
-});
+};
+
+export default Airtable;

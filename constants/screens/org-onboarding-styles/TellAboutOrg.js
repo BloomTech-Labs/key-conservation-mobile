@@ -101,7 +101,8 @@ export default {
         marginLeft: '5%',
         marginRight: '5%',
         marginBottom: '5%',
-        lineHeight: 50
+        // lineHeight: 50
+        height: 50
     },
     obNumInput: {
         marginLeft: 20,
