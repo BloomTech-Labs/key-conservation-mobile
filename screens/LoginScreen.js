@@ -148,26 +148,17 @@ export default LoginScreen = props => {
       source={require("../assets/images/FurBackground.png")}
       style={styles.container}
     >
+      <View style={styles.textContainer}>
+        <Text style={styles.selectTitle}>Enable <Text style={styles.selectUnderline}>real-time</Text> conservation
+        support.</Text>
+      </View>
       <View style={styles.logoContainer}>
         <Image
           style={styles.logo}
           source={require("../assets/images/keyFullWhite.png")}
         />
       </View>
-      <View style={styles.textContainer}>
-        <Text style={styles.SelectText}>I am a:</Text>
-      </View>
       <View style={styles.buttons}>
-        {/* <View style={styles.buttonContainer}> */}
-        <TouchableOpacity
-          onPress={() => {
-            roles = "conservationist";
-            login(navigation);
-          }}
-          style={styles.buttonContainer}
-        >
-          <Text style={styles.buttonText}>CONSERVATION ORGANIZATION</Text>
-        </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             roles = "supporter";
@@ -175,10 +166,24 @@ export default LoginScreen = props => {
           }}
           style={styles.buttonContainer}
         >
-          <Text style={styles.buttonText}>GLOBAL SUPPORTER</Text>
+          <Text style={styles.buttonText}>Individual</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            roles = "conservationist";
+            login(navigation);
+          }}
+          style={styles.buttonContainer}
+        >
+          <Text style={styles.buttonText}>Organization</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.needHelp}></View>
+      <View style={styles.textContainer}>
+        <Text style={styles.selectText}>Join the Community!</Text>
+      </View>
+      <View style={styles.textContainer}>
+        <Text style={styles.alreadyText}>Already registered? </Text><Text style={styles.link}>Sign In</Text>
+      </View>
     </ImageBackground>
   );
 };
@@ -198,32 +203,66 @@ const styles = StyleSheet.create({
     width: 189
   },
   logoContainer: {
-    flex: 2,
+    flex: 1,
+    flexShrink: 1,
     justifyContent: "center",
     alignItems: "center",
     paddingTop: 50
   },
   textContainer: {
-    flex: 1,
+    flexDirection: 'row',
     justifyContent: "center",
     alignItems: "center"
   },
-  SelectText: {
+  selectText: {
     fontSize: 27,
     fontFamily: "OpenSans-SemiBold",
-    color: "white"
+    color: "white",
+    marginBottom: '5%'
+  },
+  alreadyText: {
+    fontSize: 16,
+    fontFamily: "OpenSans-SemiBold",
+    color: "white",
+    marginBottom: '5%'
+  },
+  link: {
+    color: '#00FF9D',
+    textDecorationLine: 'underline',
+    fontSize: 16,
+    fontFamily: "OpenSans-SemiBold",
+    marginBottom: '5%'
+  },
+  selectTitle: {
+    flex: 1,
+    flexWrap: 'wrap',
+    fontSize: 36,
+    fontFamily: "OpenSans-SemiBold",
+    color: "white",
+    marginTop: '7%',
+    marginLeft: '4%'
+  },
+  selectUnderline: {
+    flex: 1,
+    flexWrap: 'wrap',
+    fontSize: 36,
+    textDecorationLine: 'underline',
+    fontFamily: "OpenSans-SemiBold",
+    color: "white",
+    marginTop: '7%',
+    marginLeft: '4%'
   },
   buttons: {
     flex: 1,
     alignItems: "center",
-    paddingBottom: "2.5%",
-    width: "90%"
+    width: "90%",
+    marginTop: '15%'
   },
   buttonContainer: {
-    width: "100%",
+    width: "70%",
     height: 50,
     marginBottom: 18,
-    borderRadius: 4,
+    borderRadius: 25,
     fontFamily: "OpenSans-Regular",
     backgroundColor: "#00FF9D",
     shadowColor: "rgba(0, 0, 0, 0.25)",
@@ -236,8 +275,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   buttonText: {
-    fontFamily: "OpenSans-Regular",
-    fontWeight: "bold",
+    fontFamily: "OpenSans-Bold",
     fontStyle: "normal",
     letterSpacing: 0,
     textAlign: "center",
@@ -255,11 +293,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
-  needHelpText: {
-    color: "white"
-  },
-  needHelpButton: {
-    color: "white",
-    textDecorationLine: "underline"
-  }
+  spacer: {
+    height: '10%'
+  } 
 });
