@@ -2,6 +2,10 @@ import React from 'react';
 import { View, ScrollView, Text, TouchableOpacity, Button, StyleSheet } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/CantScreen.js';
 
+import { AntDesign } from '@expo/vector-icons';
+
+
+
 const CantScreen = (props) => {
 	return (
 		<View style={styles.obBody}>
@@ -11,6 +15,11 @@ const CantScreen = (props) => {
 			</View>
 			<View>
 				<View>
+					<AntDesign 
+					name="closecircle" 
+					size={24}
+					color="#f66767"
+					/>
 					<Text style={styles.obText}>
 						Commodo enim cupidatat consequat cupidatat ea Lorem cupidatat consequat aliquip aliqua ullamco
 						id. Consequat sit elit ea labore fugiat culpa eiusmod proident duis. Elit mollit veniam
@@ -18,6 +27,11 @@ const CantScreen = (props) => {
 					</Text>
 				</View>
 				<View>
+					<AntDesign 
+						name="closecircle" 
+						size={24}
+						color="#f66767"					
+					/>
 					<Text style={styles.obText}>
 						Commodo enim cupidatat consequat cupidatat ea Lorem cupidatat consequat aliquip aliqua ullamco
 						id. Consequat sit elit ea labore fugiat culpa eiusmod proident duis. Elit mollit veniam
@@ -25,6 +39,11 @@ const CantScreen = (props) => {
 					</Text>
 				</View>
 				<View>
+					<AntDesign 
+						name="closecircle" 
+						size={24}
+						color="#f66767"
+					/>
 					<Text style={styles.obTextBottom}>
 						Commodo enim  cupidatat consequat cupidatat ea Lorem cupidatat consequat aliquip aliqua ullamco
 						id. Consequat sit elit ea labore fugiat culpa eiusmod proident duis. Elit mollit veniam

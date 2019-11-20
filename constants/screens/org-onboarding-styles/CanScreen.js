@@ -17,6 +17,11 @@ export default {
         marginBottom: '2%',
         marginRight: '7%',      
     },
+    contentWrapper: {
+        borderWidth: 1,
+        borderColor: "red",
+        display: "flex"
+    },
     obTextBottom: {
         color: '#000000',
         fontFamily: 'OpenSans-Regular',
