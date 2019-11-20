@@ -4,7 +4,6 @@ export default {
         flex: 1,
         paddingTop: '5%',
         paddingBottom: '5%',
-        backgroundColor: '#E5E5E5',
         justifyContent: 'center'
     },
     contentWrapper: {
@@ -26,7 +25,6 @@ export default {
         marginTop: '2%',
         marginBottom: '2%',
         marginRight: '7%', 
-        textAlign: "left",  
     },
     obTextBottom: {
         color: '#000000',
@@ -36,7 +34,7 @@ export default {
         marginLeft: '5%',
         marginTop: '2%',
         marginBottom: '7%',
-        marginRight: '7%',      
+        marginRight: '7%',    
     },
     obTitle: {
         color: '#000000',
