@@ -26,6 +26,8 @@ export default class VerifyDocumentationScreen extends Component {
     render() {
         const { navigation } = this.props;
 
+        const backendState = navigation.getParam('backendState', 'defaultValue')
+
     return (
         <View style={styles.obBody}>
             <Text style={styles.obTitle}>Verify your organization </Text>
@@ -38,7 +40,7 @@ export default class VerifyDocumentationScreen extends Component {
         <View style={styles.spacer} />
             <TouchableOpacity style={styles.obFwdContainer}
                 onPress={() => {
-                    navigation.navigate("AlmostDone")
+                    navigation.navigate("AlmostDone", { backendState: backendState })
                 }}            
             >
                 <Text style={styles.obFwdBtnText}>Next</Text>

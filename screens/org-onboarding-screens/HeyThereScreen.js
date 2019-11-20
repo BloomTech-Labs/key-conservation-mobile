@@ -13,6 +13,7 @@ const HeyThereScreen = props => {
     await SecureStore.deleteItemAsync('email', {});
     await SecureStore.deleteItemAsync('roles', {});
     await SecureStore.deleteItemAsync('id', {});
+    await SecureStore.deleteItemAsync("userId", {});
     await SecureStore.deleteItemAsync('accessToken', {});
     logout();
     // props.navigation.navigate('Loading');
@@ -22,7 +23,7 @@ const HeyThereScreen = props => {
     await WebBrowser.openBrowserAsync(logoutURL)
     .then(result => {
       setState({result})
-    props.navigation.navigate('Loading');
+    props.navigation.navigate('Logout');
     })
   };
   return (

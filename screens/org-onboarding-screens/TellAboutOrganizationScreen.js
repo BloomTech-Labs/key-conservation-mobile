@@ -3,6 +3,10 @@ import { Button, View, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextI
 import styles from '../../constants/screens/org-onboarding-styles/TellAboutOrg.js';
 import * as SecureStore from "expo-secure-store";
 
+import { connect } from "react-redux";
+import { editProfileData, logout, clearMedia } from "../../store/actions/index";
+
+
 const TellAboutOrganizationScreen = (props) => {
 
     const [airtableState, onChangeText] = useState({
@@ -10,22 +14,38 @@ const TellAboutOrganizationScreen = (props) => {
         website: '',
         address: '',
         country: '',
+        phone: '',
         point_of_contact: '',
         poc_poition: '',
         email: ''
     });
 
     const [backendState, onChangeBE] = useState({
-        phone: ''
-    })
+        org_name: airtableState.org_name,
+        org_link_url: airtableState.website,
+        point_of_contact_name: airtableState.point_of_contact,
+        country: airtableState.country
+    });
+
+    // const [currentSub, setCurrentSub] = useState({
+    //   sub: ''
+    // });
 
     getEmail = async () => {
         const email2 = await SecureStore.getItemAsync('email', {});
+        console.log("email from SecureStore: " + email2);
         onChangeText({ email: email2 });
     };
 
+    // getSub = async () => {
+    //   const sub = await SecureStore.getItemAsync('sub', {});
+    //   console.log("sub from SecureStore: " + sub);
+    //   setCurrentId({ sub: sub });
+    // }
+
     useEffect(() => {
         getEmail();
+        // getSub();
     }, []);
 
     var Airtable = require('airtable');
@@ -36,12 +56,18 @@ const TellAboutOrganizationScreen = (props) => {
   
     var base = new Airtable({apiKey: 'keybUdphipr0RgMaa'}).base('appbPeeXUSNCQWwnQ');
 
+    // const sendBackend = () => {
+    //   console.log("ID from state should be here: " + currentId.id);
+    //   editProfileData(currentId, backendState);
+    // }
+
     const sendAirtable = () => {
     base('Table 1').create([
         { 
           'fields': {
             "org_name": airtableState.org_name,
             "website": airtableState.website,
+            "phone": airtableState.phone,
             "address": airtableState.address,
             "country": airtableState.country,
             "point_of_contact": airtableState.point_of_contact,
@@ -57,7 +83,8 @@ const TellAboutOrganizationScreen = (props) => {
         records.forEach(function (record) {
           // console.log(record.getId());
           let airtableID = record.getId();
-          props.navigation.navigate("VerifyOrganization", { airtableID: airtableID }); // maybe store inside SecureStore in case session is interrupted?
+          props.navigation.navigate("VerifyOrganization", { airtableID: airtableID,
+          backendState: backendState }); // maybe store inside SecureStore in case session is interrupted?
         });
       });
     };
@@ -100,13 +127,11 @@ const TellAboutOrganizationScreen = (props) => {
             onChangeText={text => onChangeText({ ...airtableState, poc_position: text })}
             value={airtableState.poc_position} />
 
-            {/* backend */}
             <Text style={styles.obFieldName}>Organization Phone</Text>
             <TextInput 
             style={styles.obTextInput}
-            onChangeText={text => onChangeBE({ ...backendState, phone: text })}
-            value={backendState.phone} />
-            {/* backend */}
+            onChangeText={text => onChangeText({ ...airtableState, phone: text })}
+            value={airtableState.phone} />
 
             <Text style={styles.obFieldName}>Website URL</Text>
             <TextInput 
@@ -117,6 +142,7 @@ const TellAboutOrganizationScreen = (props) => {
             <TouchableOpacity style={styles.obFwdContainer}
                 onPress={() => {
                     sendAirtable();
+                    // sendBackend();
                     // props.navigation.navigate("VerifyOrganization");
                 }}
             >
@@ -127,11 +153,13 @@ const TellAboutOrganizationScreen = (props) => {
         </KeyboardAvoidingView>
     );
 }
- export default TellAboutOrganizationScreen;
+const mapStateToProps = state => ({
+  currentUserProfile: state.currentUserProfile,
+  mediaUpload: state.mediaUpload
+});
 
-//  const styles = StyleSheet.create({
-//      inputfield: {
-//         borderColor: "black",
-//         borderWidth: 1
-//      }
-//  })
+export default connect(mapStateToProps, {
+  editProfileData,
+  logout,
+  clearMedia
+})(TellAboutOrganizationScreen);

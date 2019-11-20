@@ -4,6 +4,9 @@ import styles from '../../constants/screens/org-onboarding-styles/AlmostDone.js'
 import * as WebBrowser from 'expo-web-browser';
 
 export default AlmostDoneScreen = (props) => {
+
+	const backendState = props.navigation.getParam('backendState', 'defaultValue');
+
 		return (
 			<View style={styles.obBody}>
 				<Text style={styles.obTitle}>Review your info</Text>
@@ -15,7 +18,7 @@ export default AlmostDoneScreen = (props) => {
 				<TouchableOpacity
 					style={styles.obFwdContainer}
 					onPress={() => {
-						props.navigation.navigate('ThankYou');
+						props.navigation.navigate('ThankYou', { backendState: backendState });
 					}}
 				>
 					<Text style={styles.obFwdBtnText}>Submit</Text>

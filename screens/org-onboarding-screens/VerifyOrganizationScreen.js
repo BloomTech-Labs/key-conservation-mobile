@@ -17,6 +17,7 @@ const VerifyOrganizationScreen = (props) => {
     var base = new Airtable({apiKey: 'keybUdphipr0RgMaa'}).base('appbPeeXUSNCQWwnQ');
 
     const airtableID = props.navigation.getParam('airtableID', 'defaultValue');
+    const backendState = props.navigation.getParam('backendState', 'defaultValue')
 
     const updateAirtable = () => {
         base('Table 1').update([
@@ -85,7 +86,7 @@ const VerifyOrganizationScreen = (props) => {
             <TouchableOpacity style={styles.obFwdContainer}
                 onPress={() => {
                     updateAirtable();
-                    props.navigation.navigate("VerifyDocumentation")
+                    props.navigation.navigate("VerifyDocumentation", { backendState: backendState })
                 }}
             >
                 <Text style={styles.obFwdBtnText}>Next</Text>
