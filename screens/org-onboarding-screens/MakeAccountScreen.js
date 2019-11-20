@@ -5,20 +5,20 @@ import styles from '../../constants/screens/org-onboarding-styles/MakeAccount.js
 
 const MakeAccountScreen = (props) => {
 	return (
-		<KeyboardAvoidingView style={styles.obBody} behavior="height" keyboardVerticalOffset={86} enabled>
-			<ScrollView>
-				<View>
-					<Text>Let's get started</Text>
-				</View>
-				<TouchableOpacity style={styles.obFwdContainer}
-                onPress={() => {
+		<View style={styles.obBody}>
+			<Text style={styles.obTitle}>Let's get acquainted</Text>
+				<TouchableOpacity 
+					style={styles.obFwdContainer}
+                	onPress={() => {
                     props.navigation.navigate("TellAboutOrganization")
-                }}
-            >
-                <Text style={styles.obFwdBtnText}>Next</Text>
-            </TouchableOpacity>
-			</ScrollView>
-		</KeyboardAvoidingView>
+               		 }}
+            	>
+                	<Text style={styles.obFwdBtnText}>Next</Text>
+            	</TouchableOpacity>
+
+				
+
+		</View>
 	);
 };
 
