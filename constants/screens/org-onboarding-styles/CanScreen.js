@@ -20,7 +20,8 @@ export default {
     contentWrapper: {
         borderWidth: 1,
         borderColor: "red",
-        display: "flex"
+        display: "flex",
+        marginLeft: "5%"
     },
     obTextBottom: {
         color: '#000000',

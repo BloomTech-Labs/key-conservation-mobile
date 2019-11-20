@@ -24,7 +24,7 @@ const CanScreen = (props) => {
 						cupidatat minim est incididunt ullamco et laboris minim velit in.
 					</Text>
 				</View>
-				<View>
+				<View style={styles.contentWrapper}>
 					<AntDesign 
 					name="checkcircle"
 					size={24}
@@ -36,7 +36,7 @@ const CanScreen = (props) => {
 						cupidatat minim est incididunt ullamco et laboris minim velit in.
 					</Text>
 				</View>
-				<View>
+				<View style={styles.contentWrapper}>
 					<AntDesign 
 						name="checkcircle"
 						size={24}

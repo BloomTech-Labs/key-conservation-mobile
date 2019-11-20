@@ -14,36 +14,44 @@ const CantScreen = (props) => {
 				<Text style={styles.obTitle}>What we cannot do...</Text>
 			</View>
 			<View>
-				<View>
+				<View style={styles.contentWrapper}>
+					<View style={styles.iconWrapper}>
 					<AntDesign 
 					name="closecircle" 
 					size={24}
 					color="#f66767"
 					/>
+					</View>
+					<View>
 					<Text style={styles.obText}>
 						Commodo enim cupidatat consequat cupidatat ea Lorem cupidatat consequat aliquip aliqua ullamco
 						id. Consequat sit elit ea labore fugiat culpa eiusmod proident duis. Elit mollit veniam
 						cupidatat minim est incididunt ullamco et laboris minim velit in.
 					</Text>
+					</View>
 				</View>
-				<View>
+				<View style={styles.contentWrapper}>
+					<View style={styles.iconWrapper}>
 					<AntDesign 
 						name="closecircle" 
 						size={24}
 						color="#f66767"					
 					/>
+					</View>
 					<Text style={styles.obText}>
 						Commodo enim cupidatat consequat cupidatat ea Lorem cupidatat consequat aliquip aliqua ullamco
 						id. Consequat sit elit ea labore fugiat culpa eiusmod proident duis. Elit mollit veniam
 						cupidatat minim est incididunt ullamco et laboris minim velit in.
 					</Text>
 				</View>
-				<View>
+				<View style={styles.contentWrapper}>
+					<View style={styles.iconWrapper}>
 					<AntDesign 
 						name="closecircle" 
 						size={24}
 						color="#f66767"
 					/>
+					</View>
 					<Text style={styles.obTextBottom}>
 						Commodo enim  cupidatat consequat cupidatat ea Lorem cupidatat consequat aliquip aliqua ullamco
 						id. Consequat sit elit ea labore fugiat culpa eiusmod proident duis. Elit mollit veniam

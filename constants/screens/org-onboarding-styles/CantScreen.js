@@ -7,6 +7,16 @@ export default {
         backgroundColor: '#E5E5E5',
         justifyContent: 'center'
     },
+    contentWrapper: {
+        display: "flex",
+        marginLeft: "5%",
+        flexWrap: "nowrap",
+        flexDirection: "row",
+        marginTop: "5%"
+    },
+    iconWrapper: {
+        marginTop: "5%"
+    },
     obText: {
         color: '#000000',
         fontFamily: 'OpenSans-Regular',
@@ -15,7 +25,8 @@ export default {
         marginLeft: '5%',
         marginTop: '2%',
         marginBottom: '2%',
-        marginRight: '7%',      
+        marginRight: '7%', 
+        textAlign: "left",  
     },
     obTextBottom: {
         color: '#000000',
