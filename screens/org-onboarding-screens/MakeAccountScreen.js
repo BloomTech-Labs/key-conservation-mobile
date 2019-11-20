@@ -8,7 +8,7 @@ const MakeAccountScreen = (props) => {
 		<KeyboardAvoidingView style={styles.obBody} behavior="height" keyboardVerticalOffset={86} enabled>
 			<ScrollView>
 				<View>
-					<Text>Let's get started</Text>
+					<Text style={styles.obTitle}>Let's get started</Text>
 				</View>
 				<TouchableOpacity style={styles.obFwdContainer}
                 onPress={() => {
