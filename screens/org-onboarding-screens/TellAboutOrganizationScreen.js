@@ -31,7 +31,7 @@ const TellAboutOrganizationScreen = (props) => {
     var Airtable = require('airtable');
     Airtable.configure({
         endpointUrl: 'https://api.airtable.com',
-        apiKey: 'keybUdphipr0RgMaa'
+        apiKey: 'keybUdphipr0RgMaa' // perhaps store in enviornment variables before production.
     });
   
     var base = new Airtable({apiKey: 'keybUdphipr0RgMaa'}).base('appbPeeXUSNCQWwnQ');
@@ -55,9 +55,9 @@ const TellAboutOrganizationScreen = (props) => {
           return;
         }
         records.forEach(function (record) {
-          console.log(record.getId());
+          // console.log(record.getId());
           let airtableID = record.getId();
-          props.navigation.navigate("VerifyOrganization", { airtableID: airtableID }); // maybe change to SecureStore in case session is interrupted?
+          props.navigation.navigate("VerifyOrganization", { airtableID: airtableID }); // maybe store inside SecureStore in case session is interrupted?
         });
       });
     };

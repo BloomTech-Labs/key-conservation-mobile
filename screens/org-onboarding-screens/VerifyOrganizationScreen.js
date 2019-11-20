@@ -37,7 +37,7 @@ const VerifyOrganizationScreen = (props) => {
               return;
             }
             records.forEach(function(record) {
-              console.log(record.getId());
+              // console.log(record.getId());
             });
           });
     }
