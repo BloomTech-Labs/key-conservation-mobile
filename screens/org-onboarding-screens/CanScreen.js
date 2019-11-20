@@ -13,11 +13,13 @@ const CanScreen = (props) => {
 			</View>
 			<View>
 				<View style={styles.contentWrapper}>
+					<View style={styles.iconWrapper}>
 					<AntDesign 
 						name="checkcircle" 
 						size={24}
 						color="#00ff9d"
 					/>
+					</View>
 					<Text style={styles.obText}>
 						Commodo enim cupidatat consequat cupidatat ea Lorem cupidatat consequat aliquip aliqua ullamco
 						id. Consequat sit elit ea labore fugiat culpa eiusmod proident duis. Elit mollit veniam
@@ -25,11 +27,13 @@ const CanScreen = (props) => {
 					</Text>
 				</View>
 				<View style={styles.contentWrapper}>
+					<View style={styles.iconWrapper}>
 					<AntDesign 
 					name="checkcircle"
 					size={24}
 					color="#00ff9d"					
 					/>
+					</View>
 					<Text style={styles.obText}>
 						Commodo enim cupidatat consequat cupidatat ea Lorem cupidatat consequat aliquip aliqua ullamco
 						id. Consequat sit elit ea labore fugiat culpa eiusmod proident duis. Elit mollit veniam
@@ -37,11 +41,13 @@ const CanScreen = (props) => {
 					</Text>
 				</View>
 				<View style={styles.contentWrapper}>
+					<View style={styles.iconWrapper}>
 					<AntDesign 
 						name="checkcircle"
 						size={24}
 						color="#00ff9d" 
 					/>
+					</View>
 					<Text style={styles.obTextBottom}>
 						Commodo enim cupidatat consequat cupidatat ea Lorem cupidatat consequat aliquip aliqua ullamco
 						id. Consequat sit elit ea labore fugiat culpa eiusmod proident duis. Elit mollit veniam

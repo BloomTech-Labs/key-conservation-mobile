@@ -5,7 +5,7 @@ export default {
         paddingTop: '5%',
         paddingBottom: '5%',
         backgroundColor: '#E5E5E5',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     obText: {
         color: '#000000',
@@ -18,10 +18,14 @@ export default {
         marginRight: '7%',      
     },
     contentWrapper: {
-        borderWidth: 1,
-        borderColor: "red",
         display: "flex",
-        marginLeft: "5%"
+        marginLeft: "5%",
+        flexWrap: "nowrap",
+        flexDirection: "row",
+        marginTop: "5%"
+    },
+    iconWrapper: {
+        marginTop: "5%"
     },
     obTextBottom: {
         color: '#000000',
@@ -39,7 +43,7 @@ export default {
         fontSize: 28,
         lineHeight: 38,
         marginLeft: '5%',
-        marginTop: '2%',
+        marginTop: '18%',
         marginBottom: '7%',
         marginRight: '7%',
     },

@@ -47,6 +47,7 @@ export default {
         marginTop: '2%',
         marginBottom: '7%',
         marginRight: '7%',
+        marginTop: "18%"
     },
     obSubtitle: {
         color: '#000000',
