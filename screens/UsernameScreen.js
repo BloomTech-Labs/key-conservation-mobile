@@ -10,7 +10,8 @@ import { postUser, logout } from '../store/actions';
 class UsernameScreen extends React.Component {
   state = {
     usernameInput: '',
-    error: ''
+    error: '',
+    result: null
   };
 
   handlePress = async () => {
@@ -49,7 +50,13 @@ class UsernameScreen extends React.Component {
     await SecureStore.deleteItemAsync('id', {});
     await SecureStore.deleteItemAsync('accessToken', {});
     this.props.logout();
-    this.props.navigation.navigate('Loading');
+    const logoutURL = 'https://key-conservation.auth0.com/v2/logout?federated';
+    await WebBrowser.openBrowserAsync(logoutURL)
+    .then(result => {
+      this.setState({result})
+      this.props.navigation.navigate('Loading');
+    })
+
   };
 
   render() {
