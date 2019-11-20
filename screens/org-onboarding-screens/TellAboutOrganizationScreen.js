@@ -57,7 +57,7 @@ const TellAboutOrganizationScreen = (props) => {
         records.forEach(function (record) {
           console.log(record.getId());
           let airtableID = record.getId();
-          props.navigation.navigate("VerifyOrganization", { airtableID: airtableID });
+          props.navigation.navigate("VerifyOrganization", { airtableID: airtableID }); // maybe change to SecureStore in case session is interrupted?
         });
       });
     };
