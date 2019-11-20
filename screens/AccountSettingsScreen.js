@@ -14,10 +14,14 @@ import BackButton from "../components/BackButton";
 import DoneButton from "../components/DoneButton";
 
 import styles from "../constants/screens/AccountSettingsScreen";
+import * as WebBrowser from 'expo-web-browser';
 
 import { AuthSession } from "expo";
 
 class AccountSettingsScreen extends React.Component{
+  state = {
+    result: null
+  };
 
     static navigationOptions = ({ navigation }) => {
         return {
@@ -59,18 +63,15 @@ class AccountSettingsScreen extends React.Component{
         await SecureStorage.deleteItemAsync("accessToken", {});
         // await AuthSession.dismiss();
         this.props.logout();
-        this.props.navigation.navigate("Logout");
         console.log("account settings logout hit")
 
         const logoutURL = 'https://key-conservation.auth0.com/v2/logout?federated';
 
-        Linking.canOpenURL(logoutURL).then(supported => {
-          if (supported) {
-            Linking.openURL(logoutURL);
-          } else {
-            console.log("Don't know how to open URI: " + logoutURL);
-          }
-        });
+        await WebBrowser.openBrowserAsync(logoutURL)
+    .then(result => {
+      this.setState({result})
+      this.props.navigation.navigate("Logout");
+    })
       };
 
       render(){
