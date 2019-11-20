@@ -9,7 +9,7 @@ const CanScreen = (props) => {
 		<View style={styles.obBody}>
 			<ScrollView>
 			<View>
-				<Text style={styles.obTitle}>What we can do to help your organization...</Text>
+				<Text style={styles.obTitle}>What we <Text style={styles.highlight}> can </Text> do to help your organization...</Text>
 			</View>
 			<View>
 				<View style={styles.contentWrapper}>

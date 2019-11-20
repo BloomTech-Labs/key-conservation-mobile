@@ -6,6 +6,10 @@ export default {
         paddingBottom: '5%',
         justifyContent: 'center'
     },
+    highlight: {
+        backgroundColor: "#f66767",
+        borderRadius: 10
+    },
     contentWrapper: {
         display: "flex",
         marginLeft: "5%",

@@ -11,7 +11,7 @@ const CantScreen = (props) => {
 		<View style={styles.obBody}>
 			<ScrollView>
 			<View>
-				<Text style={styles.obTitle}>What we cannot do...</Text>
+				<Text style={styles.obTitle}>What we <Text style={styles.highlight}> cannot </Text> do...</Text>
 			</View>
 			<View>
 				<View style={styles.contentWrapper}>

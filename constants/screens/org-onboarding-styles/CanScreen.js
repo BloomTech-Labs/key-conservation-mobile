@@ -16,6 +16,10 @@ export default {
         marginBottom: '2%',
         marginRight: '7%',      
     },
+    highlight: {
+        backgroundColor: "#00ff9d",
+        borderRadius: 10
+    },
     contentWrapper: {
         display: "flex",
         marginLeft: "5%",
