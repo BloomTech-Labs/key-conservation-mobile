@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, View, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity} from "react-native";
 import styles from '../../constants/screens/org-onboarding-styles/TellAboutOrg.js';
-import Airtable from '../../components/Airtable';
 import * as SecureStore from "expo-secure-store";
 
 const TellAboutOrganizationScreen = (props) => {
@@ -98,14 +97,16 @@ const TellAboutOrganizationScreen = (props) => {
             <Text style={styles.obFieldName}>Point of Contact Position</Text>
             <TextInput 
             style={styles.obTextInput}
-            onChangeText={text => onChangeText({ ...airtableState, poc_poition: text })}
-            value={airtableState.poc_poition} />
+            onChangeText={text => onChangeText({ ...airtableState, poc_position: text })}
+            value={airtableState.poc_position} />
 
+            {/* backend */}
             <Text style={styles.obFieldName}>Organization Phone</Text>
             <TextInput 
             style={styles.obTextInput}
             onChangeText={text => onChangeBE({ ...backendState, phone: text })}
             value={backendState.phone} />
+            {/* backend */}
 
             <Text style={styles.obFieldName}>Website URL</Text>
             <TextInput 

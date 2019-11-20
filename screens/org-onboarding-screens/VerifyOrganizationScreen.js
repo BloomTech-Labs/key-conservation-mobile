@@ -28,7 +28,7 @@ const VerifyOrganizationScreen = (props) => {
                 "conservation_optimism": airtableState.conservation_optimism,
                 "multiple_projects": airtableState.multiple_projects,
                 "smartphone_access": airtableState.smartphone_access,
-                // "smartphone_type": airtableState.smartphone_type
+                "smartphone_type": airtableState.smartphone_type
               }
             }
           ], function(err, records) {
@@ -75,6 +75,12 @@ const VerifyOrganizationScreen = (props) => {
                 value={airtableState.smartphone_access}
                 onValueChange={newValue => onChangeText({...airtableState, smartphone_access: newValue })}
             />
+
+            <Text style={styles.obFieldName}>If so what kind of smartphone? (Apple or Android)</Text>
+            <TextInput 
+            style={styles.obTextInput}
+            onChangeText={text => onChangeText({ ...airtableState, smartphone_type: text })}
+            value={airtableState.smartphone_type} />
 
             <TouchableOpacity style={styles.obFwdContainer}
                 onPress={() => {
