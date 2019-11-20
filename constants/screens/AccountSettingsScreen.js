@@ -41,6 +41,24 @@ export default {
     marginBottom: 2,
     paddingBottom: 20
   },
+  linkWrap: {
+    flexWrap: "wrap",
+    alignItems: "center",
+    flexDirection: "row",
+    marginLeft: '7%'
+  },
+  linkText: {
+    fontSize: 18,
+    alignSelf: "center",
+    marginLeft: '4%',
+    fontFamily: "OpenSans-SemiBold",
+    marginTop: '4%'
+  },
+  logoutButton: {
+    marginTop: '5%',
+    width: 40,
+    height: 40
+  },
     buttonContainer: {
       width: '30%',
       height: 30,
