@@ -148,9 +148,9 @@ export default LoginScreen = props => {
       source={require("../assets/images/FurBackground.png")}
       style={styles.container}
     >
-      <View style={styles.textContainer}>
-        <Text style={styles.selectTitle}>Enable <Text style={styles.selectUnderline}>real-time</Text> conservation
-        support.</Text>
+      <View style={styles.titleContainer}>
+        <Text style={styles.selectTitle}>Enable real-time conservation support.</Text>
+        
       </View>
       <View style={styles.logoContainer}>
         <Image
@@ -209,13 +209,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 50
   },
-  textContainer: {
-    flexDirection: 'row',
-    justifyContent: "center",
-    alignItems: "center"
-  },
   selectText: {
     fontSize: 27,
+    flexWrap: 'wrap',
     fontFamily: "OpenSans-SemiBold",
     color: "white",
     marginBottom: '5%'
@@ -233,24 +229,21 @@ const styles = StyleSheet.create({
     fontFamily: "OpenSans-SemiBold",
     marginBottom: '5%'
   },
-  selectTitle: {
-    flex: 1,
-    flexWrap: 'wrap',
-    fontSize: 36,
-    fontFamily: "OpenSans-SemiBold",
-    color: "white",
-    marginTop: '7%',
-    marginLeft: '4%'
+  titleContainer: {
+    flexDirection: 'row'
   },
-  selectUnderline: {
-    flex: 1,
+  textContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: "center"
+  },
+  selectTitle: {
+    flexShrink: 1,
     flexWrap: 'wrap',
     fontSize: 36,
-    textDecorationLine: 'underline',
     fontFamily: "OpenSans-SemiBold",
     color: "white",
-    marginTop: '7%',
-    marginLeft: '4%'
+    marginTop: '9%'
   },
   buttons: {
     flex: 1,
