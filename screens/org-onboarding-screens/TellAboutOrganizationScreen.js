@@ -31,7 +31,7 @@ const TellAboutOrganizationScreen = (props) => {
     var Airtable = require('airtable');
     Airtable.configure({
         endpointUrl: 'https://api.airtable.com',
-        apiKey: 'keybUdphipr0RgMaa' // perhaps store in enviornment variables before production.
+        apiKey: 'keybUdphipr0RgMaa' // store in enviornment variables before production.
     });
   
     var base = new Airtable({apiKey: 'keybUdphipr0RgMaa'}).base('appbPeeXUSNCQWwnQ');
