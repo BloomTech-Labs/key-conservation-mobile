@@ -4,7 +4,6 @@ export default {
         flex: 1,
         paddingTop: '5%',
         paddingBottom: '5%',
-        backgroundColor: '#E5E5E5',
         justifyContent: 'center',
     },
     obText: {
