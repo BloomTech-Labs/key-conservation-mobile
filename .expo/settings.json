@@ -1,4 +1,8 @@
 {
-  "urlRandomness": "ja-dd3",
-  "hostType": "tunnel"
+  "hostType": "lan",
+  "lanType": "ip",
+  "dev": true,
+  "minify": false,
+  "urlRandomness": null,
+  "https": false
 }

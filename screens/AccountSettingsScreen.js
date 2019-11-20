@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Text,
+  Image,
   View,
   TouchableOpacity,
   Linking
@@ -88,10 +89,12 @@ class AccountSettingsScreen extends React.Component{
             />
             <Text style={styles.title}>Logout Of Your Profile</Text>
                 </View>
-              <TouchableOpacity
-                onPress={this.logoutPress}
-                style={styles.buttonContainer}>
-                <Text style={styles.buttonText}>Logout</Text>
+              <TouchableOpacity style={styles.linkWrap}
+                onPress={this.logoutPress}>
+                <Image 
+                source={require('../assets/icons/logout.png')}
+                style={styles.logoutButton} />
+                <Text style={styles.linkText}>Logout</Text>
               </TouchableOpacity>
             </View>
             </View>

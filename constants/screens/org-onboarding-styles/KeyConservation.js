@@ -2,7 +2,6 @@ export default {
 
     obBody: {
         flex: 1,
-        backgroundColor: '#E5E5E5',
         justifyContent: 'center'
     },
     obText: {
@@ -38,9 +37,9 @@ export default {
     },
     obFwdContainer: {
         width: 112,
-        height: 46,
-        backgroundColor: '#C4C4C4',
-        borderRadius: 5,
+        height: 40,
+        backgroundColor: '#00ff9d',
+        borderRadius: 20,
         alignSelf: 'flex-end',
         flexDirection: 'column',
         justifyContent: 'center',
