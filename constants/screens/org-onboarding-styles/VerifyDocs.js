@@ -143,7 +143,7 @@ export default {
     display: 'flex',
     width: 90,
     height: 90,
-    borderRadius: '50%',
+    borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center'
   },
