@@ -1,1 +1,8 @@
-{}
+{
+  "expoServerPort": 19002,
+  "packagerPort": 19003,
+  "packagerPid": 70443,
+  "expoServerNgrokUrl": "https://46-r7u.camerona.key-conservation-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.46-r7u.camerona.key-conservation-mobile.exp.direct",
+  "ngrokPid": 70460
+}
