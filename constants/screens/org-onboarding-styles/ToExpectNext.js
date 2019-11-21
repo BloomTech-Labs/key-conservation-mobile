@@ -2,8 +2,26 @@ export default {
 
     obBody: {
         flex: 1,
-        justifyContent: 'center',
-        marginTop: '10%'
+        paddingTop: '5%',
+        paddingBottom: '5%',
+        justifyContent: 'center'
+    },
+    highlight: {
+        backgroundColor: "#f66767",
+        borderRadius: 10
+    },
+    span: {
+        fontFamily: 'OpenSans-Bold'
+    },
+    contentWrapper: {
+        display: "flex",
+        marginLeft: "5%",
+        flexWrap: "nowrap",
+        flexDirection: "row",
+        marginTop: "5%"
+    },
+    iconWrapper: {
+       marginTop: "3%"
     },
     obText: {
         color: '#000000',
@@ -13,17 +31,7 @@ export default {
         marginLeft: '5%',
         marginTop: '2%',
         marginBottom: '2%',
-        marginRight: '7%',      
-    },
-    obTextBold: {
-        color: '#000000',
-        fontFamily: 'OpenSans-Bold',
-        fontSize: 18,
-        lineHeight: 25,
-        marginLeft: '5%',
-        marginTop: '2%',
-        marginBottom: '2%',
-        marginRight: '7%',      
+        marginRight: '7%', 
     },
     obTextBottom: {
         color: '#000000',
@@ -33,7 +41,7 @@ export default {
         marginLeft: '5%',
         marginTop: '2%',
         marginBottom: '7%',
-        marginRight: '7%',      
+        marginRight: '7%',    
     },
     obTitle: {
         color: '#000000',
@@ -42,8 +50,9 @@ export default {
         lineHeight: 38,
         marginLeft: '5%',
         marginTop: '2%',
-        marginBottom: '2%',
+        marginBottom: '7%',
         marginRight: '7%',
+        marginTop: "18%"
     },
     obSubtitle: {
         color: '#000000',
@@ -126,15 +135,6 @@ export default {
         borderRadius: 24,
         width: 214,
         height: 68
-    },
-    contentWrapper: {
-        display: "flex",
-        marginLeft: "5%",
-        flexWrap: "nowrap",
-        flexDirection: "row",
-        marginTop: "5%"
-    },
-    iconWrapper: {
-        marginTop: "2.5%"
     }
+
 }

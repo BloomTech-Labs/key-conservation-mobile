@@ -14,14 +14,19 @@ import useForm from './hooks/useForm';
 import DropDownSelect from './formElement/DropDownSelect';
 import { Feather } from '@expo/vector-icons';
 import styles from '../../constants/screens/org-onboarding-styles/OrganizationSurvey';
+import NavigateButton from './formElement/NavigateButton.js';
 
 const OrganizationSurveyScreen = props => {
-  const { values, handleChange, handleSubmit } = useForm(submit);
+  const { values, handleChange } = useForm();
 
-  const backendState = props.navigation.getParam('backendState', 'defaultValue');
+  const backendState = props.navigation.getParam(
+    'backendState',
+    'defaultValue'
+  );
 
-  function submit() {
-    props.navigation.navigate("UsernameScreen", { backendState: backendState });
+  function handleSubmit() {
+    // props.navigation.navigate('MyProStack', { backendState: backendState });
+    props.navigation.navigate('CreateAccount', { backendState: backendState });
   }
 
   return (
@@ -36,7 +41,7 @@ const OrganizationSurveyScreen = props => {
               <Text style={styles.h5Text}> Uploaded Sep 23 2019</Text>
             </View>
             <View>
-              <Feather name="info" size={20} />
+              <Feather name="info" size={40} />
             </View>
           </View>
           <View>
@@ -116,14 +121,7 @@ const OrganizationSurveyScreen = props => {
               name="twitter"
             />
           </View>
-          <View style={[styles.inputBlockSm, styles.buttonRow]}>
-            <TouchableOpacity style={[styles.secondaryButton]}>
-              <Text style={styles.secondaryButtonText}>Finish Later</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.mainButton]}>
-              <Text>Preview</Text>
-            </TouchableOpacity>
-          </View>
+          <NavigateButton label="Preview" onButtonPress={handleSubmit} />
         </View>
       </ScrollView>
     </SafeAreaView>
