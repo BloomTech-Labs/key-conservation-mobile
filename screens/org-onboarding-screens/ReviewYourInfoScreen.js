@@ -10,6 +10,9 @@ import {
 import styles from '../../constants/screens/org-onboarding-styles/ReviewYourInfo';
 
 const ReviewYourInfoScreen = props => {
+
+  const backendState = props.navigation.getParam('backendState', 'defaultValue');
+  
   return (
     <View style={styles.obBody}>
       <ScrollView>

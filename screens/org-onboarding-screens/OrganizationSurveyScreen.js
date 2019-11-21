@@ -18,6 +18,8 @@ import styles from '../../constants/screens/org-onboarding-styles/OrganizationSu
 const OrganizationSurveyScreen = props => {
   const { values, handleChange, handleSubmit } = useForm(submit);
 
+  const backendState = props.navigation.getParam('backendState', 'defaultValue');
+
   function submit() {
     props.navigation.navigate("UsernameScreen", { backendState: backendState });
   }
