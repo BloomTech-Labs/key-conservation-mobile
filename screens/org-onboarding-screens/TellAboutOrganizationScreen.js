@@ -162,6 +162,8 @@ const TellAboutOrganizationScreen = (props) => {
 					style={styles.obFwdContainer}
 					onPress={() => {
 						sendAirtable();
+                    // sendBackend();
+                    props.navigation.navigate("VerifyOrganization");
                 }}
             >
                 <Text style={styles.obFwdBtnText}>Next</Text>
