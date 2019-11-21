@@ -146,7 +146,7 @@ export default LoginScreen = props => {
 
   return (
     <ImageBackground
-      source={require("../assets/images/furHQ.png")}
+      source={require("../assets/images/furHQ2.jpg")}
       style={styles.container}
     >
       <View style={styles.titleContainer}>
