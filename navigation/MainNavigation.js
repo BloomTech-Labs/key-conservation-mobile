@@ -4,17 +4,19 @@ import {
   createBottomTabNavigator
 } from 'react-navigation';
 
-import CanScreen from "../screens/org-onboarding-screens/CanScreen";
-import CantScreen from "../screens/org-onboarding-screens/CantScreen";
-import HeyThereScreen from "../screens/org-onboarding-screens/HeyThereScreen";
-import KeyConservationScreen from "../screens/org-onboarding-screens/KeyConservationScreen";
-import MakeAccountScreen from "../screens/org-onboarding-screens/MakeAccountScreen";
-import TellAboutOrganizationScreen from "../screens/org-onboarding-screens/TellAboutOrganizationScreen";
-import ToExpectScreen from "../screens/org-onboarding-screens/ToExpectScreen";
-import VerifyDocumentationScreen from "../screens/org-onboarding-screens/VerifyDocumentationScreen";
-import VerifyOrganizationScreen from "../screens/org-onboarding-screens/VerifyOrganizationScreen";
+import CanScreen from '../screens/org-onboarding-screens/CanScreen';
+import CantScreen from '../screens/org-onboarding-screens/CantScreen';
+import HeyThereScreen from '../screens/org-onboarding-screens/HeyThereScreen';
+import KeyConservationScreen from '../screens/org-onboarding-screens/KeyConservationScreen';
+import MakeAccountScreen from '../screens/org-onboarding-screens/MakeAccountScreen';
+import TellAboutOrganizationScreen from '../screens/org-onboarding-screens/TellAboutOrganizationScreen';
+import ToExpectScreen from '../screens/org-onboarding-screens/ToExpectScreen';
+import VerifyDocumentationScreen from '../screens/org-onboarding-screens/VerifyDocumentationScreen';
+import VerifyOrganizationScreen from '../screens/org-onboarding-screens/VerifyOrganizationScreen';
 import AlmostDone from '../screens/org-onboarding-screens/AlmostDoneScreen';
 import ThankYouScreen from '../screens/org-onboarding-screens/ThankYouScreen';
+import ReviewYourInfoScreen from '../screens/org-onboarding-screens/ReviewYourInfoScreen';
+import OrganizationSurveyScreen from '../screens/org-onboarding-screens/OrganizationSurveyScreen';
 
 import FeedScreen from '../screens/FeedScreen';
 import CreateCampScreen from '../screens/CreateCampScreen';
@@ -38,23 +40,26 @@ import AccountSettingsScreen from '../screens/AccountSettingsScreen';
 
 import LogoutScreen from '../screens/LogoutScreen';
 
-
-
-export const OrgOnboardStack = createStackNavigator({
-  HeyThere: HeyThereScreen,
-  ToExpect: ToExpectScreen,
-  KeyConservation: KeyConservationScreen,
-  Can: CanScreen,
-  Cant: CantScreen,
-  MakeAccount: MakeAccountScreen,
-  TellAboutOrganization: TellAboutOrganizationScreen,
-  VerifyDocumentation: VerifyDocumentationScreen,
-  VerifyOrganization: VerifyOrganizationScreen,
-  AlmostDone: AlmostDone,
-  ThankYou: ThankYouScreen,
-}, {
-  headerMode: "none"
-});
+export const OrgOnboardStack = createStackNavigator(
+  {
+    HeyThere: HeyThereScreen,
+    ToExpect: ToExpectScreen,
+    KeyConservation: KeyConservationScreen,
+    Can: CanScreen,
+    Cant: CantScreen,
+    MakeAccount: MakeAccountScreen,
+    TellAboutOrganization: TellAboutOrganizationScreen,
+    VerifyDocumentation: VerifyDocumentationScreen,
+    VerifyOrganization: VerifyOrganizationScreen,
+    AlmostDone: AlmostDone,
+    ThankYou: ThankYouScreen,
+    ReviewYourInfo: ReviewYourInfoScreen,
+    OrganizationSurvey: OrganizationSurveyScreen
+  },
+  {
+    headerMode: 'none'
+  }
+);
 
 const FeedStack = createStackNavigator(
   {
@@ -103,9 +108,9 @@ const FeedStack = createStackNavigator(
       tabBarLabel: 'Feed',
       tabBarIcon: ({ focused }) => (
         <SvgUri
-          fill='#3b3b3b'
-          width='25'
-          height='25'
+          fill="#3b3b3b"
+          width="25"
+          height="25"
           source={
             focused
               ? require('../assets/icons/home-fill.svg')
@@ -131,9 +136,9 @@ const CreateCampStack = createStackNavigator(
       tabBarLabel: 'Create Campaign',
       tabBarIcon: ({ focused }) => (
         <SvgUri
-          fill='#3b3b3b'
-          width='25'
-          height='25'
+          fill="#3b3b3b"
+          width="25"
+          height="25"
           source={
             focused
               ? require('../assets/icons/plus-fill.svg')
@@ -170,9 +175,9 @@ const MyProStack = createStackNavigator(
       tabBarLabel: 'My Profile',
       tabBarIcon: ({ focused }) => (
         <SvgUri
-          fill='#3b3b3b'
-          width='25'
-          height='25'
+          fill="#3b3b3b"
+          width="25"
+          height="25"
           source={
             focused
               ? require('../assets/icons/user-fill.svg')
@@ -199,9 +204,9 @@ const SupProStack = createStackNavigator(
       tabBarLabel: 'My Profile',
       tabBarIcon: ({ focused }) => (
         <SvgUri
-          fill='#3b3b3b'
-          width='25'
-          height='25'
+          fill="#3b3b3b"
+          width="25"
+          height="25"
           source={
             focused
               ? require('../assets/icons/user-fill.svg')
@@ -213,11 +218,8 @@ const SupProStack = createStackNavigator(
   }
 );
 
-
-
 export const UsernameStack = createStackNavigator({
   Username: {
-   
     // screen: HeyThereScreen,
     screen: UsernameScreen,
 
@@ -242,8 +244,7 @@ export const LoginStack = createStackNavigator(
   }
 );
 
-export const LogoutStack = createStackNavigator(
-  { Logout: LogoutScreen })
+export const LogoutStack = createStackNavigator({ Logout: LogoutScreen });
 
 export const ConsNavigator = createBottomTabNavigator(
   {
