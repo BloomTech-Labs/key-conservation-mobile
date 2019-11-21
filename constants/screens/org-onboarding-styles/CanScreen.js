@@ -14,7 +14,8 @@ export default {
         marginLeft: '5%',
         marginTop: '2%',
         marginBottom: '2%',
-        marginRight: '7%',      
+        marginRight: '7%', 
+        maxWidth: '100%'     
     },
     highlight: {
         backgroundColor: "#00ff9d",
@@ -29,6 +30,10 @@ export default {
     },
     iconWrapper: {
         marginTop: "5%"
+    },
+    textBox: {
+        width: '90%',
+        height: 125
     },
     obTextBottom: {
         color: '#000000',

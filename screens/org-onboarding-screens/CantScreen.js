@@ -25,9 +25,7 @@ const CantScreen = (props) => {
 					<View>
 					<View style={{width: "90%"}}>
 					<Text style={styles.obText}>
-						Commodo enim cupidatat consequat cupidatat ea Lorem cupidatat consequat aliquip aliqua ullamco
-						id. Consequat sit elit ea labore fugiat culpa eiusmod proident duis. Elit mollit veniam
-						cupidatat minim est incididunt ullamco et laboris minim velit in.
+					Guarantee that all of your requests will get support and funding
 					</Text>
 					</View>
 					</View>
@@ -42,9 +40,7 @@ const CantScreen = (props) => {
 					</View>
 					<View style={{width: "90%"}}>
 					<Text style={styles.obText}>
-						Commodo enim cupidatat consequat cupidatat ea Lorem cupidatat consequat aliquip aliqua ullamco
-						id. Consequat sit elit ea labore fugiat culpa eiusmod proident duis. Elit mollit veniam
-						cupidatat minim est incididunt ullamco et laboris minim velit in.
+					Provide your organization with internet access.
 					</Text>
 					</View>
 				</View>
@@ -58,9 +54,7 @@ const CantScreen = (props) => {
 					</View>
 					<View style={{width: "90%"}}>
 					<Text style={styles.obTextBottom}>
-						Commodo enim  cupidatat consequat cupidatat ea Lorem cupidatat consequat aliquip aliqua ullamco
-						id. Consequat sit elit ea labore fugiat culpa eiusmod proident duis. Elit mollit veniam
-						cupidatat minim est incididunt ullamco et laboris minim velit in.
+					Oversee work completed by skilled professionals.
 					</Text>
 					</View>
 				</View>

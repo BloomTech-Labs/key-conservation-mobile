@@ -54,7 +54,7 @@ const ToExpectNextScreen = props => {
 					<View style={{width: "90%"}}>
                     <Text style={styles.obSubtitle}>Create Your Profile</Text>
 					<Text style={styles.obTextBottom}>
-						Complete your base profile where we verify your organization. Once approved, you'll receive a survey by email, followed by a welcome kit. <Text style={{fontWeight: "bold"}}>Now you can go visible! Start adding connections and campaigns!</Text>
+						Complete your base profile where we verify your organization. Once approved, you'll receive a survey by email, followed by a welcome kit. <Text style={styles.span}>Now you can go visible! Start adding connections and campaigns!</Text>
 					</Text>
 					</View>
 				</View>
