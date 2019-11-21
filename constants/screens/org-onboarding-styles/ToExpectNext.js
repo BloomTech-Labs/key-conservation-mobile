@@ -11,7 +11,7 @@ export default {
         borderRadius: 10
     },
     span: {
-        fontWeight: '300'
+        fontFamily: 'OpenSans-Bold'
     },
     contentWrapper: {
         display: "flex",

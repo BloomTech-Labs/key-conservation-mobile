@@ -1,9 +1,3 @@
 {
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 56001,
-  "expoServerNgrokUrl": "https://tn-m7i.katiefelten.key-conservation-mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.tn-m7i.katiefelten.key-conservation-mobile.exp.direct",
-  "ngrokPid": 56021,
-  "devToolsPort": 19002
 }
+

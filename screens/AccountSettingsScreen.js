@@ -20,8 +20,11 @@ import * as WebBrowser from 'expo-web-browser';
 import Constants from 'expo-constants';
 
 class AccountSettingsScreen extends React.Component{
+  
+  
   state = {
-    result: null
+    result: null,
+    roles: ""
   };
 
     static navigationOptions = ({ navigation }) => {
@@ -45,13 +48,26 @@ class AccountSettingsScreen extends React.Component{
           )
         };
       };
+         getRole = async () => {
+            const myRoles = await SecureStorage.getItemAsync('roles', {});
+            this.setState({roles: myRoles});
+            console.log("roles!!!!", this.state.roles)
+          }
 
       componentDidMount() {
+
         this.props.navigation.setParams({ done: this.done });
+        this.getRole();
       }
 
       done = () => {
-          this.props.navigation.goBack();
+          if (this.state.roles === "conservationist") {
+              this.props.navigation.navigate("myPro");
+          } else {
+              this.props.navigation.navigate("MySupPro");
+              console.log("I am a supporter!!!")
+          }
+          
       };
 
 
@@ -69,15 +85,15 @@ class AccountSettingsScreen extends React.Component{
         if (Constants.platform.ios) {
           await WebBrowser.openAuthSessionAsync(logoutURL)
           .then(result => {
-            setState({result})
+            this.setState({result})
           })
         } else {
           await WebBrowser.openBrowserAsync(logoutURL)
           .then(result => {
-            setState({result})
+            this.setState({result})
           })
         }
-          props.navigation.navigate('Logout');
+        this.props.navigation.navigate('Logout');
       };
 
       render(){
