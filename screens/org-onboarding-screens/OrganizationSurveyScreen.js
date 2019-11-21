@@ -25,7 +25,6 @@ const OrganizationSurveyScreen = props => {
   );
 
   function handleSubmit() {
-    // props.navigation.navigate('MyProStack', { backendState: backendState });
     props.navigation.navigate('CreateAccount', { backendState: backendState });
   }
 
