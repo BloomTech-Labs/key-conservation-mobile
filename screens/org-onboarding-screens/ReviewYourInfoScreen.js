@@ -8,11 +8,14 @@ import {
   StyleSheet
 } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/ReviewYourInfo';
+import NavigateButton from './formElement/NavigateButton.js';
 
 const ReviewYourInfoScreen = props => {
+  const backendState = props.navigation.getParam(
+    'backendState',
+    'defaultValue'
+  );
 
-  const backendState = props.navigation.getParam('backendState', 'defaultValue');
-  
   return (
     <View style={styles.obBody}>
       <ScrollView>
@@ -33,20 +36,14 @@ const ReviewYourInfoScreen = props => {
             <Text style={styles.obTextBottom}>Contact & Credentials</Text>
           </View>
         </View>
-        <View style={[styles.inputBlockSm, styles.buttonRow]}>
-          <TouchableOpacity style={[styles.secondaryButton]}>
-            <Text style={styles.secondaryButtonText}>Finish Later</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.mainButton]}
-            style={styles.obFwdContainer}
-            onPress={() => {
-              props.navigation.navigate('OrganizationSurvey', { backendState: backendState });
-            }}
-          >
-            <Text>Next</Text>
-          </TouchableOpacity>
-        </View>
+        <NavigateButton
+          label="Next"
+          onButtonPress={() => {
+            props.navigation.navigate('OrganizationSurvey', {
+              backendState: backendState
+            });
+          }}
+        />
       </ScrollView>
     </View>
   );

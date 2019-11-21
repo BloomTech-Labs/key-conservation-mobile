@@ -15,26 +15,23 @@ const HeyThereScreen = props => {
     await SecureStore.deleteItemAsync('email', {});
     await SecureStore.deleteItemAsync('roles', {});
     await SecureStore.deleteItemAsync('id', {});
-    await SecureStore.deleteItemAsync("userId", {});
+    await SecureStore.deleteItemAsync('userId', {});
     await SecureStore.deleteItemAsync('accessToken', {});
     logout();
     // props.navigation.navigate('Loading');
 
     const logoutURL = 'https://key-conservation.auth0.com/v2/logout?federated';
-    
+
     if (Constants.platform.ios) {
-    await WebBrowser.openAuthSessionAsync(logoutURL)
-    .then(result => {
-      setState({result})
-    })
-  } else {
-    await WebBrowser.openBrowserAsync(logoutURL)
-    .then(result => {
-      setState({result})
-    })
-  }
+      await WebBrowser.openAuthSessionAsync(logoutURL).then(result => {
+        setState({ result });
+      });
+    } else {
+      await WebBrowser.openBrowserAsync(logoutURL).then(result => {
+        setState({ result });
+      });
+    }
     props.navigation.navigate('Logout');
-    
   };
   return (
     <View style={styles.obBody}>
@@ -53,7 +50,7 @@ const HeyThereScreen = props => {
       <TouchableOpacity
         style={styles.obFwdContainer}
         onPress={() => {
-          props.navigation.navigate('ToExpect');
+          props.navigation.navigate('VerifyDocumentation');
         }}
       >
         <Text style={styles.obFwdBtnText}>Next</Text>

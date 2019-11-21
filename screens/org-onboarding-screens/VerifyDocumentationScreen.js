@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { Button, Text, View, TouchableOpacity } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/VerifyDocs.js';
 
+import { Ionicons, Feather } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
+import NavigateButton from './formElement/NavigateButton.js';
 
 export default class VerifyDocumentationScreen extends Component {
   state = {
@@ -27,7 +29,7 @@ export default class VerifyDocumentationScreen extends Component {
   render() {
     const { navigation } = this.props;
 
-        const backendState = navigation.getParam('backendState', 'defaultValue')
+    const backendState = navigation.getParam('backendState', 'defaultValue');
 
     return (
       <View style={styles.obBody}>
@@ -35,26 +37,38 @@ export default class VerifyDocumentationScreen extends Component {
         <Text style={styles.obText}>
           To prevent fraud, we need to properly vet organization credentials.
         </Text>
-        <Text style={styles.obSubtitle}>Proof of organization</Text>
-        <Text style={styles.obTextBottom}>
-          Please provide a clear photo of your 501(c)(3) or other state-approved
-          documentation.
-        </Text>
-        <TouchableOpacity
-          style={styles.obUploadBtn}
-          onPress={() => this._handlePressButtonAsync()}
-        >
-          <Text style={styles.obText}>Photo of Documentation</Text>
-        </TouchableOpacity>
+
+        <View style={styles.borderContainer}>
+          <TouchableOpacity
+            style={styles.obUploadBtn}
+            onPress={() => this._handlePressButtonAsync()}
+          >
+            <Feather name="plus" size={30} color="white" />
+          </TouchableOpacity>
+          <Text style={styles.obText}>
+            By clicking the button, you’ll be taken to an external link to
+            upload your official documentation.
+          </Text>
+        </View>
+        <View style={[styles.buttonRow]}>
+          <View>
+            <Ionicons name="ios-lock" size={26} color="#00FF9D" />
+          </View>
+          <View>
+            <Text style={[styles.h5Text, { fontWeight: '600' }]}>
+              Something about privacy goes right here
+            </Text>
+          </View>
+        </View>
         <View style={styles.spacer} />
-        <TouchableOpacity
-          style={styles.obFwdContainer}
-          onPress={() => {
-            navigation.navigate('ReviewYourInfo', { backendState: backendState });
+        <NavigateButton
+          label='Next'
+          onButtonPress={() => {
+            navigation.navigate('ReviewYourInfo', {
+              backendState: backendState
+            });
           }}
-        >
-          <Text style={styles.obFwdBtnText}>Next</Text>
-        </TouchableOpacity>
+        />
       </View>
     );
   }
