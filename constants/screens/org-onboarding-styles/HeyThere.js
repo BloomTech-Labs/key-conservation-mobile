@@ -1,9 +1,21 @@
 export default {
 
     obBody: {
-        flex: 1,
-        backgroundColor: '#E5E5E5',
+        flex:1,
         justifyContent: 'center'
+    },
+    obBorderView: {
+        flexGrow: 1,
+        alignSelf: 'center',
+        borderWidth: 2,
+        borderColor: '#00FF9D',
+        borderRadius: 30,
+        marginTop: '10%',
+        marginBottom: '20%',
+        paddingTop: '10%',
+        paddingBottom: '5%',
+        marginLeft: '2%',
+        marginRight: '2%'
     },
     obText: {
         color: '#000000',
@@ -22,7 +34,7 @@ export default {
         lineHeight: 38,
         marginLeft: '5%',
         marginTop: '2%',
-        marginBottom: '2%',
+        marginBottom: '3%',
         marginRight: '7%',
     },
     obSubtitle: {
@@ -32,41 +44,14 @@ export default {
         lineHeight: 29,
         marginLeft: '5%',
         marginTop: '2%',
-        marginBottom: '2%',
+        marginBottom: '3%',
         marginRight: '7%',
-    },
-    obBackContainer: {
-        width: 112,
-        height: 46,
-        backgroundColor: '#C4C4C4',
-        borderRadius: 5,
-        alignSelf: 'flex-start',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignContent: 'center',
-        marginLeft: '5%',
-        marginTop: '6%'
-    },
-    obCtrContainer: {
-        width: 112,
-        height: 46,
-        backgroundColor: '#C4C4C4',
-        borderRadius: 5,
-        alignSelf: 'flex-start',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignContent: 'center',
-        marginLeft: '50%',
-        marginRight: '50%',
-        marginTop: '6%'
     },
     obFwdContainer: {
         width: 112,
-        height: 46,
-        backgroundColor: '#C4C4C4',
-        borderRadius: 5,
+        height: 40,
+        backgroundColor: '#00ff9d',
+        borderRadius: 20,
         alignSelf: 'flex-end',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -79,8 +64,7 @@ export default {
         fontStyle: 'normal',
         fontSize: 18,
         lineHeight: 25,
-        color: '#000000',
-        marginTop: '9%'
+        color: '#000000'
     },
     obRectangle1: {
         position: 'absolute',
@@ -138,7 +122,10 @@ export default {
         height: 68
     },
     spacer: {
-        height: '5%'
+        flexGrow: 2
+    },
+    buttons: {
+        flexGrow: 1 
     }
 
 }
