@@ -190,11 +190,9 @@ export const editProfileData = (id, changes) => async dispatch => {
       }
     })
     .then(res => {
-      console.log(res);
-      dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.editUser });
+      dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.editUser })
     })
     .catch(err => {
-      console.log(err);
       dispatch({ type: EDIT_PROFILE_ERROR, payload: err })
     })
 }

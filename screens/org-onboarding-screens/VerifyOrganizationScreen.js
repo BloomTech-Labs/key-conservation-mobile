@@ -106,24 +106,11 @@ const VerifyOrganizationScreen = (props) => {
 						value={airtableState.smartphone_type}
 					/>
 
-<<<<<<< HEAD
-            <TouchableOpacity style={styles.obFwdContainer}
-                onPress={() => {
-                    updateAirtable();
-                    props.navigation.navigate("VerifyDocumentation", { backendState: backendState })
-                }}
-            >
-                <Text style={styles.obFwdBtnText}>Next</Text>
-            </TouchableOpacity>
-        </View>
-    );
-}
-=======
 					<TouchableOpacity
 						style={styles.obFwdContainer}
 						onPress={() => {
 							updateAirtable();
-							props.navigation.navigate('VerifyDocumentation');
+							props.navigation.navigate("VerifyDocumentation", { backendState: backendState });
 						}}
 					>
 						<Text style={styles.obFwdBtnText}>Next</Text>
@@ -133,6 +120,5 @@ const VerifyOrganizationScreen = (props) => {
 		</KeyboardAvoidingView>
 	);
 };
->>>>>>> development
 
 export default VerifyOrganizationScreen;

@@ -17,7 +17,7 @@ import DoneButton from "../components/DoneButton";
 import styles from "../constants/screens/AccountSettingsScreen";
 import * as WebBrowser from 'expo-web-browser';
 
-import { AuthSession } from "expo";
+import Constants from 'expo-constants';
 
 class AccountSettingsScreen extends React.Component{
   state = {
@@ -62,17 +62,22 @@ class AccountSettingsScreen extends React.Component{
         await SecureStorage.deleteItemAsync("id", {});
         await SecureStorage.deleteItemAsync("userId", {});
         await SecureStorage.deleteItemAsync("accessToken", {});
-        // await AuthSession.dismiss();
         this.props.logout();
-        console.log("account settings logout hit")
 
         const logoutURL = 'https://key-conservation.auth0.com/v2/logout?federated';
 
-        await WebBrowser.openBrowserAsync(logoutURL)
-    .then(result => {
-      this.setState({result})
-      this.props.navigation.navigate("Logout");
-    })
+        if (Constants.platform.ios) {
+          await WebBrowser.openAuthSessionAsync(logoutURL)
+          .then(result => {
+            setState({result})
+          })
+        } else {
+          await WebBrowser.openBrowserAsync(logoutURL)
+          .then(result => {
+            setState({result})
+          })
+        }
+          props.navigation.navigate('Logout');
       };
 
       render(){
