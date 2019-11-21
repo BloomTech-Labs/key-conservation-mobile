@@ -109,7 +109,7 @@ const VerifyOrganizationScreen = (props) => {
 					<TouchableOpacity
 						style={styles.obFwdContainer}
 						onPress={() => {
-							// updateAirtable();
+							updateAirtable();
 							props.navigation.navigate("VerifyDocumentation", { backendState: backendState });
 						}}
 					>

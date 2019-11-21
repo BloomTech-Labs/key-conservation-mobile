@@ -175,7 +175,7 @@ const TellAboutOrganizationScreen = (props) => {
 				<TouchableOpacity
 					style={styles.obFwdContainer}
 					onPress={() => {
-						// sendAirtable();
+						sendAirtable();
                     // sendBackend();
                     props.navigation.navigate("VerifyOrganization");
                 }}
