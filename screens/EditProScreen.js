@@ -10,7 +10,7 @@ import {
 import { ScrollView, NavigationEvents } from "react-navigation";
 import { connect } from "react-redux";
 import BackButton from "../components/BackButton";
-import * as SecureStorage from "expo-secure-store";
+import * as SecureStore from "expo-secure-store";
 import DoneButton from "../components/DoneButton";
 import UploadMedia from "../components/UploadMedia";
 
@@ -68,6 +68,8 @@ class EditProScreen extends React.Component {
     if (this.isProfileComplete(this.state) === true) {
       return AmpEvent("Profile Completed");
     }
+
+    this.getBackend();
   }
 
   isProfileComplete = profile => {
@@ -91,6 +93,15 @@ class EditProScreen extends React.Component {
     } else {
       this.props.navigation.goBack();
     }
+  };
+
+  getBackend = async () => {
+    const state = await SecureStore.getItemAsync('stateBE', {});
+
+    const parseBE = JSON.parse(state)
+
+    console.log("stateBE from SecureStore: " + parseBE.org_name);
+    // onChangeText({ email: email2 });
   };
 
   render() {

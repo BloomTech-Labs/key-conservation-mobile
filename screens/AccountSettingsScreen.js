@@ -11,7 +11,7 @@ import { ScrollView, NavigationEvents } from "react-navigation";
 import { connect } from "react-redux";
 import { logout } from "../store/actions";
 import * as SecureStorage from "expo-secure-store";
-import BackButton from "../components/BackButton";
+import GoBackButton from "../components/BackButton";
 import DoneButton from "../components/DoneButton";
 
 import styles from "../constants/screens/AccountSettingsScreen";
@@ -20,8 +20,11 @@ import * as WebBrowser from 'expo-web-browser';
 import Constants from 'expo-constants';
 
 class AccountSettingsScreen extends React.Component{
+  
+  
   state = {
-    result: null
+    result: null,
+    roles: ""
   };
 
     static navigationOptions = ({ navigation }) => {
@@ -36,7 +39,13 @@ class AccountSettingsScreen extends React.Component{
             flexGrow: 1,
             alignSelf: "center"
           },
-          headerLeft: <BackButton navigation={navigation} />,
+          // headerLeft: <BackButton navigation={navigation} pressAction={navigation.getParam("done")} />,
+          // // headerLeft: (
+          // //   <GoBackButton
+          // //     navigation={navigation}
+          // //     pressAction={navigation.getParam("done")}
+          // //   />
+          // // ),
           headerRight: (
             <DoneButton
               navigation={navigation}
@@ -45,13 +54,24 @@ class AccountSettingsScreen extends React.Component{
           )
         };
       };
+         getRole = async () => {
+            const myRoles = await SecureStorage.getItemAsync('roles', {});
+            this.setState({roles: myRoles});
+          }
 
       componentDidMount() {
+
         this.props.navigation.setParams({ done: this.done });
+        this.getRole();
       }
 
       done = () => {
-          this.props.navigation.goBack();
+          if (this.state.roles === "conservationist") {
+              this.props.navigation.navigate("myPro");
+          } else {
+              this.props.navigation.navigate("MySupPro");
+          }
+          
       };
 
 
@@ -69,15 +89,15 @@ class AccountSettingsScreen extends React.Component{
         if (Constants.platform.ios) {
           await WebBrowser.openAuthSessionAsync(logoutURL)
           .then(result => {
-            setState({result})
+            this.setState({result})
           })
         } else {
           await WebBrowser.openBrowserAsync(logoutURL)
           .then(result => {
-            setState({result})
+            this.setState({result})
           })
         }
-          props.navigation.navigate('Logout');
+        this.props.navigation.navigate('Logout');
       };
 
       render(){

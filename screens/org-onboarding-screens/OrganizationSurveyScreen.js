@@ -16,6 +16,8 @@ import { Feather } from '@expo/vector-icons';
 import styles from '../../constants/screens/org-onboarding-styles/OrganizationSurvey';
 import NavigateButton from './formElement/NavigateButton.js';
 
+import * as SecureStore from 'expo-secure-store';
+
 const OrganizationSurveyScreen = props => {
   const { values, handleChange } = useForm();
 
@@ -23,6 +25,21 @@ const OrganizationSurveyScreen = props => {
     'backendState',
     'defaultValue'
   );
+
+  function submit() {
+    return null  
+  };
+
+  storeBackend = async () => {
+    stringBE = JSON.stringify(backendState);
+    console.log("stateBE from SecureStore: " + stringBE);
+    await SecureStore.setItemAsync('stateBE', stringBE);
+    // onChangeText({ email: email2 });
+  };
+
+  useEffect(() => {
+    storeBackend();
+  }, []);
 
   function handleSubmit() {
     props.navigation.navigate('CreateAccount', { backendState: backendState });
