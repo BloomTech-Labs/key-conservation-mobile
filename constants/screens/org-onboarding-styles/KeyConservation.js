@@ -111,5 +111,8 @@ export default {
   },
   svg: {
     paddingBottom: '15%'
+  },
+  test: {
+    paddingBottom: '15%'
   }
 };
