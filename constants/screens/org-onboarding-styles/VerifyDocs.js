@@ -1,13 +1,33 @@
 export default {
   borderContainer: {
-    textAlign:'center',
+    display: 'flex',
     backgroundColor: 'white',
-    // justifyContent: 'center',
-    // alignItems:'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 24,
+    paddingBottom: 24,
+    marginTop: 30,
+    marginBottom: 30,
     marginLeft: '5%',
     marginRight: '5%',
+    borderRadius: 30,
     borderColor: '#00FF9D',
     borderWidth: 1
+  },
+
+  noBorderConatiner: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    marginLeft: '5%',
+    marginRight: '5%',
+  },
+
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    alignItems: 'center'
   },
   obBody: {
     flex: 1,
@@ -126,9 +146,6 @@ export default {
     borderRadius: '50%',
     justifyContent: 'center',
     alignItems: 'center'
-  },
-  spacer: {
-    height: '10%'
   },
   obOrgBtn: {
     backgroundColor: '#C4C4C4',

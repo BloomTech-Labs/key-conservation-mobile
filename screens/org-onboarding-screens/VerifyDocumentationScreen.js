@@ -50,19 +50,21 @@ export default class VerifyDocumentationScreen extends Component {
             upload your official documentation.
           </Text>
         </View>
-        <View style={[styles.buttonRow]}>
+        <View style={styles.noBorderConatiner}>
           <View>
-            <Ionicons name="ios-lock" size={26} color="#00FF9D" />
+            <Ionicons name="ios-lock" size={36} color="#00FF9D" />
           </View>
           <View>
-            <Text style={[styles.h5Text, { fontWeight: '600' }]}>
+            <Text style={styles.obSubtitle}>Privacy</Text>
+            <Text style={[styles.obText, {marginTop:0}]}>
               Something about privacy goes right here
             </Text>
           </View>
         </View>
+
         <View style={styles.spacer} />
         <NavigateButton
-          label='Next'
+          label="Next"
           onButtonPress={() => {
             navigation.navigate('ReviewYourInfo', {
               backendState: backendState
