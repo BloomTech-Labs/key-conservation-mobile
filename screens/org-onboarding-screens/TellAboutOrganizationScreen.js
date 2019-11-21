@@ -181,3 +181,4 @@ export default connect(mapStateToProps, {
   logout,
   clearMedia
 })(TellAboutOrganizationScreen);
+
