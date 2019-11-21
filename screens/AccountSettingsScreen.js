@@ -11,7 +11,7 @@ import { ScrollView, NavigationEvents } from "react-navigation";
 import { connect } from "react-redux";
 import { logout } from "../store/actions";
 import * as SecureStorage from "expo-secure-store";
-import BackButton from "../components/BackButton";
+import GoBackButton from "../components/BackButton";
 import DoneButton from "../components/DoneButton";
 
 import styles from "../constants/screens/AccountSettingsScreen";
@@ -39,7 +39,13 @@ class AccountSettingsScreen extends React.Component{
             flexGrow: 1,
             alignSelf: "center"
           },
-          headerLeft: <BackButton navigation={navigation} />,
+          // headerLeft: <BackButton navigation={navigation} pressAction={navigation.getParam("done")} />,
+          // // headerLeft: (
+          // //   <GoBackButton
+          // //     navigation={navigation}
+          // //     pressAction={navigation.getParam("done")}
+          // //   />
+          // // ),
           headerRight: (
             <DoneButton
               navigation={navigation}
@@ -51,7 +57,6 @@ class AccountSettingsScreen extends React.Component{
          getRole = async () => {
             const myRoles = await SecureStorage.getItemAsync('roles', {});
             this.setState({roles: myRoles});
-            console.log("roles!!!!", this.state.roles)
           }
 
       componentDidMount() {
@@ -65,7 +70,6 @@ class AccountSettingsScreen extends React.Component{
               this.props.navigation.navigate("myPro");
           } else {
               this.props.navigation.navigate("MySupPro");
-              console.log("I am a supporter!!!")
           }
           
       };
