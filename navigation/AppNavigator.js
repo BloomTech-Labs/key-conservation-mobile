@@ -11,7 +11,7 @@ import {
   AccountSettingsStack
 } from './MainNavigation';
 import LoadingScreen from '../screens/LoadingScreen';
-//import AccountSettingsScreen from '../screens/AccountSettingsScreen';
+
 
 // This is the top level navigator for the app. It covers the loading process, and sorts the user into the version of the app they will be seeing.
 export default createAppContainer(
