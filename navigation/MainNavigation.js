@@ -11,6 +11,7 @@ import KeyConservationScreen from '../screens/org-onboarding-screens/KeyConserva
 import MakeAccountScreen from '../screens/org-onboarding-screens/MakeAccountScreen';
 import TellAboutOrganizationScreen from '../screens/org-onboarding-screens/TellAboutOrganizationScreen';
 import ToExpectScreen from '../screens/org-onboarding-screens/ToExpectScreen';
+import ToExpectNext from '../screens/org-onboarding-screens/ToExpectNextScreen';
 import VerifyDocumentationScreen from '../screens/org-onboarding-screens/VerifyDocumentationScreen';
 import VerifyOrganizationScreen from '../screens/org-onboarding-screens/VerifyOrganizationScreen';
 import AlmostDone from '../screens/org-onboarding-screens/AlmostDoneScreen';
@@ -39,6 +40,7 @@ import EditCampUpdateScreen from '../screens/EditCampUpdateScreen';
 import AccountSettingsScreen from '../screens/AccountSettingsScreen';
 
 import LogoutScreen from '../screens/LogoutScreen';
+import ToExpectNextScreen from '../screens/org-onboarding-screens/ToExpectNextScreen';
 
 export const OrgOnboardStack = createStackNavigator(
   {
@@ -47,6 +49,7 @@ export const OrgOnboardStack = createStackNavigator(
     KeyConservation: KeyConservationScreen,
     Can: CanScreen,
     Cant: CantScreen,
+    ToExpectNext: ToExpectNextScreen,
     MakeAccount: MakeAccountScreen,
     TellAboutOrganization: TellAboutOrganizationScreen,
     VerifyDocumentation: VerifyDocumentationScreen,
@@ -150,6 +153,12 @@ const CreateCampStack = createStackNavigator(
   }
 );
 
+export const AccountSettingsStack = createStackNavigator(
+  {
+    AccountSettings: AccountSettingsScreen
+  }
+)
+
 const MyProStack = createStackNavigator(
   {
     MyPro: { screen: MyProScreen },
@@ -163,7 +172,7 @@ const MyProStack = createStackNavigator(
     CampUpdate: ViewCampUpdateScreen,
     CreateCampUpdate: CreateCampUpdateScreen,
     EditCampUpdate: EditCampUpdateScreen,
-    AccountSettings: AccountSettingsScreen
+    // AccountSettings: AccountSettingsScreen
   },
   {
     transitionConfig: () => ({
@@ -220,7 +229,6 @@ const SupProStack = createStackNavigator(
 
 export const UsernameStack = createStackNavigator({
   Username: {
-    // screen: HeyThereScreen,
     screen: UsernameScreen,
 
     navigationOptions: {

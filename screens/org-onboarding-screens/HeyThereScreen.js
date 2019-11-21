@@ -15,29 +15,28 @@ const HeyThereScreen = props => {
     await SecureStore.deleteItemAsync('email', {});
     await SecureStore.deleteItemAsync('roles', {});
     await SecureStore.deleteItemAsync('id', {});
-    await SecureStore.deleteItemAsync("userId", {});
+    await SecureStore.deleteItemAsync('userId', {});
     await SecureStore.deleteItemAsync('accessToken', {});
     logout();
     // props.navigation.navigate('Loading');
 
     const logoutURL = 'https://key-conservation.auth0.com/v2/logout?federated';
-    
+
     if (Constants.platform.ios) {
-    await WebBrowser.openAuthSessionAsync(logoutURL)
-    .then(result => {
-      setState({result})
-    })
-  } else {
-    await WebBrowser.openBrowserAsync(logoutURL)
-    .then(result => {
-      setState({result})
-    })
-  }
+      await WebBrowser.openAuthSessionAsync(logoutURL).then(result => {
+        setState({ result });
+      });
+    } else {
+      await WebBrowser.openBrowserAsync(logoutURL).then(result => {
+        setState({ result });
+      });
+    }
     props.navigation.navigate('Logout');
-    
   };
   return (
     <View style={styles.obBody}>
+      <View style={styles.spacer}/>
+      <View style={styles.obBorderView}>
       <Text style={styles.obTitle}>Hey There!</Text>
       <Text style={styles.obSubtitle}>
         We can't wait to get your organization on board.
@@ -46,10 +45,12 @@ const HeyThereScreen = props => {
         After just a brief overview of our process, you'll be on your way to
         creating a custom page for your organization.
       </Text>
+      </View>
+      <View style={styles.buttons}>
       <TouchableOpacity
-        style={styles.obBackContainer}
+        style={styles.obFwdContainer}
         onPress={() => {
-          props.navigation.navigate('ToExpect');
+          props.navigation.navigate('VerifyDocumentation');
         }}
       >
         <Text style={styles.obFwdBtnText}>Next</Text>
@@ -63,6 +64,7 @@ const HeyThereScreen = props => {
           <Text style={styles.touchableText}>Logout</Text>
         </View>
       </TouchableOpacity>
+      </View>
     </View>
   );
 };
