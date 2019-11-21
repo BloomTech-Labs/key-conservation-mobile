@@ -150,7 +150,7 @@ export default LoginScreen = props => {
       style={styles.container}
     >
       <View style={styles.titleContainer}>
-        <Text style={styles.selectTitle}>Enable real-time conservation support.</Text>
+        <Text style={styles.selectTitle}>Enable <Text style={styles.highlight}>real-time</Text> conservation support.</Text>
         
       </View>
       <View style={styles.logoContainer}>
@@ -246,6 +246,9 @@ const styles = StyleSheet.create({
     color: "white",
     marginTop: '9%'
   },
+  highlight: {
+    backgroundColor: "#00ff9d"
+},
   buttons: {
     flex: 1,
     alignItems: "center",
