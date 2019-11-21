@@ -50,7 +50,7 @@ export default class VerifyDocumentationScreen extends Component {
         <TouchableOpacity
           style={styles.obFwdContainer}
           onPress={() => {
-            navigation.navigate('ReviewYourInfo');
+            navigation.navigate('ReviewYourInfo', { backendState: backendState });
           }}
         >
           <Text style={styles.obFwdBtnText}>Next</Text>
