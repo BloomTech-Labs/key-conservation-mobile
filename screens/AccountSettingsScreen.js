@@ -39,13 +39,6 @@ class AccountSettingsScreen extends React.Component{
             flexGrow: 1,
             alignSelf: "center"
           },
-          // headerLeft: <BackButton navigation={navigation} pressAction={navigation.getParam("done")} />,
-          // // headerLeft: (
-          // //   <GoBackButton
-          // //     navigation={navigation}
-          // //     pressAction={navigation.getParam("done")}
-          // //   />
-          // // ),
           headerRight: (
             <DoneButton
               navigation={navigation}
