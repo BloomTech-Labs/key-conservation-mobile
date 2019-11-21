@@ -29,16 +29,12 @@ const TellAboutOrganizationScreen = (props) => {
         email: ''
     });
 
-    const [backendState, onChangeBE] = useState({
+    const backendState = {
         org_name: airtableState.org_name,
         org_link_url: airtableState.website,
         point_of_contact_name: airtableState.point_of_contact,
         country: airtableState.country
-    });
-
-    // const [currentSub, setCurrentSub] = useState({
-    //   sub: ''
-    // });
+    };
 
     getEmail = async () => {
         const email2 = await SecureStore.getItemAsync('email', {});
@@ -46,15 +42,8 @@ const TellAboutOrganizationScreen = (props) => {
         onChangeText({ email: email2 });
     };
 
-    // getSub = async () => {
-    //   const sub = await SecureStore.getItemAsync('sub', {});
-    //   console.log("sub from SecureStore: " + sub);
-    //   setCurrentId({ sub: sub });
-    // }
-
     useEffect(() => {
         getEmail();
-        // getSub();
     }, []);
 
     var Airtable = require('airtable');
@@ -64,11 +53,6 @@ const TellAboutOrganizationScreen = (props) => {
     });
   
     var base = new Airtable({apiKey: 'keybUdphipr0RgMaa'}).base('appbPeeXUSNCQWwnQ');
-
-    // const sendBackend = () => {
-    //   console.log("ID from state should be here: " + currentId.id);
-    //   editProfileData(currentId, backendState);
-    // }
 
     const sendAirtable = () => {
     base('Table 1').create([
@@ -92,6 +76,9 @@ const TellAboutOrganizationScreen = (props) => {
         records.forEach(function (record) {
           // console.log(record.getId());
           let airtableID = record.getId();
+
+          console.log(backendState);
+          console.log(airtableState);
           props.navigation.navigate("VerifyOrganization", { airtableID: airtableID,
           backendState: backendState }); // maybe store inside SecureStore in case session is interrupted?
         });
@@ -118,8 +105,7 @@ const TellAboutOrganizationScreen = (props) => {
 				<TextInput
 					placeholder="Org Name"
 					style={styles.obTextInput}
-					onChangeText={(text) => onChangeText({ ...airtableState, org_name: text })}
-					value={airtableState.org_name}
+          onChangeText={(text) => onChangeText({ ...airtableState, org_name: text })}
 				/>
 
 				{/* <Text style={styles.obFieldName}>Organization Address</Text> */}
@@ -176,8 +162,6 @@ const TellAboutOrganizationScreen = (props) => {
 					style={styles.obFwdContainer}
 					onPress={() => {
 						sendAirtable();
-                    // sendBackend();
-                    // props.navigation.navigate("VerifyOrganization");
                 }}
             >
                 <Text style={styles.obFwdBtnText}>Next</Text>

@@ -23,6 +23,8 @@ class UsernameScreen extends React.Component {
     const role = await SecureStore.getItemAsync('roles', {});
     const username = this.state.usernameInput;
 
+    const backendState = this.props.navigation.getParam('backendState', 'defaultValue');
+
     if (username.length > 4) {
       this.setState({
         error: ''
@@ -35,9 +37,8 @@ class UsernameScreen extends React.Component {
       };
       await this.props.postUser(user);
       AmpEvent('Account Created')
-      this.props.navigation.navigate(
-        this.props.error ? 'CreateAccount' : 'Loading'
-      );
+        if (this.props.error) {this.props.navigation.navigate('CreateAccount')}
+        else { this.props.navigation.navigate('Loading', { backendState: backendState })}
     } else {
       this.setState({
         error: 'Username is required to be at least 5 characters'

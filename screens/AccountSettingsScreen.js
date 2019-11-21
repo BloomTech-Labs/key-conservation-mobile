@@ -69,15 +69,15 @@ class AccountSettingsScreen extends React.Component{
         if (Constants.platform.ios) {
           await WebBrowser.openAuthSessionAsync(logoutURL)
           .then(result => {
-            setState({result})
+            this.setState({result})
           })
         } else {
           await WebBrowser.openBrowserAsync(logoutURL)
           .then(result => {
-            setState({result})
+            this.setState({result})
           })
         }
-          props.navigation.navigate('Logout');
+        this.props.navigation.navigate('Logout');
       };
 
       render(){

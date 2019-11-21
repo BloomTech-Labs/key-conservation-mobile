@@ -17,6 +17,8 @@ class LoadingScreen extends React.Component {
     const sub = await SecureStore.getItemAsync('sub', {});
     const roles = await SecureStore.getItemAsync('roles', {});
 
+    const backendState = this.props.navigation.getParam('backendState', 'defaultValue');
+
     // This checks to see if the sub id is a user on the DB
     if (!sub) {
       this.props.navigation.navigate('Login')
@@ -33,9 +35,9 @@ class LoadingScreen extends React.Component {
 
           if (this.props.firstLogin) {
             this.props.afterFirstLogin();
-            this.props.navigation.navigate(
-              roles === 'conservationist' ? 'EditPro' : 'EditSupPro'
-            );
+            if (roles === 'conservationist') {
+              this.props.navigation.navigate('EditPro', { backendState: backendState })} 
+              else { this.props.navigation.navigate('EditSupPro') };
           } else {
             this.props.navigation.navigate(
               roles === 'conservationist' ? 'Conservationist' : 'Supporter'

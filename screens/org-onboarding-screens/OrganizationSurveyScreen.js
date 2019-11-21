@@ -15,14 +15,27 @@ import DropDownSelect from './formElement/DropDownSelect';
 import { Feather } from '@expo/vector-icons';
 import styles from '../../constants/screens/org-onboarding-styles/OrganizationSurvey';
 
+import * as SecureStore from 'expo-secure-store';
+
 const OrganizationSurveyScreen = props => {
   const { values, handleChange, handleSubmit } = useForm(submit);
 
   const backendState = props.navigation.getParam('backendState', 'defaultValue');
 
   function submit() {
-    props.navigation.navigate("UsernameScreen", { backendState: backendState });
-  }
+    return null  
+  };
+
+  storeBackend = async () => {
+    stringBE = JSON.stringify(backendState);
+    console.log("stateBE from SecureStore: " + stringBE);
+    await SecureStore.setItemAsync('stateBE', stringBE);
+    // onChangeText({ email: email2 });
+  };
+
+  useEffect(() => {
+    storeBackend();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -120,7 +133,8 @@ const OrganizationSurveyScreen = props => {
             <TouchableOpacity style={[styles.secondaryButton]}>
               <Text style={styles.secondaryButtonText}>Finish Later</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.mainButton]}>
+            <TouchableOpacity style={[styles.mainButton]}
+            onPress={() => {props.navigation.navigate("CreateAccount")}}>
               <Text>Preview</Text>
             </TouchableOpacity>
           </View>
