@@ -146,7 +146,7 @@ export default LoginScreen = props => {
 
   return (
     <ImageBackground
-      source={require("../assets/images/splash4.png")}
+      source={require("../assets/images/furHQ.png")}
       style={styles.container}
     >
       <View style={styles.titleContainer}>
@@ -154,10 +154,10 @@ export default LoginScreen = props => {
         
       </View>
       <View style={styles.logoContainer}>
-        {/* <Image
+        <Image
           style={styles.logo}
           source={require("../assets/images/keyFullWhite.png")}
-        /> */}
+        />
       </View>
       <View style={styles.buttons}>
         <TouchableOpacity
