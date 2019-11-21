@@ -19,7 +19,7 @@ const OrganizationSurveyScreen = props => {
   const { values, handleChange, handleSubmit } = useForm(submit);
 
   function submit() {
-    console.log(values);
+    props.navigation.navigate("UsernameScreen", { backendState: backendState });
   }
 
   return (

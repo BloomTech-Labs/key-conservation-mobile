@@ -12,71 +12,97 @@ import {
 import styles from '../../constants/screens/org-onboarding-styles/TellAboutOrg.js';
 import * as SecureStore from 'expo-secure-store';
 
+import { connect } from "react-redux";
+import { editProfileData, logout, clearMedia } from "../../store/actions/index";
+
+
 const TellAboutOrganizationScreen = (props) => {
-	const [ airtableState, onChangeText ] = useState({
-		org_name: '',
-		website: '',
-		address: '',
-		country: '',
-		point_of_contact: '',
-		poc_poition: '',
-		email: ''
-	});
 
-	const [ backendState, onChangeBE ] = useState({
-		phone: ''
-	});
+    const [airtableState, onChangeText] = useState({
+        org_name: '',
+        website: '',
+        address: '',
+        country: '',
+        phone: '',
+        point_of_contact: '',
+        poc_poition: '',
+        email: ''
+    });
 
-	getEmail = async () => {
-		const email2 = await SecureStore.getItemAsync('email', {});
-		onChangeText({ email: email2 });
-	};
+    const [backendState, onChangeBE] = useState({
+        org_name: airtableState.org_name,
+        org_link_url: airtableState.website,
+        point_of_contact_name: airtableState.point_of_contact,
+        country: airtableState.country
+    });
 
-	useEffect(() => {
-		getEmail();
-	}, []);
+    // const [currentSub, setCurrentSub] = useState({
+    //   sub: ''
+    // });
 
-	var Airtable = require('airtable');
-	Airtable.configure({
-		endpointUrl: 'https://api.airtable.com',
-		apiKey: 'keybUdphipr0RgMaa' // store in enviornment variables before production.
-	});
+    getEmail = async () => {
+        const email2 = await SecureStore.getItemAsync('email', {});
+        console.log("email from SecureStore: " + email2);
+        onChangeText({ email: email2 });
+    };
 
-	var base = new Airtable({ apiKey: 'keybUdphipr0RgMaa' }).base('appbPeeXUSNCQWwnQ');
+    // getSub = async () => {
+    //   const sub = await SecureStore.getItemAsync('sub', {});
+    //   console.log("sub from SecureStore: " + sub);
+    //   setCurrentId({ sub: sub });
+    // }
 
-	const sendAirtable = () => {
-		base('Table 1').create(
-			[
-				{
-					fields: {
-						org_name: airtableState.org_name,
-						website: airtableState.website,
-						address: airtableState.address,
-						country: airtableState.country,
-						point_of_contact: airtableState.point_of_contact,
-						poc_position: airtableState.poc_position,
-						email: airtableState.email
-					}
-				}
-			],
-			function(err, records) {
-				if (err) {
-					console.error(err + '*** test ***');
-					return;
-				}
-				records.forEach(function(record) {
-					// console.log(record.getId());
-					let airtableID = record.getId();
-					props.navigation.navigate('VerifyOrganization', { airtableID: airtableID }); // maybe store inside SecureStore in case session is interrupted?
-				});
-			}
-		);
-	};
+    useEffect(() => {
+        getEmail();
+        // getSub();
+    }, []);
 
-	return (
-		<KeyboardAvoidingView style={styles.obBody} behavior="height" keyboardVerticalOffset={86} enabled>
-			<ScrollView>
-                {/* <View style={styles.obTextTopContainer}>
+    var Airtable = require('airtable');
+    Airtable.configure({
+        endpointUrl: 'https://api.airtable.com',
+        apiKey: 'keybUdphipr0RgMaa' // store in enviornment variables before production.
+    });
+  
+    var base = new Airtable({apiKey: 'keybUdphipr0RgMaa'}).base('appbPeeXUSNCQWwnQ');
+
+    // const sendBackend = () => {
+    //   console.log("ID from state should be here: " + currentId.id);
+    //   editProfileData(currentId, backendState);
+    // }
+
+    const sendAirtable = () => {
+    base('Table 1').create([
+        { 
+          'fields': {
+            "org_name": airtableState.org_name,
+            "website": airtableState.website,
+            "phone": airtableState.phone,
+            "address": airtableState.address,
+            "country": airtableState.country,
+            "point_of_contact": airtableState.point_of_contact,
+            "poc_position": airtableState.poc_position,
+            "email": airtableState.email
+          }
+        }
+      ], function(err, records) {
+        if (err) {
+          console.error(err + "*** test ***");
+          return;
+        }
+        records.forEach(function (record) {
+          // console.log(record.getId());
+          let airtableID = record.getId();
+          props.navigation.navigate("VerifyOrganization", { airtableID: airtableID,
+          backendState: backendState }); // maybe store inside SecureStore in case session is interrupted?
+        });
+      });
+    };
+
+    return (
+        <KeyboardAvoidingView style={styles.obBody} behavior="height" keyboardVerticalOffset={86} enabled>
+
+            <ScrollView>
+             {/* <View style={styles.obTextTopContainer}>
                 <Text style={styles.obTextTop}>1 of 4</Text>
                 </View> */}
 				<Text style={styles.obTitle}>Tell us about your organization.</Text>
@@ -150,20 +176,24 @@ const TellAboutOrganizationScreen = (props) => {
 					style={styles.obFwdContainer}
 					onPress={() => {
 						sendAirtable();
-						props.navigation.navigate("VerifyOrganization");
-					}}
-				>
-					<Text style={styles.obFwdBtnText}>Next</Text>
-				</TouchableOpacity>
-			</ScrollView>
-		</KeyboardAvoidingView>
-	);
-};
-export default TellAboutOrganizationScreen;
+                    // sendBackend();
+                    // props.navigation.navigate("VerifyOrganization");
+                }}
+            >
+                <Text style={styles.obFwdBtnText}>Next</Text>
+            </TouchableOpacity>
 
-//  const styles = StyleSheet.create({
-//      inputfield: {
-//         borderColor: "black",
-//         borderWidth: 1
-//      }
-//  })
+            </ScrollView>
+        </KeyboardAvoidingView>
+    );
+}
+const mapStateToProps = state => ({
+  currentUserProfile: state.currentUserProfile,
+  mediaUpload: state.mediaUpload
+});
+
+export default connect(mapStateToProps, {
+  editProfileData,
+  logout,
+  clearMedia
+})(TellAboutOrganizationScreen);

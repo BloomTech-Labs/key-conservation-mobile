@@ -5,6 +5,8 @@ import * as SecureStore from 'expo-secure-store';
 import * as WebBrowser from 'expo-web-browser';
 import { logout } from '../../store/actions';
 
+import Constants from 'expo-constants';
+
 const HeyThereScreen = props => {
   const [state, setState] = useState(null);
 
@@ -13,17 +15,26 @@ const HeyThereScreen = props => {
     await SecureStore.deleteItemAsync('email', {});
     await SecureStore.deleteItemAsync('roles', {});
     await SecureStore.deleteItemAsync('id', {});
+    await SecureStore.deleteItemAsync("userId", {});
     await SecureStore.deleteItemAsync('accessToken', {});
     logout();
     // props.navigation.navigate('Loading');
 
     const logoutURL = 'https://key-conservation.auth0.com/v2/logout?federated';
-
+    
+    if (Constants.platform.ios) {
+    await WebBrowser.openAuthSessionAsync(logoutURL)
+    .then(result => {
+      setState({result})
+    })
+  } else {
     await WebBrowser.openBrowserAsync(logoutURL)
     .then(result => {
       setState({result})
-    props.navigation.navigate('Loading');
     })
+  }
+    props.navigation.navigate('Logout');
+    
   };
   return (
     <View style={styles.obBody}>

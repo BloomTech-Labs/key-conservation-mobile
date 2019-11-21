@@ -38,7 +38,7 @@ const ReviewYourInfoScreen = props => {
             style={[styles.mainButton]}
             style={styles.obFwdContainer}
             onPress={() => {
-              props.navigation.navigate('OrganizationSurvey');
+              props.navigation.navigate('OrganizationSurvey', { backendState: backendState });
             }}
           >
             <Text>Next</Text>

@@ -18,4 +18,4 @@ Because there are so many onboarding screens, we have provided you with this lis
 
 
 Yours Truly, 
-Julie Christine Gumerman
+Julie Christine Gumerman :D

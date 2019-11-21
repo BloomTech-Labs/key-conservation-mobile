@@ -7,6 +7,8 @@ import * as SecureStore from 'expo-secure-store';
 import styles from '../constants/screens/UsernameScreen';
 import { postUser, logout } from '../store/actions';
 
+import Constants from 'expo-constants';
+
 class UsernameScreen extends React.Component {
   state = {
     usernameInput: '',
@@ -50,13 +52,21 @@ class UsernameScreen extends React.Component {
     await SecureStore.deleteItemAsync('id', {});
     await SecureStore.deleteItemAsync('accessToken', {});
     this.props.logout();
-    const logoutURL = 'https://key-conservation.auth0.com/v2/logout?federated';
-    await WebBrowser.openBrowserAsync(logoutURL)
-    .then(result => {
-      this.setState({result})
-      this.props.navigation.navigate('Loading');
-    })
 
+    const logoutURL = 'https://key-conservation.auth0.com/v2/logout?federated';
+    
+    if (Constants.platform.ios) {
+      await WebBrowser.openAuthSessionAsync(logoutURL)
+      .then(result => {
+        setState({result})
+      })
+    } else {
+      await WebBrowser.openBrowserAsync(logoutURL)
+      .then(result => {
+        setState({result})
+      })
+    }
+      props.navigation.navigate('Logout');
   };
 
   render() {
