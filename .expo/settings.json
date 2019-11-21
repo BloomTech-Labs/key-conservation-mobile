@@ -1,1 +1,8 @@
-{}
+{
+  "hostType": "lan",
+  "lanType": "ip",
+  "dev": true,
+  "minify": false,
+  "urlRandomness": "qp-m6a",
+  "https": false
+}

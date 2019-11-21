@@ -1,3 +1,4 @@
+  
 import React, { useState } from 'react';
 import { View, Text, Button, TouchableOpacity, Linking } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/HeyThere.js';
@@ -50,7 +51,7 @@ const HeyThereScreen = props => {
       <TouchableOpacity
         style={styles.obFwdContainer}
         onPress={() => {
-          props.navigation.navigate('VerifyDocumentation');
+          props.navigation.navigate('ToExpect');
         }}
       >
         <Text style={styles.obFwdBtnText}>Next</Text>
