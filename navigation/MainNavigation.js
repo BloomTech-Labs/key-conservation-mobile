@@ -153,6 +153,12 @@ const CreateCampStack = createStackNavigator(
   }
 );
 
+export const AccountSettingsStack = createStackNavigator(
+  {
+    AccountSettings: AccountSettingsScreen
+  }
+)
+
 const MyProStack = createStackNavigator(
   {
     MyPro: { screen: MyProScreen },
@@ -166,7 +172,7 @@ const MyProStack = createStackNavigator(
     CampUpdate: ViewCampUpdateScreen,
     CreateCampUpdate: CreateCampUpdateScreen,
     EditCampUpdate: EditCampUpdateScreen,
-    AccountSettings: AccountSettingsScreen
+    // AccountSettings: AccountSettingsScreen
   },
   {
     transitionConfig: () => ({
@@ -223,7 +229,6 @@ const SupProStack = createStackNavigator(
 
 export const UsernameStack = createStackNavigator({
   Username: {
-    // screen: HeyThereScreen,
     screen: UsernameScreen,
 
     navigationOptions: {
