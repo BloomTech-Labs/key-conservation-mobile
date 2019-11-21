@@ -146,18 +146,18 @@ export default LoginScreen = props => {
 
   return (
     <ImageBackground
-      source={require("../assets/images/FurBackground.png")}
+      source={require("../assets/images/splash4.png")}
       style={styles.container}
     >
       <View style={styles.titleContainer}>
-        <Text style={styles.selectTitle}>Enable real-time conservation support.</Text>
+        <Text style={styles.selectTitle}>Enable <Text style={styles.highlight}>real-time</Text> conservation support.</Text>
         
       </View>
       <View style={styles.logoContainer}>
-        <Image
+        {/* <Image
           style={styles.logo}
           source={require("../assets/images/keyFullWhite.png")}
-        />
+        /> */}
       </View>
       <View style={styles.buttons}>
         <TouchableOpacity
@@ -246,6 +246,9 @@ const styles = StyleSheet.create({
     color: "white",
     marginTop: '9%'
   },
+  highlight: {
+    backgroundColor: "#00ff9d"
+},
   buttons: {
     flex: 1,
     alignItems: "center",

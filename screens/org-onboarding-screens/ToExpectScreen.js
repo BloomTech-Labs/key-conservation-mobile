@@ -1,26 +1,61 @@
 import React from "react";
 import { View, ScrollView, Text, Button, TouchableOpacity } from "react-native";
 import styles from '../../constants/screens/org-onboarding-styles/ToExpect.js';
+import { AntDesign } from '@expo/vector-icons';
 
 const ToExpectScreen = props => {
     return (
         <View style={styles.obBody}>
-            <ScrollView>
-            <Text style={styles.obTitle}>Here's what you can expect:</Text>
-            <Text style={styles.obSubtitle}>Overview</Text>
-            <Text style={styles.obText}>You already know how Key Conservation can help connect you with individual contributors.</Text>
-            <Text style={styles.obSubtitle}>Create your Page</Text>
+         <ScrollView>
+           <Text style={styles.obTitle}>Here's what you can expect:</Text>
+
+            <View style={styles.contentWrapper}>
+              <View style={styles.iconWrapper}>
+			    <AntDesign 
+				name="checkcircle" 
+			    size={24}
+				color="#00ff9d"
+			    />
+			  </View>
+              <View style={{width: '90%'}}>
+                <Text style={styles.obSubtitle}>Overview</Text>
+                <Text style={styles.obText}>You already know how Key Conservation can help connect you with individual contributors. That's why you're here! We'll keep it brief.</Text>
+              </View>
+            </View>
+            <View style={styles.contentWrapper}>
+            <View style={styles.iconWrapper}>
+			<AntDesign 
+				name="checkcircle" 
+			    size={24}
+				color="#00ff9d"
+			/>
+			</View>
+            <View style={{width: '90%'}}>
+            <Text style={styles.obSubtitle}>Register</Text>
             <Text style={styles.obText}>
-            We'll set up your account and ask you to upload your organization's credentials. You can set up your profile page while you wait for us to verify.
+            Let's set up your account! You'll need to fill out a form, upload your credentials, and set up a profile on the following screens.
             </Text>
-            <Text style={styles.obSubtitle}>Go Visible!</Text>
-            <Text style={styles.obTextBottom}>Once we verify your organization, you're all set up to go visible and start adding campaigns.</Text>
+            </View>
+            </View>
+            <View style={styles.contentWrapper}>
+            <View style={styles.iconWrapper}>
+			<AntDesign 
+				name="checkcircle" 
+			    size={24}
+				color="#00ff9d"
+			/>
+			</View>
+            <View style={{width: '90%'}}>
+            <Text style={styles.obSubtitle}>Create Your Profile</Text>
+            <Text style={styles.obTextBottom}>Complete your base profile while we verify your organization. Once approved, you'll receive a survey by email, followed by a welcome kit. <Text style={styles.obTextBold}>Now you can go visible! Start adding connections and campaigns.</Text></Text>
+            </View>
+            </View>
             <TouchableOpacity style={styles.obFwdContainer}
                 onPress={() => {
                     props.navigation.navigate("KeyConservation")
                 }}
             >
-                <Text style={styles.obFwdBtnText}>Next</Text>
+                <Text style={styles.obFwdBtnText}>Got It!</Text>
             </TouchableOpacity>
         </ScrollView>
         </View>
