@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   StyleSheet,
-  SafeAreaView,
+  KeyboardAvoidingView,
   ScrollView
 } from 'react-native';
 
@@ -29,7 +29,12 @@ const OrganizationSurveyScreen = props => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior="height"
+      keyboardVerticalOffset={86}
+      enabled
+    >
       <ScrollView style={styles.scrollView}>
         <View style={[styles.container]}>
           <View style={[styles.buttonRow, styles.greenBg]}>
@@ -123,7 +128,7 @@ const OrganizationSurveyScreen = props => {
           <NavigateButton label="Preview" onButtonPress={handleSubmit} />
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 
