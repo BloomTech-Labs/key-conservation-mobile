@@ -68,7 +68,7 @@ const CantScreen = (props) => {
 			<View>
 				<TouchableOpacity style={styles.obFwdContainer}
 					onPress={() => {
-						props.navigation.navigate("MakeAccount")
+						props.navigation.navigate("ToExpectNext")
 					}}
 				>
 					<Text style={styles.obFwdBtnText}>Next</Text>
