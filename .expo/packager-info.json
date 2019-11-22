@@ -2,8 +2,8 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerNgrokUrl": "https://qp-m6a.jgumerman.key-conservation-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.qp-m6a.jgumerman.key-conservation-mobile.exp.direct",
+  "ngrokPid": 11545,
   "devToolsPort": 19002
 }

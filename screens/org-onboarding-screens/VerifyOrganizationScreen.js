@@ -7,7 +7,8 @@ import {
 	View,
 	TouchableOpacity,
 	KeyboardAvoidingView,
-	ScrollView
+	ScrollView,
+	Alert
 } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/VerifyOrg.js';
 
@@ -86,7 +87,8 @@ const VerifyOrganizationScreen = (props) => {
 
 					<Text style={styles.obFieldName}>Will you join us in Conservation Optimism?</Text>
 					<Switch
-            style={styles.obSwitchButton}
+						trackColor={{true: "#00FF9D"}}
+            			style={styles.obSwitchButton}
 						value={airtableState.conservation_optimism}
 						onValueChange={(newValue) =>
 							onChangeText({ ...airtableState, conservation_optimism: newValue })}
@@ -94,7 +96,8 @@ const VerifyOrganizationScreen = (props) => {
 
 					<Text style={styles.obFieldName}>Does your organization have access to a smartphone?</Text>
 					<Switch
-            style={styles.obSwitchButton}
+						style={styles.obSwitchButton}
+						trackColor={{true: "#00FF9D"}}
 						value={airtableState.smartphone_access}
 						onValueChange={(newValue) => onChangeText({ ...airtableState, smartphone_access: newValue })}
 					/>
@@ -109,8 +112,16 @@ const VerifyOrganizationScreen = (props) => {
 					<TouchableOpacity
 						style={styles.obFwdContainer}
 						onPress={() => {
-							updateAirtable();
-							props.navigation.navigate("VerifyDocumentation", { backendState: backendState });
+
+							if (airtableState.other_countries === '' || airtableState.multiple_projects === '' || airtableState.affiliations_partnerships === '' || airtableState.conservation_optimism === '' || airtableState.smartphone_access === '' || airtableState.smartphone_type === '') {
+								Alert.alert("Oops", "Please fill in all sections of form", [{text: "okay", style: "destructive"}])
+								console.log("if state", airtableState)
+							} else {
+								updateAirtable();
+								console.log("else state", airtableState)
+								props.navigation.navigate("VerifyDocumentation", { backendState: backendState });								
+							}
+							
 						}}
 					>
 						<Text style={styles.obFwdBtnText}>Next</Text>
