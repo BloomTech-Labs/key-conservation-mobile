@@ -4,7 +4,7 @@ import {
 	View,
 	KeyboardAvoidingView,
 	ScrollView,
-	StyleSheet,
+	Alert, 
 	Text,
 	TextInput,
 	TouchableOpacity
@@ -25,7 +25,7 @@ const TellAboutOrganizationScreen = (props) => {
         country: '',
         phone: '',
         point_of_contact: '',
-        poc_poition: '',
+        poc_position: '',
         email: ''
     });
 
@@ -145,7 +145,7 @@ const TellAboutOrganizationScreen = (props) => {
 				<TextInput
 					placeholder="Org Phone"
 					style={styles.obTextInput}
-					onChangeText={(text) => onChangeBE({ ...backendState, phone: text })}
+					onChangeText={(text) => onChangeText({ ...airtableState, phone: text })}
 					value={backendState.phone}
 				/>
 				{/* backend */}
@@ -160,10 +160,14 @@ const TellAboutOrganizationScreen = (props) => {
 
 				<TouchableOpacity
 					style={styles.obFwdContainer}
-					onPress={() => {
-						sendAirtable();
-                    // sendBackend();
-                    props.navigation.navigate("VerifyOrganization");
+					onPress={() => {  
+            if(airtableState.org_name === undefined || airtableState.website === undefined || airtableState.phone === undefined || airtableState.address=== undefined || airtableState.country === undefined || airtableState.point_of_contact === undefined || airtableState.poc_position === undefined || airtableState.email === undefined ) {
+              Alert.alert("Oops", "Please fill in all sections of form", [{text: "okay", style: "destructive"}])
+            } else {
+              sendAirtable();
+            }
+                  
+                    // props.navigation.navigate("VerifyOrganization");
                 }}
             >
                 <Text style={styles.obFwdBtnText}>Next</Text>
