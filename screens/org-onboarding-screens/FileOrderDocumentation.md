@@ -15,7 +15,8 @@ Because there are so many onboarding screens, we have provided you with this lis
 9. VerifyOrganizationScreen
 10. VerifyDocumentationScreen
 11. ReviewYourInfoScreen
-12. OrganizationSurveryScreen
+12. ToExpectNextCreateProfile
+13. OrganizationSurveryScreen
 
 **These are completed and hooked up but not currently in use**
 11. AlmostDoneScreen

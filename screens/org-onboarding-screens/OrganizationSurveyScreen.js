@@ -134,7 +134,7 @@ const OrganizationSurveyScreen = props => {
           <View style={styles.inputBlockSm}>
             <Text style={styles.obText}>Twitter</Text>
             <TextInput
-              style={[styles.obTextInput, styles.textRounded]}
+              style={[styles.obTextInput, styles.textRounded, {marginBottom:'7%'}]}
               onChange={handleChange}
               value={values.twitter}
               placeholder="Enter url"
@@ -142,7 +142,7 @@ const OrganizationSurveyScreen = props => {
               name="twitter"
             />
           </View>
-          <NavigateButton label="Preview" onButtonPress={handleSubmit} />
+           <NavigateButton label="Preview" onButtonPress={handleSubmit} />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
