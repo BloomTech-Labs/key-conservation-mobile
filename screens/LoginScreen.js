@@ -232,7 +232,8 @@ const styles = StyleSheet.create({
     marginBottom: '5%'
   },
   titleContainer: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginLeft: '5%'
   },
   textContainer: {
     flexDirection: 'row',
