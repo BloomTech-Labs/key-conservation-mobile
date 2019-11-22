@@ -35,23 +35,10 @@ const OrganizationSurveyScreen = props => {
 
   handleSubmit = async () => {
     airtableStateAdd2 = Object.assign({ ...airtableStateAdd, ...values });
-    console.log(values);
-    console.log(airtableStateAdd2.org_name);
-    console.log(airtableStateAdd2.issues);
-
     stringBE = JSON.stringify(airtableStateAdd2);
     await SecureStore.setItemAsync('stateBE', stringBE);
     props.navigation.navigate('CreateAccount');
   }
-
-  // storeBackend = async () => {
-  //   stringBE = JSON.stringify(airtableStateAdd2);
-  //   await SecureStore.setItemAsync('stateBE', stringBE);
-  // };
-
-  // useEffect(() => {
-  //   storeBackend();
-  // }, []);
 
   return (
     <KeyboardAvoidingView

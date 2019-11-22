@@ -99,7 +99,6 @@ class EditProScreen extends React.Component {
   getBackend = async () => {
     const state = await SecureStore.getItemAsync('stateBE', {});
     const parseBE = JSON.parse(state);
-    console.log("org_name from SecureStore: " + parseBE.org_name);
     this.setState({ 
       org_name: parseBE.org_name,
       phone_number: parseBE.phone,

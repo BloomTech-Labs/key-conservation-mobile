@@ -49,9 +49,7 @@ const ToExpectScreen = props => {
             </View>
             <TouchableOpacity style={styles.obFwdContainer}
                 onPress={() => {
-                    props.navigation.navigate("KeyConservation")
-                }}
-            >
+                    props.navigation.navigate("KeyConservation")}}>
                 <Text style={styles.obFwdBtnText}>Got It!</Text>
             </TouchableOpacity>
         </ScrollView>
