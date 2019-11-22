@@ -118,9 +118,12 @@ const VerifyOrganizationScreen = (props) => {
 						style={styles.obFwdContainer}
 						onPress={() => {
 
-							if (airtableState.other_countries === '' || airtableState.multiple_projects === '' || airtableState.affiliations_partnerships === '' || airtableState.conservation_optimism === '' || airtableState.smartphone_access === '' || airtableState.smartphone_type === '') {
+							if (airtableState.other_countries === '' || airtableState.multiple_projects === '' || airtableState.affiliations_partnerships === '' || airtableState.smartphone_type === '') {
 								Alert.alert("Oops", "Please fill in all sections of form", [{text: "Got it."}])
-							} else {
+							} else if (airtableState.conservation_optimism === false || airtableState.smartphone_access === false ) {
+								Alert.alert("Oops", "Agree to conservation optimism and smart phone use", [{text: "Got it."}])
+							 }
+							else {
 								updateAirtable();
 								console.log("else state", airtableStateAdd)
 								props.navigation.navigate("VerifyDocumentation", { airtableStateAdd: airtableStateAdd });								

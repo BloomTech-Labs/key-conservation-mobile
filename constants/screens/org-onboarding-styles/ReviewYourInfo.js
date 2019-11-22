@@ -93,7 +93,7 @@ export default {
     marginLeft: '5%',
     marginTop: '2%',
     marginBottom: '2%',
-    marginRight: '%'
+    //marginRight: '%'
   },
   obSubtitleSm: {
     color: '#000000',
@@ -103,7 +103,7 @@ export default {
     marginLeft: '5%',
     marginTop: '2%',
     marginBottom: '2%',
-    marginRight: '%'
+    // marginRight: '%'
   },
   obFwdContainer: {
     width: 112,

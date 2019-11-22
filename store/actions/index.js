@@ -137,8 +137,9 @@ export const getProfileData = (
           SecureStore.deleteItemAsync('roles', {}),
           SecureStore.deleteItemAsync('id', {}),
           SecureStore.deleteItemAsync('accessToken', {})
-        ])
+        ]).then(
       dispatch({ type: GET_PROFILE_ERROR, payload: err.message })
+        )
     })
 }
 
