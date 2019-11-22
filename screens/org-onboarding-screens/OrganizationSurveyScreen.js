@@ -35,6 +35,7 @@ const OrganizationSurveyScreen = props => {
 
   handleSubmit = async () => {
     airtableStateAdd2 = Object.assign({ ...airtableStateAdd, ...values });
+    // console.log(airtableStateAdd2)
     stringBE = JSON.stringify(airtableStateAdd2);
     await SecureStore.setItemAsync('stateBE', stringBE);
     props.navigation.navigate('CreateAccount');

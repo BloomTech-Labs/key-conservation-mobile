@@ -6,6 +6,12 @@ import { AntDesign } from '@expo/vector-icons';
 import NavigateButton from './formElement/NavigateButton.js';
 
 const ToExpectNextCreateProfileScreen = props => {
+
+  const airtableStateAdd = props.navigation.getParam(
+    'airtableStateAdd',
+    'defaultValue'
+  );
+
   return (
     <View style={styles.obBody}>
       <ScrollView>
@@ -63,7 +69,7 @@ const ToExpectNextCreateProfileScreen = props => {
           <NavigateButton
             label="Next"
             onButtonPress={() => {
-              props.navigation.navigate('OrganizationSurvey');
+              props.navigation.navigate('OrganizationSurvey', { airtableStateAdd: airtableStateAdd });
             }}
           />
         </View>

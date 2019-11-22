@@ -119,7 +119,7 @@ const VerifyOrganizationScreen = (props) => {
 								Alert.alert("Oops", "Please fill in all sections of form", [{text: "Got it."}])
 							} else {
 								updateAirtable();
-								console.log("else state", airtableState)
+								console.log("else state", airtableStateAdd)
 								props.navigation.navigate("VerifyDocumentation", { airtableStateAdd: airtableStateAdd });								
 							}
 							
