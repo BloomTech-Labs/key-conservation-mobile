@@ -17,8 +17,8 @@ const VerifyOrganizationScreen = (props) => {
 		other_countries: '',
 		multiple_projects: '',
 		affiliations_partnerships: '',
-		conservation_optimism: false,
-		smartphone_access: false,
+		conservation_optimism: '',
+		smartphone_access: '',
 		smartphone_type: ''
 	});
 
@@ -71,6 +71,7 @@ const VerifyOrganizationScreen = (props) => {
 						style={styles.obTextInput}
 						onChangeText={(text) => onChangeText({ ...airtableState, other_countries: text })}
 						value={airtableState.other_countries}
+						placeholder="United States, Brazil, France, etc."
 					/>
 
 					<Text style={styles.obFieldName}>Projects your organization is working on:</Text>
@@ -78,6 +79,7 @@ const VerifyOrganizationScreen = (props) => {
 						style={styles.obTextInput}
 						onChangeText={(text) => onChangeText({ ...airtableState, multiple_projects: text })}
 						value={airtableState.multiple_projects}
+						placeholder="Project 1, Project 2, etc."
 					/>
 
 					<Text style={styles.obFieldName}>Current partnerships and affiliations:</Text>
@@ -85,6 +87,7 @@ const VerifyOrganizationScreen = (props) => {
 						style={styles.obTextInput}
 						onChangeText={(text) => onChangeText({ ...airtableState, affiliations_partnerships: text })}
 						value={airtableState.affiliations_partnerships}
+						placeholder="Partnership 1, Partnership 2, etc."
 					/>
 
 					<Text style={styles.obFieldName}>Will you join us in Conservation Optimism?</Text>
