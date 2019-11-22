@@ -150,7 +150,7 @@ export default LoginScreen = props => {
       style={styles.container}
     >
       <View style={styles.titleContainer}>
-        <Text style={styles.selectTitle}>Enable <Text style={styles.highlight}>real-time</Text> conservation support.</Text>
+        <Text style={styles.selectTitle}>Enable <Text style={styles.highlight}> real-time </Text> conservation {"\n"}support.</Text>
         
       </View>
       <View style={styles.logoContainer}>
@@ -192,6 +192,7 @@ export default LoginScreen = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: '2%',
     alignItems: "center",
     justifyContent: "center"
   },
