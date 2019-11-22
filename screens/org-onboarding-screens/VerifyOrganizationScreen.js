@@ -14,12 +14,12 @@ import styles from '../../constants/screens/org-onboarding-styles/VerifyOrg.js';
 
 const VerifyOrganizationScreen = (props) => {
 	const [ airtableState, onChangeText ] = useState({
-		other_countries: 'default',
-		multiple_projects: 'default',
-		affiliations_partnerships: 'default',
-		conservation_optimism: 'default',
-		smartphone_access: 'default',
-		smartphone_type: 'default'
+		other_countries: '',
+		multiple_projects: '',
+		affiliations_partnerships: '',
+		conservation_optimism: false,
+		smartphone_access: false,
+		smartphone_type: ''
 	});
 
 	var Airtable = require('airtable');
@@ -115,9 +115,12 @@ const VerifyOrganizationScreen = (props) => {
 						style={styles.obFwdContainer}
 						onPress={() => {
 
-							if (airtableState.other_countries === '' || airtableState.multiple_projects === '' || airtableState.affiliations_partnerships === '' || airtableState.conservation_optimism === '' || airtableState.smartphone_access === '' || airtableState.smartphone_type === '') {
+							if (airtableState.other_countries === '' || airtableState.multiple_projects === '' || airtableState.affiliations_partnerships === '' || airtableState.smartphone_type === '') {
 								Alert.alert("Oops", "Please fill in all sections of form", [{text: "Got it."}])
-							} else {
+							} else if (airtableState.conservation_optimism === false || airtableState.smartphone_access === false ) {
+								Alert.alert("Oops", "Agree to conservation optimism and smart phone use", [{text: "Got it."}])
+							 }
+							else {
 								updateAirtable();
 								console.log("else state", airtableStateAdd)
 								props.navigation.navigate("VerifyDocumentation", { airtableStateAdd: airtableStateAdd });								
