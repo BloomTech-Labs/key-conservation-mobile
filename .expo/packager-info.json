@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 15048,
-  "expoServerNgrokUrl": "https://kk-h9k.blakeg.key-conservation-mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.kk-h9k.blakeg.key-conservation-mobile.exp.direct",
-  "ngrokPid": 16396
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }

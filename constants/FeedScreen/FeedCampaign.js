@@ -44,7 +44,7 @@ export default {
   },
   iconRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     marginTop: 15,
     height: 30
   },
