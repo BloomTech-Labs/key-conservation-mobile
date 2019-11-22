@@ -5,6 +5,10 @@ export default {
         justifyContent: 'center',
         marginTop: '10%'
     },
+    backButton: {
+        marginLeft: '4%',
+        marginTop: '5%',
+    },
     obText: {
         color: '#000000',
         fontFamily: 'OpenSans-Regular',
