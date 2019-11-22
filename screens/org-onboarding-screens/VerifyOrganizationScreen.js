@@ -114,8 +114,7 @@ const VerifyOrganizationScreen = (props) => {
 						onPress={() => {
 
 							if (airtableState.other_countries === '' || airtableState.multiple_projects === '' || airtableState.affiliations_partnerships === '' || airtableState.conservation_optimism === '' || airtableState.smartphone_access === '' || airtableState.smartphone_type === '') {
-								Alert.alert("Oops", "Please fill in all sections of form", [{text: "okay", style: "destructive"}])
-								console.log("if state", airtableState)
+								Alert.alert("Oops", "Please fill in all sections of form", [{text: "Got it."}])
 							} else {
 								updateAirtable();
 								console.log("else state", airtableState)

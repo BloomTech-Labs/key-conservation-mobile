@@ -162,7 +162,7 @@ const TellAboutOrganizationScreen = (props) => {
 					style={styles.obFwdContainer}
 					onPress={() => {  
             if(airtableState.org_name === undefined || airtableState.website === undefined || airtableState.phone === undefined || airtableState.address=== undefined || airtableState.country === undefined || airtableState.point_of_contact === undefined || airtableState.poc_position === undefined || airtableState.email === undefined ) {
-              Alert.alert("Oops", "Please fill in all sections of form", [{text: "okay", style: "destructive"}])
+              Alert.alert("Oops", "Please fill in all sections of form", [{text: "Got it"}])
             } else {
               sendAirtable();
             }
