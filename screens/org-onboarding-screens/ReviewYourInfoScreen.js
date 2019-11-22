@@ -117,14 +117,14 @@ const ReviewYourInfoScreen = props => {
           <Text style={styles.obSubtitleSm}>Countries of Operation:</Text>
           <Text style={styles.obText}>{airtableStateAdd.other_countries}</Text>
 
-          {airtableStateAdd.multiple_projects.map(project => {
+          {/* {airtableStateAdd.multiple_projects.map(project => {
             return (
               <View key={project.name}>
                 <Text style={styles.obSubtitleSm}>{project.name}</Text>
                 <Text style={styles.obText}>{project.description}</Text>
               </View>
             );
-          })}
+          })} */}
         </View>
         <View style={styles.borderContainer}>
           <View style={[styles.row, styles.opaqueHeader]}>
@@ -135,13 +135,13 @@ const ReviewYourInfoScreen = props => {
               <MaterialIcons name="edit" size={28} color={'#9A99A2'} />
             </TouchableOpacity>
           </View>
-          {airtableStateAdd.affiliations_partnerships.map(affilicated => {
+          {/* {airtableStateAdd.affiliations_partnerships.map(affilicated => {
             return (
               <Text key={affilicated.name} style={styles.obText}>
                 {affilicated.name}
               </Text>
-            );
-          })}
+            ); 
+          })} */}
         </View>
         <View style={styles.borderContainer}>
           <View style={[styles.row, styles.opaqueHeader]}>
@@ -170,6 +170,7 @@ const ReviewYourInfoScreen = props => {
             props.navigation.navigate('ToExpectNextCreateProfile', {
               airtableStateAdd: airtableStateAdd
             });
+            console.log(airtableStateAdd);
           }}
         />
       </ScrollView>

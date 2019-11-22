@@ -99,6 +99,7 @@ class EditProScreen extends React.Component {
   getBackend = async () => {
     const state = await SecureStore.getItemAsync('stateBE', {});
     const parseBE = JSON.parse(state);
+    parseBE?
     this.setState({ 
       org_name: parseBE.org_name,
       phone_number: parseBE.phone,
@@ -108,8 +109,9 @@ class EditProScreen extends React.Component {
       facebook: parseBE.facebook,
       instagram: parseBE.instagram,
       twitter: parseBE.twitter,
-      org_link_url: parseBE.website
-     });
+      org_link_url: parseBE.website,
+      location: parseBE.address
+     }) : null;
      await SecureStore.deleteItemAsync('stateBE', {});
   };
 
