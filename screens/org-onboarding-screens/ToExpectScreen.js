@@ -8,14 +8,6 @@ const ToExpectScreen = (props) => {
 	return (
 		<View style={styles.obBody}>
 			<ScrollView>
-				{/* <TouchableOpacity
-                    style={styles.backButton}
-					onPress={() => {
-						props.navigation.navigate('HeyThere');
-					}}
-				>
-					<SvgUri source={require('../../assets/icons/Back-button.svg')} />
-				</TouchableOpacity> */}
 				<Text style={styles.obTitle}>Here's what you can expect:</Text>
 
 				<View style={styles.contentWrapper}>
