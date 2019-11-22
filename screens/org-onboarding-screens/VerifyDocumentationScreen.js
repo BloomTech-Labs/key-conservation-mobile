@@ -46,7 +46,7 @@ export default class VerifyDocumentationScreen extends Component {
             <Feather name="plus" size={30} color="white" />
           </TouchableOpacity>
           <Text style={styles.obText}>
-            By clicking the button, you’ll be taken to an external link to
+            By clicking the button, you’ll be taken to an Airtable link to
             upload your official documentation.
           </Text>
         </View>
@@ -57,7 +57,7 @@ export default class VerifyDocumentationScreen extends Component {
           <View>
             <Text style={styles.obSubtitle}>Privacy</Text>
             <Text style={[styles.obText, { marginTop: 0 }]}>
-              Something about privacy goes right here
+              Airtable is a secure platform
             </Text>
           </View>
         </View>

@@ -41,7 +41,7 @@ export default {
         fontSize: 28,
         lineHeight: 38,
         marginLeft: '5%',
-        marginTop: '2%',
+        marginTop: '18%',
         marginBottom: '2%',
         marginRight: '7%',
     },
