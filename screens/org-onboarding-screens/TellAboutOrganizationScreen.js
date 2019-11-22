@@ -4,7 +4,7 @@ import {
 	View,
 	KeyboardAvoidingView,
 	ScrollView,
-	StyleSheet,
+	Alert, 
 	Text,
 	TextInput,
 	TouchableOpacity
@@ -25,7 +25,7 @@ const TellAboutOrganizationScreen = (props) => {
         country: '',
         phone: '',
         point_of_contact: '',
-        poc_poition: '',
+        poc_position: '',
         email: ''
     });
 
@@ -148,7 +148,12 @@ const TellAboutOrganizationScreen = (props) => {
 
 				<TouchableOpacity
 					style={styles.obFwdContainer}
-					onPress={() => sendAirtable() }>
+					onPress={() => {  
+            if(airtableState.org_name === undefined || airtableState.website === undefined || airtableState.phone === undefined || airtableState.address=== undefined || airtableState.country === undefined || airtableState.point_of_contact === undefined || airtableState.poc_position === undefined || airtableState.email === undefined ) {
+              Alert.alert("Oops", "Please fill in all sections of form", [{text: "Got it"}])
+            } else {
+              sendAirtable() }
+            }}>
                 <Text style={styles.obFwdBtnText}>Next</Text>
             </TouchableOpacity>
 
@@ -156,13 +161,6 @@ const TellAboutOrganizationScreen = (props) => {
         </KeyboardAvoidingView>
     );
 }
-const mapStateToProps = state => ({
-  currentUserProfile: state.currentUserProfile,
-  mediaUpload: state.mediaUpload
-});
 
-export default connect(mapStateToProps, {
-  editProfileData,
-  logout,
-  clearMedia
-})(TellAboutOrganizationScreen);
+export default TellAboutOrganizationScreen;
+

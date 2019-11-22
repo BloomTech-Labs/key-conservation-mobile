@@ -5,7 +5,9 @@ export default {
     fontSize: 16,
     lineHeight: 1.5,
     flex: 1,
-    padding: 16
+    padding: 16,
+    marginTop: 40,
+    marginBottom: '5%'
   },
   greenBg: {
     backgroundColor: 'rgba(0, 255, 157, 0.15)',
@@ -226,4 +228,4 @@ export default {
   spacer: {
     height: '5%'
   }
-}
+};

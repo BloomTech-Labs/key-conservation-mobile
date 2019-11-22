@@ -56,7 +56,7 @@ export default class VerifyDocumentationScreen extends Component {
           </View>
           <View>
             <Text style={styles.obSubtitle}>Privacy</Text>
-            <Text style={[styles.obText, {marginTop:0}]}>
+            <Text style={[styles.obText, { marginTop: 0 }]}>
               Something about privacy goes right here
             </Text>
           </View>
