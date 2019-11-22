@@ -38,7 +38,6 @@ const TellAboutOrganizationScreen = (props) => {
 
     getEmail = async () => {
         const email2 = await SecureStore.getItemAsync('email', {});
-        console.log("email from SecureStore: " + email2);
         onChangeText({ email: email2 });
     };
 

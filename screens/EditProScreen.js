@@ -100,7 +100,7 @@ class EditProScreen extends React.Component {
 
     const parseBE = JSON.parse(state)
 
-    console.log("stateBE from SecureStore: " + parseBE.org_name);
+    console.log("org_name from SecureStore: " + parseBE.org_name);
     // onChangeText({ email: email2 });
   };
 

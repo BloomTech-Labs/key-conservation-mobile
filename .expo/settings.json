@@ -1,8 +1,1 @@
-{
-  "hostType": "tunnel",
-  "lanType": "ip",
-  "dev": true,
-  "minify": false,
-  "urlRandomness": "my-hcu",
-  "https": false
-}
+{}
