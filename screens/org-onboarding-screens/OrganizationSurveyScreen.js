@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Button,
   View,
@@ -19,30 +19,25 @@ import NavigateButton from './formElement/NavigateButton.js';
 import * as SecureStore from 'expo-secure-store';
 
 const OrganizationSurveyScreen = props => {
-  const { values, handleChange } = useForm();
+  const [values, handleChange] = useState({
+    mission: 'Loren',
+    issues: 'Loren',
+    species: 'Loren',
+    facebook: 'Loren',
+    instagram: 'Loren',
+    twitter: 'Loren'
+  });
 
-  const backendState = props.navigation.getParam(
-    'backendState',
+  const airtableStateAdd = props.navigation.getParam(
+    'airtableStateAdd',
     'defaultValue'
   );
 
-  function submit() {
-    return null  
-  };
-
-  storeBackend = async () => {
-    stringBE = JSON.stringify(backendState);
-    console.log("stateBE from SecureStore: " + stringBE);
+  handleSubmit = async () => {
+    airtableStateAdd2 = Object.assign({ ...airtableStateAdd, ...values });
+    stringBE = JSON.stringify(airtableStateAdd2);
     await SecureStore.setItemAsync('stateBE', stringBE);
-    // onChangeText({ email: email2 });
-  };
-
-  useEffect(() => {
-    storeBackend();
-  }, []);
-
-  function handleSubmit() {
-    props.navigation.navigate('CreateAccount', { backendState: backendState });
+    props.navigation.navigate('CreateAccount');
   }
 
   return (
@@ -77,7 +72,7 @@ const OrganizationSurveyScreen = props => {
             <TextInput
               style={[styles.obTextInput, styles.textArea]}
               multiline
-              onChange={handleChange}
+              onChangeText={(text) => handleChange({ ...values, mission: text})}
               value={values.mission}
               placeholder="Type here"
               type="mission"
@@ -98,10 +93,10 @@ const OrganizationSurveyScreen = props => {
             <TextInput
               style={[styles.obTextInput, styles.textArea]}
               multiline
-              onChange={handleChange}
-              value={values.mission}
+              onChangeText={(text) => handleChange({ ...values, issues: text})}
+              value={values.issues}
               placeholder="Type here"
-              type="mission"
+              type="issues"
               name="email"
               required
             />
@@ -113,8 +108,7 @@ const OrganizationSurveyScreen = props => {
             <Text style={styles.obText}>Facebook</Text>
             <TextInput
               style={[styles.obTextInput, styles.textRounded]}
-              onChange={handleChange}
-              value={values.facebook}
+              onChangeText={(text) => handleChange({ ...values, facebook: text})}
               placeholder="Enter url"
               type="url"
               name="facebook"
@@ -124,7 +118,7 @@ const OrganizationSurveyScreen = props => {
             <Text style={styles.obText}>Instagram</Text>
             <TextInput
               style={[styles.obTextInput, styles.textRounded]}
-              onChange={handleChange}
+              onChangeText={(text) => handleChange({ ...values, instagram: text})}
               value={values.instagram}
               placeholder="Enter url"
               type="url"
@@ -135,7 +129,7 @@ const OrganizationSurveyScreen = props => {
             <Text style={styles.obText}>Twitter</Text>
             <TextInput
               style={[styles.obTextInput, styles.textRounded, {marginBottom:'7%'}]}
-              onChange={handleChange}
+              onChangeText={(text) => handleChange({ ...values, twitter: text})}
               value={values.twitter}
               placeholder="Enter url"
               type="url"

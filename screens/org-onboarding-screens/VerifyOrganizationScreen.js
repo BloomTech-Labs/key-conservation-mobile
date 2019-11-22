@@ -14,19 +14,21 @@ import styles from '../../constants/screens/org-onboarding-styles/VerifyOrg.js';
 
 const VerifyOrganizationScreen = (props) => {
 	const [ airtableState, onChangeText ] = useState({
-		other_countries: '',
-		multiple_projects: '',
-		affiliations_partnerships: '',
-		conservation_optimism: '',
-		smartphone_access: '',
-		smartphone_type: ''
+		other_countries: 'default',
+		multiple_projects: 'default',
+		affiliations_partnerships: 'default',
+		conservation_optimism: 'default',
+		smartphone_access: 'default',
+		smartphone_type: 'default'
 	});
 
 	var Airtable = require('airtable');
 	var base = new Airtable({ apiKey: 'keybUdphipr0RgMaa' }).base('appbPeeXUSNCQWwnQ');
 
 	const airtableID = props.navigation.getParam('airtableID', 'defaultValue');
-  const backendState = props.navigation.getParam('backendState', 'defaultValue')
+  	const airtableState2 = props.navigation.getParam('airtableState', 'defaultValue')
+
+  	const airtableStateAdd = Object.assign({ ...airtableState2, ...airtableState })
 
 	const updateAirtable = () => {
 		base('Table 1').update(
@@ -118,7 +120,7 @@ const VerifyOrganizationScreen = (props) => {
 							} else {
 								updateAirtable();
 								console.log("else state", airtableState)
-								props.navigation.navigate("VerifyDocumentation", { backendState: backendState });								
+								props.navigation.navigate("VerifyDocumentation", { airtableStateAdd: airtableStateAdd });								
 							}
 							
 						}}

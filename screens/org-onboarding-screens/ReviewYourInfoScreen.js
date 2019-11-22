@@ -38,8 +38,8 @@ const airtableStateAdd = {
 };
 
 const ReviewYourInfoScreen = props => {
-  const backendState = props.navigation.getParam(
-    'backendState',
+  const airtableStateAdd = props.navigation.getParam(
+    'airtableStateAdd',
     'defaultValue'
   );
 
@@ -168,7 +168,7 @@ const ReviewYourInfoScreen = props => {
           label="Next"
           onButtonPress={() => {
             props.navigation.navigate('ToExpectNextCreateProfile', {
-              backendState: backendState
+              airtableStateAdd: airtableStateAdd
             });
           }}
         />
