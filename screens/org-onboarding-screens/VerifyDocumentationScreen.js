@@ -29,7 +29,7 @@ export default class VerifyDocumentationScreen extends Component {
   render() {
     const { navigation } = this.props;
 
-    const backendState = navigation.getParam('backendState', 'defaultValue');
+    const airtableStateAdd = navigation.getParam('airtableStateAdd', 'defaultValue');
 
     return (
       <View style={styles.obBody}>
@@ -67,7 +67,7 @@ export default class VerifyDocumentationScreen extends Component {
           label="Next"
           onButtonPress={() => {
             navigation.navigate('ReviewYourInfo', {
-              backendState: backendState
+              airtableStateAdd: airtableStateAdd
             });
           }}
         />

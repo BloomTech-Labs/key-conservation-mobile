@@ -29,12 +29,12 @@ const TellAboutOrganizationScreen = (props) => {
         email: ''
     });
 
-    const backendState = {
-        org_name: airtableState.org_name,
-        org_link_url: airtableState.website,
-        point_of_contact_name: airtableState.point_of_contact,
-        country: airtableState.country
-    };
+    // const backendState = {
+    //     org_name: airtableState.org_name,
+    //     org_link_url: airtableState.website,
+    //     point_of_contact_name: airtableState.point_of_contact,
+    //     country: airtableState.country
+    // };
 
     getEmail = async () => {
         const email2 = await SecureStore.getItemAsync('email', {});
@@ -76,10 +76,10 @@ const TellAboutOrganizationScreen = (props) => {
           // console.log(record.getId());
           let airtableID = record.getId();
 
-          console.log(backendState);
-          console.log(airtableState);
+          // console.log(backendState);
+          // console.log(airtableState);
           props.navigation.navigate("VerifyOrganization", { airtableID: airtableID,
-          backendState: backendState }); // maybe store inside SecureStore in case session is interrupted?
+            airtableState: airtableState }); // maybe store inside SecureStore in case session is interrupted?
         });
       });
     };
@@ -144,8 +144,8 @@ const TellAboutOrganizationScreen = (props) => {
 				<TextInput
 					placeholder="Org Phone"
 					style={styles.obTextInput}
-					onChangeText={(text) => onChangeBE({ ...backendState, phone: text })}
-					value={backendState.phone}
+					onChangeText={(text) => onChangeText({ ...airtableState, phone: text })}
+					value={airtableState.phone}
 				/>
 				{/* backend */}
 
@@ -159,12 +159,7 @@ const TellAboutOrganizationScreen = (props) => {
 
 				<TouchableOpacity
 					style={styles.obFwdContainer}
-					onPress={() => {
-						sendAirtable();
-                    // sendBackend();
-                    props.navigation.navigate("VerifyOrganization");
-                }}
-            >
+					onPress={() => sendAirtable() }>
                 <Text style={styles.obFwdBtnText}>Next</Text>
             </TouchableOpacity>
 

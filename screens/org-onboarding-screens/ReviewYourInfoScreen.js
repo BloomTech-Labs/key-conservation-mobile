@@ -12,8 +12,8 @@ import styles from '../../constants/screens/org-onboarding-styles/ReviewYourInfo
 import NavigateButton from './formElement/NavigateButton.js';
 
 const ReviewYourInfoScreen = props => {
-  const backendState = props.navigation.getParam(
-    'backendState',
+  const airtableStateAdd = props.navigation.getParam(
+    'airtableStateAdd',
     'defaultValue'
   );
 
@@ -99,7 +99,7 @@ const ReviewYourInfoScreen = props => {
           label="Next"
           onButtonPress={() => {
             props.navigation.navigate('OrganizationSurvey', {
-              backendState: backendState
+              airtableStateAdd: airtableStateAdd
             });
           }}
         />
