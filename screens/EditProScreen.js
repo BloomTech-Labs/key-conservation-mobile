@@ -43,6 +43,8 @@ class EditProScreen extends React.Component {
     };
   };
 
+  
+
   state = {
     org_name: this.props.currentUserProfile.org_name,
     profile_image: this.props.currentUserProfile.profile_image,
@@ -68,7 +70,6 @@ class EditProScreen extends React.Component {
     if (this.isProfileComplete(this.state) === true) {
       return AmpEvent("Profile Completed");
     }
-
     this.getBackend();
   }
 
@@ -97,11 +98,21 @@ class EditProScreen extends React.Component {
 
   getBackend = async () => {
     const state = await SecureStore.getItemAsync('stateBE', {});
-
-    const parseBE = JSON.parse(state)
-
-    console.log("stateBE from SecureStore: " + parseBE.org_name);
-    // onChangeText({ email: email2 });
+    const parseBE = JSON.parse(state);
+    parseBE?
+    this.setState({ 
+      org_name: parseBE.org_name,
+      phone_number: parseBE.phone,
+      mini_bio: parseBE.mission,
+      species_and_habitats: parseBE.species,
+      issues: parseBE.issues,
+      facebook: parseBE.facebook,
+      instagram: parseBE.instagram,
+      twitter: parseBE.twitter,
+      org_link_url: parseBE.website,
+      location: parseBE.address
+     }) : null;
+     await SecureStore.deleteItemAsync('stateBE', {});
   };
 
   render() {

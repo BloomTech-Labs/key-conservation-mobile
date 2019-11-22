@@ -29,7 +29,7 @@ export default class VerifyDocumentationScreen extends Component {
   render() {
     const { navigation } = this.props;
 
-    const backendState = navigation.getParam('backendState', 'defaultValue');
+    const airtableStateAdd = navigation.getParam('airtableStateAdd', 'defaultValue');
 
     return (
       <View style={styles.obBody}>
@@ -46,7 +46,7 @@ export default class VerifyDocumentationScreen extends Component {
             <Feather name="plus" size={30} color="white" />
           </TouchableOpacity>
           <Text style={styles.obText}>
-            By clicking the button, you’ll be taken to an external link to
+            By clicking the button, you’ll be taken to an Airtable link to
             upload your official documentation.
           </Text>
         </View>
@@ -56,8 +56,8 @@ export default class VerifyDocumentationScreen extends Component {
           </View>
           <View>
             <Text style={styles.obSubtitle}>Privacy</Text>
-            <Text style={[styles.obText, {marginTop:0}]}>
-              Something about privacy goes right here
+            <Text style={[styles.obText, { marginTop: 0 }]}>
+              Airtable is a secure platform
             </Text>
           </View>
         </View>
@@ -67,7 +67,7 @@ export default class VerifyDocumentationScreen extends Component {
           label="Next"
           onButtonPress={() => {
             navigation.navigate('ReviewYourInfo', {
-              backendState: backendState
+              airtableStateAdd: airtableStateAdd
             });
           }}
         />

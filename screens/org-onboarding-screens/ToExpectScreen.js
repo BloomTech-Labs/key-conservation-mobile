@@ -12,9 +12,8 @@ const ToExpectScreen = props => {
             <View style={styles.contentWrapper}>
               <View style={styles.iconWrapper}>
 			    <AntDesign 
-				name="checkcircle" 
+				name="checkcircleo" 
 			    size={24}
-				color="#00ff9d"
 			    />
 			  </View>
               <View style={{width: '90%'}}>
@@ -25,9 +24,8 @@ const ToExpectScreen = props => {
             <View style={styles.contentWrapper}>
             <View style={styles.iconWrapper}>
 			<AntDesign 
-				name="checkcircle" 
+				name="checkcircleo" 
 			    size={24}
-				color="#00ff9d"
 			/>
 			</View>
             <View style={{width: '90%'}}>
@@ -40,9 +38,8 @@ const ToExpectScreen = props => {
             <View style={styles.contentWrapper}>
             <View style={styles.iconWrapper}>
 			<AntDesign 
-				name="checkcircle" 
+				name="checkcircleo" 
 			    size={24}
-				color="#00ff9d"
 			/>
 			</View>
             <View style={{width: '90%'}}>
@@ -52,9 +49,7 @@ const ToExpectScreen = props => {
             </View>
             <TouchableOpacity style={styles.obFwdContainer}
                 onPress={() => {
-                    props.navigation.navigate("KeyConservation")
-                }}
-            >
+                    props.navigation.navigate("KeyConservation")}}>
                 <Text style={styles.obFwdBtnText}>Got It!</Text>
             </TouchableOpacity>
         </ScrollView>

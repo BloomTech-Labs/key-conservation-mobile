@@ -9,10 +9,11 @@ export default {
     marginTop: 40,
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginBottom:'5%'
   },
   borderContainer: {
-    paddingTop: 24,
+    paddingTop: 40,
     paddingBottom: 24,
     marginTop: 30,
     marginBottom: 30,
@@ -22,15 +23,17 @@ export default {
     borderColor: '#00FF9D',
     borderWidth: 1,
     position: 'relative'
+    
   },
   opaqueHeader: {
     position: 'absolute',
-    marginTop:-20,
+    marginTop: -20,
+    marginLeft:-12,
     backgroundColor: 'white',
     color: '#000000',
     fontFamily: 'OpenSans-Bold',
     fontSize: 20,
-    lineHeight: 38,
+    lineHeight: 38
   },
 
   noBorderConatiner: {
@@ -83,6 +86,16 @@ export default {
     marginRight: '7%'
   },
   obSubtitle: {
+    color: '#000000',
+    fontFamily: 'OpenSans-Bold',
+    fontSize: 22,
+    lineHeight: 29,
+    marginLeft: '5%',
+    marginTop: '2%',
+    marginBottom: '2%',
+    marginRight: '%'
+  },
+  obSubtitleSm: {
     color: '#000000',
     fontFamily: 'OpenSans-Bold',
     fontSize: 16,

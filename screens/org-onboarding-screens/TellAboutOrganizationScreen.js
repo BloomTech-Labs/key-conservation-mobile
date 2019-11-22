@@ -4,7 +4,7 @@ import {
 	View,
 	KeyboardAvoidingView,
 	ScrollView,
-	StyleSheet,
+	Alert, 
 	Text,
 	TextInput,
 	TouchableOpacity
@@ -25,20 +25,12 @@ const TellAboutOrganizationScreen = (props) => {
         country: '',
         phone: '',
         point_of_contact: '',
-        poc_poition: '',
+        poc_position: '',
         email: ''
     });
 
-    const backendState = {
-        org_name: airtableState.org_name,
-        org_link_url: airtableState.website,
-        point_of_contact_name: airtableState.point_of_contact,
-        country: airtableState.country
-    };
-
     getEmail = async () => {
         const email2 = await SecureStore.getItemAsync('email', {});
-        console.log("email from SecureStore: " + email2);
         onChangeText({ email: email2 });
     };
 
@@ -74,13 +66,9 @@ const TellAboutOrganizationScreen = (props) => {
           return;
         }
         records.forEach(function (record) {
-          // console.log(record.getId());
           let airtableID = record.getId();
-
-          console.log(backendState);
-          console.log(airtableState);
           props.navigation.navigate("VerifyOrganization", { airtableID: airtableID,
-          backendState: backendState }); // maybe store inside SecureStore in case session is interrupted?
+            airtableState: airtableState }); // maybe store inside SecureStore in case session is interrupted?
         });
       });
     };
@@ -145,8 +133,8 @@ const TellAboutOrganizationScreen = (props) => {
 				<TextInput
 					placeholder="Org Phone"
 					style={styles.obTextInput}
-					onChangeText={(text) => onChangeBE({ ...backendState, phone: text })}
-					value={backendState.phone}
+					onChangeText={(text) => onChangeText({ ...airtableState, phone: text })}
+					value={airtableState.phone}
 				/>
 				{/* backend */}
 
@@ -160,12 +148,12 @@ const TellAboutOrganizationScreen = (props) => {
 
 				<TouchableOpacity
 					style={styles.obFwdContainer}
-					onPress={() => {
-						sendAirtable();
-                    // sendBackend();
-                    props.navigation.navigate("VerifyOrganization");
-                }}
-            >
+					onPress={() => {  
+            if(airtableState.org_name === undefined || airtableState.website === undefined || airtableState.phone === undefined || airtableState.address=== undefined || airtableState.country === undefined || airtableState.point_of_contact === undefined || airtableState.poc_position === undefined || airtableState.email === undefined ) {
+              Alert.alert("Oops", "Please fill in all sections of form", [{text: "Got it"}])
+            } else {
+              sendAirtable() }
+            }}>
                 <Text style={styles.obFwdBtnText}>Next</Text>
             </TouchableOpacity>
 
@@ -173,13 +161,6 @@ const TellAboutOrganizationScreen = (props) => {
         </KeyboardAvoidingView>
     );
 }
-const mapStateToProps = state => ({
-  currentUserProfile: state.currentUserProfile,
-  mediaUpload: state.mediaUpload
-});
 
-export default connect(mapStateToProps, {
-  editProfileData,
-  logout,
-  clearMedia
-})(TellAboutOrganizationScreen);
+export default TellAboutOrganizationScreen;
+

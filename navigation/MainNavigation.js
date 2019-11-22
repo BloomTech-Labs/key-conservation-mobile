@@ -18,6 +18,7 @@ import AlmostDone from '../screens/org-onboarding-screens/AlmostDoneScreen';
 import ThankYouScreen from '../screens/org-onboarding-screens/ThankYouScreen';
 import ReviewYourInfoScreen from '../screens/org-onboarding-screens/ReviewYourInfoScreen';
 import OrganizationSurveyScreen from '../screens/org-onboarding-screens/OrganizationSurveyScreen';
+import ToExpectNextCreateProfileScreen from '../screens/org-onboarding-screens/ToExpectNextCreateProfileScreen';
 
 import FeedScreen from '../screens/FeedScreen';
 import CreateCampScreen from '../screens/CreateCampScreen';
@@ -57,7 +58,8 @@ export const OrgOnboardStack = createStackNavigator(
     AlmostDone: AlmostDone,
     ThankYou: ThankYouScreen,
     ReviewYourInfo: ReviewYourInfoScreen,
-    OrganizationSurvey: OrganizationSurveyScreen
+    OrganizationSurvey: OrganizationSurveyScreen,
+    ToExpectNextCreateProfile: ToExpectNextCreateProfileScreen
   },
   {
     headerMode: 'none'
@@ -153,11 +155,9 @@ const CreateCampStack = createStackNavigator(
   }
 );
 
-export const AccountSettingsStack = createStackNavigator(
-  {
-    AccountSettings: AccountSettingsScreen
-  }
-)
+export const AccountSettingsStack = createStackNavigator({
+  AccountSettings: AccountSettingsScreen
+});
 
 const MyProStack = createStackNavigator(
   {
@@ -171,7 +171,7 @@ const MyProStack = createStackNavigator(
     EditCamp: EditCampScreen,
     CampUpdate: ViewCampUpdateScreen,
     CreateCampUpdate: CreateCampUpdateScreen,
-    EditCampUpdate: EditCampUpdateScreen,
+    EditCampUpdate: EditCampUpdateScreen
     // AccountSettings: AccountSettingsScreen
   },
   {
