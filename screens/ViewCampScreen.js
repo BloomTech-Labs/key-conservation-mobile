@@ -140,7 +140,7 @@ class ViewCampScreen extends React.Component {
                     />
                   )}
                   <View style={styles.iconRow}>
-                    <View style={styles.likesContainer}>
+                    {/* <View style={styles.likesContainer}>
                       <View style={styles.hearts}>
                         <View
                           style={
@@ -189,7 +189,7 @@ class ViewCampScreen extends React.Component {
                           {this.state.likes} like
                         </Text>
                       )}
-                    </View>
+                    </View> */}
                     <View style={styles.bookmarks}>
                       <View
                         style={
@@ -332,7 +332,7 @@ class ViewCampScreen extends React.Component {
                     />
                   )}
                   <View style={styles.iconRow}>
-                    <View style={styles.likesContainer}>
+                    {/* <View style={styles.likesContainer}>
                       <View style={styles.hearts}>
                         <View
                           style={
@@ -381,7 +381,7 @@ class ViewCampScreen extends React.Component {
                           {this.state.likes} like
                         </Text>
                       )}
-                    </View>
+                    </View> */}
                     <View style={styles.bookmarks}>
                       <View
                         style={

@@ -386,7 +386,7 @@ const FeedCampaign = props => {
         </TouchableOpacity>
       </View>
       <View style={styles.iconRow}>
-        <View style={styles.likesContainer}>
+        {/* <View style={styles.likesContainer}>
           <View style={styles.hearts}>
             <View style={!userLiked ? { zIndex: 1 } : { zIndex: -1 }}>
               <FontAwesome
@@ -418,7 +418,7 @@ const FeedCampaign = props => {
           ) : (
             <Text style={styles.likes}>{likes} like</Text>
           )}
-        </View>
+        </View> */}
 
         <ShareButton data={data}/>
 

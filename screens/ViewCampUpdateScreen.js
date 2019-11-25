@@ -89,7 +89,7 @@ class ViewCampUpdateScreen extends React.Component {
               style={styles.campImgContain}
             />
           )}
-
+{/* 
           <View style={styles.likesContainer}>
             <View style={styles.hearts}>
               <View
@@ -133,7 +133,7 @@ class ViewCampUpdateScreen extends React.Component {
             ) : (
               <Text style={styles.likes}>{this.state.likes} like</Text>
             )}
-          </View>
+          </View> */}
           <View style={styles.campDescContain}>
             <Text style={styles.campDescName}>
               {this.props.selectedCampaign.camp_name}
