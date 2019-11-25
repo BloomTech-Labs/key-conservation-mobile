@@ -20,12 +20,12 @@ import * as SecureStore from 'expo-secure-store';
 
 const OrganizationSurveyScreen = props => {
   const [values, handleChange] = useState({
-    mission: 'Loren',
-    issues: 'Loren',
-    species: 'Loren',
-    facebook: 'Loren',
-    instagram: 'Loren',
-    twitter: 'Loren'
+    mission: '',
+    issues: '',
+    species: '',
+    facebook: '',
+    instagram: '',
+    twitter: ''
   });
 
   const airtableStateAdd = props.navigation.getParam(
@@ -39,7 +39,7 @@ const OrganizationSurveyScreen = props => {
     stringBE = JSON.stringify(airtableStateAdd2);
     await SecureStore.setItemAsync('stateBE', stringBE);
     props.navigation.navigate('CreateAccount');
-  }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -71,13 +71,13 @@ const OrganizationSurveyScreen = props => {
               In a brief statement, what is your organization’s mission?
             </Text>
             <TextInput
-              style={[styles.obTextInput, styles.textArea]}
+              style={[styles.textArea]}
               multiline
-              onChangeText={(text) => handleChange({ ...values, mission: text})}
+              onChangeText={text => handleChange({ ...values, mission: text })}
               value={values.mission}
               placeholder="Type here"
               type="mission"
-              name="email"
+              name="mission"
               required
             />
           </View>
@@ -85,20 +85,30 @@ const OrganizationSurveyScreen = props => {
             <Text style={styles.obText}>
               Which species and habitats does your organization’s work focus on?
             </Text>
-            <DropDownSelect style={styles.dropDown} />
+            <TextInput
+              style={[styles.textArea]}
+              multiline
+              onChangeText={text => handleChange({ ...values, species: text })}
+              value={values.species}
+              placeholder="Type here"
+              type="species"
+              name="species"
+              required
+            />
+            {/* <DropDownSelect style={styles.dropDown} /> */}
           </View>
           <View style={styles.inputBlock}>
             <Text style={styles.obText}>
               What big issues are your organization dealing with?
             </Text>
             <TextInput
-              style={[styles.obTextInput, styles.textArea]}
+              style={[styles.textArea]}
               multiline
-              onChangeText={(text) => handleChange({ ...values, issues: text})}
+              onChangeText={text => handleChange({ ...values, issues: text })}
               value={values.issues}
               placeholder="Type here"
               type="issues"
-              name="email"
+              name="issues"
               required
             />
           </View>
@@ -108,18 +118,21 @@ const OrganizationSurveyScreen = props => {
             </Text>
             <Text style={styles.obText}>Facebook</Text>
             <TextInput
-              style={[styles.obTextInput, styles.textRounded]}
-              onChangeText={(text) => handleChange({ ...values, facebook: text})}
+              style={[styles.textRounded]}
+              onChangeText={text => handleChange({ ...values, facebook: text })}
               placeholder="Enter url"
               type="url"
               name="facebook"
+              value={values.facebook}
             />
           </View>
           <View style={styles.inputBlockSm}>
             <Text style={styles.obText}>Instagram</Text>
             <TextInput
-              style={[styles.obTextInput, styles.textRounded]}
-              onChangeText={(text) => handleChange({ ...values, instagram: text})}
+              style={[styles.textRounded]}
+              onChangeText={text =>
+                handleChange({ ...values, instagram: text })
+              }
               value={values.instagram}
               placeholder="Enter url"
               type="url"
@@ -129,15 +142,18 @@ const OrganizationSurveyScreen = props => {
           <View style={styles.inputBlockSm}>
             <Text style={styles.obText}>Twitter</Text>
             <TextInput
-              style={[styles.obTextInput, styles.textRounded, {marginBottom:'7%'}]}
-              onChangeText={(text) => handleChange({ ...values, twitter: text})}
+              style={[
+                styles.textRounded,
+                { marginBottom: '7%' }
+              ]}
+              onChangeText={text => handleChange({ ...values, twitter: text })}
               value={values.twitter}
               placeholder="Enter url"
               type="url"
               name="twitter"
             />
           </View>
-           <NavigateButton label="Preview" onButtonPress={handleSubmit} />
+          <NavigateButton label="Preview" onButtonPress={handleSubmit} />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
