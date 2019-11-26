@@ -10,7 +10,7 @@ export default {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom:'5%'
+    marginBottom: '5%'
   },
   borderContainer: {
     paddingTop: 40,
@@ -23,12 +23,11 @@ export default {
     borderColor: '#00FF9D',
     borderWidth: 1,
     position: 'relative'
-    
   },
   opaqueHeader: {
     position: 'absolute',
     marginTop: -20,
-    marginLeft:-12,
+    marginLeft: -12,
     backgroundColor: 'white',
     color: '#000000',
     fontFamily: 'OpenSans-Bold',
@@ -49,6 +48,30 @@ export default {
     flexDirection: 'row',
     backgroundColor: 'white',
     alignItems: 'center'
+  },
+
+  column: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyItems: 'center'
+  },
+
+  textInput: {
+    backgroundColor: '#F3F2F5'
+  },
+
+  textArea: {
+    height: 120,
+    backgroundColor: '#F3F2F5',
+    borderRadius: 15,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 20
+  },
+  obSwitchButton: {
+    marginLeft: '5%',
+    marginBottom: '1%',
+    marginTop: '2%'
   },
   obBody: {
     flex: 1,
@@ -93,7 +116,7 @@ export default {
     marginLeft: '5%',
     marginTop: '2%',
     marginBottom: '2%',
-    //marginRight: '%'
+    marginRight: '%'
   },
   obSubtitleSm: {
     color: '#000000',
@@ -103,7 +126,7 @@ export default {
     marginLeft: '5%',
     marginTop: '2%',
     marginBottom: '2%',
-    // marginRight: '%'
+    marginRight: '5%'
   },
   obFwdContainer: {
     width: 112,

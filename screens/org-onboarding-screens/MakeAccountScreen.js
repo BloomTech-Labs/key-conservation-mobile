@@ -7,21 +7,6 @@ import SvgUri from 'react-native-svg-uri';
 
 const MakeAccountScreen = (props) => {
 
-	// const [screen, setScreen] = useState(false)
-	
-    // useEffect(() => {
-	// 	console.log('hello')
-	// }, [])
-	
-    // useEffect(() => {
-    //     const timer = setTimeout(() => {setScreen(true)}, 3000)
-    //     if (screen === true) {
-    //         props.navigation.navigate("TellAboutOrganization");
-    //         return() => clearTimeout(timer);
-    //     }
-    //     setScreen(false)
-	// })
-
 	return (
 		<View style={styles.obBody}>
 			<SvgUri 

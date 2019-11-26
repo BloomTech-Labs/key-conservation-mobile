@@ -82,7 +82,7 @@ export default {
     borderRadius: 15,
     paddingLeft: 20,
     paddingRight: 20,
-    paddingTop: 20
+    paddingTop: 20,
   },
 
   obBody: {
