@@ -17,8 +17,8 @@ const VerifyOrganizationScreen = (props) => {
 		other_countries: '',
 		multiple_projects: '',
 		affiliations_partnerships: '',
-		conservation_optimism: '',
-		smartphone_access: '',
+		conservation_optimism: null,
+		smartphone_access: null,
 		smartphone_type: ''
 	});
 

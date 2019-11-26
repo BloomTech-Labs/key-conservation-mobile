@@ -33,6 +33,11 @@ const OrganizationSurveyScreen = props => {
     'defaultValue'
   );
 
+  1
+var today = new Date();   
+//var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+var date = (today.getMonth()+1)+'-'+today.getDate()+'-'+today.getFullYear();
+
   handleSubmit = async () => {
     airtableStateAdd2 = Object.assign({ ...airtableStateAdd, ...values });
     // console.log(airtableStateAdd2)
@@ -55,7 +60,7 @@ const OrganizationSurveyScreen = props => {
               <Text style={[styles.h5Text, { fontWeight: '600' }]}>
                 Application Status: Processing
               </Text>
-              <Text style={styles.h5Text}> Uploaded Sep 23 2019</Text>
+              <Text style={styles.h5Text}> Uploaded {date}</Text>
             </View>
             <View>
               <Feather name="info" size={40} />

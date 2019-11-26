@@ -29,7 +29,7 @@ const stylie = StyleSheet.create({
         width: '70%',
         height: 50,
         marginBottom: 18,
-        borderRadius: 25,
+        borderRadius: 5,
         fontFamily: 'OpenSans-Regular',
         backgroundColor: '#00FF9D',
         shadowColor: 'rgba(0, 0, 0, 0.25)',
