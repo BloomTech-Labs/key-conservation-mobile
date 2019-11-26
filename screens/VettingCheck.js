@@ -76,7 +76,8 @@ function VettingCheck(props) {
   useEffect(() => {
     getEmail();
 }, []);
-  /*****fjksdla;fjdkal; */
+
+
     return (
 
        <View style={styles.obBody}>
