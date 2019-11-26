@@ -75,10 +75,11 @@ class UsernameScreen extends React.Component {
           <View style={styles.Card} />
           <View style={styles.textContainer}>
             <Text style={{ textAlign: 'center' }}>Thanks for signing up!</Text>
+            <Text style={{ textAlign: 'center' }}>Choose a username!</Text>
           </View>
           <TextInput
             returnKeyType='go'
-            placeholder='ex: carribbeanturtleproject'
+            placeholder='ex: Enter Username'
             style={styles.inputContain}
             onChangeText={text => this.setState({ usernameInput: text })}
             value={this.state.usernameInput}

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
+import { Text, View, TextInput, Button, Alert, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
 import * as SecureStore from 'expo-secure-store';
@@ -22,21 +22,31 @@ function VettingCheck(props) {
     setEmail({ email: email });
     };
 
-    const getAirtable = () => {
-        console.log("getAirtable activated")
-        base('Table 2').select({
-            maxRecords: 20,
-            view: "Grid view",
-            filterByFormula: `{email} = \'${email.email}\'`
-        }).eachPage(function page(records, fetchNextPage) {
-            records.forEach(function(record) {
-                console.log('Retrieved', record.fields);
-                record.fields.accepted ? rops.navigation.navigate('CreateAccount') : Alert.alert("Oops", "You're not vetted yet", [{text: "Got it"}])
-            });
-        }, function done(err) {
-            if (err) { console.error(err); return; }
-        });
+  const checkAirtable = (record) => {
+    console.log("checkAirtable activated")
+    if (record.fields.accepted === true) {
+      props.navigation.navigate('CreateAccount');
+      console.log("You're good to go!")
+    } else {
+        Alert.alert("Oops", "You're not vetted yet", [{text: "Got it"}])
     }
+  };
+
+  const getAirtable = () => {
+    console.log("getAirtable activated")
+    base('Table 2').select({
+        maxRecords: 20,
+        view: "Grid view",
+        filterByFormula: `{email} = \'${email.email}\'`
+    }).eachPage(function page(records, fetchNextPage) {
+        records.forEach(function(record) {
+            // console.log('Retrieved', record.fields);
+            checkAirtable(record);
+        });
+    }, function done(err) {
+        if (err) { console.error(err); return; }
+    });
+  }
 
   logoutPress = async () => {
     await SecureStore.deleteItemAsync('sub', {});
