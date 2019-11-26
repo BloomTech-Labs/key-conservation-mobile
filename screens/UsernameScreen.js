@@ -26,7 +26,7 @@ class UsernameScreen extends React.Component {
 
     if (username.length > 4) {
       this.setState({
-        error: ''
+        error: null
       });
       let user = {
         username: username,

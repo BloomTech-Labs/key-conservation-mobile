@@ -26,10 +26,10 @@ export default LogoutScreen;
 
 const stylie = StyleSheet.create({
     buttonContainer: {
-        width: '100%',
+        width: '70%',
         height: 50,
         marginBottom: 18,
-        borderRadius: 4,
+        borderRadius: 25,
         fontFamily: 'OpenSans-Regular',
         backgroundColor: '#00FF9D',
         shadowColor: 'rgba(0, 0, 0, 0.25)',
@@ -39,7 +39,8 @@ const stylie = StyleSheet.create({
         },
         shadowRadius: 4,
         shadowOpacity: 1,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginTop: 10
       },
     buttonText: {
         fontFamily: 'OpenSans-Regular',
