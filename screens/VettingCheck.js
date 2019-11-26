@@ -76,15 +76,15 @@ function VettingCheck(props) {
   useEffect(() => {
     getEmail();
 }, []);
-
+  /*****fjksdla;fjdkal; */
     return (
-      <ScrollView>
-       <View style={styles.sectionContainer}>
-          <View style={styles.Card} />
-          <View style={styles.textContainer}>
-            <Text style={{ textAlign: 'center' }}>Thanks for signing up!</Text>
-          </View>
-        </View>
+
+       <View style={styles.obBody}>
+
+  
+            <Text style={styles.obTitle}>Thanks for signing up!</Text>
+            <Text style={styles.obText}>You will get an email once your organization has been approved.</Text>
+  
         <View style={{ height: 20, margin: 25 }}>
           {/* {state.error ? (
             <Text style={{ textAlign: 'center', color: 'red' }}>
@@ -117,7 +117,7 @@ function VettingCheck(props) {
             <Text style={styles.touchableText}>Logout</Text>
           </View>
         </TouchableOpacity>
-      </ScrollView>
+      </View>
     );
 }
 

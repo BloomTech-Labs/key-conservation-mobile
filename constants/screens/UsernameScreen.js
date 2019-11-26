@@ -52,5 +52,30 @@ export default {
     fontSize: 16,
     flexWrap: 'wrap',
     letterSpacing: 2
-  }
+  },
+  obText: {
+    color: '#000000',
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 18,
+    lineHeight: 25,
+    marginLeft: '5%',
+    marginTop: '2%',
+    marginBottom: '2%',
+    marginRight: '7%',      
+},
+obTitle: {
+  color: '#000000',
+  fontFamily: 'OpenSans-Bold',
+  fontSize: 28,
+  lineHeight: 38,
+  marginLeft: '5%',
+  marginTop: '18%',
+  marginBottom: '2%',
+  marginRight: '7%',
+},
+obBody: {
+  flex: 1,
+  justifyContent: 'center',
+  marginTop: '10%'
+},
 };
