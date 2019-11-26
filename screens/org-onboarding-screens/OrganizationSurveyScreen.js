@@ -38,8 +38,8 @@ const OrganizationSurveyScreen = props => {
     // console.log(airtableStateAdd2)
     stringBE = JSON.stringify(airtableStateAdd2);
     await SecureStore.setItemAsync('stateBE', stringBE);
-    props.navigation.navigate('CreateAccount');
-  };
+    props.navigation.navigate('Vetting'); // ('CreateAccount') goes to UsernameScreen
+  }
 
   return (
     <KeyboardAvoidingView
