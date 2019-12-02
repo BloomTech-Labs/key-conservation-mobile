@@ -29,7 +29,6 @@ import { AmpEvent } from '../withAmplitude';
 import styles from '../../constants/FeedScreen/FeedCampaign';
 import styles2 from '../../constants/Comments/Comments';
 
-import ShareButton from '../Sharing/ShareButton';
 
 // url for heroku staging vs production server
 const seturl = 'https://key-conservation.herokuapp.com/api/';
@@ -420,7 +419,6 @@ const FeedCampaign = props => {
           )}
         </View> */}
 
-        <ShareButton data={data}/>
 
         <View style={styles.bookmarks}>
           <View style={!userBookmarked ? { zIndex: 1 } : { zIndex: -1 }}>
