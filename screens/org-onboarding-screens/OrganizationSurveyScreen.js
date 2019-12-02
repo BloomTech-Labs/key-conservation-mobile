@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from "react";
 import {
   Button,
   View,
@@ -8,43 +8,45 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   ScrollView
-} from 'react-native';
+} from "react-native";
 
-import useForm from './hooks/useForm';
-import DropDownSelect from './formElement/DropDownSelect';
-import { Feather } from '@expo/vector-icons';
-import styles from '../../constants/screens/org-onboarding-styles/OrganizationSurvey';
-import NavigateButton from './formElement/NavigateButton.js';
+import useForm from "./hooks/useForm";
+import DropDownSelect from "./formElement/DropDownSelect";
+import { Feather } from "@expo/vector-icons";
+import styles from "../../constants/screens/org-onboarding-styles/OrganizationSurvey";
+import NavigateButton from "./formElement/NavigateButton.js";
 
-import * as SecureStore from 'expo-secure-store';
+import * as SecureStore from "expo-secure-store";
 
 const OrganizationSurveyScreen = props => {
   const [values, handleChange] = useState({
-    mission: '',
-    issues: '',
-    species: '',
-    facebook: '',
-    instagram: '',
-    twitter: ''
+    mission: "",
+    issues: "",
+    species: "",
+    facebook: "",
+    instagram: "",
+    twitter: ""
   });
 
   const airtableStateAdd = props.navigation.getParam(
-    'airtableStateAdd',
-    'defaultValue'
+    "airtableStateAdd",
+    "defaultValue"
   );
 
-  1
-var today = new Date();   
-//var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-var date = (today.getMonth()+1)+'-'+today.getDate()+'-'+today.getFullYear();
+  1;
+  var today = new Date();
+  //var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  var date =
+    today.getMonth() + 1 + "-" + today.getDate() + "-" + today.getFullYear();
 
   handleSubmit = async () => {
     airtableStateAdd2 = Object.assign({ ...airtableStateAdd, ...values });
     // console.log(airtableStateAdd2)
     stringBE = JSON.stringify(airtableStateAdd2);
-    await SecureStore.setItemAsync('stateBE', stringBE);
-    props.navigation.navigate('Vetting'); // ('CreateAccount') goes to UsernameScreen
-  }
+    await SecureStore.setItemAsync("stateBE", stringBE);
+    await SecureStore.setItemAsync("vetting", "true");
+    props.navigation.navigate("Vetting"); // ('CreateAccount') goes to UsernameScreen
+  };
 
   return (
     <KeyboardAvoidingView
@@ -57,7 +59,7 @@ var date = (today.getMonth()+1)+'-'+today.getDate()+'-'+today.getFullYear();
         <View style={[styles.container]}>
           <View style={[styles.buttonRow, styles.greenBg]}>
             <View>
-              <Text style={[styles.h5Text, { fontWeight: '600' }]}>
+              <Text style={[styles.h5Text, { fontWeight: "600" }]}>
                 Application Status: Processing
               </Text>
               <Text style={styles.h5Text}> Uploaded {date}</Text>
@@ -68,7 +70,7 @@ var date = (today.getMonth()+1)+'-'+today.getDate()+'-'+today.getFullYear();
           </View>
           <View>
             <Text style={[styles.obTitle, { marginBottom: 24 }]}>
-              Let Supporters {'\n'}Know about you!
+              Let Supporters {"\n"}Know about you!
             </Text>
           </View>
           <View style={styles.inputBlock}>
@@ -147,10 +149,7 @@ var date = (today.getMonth()+1)+'-'+today.getDate()+'-'+today.getFullYear();
           <View style={styles.inputBlockSm}>
             <Text style={styles.obText}>Twitter</Text>
             <TextInput
-              style={[
-                styles.textRounded,
-                { marginBottom: '7%' }
-              ]}
+              style={[styles.textRounded, { marginBottom: "7%" }]}
               onChangeText={text => handleChange({ ...values, twitter: text })}
               value={values.twitter}
               placeholder="Enter url"
