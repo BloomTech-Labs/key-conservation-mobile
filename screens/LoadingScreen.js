@@ -1,71 +1,91 @@
-import React from 'react';
+import React from "react";
 import {
   Text,
   View,
   Image,
   ActivityIndicator,
   ImageBackground
-} from 'react-native';
-import * as SecureStore from 'expo-secure-store';
-import { connect } from 'react-redux';
-import { getLoadingData, getProfileData, afterFirstLogin } from '../store/actions';
-import { AmpEvent, AmpInit } from '../components/withAmplitude';
-import styles from '../constants/screens/LoadingScreen';
+} from "react-native";
+import * as SecureStore from "expo-secure-store";
+import { connect } from "react-redux";
+import {
+  getLoadingData,
+  getProfileData,
+  afterFirstLogin
+} from "../store/actions";
+import { AmpEvent, AmpInit } from "../components/withAmplitude";
+import styles from "../constants/screens/LoadingScreen";
 
 class LoadingScreen extends React.Component {
   async componentDidMount() {
-    const sub = await SecureStore.getItemAsync('sub', {});
-    const roles = await SecureStore.getItemAsync('roles', {});
+    const sub = await SecureStore.getItemAsync("sub", {});
+    const roles = await SecureStore.getItemAsync("roles", {});
+    const vetting = await SecureStore.getItemAsync("vetting", {});
 
-    const backendState = this.props.navigation.getParam('backendState', 'defaultValue');
+    const backendState = this.props.navigation.getParam(
+      "backendState",
+      "defaultValue"
+    );
 
     // This checks to see if the sub id is a user on the DB
     if (!sub) {
-      this.props.navigation.navigate('Login')
+      this.props.navigation.navigate("Login");
     } else {
-      await this.props.getLoadingData(sub)
+      await this.props.getLoadingData(sub);
 
       if (this.props.userRegistered === true) {
-        this.props.getProfileData(null, sub, true)
+        this.props.getProfileData(null, sub, true);
 
         if (this.props.userId) {
-          await SecureStore.setItemAsync('id', `${this.props.userId}`);
+          await SecureStore.setItemAsync("id", `${this.props.userId}`);
           AmpInit();
-          AmpEvent('Login');
+          AmpEvent("Login");
 
           if (this.props.firstLogin) {
             this.props.afterFirstLogin();
-            if (roles === 'conservationist') {
-              this.props.navigation.navigate('EditPro', { backendState: backendState })} 
-              else { this.props.navigation.navigate('EditSupPro') };
+            if (roles === "conservationist") {
+              this.props.navigation.navigate("EditPro", {
+                backendState: backendState
+              });
+            } else {
+              this.props.navigation.navigate("EditSupPro");
+            }
           } else {
             this.props.navigation.navigate(
-              roles === 'conservationist' ? 'Conservationist' : 'Supporter'
-            )
-          } 
+              roles === "conservationist" ? "Conservationist" : "Supporter"
+            );
+          }
+        } else {
+          this.props.navigation.navigate("Login");
+        }
       } else {
-        this.props.navigation.navigate('Login')
+        // this.props.navigation.navigate('CreateAccount')
+        if (vetting === "true") {
+          this.props.navigation.navigate(
+            roles === "conservationist" ? "Vetting" : "CreateAccount"
+          );
+        } else {
+          this.props.navigation.navigate(
+            roles === "conservationist" ? "OrgOnboard" : "CreateAccount"
+          );
+        }
       }
-    } else {
-      // this.props.navigation.navigate('CreateAccount')
-      this.props.navigation.navigate(roles === 'conservationist' ? 'OrgOnboard' : 'CreateAccount')
     }
   }
-}
 
   render() {
     return (
       <ImageBackground
-        source={require('../assets/images/FurBackground.png')}
+        source={require("../assets/images/FurBackground.png")}
         style={styles.container}
       >
         <Image
           style={styles.logo}
-          source={require('../assets/images/keyFullWhite.png')}
+          source={require("../assets/images/keyFullWhite.png")}
         />
-        
+
         <View style={styles.indicator}>
-          <ActivityIndicator size='large' color='white' />
+          <ActivityIndicator size="large" color="white" />
         </View>
       </ImageBackground>
     );
@@ -82,7 +102,8 @@ const mapStateToProps = state => ({
   userRegistered: state.userRegistered
 });
 
-export default connect(
-  mapStateToProps,
-  { getLoadingData, getProfileData, afterFirstLogin }
-)(LoadingScreen);
+export default connect(mapStateToProps, {
+  getLoadingData,
+  getProfileData,
+  afterFirstLogin
+})(LoadingScreen);
