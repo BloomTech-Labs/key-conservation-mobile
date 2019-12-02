@@ -17,15 +17,19 @@ import { AmpEvent, AmpInit } from "../components/withAmplitude";
 import styles from "../constants/screens/LoadingScreen";
 
 class LoadingScreen extends React.Component {
-  async componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: ""
+    };
+  }
+
+  async componentDidMount(props) {
     const sub = await SecureStore.getItemAsync("sub", {});
     const roles = await SecureStore.getItemAsync("roles", {});
-    const vetting = await SecureStore.getItemAsync("vetting", {});
+    const email = await SecureStore.getItemAsync("email", {});
 
-    const backendState = this.props.navigation.getParam(
-      "backendState",
-      "defaultValue"
-    );
+    this.setState({ email: email });
 
     // This checks to see if the sub id is a user on the DB
     if (!sub) {
@@ -44,9 +48,7 @@ class LoadingScreen extends React.Component {
           if (this.props.firstLogin) {
             this.props.afterFirstLogin();
             if (roles === "conservationist") {
-              this.props.navigation.navigate("EditPro", {
-                backendState: backendState
-              });
+              this.props.navigation.navigate("EditPro");
             } else {
               this.props.navigation.navigate("EditSupPro");
             }
@@ -60,34 +62,31 @@ class LoadingScreen extends React.Component {
         }
       } else {
         // this.props.navigation.navigate('CreateAccount')
-        if (vetting === "true") {
-          this.props.navigation.navigate(
-            roles === "conservationist" ? "Vetting" : "CreateAccount"
-          );
-        } else {
-          this.props.navigation.navigate(
-            roles === "conservationist" ? "OrgOnboard" : "CreateAccount"
-          );
-        }
+        this.props.navigation.navigate(
+          roles === "conservationist" ? "OrgOnboard" : "CreateAccount"
+        );
       }
     }
   }
 
   render() {
     return (
-      <ImageBackground
-        source={require("../assets/images/FurBackground.png")}
-        style={styles.container}
-      >
-        <Image
-          style={styles.logo}
-          source={require("../assets/images/keyFullWhite.png")}
-        />
+      <>
+        {/* {this.getAirtable()} */}
+        <ImageBackground
+          source={require("../assets/images/FurBackground.png")}
+          style={styles.container}
+        >
+          <Image
+            style={styles.logo}
+            source={require("../assets/images/keyFullWhite.png")}
+          />
 
-        <View style={styles.indicator}>
-          <ActivityIndicator size="large" color="white" />
-        </View>
-      </ImageBackground>
+          <View style={styles.indicator}>
+            <ActivityIndicator size="large" color="white" />
+          </View>
+        </ImageBackground>
+      </>
     );
   }
 }

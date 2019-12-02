@@ -20,25 +20,40 @@ function VettingCheck(props) {
   const [email, setEmail] = useState({
     email: ""
   });
+  const [id, setId] = useState({
+    id: ""
+  });
 
   var Airtable = require("airtable");
   var base = new Airtable({ apiKey: "keybUdphipr0RgMaa" }).base(
     "appbPeeXUSNCQWwnQ"
   );
 
+  // getSecureStorage = async () => {
+  //   const airtableID = await SecureStore.getItemAsync("airtableID", {});
+  //   console.log("variable: " + airtableID);
+  //   const email2 = await SecureStore.getItemAsync("email", {});
+  //   setEmail(email2);
+  //   console.log("email: " + email);
+  //   setId(airtableID);
+  //   console.log("state: " + id);
+  // };
+
   getEmail = async () => {
     const email = await SecureStore.getItemAsync("email", {});
     setEmail({ email: email });
+    console.log(email.email);
   };
 
-  vettingDone = async () => {
-    await SecureStore.deleteItemAsync("vetting", {});
+  getAirtableId = async () => {
+    const id = await SecureStore.getItemAsync("airtableID", {});
+    setId({ id: id });
+    console.log(id.id);
   };
 
   const checkAirtable = record => {
     console.log("checkAirtable activated");
     if (record.fields.accepted === true) {
-      vettingDone();
       props.navigation.navigate("CreateAccount"); // UsernameScreen
       console.log("You're good to go!");
     } else {
@@ -47,6 +62,7 @@ function VettingCheck(props) {
   };
 
   const getAirtable = () => {
+    updateAirtable();
     console.log("getAirtable activated");
     base("Table 2")
       .select({
@@ -68,6 +84,28 @@ function VettingCheck(props) {
           }
         }
       );
+  };
+
+  const updateAirtable = () => {
+    base("Table 1").update(
+      [
+        {
+          id: id.id,
+          fields: {
+            isVetting: true
+          }
+        }
+      ],
+      function(err, records) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        records.forEach(function(record) {
+          console.log(record.getId());
+        });
+      }
+    );
   };
 
   logoutPress = async () => {
@@ -94,6 +132,8 @@ function VettingCheck(props) {
 
   useEffect(() => {
     getEmail();
+    getAirtableId();
+    // updateAirtable();
   }, []);
 
   return (
