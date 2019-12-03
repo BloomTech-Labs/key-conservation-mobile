@@ -44,6 +44,8 @@ import WideMapScreen from "../screens/maps/WideMapScreen";
 import LogoutScreen from '../screens/LogoutScreen';
 import ToExpectNextScreen from '../screens/org-onboarding-screens/ToExpectNextScreen';
 
+import { Entypo } from '@expo/vector-icons';
+
 export const OrgOnboardStack = createStackNavigator(
   {
     HeyThere: HeyThereScreen,
@@ -72,8 +74,10 @@ const MapStack = createStackNavigator(
     Home: WideMapScreen
   },
   {
+    headerMode: 'none',
     navigationOptions: {
-      tabBarLabel: 'Map'
+      tabBarLabel: "Map",
+      tabBarIcon: <Entypo name="globe" color="#323338" size={22} />
     }
   }
 )
@@ -323,7 +327,7 @@ export const SupNavigator = createBottomTabNavigator(
   },
   {
     tabBarOptions: {
-      showLabel: true
+      showLabel: false
     }
   }
 );
