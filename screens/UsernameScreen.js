@@ -10,11 +10,44 @@ import { postUser, logout } from "../store/actions";
 import Constants from "expo-constants";
 import * as WebBrowser from "expo-web-browser";
 
+var Airtable = require("airtable");
+var base = new Airtable({ apiKey: "keybUdphipr0RgMaa" }).base(
+  "appbPeeXUSNCQWwnQ"
+);
+
 class UsernameScreen extends React.Component {
   state = {
     usernameInput: "",
     error: "",
-    result: null
+    result: null,
+    id: ""
+  };
+
+  updateAirtable = () => {
+    // navOverride = () => {
+    //   return this.props.navigation.navigate("EditPro");
+    // };
+    console.log("update airtable triggered");
+    base("Table 1").update(
+      [
+        {
+          id: this.state.id,
+          fields: {
+            isVetting: false
+          }
+        }
+      ],
+      function(err, records) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        // this.navOverride();
+        records.forEach(function(record) {
+          console.log(record.getId());
+        });
+      }
+    );
   };
 
   handlePress = async () => {
@@ -26,34 +59,10 @@ class UsernameScreen extends React.Component {
     console.log("id: " + id);
     const username = this.state.usernameInput;
 
-    var Airtable = require("airtable");
-    var base = new Airtable({ apiKey: "keybUdphipr0RgMaa" }).base(
-      "appbPeeXUSNCQWwnQ"
-    );
-    updateAirtable = () => {
-      console.log("update airtable triggered");
-      base("Table 1").update(
-        [
-          {
-            id: id,
-            fields: {
-              isVetting: false
-            }
-          }
-        ],
-        function(err, records) {
-          if (err) {
-            console.error(err);
-            return;
-          }
-          records.forEach(function(record) {
-            console.log(record.getId());
-          });
-        }
-      );
-    };
+    this.setState({ id: id });
 
     if (username.length > 4) {
+      this.updateAirtable();
       this.setState({
         error: null
       });
@@ -65,10 +74,11 @@ class UsernameScreen extends React.Component {
       };
       await this.props.postUser(user);
       AmpEvent("Account Created");
-      updateAirtable();
       this.props.navigation.navigate(
         this.props.error ? "CreateAccount" : "Loading"
       );
+      await SecureStore.deleteItemAsync("airtableID", {});
+      console.log("this should be void: " + id);
     } else {
       this.setState({
         error: "Username is required to be at least 5 characters"
@@ -95,7 +105,7 @@ class UsernameScreen extends React.Component {
         this.setState({ result });
       });
     }
-    props.navigation.navigate("Logout");
+    this.props.navigation.navigate("Logout");
   };
 
   render() {

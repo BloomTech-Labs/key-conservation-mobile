@@ -17,6 +17,13 @@ import Constants from "expo-constants";
 import * as WebBrowser from "expo-web-browser";
 
 function VettingCheck(props) {
+  useEffect(() => {
+    // getEmail();
+    getAirtableId();
+    getAirtable();
+    // updateAirtable();
+  }, []);
+
   const [email, setEmail] = useState({
     email: ""
   });
@@ -37,8 +44,12 @@ function VettingCheck(props) {
 
   getAirtableId = async () => {
     const id = await SecureStore.getItemAsync("airtableID", {});
+    const email = await SecureStore.getItemAsync("email", {});
     setId({ id: id });
+    setEmail({ email: email });
+    console.log(email.email);
     console.log(id.id);
+
     updateAirtable();
   };
 
@@ -121,12 +132,6 @@ function VettingCheck(props) {
     }
     props.navigation.navigate("Logout");
   };
-
-  useEffect(() => {
-    getEmail();
-    getAirtableId();
-    getAirtable();
-  }, []);
 
   return (
     <View style={styles.obBody}>

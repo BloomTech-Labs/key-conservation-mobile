@@ -19,19 +19,19 @@ import styles from "../constants/screens/LoadingScreen";
 var Airtable = require("airtable");
 var base = new Airtable({ apiKey: "keybUdphipr0RgMaa" }).base(
   "appbPeeXUSNCQWwnQ"
-);
+); // variables for Airtable API.
 
 class LoadingScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      isVetted: false
+      email: ""
+      // isVetting: false
     };
-    // this.getAirtable = this.getAirtable.bind(this);
   }
 
   getAirtable = () => {
+    // Checks airtable form if in vetting process.
     console.log("getAirtable activated");
     base("Table 1")
       .select({
@@ -43,14 +43,7 @@ class LoadingScreen extends React.Component {
         function page(records, fetchNextPage) {
           records.forEach(function(record) {
             console.log("Retrieved", record.fields);
-            this.checkAirtable(record);
-            // console.log("checkAirtable activated");
-            // if (record.fields.isVetting === true) {
-            // props.navigation.navigate("Vetting");
-            // this.setState({ isVetting: true });
-            // } else {
-            // return null;
-            // }
+            this.checkAirtable(record); // calls method inside componentDidMount.
           });
         },
         function done(err) {
@@ -62,50 +55,24 @@ class LoadingScreen extends React.Component {
       );
   };
 
-  async componentDidMount(props) {
+  async componentDidMount() {
+    this.getAirtable(); // Checks if user is in vetting process.
     const sub = await SecureStore.getItemAsync("sub", {});
     const roles = await SecureStore.getItemAsync("roles", {});
     const email = await SecureStore.getItemAsync("email", {});
-    // const id = await SecureStore.getItemAsync("airtableID", {});
-    // console.log("id2: " + id);
 
     this.setState({ email: email });
 
-    // updateAirtable = () => {
-    //   console.log("update airtable triggered")
-    //   base("Table 1").update(
-    //     [
-    //       {
-    //         id: id,
-    //         fields: {
-    //           isVetting: false
-    //         }
-    //       }
-    //     ],
-    //     function(err, records) {
-    //       if (err) {
-    //         console.error(err);
-    //         return;
-    //       }
-    //       records.forEach(function(record) {
-    //         console.log(record.getId());
-    //       });
-    //     }
-    //   );
-    // };
-
     checkAirtable = (record, props) => {
       console.log("checkAirtable activated");
+      console.log("record: " + record.isVetting);
       if (record.fields.isVetting === true) {
-        // updateAirtable();
         this.props.navigation.navigate("Vetting");
-        // this.setState({ isVetted: true })
       } else {
+        // if in vetting process, sends them back to VettingCheck, otherwise component runs as usual.
         return null;
       }
     };
-
-    this.getAirtable();
 
     // This checks to see if the sub id is a user on the DB
     if (!sub) {
@@ -124,6 +91,7 @@ class LoadingScreen extends React.Component {
           if (this.props.firstLogin) {
             this.props.afterFirstLogin();
             if (roles === "conservationist") {
+              // getAirtable() === null ? // Checks vetting status.
               this.props.navigation.navigate("EditPro");
             } else {
               this.props.navigation.navigate("EditSupPro");
@@ -137,16 +105,9 @@ class LoadingScreen extends React.Component {
           this.props.navigation.navigate("Login");
         }
       } else {
-        // this.props.navigation.navigate('CreateAccount')
-        // if (this.state.isVetted === false) {
-        //   his.props.navigation.navigate(
-        //     roles === "conservationist" ? "Vetting" : "CreateAccount"
-        //   );
-        // } else {
         this.props.navigation.navigate(
           roles === "conservationist" ? "OrgOnboard" : "CreateAccount"
-        ); // after vetting success, user is navigated back to OrgOnboard because after logging in at least one additional instance to check vetting status, logging in again is no longer afterFirstLogin.
-        // }
+        );
       }
     }
   }
