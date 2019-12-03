@@ -73,7 +73,7 @@ const MapStack = createStackNavigator(
   },
   {
     navigationOptions: {
-      Title: 'Map'
+      tabBarLabel: 'Map'
     }
   }
 )
@@ -184,7 +184,6 @@ const MyProStack = createStackNavigator(
     CampUpdate: ViewCampUpdateScreen,
     CreateCampUpdate: CreateCampUpdateScreen,
     EditCampUpdate: EditCampUpdateScreen
-    // AccountSettings: AccountSettingsScreen
   },
   {
     transitionConfig: () => ({
@@ -312,15 +311,6 @@ export const SupNavigator = createBottomTabNavigator(
         navigation.navigate('Home'), defaultHandler();
       }      
     },
-    // WideMap: {
-    //   screen: WideMapScreen,
-    //   // path: '',
-    //   // navigationOptions: {
-    //   //   tabBarOnPress: ({ navigation, defaultHandler }) => {
-    //   //     navigation.navigate("WideMap"), defaultHandler();
-    //   //   }
-    //   // }
-    // },
     SupProStack: {
       screen: SupProStack,
       path: '',
@@ -333,7 +323,7 @@ export const SupNavigator = createBottomTabNavigator(
   },
   {
     tabBarOptions: {
-      showLabel: false
+      showLabel: true
     }
   }
 );
