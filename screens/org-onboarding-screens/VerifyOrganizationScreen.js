@@ -175,7 +175,7 @@ const VerifyOrganizationScreen = props => {
               if (
                 airtableState.other_countries === "" ||
                 airtableState.multiple_projects === "" ||
-                airtableState.affiliations_partnerships === "" ||
+                //airtableState.affiliations_partnerships === "" ||
                 airtableState.smartphone_type === ""
               ) {
                 Alert.alert("Oops", "Please fill in all sections of form", [
