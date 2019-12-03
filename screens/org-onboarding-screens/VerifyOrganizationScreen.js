@@ -205,6 +205,5 @@ const VerifyOrganizationScreen = props => {
       </ScrollView>
     </KeyboardAvoidingView>
   );
-};
 
 export default VerifyOrganizationScreen;

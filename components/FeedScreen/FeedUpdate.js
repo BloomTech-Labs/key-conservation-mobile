@@ -25,7 +25,6 @@ import {
 import { AmpEvent } from '../withAmplitude';
 
 import styles from '../../constants/FeedScreen/FeedUpdate';
-import ShareButton from '../Sharing/ShareButton';
 
 // url for heroku staging vs production server
 const seturl = 'https://key-conservation.herokuapp.com/api/';
@@ -365,7 +364,6 @@ const FeedUpdate = props => {
           )}
         </View> */}
 
-        <ShareButton data={data} />
       </View>
 
       <View style={styles.campDesc}>
