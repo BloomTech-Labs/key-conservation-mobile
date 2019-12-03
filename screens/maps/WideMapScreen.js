@@ -1,10 +1,11 @@
 import React from "react";
 import { View, Screen, Text } from "react-native";
+import WideMap from './WideMap.js';
 
 const WideMapScreen = () => {
     return(
         <View>
-            <Text>Text functionality coming soon!</Text>
+            <WideMap />
         </View>
     );
 }
