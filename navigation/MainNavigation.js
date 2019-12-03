@@ -39,6 +39,7 @@ import ViewCampUpdateScreen from '../screens/ViewCampUpdateScreen';
 import CreateCampUpdateScreen from '../screens/CreateCampUpdateScreen';
 import EditCampUpdateScreen from '../screens/EditCampUpdateScreen';
 import AccountSettingsScreen from '../screens/AccountSettingsScreen';
+import WideMapScreen from "../screens/maps/WideMapScreen";
 
 import LogoutScreen from '../screens/LogoutScreen';
 import ToExpectNextScreen from '../screens/org-onboarding-screens/ToExpectNextScreen';
@@ -65,6 +66,17 @@ export const OrgOnboardStack = createStackNavigator(
     headerMode: 'none'
   }
 );
+
+const MapStack = createStackNavigator(
+  {
+    Home: WideMapScreen
+  },
+  {
+    navigationOptions: {
+      Title: 'Map'
+    }
+  }
+)
 
 const FeedStack = createStackNavigator(
   {
@@ -294,6 +306,21 @@ export const SupNavigator = createBottomTabNavigator(
         }
       }
     },
+    MapStack: {
+      screen: MapStack,
+      tabBarOnPress: ({ navigation, defaultHandler }) => {
+        navigation.navigate('Home'), defaultHandler();
+      }      
+    },
+    // WideMap: {
+    //   screen: WideMapScreen,
+    //   // path: '',
+    //   // navigationOptions: {
+    //   //   tabBarOnPress: ({ navigation, defaultHandler }) => {
+    //   //     navigation.navigate("WideMap"), defaultHandler();
+    //   //   }
+    //   // }
+    // },
     SupProStack: {
       screen: SupProStack,
       path: '',
