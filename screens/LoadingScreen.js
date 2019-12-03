@@ -3,6 +3,7 @@ import {
   Text,
   View,
   Image,
+  Alert,
   ActivityIndicator,
   ImageBackground
 } from "react-native";
@@ -11,22 +12,108 @@ import { connect } from "react-redux";
 import {
   getLoadingData,
   getProfileData,
-  afterFirstLogin
+  afterFirstLogin,
+  logout
 } from "../store/actions";
+import Constants from "expo-constants";
+import * as WebBrowser from "expo-web-browser";
 import { AmpEvent, AmpInit } from "../components/withAmplitude";
 import styles from "../constants/screens/LoadingScreen";
 
+var Airtable = require("airtable");
+var base = new Airtable({ apiKey: "keybUdphipr0RgMaa" }).base(
+  "appbPeeXUSNCQWwnQ"
+); // variables for Airtable API.
+
 class LoadingScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: ""
+      // isVetting: false
+    };
+  }
+
+  logoutPress = async props => {
+    await SecureStore.deleteItemAsync("sub", {});
+    await SecureStore.deleteItemAsync("email", {});
+    await SecureStore.deleteItemAsync("roles", {});
+    await SecureStore.deleteItemAsync("id", {});
+    await SecureStore.deleteItemAsync("accessToken", {});
+    this.props.logout();
+
+    const logoutURL = "https://key-conservation.auth0.com/v2/logout?federated";
+
+    if (Constants.platform.ios) {
+      await WebBrowser.openAuthSessionAsync(logoutURL).then(result => {
+        // this.setState({result})
+      });
+    } else {
+      await WebBrowser.openBrowserAsync(logoutURL).then(result => {
+        // this.setState({result})
+      });
+    }
+    this.props.navigation.navigate("Logout");
+  };
+
+  getAirtable = () => {
+    // Checks airtable form if in vetting process.
+    console.log("getAirtable activated");
+    base("Table 1")
+      .select({
+        maxRecords: 20,
+        view: "Grid view",
+        filterByFormula: `{email} = \'${this.state.email}\'`
+      })
+      .eachPage(
+        function page(records, fetchNextPage) {
+          records.forEach(function(record) {
+            console.log("Retrieved", record.fields);
+            this.checkAirtable(record); // calls method inside componentDidMount.
+          });
+        },
+        function done(err) {
+          if (err) {
+            console.error(err);
+            return;
+          }
+        }
+      );
+  };
+
   async componentDidMount() {
     const sub = await SecureStore.getItemAsync("sub", {});
     const roles = await SecureStore.getItemAsync("roles", {});
-    const vetting = await SecureStore.getItemAsync("vetting", {});
+    const email = await SecureStore.getItemAsync("email", {});
+    const isVetting = await SecureStore.getItemAsync("isVetting", {});
+    const email2 = await SecureStore.getItemAsync("vettingEmail", {});
 
-    const backendState = this.props.navigation.getParam(
-      "backendState",
-      "defaultValue"
-    );
+    this.setState({ email: email });
+    this.getAirtable(); // Checks if user is in vetting process.
 
+    checkAirtable = (record, props) => {
+      console.log("checkAirtable activated");
+      console.log("record: " + record.isVetting);
+      if (record.fields.isVetting === true) {
+        this.props.navigation.navigate("Vetting");
+      } else {
+        // if in vetting process, sends them back to VettingCheck, otherwise component runs as usual.
+        return null;
+      }
+    };
+
+    if (
+      isVetting === "true" &&
+      roles === "conservationist" &&
+      email !== email2
+    ) {
+      Alert.alert(
+        "Oops",
+        "Previous account still awaiting approval. Please log in with pending organization account",
+        [{ text: "Got it" }]
+      );
+      await this.logoutPress();
+    }
     // This checks to see if the sub id is a user on the DB
     if (!sub) {
       this.props.navigation.navigate("Login");
@@ -44,9 +131,8 @@ class LoadingScreen extends React.Component {
           if (this.props.firstLogin) {
             this.props.afterFirstLogin();
             if (roles === "conservationist") {
-              this.props.navigation.navigate("EditPro", {
-                backendState: backendState
-              });
+              // getAirtable() === null ? // Checks vetting status.
+              this.props.navigation.navigate("EditPro");
             } else {
               this.props.navigation.navigate("EditSupPro");
             }
@@ -59,35 +145,31 @@ class LoadingScreen extends React.Component {
           this.props.navigation.navigate("Login");
         }
       } else {
-        // this.props.navigation.navigate('CreateAccount')
-        if (vetting === "true") {
-          this.props.navigation.navigate(
-            roles === "conservationist" ? "Vetting" : "CreateAccount"
-          );
-        } else {
-          this.props.navigation.navigate(
-            roles === "conservationist" ? "OrgOnboard" : "CreateAccount"
-          );
-        }
+        this.props.navigation.navigate(
+          roles === "conservationist" ? "OrgOnboard" : "CreateAccount"
+        );
       }
     }
   }
 
   render() {
     return (
-      <ImageBackground
-        source={require("../assets/images/FurBackground.png")}
-        style={styles.container}
-      >
-        <Image
-          style={styles.logo}
-          source={require("../assets/images/keyFullWhite.png")}
-        />
+      <>
+        {/* {this.getAirtable()} */}
+        <ImageBackground
+          source={require("../assets/images/FurBackground.png")}
+          style={styles.container}
+        >
+          <Image
+            style={styles.logo}
+            source={require("../assets/images/keyFullWhite.png")}
+          />
 
-        <View style={styles.indicator}>
-          <ActivityIndicator size="large" color="white" />
-        </View>
-      </ImageBackground>
+          <View style={styles.indicator}>
+            <ActivityIndicator size="large" color="white" />
+          </View>
+        </ImageBackground>
+      </>
     );
   }
 }
@@ -105,5 +187,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   getLoadingData,
   getProfileData,
-  afterFirstLogin
+  afterFirstLogin,
+  logout
 })(LoadingScreen);

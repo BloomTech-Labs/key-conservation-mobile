@@ -17,8 +17,15 @@ import Constants from "expo-constants";
 import * as WebBrowser from "expo-web-browser";
 
 function VettingCheck(props) {
+  useEffect(() => {
+    getAirtableId();
+  }, []);
+
   const [email, setEmail] = useState({
     email: ""
+  });
+  const [id, setId] = useState({
+    id: ""
   });
 
   var Airtable = require("airtable");
@@ -26,27 +33,32 @@ function VettingCheck(props) {
     "appbPeeXUSNCQWwnQ"
   );
 
-  getEmail = async () => {
+  getAirtableId = async () => {
+    const id = await SecureStore.getItemAsync("airtableID", {});
     const email = await SecureStore.getItemAsync("email", {});
+    setId({ id: id });
     setEmail({ email: email });
-  };
 
-  vettingDone = async () => {
-    await SecureStore.deleteItemAsync("vetting", {});
+    updateAirtable();
+    await SecureStore.setItemAsync("isVetting", "true");
+    await SecureStore.setItemAsync("vettingEmail", email);
+    // await SecureStore.deleteItemAsync("vettingEmail", {});
+    // await SecureStore.deleteItemAsync("isVetting", {});
   };
 
   const checkAirtable = record => {
     console.log("checkAirtable activated");
     if (record.fields.accepted === true) {
-      vettingDone();
       props.navigation.navigate("CreateAccount"); // UsernameScreen
       console.log("You're good to go!");
     } else {
+      console.log("not vetted yet!");
       Alert.alert("Oops", "You're not vetted yet", [{ text: "Got it" }]);
     }
   };
 
-  const getAirtable = () => {
+  getAirtable = () => {
+    // updateAirtable();
     console.log("getAirtable activated");
     base("Table 2")
       .select({
@@ -70,6 +82,28 @@ function VettingCheck(props) {
       );
   };
 
+  updateAirtable = async () => {
+    await base("Table 1").update(
+      [
+        {
+          id: id.id,
+          fields: {
+            isVetting: true
+          }
+        }
+      ],
+      function(err, records) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        records.forEach(function(record) {
+          console.log(record.getId());
+        });
+      }
+    );
+  };
+
   logoutPress = async () => {
     await SecureStore.deleteItemAsync("sub", {});
     await SecureStore.deleteItemAsync("email", {});
@@ -91,10 +125,6 @@ function VettingCheck(props) {
     }
     props.navigation.navigate("Logout");
   };
-
-  useEffect(() => {
-    getEmail();
-  }, []);
 
   return (
     <View style={styles.obBody}>

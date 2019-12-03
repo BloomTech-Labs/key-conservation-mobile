@@ -90,9 +90,14 @@ const ReviewYourInfoScreen = props => {
                   <MaterialIcons name="edit" size={28} color={'#9A99A2'} />
                 </TouchableOpacity>
               </View>
-              <Text style={styles.obText}>{state.point_of_contact}</Text>
-              <Text style={styles.obText}>{state.poc_position}</Text>
-              <Text style={styles.obText}>{state.email}</Text>
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>Contact Name: </Text>
+                <Text style={styles.obText}>{state.point_of_contact}</Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>Contact Position: </Text>
+                <Text style={styles.obText}>{state.poc_position}</Text>
+              </View>
             </View>
           ) : (
             <View style={styles.borderContainer}>
@@ -106,26 +111,32 @@ const ReviewYourInfoScreen = props => {
                   <Entypo name="check" size={36} color={'#00FF9D'} />
                 </TouchableOpacity>
               </View>
+
+              <View style={styles.row}>
+              <Text style={styles.obSubtitleSm}>Contact Name: </Text>
               <TextInput
                 style={[styles.obText, styles.textInput]}
                 value={state.point_of_contact}
+                placeholder={'Point of Contact Name'}
                 onChangeText={text =>
                   setState({ ...state, point_of_contact: text })
                 }
               />
+              </View>
+
+              <View style={styles.row}>
+              <Text style={styles.obSubtitleSm}>Contact Position: </Text>
               <TextInput
                 style={[styles.obText, styles.textInput]}
-                value={state.poc_poition}
+                value={state.poc_position}
+                placeholder={' Contact Position'}
                 onChangeText={text =>
                   setState({ ...state, poc_position: text })
                 }
               />
-              <TextInput
-                style={[styles.obText, styles.textInput]}
-                value={state.email}
-                onChangeText={text => setState({ ...state, email: text })}
-              />
-            </View>
+              </View>
+
+            </View> 
           )}
           {!isEditingContact ? (
             <View style={styles.borderContainer}>
@@ -140,12 +151,21 @@ const ReviewYourInfoScreen = props => {
                 </TouchableOpacity>
               </View>
 
-              <Text style={styles.obText}>{state.org_name}</Text>
-              <Text style={styles.obText}>{state.website}</Text>
               <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Tel:</Text>
+                <Text style={styles.obSubtitleSm}>Organization Name:</Text>
+                <Text style={styles.obText}>{state.org_name}</Text>
+              </View>
+
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>Website:</Text>
+                <Text style={styles.obText}>{state.website}</Text>
+              </View>
+
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>Phone:</Text>
                 <Text style={styles.obText}>{state.phone}</Text>
               </View>
+
               <View>
                 <Text style={styles.obSubtitleSm}>Address:</Text>
                 <Text style={styles.obText}>
@@ -403,8 +423,8 @@ const ReviewYourInfoScreen = props => {
                 state.address === undefined ||
                 state.country === undefined ||
                 state.point_of_contact === undefined ||
-                state.poc_position === undefined ||
-                state.email === undefined
+                state.poc_position === undefined 
+                //|| state.email === undefined
               ) {
                 Alert.alert('Oops', 'Please fill in all sections of form', [
                   { text: 'Got it' }
