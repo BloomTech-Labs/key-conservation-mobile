@@ -267,7 +267,13 @@ export const LoginStack = createStackNavigator(
   }
 );
 
-export const LogoutStack = createStackNavigator({ Logout: LogoutScreen });
+export const LogoutStack = createStackNavigator(
+  { Logout: LogoutScreen },
+  {
+    headerMode: 'none'
+  }
+  
+);
 
 export const ConsNavigator = createBottomTabNavigator(
   {
@@ -279,6 +285,12 @@ export const ConsNavigator = createBottomTabNavigator(
           navigation.navigate('Home'), defaultHandler();
         }
       }
+    },
+    MapStack: {
+      screen: MapStack,
+      tabBarOnPress: ({ navigation, defaultHandler }) => {
+        navigation.navigate('Home'), defaultHandler();
+      }      
     },
     CreateCampStack: { screen: CreateCampStack, path: '' },
     MyProStack: {
