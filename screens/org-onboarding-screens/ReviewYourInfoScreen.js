@@ -98,9 +98,6 @@ const ReviewYourInfoScreen = props => {
                 <Text style={styles.obSubtitleSm}>Contact Position: </Text>
                 <Text style={styles.obText}>{state.poc_position}</Text>
               </View>
-              {/* <Text style={styles.obSubtitleSm}>Contact Name: {state.point_of_contact}</Text> */}
-              {/* <Text style={styles.obSubtitleSm}>Contact Position: {state.poc_position}</Text> */}
-              {/* <Text style={styles.obText}>{state.email}</Text> */}
             </View>
           ) : (
             <View style={styles.borderContainer}>
@@ -138,11 +135,7 @@ const ReviewYourInfoScreen = props => {
                 }
               />
               </View>
-              {/* <TextInput
-                style={[styles.obText, styles.textInput]}
-                value={state.email}
-                onChangeText={text => setState({ ...state, email: text })}
-              />*/}
+
             </View> 
           )}
           {!isEditingContact ? (
@@ -168,12 +161,11 @@ const ReviewYourInfoScreen = props => {
                 <Text style={styles.obText}>{state.website}</Text>
               </View>
 
-              {/* <Text style={styles.obText}>{state.org_name}</Text>
-              <Text style={styles.obText}>{state.website}</Text> */}
               <View style={styles.row}>
                 <Text style={styles.obSubtitleSm}>Phone:</Text>
                 <Text style={styles.obText}>{state.phone}</Text>
               </View>
+
               <View>
                 <Text style={styles.obSubtitleSm}>Address:</Text>
                 <Text style={styles.obText}>
