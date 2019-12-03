@@ -18,10 +18,7 @@ import * as WebBrowser from "expo-web-browser";
 
 function VettingCheck(props) {
   useEffect(() => {
-    // getEmail();
     getAirtableId();
-    getAirtable();
-    // updateAirtable();
   }, []);
 
   const [email, setEmail] = useState({
@@ -36,21 +33,17 @@ function VettingCheck(props) {
     "appbPeeXUSNCQWwnQ"
   );
 
-  getEmail = async () => {
-    const email = await SecureStore.getItemAsync("email", {});
-    setEmail({ email: email });
-    console.log(email.email);
-  };
-
   getAirtableId = async () => {
     const id = await SecureStore.getItemAsync("airtableID", {});
     const email = await SecureStore.getItemAsync("email", {});
     setId({ id: id });
     setEmail({ email: email });
-    console.log(email.email);
-    console.log(id.id);
 
     updateAirtable();
+    await SecureStore.setItemAsync("isVetting", "true");
+    await SecureStore.setItemAsync("vettingEmail", email);
+    // await SecureStore.deleteItemAsync("vettingEmail", {});
+    // await SecureStore.deleteItemAsync("isVetting", {});
   };
 
   const checkAirtable = record => {

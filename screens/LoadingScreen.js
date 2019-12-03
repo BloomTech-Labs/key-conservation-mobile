@@ -3,6 +3,7 @@ import {
   Text,
   View,
   Image,
+  Alert,
   ActivityIndicator,
   ImageBackground
 } from "react-native";
@@ -11,8 +12,11 @@ import { connect } from "react-redux";
 import {
   getLoadingData,
   getProfileData,
-  afterFirstLogin
+  afterFirstLogin,
+  logout
 } from "../store/actions";
+import Constants from "expo-constants";
+import * as WebBrowser from "expo-web-browser";
 import { AmpEvent, AmpInit } from "../components/withAmplitude";
 import styles from "../constants/screens/LoadingScreen";
 
@@ -29,6 +33,28 @@ class LoadingScreen extends React.Component {
       // isVetting: false
     };
   }
+
+  logoutPress = async props => {
+    await SecureStore.deleteItemAsync("sub", {});
+    await SecureStore.deleteItemAsync("email", {});
+    await SecureStore.deleteItemAsync("roles", {});
+    await SecureStore.deleteItemAsync("id", {});
+    await SecureStore.deleteItemAsync("accessToken", {});
+    this.props.logout();
+
+    const logoutURL = "https://key-conservation.auth0.com/v2/logout?federated";
+
+    if (Constants.platform.ios) {
+      await WebBrowser.openAuthSessionAsync(logoutURL).then(result => {
+        // this.setState({result})
+      });
+    } else {
+      await WebBrowser.openBrowserAsync(logoutURL).then(result => {
+        // this.setState({result})
+      });
+    }
+    this.props.navigation.navigate("Logout");
+  };
 
   getAirtable = () => {
     // Checks airtable form if in vetting process.
@@ -56,12 +82,14 @@ class LoadingScreen extends React.Component {
   };
 
   async componentDidMount() {
-    this.getAirtable(); // Checks if user is in vetting process.
     const sub = await SecureStore.getItemAsync("sub", {});
     const roles = await SecureStore.getItemAsync("roles", {});
     const email = await SecureStore.getItemAsync("email", {});
+    const isVetting = await SecureStore.getItemAsync("isVetting", {});
+    const email2 = await SecureStore.getItemAsync("vettingEmail", {});
 
     this.setState({ email: email });
+    this.getAirtable(); // Checks if user is in vetting process.
 
     checkAirtable = (record, props) => {
       console.log("checkAirtable activated");
@@ -74,6 +102,18 @@ class LoadingScreen extends React.Component {
       }
     };
 
+    if (
+      isVetting === "true" &&
+      roles === "conservationist" &&
+      email !== email2
+    ) {
+      Alert.alert(
+        "Oops",
+        "Previous account still awaiting approval. Please log in with pending organization account",
+        [{ text: "Got it" }]
+      );
+      await this.logoutPress();
+    }
     // This checks to see if the sub id is a user on the DB
     if (!sub) {
       this.props.navigation.navigate("Login");
@@ -147,5 +187,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   getLoadingData,
   getProfileData,
-  afterFirstLogin
+  afterFirstLogin,
+  logout
 })(LoadingScreen);

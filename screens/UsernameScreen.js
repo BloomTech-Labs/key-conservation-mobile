@@ -24,9 +24,6 @@ class UsernameScreen extends React.Component {
   };
 
   updateAirtable = () => {
-    // navOverride = () => {
-    //   return this.props.navigation.navigate("EditPro");
-    // };
     console.log("update airtable triggered");
     base("Table 1").update(
       [
@@ -59,10 +56,11 @@ class UsernameScreen extends React.Component {
     console.log("id: " + id);
     const username = this.state.usernameInput;
 
-    this.setState({ id: id });
+    // <-- bug?
 
     if (username.length > 4) {
-      this.updateAirtable();
+      this.setState({ id: id });
+      this.updateAirtable(); // <-- bug?
       this.setState({
         error: null
       });
@@ -78,6 +76,8 @@ class UsernameScreen extends React.Component {
         this.props.error ? "CreateAccount" : "Loading"
       );
       await SecureStore.deleteItemAsync("airtableID", {});
+      await SecureStore.deleteItemAsync("vettingEmail", {});
+      await SecureStore.deleteItemAsync("isVetting", {});
       console.log("this should be void: " + id);
     } else {
       this.setState({
