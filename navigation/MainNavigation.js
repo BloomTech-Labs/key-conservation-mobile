@@ -39,9 +39,12 @@ import ViewCampUpdateScreen from '../screens/ViewCampUpdateScreen';
 import CreateCampUpdateScreen from '../screens/CreateCampUpdateScreen';
 import EditCampUpdateScreen from '../screens/EditCampUpdateScreen';
 import AccountSettingsScreen from '../screens/AccountSettingsScreen';
+import WideMapScreen from "../screens/maps/WideMapScreen";
 
 import LogoutScreen from '../screens/LogoutScreen';
 import ToExpectNextScreen from '../screens/org-onboarding-screens/ToExpectNextScreen';
+
+import { Entypo } from '@expo/vector-icons';
 
 export const OrgOnboardStack = createStackNavigator(
   {
@@ -65,6 +68,19 @@ export const OrgOnboardStack = createStackNavigator(
     headerMode: 'none'
   }
 );
+
+const MapStack = createStackNavigator(
+  {
+    Home: WideMapScreen
+  },
+  {
+    headerMode: 'none',
+    navigationOptions: {
+      tabBarLabel: "Map",
+      tabBarIcon: <Entypo name="globe" color="#323338" size={22} />
+    }
+  }
+)
 
 const FeedStack = createStackNavigator(
   {
@@ -172,7 +188,6 @@ const MyProStack = createStackNavigator(
     CampUpdate: ViewCampUpdateScreen,
     CreateCampUpdate: CreateCampUpdateScreen,
     EditCampUpdate: EditCampUpdateScreen
-    // AccountSettings: AccountSettingsScreen
   },
   {
     transitionConfig: () => ({
@@ -252,7 +267,13 @@ export const LoginStack = createStackNavigator(
   }
 );
 
-export const LogoutStack = createStackNavigator({ Logout: LogoutScreen });
+export const LogoutStack = createStackNavigator(
+  { Logout: LogoutScreen },
+  {
+    headerMode: 'none'
+  }
+  
+);
 
 export const ConsNavigator = createBottomTabNavigator(
   {
@@ -264,6 +285,12 @@ export const ConsNavigator = createBottomTabNavigator(
           navigation.navigate('Home'), defaultHandler();
         }
       }
+    },
+    MapStack: {
+      screen: MapStack,
+      tabBarOnPress: ({ navigation, defaultHandler }) => {
+        navigation.navigate('Home'), defaultHandler();
+      }      
     },
     CreateCampStack: { screen: CreateCampStack, path: '' },
     MyProStack: {
@@ -293,6 +320,12 @@ export const SupNavigator = createBottomTabNavigator(
           navigation.navigate('Home'), defaultHandler();
         }
       }
+    },
+    MapStack: {
+      screen: MapStack,
+      tabBarOnPress: ({ navigation, defaultHandler }) => {
+        navigation.navigate('Home'), defaultHandler();
+      }      
     },
     SupProStack: {
       screen: SupProStack,
