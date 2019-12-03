@@ -115,15 +115,6 @@ const ReviewYourInfoScreen = props => {
                 </TouchableOpacity>
               </View>
 
-              {/* <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Tel:</Text>
-                <TextInput
-                  style={[styles.obText, styles.textInput]}
-                  value={state.phone}
-                  onChangeText={text => setState({ ...state, phone: text })}
-                ></TextInput>
-              </View> */}
-
               <View style={styles.row}>
               <Text style={styles.obSubtitleSm}>Contact Name: </Text>
               <TextInput
@@ -167,10 +158,20 @@ const ReviewYourInfoScreen = props => {
                 </TouchableOpacity>
               </View>
 
-              <Text style={styles.obText}>{state.org_name}</Text>
-              <Text style={styles.obText}>{state.website}</Text>
               <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Tel:</Text>
+                <Text style={styles.obSubtitleSm}>Organization Name:</Text>
+                <Text style={styles.obText}>{state.org_name}</Text>
+              </View>
+
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>Website:</Text>
+                <Text style={styles.obText}>{state.website}</Text>
+              </View>
+
+              {/* <Text style={styles.obText}>{state.org_name}</Text>
+              <Text style={styles.obText}>{state.website}</Text> */}
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>Phone:</Text>
                 <Text style={styles.obText}>{state.phone}</Text>
               </View>
               <View>
