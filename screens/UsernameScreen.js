@@ -22,7 +22,36 @@ class UsernameScreen extends React.Component {
     const sub = await SecureStore.getItemAsync("sub", {});
     const email = await SecureStore.getItemAsync("email", {});
     const role = await SecureStore.getItemAsync("roles", {});
+    const id = await SecureStore.getItemAsync("airtableID", {});
+    console.log("id: " + id);
     const username = this.state.usernameInput;
+
+    var Airtable = require("airtable");
+    var base = new Airtable({ apiKey: "keybUdphipr0RgMaa" }).base(
+      "appbPeeXUSNCQWwnQ"
+    );
+    updateAirtable = () => {
+      console.log("update airtable triggered");
+      base("Table 1").update(
+        [
+          {
+            id: id,
+            fields: {
+              isVetting: false
+            }
+          }
+        ],
+        function(err, records) {
+          if (err) {
+            console.error(err);
+            return;
+          }
+          records.forEach(function(record) {
+            console.log(record.getId());
+          });
+        }
+      );
+    };
 
     if (username.length > 4) {
       this.setState({
@@ -36,6 +65,7 @@ class UsernameScreen extends React.Component {
       };
       await this.props.postUser(user);
       AmpEvent("Account Created");
+      updateAirtable();
       this.props.navigation.navigate(
         this.props.error ? "CreateAccount" : "Loading"
       );

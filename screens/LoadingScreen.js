@@ -16,20 +16,96 @@ import {
 import { AmpEvent, AmpInit } from "../components/withAmplitude";
 import styles from "../constants/screens/LoadingScreen";
 
+var Airtable = require("airtable");
+var base = new Airtable({ apiKey: "keybUdphipr0RgMaa" }).base(
+  "appbPeeXUSNCQWwnQ"
+);
+
 class LoadingScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: ""
+      email: "",
+      isVetted: false
     };
+    // this.getAirtable = this.getAirtable.bind(this);
   }
+
+  getAirtable = () => {
+    console.log("getAirtable activated");
+    base("Table 1")
+      .select({
+        maxRecords: 20,
+        view: "Grid view",
+        filterByFormula: `{email} = \'${this.state.email}\'`
+      })
+      .eachPage(
+        function page(records, fetchNextPage) {
+          records.forEach(function(record) {
+            console.log("Retrieved", record.fields);
+            this.checkAirtable(record);
+            // console.log("checkAirtable activated");
+            // if (record.fields.isVetting === true) {
+            // props.navigation.navigate("Vetting");
+            // this.setState({ isVetting: true });
+            // } else {
+            // return null;
+            // }
+          });
+        },
+        function done(err) {
+          if (err) {
+            console.error(err);
+            return;
+          }
+        }
+      );
+  };
 
   async componentDidMount(props) {
     const sub = await SecureStore.getItemAsync("sub", {});
     const roles = await SecureStore.getItemAsync("roles", {});
     const email = await SecureStore.getItemAsync("email", {});
+    // const id = await SecureStore.getItemAsync("airtableID", {});
+    // console.log("id2: " + id);
 
     this.setState({ email: email });
+
+    // updateAirtable = () => {
+    //   console.log("update airtable triggered")
+    //   base("Table 1").update(
+    //     [
+    //       {
+    //         id: id,
+    //         fields: {
+    //           isVetting: false
+    //         }
+    //       }
+    //     ],
+    //     function(err, records) {
+    //       if (err) {
+    //         console.error(err);
+    //         return;
+    //       }
+    //       records.forEach(function(record) {
+    //         console.log(record.getId());
+    //       });
+    //     }
+    //   );
+    // };
+
+    checkAirtable = (record, props) => {
+      console.log("checkAirtable activated");
+      if (record.fields.isVetting === true) {
+        // updateAirtable();
+        this.props.navigation.navigate("Vetting");
+        // this.setState({ isVetted: true })
+      } else {
+        return null;
+      }
+    };
+
+    this.getAirtable();
 
     // This checks to see if the sub id is a user on the DB
     if (!sub) {
@@ -62,9 +138,15 @@ class LoadingScreen extends React.Component {
         }
       } else {
         // this.props.navigation.navigate('CreateAccount')
+        // if (this.state.isVetted === false) {
+        //   his.props.navigation.navigate(
+        //     roles === "conservationist" ? "Vetting" : "CreateAccount"
+        //   );
+        // } else {
         this.props.navigation.navigate(
           roles === "conservationist" ? "OrgOnboard" : "CreateAccount"
-        );
+        ); // after vetting success, user is navigated back to OrgOnboard because after logging in at least one additional instance to check vetting status, logging in again is no longer afterFirstLogin.
+        // }
       }
     }
   }
