@@ -44,6 +44,8 @@ import WideMapScreen from "../screens/maps/WideMapScreen";
 import LogoutScreen from '../screens/LogoutScreen';
 import ToExpectNextScreen from '../screens/org-onboarding-screens/ToExpectNextScreen';
 
+import { Entypo } from '@expo/vector-icons';
+
 export const OrgOnboardStack = createStackNavigator(
   {
     HeyThere: HeyThereScreen,
@@ -72,8 +74,10 @@ const MapStack = createStackNavigator(
     Home: WideMapScreen
   },
   {
+    headerMode: 'none',
     navigationOptions: {
-      Title: 'Map'
+      tabBarLabel: "Map",
+      tabBarIcon: <Entypo name="globe" color="#323338" size={22} />
     }
   }
 )
@@ -184,7 +188,6 @@ const MyProStack = createStackNavigator(
     CampUpdate: ViewCampUpdateScreen,
     CreateCampUpdate: CreateCampUpdateScreen,
     EditCampUpdate: EditCampUpdateScreen
-    // AccountSettings: AccountSettingsScreen
   },
   {
     transitionConfig: () => ({
@@ -312,15 +315,6 @@ export const SupNavigator = createBottomTabNavigator(
         navigation.navigate('Home'), defaultHandler();
       }      
     },
-    // WideMap: {
-    //   screen: WideMapScreen,
-    //   // path: '',
-    //   // navigationOptions: {
-    //   //   tabBarOnPress: ({ navigation, defaultHandler }) => {
-    //   //     navigation.navigate("WideMap"), defaultHandler();
-    //   //   }
-    //   // }
-    // },
     SupProStack: {
       screen: SupProStack,
       path: '',
