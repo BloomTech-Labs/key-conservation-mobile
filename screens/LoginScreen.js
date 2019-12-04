@@ -182,9 +182,7 @@ export default LoginScreen = props => {
       <View style={styles.textContainer}>
         <Text style={styles.selectText}>Join the Community!</Text>
       </View>
-      <View style={styles.textContainer}>
-        <Text style={styles.alreadyText}>Already registered? </Text><Text style={styles.link}>Sign In</Text>
-      </View>
+      <View style={styles.spacer} />
     </ImageBackground>
   );
 };
@@ -293,6 +291,6 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   spacer: {
-    height: '10%'
+    height: '3%'
   } 
 });
