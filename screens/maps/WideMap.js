@@ -69,6 +69,7 @@ export default class WideMap extends React.Component {
           <Marker // a bug pops up but not app breaking: "Warning: Failed prop type: Invalid prop `coordinate.latitude` of type 
           // `string` supplied to `MapMarker`, expected `number`."
           coordinate={coordinates} // coordinate props took in coordinates variable for the coordinates
+          title="My HOUSE"
           />
         </MapView>
       </View>
