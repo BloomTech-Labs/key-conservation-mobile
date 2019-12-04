@@ -1,13 +1,19 @@
 import React from 'react';
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, View, Dimensions } from 'react-native';
 // import Geocode from 'react-geocode'
 import LocationIQ from 'react-native-locationiq'
 
 export default class WideMap extends React.Component {
-
+  constructor(props){
+  super(props)
+    this.state = {
+      addresses: [] 
+    }
+  }
 
   componentDidMount() {
+    
     var Airtable = require('airtable');
       var base = new Airtable({apiKey: 'keybUdphipr0RgMaa'}).base('appbPeeXUSNCQWwnQ');
 
@@ -20,6 +26,14 @@ export default class WideMap extends React.Component {
           console.log("START HERE!", records.map(record => {
             return record._rawJson.fields
           }))
+          
+          // code to try to get coordinates to be state
+          // records.map(record => {
+          //   this.setState({addresses: record._rawJson.fields.addresses})
+          // })
+          // console.log(this.state)
+
+          
           // records.forEach(function(record) {
               
           //     console.log('Retrieved', record.get('org_name'), record.get('address'), record.get('country'));
@@ -33,36 +47,26 @@ export default class WideMap extends React.Component {
       }, function done(err) {
           if (err) { console.error(err); return; }
       });
-
-      //coordinates code
-      // Geocode.setApiKey("AIzaSyCZhFoFDjXjraTbfL16q6LFTZDLJ73S9aM")
-      // Geocode.setApiKey("pk.b1c961f18c509bdb2a91cb0a3c0d78ca");
-      // Geocode.setLanguage('en');
-      // Geocode.fromAddress('New York')
-      // .then(res => {
-      //   const { lat, lng } = res.results[0].geometry.location;
-      //   console.log(lat, lng)
-      // },
-      // err => {
-      //   console.log(err)
-      // }
-      // );
-
+      
+      // coordinates stuff
       LocationIQ.init("pk.b1c961f18c509bdb2a91cb0a3c0d78ca");
-      LocationIQ.search("649 N Fairfield Drive")
+      LocationIQ.search("New York")
         .then(json => {
             var lat = json[0].lat;
             var lon = json[0].lon;
-            console.log("Coordinates:", lat, lon);
+            // console.log("Coordinates:", lat, lon);
+            this.setState({ addresses: {lat, lon} })
+            console.log('coordinates', this.state.addresses)
         })
         .catch(error => console.warn(error));
         }
 
-
   render() {
     return (
       <View style={styles.container}>
-        <MapView style={styles.mapStyle} />
+        <MapView 
+        style={styles.mapStyle}
+        />
       </View>
     );
   }
