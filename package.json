@@ -1,16 +1,21 @@
 {
   "main": "node_modules/expo/AppEntry.js",
+  "jest": {
+    "verbose": true,
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|sentry-expo|native-base)"
+    ]
+  },  
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest --watchAll"
+    "test": "jest"
   },
-  "jest": {
-    "preset": "jest-expo"
-  },
+
   "dependencies": {
     "@expo/samples": "~3.0.0",
     "@expo/vector-icons": "^10.0.6",
@@ -64,7 +69,8 @@
   },
   "devDependencies": {
     "babel-preset-expo": "^5.1.0",
-    "jest-expo": "^33.0.0"
+    "jest-expo": "^33.0.2",
+    "react-test-renderer": "^16.12.0"
   },
   "private": true
 }

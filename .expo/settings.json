@@ -1,1 +1,8 @@
-{}
+{
+  "hostType": "lan",
+  "lanType": "ip",
+  "dev": true,
+  "minify": false,
+  "urlRandomness": "fg-f5m",
+  "https": false
+}
