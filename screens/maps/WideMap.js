@@ -1,15 +1,17 @@
 import React from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, View, Dimensions } from 'react-native';
-// import Geocode from 'react-geocode'
-import LocationIQ from 'react-native-locationiq'
+import LocationIQ from 'react-native-locationiq' // Library for retrieving coordinates
 
 export default class WideMap extends React.Component {
   constructor(props){
   super(props)
     this.state = {
-      addresses: [] 
-    }
+      addresses: {
+        latitude: '', 
+        longitude: ''
+      }
+    } // temporarily made state to get coordinates for New York to show up on the map
   }
 
   componentDidMount() {
@@ -26,14 +28,7 @@ export default class WideMap extends React.Component {
           console.log("START HERE!", records.map(record => {
             return record._rawJson.fields
           }))
-          
-          // code to try to get coordinates to be state
-          // records.map(record => {
-          //   this.setState({addresses: record._rawJson.fields.addresses})
-          // })
-          // console.log(this.state)
 
-          
           // records.forEach(function(record) {
               
           //     console.log('Retrieved', record.get('org_name'), record.get('address'), record.get('country'));
@@ -48,25 +43,34 @@ export default class WideMap extends React.Component {
           if (err) { console.error(err); return; }
       });
       
-      // coordinates stuff
-      LocationIQ.init("pk.b1c961f18c509bdb2a91cb0a3c0d78ca");
+      // LocationIQ library to get coordinates for addresses, places
+      LocationIQ.init("pk.b1c961f18c509bdb2a91cb0a3c0d78ca"); // API Key from LocationIQ (free)
       LocationIQ.search("New York")
         .then(json => {
             var lat = json[0].lat;
             var lon = json[0].lon;
-            // console.log("Coordinates:", lat, lon);
-            this.setState({ addresses: {lat, lon} })
+            this.setState({ addresses: {latitude: parseFloat(lat), longitude: parseFloat(lon)} }) // we used parseInt in order
+            // to make the numbers into integers since it made lat and lon into strings. It rounds up and we need to figure out how to keep it
+            // decimal
             console.log('coordinates', this.state.addresses)
         })
         .catch(error => console.warn(error));
+
+        
         }
 
   render() {
+    const coordinates = this.state.addresses // set coordinates with addresses object in this.state
     return (
       <View style={styles.container}>
         <MapView 
         style={styles.mapStyle}
-        />
+        >
+          <Marker // a bug pops up but not app breaking: "Warning: Failed prop type: Invalid prop `coordinate.latitude` of type 
+          // `string` supplied to `MapMarker`, expected `number`."
+          coordinate={coordinates} // coordinate props took in coordinates variable for the coordinates
+          />
+        </MapView>
       </View>
     );
   }
