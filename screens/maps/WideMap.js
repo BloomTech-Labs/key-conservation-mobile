@@ -1,6 +1,8 @@
 import React from 'react';
 import MapView from 'react-native-maps';
 import { StyleSheet, View, Dimensions } from 'react-native';
+// import Geocode from 'react-geocode'
+import LocationIQ from 'react-native-locationiq'
 
 export default class WideMap extends React.Component {
 
@@ -30,6 +32,29 @@ export default class WideMap extends React.Component {
       }, function done(err) {
           if (err) { console.error(err); return; }
       });
+
+      //coordinates code
+      // Geocode.setApiKey("AIzaSyCZhFoFDjXjraTbfL16q6LFTZDLJ73S9aM")
+      // Geocode.setApiKey("pk.b1c961f18c509bdb2a91cb0a3c0d78ca");
+      // Geocode.setLanguage('en');
+      // Geocode.fromAddress('New York')
+      // .then(res => {
+      //   const { lat, lng } = res.results[0].geometry.location;
+      //   console.log(lat, lng)
+      // },
+      // err => {
+      //   console.log(err)
+      // }
+      // );
+
+      LocationIQ.init("pk.b1c961f18c509bdb2a91cb0a3c0d78ca");
+      LocationIQ.search("649 N Fairfield Drive")
+        .then(json => {
+            var lat = json[0].lat;
+            var lon = json[0].lon;
+            console.log("Coordinates:", lat, lon);
+        })
+        .catch(error => console.warn(error));
         }
 
 
