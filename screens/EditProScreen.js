@@ -76,7 +76,7 @@ class EditProScreen extends React.Component {
     await SecureStore.deleteItemAsync("vettingEmail", {});
     await SecureStore.deleteItemAsync("isVetting", {});
     console.log("resetting vetting variables!");
-  };
+  }; // Also deletes vetting variables in case UsernameScreen doesn't execute.
 
   isProfileComplete = profile => {
     for (let p in profile) {
@@ -119,7 +119,7 @@ class EditProScreen extends React.Component {
         })
       : null;
     await SecureStore.deleteItemAsync("stateBE", {});
-  };
+  }; // Retrieves state object from SecureStore that was created in the onboarding process. Repopulates fields in this component.
 
   render() {
     return (

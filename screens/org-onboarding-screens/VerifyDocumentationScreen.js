@@ -31,7 +31,7 @@ export default class VerifyDocumentationScreen extends Component {
         "airtableStateAdd",
         "defaultValue"
       );
-      console.log("checkAirtableDoc  activated");
+      // console.log("checkAirtableDoc activated");
       record.fields.attachments
         ? this.props.navigation.navigate("ReviewYourInfo", {
             airtableStateAdd: airtableStateAdd
@@ -39,7 +39,7 @@ export default class VerifyDocumentationScreen extends Component {
         : Alert.alert("Oops", "Image required inside form sumbission.", [
             { text: "Got it" }
           ]);
-    };
+    }; // This checks if the user uploaded an image to the form before allowing progress.
   }
 
   _handlePressButtonAsync = async () => {
@@ -55,12 +55,7 @@ export default class VerifyDocumentationScreen extends Component {
     } catch (error) {
       alert(error);
     }
-  };
-
-  // getEmail = async () => {
-  //   const email = await SecureStore.getItemAsync("email", {});
-  //   this.setState({ email: email });
-  // };
+  }; // This opens up the in-app browser for 'Table 2' submission. This is required because the Airtable API doesnt allow for non-URL image uploads.
 
   getAirtable = () => {
     console.log(this.state.email);
@@ -85,15 +80,10 @@ export default class VerifyDocumentationScreen extends Component {
           }
         }
       );
-  };
+  }; // This checks the 'Table 2' form for correct email, then checks for document upload.
 
   render() {
     const { navigation } = this.props;
-
-    // const airtableStateAdd = navigation.getParam(
-    //   "airtableStateAdd",
-    //   "defaultValue"
-    // );
 
     return (
       <View style={styles.obBody}>
@@ -130,11 +120,7 @@ export default class VerifyDocumentationScreen extends Component {
         <NavigateButton
           label="Next"
           onButtonPress={() => {
-            // this.getEmail();
             this.getAirtable();
-            // navigation.navigate("ReviewYourInfo", {
-            //   airtableStateAdd: airtableStateAdd
-            // });
           }}
         />
       </View>

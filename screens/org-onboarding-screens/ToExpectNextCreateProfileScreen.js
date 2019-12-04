@@ -1,16 +1,15 @@
-import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import React from "react";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 
-import styles from '../../constants/screens/org-onboarding-styles/ToExpectNext.js';
-import { AntDesign } from '@expo/vector-icons';
-import NavigateButton from './formElement/NavigateButton.js';
+import styles from "../../constants/screens/org-onboarding-styles/ToExpectNext.js";
+import { AntDesign } from "@expo/vector-icons";
+import NavigateButton from "./formElement/NavigateButton.js";
 
 const ToExpectNextCreateProfileScreen = props => {
-
   const airtableStateAdd = props.navigation.getParam(
-    'airtableStateAdd',
-    'defaultValue'
-  );
+    "airtableStateAdd",
+    "defaultValue"
+  ); // Catches backend state.
 
   return (
     <View style={styles.obBody}>
@@ -24,7 +23,7 @@ const ToExpectNextCreateProfileScreen = props => {
               <AntDesign name="checkcircle" size={24} color="#00ff9d" />
             </View>
             <View>
-              <View style={{ width: '90%' }}>
+              <View style={{ width: "90%" }}>
                 <Text style={styles.obSubtitle}>Overview</Text>
                 <Text style={styles.obText}>
                   You already know how we can help connect your organization
@@ -38,7 +37,7 @@ const ToExpectNextCreateProfileScreen = props => {
             <View style={styles.iconWrapper}>
               <AntDesign name="checkcircle" size={24} color="#00ff9d" />
             </View>
-            <View style={{ width: '90%' }}>
+            <View style={{ width: "90%" }}>
               <Text style={styles.obSubtitle}>Register</Text>
               <Text style={styles.obText}>
                 Let's set up your account! You'll need to fill out a form,
@@ -51,12 +50,12 @@ const ToExpectNextCreateProfileScreen = props => {
             <View style={styles.iconWrapper}>
               <AntDesign name="checkcircleo" size={24} />
             </View>
-            <View style={{ width: '90%' }}>
+            <View style={{ width: "90%" }}>
               <Text style={styles.obSubtitle}>Create Your Profile</Text>
               <Text style={styles.obTextBottom}>
                 Complete your base profile where we verify your organization.
                 Once approved, you'll receive a survey by email, followed by a
-                welcome kit.{' '}
+                welcome kit.{" "}
                 <Text style={styles.span}>
                   Now you can go visible! Start adding connections and
                   campaigns!
@@ -69,8 +68,10 @@ const ToExpectNextCreateProfileScreen = props => {
           <NavigateButton
             label="Next"
             onButtonPress={() => {
-              props.navigation.navigate('OrganizationSurvey', { airtableStateAdd: airtableStateAdd });
-            }}
+              props.navigation.navigate("OrganizationSurvey", {
+                airtableStateAdd: airtableStateAdd
+              });
+            }} // Passes backend state.
           />
         </View>
       </ScrollView>

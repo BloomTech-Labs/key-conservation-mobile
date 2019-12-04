@@ -45,7 +45,7 @@ class UsernameScreen extends React.Component {
         });
       }
     );
-  };
+  }; // This sets the cuurent user's 'Table 1' form, field 'isVetting', to false. This will allow a new organization to sign up through the same device.
 
   handlePress = async () => {
     const { error } = this.props;
@@ -53,14 +53,11 @@ class UsernameScreen extends React.Component {
     const email = await SecureStore.getItemAsync("email", {});
     const role = await SecureStore.getItemAsync("roles", {});
     const id = await SecureStore.getItemAsync("airtableID", {});
-    console.log("id: " + id);
     const username = this.state.usernameInput;
-
-    // <-- bug?
 
     if (username.length > 4) {
       this.setState({ id: id });
-      this.updateAirtable(); // <-- bug?
+      id ? this.updateAirtable() : null; // Checks if organization with an airtable ID, if not then has to be a supporter.
       this.setState({
         error: null
       });
@@ -78,7 +75,7 @@ class UsernameScreen extends React.Component {
       await SecureStore.deleteItemAsync("airtableID", {});
       await SecureStore.deleteItemAsync("vettingEmail", {});
       await SecureStore.deleteItemAsync("isVetting", {});
-      console.log("this should be void: " + id);
+      // Deletes vetting variables, checked by 'LoadingScreen', to allow additional organizations to sign up.
     } else {
       this.setState({
         error: "Username is required to be at least 5 characters"

@@ -32,19 +32,24 @@ const VerifyOrganizationScreen = props => {
   const airtableState2 = props.navigation.getParam(
     "airtableState",
     "defaultValue"
-  );
+  ); // this grabs the airtable form ID and data from previous component.
 
   setAirtableID = async () => {
     await SecureStore.setItemAsync("airtableID", airtableID);
     console.log(await SecureStore.getItemAsync("airtableID", {}));
-  };
+  }; // This saves the current airtable form's ID in SecureStore.
+
+  useEffect(() => {
+    setAirtableID();
+  });
 
   const airtableStateAdd = Object.assign({
     ...airtableState2,
     ...airtableState
-  });
+  }); // This merges the previous and current fields together for backend.
 
   const updateAirtable = () => {
+    // this updates the airtable form created in the previous component
     base("Table 1").update(
       [
         {
@@ -70,10 +75,6 @@ const VerifyOrganizationScreen = props => {
       }
     );
   };
-
-  useEffect(() => {
-    setAirtableID();
-  });
 
   return (
     <KeyboardAvoidingView
@@ -192,10 +193,9 @@ const VerifyOrganizationScreen = props => {
                 );
               } else {
                 updateAirtable();
-                console.log("else state", airtableStateAdd);
                 props.navigation.navigate("VerifyDocumentation", {
                   airtableStateAdd: airtableStateAdd
-                });
+                }); // This passes the combined fields sent to airtable needed for backend to the next component.
               }
             }}
           >

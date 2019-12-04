@@ -15,24 +15,6 @@ import { MaterialIcons, Entypo, Octicons } from "@expo/vector-icons";
 import { TextInput } from "react-native-gesture-handler";
 import * as SecureStore from "expo-secure-store";
 
-// const airtableStateAdd = {
-//   other_countries: 'Algeria, Belgium, USA',
-//   multiple_projects: 'Save the animal,Clean the beach,Project 3',
-//   affiliations_partnerships:
-//     'Oregon State University,World Wildlife,Fund GreenPeace',
-//   conservation_optimism: true,
-//   smartphone_access: true,
-//   smartphone_type: '',
-//   org_name: 'Key Conservation',
-//   website: 'keyconservation.org',
-//   address: '1234 5th Street Eugene, OR 98765',
-//   country: 'USA',
-//   phone: '001 458 123 4567',
-//   point_of_contact: 'Alice Kellan',
-//   poc_poition: 'Director of Operations',
-//   email: 'akellan@conservation.org'
-// };
-
 const ReviewYourInfoScreen = props => {
   const [isEditingAccount, setIsEditingAccount] = useState(false);
   const [isEditingContact, setIsEditingContact] = useState(false);
@@ -62,7 +44,7 @@ const ReviewYourInfoScreen = props => {
   useEffect(() => {
     setState(props.navigation.getParam("airtableStateAdd", "defaultValue"));
     getAirtableID();
-  }, []);
+  }, []); // Grabs state for backend through nav params again.
 
   var Airtable = require("airtable");
   var base = new Airtable({ apiKey: "keybUdphipr0RgMaa" }).base(
@@ -107,7 +89,7 @@ const ReviewYourInfoScreen = props => {
         });
       }
     );
-  };
+  }; // Updates corresponding airtable form if any fields are changed.
 
   return (
     <KeyboardAvoidingView
@@ -184,8 +166,7 @@ const ReviewYourInfoScreen = props => {
                   }
                 />
               </View>
-
-            </View> 
+            </View>
           )}
           {!isEditingContact ? (
             <View style={styles.borderContainer}>
@@ -482,7 +463,7 @@ const ReviewYourInfoScreen = props => {
                 updateAirtable();
                 props.navigation.navigate("ToExpectNextCreateProfile", {
                   airtableStateAdd: state
-                });
+                }); // Passes updated state down for backend.
                 console.log(state);
               }
             }}

@@ -30,7 +30,6 @@ class LoadingScreen extends React.Component {
     super(props);
     this.state = {
       email: ""
-      // isVetting: false
     };
   }
 
@@ -57,7 +56,7 @@ class LoadingScreen extends React.Component {
   };
 
   getAirtable = () => {
-    // Checks airtable form if in vetting process.
+    // Checks airtable form if conservationist is in vetting process.
     console.log("getAirtable activated");
     base("Table 1")
       .select({
@@ -69,7 +68,7 @@ class LoadingScreen extends React.Component {
         function page(records, fetchNextPage) {
           records.forEach(function(record) {
             console.log("Retrieved", record.fields);
-            this.checkAirtable(record); // calls method inside componentDidMount.
+            this.checkAirtable(record); // calls method inside componentDidMount and passes in record.
           });
         },
         function done(err) {
@@ -89,11 +88,10 @@ class LoadingScreen extends React.Component {
     const email2 = await SecureStore.getItemAsync("vettingEmail", {});
 
     this.setState({ email: email });
-    this.getAirtable(); // Checks if user is in vetting process.
+    this.getAirtable();
 
     checkAirtable = (record, props) => {
-      console.log("checkAirtable3 activated");
-      console.log("record: " + record.isVetting);
+      // console.log("record: " + record.isVetting);
       if (record.fields.isVetting === true) {
         this.props.navigation.navigate("Vetting");
       } else {
@@ -113,13 +111,7 @@ class LoadingScreen extends React.Component {
         [{ text: "Got it" }]
       );
       await this.logoutPress();
-    }
-    // } else if (
-    //     isVetting === null &&
-    //     roles === "conservationist" &&
-    //     email2 === null
-    //   ) {
-    //   }
+    } // This checks if another conservationist is already in vetting process.
 
     // This checks to see if the sub id is a user on the DB
     if (!sub) {
@@ -138,7 +130,6 @@ class LoadingScreen extends React.Component {
           if (this.props.firstLogin) {
             this.props.afterFirstLogin();
             if (roles === "conservationist") {
-              // getAirtable() === null ? // Checks vetting status.
               this.props.navigation.navigate("EditPro");
             } else {
               this.props.navigation.navigate("EditSupPro");

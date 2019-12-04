@@ -40,12 +40,13 @@ const OrganizationSurveyScreen = props => {
     today.getMonth() + 1 + "-" + today.getDate() + "-" + today.getFullYear();
 
   handleSubmit = async () => {
-    airtableStateAdd2 = Object.assign({ ...airtableStateAdd, ...values });
+    airtableStateAdd2 = Object.assign({ ...airtableStateAdd, ...values }); // Updates state for backend with new fields.
     // console.log(airtableStateAdd2)
     stringBE = JSON.stringify(airtableStateAdd2);
-    await SecureStore.setItemAsync("stateBE", stringBE);
+    await SecureStore.setItemAsync("stateBE", stringBE); // Finally stores data object in SecureStore to be opened in 'EditPro' after user is vetted.
     await SecureStore.setItemAsync("vetting", "true");
-    props.navigation.navigate("Vetting"); // ('CreateAccount') goes to UsernameScreen
+    // Sets variables to be checked in 'LoadingScreen' to determine whether current user is in vetting process.
+    props.navigation.navigate("Vetting");
   };
 
   return (
