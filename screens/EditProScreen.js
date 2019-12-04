@@ -20,7 +20,6 @@ import { AmpEvent } from "../components/withAmplitude";
 import styles from "../constants/screens/EditProScreen";
 
 class EditProScreen extends React.Component {
-
   static navigationOptions = ({ navigation }) => {
     return {
       title: "Edit Profile",
@@ -42,8 +41,6 @@ class EditProScreen extends React.Component {
       )
     };
   };
-
-  
 
   state = {
     org_name: this.props.currentUserProfile.org_name,
@@ -71,7 +68,15 @@ class EditProScreen extends React.Component {
       return AmpEvent("Profile Completed");
     }
     this.getBackend();
+    this.resetVettingVars();
   }
+
+  resetVettingVars = async () => {
+    await SecureStore.deleteItemAsync("airtableID", {});
+    await SecureStore.deleteItemAsync("vettingEmail", {});
+    await SecureStore.deleteItemAsync("isVetting", {});
+    console.log("resetting vetting variables!");
+  };
 
   isProfileComplete = profile => {
     for (let p in profile) {
@@ -97,22 +102,23 @@ class EditProScreen extends React.Component {
   };
 
   getBackend = async () => {
-    const state = await SecureStore.getItemAsync('stateBE', {});
+    const state = await SecureStore.getItemAsync("stateBE", {});
     const parseBE = JSON.parse(state);
-    parseBE?
-    this.setState({ 
-      org_name: parseBE.org_name,
-      phone_number: parseBE.phone,
-      mini_bio: parseBE.mission,
-      species_and_habitats: parseBE.species,
-      issues: parseBE.issues,
-      facebook: parseBE.facebook,
-      instagram: parseBE.instagram,
-      twitter: parseBE.twitter,
-      org_link_url: parseBE.website,
-      location: parseBE.address
-     }) : null;
-     await SecureStore.deleteItemAsync('stateBE', {});
+    parseBE
+      ? this.setState({
+          org_name: parseBE.org_name,
+          phone_number: parseBE.phone,
+          mini_bio: parseBE.mission,
+          species_and_habitats: parseBE.species,
+          issues: parseBE.issues,
+          facebook: parseBE.facebook,
+          instagram: parseBE.instagram,
+          twitter: parseBE.twitter,
+          org_link_url: parseBE.website,
+          location: parseBE.address
+        })
+      : null;
+    await SecureStore.deleteItemAsync("stateBE", {});
   };
 
   render() {

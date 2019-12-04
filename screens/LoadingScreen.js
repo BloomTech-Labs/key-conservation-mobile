@@ -114,6 +114,13 @@ class LoadingScreen extends React.Component {
       );
       await this.logoutPress();
     }
+    // } else if (
+    //     isVetting === null &&
+    //     roles === "conservationist" &&
+    //     email2 === null
+    //   ) {
+    //   }
+
     // This checks to see if the sub id is a user on the DB
     if (!sub) {
       this.props.navigation.navigate("Login");
