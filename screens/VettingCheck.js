@@ -37,13 +37,12 @@ function VettingCheck(props) {
     const id = await SecureStore.getItemAsync("airtableID", {});
     const email = await SecureStore.getItemAsync("email", {});
     setId({ id: id });
-    setEmail({ email: email });
+    setEmail({ email: email }); // This sets the current Airtable ID for the updateAirtable() and user email for checkAirtable();
 
     updateAirtable();
     await SecureStore.setItemAsync("isVetting", "true");
     await SecureStore.setItemAsync("vettingEmail", email);
-    // await SecureStore.deleteItemAsync("vettingEmail", {});
-    // await SecureStore.deleteItemAsync("isVetting", {});
+    // This sets vetting variables to be checked by 'LoadingScreen'.
   };
 
   const checkAirtable = record => {
@@ -55,11 +54,10 @@ function VettingCheck(props) {
       console.log("not vetted yet!");
       Alert.alert("Oops", "You're not vetted yet", [{ text: "Got it" }]);
     }
-  };
+  }; // This Checks airtable 'Table 2' for 'accepted' field before allowig organization to access app.
 
   getAirtable = () => {
-    // updateAirtable();
-    console.log("getAirtable activated");
+    // console.log("getAirtable activated");
     base("Table 2")
       .select({
         maxRecords: 20,
@@ -80,7 +78,7 @@ function VettingCheck(props) {
           }
         }
       );
-  };
+  }; // Checks 'Table 2' for 'accepted' field.
 
   updateAirtable = async () => {
     await base("Table 1").update(
@@ -102,7 +100,7 @@ function VettingCheck(props) {
         });
       }
     );
-  };
+  }; // Updates 'isVetting' field in 'Table 1' based on airtable ID.
 
   logoutPress = async () => {
     await SecureStore.deleteItemAsync("sub", {});
@@ -133,22 +131,7 @@ function VettingCheck(props) {
         You will get an email once your organization has been approved.
       </Text>
 
-      <View style={{ height: 20, margin: 25 }}>
-        {/* {state.error ? (
-            <Text style={{ textAlign: 'center', color: 'red' }}>
-              {state.error}
-            </Text>
-          ) : props.error.config &&
-            props.error.config.method === 'get' ? (
-            <Text style={{ textAlign: 'center', color: 'green' }}>
-              Please choose a username and enter it above
-            </Text>
-          ) : props.error.message ? (
-            <Text style={{ textAlign: 'center', color: 'red' }}>
-              Failed to create user. Please try another username
-            </Text>
-          ) : null} */}
-      </View>
+      <View style={{ height: 20, margin: 25 }}></View>
       <TouchableOpacity onPress={getAirtable} style={styles.touchableButton}>
         <View style={styles.touchableView}>
           <Text style={styles.touchableText}>Check Vetting Status</Text>

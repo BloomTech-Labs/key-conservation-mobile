@@ -67,6 +67,7 @@ Additionally, supporters of conservation organizations want more transparency as
 ### Key Features
 
 - Authentication with Auth0
+- Airtable API integration for organization onboarding.
 - Conservation profiles to create campaigns
 - Create/Update/Delete campaigns
 - Supporter profiles to donate to campaigns
@@ -123,6 +124,10 @@ Auth0 provides authentication and authorization as a service and includes a whol
 Amplitude provides analytics for our app in a way that is easiest to work with Expo without having to eject.
 
 We have setup a HOC to wrap desired components to have analytics. The component is called withAmplitude.js. There are functions in there as well that can be imported for easier and quicker use.
+
+## Airtable API
+
+Airtable allows for stakeholder to review and grant access to new organizations signing up for the app.
 
 ## Staging API here
 
