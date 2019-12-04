@@ -92,7 +92,7 @@ class LoadingScreen extends React.Component {
     this.getAirtable(); // Checks if user is in vetting process.
 
     checkAirtable = (record, props) => {
-      console.log("checkAirtable activated");
+      console.log("checkAirtable3 activated");
       console.log("record: " + record.isVetting);
       if (record.fields.isVetting === true) {
         this.props.navigation.navigate("Vetting");

@@ -1,24 +1,55 @@
-import React, { Component } from 'react';
-import { Button, Text, View, TouchableOpacity } from 'react-native';
-import styles from '../../constants/screens/org-onboarding-styles/VerifyDocs.js';
+import React, { Component } from "react";
+import { Button, Text, View, TouchableOpacity, Alert } from "react-native";
+import styles from "../../constants/screens/org-onboarding-styles/VerifyDocs.js";
 
-import { Ionicons, Feather } from '@expo/vector-icons';
-import * as WebBrowser from 'expo-web-browser';
-import NavigateButton from './formElement/NavigateButton.js';
+import { Ionicons, Feather } from "@expo/vector-icons";
+import * as WebBrowser from "expo-web-browser";
+import * as SecureStore from "expo-secure-store";
+
+import NavigateButton from "./formElement/NavigateButton.js";
+
+var Airtable = require("airtable");
+var base = new Airtable({ apiKey: "keybUdphipr0RgMaa" }).base(
+  "appbPeeXUSNCQWwnQ"
+);
 
 export default class VerifyDocumentationScreen extends Component {
-  state = {
-    result: null
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      result: null
+    };
+  }
+
+  async componentDidMount() {
+    const email = await SecureStore.getItemAsync("email", {});
+    await this.setState({ email: email });
+
+    checkAirtableDoc = record => {
+      const airtableStateAdd = this.props.navigation.getParam(
+        "airtableStateAdd",
+        "defaultValue"
+      );
+      console.log("checkAirtableDoc  activated");
+      record.fields.attachments
+        ? this.props.navigation.navigate("ReviewYourInfo", {
+            airtableStateAdd: airtableStateAdd
+          })
+        : Alert.alert("Oops", "Image required inside form sumbission.", [
+            { text: "Got it" }
+          ]);
+    };
+  }
 
   _handlePressButtonAsync = async () => {
     try {
       let result = await WebBrowser.openAuthSessionAsync(
-        'https://airtable.com/shrkK93NtoOkfnMP8'
+        "https://airtable.com/shrkK93NtoOkfnMP8"
       );
       let redirectData;
       if (result.url) {
-        redirectData = 'https://airtable.com/shrkK93NtoOkfnMP8';
+        redirectData = "https://airtable.com/shrkK93NtoOkfnMP8";
       }
       this.setState({ result, redirectData });
     } catch (error) {
@@ -26,10 +57,43 @@ export default class VerifyDocumentationScreen extends Component {
     }
   };
 
+  // getEmail = async () => {
+  //   const email = await SecureStore.getItemAsync("email", {});
+  //   this.setState({ email: email });
+  // };
+
+  getAirtable = () => {
+    console.log(this.state.email);
+    console.log("getAirtable activated");
+    base("Table 2")
+      .select({
+        maxRecords: 20,
+        view: "Grid view",
+        filterByFormula: `{email} = \'${this.state.email}\'`
+      })
+      .eachPage(
+        function page(records, fetchNextPage) {
+          records.forEach(function(record) {
+            console.log("Retrieved", record.fields);
+            this.checkAirtableDoc(record);
+          });
+        },
+        function done(err) {
+          if (err) {
+            console.error(err);
+            return;
+          }
+        }
+      );
+  };
+
   render() {
     const { navigation } = this.props;
 
-    const airtableStateAdd = navigation.getParam('airtableStateAdd', 'defaultValue');
+    // const airtableStateAdd = navigation.getParam(
+    //   "airtableStateAdd",
+    //   "defaultValue"
+    // );
 
     return (
       <View style={styles.obBody}>
@@ -66,9 +130,11 @@ export default class VerifyDocumentationScreen extends Component {
         <NavigateButton
           label="Next"
           onButtonPress={() => {
-            navigation.navigate('ReviewYourInfo', {
-              airtableStateAdd: airtableStateAdd
-            });
+            // this.getEmail();
+            this.getAirtable();
+            // navigation.navigate("ReviewYourInfo", {
+            //   airtableStateAdd: airtableStateAdd
+            // });
           }}
         />
       </View>
