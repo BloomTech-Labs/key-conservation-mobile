@@ -8,11 +8,6 @@ import * as SecureStore from "expo-secure-store";
 
 import NavigateButton from "./formElement/NavigateButton.js";
 
-var Airtable = require("airtable");
-var base = new Airtable({ apiKey: "keybUdphipr0RgMaa" }).base(
-  "appbPeeXUSNCQWwnQ"
-);
-
 export default class VerifyDocumentationScreen extends Component {
   constructor(props) {
     super(props);
@@ -26,7 +21,7 @@ export default class VerifyDocumentationScreen extends Component {
     const email = await SecureStore.getItemAsync("email", {});
     await this.setState({ email: email });
 
-    checkAirtableDoc = record => {
+    checkAirtableDoc = (record, key) => {
       const airtableStateAdd = this.props.navigation.getParam(
         "airtableStateAdd",
         "defaultValue"
@@ -34,7 +29,8 @@ export default class VerifyDocumentationScreen extends Component {
       // console.log("checkAirtableDoc activated");
       record.fields.attachments
         ? this.props.navigation.navigate("ReviewYourInfo", {
-            airtableStateAdd: airtableStateAdd
+            airtableStateAdd: airtableStateAdd,
+            airtableKey: key
           })
         : Alert.alert("Oops", "Image required inside form sumbission.", [
             { text: "Got it" }
@@ -58,6 +54,10 @@ export default class VerifyDocumentationScreen extends Component {
   }; // This opens up the in-app browser for 'Table 2' submission. This is required because the Airtable API doesnt allow for non-URL image uploads.
 
   getAirtable = () => {
+    const key = this.props.navigation.getParam("airtableKey", "defaultValue");
+    // console.log("key inside VerifyDoc: " + key);
+    var Airtable = require("airtable");
+    var base = new Airtable({ apiKey: key }).base("appbPeeXUSNCQWwnQ");
     console.log(this.state.email);
     console.log("getAirtable activated");
     base("Table 2")
@@ -70,7 +70,7 @@ export default class VerifyDocumentationScreen extends Component {
         function page(records, fetchNextPage) {
           records.forEach(function(record) {
             console.log("Retrieved", record.fields);
-            this.checkAirtableDoc(record);
+            this.checkAirtableDoc(record, key);
           });
         },
         function done(err) {

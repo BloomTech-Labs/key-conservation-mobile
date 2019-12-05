@@ -23,11 +23,7 @@ const VerifyOrganizationScreen = props => {
     smartphone_type: ""
   });
 
-  var Airtable = require("airtable");
-  var base = new Airtable({ apiKey: "keybUdphipr0RgMaa" }).base(
-    "appbPeeXUSNCQWwnQ"
-  );
-
+  const airtableKey = props.navigation.getParam("airtableKey", "defaultValue");
   const airtableID = props.navigation.getParam("airtableID", "defaultValue");
   const airtableState2 = props.navigation.getParam(
     "airtableState",
@@ -50,6 +46,9 @@ const VerifyOrganizationScreen = props => {
 
   const updateAirtable = () => {
     // this updates the airtable form created in the previous component
+
+    var Airtable = require("airtable");
+    var base = new Airtable({ apiKey: airtableKey }).base("appbPeeXUSNCQWwnQ");
     base("Table 1").update(
       [
         {
@@ -194,7 +193,8 @@ const VerifyOrganizationScreen = props => {
               } else {
                 updateAirtable();
                 props.navigation.navigate("VerifyDocumentation", {
-                  airtableStateAdd: airtableStateAdd
+                  airtableStateAdd: airtableStateAdd,
+                  airtableKey: airtableKey
                 }); // This passes the combined fields sent to airtable needed for backend to the next component.
               }
             }}

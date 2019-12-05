@@ -13,6 +13,9 @@ import styles from "../../constants/screens/org-onboarding-styles/TellAboutOrg.j
 import * as SecureStore from "expo-secure-store";
 
 const TellAboutOrganizationScreen = props => {
+  const [airtableKey, setAirtableKey] = useState({
+    key: ""
+  });
   const [airtableState, onChangeText] = useState({
     org_name: "",
     website: "",
@@ -26,25 +29,25 @@ const TellAboutOrganizationScreen = props => {
 
   getEmail = async () => {
     const email2 = await SecureStore.getItemAsync("email", {});
+    const key = await SecureStore.getItemAsync("airtableKey", {});
     onChangeText({ email: email2 });
+    setAirtableKey({ key: key });
   }; // This assigns the current account's email to the new airtable form.
 
   useEffect(() => {
     getEmail();
   }, []);
 
-  var Airtable = require("airtable");
-  Airtable.configure({
-    endpointUrl: "https://api.airtable.com",
-    apiKey: "keybUdphipr0RgMaa" // store in enviornment variables before production.
-  });
-
-  var base = new Airtable({ apiKey: "keybUdphipr0RgMaa" }).base(
-    "appbPeeXUSNCQWwnQ"
-  ); // These are the Airtable variables ^^^
+  // var Airtable = require("airtable");
+  // var base = new Airtable({ apiKey: airtableKey }).base("appbPeeXUSNCQWwnQ"); // These are the Airtable variables ^^^
 
   const sendAirtable = () => {
     // this creates a new Airtable form.
+    console.log("key: " + airtableKey.key);
+    var Airtable = require("airtable");
+    var base = new Airtable({ apiKey: airtableKey.key }).base(
+      "appbPeeXUSNCQWwnQ"
+    ); // These are the Airtable variables ^^^
     base("Table 1").create(
       [
         {
@@ -69,7 +72,8 @@ const TellAboutOrganizationScreen = props => {
           let airtableID = record.getId();
           props.navigation.navigate("VerifyOrganization", {
             airtableID: airtableID,
-            airtableState: airtableState
+            airtableState: airtableState,
+            airtableKey: airtableKey.key
           }); // This passes the returned form ID and the needed fields for backend and airtable update() to the next component.
         });
       }
