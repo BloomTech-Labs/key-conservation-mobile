@@ -64,7 +64,7 @@ class AccountSettingsScreen extends React.Component {
     await SecureStorage.deleteItemAsync("id", {});
     await SecureStorage.deleteItemAsync("userId", {});
     await SecureStorage.deleteItemAsync("accessToken", {});
-    await SecureStorage.deleteItemAsync("airtableKey", {}); // for development
+    // await SecureStorage.deleteItemAsync("airtableKey", {}); // for development
     this.props.logout();
 
     const logoutURL = "https://key-conservation.auth0.com/v2/logout?federated";
