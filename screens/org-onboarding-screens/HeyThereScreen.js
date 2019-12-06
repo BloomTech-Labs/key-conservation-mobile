@@ -60,9 +60,9 @@ const HeyThereScreen = props => {
           onPress={this.logoutPress}
           style={styles.touchableButton}
         >
-          {/* <View style={styles.touchableView}>
-          <Text style={styles.touchableText}>Logout</Text>
-        </View> */}
+          <View style={styles.touchableView}>
+            <Text style={styles.touchableText}>Logout</Text>
+          </View>
         </TouchableOpacity>
       </View>
     </View>

@@ -27,17 +27,20 @@ function VettingCheck(props) {
   const [id, setId] = useState({
     id: ""
   });
+  const [key, setKey] = useState({
+    key: ""
+  });
 
-  var Airtable = require("airtable");
-  var base = new Airtable({ apiKey: "keybUdphipr0RgMaa" }).base(
-    "appbPeeXUSNCQWwnQ"
-  );
+  // const key = props.navigation.getParam("airtableKey", "defaultValue");
+  // console.log(key);
 
   getAirtableId = async () => {
     const id = await SecureStore.getItemAsync("airtableID", {});
     const email = await SecureStore.getItemAsync("email", {});
+    const key = await SecureStore.getItemAsync("airtableKey", {});
     setId({ id: id });
     setEmail({ email: email }); // This sets the current Airtable ID for the updateAirtable() and user email for checkAirtable();
+    setKey({ key: key });
 
     updateAirtable();
     await SecureStore.setItemAsync("isVetting", "true");
@@ -57,7 +60,8 @@ function VettingCheck(props) {
   }; // This Checks airtable 'Table 2' for 'accepted' field before allowig organization to access app.
 
   getAirtable = () => {
-    // console.log("getAirtable activated");
+    var Airtable = require("airtable");
+    var base = new Airtable({ apiKey: key.key }).base("appbPeeXUSNCQWwnQ");
     base("Table 2")
       .select({
         maxRecords: 20,
@@ -68,7 +72,7 @@ function VettingCheck(props) {
         function page(records, fetchNextPage) {
           records.forEach(function(record) {
             // console.log('Retrieved', record.fields);
-            checkAirtable(record);
+            checkAirtable(record, key);
           });
         },
         function done(err) {
@@ -81,6 +85,8 @@ function VettingCheck(props) {
   }; // Checks 'Table 2' for 'accepted' field.
 
   updateAirtable = async () => {
+    var Airtable = require("airtable");
+    var base = new Airtable({ apiKey: key.key }).base("appbPeeXUSNCQWwnQ");
     await base("Table 1").update(
       [
         {

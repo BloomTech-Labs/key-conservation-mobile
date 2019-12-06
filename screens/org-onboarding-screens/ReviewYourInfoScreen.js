@@ -46,17 +46,16 @@ const ReviewYourInfoScreen = props => {
     getAirtableID();
   }, []); // Grabs state for backend through nav params again.
 
-  var Airtable = require("airtable");
-  var base = new Airtable({ apiKey: "keybUdphipr0RgMaa" }).base(
-    "appbPeeXUSNCQWwnQ"
-  );
-
   const getAirtableID = async () => {
     const id = await SecureStore.getItemAsync("airtableID", {});
     setAirtableId(id);
   };
 
+  const key = props.navigation.getParam("airtableKey", "defaultValue");
+
   const updateAirtable = () => {
+    var Airtable = require("airtable");
+    var base = new Airtable({ apiKey: key }).base("appbPeeXUSNCQWwnQ");
     base("Table 1").update(
       [
         {
@@ -461,8 +460,13 @@ const ReviewYourInfoScreen = props => {
                 ]);
               } else {
                 updateAirtable();
+                // const key = props.navigation.getParam(
+                //   "airtableKey",
+                //   "defaultValue"
+                // );
                 props.navigation.navigate("ToExpectNextCreateProfile", {
-                  airtableStateAdd: state
+                  airtableStateAdd: state,
+                  airtableKey: key
                 }); // Passes updated state down for backend.
                 console.log(state);
               }

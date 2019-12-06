@@ -10,6 +10,7 @@ const ToExpectNextCreateProfileScreen = props => {
     "airtableStateAdd",
     "defaultValue"
   ); // Catches backend state.
+  const key = props.navigation.getParam("airtableKey", "defaultValue");
 
   return (
     <View style={styles.obBody}>
@@ -69,7 +70,8 @@ const ToExpectNextCreateProfileScreen = props => {
             label="Next"
             onButtonPress={() => {
               props.navigation.navigate("OrganizationSurvey", {
-                airtableStateAdd: airtableStateAdd
+                airtableStateAdd: airtableStateAdd,
+                airtableKey: key
               });
             }} // Passes backend state.
           />

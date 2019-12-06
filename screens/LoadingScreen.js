@@ -20,11 +20,6 @@ import * as WebBrowser from "expo-web-browser";
 import { AmpEvent, AmpInit } from "../components/withAmplitude";
 import styles from "../constants/screens/LoadingScreen";
 
-var Airtable = require("airtable");
-var base = new Airtable({ apiKey: "keybUdphipr0RgMaa" }).base(
-  "appbPeeXUSNCQWwnQ"
-); // variables for Airtable API.
-
 class LoadingScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -55,29 +50,37 @@ class LoadingScreen extends React.Component {
     this.props.navigation.navigate("Logout");
   };
 
-  getAirtable = () => {
-    // Checks airtable form if conservationist is in vetting process.
-    console.log("getAirtable activated");
-    base("Table 1")
-      .select({
-        maxRecords: 20,
-        view: "Grid view",
-        filterByFormula: `{email} = \'${this.state.email}\'`
-      })
-      .eachPage(
-        function page(records, fetchNextPage) {
-          records.forEach(function(record) {
-            console.log("Retrieved", record.fields);
-            this.checkAirtable(record); // calls method inside componentDidMount and passes in record.
-          });
-        },
-        function done(err) {
-          if (err) {
-            console.error(err);
-            return;
+  getAirtable = key => {
+    if (!key) {
+      console.log("NO KEY!");
+      return null;
+    } else {
+      var Airtable = require("airtable");
+      var base = new Airtable({ apiKey: key }).base("appbPeeXUSNCQWwnQ"); // variables for Airtable API.
+
+      // Checks airtable form if conservationist is in vetting process.
+      console.log("getAirtable activated");
+      base("Table 1")
+        .select({
+          maxRecords: 20,
+          view: "Grid view",
+          filterByFormula: `{email} = \'${this.state.email}\'`
+        })
+        .eachPage(
+          function page(records, fetchNextPage) {
+            records.forEach(function(record) {
+              // console.log("Retrieved", record.fields);
+              this.checkAirtable(record); // calls method inside componentDidMount and passes in record.
+            });
+          },
+          function done(err) {
+            if (err) {
+              console.error(err);
+              return;
+            }
           }
-        }
-      );
+        );
+    }
   };
 
   async componentDidMount() {
@@ -86,9 +89,11 @@ class LoadingScreen extends React.Component {
     const email = await SecureStore.getItemAsync("email", {});
     const isVetting = await SecureStore.getItemAsync("isVetting", {});
     const email2 = await SecureStore.getItemAsync("vettingEmail", {});
+    const key = await SecureStore.getItemAsync("airtableKey", {});
 
     this.setState({ email: email });
-    this.getAirtable();
+
+    roles === "conservationist" ? this.getAirtable(key) : null;
 
     checkAirtable = (record, props) => {
       // console.log("record: " + record.isVetting);

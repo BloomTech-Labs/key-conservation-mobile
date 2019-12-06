@@ -32,6 +32,7 @@ const OrganizationSurveyScreen = props => {
     "airtableStateAdd",
     "defaultValue"
   );
+  const key = props.navigation.getParam("airtableKey", "defaultValue");
 
   1;
   var today = new Date();
@@ -46,7 +47,7 @@ const OrganizationSurveyScreen = props => {
     await SecureStore.setItemAsync("stateBE", stringBE); // Finally stores data object in SecureStore to be opened in 'EditPro' after user is vetted.
     await SecureStore.setItemAsync("vetting", "true");
     // Sets variables to be checked in 'LoadingScreen' to determine whether current user is in vetting process.
-    props.navigation.navigate("Vetting");
+    props.navigation.navigate("Vetting", {});
   };
 
   return (

@@ -20,6 +20,7 @@ import {
 } from "../store/actions";
 
 import * as SecureStore from "expo-secure-store";
+import Axios from "axios";
 /*
  Converts an object to a query string to be used by the request to auth0 via the dashboard application
 */
@@ -140,7 +141,36 @@ export default LoginScreen = props => {
         await SecureStore.setItemAsync("id", currentUser.id);
         console.log(currentUser.id);
       }
+      getEnvVar();
       navigation.navigate("Loading");
+    }
+  };
+
+  getEnvVar = async () => {
+    const key = await SecureStore.getItemAsync("airtableKey", {});
+    if (key) {
+      console.log("key already exists!");
+      return null;
+    } else {
+      console.log("getEnVar activated");
+      const token = await SecureStore.getItemAsync("accessToken", {});
+      Axios.get("https://key-conservation.herokuapp.com/api/airtable", {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      })
+        .then(async function(response) {
+          // console.log("AIRTABLE KEY: " + response.data.airtable_key);
+          await SecureStore.setItemAsync(
+            "airtableKey",
+            response.data.airtable_key
+          );
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
   };
 
@@ -150,8 +180,10 @@ export default LoginScreen = props => {
       style={styles.container}
     >
       <View style={styles.titleContainer}>
-        <Text style={styles.selectTitle}>Enable <Text style={styles.highlight}> real-time </Text> conservation {"\n"}support.</Text>
-        
+        <Text style={styles.selectTitle}>
+          Enable <Text style={styles.highlight}> real-time </Text> conservation{" "}
+          {"\n"}support.
+        </Text>
       </View>
       <View style={styles.logoContainer}>
         <Image
@@ -190,7 +222,7 @@ export default LoginScreen = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: '2%',
+    paddingTop: "2%",
     alignItems: "center",
     justifyContent: "center"
   },
@@ -211,49 +243,49 @@ const styles = StyleSheet.create({
   },
   selectText: {
     fontSize: 27,
-    flexWrap: 'wrap',
+    flexWrap: "wrap",
     fontFamily: "OpenSans-SemiBold",
     color: "white",
-    marginBottom: '5%'
+    marginBottom: "5%"
   },
   alreadyText: {
     fontSize: 16,
     fontFamily: "OpenSans-SemiBold",
     color: "white",
-    marginBottom: '5%'
+    marginBottom: "5%"
   },
   link: {
-    color: '#00FF9D',
-    textDecorationLine: 'underline',
+    color: "#00FF9D",
+    textDecorationLine: "underline",
     fontSize: 16,
     fontFamily: "OpenSans-SemiBold",
-    marginBottom: '5%'
+    marginBottom: "5%"
   },
   titleContainer: {
-    flexDirection: 'row',
-    marginLeft: '5%'
+    flexDirection: "row",
+    marginLeft: "5%"
   },
   textContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     alignItems: "center"
   },
   selectTitle: {
     flexShrink: 1,
-    flexWrap: 'wrap',
+    flexWrap: "wrap",
     fontSize: 36,
     fontFamily: "OpenSans-SemiBold",
     color: "white",
-    marginTop: '9%'
+    marginTop: "9%"
   },
   highlight: {
     backgroundColor: "#00ff9d"
-},
+  },
   buttons: {
     flex: 1,
     alignItems: "center",
     width: "90%",
-    marginTop: '15%'
+    marginTop: "15%"
   },
   buttonContainer: {
     width: "70%",
@@ -291,6 +323,6 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   spacer: {
-    height: '3%'
-  } 
+    height: "3%"
+  }
 });
