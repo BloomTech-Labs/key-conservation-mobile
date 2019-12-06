@@ -384,8 +384,8 @@ const FeedCampaign = props => {
           )}
         </TouchableOpacity>
       </View>
-      <View style={styles.iconRow}>
-        {/* <View style={styles.likesContainer}>
+      {/* <View style={styles.iconRow}>
+        <View style={styles.likesContainer}>
           <View style={styles.hearts}>
             <View style={!userLiked ? { zIndex: 1 } : { zIndex: -1 }}>
               <FontAwesome
@@ -417,7 +417,7 @@ const FeedCampaign = props => {
           ) : (
             <Text style={styles.likes}>{likes} like</Text>
           )}
-        </View> */}
+        </View>
 
 
         <View style={styles.bookmarks}>
@@ -443,7 +443,7 @@ const FeedCampaign = props => {
             />
           </View>
         </View>
-      </View>
+      </View> */}
       <View style={styles.campDesc}>
         <Text style={styles.campDescName}>{data.camp_name}</Text>
         {toggled || data.camp_desc.length < 80 ? (

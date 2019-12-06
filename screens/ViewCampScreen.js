@@ -139,8 +139,8 @@ class ViewCampScreen extends React.Component {
                       style={styles.campImgContain}
                     />
                   )}
-                  <View style={styles.iconRow}>
-                    {/* <View style={styles.likesContainer}>
+                  {/* <View style={styles.iconRow}>
+                    <View style={styles.likesContainer}>
                       <View style={styles.hearts}>
                         <View
                           style={
@@ -189,7 +189,7 @@ class ViewCampScreen extends React.Component {
                           {this.state.likes} like
                         </Text>
                       )}
-                    </View> */}
+                    </View>
                     <View style={styles.bookmarks}>
                       <View
                         style={
@@ -223,7 +223,7 @@ class ViewCampScreen extends React.Component {
                         />
                       </View>
                     </View>
-                  </View>
+                  </View> */}
                   <View style={styles.campDescContain}>
                     <Text style={styles.campDescName}>
                       {this.props.selectedCampaign.camp_name}
@@ -331,8 +331,8 @@ class ViewCampScreen extends React.Component {
                       style={styles.campImgContain}
                     />
                   )}
-                  <View style={styles.iconRow}>
-                    {/* <View style={styles.likesContainer}>
+                  {/* <View style={styles.iconRow}>
+                    <View style={styles.likesContainer}>
                       <View style={styles.hearts}>
                         <View
                           style={
@@ -381,7 +381,7 @@ class ViewCampScreen extends React.Component {
                           {this.state.likes} like
                         </Text>
                       )}
-                    </View> */}
+                    </View>
                     <View style={styles.bookmarks}>
                       <View
                         style={
@@ -415,7 +415,7 @@ class ViewCampScreen extends React.Component {
                         />
                       </View>
                     </View>
-                  </View>
+                  </View> */}
                   <View style={styles.campDescContain}>
                     <Text style={styles.campDescName}>
                       {this.props.selectedCampaign.camp_name}
