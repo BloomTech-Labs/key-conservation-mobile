@@ -675,9 +675,8 @@ export const [
 ] = ['GET_ORGANIZATIONS_STARTED', 'GET_ORGANIZATIONS_SUCCESS', 'GET_ORGANIZATIONS_ERROR']
 
 export const getOrganizations = () => async dispatch => {
-  // console.log("getOrganizations" )
   dispatch({ type: GET_ORGANIZATIONS_STARTED})
-  let url = `${seturl}api/maps`
+  let url = `${seturl}maps`
   const token = await SecureStore.getItemAsync("accessToken", {});
   return axios
       .get(url, {
@@ -687,10 +686,10 @@ export const getOrganizations = () => async dispatch => {
           'Content-Type': 'application/json'
         }})
       .then(response => {
-        // console.log("response.data ", response.data )
+         console.log("response.data ", response.data )
            dispatch({ type: GET_ORGANIZATIONS_SUCCESS, payload: response.data })
         })
       .catch(error => {
-          dispatch({ type: GET_ORGANIZATIONS_ERROR, payload: error.message })
+        dispatch({ type: GET_ORGANIZATIONS_ERROR, payload: error.message })
       })
   }
