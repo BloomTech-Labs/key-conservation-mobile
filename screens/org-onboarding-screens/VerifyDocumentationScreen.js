@@ -58,8 +58,8 @@ export default class VerifyDocumentationScreen extends Component {
     // console.log("key inside VerifyDoc: " + key);
     var Airtable = require("airtable");
     var base = new Airtable({ apiKey: key }).base("appbPeeXUSNCQWwnQ");
-    console.log(this.state.email);
-    console.log("getAirtable activated");
+    // console.log(this.state.email);
+    console.log("VerifyDocumentation getAirtable activated");
     base("Table 2")
       .select({
         maxRecords: 20,
@@ -69,7 +69,7 @@ export default class VerifyDocumentationScreen extends Component {
       .eachPage(
         function page(records, fetchNextPage) {
           records.forEach(function(record) {
-            console.log("Retrieved", record.fields);
+            // console.log("Retrieved", record.fields);
             this.checkAirtableDoc(record, key);
           });
         },

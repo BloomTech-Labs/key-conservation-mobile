@@ -42,7 +42,8 @@ function VettingCheck(props) {
     setEmail({ email: email }); // This sets the current Airtable ID for the updateAirtable() and user email for checkAirtable();
     setKey({ key: key });
 
-    updateAirtable();
+    const vetting = await SecureStore.getItemAsync("isVetting", {});
+    vetting !== "true" ? updateAirtable() : null;
     await SecureStore.setItemAsync("isVetting", "true");
     await SecureStore.setItemAsync("vettingEmail", email);
     // This sets vetting variables to be checked by 'LoadingScreen'.
@@ -102,7 +103,7 @@ function VettingCheck(props) {
           return;
         }
         records.forEach(function(record) {
-          console.log(record.getId());
+          // console.log(record.getId());
         });
       }
     );

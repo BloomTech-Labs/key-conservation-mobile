@@ -215,24 +215,33 @@ const ReviewYourInfoScreen = props => {
                 </TouchableOpacity>
               </View>
 
-              <TextInput
-                style={[styles.obText, styles.textInput]}
-                value={state.org_name}
-                onChangeText={text => setState({ ...state, org_name: text })}
-              ></TextInput>
-              <TextInput
-                style={[styles.obText, styles.textInput]}
-                value={state.website}
-                onChangeText={text => setState({ ...state, website: text })}
-              ></TextInput>
               <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Tel:</Text>
+                <Text style={styles.obSubtitleSm}>Organization Name:</Text>
+                <TextInput
+                  style={[styles.obText, styles.textInput]}
+                  value={state.org_name}
+                  onChangeText={text => setState({ ...state, org_name: text })}
+                ></TextInput>
+              </View>
+
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>Website:</Text>
+                <TextInput
+                  style={[styles.obText, styles.textInput]}
+                  value={state.website}
+                  onChangeText={text => setState({ ...state, website: text })}
+                ></TextInput>
+              </View>
+
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>Phone:</Text>
                 <TextInput
                   style={[styles.obText, styles.textInput]}
                   value={state.phone}
                   onChangeText={text => setState({ ...state, phone: text })}
                 ></TextInput>
               </View>
+
               <View>
                 <Text style={styles.obSubtitleSm}>Address:</Text>
                 <TextInput
@@ -468,7 +477,7 @@ const ReviewYourInfoScreen = props => {
                   airtableStateAdd: state,
                   airtableKey: key
                 }); // Passes updated state down for backend.
-                console.log(state);
+                // console.log(state);
               }
             }}
           />

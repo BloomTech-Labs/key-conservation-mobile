@@ -55,11 +55,11 @@ class LoadingScreen extends React.Component {
       console.log("NO KEY!");
       return null;
     } else {
+      console.log("LoadingScreen getAirtable activated.");
       var Airtable = require("airtable");
       var base = new Airtable({ apiKey: key }).base("appbPeeXUSNCQWwnQ"); // variables for Airtable API.
 
       // Checks airtable form if conservationist is in vetting process.
-      console.log("getAirtable activated");
       base("Table 1")
         .select({
           maxRecords: 20,
@@ -97,6 +97,7 @@ class LoadingScreen extends React.Component {
 
     checkAirtable = (record, props) => {
       // console.log("record: " + record.isVetting);
+      console.log("LoadingScreen checkAirtable activated.");
       if (record.fields.isVetting === true) {
         this.props.navigation.navigate("Vetting");
       } else {
@@ -120,6 +121,7 @@ class LoadingScreen extends React.Component {
 
     // This checks to see if the sub id is a user on the DB
     if (!sub) {
+      console.log("No sub, navigating to Login");
       this.props.navigation.navigate("Login");
     } else {
       await this.props.getLoadingData(sub);
@@ -127,7 +129,7 @@ class LoadingScreen extends React.Component {
       if (this.props.userRegistered === true) {
         this.props.getProfileData(null, sub, true);
 
-        if (this.props.userId) {
+        if (this.props.userId /* && isVetting !== "true"*/) {
           await SecureStore.setItemAsync("id", `${this.props.userId}`);
           AmpInit();
           AmpEvent("Login");
@@ -145,6 +147,7 @@ class LoadingScreen extends React.Component {
             );
           }
         } else {
+          console.log("No userId, navigating to login");
           this.props.navigation.navigate("Login");
         }
       } else {

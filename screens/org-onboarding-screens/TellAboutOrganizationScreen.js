@@ -43,7 +43,7 @@ const TellAboutOrganizationScreen = props => {
 
   const sendAirtable = () => {
     // this creates a new Airtable form.
-    console.log("key: " + airtableKey.key);
+    // console.log("key: " + airtableKey.key);
     var Airtable = require("airtable");
     var base = new Airtable({ apiKey: airtableKey.key }).base(
       "appbPeeXUSNCQWwnQ"
