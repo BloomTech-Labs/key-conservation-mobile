@@ -115,10 +115,9 @@ class EditProScreen extends React.Component {
           instagram: parseBE.instagram,
           twitter: parseBE.twitter,
           org_link_url: parseBE.website,
-          location: parseBE.address
-        })
+          location: parseBE.address + ", " + parseBE.country
+        }) && (await SecureStore.deleteItemAsync("stateBE", {}))
       : null;
-    await SecureStore.deleteItemAsync("stateBE", {});
   }; // Retrieves state object from SecureStore that was created in the onboarding process. Repopulates fields in this component.
 
   render() {

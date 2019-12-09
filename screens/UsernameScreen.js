@@ -24,7 +24,7 @@ class UsernameScreen extends React.Component {
   };
 
   updateAirtable = () => {
-    console.log("update airtable triggered");
+    console.log("UsernameScreen updateAirtable triggered");
     base("Table 1").update(
       [
         {

@@ -468,7 +468,7 @@ const ReviewYourInfoScreen = props => {
                   airtableStateAdd: state,
                   airtableKey: key
                 }); // Passes updated state down for backend.
-                console.log(state);
+                // console.log(state);
               }
             }}
           />

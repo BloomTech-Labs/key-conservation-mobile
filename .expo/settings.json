@@ -1,6 +1,6 @@
 {
   "urlRandomness": "dv-fif",
-  "hostType": "tunnel",
+  "hostType": "lan",
   "lanType": "ip",
   "dev": true,
   "minify": false,

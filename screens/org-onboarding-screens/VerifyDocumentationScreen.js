@@ -69,7 +69,7 @@ export default class VerifyDocumentationScreen extends Component {
       .eachPage(
         function page(records, fetchNextPage) {
           records.forEach(function(record) {
-            console.log("Retrieved", record.fields);
+            // console.log("Retrieved", record.fields);
             this.checkAirtableDoc(record, key);
           });
         },
