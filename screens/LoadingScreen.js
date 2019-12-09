@@ -147,6 +147,7 @@ class LoadingScreen extends React.Component {
             );
           }
         } else {
+          console.log("No userId, navigating to login");
           this.props.navigation.navigate("Login");
         }
       } else {
