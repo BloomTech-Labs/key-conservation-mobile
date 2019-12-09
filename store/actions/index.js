@@ -667,3 +667,30 @@ export const addLike = (id, userId) => async dispatch => {
     )
     .then(console.log('word'))
 }
+
+export const [
+  GET_ORGANIZATIONS_STARTED,
+  GET_ORGANIZATIONS_SUCCESS,
+  GET_ORGANIZATIONS_ERROR,
+] = ['GET_ORGANIZATIONS_STARTED', 'GET_ORGANIZATIONS_SUCCESS', 'GET_ORGANIZATIONS_ERROR']
+
+export const getOrganizations = () => async dispatch => {
+  // console.log("getOrganizations" )
+  dispatch({ type: GET_ORGANIZATIONS_STARTED})
+  let url = `${seturl}api/maps`
+  const token = await SecureStore.getItemAsync("accessToken", {});
+  return axios
+      .get(url, {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }})
+      .then(response => {
+        // console.log("response.data ", response.data )
+           dispatch({ type: GET_ORGANIZATIONS_SUCCESS, payload: response.data })
+        })
+      .catch(error => {
+          dispatch({ type: GET_ORGANIZATIONS_ERROR, payload: error.message })
+      })
+  }
