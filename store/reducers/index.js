@@ -53,7 +53,10 @@ import {
   POST_COMMENT_SUCCESS,
   DELETE_COMMENT_START,
   DELETE_COMMENT_ERROR,
-  DELETE_COMMENT_SUCCESS
+  DELETE_COMMENT_SUCCESS,
+  GET_ORGANIZATIONS_STARTED,
+  GET_ORGANIZATIONS_SUCCESS,
+  GET_ORGANIZATIONS_ERROR,
 } from '../actions';
 
 const initialState = {
@@ -81,12 +84,14 @@ const initialState = {
   mediaUpload: '',
   token: '',
   profileReset: false,
-  userRegistered: true
+  userRegistered: true,
+  organizations:[]
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_START:
+     
       return {
         ...state,
         pending: { ...state.pending, login: true },
@@ -505,6 +510,22 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.payload
+      };
+    case GET_ORGANIZATIONS_STARTED:
+      return {
+        ...state,
+        error: ''
+      };
+    case GET_ORGANIZATIONS_SUCCESS:
+      return {
+        ...state,
+        organizations: action.payload,
+        error: ''
+      };
+    case GET_ORGANIZATIONS_ERROR:
+      return {
+        ...state,
+        error:  action.payload,
       };
     default:
       return state;
