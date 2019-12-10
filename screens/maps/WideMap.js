@@ -3,29 +3,25 @@ import MapView, { Marker } from "react-native-maps";
 import { StyleSheet, View, Dimensions } from "react-native";
 import { connect } from "react-redux";
 import { getOrganizations } from "../../store/actions";
-import LocationIQ from "react-native-locationiq";
 
-const WideMap = ({ organizations, getOrganizations, coords }) => {
-  const [coordinates, setCoordinates] = useState([
-    // { latitude: 40, longitude: -76 },
-    // { latitude: 41, longitude: -74 },
-    // { latitude: 42, longitude: -75 },
-    // { latitude: 39, longitude: -72 },
-    // { latitude: 38, longitude: -73 }
-  ]);
+const WideMap = ({ getOrganizations, coords }) => {
+
+
 
   useEffect(() => {
     getOrganizations();
   }, []);
-
-  // setCoords();
 
   return (
     <View style={styles.container}>
       <MapView style={styles.mapStyle}>
         {coords.map(coordinate => {
           console.log("coordinate", coordinate);
-          return <Marker coordinate={coordinate} />;
+          return <Marker 
+            key={coordinate.longitude}
+            pinColor="#00FF9D" 
+            coordinate={coordinate} 
+          />;
         })}
       </MapView>
     </View>
@@ -35,12 +31,6 @@ const WideMap = ({ organizations, getOrganizations, coords }) => {
 
 
 const styles = StyleSheet.create({
-  // container: {
-  //     // flex: 1,
-  //     // backgroundColor: '#fff',
-  //     // alignItems: 'center',
-  //     // justifyContent: 'center',
-  // },
   mapStyle: {
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height
@@ -57,7 +47,6 @@ const mapPropsToState = state => {
     })
     .filter(coords => coords.latitude && coords.longitude !== null);
 
-  console.log("coords", coords);
   return {
     organizations: state.organizations,
     coords: coords
