@@ -14,14 +14,6 @@ const WideMap = ({ organizations, getOrganizations, coords }) => {
     // { latitude: 38, longitude: -73 }
   ]);
 
-  const arr2 = [
-    "Seattle, WA",
-    "Boulder, CO",
-    "Bend, OR",
-    "Vancouver, WA",
-    "Boston, MA"
-  ];
-
   useEffect(() => {
     getOrganizations();
   }, []);
@@ -39,6 +31,8 @@ const WideMap = ({ organizations, getOrganizations, coords }) => {
     </View>
   );
 };
+
+
 
 const styles = StyleSheet.create({
   // container: {
@@ -70,4 +64,7 @@ const mapPropsToState = state => {
   };
 };
 
-export default connect(mapPropsToState, { getOrganizations })(WideMap);
+export default connect(
+  mapPropsToState,
+ {getOrganizations})
+ (WideMap);
