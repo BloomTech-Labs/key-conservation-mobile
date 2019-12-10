@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
   "expoServerPort": 19005,
-  "packagerPort": 19006,
-  "packagerPid": 20289,
+  "packagerPort": 19011,
+  "packagerPid": 27155,
   "expoServerNgrokUrl": "https://dv-fif.camerona.key-conservation-mobile.exp.direct",
   "packagerNgrokUrl": "https://packager.dv-fif.camerona.key-conservation-mobile.exp.direct",
-  "ngrokPid": 20304
+  "ngrokPid": 26143
 }

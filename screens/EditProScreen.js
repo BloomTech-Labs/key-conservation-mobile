@@ -16,6 +16,7 @@ import UploadMedia from "../components/UploadMedia";
 
 import { editProfileData, logout, clearMedia } from "../store/actions";
 import { AmpEvent } from "../components/withAmplitude";
+import LocationIQ from "react-native-locationiq";
 
 import styles from "../constants/screens/EditProScreen";
 
@@ -59,15 +60,19 @@ class EditProScreen extends React.Component {
     issues: this.props.currentUserProfile.issues,
     phone_number: this.props.currentUserProfile.phone_number,
     // supportUs: this.props.currentUserProfile.support_us,
-    org_cta: this.props.currentUserProfile.org_cta
+    org_cta: this.props.currentUserProfile.org_cta,
+    longitude: this.props.currentUserProfile.longitude,
+    latitude: this.props.currentUserProfile.latitude
   };
 
   componentDidMount() {
+    console.log("lon: " + this.state.latitude + "lat: " + this.state.longitude);
     this.props.navigation.setParams({ done: this.done });
     if (this.isProfileComplete(this.state) === true) {
       return AmpEvent("Profile Completed");
     }
     this.getBackend();
+    !this.state.latitude && !this.state.longitude ? this.setCoords() : null;
     this.resetVettingVars();
   }
 
@@ -99,6 +104,27 @@ class EditProScreen extends React.Component {
     } else {
       this.props.navigation.goBack();
     }
+    // console.log("*** Coordinates ***", this.state.coords);
+    !this.state.latitude && !this.state.longitude ? this.setCoords() : null;
+  };
+
+  setCoords = () => {
+    // console.log(locations);
+    LocationIQ.init("pk.21494f179d6ad0c272404a3614275418");
+    LocationIQ.search(`${this.state.location}`)
+      .then(json => {
+        var lat = json[0].lat;
+        var lon = json[0].lon;
+        // console.log("coordinates", lat, lon);
+        this.setState({
+          longitude: parseFloat(lon),
+          latitude: parseFloat(lat)
+        });
+        console.log(
+          "lon: " + this.state.latitude + "lat: " + this.state.longitude
+        );
+      })
+      .catch(error => console.warn(error));
   };
 
   getBackend = async () => {
