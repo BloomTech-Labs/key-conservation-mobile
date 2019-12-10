@@ -528,7 +528,6 @@ const reducer = (state = initialState, action) => {
         error: ""
       };
     case GET_ORGANIZATIONS_SUCCESS:
-      console.log("GET_ORGANIZATIONS_SUCCESS", action.payload);
       return {
         ...state,
         organizations: action.payload,
