@@ -91,6 +91,7 @@ class EditProScreen extends React.Component {
   };
 
   done = () => {
+    !this.state.latitude && !this.state.longitude ? this.setCoords() : null;
     let changes = this.state;
     if (this.props.mediaUpload) {
       changes = {
@@ -105,7 +106,6 @@ class EditProScreen extends React.Component {
       this.props.navigation.goBack();
     }
     // console.log("*** Coordinates ***", this.state.coords);
-    !this.state.latitude && !this.state.longitude ? this.setCoords() : null;
   };
 
   setCoords = () => {
@@ -142,8 +142,9 @@ class EditProScreen extends React.Component {
           twitter: parseBE.twitter,
           org_link_url: parseBE.website,
           location: parseBE.address + ", " + parseBE.country
-        }) && (await SecureStore.deleteItemAsync("stateBE", {}))
+        })
       : null;
+    await SecureStore.deleteItemAsync("stateBE", {});
   }; // Retrieves state object from SecureStore that was created in the onboarding process. Repopulates fields in this component.
 
   render() {
