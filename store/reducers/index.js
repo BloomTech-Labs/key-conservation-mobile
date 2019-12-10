@@ -521,21 +521,21 @@ const reducer = (state = initialState, action) => {
         error: action.payload
       };
     case GET_ORGANIZATIONS_STARTED:
-      console.log("GET_ORGANIZATIONS_STARTED");
+      // console.log("GET_ORGANIZATIONS_STARTED");
 
       return {
         ...state,
         error: ""
       };
     case GET_ORGANIZATIONS_SUCCESS:
-      console.log("GET_ORGANIZATIONS_SUCCESS", action.payload);
+      // console.log("GET_ORGANIZATIONS_SUCCESS", action.payload);
       return {
         ...state,
         organizations: action.payload,
         error: ""
       };
     case GET_ORGANIZATIONS_ERROR:
-      console.log("GET_ORGANIZATIONS_ERROR");
+      // console.log("GET_ORGANIZATIONS_ERROR");
       return {
         ...state,
         error: action.payload

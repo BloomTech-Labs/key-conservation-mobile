@@ -6,14 +6,6 @@ import { getOrganizations } from "../../store/actions";
 import LocationIQ from "react-native-locationiq";
 
 const WideMap = ({ organizations, getOrganizations, coords }) => {
-  const [coordinates, setCoordinates] = useState([
-    // { latitude: 40, longitude: -76 },
-    // { latitude: 41, longitude: -74 },
-    // { latitude: 42, longitude: -75 },
-    // { latitude: 39, longitude: -72 },
-    // { latitude: 38, longitude: -73 }
-  ]);
-
   useEffect(() => {
     getOrganizations();
   }, []);
@@ -24,15 +16,20 @@ const WideMap = ({ organizations, getOrganizations, coords }) => {
     <View style={styles.container}>
       <MapView style={styles.mapStyle}>
         {coords.map(coordinate => {
-          console.log("coordinate", coordinate);
-          return <Marker coordinate={coordinate} />;
+          // console.log("coordinate", coordinate);
+          return (
+            <Marker
+              coordinate={coordinate}
+              stopPropagation={true}
+              onPress={e => console.log("*** IT HAS BEEN PRESSED ***")}
+              key={Math.random()}
+            />
+          );
         })}
       </MapView>
     </View>
   );
 };
-
-
 
 const styles = StyleSheet.create({
   // container: {
@@ -57,14 +54,11 @@ const mapPropsToState = state => {
     })
     .filter(coords => coords.latitude && coords.longitude !== null);
 
-  console.log("coords", coords);
+  // console.log("coords", coords);
   return {
     organizations: state.organizations,
     coords: coords
   };
 };
 
-export default connect(
-  mapPropsToState,
- {getOrganizations})
- (WideMap);
+export default connect(mapPropsToState, { getOrganizations })(WideMap);
