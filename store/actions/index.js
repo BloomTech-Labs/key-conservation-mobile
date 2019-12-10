@@ -690,7 +690,6 @@ export const getOrganizations = () => async dispatch => {
       }
     })
     .then(response => {
-      // console.log("response.data ", response.data )
       dispatch({ type: GET_ORGANIZATIONS_SUCCESS, payload: response.data });
     })
     .catch(error => {
