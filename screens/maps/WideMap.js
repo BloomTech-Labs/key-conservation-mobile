@@ -19,11 +19,14 @@ const WideMap = ({ getOrganizations, coords }) => {
           return <Marker 
             key={coordinate.longitude}
             pinColor="#00FF9D" 
-            coordinate={coordinate}
+            coordinate={{
+              latitude: coordinate.latitude, 
+              longitude: coordinate.longitude 
+              }}
             stopPropagation={true}
           >
             <Callout>
-              <Text>Hello!</Text>
+            <Text>{coordinate.org_name}</Text>
                 <MapButton/>
               
             </Callout>
@@ -46,7 +49,9 @@ const mapPropsToState = state => {
     .map(org => {
       return {
         latitude: org.latitude,
-        longitude: org.longitude
+        longitude: org.longitude,
+        org_name: org.org_name,
+        location: org.location
       };
     })
     .filter(coords => coords.latitude && coords.longitude !== null);
