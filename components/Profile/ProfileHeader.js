@@ -39,6 +39,15 @@ const ProfileHeader = props => {
         </TouchableOpacity>
 
         <TouchableOpacity
+          style={[styles.TouchableOpacity]}
+          onPress={() => props.navigation.navigate("Location")}
+        >
+          <View style={styles.ButtonStyle}>
+            <Text style={styles.DetailButton}>Location</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity
           style={styles.TouchableOpacity}
           onPress={() => {
             props.navigation.navigate(props.myProfile ? "MyDetail" : "Detail");
@@ -77,7 +86,7 @@ const ProfileHeader = props => {
             )}
             {profile.location === null || profile.location === "" ? null : (
               <Text style={styles.locationText}>
-                <FontAwesome name='map-pin' style={styles.outline} />{" "}
+                <FontAwesome name="map-pin" style={styles.outline} />{" "}
                 {profile.location}
               </Text>
             )}
