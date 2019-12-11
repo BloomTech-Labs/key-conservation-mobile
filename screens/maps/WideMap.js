@@ -25,7 +25,7 @@ const WideMap = ({ getOrganizations, coords, navigation }) => {
               }}
             stopPropagation={true}
           >
-            <Callout onPress={() => navigation.navigate('FeedStack')}>
+            <Callout onPress={() => navigation.navigate('Pro')}>
             <Text>{coordinate.org_name}</Text>
             <Text>{coordinate.location}</Text>
             
