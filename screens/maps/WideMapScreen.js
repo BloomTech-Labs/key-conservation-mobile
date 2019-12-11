@@ -6,7 +6,7 @@ import {MapView, permissions} from 'expo';
 const WideMapScreen = (props) => {
     return(
         <View>
-            <WideMap />
+            <WideMap navigation={props.navigation}/>
         </View>
     );
 }
