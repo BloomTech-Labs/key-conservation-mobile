@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import MapView, { Marker } from "react-native-maps";
-import { StyleSheet, View, Dimensions } from "react-native";
+import MapView, { Marker, Callout } from "react-native-maps";
+import { StyleSheet, View, Dimensions, Text, Button } from "react-native";
 import { connect } from "react-redux";
 import { getOrganizations } from "../../store/actions";
+import MapButton from "../../components/MapButton";
 
 const WideMap = ({ getOrganizations, coords }) => {
 
@@ -20,8 +21,13 @@ const WideMap = ({ getOrganizations, coords }) => {
             pinColor="#00FF9D" 
             coordinate={coordinate}
             stopPropagation={true}
-            onPress={e => console.log("*** IT HAS BEEN PRESSED ***")}
-          />;
+          >
+            <Callout>
+              <Text>Hello!</Text>
+                <MapButton/>
+              
+            </Callout>
+          </Marker>
         })}
       </MapView>
     </View>
@@ -45,10 +51,6 @@ const mapPropsToState = state => {
     })
     .filter(coords => coords.latitude && coords.longitude !== null);
 
-<<<<<<< HEAD
-  // console.log("coords", coords);
-=======
->>>>>>> 4bcdf8056dddf9bc06825ce788f59788fa1d36b3
   return {
     organizations: state.organizations,
     coords: coords
