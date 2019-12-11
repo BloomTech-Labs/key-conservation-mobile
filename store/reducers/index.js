@@ -94,9 +94,10 @@ const initialState = {
   token: "",
   profileReset: false,
   userRegistered: true,
-  organizations: [],
-  mapCategoryFilter: "all",
-  mapSearchQuery: ""
+  organizations:[],
+  filteredOrganization:[],
+  mapCategoryFilter:'all',
+  mapSearchQuery:'',
 };
 
 const reducer = (state = initialState, action) => {
@@ -521,48 +522,45 @@ const reducer = (state = initialState, action) => {
         error: action.payload
       };
     case GET_ORGANIZATIONS_STARTED:
-      // console.log("GET_ORGANIZATIONS_STARTED");
-
       return {
         ...state,
-        error: ""
+        error: ''
       };
     case GET_ORGANIZATIONS_SUCCESS:
+      console.log('GET_ORGANIZATIONS_SUCCESS',action.payload.length)
+      const cleanupedOrganizations = action.payload.filter(coords => coords.latitude && coords.longitude !== null);
+  
       return {
         ...state,
-        organizations: action.payload,
-        error: ""
+        organizations:cleanupedOrganizations,
+        filteredOrganization: cleanupedOrganizations,
+        error: ''
       };
     case GET_ORGANIZATIONS_ERROR:
-      // console.log("GET_ORGANIZATIONS_ERROR");
       return {
         ...state,
-        error: action.payload
+        error:  action.payload,
       };
 
     case SET_MAP_SEARCH_CATEGORY:
-      // console.log('SET_MAP_SEARCH_CATEGORY', action.payload)
       return {
         ...state,
         mapCategoryFilter: action.payload
       };
-
+    
     case SET_MAP_SEARCH_QUERY:
-      console.log("SET_MAP_SEARCH_QUERY", action.payload);
-      const query = action.payload["query"];
-      const key = action.payload["key"];
-      const arr = state.organizations;
-      const filteredArr = filterSearch(query, key, arr);
-
-      console.log(" arr", arr);
-      console.log(" action.payload", action.payload);
-      console.log("filteredArr", filteredArr);
-
+      // console.log('SET_MAP_SEARCH_QUERY', action.payload)
+      const  query = action.payload['query']
+      const  key = action.payload['key']
+      
+      const filteredOrganization = filterSearch(query, key, state.organizations)
+      // filteredOrganization = filteredOrganization.filter(coords => coords.latitude && coords.longitude !== null);
+      console.log("filteredOrganization",filteredOrganization)
       return {
         ...state,
-        organizations: filteredArr
+        filteredOrganization: filteredOrganization,
       };
-
+      
     default:
       return state;
   }
