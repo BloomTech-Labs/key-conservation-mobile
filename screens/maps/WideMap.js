@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MapView, { Marker, Callout } from "react-native-maps";
-import { StyleSheet, View, Dimensions, Text, Button } from "react-native";
+import { StyleSheet, View, Dimensions, Text, Button, Alert} from "react-native";
 import { connect } from "react-redux";
 import { getOrganizations } from "../../store/actions";
 import MapButton from "../../components/MapButton";
@@ -27,7 +27,11 @@ const WideMap = ({ getOrganizations, coords }) => {
           >
             <Callout>
             <Text>{coordinate.org_name}</Text>
-                <MapButton/>
+            <Text>{coordinate.location}</Text>
+                <Button
+                  title="click me"
+                  onPress={() => console.log("WHEEEEEE!!!")}
+                />
               
             </Callout>
           </Marker>
