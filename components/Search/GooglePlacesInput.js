@@ -26,7 +26,7 @@ const GooglePlacesInput = (props) => {
 			
 			query={{
 				// available options: https://developers.google.com/places/web-service/autocomplete
-				key: 'AIzaSyC1WKTSI2vLPpclGsCoX57Nu8RTgQ5ZQ7M',
+				key: '',
 				language: 'en', // language of the results
 				types: '(cities)' // default: 'geocode'
 			}}
