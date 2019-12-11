@@ -8,7 +8,7 @@ class MapButton extends Component {
             <Button 
             title="More Info"
             onPress={() => {
-                this.props.navigation.navigate("ToExpect");
+                this.props.navigation.navigate();
             }}
             />
         )
