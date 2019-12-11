@@ -3,7 +3,7 @@ import { View, Screen, Text } from "react-native";
 import WideMap from './WideMap.js';
 import {MapView, permissions} from 'expo';
 
-const WideMapScreen = () => {
+const WideMapScreen = (props) => {
     return(
         <View>
             <WideMap />
