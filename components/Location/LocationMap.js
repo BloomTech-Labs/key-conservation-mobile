@@ -3,36 +3,32 @@ import MapView, { Marker, Callout } from "react-native-maps";
 import { StyleSheet, View, Dimensions, Text, Button } from "react-native";
 import { connect } from "react-redux";
 import { getOrganizations } from "../../store/actions";
+
 import MapButton from "../../components/MapButton";
 
-const WideMap = ({ getOrganizations, coords, profile }) => {
+const LocationMap = ({ getOrganizations, profile }) => {
   useEffect(() => {
-    console.log(profile);
+    console.log(profile.latitude + " " + profile.longitude);
     getOrganizations();
   }, []);
 
   return (
     <View style={styles.container}>
       <MapView style={styles.mapStyle}>
-        {coords.map(data => {
-          //   console.log("data", data);
-          return (
-            <Marker
-              key={data.longitude}
-              pinColor="#00FF9D"
-              coordinate={{
-                latitude: data.latitude,
-                longitude: data.longitude
-              }}
-              stopPropagation={true}
-            >
-              <Callout>
-                <Text>{data.org_name}</Text>
-                <MapButton />
-              </Callout>
-            </Marker>
-          );
-        })}
+        <Marker
+          key={Math.random()}
+          pinColor="#00FF9D"
+          coordinate={{
+            latitude: profile.latitude,
+            longitude: profile.longitude
+          }}
+          stopPropagation={true}
+        >
+          <Callout>
+            {/* <Text>{data.org_name}</Text> */}
+            <MapButton />
+          </Callout>
+        </Marker>
       </MapView>
     </View>
   );
@@ -63,4 +59,4 @@ const mapPropsToState = state => {
   };
 };
 
-export default connect(mapPropsToState, { getOrganizations })(WideMap);
+export default connect(mapPropsToState, { getOrganizations })(LocationMap);
