@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MapView, { Marker, Callout } from "react-native-maps";
-import {
+import { 
   StyleSheet,
   View,
   Dimensions,
