@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import MapView, { Marker, Callout } from "react-native-maps";
-import { StyleSheet, View, Dimensions, Text, Button, Alert, TouchableOpacity} from "react-native";
+import { StyleSheet, View, Image, Dimensions, Text } from "react-native";
 import { connect } from "react-redux";
 import { getOrganizations, getProfileData } from "../../store/actions";
-import { AmpEvent } from "../../components/withAmplitude";
-import { useDispatch } from 'react-redux';
 
 
 
@@ -13,8 +11,6 @@ const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
   useEffect(() => {
     getOrganizations();
   }, []);
-
-  const dispatch = useDispatch();
 
   const goToProfile = async (id) => {
     await getProfileData(id);
@@ -35,13 +31,23 @@ const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
               }}
             stopPropagation={true}
           >
-            <Callout onPress={() => goToProfile(coordinate.users_id)}>
-            <Text>{coordinate.org_name}</Text>
-            <Text>{coordinate.location}</Text>
+            <Image
+              source={{
+                uri: coordinate.profile_image
+              }}
+              style={styles.markerImg}
+              />
+            <Callout 
+              onPress={() => goToProfile(coordinate.users_id)}
+              style={styles.markerCallout}
+            >
+            <Text style={styles.calloutOrgName}>{coordinate.org_name}</Text>
             
-                <TouchableOpacity onPress={() => console.log("WHEEEEEE!!!")}>
-                  <Text>Click Me</Text>
-                  </TouchableOpacity>
+                <View
+                  style={styles.calloutButton}
+                >
+                  <Text style={styles.calloutButtonText}>Profile</Text>
+                </View>
               
             </Callout>
           </Marker>
@@ -55,6 +61,30 @@ const styles = StyleSheet.create({
   mapStyle: {
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height
+  },
+  markerImg: {
+    height: 40,
+    width: 40,
+    borderRadius: 20,
+    borderWidth: 3,
+    borderColor: "#00FF9D",
+    padding: 3
+  },
+  markerCallout: {
+    width: 70   
+  },
+  calloutOrgName: {
+    fontWeight: 'bold'    
+  },
+  calloutButton: {
+    backgroundColor: '#00FF9D', 
+    marginTop: 5, 
+    borderRadius: 3, 
+    paddingTop: 2, 
+    paddingBottom: 2
+  },
+  calloutButtonText: {
+    textAlign: 'center'
   }
 });
 
@@ -66,7 +96,8 @@ const mapPropsToState = state => {
         latitude: org.latitude,
         longitude: org.longitude,
         org_name: org.org_name,
-        location: org.location
+        location: org.location,
+        profile_image: org.profile_image
       };
     })
     .filter(coords => coords.latitude && coords.longitude !== null);

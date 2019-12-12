@@ -50,18 +50,8 @@ const LocationMap = ({ getOrganizations, profile }) => {
               source={{
                 uri: profile.profile_image
               }}
-              style={{
-                height: 50,
-                width: 50,
-                borderRadius: 25,
-                borderWidth: 3,
-                borderColor: "#00FF9D"
-              }}
+              style={styles.imageMarker}
             />
-            <Callout>
-              {/* <Text>{data.org_name}</Text> */}
-              <MapButton />
-            </Callout>
           </Marker>
         ) : null}
       </MapView>
@@ -73,6 +63,13 @@ const styles = StyleSheet.create({
   mapStyle: {
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height
+  },
+  imageMarker: {
+    height: 50,
+    width: 50,
+    borderRadius: 25,
+    borderWidth: 3,
+    borderColor: "#00FF9D"
   }
 });
 
