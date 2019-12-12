@@ -8,7 +8,7 @@ import { AmpEvent } from "../withAmplitude";
 import styles from "../../constants/DetailScreen/DetailHeader";
 
 export default class DetailHeader extends Component {
-  makeCall = () => { 
+  makeCall = () => {
     let phoneNumber = this.props.profile.phone_number;
     // let phoneNumber = 123456789 -- used for testing purposes
     if (Platform.OS === "android") {
