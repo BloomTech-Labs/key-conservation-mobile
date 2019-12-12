@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import MapView, { Marker, Callout } from "react-native-maps";
-import { StyleSheet, View, Dimensions, Text, Button } from "react-native";
+import { StyleSheet, View, Dimensions, Text, Button, Alert, TouchableOpacity} from "react-native";
 import { connect } from "react-redux";
 import { getOrganizations } from "../../store/actions";
 import MapButton from "../../components/MapButton";
 
-const WideMap = ({ getOrganizations, coords }) => {
+const WideMap = ({ getOrganizations, coords, navigation }) => {
 
   useEffect(() => {
     getOrganizations();
@@ -25,9 +25,13 @@ const WideMap = ({ getOrganizations, coords }) => {
               }}
             stopPropagation={true}
           >
-            <Callout>
+            <Callout onPress={() => navigation.navigate('FeedStack')}>
             <Text>{coordinate.org_name}</Text>
-                <MapButton/>
+            <Text>{coordinate.location}</Text>
+            
+                <TouchableOpacity onPress={() => console.log("WHEEEEEE!!!")}>
+                  <Text>Click Me</Text>
+                  </TouchableOpacity>
               
             </Callout>
           </Marker>
