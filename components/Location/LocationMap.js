@@ -1,19 +1,14 @@
-import React, { useEffect, useState } from "react";
-import MapView, { Marker, Callout } from "react-native-maps";
+import React, { useEffect } from "react";
+import MapView, { Marker } from "react-native-maps";
 import { 
   StyleSheet,
   View,
   Dimensions,
-  Text,
-  Button,
   Image
 } from "react-native";
 import { connect } from "react-redux";
 import { getOrganizations } from "../../store/actions";
 
-import image1 from "../../assets/images/videocam.png";
-
-import MapButton from "../../components/MapButton";
 
 const LocationMap = ({ getOrganizations, profile }) => {
   useEffect(() => {
@@ -50,14 +45,7 @@ const LocationMap = ({ getOrganizations, profile }) => {
               source={{
                 uri: profile.profile_image
               }}
-              style={{
-                height: 50,
-                width: 50,
-                padding: 3,
-                borderRadius: 25,
-                borderWidth: 3,
-                borderColor: "#00FF9D"
-              }}
+              style={styles.imageMarker}
             />
             <Callout>
               <Text>{profile.org_name}</Text>
@@ -74,6 +62,13 @@ const styles = StyleSheet.create({
   mapStyle: {
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height
+  },
+  imageMarker: {
+    height: 50,
+    width: 50,
+    borderRadius: 25,
+    borderWidth: 3,
+    borderColor: "#00FF9D"
   }
 });
 
