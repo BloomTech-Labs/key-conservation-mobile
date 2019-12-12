@@ -36,6 +36,16 @@ export default class DetailHeader extends Component {
               <Text style={styles.CampaignButton}>Campaigns</Text>
             </View>
           </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.TouchableOpacity]}
+            onPress={() => this.props.navigation.navigate("Location")}
+          >
+            <View style={styles.ButtonStyle}>
+              <Text style={styles.CampaignButton}>Location</Text>
+            </View>
+          </TouchableOpacity>
+
           <TouchableOpacity
             style={[
               styles.TouchableOpacity,
@@ -85,9 +95,9 @@ export default class DetailHeader extends Component {
               }}
             >
               <SvgUri
-                fill='#3b3b3b'
-                width='31'
-                height='31'
+                fill="#3b3b3b"
+                width="31"
+                height="31"
                 source={require("../../assets/icons/envelope.svg")}
               />
             </TouchableOpacity>
@@ -98,8 +108,8 @@ export default class DetailHeader extends Component {
                   onPress={() => this.props.navigation.navigate("EditPro")}
                 >
                   <SvgUri
-                    width='31'
-                    height='31'
+                    width="31"
+                    height="31"
                     source={require("../../assets/icons/phoneadd.svg")}
                   />
                 </TouchableOpacity>
@@ -110,9 +120,9 @@ export default class DetailHeader extends Component {
                 onPress={this.makeCall}
               >
                 <SvgUri
-                  fill='#3b3b3b'
-                  width='31'
-                  height='31'
+                  fill="#3b3b3b"
+                  width="31"
+                  height="31"
                   source={require("../../assets/icons/phone.svg")}
                 />
               </TouchableOpacity>
@@ -124,8 +134,8 @@ export default class DetailHeader extends Component {
                   onPress={() => this.props.navigation.navigate("EditPro")}
                 >
                   <SvgUri
-                    width='31'
-                    height='31'
+                    width="31"
+                    height="31"
                     source={require("../../assets/icons/igadd.svg")}
                   />
                 </TouchableOpacity>
@@ -136,9 +146,9 @@ export default class DetailHeader extends Component {
                 onPress={() => WebBrowser.openBrowserAsync(profile.instagram)}
               >
                 <SvgUri
-                  fill='#3b3b3b'
-                  width='31'
-                  height='31'
+                  fill="#3b3b3b"
+                  width="31"
+                  height="31"
                   source={require("../../assets/icons/instagram.svg")}
                 />
               </TouchableOpacity>
@@ -150,8 +160,8 @@ export default class DetailHeader extends Component {
                   onPress={() => this.props.navigation.navigate("EditPro")}
                 >
                   <SvgUri
-                    width='31'
-                    height='31'
+                    width="31"
+                    height="31"
                     source={require("../../assets/icons/twittadd.svg")}
                   />
                 </TouchableOpacity>
@@ -161,9 +171,9 @@ export default class DetailHeader extends Component {
                 onPress={() => WebBrowser.openBrowserAsync(profile.twitter)}
               >
                 <SvgUri
-                  fill='#3b3b3b'
-                  width='31'
-                  height='31'
+                  fill="#3b3b3b"
+                  width="31"
+                  height="31"
                   source={require("../../assets/icons/twitter.svg")}
                 />
               </TouchableOpacity>
@@ -175,8 +185,8 @@ export default class DetailHeader extends Component {
                   onPress={() => this.props.navigation.navigate("EditPro")}
                 >
                   <SvgUri
-                    width='31'
-                    height='31'
+                    width="31"
+                    height="31"
                     source={require("../../assets/icons/fbadd.svg")}
                   />
                 </TouchableOpacity>
@@ -186,9 +196,9 @@ export default class DetailHeader extends Component {
                 onPress={() => WebBrowser.openBrowserAsync(profile.facebook)}
               >
                 <SvgUri
-                  fill='#3b3b3b'
-                  width='31'
-                  height='31'
+                  fill="#3b3b3b"
+                  width="31"
+                  height="31"
                   source={require("../../assets/icons/facebook.svg")}
                 />
               </TouchableOpacity>
