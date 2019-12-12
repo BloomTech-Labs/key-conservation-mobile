@@ -1,19 +1,14 @@
-import React, { useEffect, useState } from "react";
-import MapView, { Marker, Callout } from "react-native-maps";
+import React, { useEffect } from "react";
+import MapView, { Marker } from "react-native-maps";
 import { 
   StyleSheet,
   View,
   Dimensions,
-  Text,
-  Button,
   Image
 } from "react-native";
 import { connect } from "react-redux";
 import { getOrganizations } from "../../store/actions";
 
-import image1 from "../../assets/images/videocam.png";
-
-import MapButton from "../../components/MapButton";
 
 const LocationMap = ({ getOrganizations, profile }) => {
   useEffect(() => {
