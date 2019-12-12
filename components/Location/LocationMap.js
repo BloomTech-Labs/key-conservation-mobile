@@ -15,20 +15,21 @@ const LocationMap = ({ getOrganizations, profile }) => {
   return (
     <View style={styles.container}>
       <MapView style={styles.mapStyle}>
-        <Marker
-          key={Math.random()}
-          pinColor="#00FF9D"
-          coordinate={{
-            latitude: profile.latitude,
-            longitude: profile.longitude
-          }}
-          stopPropagation={true}
-        >
-          <Callout>
-            {/* <Text>{data.org_name}</Text> */}
-            <MapButton />
-          </Callout>
-        </Marker>
+        {profile.latitude && profile.longitude ? (
+          <Marker
+            key={Math.random()}
+            pinColor="#00FF9D"
+            coordinate={{
+              latitude: profile.latitude,
+              longitude: profile.longitude
+            }}
+          >
+            <Callout>
+              {/* <Text>{data.org_name}</Text> */}
+              <MapButton />
+            </Callout>
+          </Marker>
+        ) : null}
       </MapView>
     </View>
   );
