@@ -36,16 +36,16 @@ export default class DetailHeader extends Component {
               <Text style={styles.CampaignButton}>Campaigns</Text>
             </View>
           </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.TouchableOpacity]}
-            onPress={() => this.props.navigation.navigate("Location")}
-          >
-            <View style={styles.ButtonStyle}>
-              <Text style={styles.CampaignButton}>Location</Text>
-            </View>
-          </TouchableOpacity>
-
+          {!this.props.myProfile ? (
+            <TouchableOpacity
+              style={[styles.TouchableOpacity]}
+              onPress={() => this.props.navigation.navigate("Location")}
+            >
+              <View style={styles.ButtonStyle}>
+                <Text style={styles.CampaignButton}>Location</Text>
+              </View>
+            </TouchableOpacity>
+          ) : null}
           <TouchableOpacity
             style={[
               styles.TouchableOpacity,

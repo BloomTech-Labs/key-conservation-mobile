@@ -53,13 +53,14 @@ const LocationMap = ({ getOrganizations, profile }) => {
               style={{
                 height: 50,
                 width: 50,
+                padding: 3,
                 borderRadius: 25,
                 borderWidth: 3,
                 borderColor: "#00FF9D"
               }}
             />
             <Callout>
-              {/* <Text>{data.org_name}</Text> */}
+              <Text>{profile.org_name}</Text>
               <MapButton />
             </Callout>
           </Marker>
