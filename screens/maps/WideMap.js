@@ -2,14 +2,24 @@ import React, { useEffect, useState } from "react";
 import MapView, { Marker, Callout } from "react-native-maps";
 import { StyleSheet, View, Dimensions, Text, Button, Alert, TouchableOpacity} from "react-native";
 import { connect } from "react-redux";
-import { getOrganizations } from "../../store/actions";
-import MapButton from "../../components/MapButton";
+import { getOrganizations, getProfileData } from "../../store/actions";
+import { AmpEvent } from "../../components/withAmplitude";
+import { useDispatch } from 'react-redux';
 
-const WideMap = ({ getOrganizations, coords, navigation }) => {
+
+
+const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
 
   useEffect(() => {
     getOrganizations();
   }, []);
+
+  const dispatch = useDispatch();
+
+  const goToProfile = async (id) => {
+    await getProfileData(id);
+    navigation.navigate('Pro');
+  };
 
   return (
     <View style={styles.container}>
@@ -17,7 +27,7 @@ const WideMap = ({ getOrganizations, coords, navigation }) => {
         {coords.map(coordinate => {
           console.log("coordinate", coordinate);
           return <Marker 
-            key={coordinate.longitude}
+            key={coordinate.users_id}
             pinColor="#00FF9D" 
             coordinate={{
               latitude: coordinate.latitude, 
@@ -25,7 +35,7 @@ const WideMap = ({ getOrganizations, coords, navigation }) => {
               }}
             stopPropagation={true}
           >
-            <Callout onPress={() => navigation.navigate('Pro')}>
+            <Callout onPress={() => goToProfile(coordinate.users_id)}>
             <Text>{coordinate.org_name}</Text>
             <Text>{coordinate.location}</Text>
             
@@ -52,6 +62,7 @@ const mapPropsToState = state => {
   const coords = state.organizations
     .map(org => {
       return {
+        users_id: org.users_id,
         latitude: org.latitude,
         longitude: org.longitude,
         org_name: org.org_name,
@@ -66,4 +77,4 @@ const mapPropsToState = state => {
   };
 };
 
-export default connect(mapPropsToState, { getOrganizations })(WideMap);
+export default connect(mapPropsToState, { getOrganizations, getProfileData })(WideMap);
