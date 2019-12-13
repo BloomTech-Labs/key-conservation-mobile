@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { getOrganizations, getProfileData } from "../../store/actions";
 
 
-
 const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
 
   useEffect(() => {
@@ -21,13 +20,14 @@ const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
     <View style={styles.container}>
       <MapView style={styles.mapStyle}>
         {coords.map(coordinate => {
+
           console.log("coordinate", coordinate);
-          return <Marker 
+          return <Marker
             key={coordinate.users_id}
-            pinColor="#00FF9D" 
+            pinColor="#00FF9D"
             coordinate={{
-              latitude: coordinate.latitude, 
-              longitude: coordinate.longitude 
+              latitude: coordinate.latitude,
+              longitude: coordinate.longitude
               }}
             stopPropagation={true}
           >
@@ -37,7 +37,7 @@ const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
               }}
               style={styles.markerImg}
               />
-            <Callout 
+            <Callout
               onPress={() => goToProfile(coordinate.users_id)}
               style={styles.markerCallout}
             >
@@ -71,16 +71,16 @@ const styles = StyleSheet.create({
     padding: 3
   },
   markerCallout: {
-    width: 70   
+    width: 70
   },
   calloutOrgName: {
-    fontWeight: 'bold'    
+    fontWeight: 'bold'
   },
   calloutButton: {
-    backgroundColor: '#00FF9D', 
-    marginTop: 5, 
-    borderRadius: 3, 
-    paddingTop: 2, 
+    backgroundColor: '#00FF9D',
+    marginTop: 5,
+    borderRadius: 3,
+    paddingTop: 2,
     paddingBottom: 2
   },
   calloutButtonText: {
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
 });
 
 const mapPropsToState = state => {
-  const coords = state.organizations
+  const coords = state.filteredOrganization
     .map(org => {
       return {
         users_id: org.users_id,
