@@ -2,11 +2,13 @@ import * as SecureStore from "expo-secure-store";
 import moment from "moment";
 import escapeRegExp from "escape-string-regexp";
 
+
 function filterSearch(query, key, arr) {
   if (query === "") return arr;
   const match = new RegExp(query, "i");
   return arr.filter(obj => match.test(obj[key.toLowerCase()]));
 }
+
 
 import {
   LOGIN_START,
@@ -65,7 +67,6 @@ import {
   GET_ORGANIZATIONS_SUCCESS,
   GET_ORGANIZATIONS_ERROR,
   SET_MAP_SEARCH_QUERY,
-  SET_MAP_SEARCH_CATEGORY
 } from "../actions";
 
 const initialState = {
@@ -94,10 +95,9 @@ const initialState = {
   token: "",
   profileReset: false,
   userRegistered: true,
-  organizations:[],
-  filteredOrganization:[],
-  mapCategoryFilter:'all',
-  mapSearchQuery:'',
+  organizations:[],          // All Organizations
+  organizationWithCoords:[], // Organizations with coordinates that can be displayed on map,
+  filteredOrganization:[]    // Filtered Organizations
 };
 
 const reducer = (state = initialState, action) => {
@@ -527,13 +527,13 @@ const reducer = (state = initialState, action) => {
         error: ''
       };
     case GET_ORGANIZATIONS_SUCCESS:
-      console.log('GET_ORGANIZATIONS_SUCCESS',action.payload.length)
-      const cleanupedOrganizations = action.payload.filter(coords => coords.latitude && coords.longitude !== null);
+      const organizationWithCoords = action.payload.filter(coords => coords.latitude && coords.longitude !== null);
   
       return {
         ...state,
-        organizations:cleanupedOrganizations,
-        filteredOrganization: cleanupedOrganizations,
+        organizations:action.payload,
+        organizationWithCoords: organizationWithCoords,
+        filteredOrganization: organizationWithCoords,
         error: ''
       };
     case GET_ORGANIZATIONS_ERROR:
@@ -541,24 +541,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         error:  action.payload,
       };
-
-    case SET_MAP_SEARCH_CATEGORY:
-      return {
-        ...state,
-        mapCategoryFilter: action.payload
-      };
-    
     case SET_MAP_SEARCH_QUERY:
-      // console.log('SET_MAP_SEARCH_QUERY', action.payload)
       const  query = action.payload['query']
-      const  key = action.payload['key']
-      
-      const filteredOrganization = filterSearch(query, key, state.organizations)
-      // filteredOrganization = filteredOrganization.filter(coords => coords.latitude && coords.longitude !== null);
-      console.log("filteredOrganization",filteredOrganization)
+      const  key = action.payload['field']
       return {
         ...state,
-        filteredOrganization: filteredOrganization,
+        filteredOrganization: filterSearch(query, key, state.organizationWithCoords),
       };
       
     default:

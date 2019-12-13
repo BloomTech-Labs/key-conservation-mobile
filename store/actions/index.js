@@ -676,7 +676,7 @@ export const getOrganizations = () => async dispatch => {
   dispatch({ type: GET_ORGANIZATIONS_STARTED})
   let url = `${seturl}maps`
   const token = await SecureStore.getItemAsync("accessToken", {});
-  console.log('token',token)
+  // console.log('token',token)
   return axios
       .get(url, {
         headers: {
@@ -694,24 +694,12 @@ export const getOrganizations = () => async dispatch => {
   }
   
 export const [
-  SET_MAP_SEARCH_CATEGORY, SET_MAP_SEARCH_QUERY
-] = ['SET_MAP_SEARCH_CATEGORY' ,'SET_MAP_SEARCH_QUERY']
+  SET_MAP_SEARCH_QUERY
+] = ['SET_MAP_SEARCH_QUERY']
 
-export const setMapSearchQuery = (query, key) => async dispatch => {
-    console.log('setMapSearchQuery', query)
-    
-  const token = await SecureStore.getItemAsync("accessToken", {});
-  console.log('token',token)
-    dispatch(
-    { type: SET_MAP_SEARCH_QUERY,
-      payload: {query, key}
-    })
-}
-
-export const setMapSearchCategory = (value) => async dispatch => {
+export const setMapSearchQuery = (query, field) => async dispatch => {
   dispatch(
-      { type: SET_MAP_SEARCH_CATEGORY,
-        payload: value
+      { type: SET_MAP_SEARCH_QUERY,
+        payload: {query, field}
       })
 }
-
