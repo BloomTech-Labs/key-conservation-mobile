@@ -3,17 +3,14 @@ import MapView, { Marker, Callout } from "react-native-maps";
 import { StyleSheet, View, Image, Dimensions, Text } from "react-native";
 import { connect } from "react-redux";
 import { getOrganizations, getProfileData } from "../../store/actions";
-
 const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
   useEffect(() => {
     getOrganizations();
   }, []);
-
   const goToProfile = async id => {
     await getProfileData(id);
     navigation.navigate("Pro");
   };
-
   return (
     <View style={styles.container}>
       <MapView style={styles.mapStyle}>
@@ -40,6 +37,7 @@ const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
                 style={styles.markerCallout}
               >
                 <Text style={styles.calloutOrgName}>{coordinate.org_name}</Text>
+
                 <View style={styles.calloutButton}>
                   <Text style={styles.calloutButtonText}>Profile</Text>
                 </View>
@@ -51,7 +49,6 @@ const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   mapStyle: {
     width: Dimensions.get("window").width,
@@ -82,7 +79,6 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
-
 const mapPropsToState = state => {
   const coords = state.filteredOrganization
     .map(org => {
@@ -96,13 +92,11 @@ const mapPropsToState = state => {
       };
     })
     .filter(coords => coords.latitude && coords.longitude !== null);
-
   return {
     organizations: state.organizations,
     coords: coords
   };
 };
-
 export default connect(mapPropsToState, { getOrganizations, getProfileData })(
   WideMap
 );
