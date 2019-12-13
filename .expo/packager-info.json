@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerPort": 19007,
+  "packagerPort": 19008,
+  "packagerPid": 29769,
+  "expoServerNgrokUrl": "https://27-2c4.camerona.key-conservation-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.27-2c4.camerona.key-conservation-mobile.exp.direct",
+  "ngrokPid": 29794
 }

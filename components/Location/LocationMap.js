@@ -1,19 +1,13 @@
 import React, { useEffect } from "react";
-import MapView, { Marker } from "react-native-maps";
-import { 
-  StyleSheet,
-  View,
-  Dimensions,
-  Image
-} from "react-native";
+import MapView, { Marker, Callout } from "react-native-maps";
+import { StyleSheet, View, Dimensions, Image } from "react-native";
 import { connect } from "react-redux";
 import { getOrganizations } from "../../store/actions";
-
 
 const LocationMap = ({ getOrganizations, profile }) => {
   useEffect(() => {
     console.log(profile.latitude + " " + profile.longitude);
-    console.log(profile);
+    // console.log(profile);
     getOrganizations();
   }, []);
 
@@ -47,10 +41,10 @@ const LocationMap = ({ getOrganizations, profile }) => {
               }}
               style={styles.imageMarker}
             />
-            <Callout>
+            {/* <Callout>
               <Text>{profile.org_name}</Text>
               <MapButton />
-            </Callout>
+            </Callout> */}
           </Marker>
         ) : null}
       </MapView>

@@ -4,23 +4,20 @@ import { StyleSheet, View, Image, Dimensions, Text } from "react-native";
 import { connect } from "react-redux";
 import { getOrganizations, getProfileData } from "../../store/actions";
 
-
 const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
-
   useEffect(() => {
     getOrganizations();
   }, []);
 
-  const goToProfile = async (id) => {
+  const goToProfile = async id => {
     await getProfileData(id);
-    navigation.navigate('Pro');
+    navigation.navigate("Pro");
   };
 
   return (
     <View style={styles.container}>
       <MapView style={styles.mapStyle}>
         {coords.map(coordinate => {
-
           console.log("coordinate", coordinate);
           return <Marker
             key={coordinate.users_id}
@@ -41,16 +38,23 @@ const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
               onPress={() => goToProfile(coordinate.users_id)}
               style={styles.markerCallout}
             >
-            <Text style={styles.calloutOrgName}>{coordinate.org_name}</Text>
-            
-                <View
-                  style={styles.calloutButton}
-                >
+              <Image
+                source={{
+                  uri: coordinate.profile_image
+                }}
+                style={styles.markerImg}
+              />
+              <Callout
+                onPress={() => goToProfile(coordinate.users_id)}
+                style={styles.markerCallout}
+              >
+                <Text style={styles.calloutOrgName}>{coordinate.org_name}</Text>
+                <View style={styles.calloutButton}>
                   <Text style={styles.calloutButtonText}>Profile</Text>
                 </View>
-              
-            </Callout>
-          </Marker>
+              </Callout>
+            </Marker>
+          );
         })}
       </MapView>
     </View>
@@ -74,17 +78,17 @@ const styles = StyleSheet.create({
     width: 70
   },
   calloutOrgName: {
-    fontWeight: 'bold'
+    fontWeight: "bold"
   },
   calloutButton: {
-    backgroundColor: '#00FF9D',
+    backgroundColor: "#00FF9D",
     marginTop: 5,
     borderRadius: 3,
     paddingTop: 2,
     paddingBottom: 2
   },
   calloutButtonText: {
-    textAlign: 'center'
+    textAlign: "center"
   }
 });
 
@@ -108,4 +112,6 @@ const mapPropsToState = state => {
   };
 };
 
-export default connect(mapPropsToState, { getOrganizations, getProfileData })(WideMap);
+export default connect(mapPropsToState, { getOrganizations, getProfileData })(
+  WideMap
+);
