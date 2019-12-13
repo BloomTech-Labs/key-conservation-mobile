@@ -19,15 +19,24 @@ const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
       <MapView style={styles.mapStyle}>
         {coords.map(coordinate => {
           console.log("coordinate", coordinate);
-          return (
-            <Marker
-              key={coordinate.users_id}
-              pinColor="#00FF9D"
-              coordinate={{
-                latitude: coordinate.latitude,
-                longitude: coordinate.longitude
+          return <Marker
+            key={coordinate.users_id}
+            pinColor="#00FF9D"
+            coordinate={{
+              latitude: coordinate.latitude,
+              longitude: coordinate.longitude
               }}
-              stopPropagation={true}
+            stopPropagation={true}
+          >
+            <Image
+              source={{
+                uri: coordinate.profile_image
+              }}
+              style={styles.markerImg}
+              />
+            <Callout
+              onPress={() => goToProfile(coordinate.users_id)}
+              style={styles.markerCallout}
             >
               <Image
                 source={{
@@ -84,7 +93,7 @@ const styles = StyleSheet.create({
 });
 
 const mapPropsToState = state => {
-  const coords = state.organizations
+  const coords = state.filteredOrganization
     .map(org => {
       return {
         users_id: org.users_id,
