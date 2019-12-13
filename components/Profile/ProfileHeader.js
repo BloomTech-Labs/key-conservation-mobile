@@ -37,7 +37,16 @@ const ProfileHeader = props => {
             <Text style={styles.CampaignButton}>Campaigns</Text>
           </View>
         </TouchableOpacity>
-
+        {!props.myProfile ? (
+          <TouchableOpacity
+            style={[styles.TouchableOpacity]}
+            onPress={() => props.navigation.navigate("Location")}
+          >
+            <View style={styles.ButtonStyle}>
+              <Text style={styles.DetailButton}>Location</Text>
+            </View>
+          </TouchableOpacity>
+        ) : null}
         <TouchableOpacity
           style={styles.TouchableOpacity}
           onPress={() => {
@@ -77,7 +86,7 @@ const ProfileHeader = props => {
             )}
             {profile.location === null || profile.location === "" ? null : (
               <Text style={styles.locationText}>
-                <FontAwesome name='map-pin' style={styles.outline} />{" "}
+                <FontAwesome name="map-pin" style={styles.outline} />{" "}
                 {profile.location}
               </Text>
             )}

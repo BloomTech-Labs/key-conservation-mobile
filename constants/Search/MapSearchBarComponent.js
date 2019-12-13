@@ -9,6 +9,11 @@ export default {
 			paddingLeft:1,
 			borderBottomLeftRadius: 10,
 			borderBottomRightRadius: 10,
+			shadowColor: '#000',
+			shadowOffset: { width: 0, height: 2 },
+			shadowOpacity: 0.8,
+			shadowRadius: 2,
+			elevation: 1,
 		},
 		searchContainer:{
 			backgroundColor: "#C1CCD9",
@@ -27,10 +32,9 @@ export default {
 			paddingRight:4,
 		},
 		selectionRow:{
-			// display:'flex',
 			justifyContent:'center',
 			fontSize:24,
-			fontWeight:700,
+			fontWeight:"700",
 			backgroundColor:"#C1CCD9",
 			paddingTop:0,
 			paddingRight:2,
@@ -43,9 +47,9 @@ export default {
 			padding: '3%',
 			color:"#2B3036",
 			backgroundColor:"white",
-			fontSize:18,
+			fontSize:16,
 			height:50,
-			fontWeight:500,
+			fontWeight:"500",
 			borderTopLeftRadius: 4,
 			borderBottomLeftRadius: 4,
 			borderTopWidth:1,
@@ -78,13 +82,13 @@ export default {
 		},
 		filterOption:{
 			color:'#444',
-			fontWeight:500,
+			fontWeight:"500",
 			fontSize:16,
 		},
 		selectionRowHeader:{
 			color:"white",
 			fontSize:16,
-			fontWeight:800,
+			fontWeight:"800",
 			backgroundColor:'#737373',
 			padding:6,
 			borderTopRightRadius: 4,
@@ -132,7 +136,7 @@ export default {
 		messageText:{
 			color:'white',
 			fontSize:16,
-			fontWeight:600,
+			fontWeight:"600",
 		},
 		
 		show:{

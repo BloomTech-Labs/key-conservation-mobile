@@ -1,27 +1,56 @@
-import React, { useEffect, useState } from "react";
-import MapView, { Marker } from "react-native-maps";
-import { StyleSheet, View, Dimensions } from "react-native";
+import React, { useEffect } from "react";
+import MapView, { Marker, Callout } from "react-native-maps";
+import { StyleSheet, View, Image, Dimensions, Text } from "react-native";
 import { connect } from "react-redux";
-import { getOrganizations } from "../../store/actions";
+import { getOrganizations, getProfileData } from "../../store/actions";
 
-const WideMap = ({ getOrganizations, coords }) => {
+
+const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
 
   useEffect(() => {
     getOrganizations();
   }, []);
 
+  const goToProfile = async (id) => {
+    await getProfileData(id);
+    navigation.navigate('Pro');
+  };
+
   return (
     <View style={styles.container}>
       <MapView style={styles.mapStyle}>
         {coords.map(coordinate => {
-          // console.log("coordinate", coordinate);
+
+          console.log("coordinate", coordinate);
           return <Marker
-            key={coordinate.longitude}
+            key={coordinate.users_id}
             pinColor="#00FF9D"
-            coordinate={coordinate}
+            coordinate={{
+              latitude: coordinate.latitude,
+              longitude: coordinate.longitude
+              }}
             stopPropagation={true}
-            onPress={e => console.log("*** IT HAS BEEN PRESSED ***")}
-          />;
+          >
+            <Image
+              source={{
+                uri: coordinate.profile_image
+              }}
+              style={styles.markerImg}
+              />
+            <Callout
+              onPress={() => goToProfile(coordinate.users_id)}
+              style={styles.markerCallout}
+            >
+            <Text style={styles.calloutOrgName}>{coordinate.org_name}</Text>
+            
+                <View
+                  style={styles.calloutButton}
+                >
+                  <Text style={styles.calloutButtonText}>Profile</Text>
+                </View>
+              
+            </Callout>
+          </Marker>
         })}
       </MapView>
     </View>
@@ -32,6 +61,30 @@ const styles = StyleSheet.create({
   mapStyle: {
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height
+  },
+  markerImg: {
+    height: 40,
+    width: 40,
+    borderRadius: 20,
+    borderWidth: 3,
+    borderColor: "#00FF9D",
+    padding: 3
+  },
+  markerCallout: {
+    width: 70
+  },
+  calloutOrgName: {
+    fontWeight: 'bold'
+  },
+  calloutButton: {
+    backgroundColor: '#00FF9D',
+    marginTop: 5,
+    borderRadius: 3,
+    paddingTop: 2,
+    paddingBottom: 2
+  },
+  calloutButtonText: {
+    textAlign: 'center'
   }
 });
 
@@ -39,15 +92,20 @@ const mapPropsToState = state => {
   const coords = state.filteredOrganization
     .map(org => {
       return {
+        users_id: org.users_id,
         latitude: org.latitude,
-        longitude: org.longitude
+        longitude: org.longitude,
+        org_name: org.org_name,
+        location: org.location,
+        profile_image: org.profile_image
       };
     })
     .filter(coords => coords.latitude && coords.longitude !== null);
-    
+
   return {
     organizations: state.organizations,
     coords: coords
   };
 };
-export default connect(mapPropsToState, { getOrganizations })(WideMap);
+
+export default connect(mapPropsToState, { getOrganizations, getProfileData })(WideMap);

@@ -19,19 +19,14 @@ const  MapSearchBarComponent = (props)=>{
 				checked:true
 			},
 			{
-				label:'Species and Habitats',
-				field:'species_and_habitats',
-				checked:false
-			},
-			{
 				label:'Organization Name',
 				field:'org_name',
 				query:'',
 				checked:false
 			},
 			{
-				label:'Issues',
-				field:'issues',
+				label:'Species and Habitats',
+				field:'species_and_habitats',
 				checked:false
 			},
 	])
@@ -119,7 +114,7 @@ const  MapSearchBarComponent = (props)=>{
                     <Text style={styles.selectionRowHeader}>Search By Category</Text>
 	
 					{selectionOptions.map((option) => {
-						return <TouchableOpacity style={styles.filterSelectOption}   >
+						return <TouchableOpacity key={option.field} style={styles.filterSelectOption}   >
 									{ option.checked === true
 										? <MaterialIcons onPress={()=>handleFieldChange(option.field )} name="radio-button-checked" size={22} color="#444" style={{marginRight:10}}/>
 										: <MaterialIcons onPress={()=>handleFieldChange(option.field )} name="radio-button-unchecked" size={22} color="#444" style={{marginRight:10}}/>

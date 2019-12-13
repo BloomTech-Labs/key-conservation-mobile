@@ -1,19 +1,16 @@
 import React from "react";
-import {View, Screen, Text, StyleSheet} from "react-native";
-// import WideMap from './WideMap.js';
-import {MapView, permissions} from 'expo';
+import {View, StyleSheet} from "react-native";
 import WideMap from './WideMap'
 import MapSearchBarComponent from '../../components/Search/MapSearchComponent'
 
-const WideMapScreen = () => {
+const WideMapScreen = (props) => {
     return(
         <View style={styles.container}>
             <MapSearchBarComponent style={styles.mapSearchBar}/>
-            <WideMap style={styles.mapSearchBar}/>
+            <WideMap navigation={props.navigation}/>
         </View>
     );
 }
-
 
 const styles = StyleSheet.create({
     container: {
@@ -24,6 +21,9 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems:'center'
     },
+    mapSearchBar:{
+        zIndex:1000,
+    }
 });
 
 
