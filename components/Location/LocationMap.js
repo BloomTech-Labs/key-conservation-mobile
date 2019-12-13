@@ -7,7 +7,7 @@ import { getOrganizations } from "../../store/actions";
 const LocationMap = ({ getOrganizations, profile }) => {
   useEffect(() => {
     console.log(profile.latitude + " " + profile.longitude);
-    console.log(profile);
+    // console.log(profile);
     getOrganizations();
   }, []);
 
