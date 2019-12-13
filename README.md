@@ -50,6 +50,22 @@ You can find the deployed project at [Expo - Key Conservation](https://expo.io/@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/b5c4db1c-b10d-42c3-b157-3746edd9e81d/deploy-status)]
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
+## Previous Labs Teams Who Contributed To This Project
+
+### Labs 14 - Initial Setup & Creation
+
+- Team Lead: Asa-Michael Shalom - [GitHub](https://github.com/AsaOfDiamonds) | [LinkedIn](https://www.linkedin.com/in/shalom1/)
+- UX/UI: Luis Morabito - [LinkedIn](https://www.linkedin.com/in/luismorabito/)
+- UX/UI: Gabby Loscalzo - [LinkedIn](https://www.linkedin.com/in/gabby-loscalzo-829596183/)
+- Developer: Cori Paris [GitHub](https://github.com/coriagogo) | [LinkedIn](https://www.linkedin.com/pearl-paris)
+- Developer: Jay Maas [GitHub](https://github.com/jay-maas) | [LinkedIn](https://www.linkedin.com/in/jay-maas/)
+- Developer: Leonel Flores [GitHub](https://github.com/lflores12) | [LinkedIn](https://www.linkedin.com/in/leonelflores12/)
+- Developer: Bazen Berhane [GitHub](https://github.com/ba-zen) | [LinkedIn](https://www.linkedin.com/in/bazen-berhane-052340191/)
+- Developer: Matthew Klein [GitHub](https://github.com/duckeverlasting) | [LinkedIn](https://www.linkedin.com/in/taslim-yakub-244070186/)
+- Developer: Taslim Yakub [GitHub](https://github.com/taslimy) | [LinkedIn](https://www.linkedin.com/in/matthew-s-klein/)
+- Developer: Zach Christy [GitHub](https://github.com/zchristy) | [LinkedIn](https://www.linkedin.com/in/zach-christy/)
+- Developer: Sam Jeffcoat [GitHub](https://github.com/samjeffcoat) | [LinkedIn](https://www.linkedin.com/in/samjeffcoat/)
+
 ## Project Overview
 
 [Trello Board](https://trello.com/b/cUouSxH7/key-conservation-labs-18)
