@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
 });
 
 const mapPropsToState = state => {
-  const coords = state.organizations
+  const coords = state.filteredOrganization
     .map(org => {
       return {
         users_id: org.users_id,
