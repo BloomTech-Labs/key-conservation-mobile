@@ -52,7 +52,7 @@ You can find the deployed project at [Expo - Key Conservation](https://expo.io/@
 
 ## Previous Labs Teams Who Contributed To This Project
 
-### Labs 14 - Initial Setup & Creation
+### Labs 14 - First Product Cycle
 
 - Team Lead: Asa-Michael Shalom - [GitHub](https://github.com/AsaOfDiamonds) | [LinkedIn](https://www.linkedin.com/in/shalom1/)
 - UX/UI: Luis Morabito - [LinkedIn](https://www.linkedin.com/in/luismorabito/)
@@ -65,6 +65,18 @@ You can find the deployed project at [Expo - Key Conservation](https://expo.io/@
 - Developer: Taslim Yakub [GitHub](https://github.com/taslimy) | [LinkedIn](https://www.linkedin.com/in/matthew-s-klein/)
 - Developer: Zach Christy [GitHub](https://github.com/zchristy) | [LinkedIn](https://www.linkedin.com/in/zach-christy/)
 - Developer: Sam Jeffcoat [GitHub](https://github.com/samjeffcoat) | [LinkedIn](https://www.linkedin.com/in/samjeffcoat/)
+
+### Labs 16 - Second Product Cycle
+
+- Team Lead: Cori Paris [GitHub](https://github.com/coriagogo) | [LinkedIn](https://www.linkedin.com/pearl-paris)
+- UI/UX: Daniel Stadler [LinkedIn](https://www.linkedin.com/in/danstad/)
+- UI/UX: Colton Mortensen [LinkedIn](https://www.linkedin.com/colton-mortensen/)
+- Developer: Mary Sabol [GitHub](https://github.com/ntsum) | [LinkedIn](https://www.linkedin.com/in/marycodes/)
+- Developer: Jamie Goodnight [GitHub](https://github.com/jamiegoodnight) | [LinkedIn](https://www.linkedin.com/jamiegoodnight)
+- Developer: Katie Felten [GitHub](https://github.com/katie-rose) | [LinkedIn](https://www.linkedin.com/in/kfelten)
+- Developer: Cesar Aponte [GitHub](https://github.com/cjaponte) | [LinkedIn](https://www.linkedin.com/in/cjaponte/)
+- Developer: Samantha Egge [GitHub](https://github.com/samanthaegge) | [LinkedIn](https://www.linkedin.com/samantha-egge)
+- Developer: Brandon Harrison [GitHub](https://github.com/BrandonHarrison01) | [LinkedIn](https://www.linkedin.com/in/brandon-harrison-01/)
 
 ## Project Overview
 
