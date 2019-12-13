@@ -3,40 +3,28 @@ import MapView, { Marker, Callout } from "react-native-maps";
 import { StyleSheet, View, Image, Dimensions, Text } from "react-native";
 import { connect } from "react-redux";
 import { getOrganizations, getProfileData } from "../../store/actions";
-
 const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
   useEffect(() => {
     getOrganizations();
   }, []);
-
   const goToProfile = async id => {
     await getProfileData(id);
     navigation.navigate("Pro");
   };
-
   return (
     <View style={styles.container}>
       <MapView style={styles.mapStyle}>
         {coords.map(coordinate => {
           console.log("coordinate", coordinate);
-          return <Marker
-            key={coordinate.users_id}
-            pinColor="#00FF9D"
-            coordinate={{
-              latitude: coordinate.latitude,
-              longitude: coordinate.longitude
+          return (
+            <Marker
+              key={coordinate.users_id}
+              pinColor="#00FF9D"
+              coordinate={{
+                latitude: coordinate.latitude,
+                longitude: coordinate.longitude
               }}
-            stopPropagation={true}
-          >
-            <Image
-              source={{
-                uri: coordinate.profile_image
-              }}
-              style={styles.markerImg}
-              />
-            <Callout
-              onPress={() => goToProfile(coordinate.users_id)}
-              style={styles.markerCallout}
+              stopPropagation={true}
             >
               <Image
                 source={{
@@ -60,7 +48,6 @@ const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   mapStyle: {
     width: Dimensions.get("window").width,
@@ -91,7 +78,6 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
-
 const mapPropsToState = state => {
   const coords = state.filteredOrganization
     .map(org => {
@@ -105,13 +91,11 @@ const mapPropsToState = state => {
       };
     })
     .filter(coords => coords.latitude && coords.longitude !== null);
-
   return {
     organizations: state.organizations,
     coords: coords
   };
 };
-
 export default connect(mapPropsToState, { getOrganizations, getProfileData })(
   WideMap
 );
