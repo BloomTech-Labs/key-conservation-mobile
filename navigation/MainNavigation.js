@@ -72,7 +72,7 @@ export const OrgOnboardStack = createStackNavigator(
 
 const MapStack = createStackNavigator(
   {
-    Home: WideMapScreen
+    MapHome: WideMapScreen
   },
   {
     headerMode: "none",
@@ -304,7 +304,7 @@ export const ConsNavigator = createBottomTabNavigator(
     MapStack: {
       screen: MapStack,
       tabBarOnPress: ({ navigation, defaultHandler }) => {
-        navigation.navigate("Home"), defaultHandler();
+        navigation.navigate("MapHome"), defaultHandler();
       }
     },
     CreateCampStack: { screen: CreateCampStack, path: "" },

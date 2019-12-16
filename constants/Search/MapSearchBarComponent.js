@@ -136,7 +136,6 @@ export default {
     fontSize: 16,
     fontWeight: "600"
   },
-
   show: {
     display: "flex"
   },
