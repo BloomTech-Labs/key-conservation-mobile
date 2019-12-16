@@ -11,7 +11,7 @@ export default {
   },
   titleText: {
     fontSize: 17,
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: "Futura-Medium",
     lineHeight: 23,
     marginLeft: 5
   },
@@ -42,7 +42,7 @@ export default {
     fontSize: 18,
     alignSelf: "center",
     marginLeft: 10,
-    fontFamily: "OpenSans-Regular"
+    fontFamily: "Futura"
   },
   donateButton: {
     alignItems: "center",

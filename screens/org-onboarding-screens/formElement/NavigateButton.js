@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     marginRight: '5%'
   },
   obFwdBtnText: {
-    fontFamily: 'OpenSans-Bold',
+    fontFamily: 'Futura-Bold',
     fontStyle: 'normal',
     fontSize: 18,
     lineHeight: 25,

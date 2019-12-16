@@ -12,17 +12,17 @@ export default {
   titleText: {
     lineHeight: 22,
     fontSize: 16,
-    fontFamily: "OpenSans-SemiBold"
+    fontFamily: "Futura-Medium"
   },
   userText: {
     lineHeight: 19,
     fontSize: 14,
-    fontFamily: "OpenSans-Regular"
+    fontFamily: "Futura"
   },
   urlText: {
     lineHeight: 19,
     fontSize: 14,
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: "Futura-Medium",
     color: "#7B7D88"
   },
   header: {
@@ -58,13 +58,13 @@ export default {
     fontSize: 18,
     color: "#C4C4C4",
     fontWeight: "bold",
-    fontFamily: "OpenSans-SemiBold"
+    fontFamily: "Futura-Medium"
   },
   DetailButton: {
     fontSize: 18,
     color: "black",
     fontWeight: "bold",
-    fontFamily: "OpenSans-SemiBold"
+    fontFamily: "Futura-Medium"
   },
   SocialContainer: {
     flexDirection: "row",

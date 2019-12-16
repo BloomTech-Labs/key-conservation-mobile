@@ -13,7 +13,7 @@ export default {
     marginBottom: 10
   },
   touchableText: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Futura-Medium',
     color: '#323338',
     fontSize: 16
   },

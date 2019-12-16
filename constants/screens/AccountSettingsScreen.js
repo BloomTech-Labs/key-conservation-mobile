@@ -30,7 +30,7 @@ export default {
     fontSize: 18,
     alignSelf: "center",
     marginLeft: 10,
-    fontFamily: "OpenSans-SemiBold"
+    fontFamily: "Futura-Bold"
   },
     iconWrap: {
     flexWrap: "wrap",
@@ -51,7 +51,7 @@ export default {
     fontSize: 18,
     alignSelf: "center",
     marginLeft: '4%',
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: "Futura",
     marginTop: '4%'
   },
   logoutButton: {
@@ -72,7 +72,7 @@ export default {
       justifyContent: 'center'
     },
     buttonText: {
-      fontFamily: 'OpenSans-Bold',
+      fontFamily: 'Futura-Bold',
       letterSpacing: .8,
       textAlign: 'center',
       color: 'black',

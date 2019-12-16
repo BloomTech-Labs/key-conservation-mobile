@@ -30,7 +30,7 @@ class EditCampUpdateScreen extends React.Component {
         textAlign: 'center',
         flexGrow: 1,
         alignSelf: 'center',
-        fontFamily: 'OpenSans-SemiBold'
+        fontFamily: 'Futura-Medium'
       },
       headerLeft: <BackButton navigation={navigation} />,
       headerRight: (
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     fontSize: 13
   },
   sectionsText: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Futura-Medium',
     fontSize: 20,
     marginBottom: 5,
     textAlign: 'center'
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   goToCampaignText: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Futura-Medium',
     fontSize: 18
   }
 });

@@ -16,7 +16,7 @@ const DoneButton = props => {
           style={{
             color: '#fff',
             fontSize: 17,
-            fontFamily: 'OpenSans-Regular'
+            fontFamily: 'Futura'
           }}
         >
           Done

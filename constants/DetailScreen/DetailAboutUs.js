@@ -34,14 +34,14 @@ export default {
     fontSize: 18,
     alignSelf: "center",
     marginLeft: 10,
-    fontFamily: "OpenSans-SemiBold"
+    fontFamily: "Futura-Medium"
   },
   campMission: {
     backgroundColor: "#fff",
     padding: 25,
     borderRadius: 5,
     width: "100%",
-    fontFamily: "OpenSans-Regular",
+    fontFamily: "Futura",
     flexWrap: "wrap",
     flexDirection: "row",
     alignItems: "center",
@@ -54,7 +54,7 @@ export default {
     fontSize: 18,
     textAlign: "center",
     marginLeft: 10,
-    fontFamily: "OpenSans-SemiBold"
+    fontFamily: "Futura-Medium"
   },
   donateButton: {
     alignItems: "center",
@@ -63,7 +63,8 @@ export default {
   donateText: {
     marginTop: 10,
     fontSize: 15,
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily: "Futura-Medium"
   },
   forcedMargin: {
     marginTop: 5
