@@ -9,7 +9,7 @@ const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
   }, []);
   const goToProfile = async id => {
     await getProfileData(id);
-    navigation.navigate("Pro");
+    navigation.navigate("Pro", { fromMap: true });
   };
   return (
     <View style={styles.container}>
@@ -37,6 +37,7 @@ const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
                 style={styles.markerCallout}
               >
                 <Text style={styles.calloutOrgName}>{coordinate.org_name}</Text>
+
                 <View style={styles.calloutButton}>
                   <Text style={styles.calloutButtonText}>Profile</Text>
                 </View>
