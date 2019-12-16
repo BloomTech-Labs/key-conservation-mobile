@@ -75,7 +75,10 @@ async function loadResourcesAsync() {
     Font.loadAsync({
       "OpenSans-Regular": require("./assets/fonts/Open_Sans/OpenSans-Regular.ttf"),
       "OpenSans-SemiBold": require("./assets/fonts/Open_Sans/OpenSans-SemiBold.ttf"),
-      "OpenSans-Bold": require("./assets/fonts/Open_Sans/OpenSans-Bold.ttf")
+      "OpenSans-Bold": require("./assets/fonts/Open_Sans/OpenSans-Bold.ttf"),
+      "Futura-Regular": require("./assets/fonts/Futura/Futura Light font.ttf"),
+      "Futura-SemiBold": require("./assets/fonts/Futura/futur.ttf"),
+      "Futura-Bold": require("./assets/fonts/Futura/Futura Bold font.ttf")
     })
   ]);
 }

@@ -78,7 +78,7 @@ export default {
     fontSize: 13
   },
   sectionsText: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Futura-Regular',
     fontSize: 20,
     marginBottom: 5
   },

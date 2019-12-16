@@ -50,7 +50,7 @@ export default {
     width: '100%'
   },
   sectionsText: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Futura-Regular',
     fontSize: 20,
     marginBottom: 5
   },
@@ -62,7 +62,7 @@ export default {
   },
   accountSettingsText: {
     fontSize: 25,
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Futura-Regular',
     marginBottom: 10
   },
   logoutButton: {
@@ -76,7 +76,7 @@ export default {
     height: 30,
     marginBottom: 18,
     borderRadius: 4,
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'Futura-Regular',
     backgroundColor: '#00FF9D',
     // shadowColor: 'rgba(0, 0, 0, 0.25)',
     // shadowOffset: {

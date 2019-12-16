@@ -83,20 +83,20 @@ export default {
   sectionsText: {
     lineHeight: 22,
     fontSize: 16,
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Futura-Bold',
     marginBottom: 5
   },
   bodyText: {
     lineHeight: 19,
     fontSize: 14,
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'Futura-Regular',
     color: '#323339',
     textAlign: 'left'
   },
   urgencyText: {
     lineHeight: 19,
     fontSize: 14,
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'Futura-Regular',
     color: '#323339',
     textAlign: 'left',
     paddingLeft: 15
@@ -125,7 +125,7 @@ export default {
     color: '#000',
     backgroundColor: '#E31059',
     fontSize: 16,
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Futura-Bold',
     textTransform: 'uppercase',
     height: 35,
     width: '100%',
@@ -137,7 +137,7 @@ export default {
     color: '#000',
     backgroundColor: '#FFC700',
     fontSize: 16,
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Futura-Bold',
     textTransform: 'uppercase',
     height: 35,
     width: '100%',
@@ -149,7 +149,7 @@ export default {
     color: '#000',
     backgroundColor: '#00FF9D',
     fontSize: 16,
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Futura-Bold',
     textTransform: 'uppercase',
     height: 35,
     width: '100%',

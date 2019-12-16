@@ -21,7 +21,7 @@ export default {
     marginRight: 20
   },
   orgTitleView: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Futura-Bold',
     fontSize: 16,
     fontWeight: 'bold'
   },
@@ -38,7 +38,7 @@ export default {
     width: '100%'
   },
   goToCampaignText: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Futura-Bold',
     fontSize: 18
   },
   campDesc: {
@@ -47,12 +47,12 @@ export default {
     marginRight: 15
   },
   campDescText: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'Futura-Regular',
     fontSize: 14,
     lineHeight: 19
   },
   campDescName: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Futura-Regular',
     fontSize: 16
   },
   timeText: {
@@ -78,7 +78,7 @@ export default {
   },
   loadMoreText: {
     fontSize: 14,
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'Futura-Regular',
     color: '#323338'
   }
 };
