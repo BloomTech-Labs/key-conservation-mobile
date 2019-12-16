@@ -89,14 +89,14 @@ export default {
   bodyText: {
     lineHeight: 19,
     fontSize: 14,
-    fontFamily: 'Futura-Regular',
+    fontFamily: 'Futura',
     color: '#323339',
     textAlign: 'left'
   },
   urgencyText: {
     lineHeight: 19,
     fontSize: 14,
-    fontFamily: 'Futura-Regular',
+    fontFamily: 'Futura',
     color: '#323339',
     textAlign: 'left',
     paddingLeft: 15

@@ -20,12 +20,12 @@ export default {
   titleText: {
     lineHeight: 22,
     fontSize: 16,
-    fontFamily: 'OpenSans-SemiBold'
+    fontFamily: 'Futura-Medium'
   },
   userText: {
     lineHeight: 19,
     fontSize: 14,
-    fontFamily: 'OpenSans-Regular'
+    fontFamily: 'Futura'
   },
   socialContainer: {
     flexDirection: 'row',

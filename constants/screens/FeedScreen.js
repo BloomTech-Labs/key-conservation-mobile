@@ -78,7 +78,7 @@ export default {
   },
   loadMoreText: {
     fontSize: 14,
-    fontFamily: 'Futura-Regular',
+    fontFamily: 'Futura',
     color: '#323338'
   }
 };

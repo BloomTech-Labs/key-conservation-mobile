@@ -11,7 +11,7 @@ export default {
         borderRadius: 10
     },
     span: {
-        fontFamily: 'OpenSans-Bold'
+        fontFamily: 'Futura-Bold'
     },
     contentWrapper: {
         display: "flex",
@@ -25,7 +25,7 @@ export default {
     },
     obText: {
         color: '#000000',
-        fontFamily: 'OpenSans-Regular',
+        fontFamily: 'Futura',
         fontSize: 18,
         lineHeight: 25,
         marginLeft: '5%',
@@ -35,7 +35,7 @@ export default {
     },
     obTextBottom: {
         color: '#000000',
-        fontFamily: 'OpenSans-Regular',
+        fontFamily: 'Futura',
         fontSize: 18,
         lineHeight: 25,
         marginLeft: '5%',
@@ -45,7 +45,7 @@ export default {
     },
     obTitle: {
         color: '#000000',
-        fontFamily: 'OpenSans-Bold',
+        fontFamily: 'Futura-Bold',
         fontSize: 28,
         lineHeight: 38,
         marginLeft: '5%',
@@ -56,7 +56,7 @@ export default {
     },
     obSubtitle: {
         color: '#000000',
-        fontFamily: 'OpenSans-Bold',
+        fontFamily: 'Futura-Bold',
         fontSize: 21,
         lineHeight: 29,
         marginLeft: '5%',
@@ -77,7 +77,7 @@ export default {
         marginRight: '5%'
     },
     obFwdBtnText: {
-        fontFamily: 'OpenSans-Bold',
+        fontFamily: 'Futura-Bold',
         fontStyle: 'normal',
         fontSize: 18,
         lineHeight: 25,
@@ -106,7 +106,7 @@ export default {
         borderColor: '#00FF9D'
     },
     obFieldName: {
-        fontFamily: 'OpenSans-Regular',
+        fontFamily: 'Futura',
         fontWeight: 300,
         fontSize: 14,
         lineHeight: 19,

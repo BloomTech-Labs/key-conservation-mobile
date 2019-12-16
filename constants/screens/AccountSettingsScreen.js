@@ -30,7 +30,7 @@ export default {
     fontSize: 18,
     alignSelf: "center",
     marginLeft: 10,
-    fontFamily: "Futura-Regular"
+    fontFamily: "Futura-Bold"
   },
     iconWrap: {
     flexWrap: "wrap",
@@ -51,7 +51,7 @@ export default {
     fontSize: 18,
     alignSelf: "center",
     marginLeft: '4%',
-    fontFamily: "Futura-Regular",
+    fontFamily: "Futura",
     marginTop: '4%'
   },
   logoutButton: {

@@ -16,7 +16,7 @@ const PublishButton = props => {
           style={{
             fontSize: 17,
             color: '#fff',
-            fontFamily: 'OpenSans-Regular'
+            fontFamily: 'Futura'
           }}
         >
           Publish

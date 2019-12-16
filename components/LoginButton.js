@@ -24,7 +24,7 @@ const LoginButton = props => {
             style={{
               fontSize: 17,
               color: '#fff',
-              fontFamily: 'OpenSans-Regular'
+              fontFamily: 'Futura'
             }}
           >
             Login

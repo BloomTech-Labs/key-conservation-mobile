@@ -14,7 +14,7 @@ export default {
     paddingBottom: 3
   },
   orgTitleView: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'Futura',
     fontSize: 17
   },
   campImgContain: {
@@ -78,7 +78,7 @@ export default {
     marginTop: 5
   },
   goToCampaignText: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Futura-Medium',
     fontSize: 18
   },
   campDesc: {
@@ -88,17 +88,17 @@ export default {
     marginBottom: 15
   },
   campDescName: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Futura-Medium',
     fontSize: 16,
     paddingBottom: 10
   },
   campDescText: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'Futura',
     fontSize: 14,
     lineHeight: 19
   },
   comments: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'Futura',
     fontSize: 13,
     lineHeight: 16,
     marginLeft: 15,
@@ -123,7 +123,7 @@ export default {
     color: '#929292'
   },
   urgencyBarText: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Futura-Medium',
     fontSize: 18,
     color: 'black'
   },

@@ -55,7 +55,7 @@ export default {
   },
   obText: {
     color: '#000000',
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'Futura',
     fontSize: 18,
     lineHeight: 25,
     marginLeft: '5%',
@@ -65,7 +65,7 @@ export default {
 },
 obTitle: {
   color: '#000000',
-  fontFamily: 'OpenSans-Bold',
+  fontFamily: 'Futura-Bold',
   fontSize: 28,
   lineHeight: 38,
   marginLeft: '5%',

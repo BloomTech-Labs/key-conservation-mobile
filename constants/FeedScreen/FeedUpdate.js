@@ -8,7 +8,7 @@ export default {
     paddingBottom: 2
   },
   orgTitleView: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'Futura',
     fontSize: 17
   },
   updateBar: {
@@ -25,7 +25,7 @@ export default {
     alignItems: 'center'
   },
   updateBarText: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Futura-Medium',
     fontSize: 18,
     color: 'black'
   },
@@ -59,7 +59,7 @@ export default {
     width: '100%'
   },
   goToCampaignText: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Futura-Medium',
     fontSize: 18
   },
   likesContainer: {
@@ -84,12 +84,12 @@ export default {
     marginRight: 15
   },
   campDescName: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Futura-Medium',
     fontSize: 16,
     paddingBottom: 10
   },
   campDescText: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'Futura-Medium',
     fontSize: 14,
     lineHeight: 19
   },

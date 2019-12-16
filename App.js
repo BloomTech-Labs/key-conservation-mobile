@@ -73,12 +73,12 @@ async function loadResourcesAsync() {
       require("./assets/images/FurBackground.png")
     ]),
     Font.loadAsync({
-      "OpenSans-Regular": require("./assets/fonts/Open_Sans/OpenSans-Regular.ttf"),
-      "OpenSans-SemiBold": require("./assets/fonts/Open_Sans/OpenSans-SemiBold.ttf"),
-      "OpenSans-Bold": require("./assets/fonts/Open_Sans/OpenSans-Bold.ttf"),
-      "Futura-Regular": require("./assets/fonts/Futura/Futura Light font.ttf"),
-      "Futura-SemiBold": require("./assets/fonts/Futura/futur.ttf"),
-      "Futura-Bold": require("./assets/fonts/Futura/Futura Bold font.ttf")
+      // "OpenSans-Regular": require("./assets/fonts/Open_Sans/OpenSans-Regular.ttf"),
+      // "OpenSans-SemiBold": require("./assets/fonts/Open_Sans/OpenSans-SemiBold.ttf"),
+      // "OpenSans-Bold": require("./assets/fonts/Open_Sans/OpenSans-Bold.ttf"),
+      "Futura": require("./assets/fonts/Futura/Futura.ttf"),
+      "Futura-Medium": require("./assets/fonts/Futura/Futura-Medium.ttf"),
+      "Futura-Bold": require("./assets/fonts/Futura/Futura-Bold.ttf")
     })
   ]);
 }

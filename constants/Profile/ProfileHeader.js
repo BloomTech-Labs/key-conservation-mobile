@@ -25,7 +25,7 @@ export default {
   org: {
     lineHeight: 22,
     fontSize: 16,
-    fontFamily: "OpenSans-Bold",
+    fontFamily: "Futura-Bold",
     color: "white"
   },
   outline: {
@@ -36,19 +36,19 @@ export default {
     flexDirection: "row",
     lineHeight: 19,
     fontSize: 14,
-    fontFamily: "OpenSans-Regular",
+    fontFamily: "Futura",
     color: "white"
   },
   userText: {
     lineHeight: 19,
     fontSize: 14,
-    fontFamily: "OpenSans-Regular",
+    fontFamily: "Futura",
     color: "white"
   },
   websiteText: {
     lineHeight: 19,
     fontSize: 14,
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: "Futura-Medium",
     color: "white"
   },
   pic: {
@@ -88,12 +88,12 @@ export default {
     fontSize: 18,
     color: "#000",
     fontWeight: "bold",
-    fontFamily: "OpenSans-SemiBold"
+    fontFamily: "Futura-Medium"
   },
   DetailButton: {
     fontSize: 18,
     color: "#C4C4C4",
     fontWeight: "bold",
-    fontFamily: "OpenSans-SemiBold"
+    fontFamily: "Futura-Medium"
   }
 };

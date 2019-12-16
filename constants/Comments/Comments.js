@@ -23,7 +23,7 @@ export default {
     paddingBottom: 3,
     marginTop: 5,
     fontWeight: "bold",
-    fontFamily: "OpenSans-SemiBold"
+    fontFamily: "Futura-Medium"
   },
   commentBody: {
     marginLeft: 7
@@ -31,7 +31,7 @@ export default {
   commentText: {
     flexDirection: "column",
     width: 300,
-    fontFamily: "OpenSans-SemiBold"
+    fontFamily: "Futura-Medium"
   },
   input: {
     minHeight: 48,
@@ -113,7 +113,7 @@ export default {
   },
   moreText: {
     fontSize: 14,
-    fontFamily: "OpenSans-Regular",
+    fontFamily: "Futura",
     color: "black"
   },
   icon: {

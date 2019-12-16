@@ -20,7 +20,7 @@ class DetailsScreen extends React.Component {
         textAlign: 'center',
         flexGrow: 1,
         alignSelf: 'center',
-        fontFamily: 'OpenSans-SemiBold'
+        fontFamily: 'Futura-Medium'
       },
       headerLeft: <View />,
       headerRight: <View />
