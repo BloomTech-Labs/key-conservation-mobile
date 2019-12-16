@@ -10,6 +10,8 @@ import BackButton from "../components/BackButton";
 
 class ProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
+    const fromMap = navigation.getParam("fromMap", "defaultValue");
+
     return {
       title: "Profile",
       headerStyle: {
@@ -22,7 +24,7 @@ class ProScreen extends React.Component {
         alignSelf: "center",
         fontFamily: "OpenSans-SemiBold"
       },
-      headerLeft: <BackButton navigation={navigation} />,
+      headerLeft: <BackButton navigation={navigation} fromMap={fromMap} />,
       headerRight: <View />
     };
   };
