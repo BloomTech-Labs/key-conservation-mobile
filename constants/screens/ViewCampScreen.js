@@ -47,6 +47,7 @@ export default {
     marginLeft: 15,
     marginRight: 15,
     fontSize: 14,
+    fontFamily: "Futura",
     marginTop: 20,
     paddingTop: 19,
     paddingBottom: 19,

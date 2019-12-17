@@ -20,7 +20,8 @@ export default {
     alignItems: "center"
   },
   bio: {
-    color: "white"
+    color: "white",
+    fontFamily: "Futura"
   },
   org: {
     lineHeight: 22,
@@ -30,6 +31,7 @@ export default {
   },
   outline: {
     fontSize: 15,
+    fontFamily: "Futura",
     color: "white"
   },
   locationText: {

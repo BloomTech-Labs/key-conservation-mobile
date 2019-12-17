@@ -11,7 +11,8 @@ export default {
     marginTop: 10,
     flexDirection: "column",
     flexWrap: "nowrap",
-    fontSize: 15
+    fontSize: 15,
+    fontFamily: "Futura"
   },
   iconWrap: {
     flexWrap: "wrap",
