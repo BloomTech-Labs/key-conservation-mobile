@@ -13,7 +13,15 @@ const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
   };
   return (
     <View style={styles.container}>
-      <MapView style={styles.mapStyle}>
+      <MapView
+        style={styles.mapStyle}
+        initialRegion={{
+          latitude: 34.01425,
+          longitude: -98.491624,
+          latitudeDelta: 38,
+          longitudeDelta: 38
+        }}
+      >
         {coords.map(coordinate => {
           console.log("coordinate", coordinate);
           return (
