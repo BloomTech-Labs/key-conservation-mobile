@@ -7,10 +7,12 @@ const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
   useEffect(() => {
     getOrganizations();
   }, []);
+
   const goToProfile = async id => {
     await getProfileData(id);
     navigation.navigate("Pro", { fromMap: true });
   };
+
   return (
     <View style={styles.container}>
       <MapView style={styles.mapStyle}>
@@ -63,7 +65,7 @@ const styles = StyleSheet.create({
     padding: 3
   },
   markerCallout: {
-    width: 70
+    width: 70,
   },
   calloutOrgName: {
     fontWeight: "bold"

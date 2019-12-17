@@ -75,7 +75,7 @@ const MapStack = createStackNavigator(
     MapHome: WideMapScreen
   },
   {
-    headerMode: "none",
+    // headerMode: 'none',
     navigationOptions: {
       tabBarLabel: "Map",
       tabBarIcon: <Entypo name="globe" color="#323338" size={22} />

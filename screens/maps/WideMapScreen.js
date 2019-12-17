@@ -1,15 +1,38 @@
 import React from "react";
 import {View, StyleSheet} from "react-native";
 import WideMap from './WideMap'
-import MapSearchBarComponent from '../../components/Search/MapSearchComponent'
+import MapSearchBarComponent from '../../components/Search/MapSearchComponent';
 
-const WideMapScreen = (props) => {
-    return(
-        <View style={styles.container}>
-            <MapSearchBarComponent style={styles.mapSearchBar}/>
-            <WideMap navigation={props.navigation}/>
-        </View>
-    );
+
+class WideMapScreen extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+    static navigationOptions = ({ navigation }) => {
+        return {
+          title: "Organization Locations",
+          headerStyle: {
+            backgroundColor: "#323338"
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            textAlign: "center",
+            flexGrow: 1,
+            alignSelf: "center"
+          },
+        };
+      };
+
+
+    render () {
+        return(
+            <View style={styles.container}>
+                {/* <MapScreenHeader /> */}
+                <MapSearchBarComponent style={styles.mapSearchBar}/>
+                <WideMap navigation={this.props.navigation}/>
+            </View>
+        );
+   } 
 }
 
 const styles = StyleSheet.create({
