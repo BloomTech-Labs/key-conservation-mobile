@@ -45,8 +45,6 @@ import WideMapScreen from "../screens/maps/WideMapScreen";
 import LogoutScreen from "../screens/LogoutScreen";
 import ToExpectNextScreen from "../screens/org-onboarding-screens/ToExpectNextScreen";
 
-import { Entypo } from "@expo/vector-icons";
-
 export const OrgOnboardStack = createStackNavigator(
   {
     HeyThere: HeyThereScreen,
@@ -75,10 +73,21 @@ const MapStack = createStackNavigator(
     MapHome: WideMapScreen
   },
   {
-    // headerMode: 'none',
     navigationOptions: {
       tabBarLabel: "Map",
-      tabBarIcon: <Entypo name="globe" color="#323338" size={22} />
+      tabBarIcon: ({ focused }) => (
+        <SvgUri
+          fill="#3b3b3b"
+          width="25"
+          height="25"
+          source={
+            // focused
+            //   ? require("../assets/icons/home-fill.svg")
+            //   : require("../assets/icons/globe.svg")
+            require("../assets/icons/globe.svg")
+          }
+        />
+      )
     }
   }
 );
