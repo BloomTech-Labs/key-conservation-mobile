@@ -115,6 +115,7 @@ export default {
   timeText: {
     color: '#929292',
     fontSize: 10,
+    fontFamily: "Futura",
     marginLeft: 15,
     marginTop: 15,
     paddingBottom: 8

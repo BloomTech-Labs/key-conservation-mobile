@@ -77,7 +77,7 @@ async function loadResourcesAsync() {
       // "OpenSans-SemiBold": require("./assets/fonts/Open_Sans/OpenSans-SemiBold.ttf"),
       // "OpenSans-Bold": require("./assets/fonts/Open_Sans/OpenSans-Bold.ttf"),
       "Futura": require("./assets/fonts/Futura/Futura.ttf"),
-      "Futura-Medium": require("./assets/fonts/Futura/Futura-Medium.ttf"),
+      "Futura-Medium": require("./assets/fonts/Futura/Futura-Heavy.ttf"),
       "Futura-Bold": require("./assets/fonts/Futura/Futura-Bold.ttf")
     })
   ]);

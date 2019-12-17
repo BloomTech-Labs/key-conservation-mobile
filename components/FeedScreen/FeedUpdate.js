@@ -234,7 +234,8 @@ const FeedUpdate = props => {
             </View>
           }
           leftAvatar={{ source: { uri: data.profile_image } }}
-          subtitle={data.location}
+          subtitle={
+            <View><Text style={styles.subtitleText}>{data.location}</Text></View>}
         />
       )}
       <View>

@@ -10,6 +10,7 @@ export default {
     marginRight: 20
   },
   container: {
+    fontFamily: "Futura",
     justifyContent: 'center',
     paddingBottom: 35
   },
@@ -42,6 +43,7 @@ export default {
     fontSize: 18
   },
   campDesc: {
+    fontFamily: "Futura",
     marginLeft: 15,
     paddingTop: 15,
     marginRight: 15
@@ -57,6 +59,7 @@ export default {
   },
   timeText: {
     color: '#929292',
+    fontFamily: "Futura",
     fontSize: 10,
     marginLeft: 15,
     marginTop: 10

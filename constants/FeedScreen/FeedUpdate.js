@@ -99,9 +99,13 @@ export default {
   timeText: {
     color: '#929292',
     fontSize: 10,
+    fontFamily: "Futura",
     marginLeft: 15,
     marginTop: 15,
     paddingBottom: 3
+  },
+  subtitleText: {
+    fontFamily: "Futura"
   },
   demarcation: {
     marginTop: 15,
