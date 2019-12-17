@@ -9,7 +9,7 @@ const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
   }, []);
   const goToProfile = async id => {
     await getProfileData(id);
-    navigation.navigate("Pro", { fromMap: true });
+    navigation.navigate("Pro", { fromMap: true }); // For BackButton.
   };
   return (
     <View style={styles.container}>

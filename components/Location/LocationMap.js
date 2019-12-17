@@ -6,23 +6,24 @@ import { getOrganizations } from "../../store/actions";
 
 const LocationMap = ({ getOrganizations, profile }) => {
   useEffect(() => {
-    console.log(profile.latitude + " " + profile.longitude);
-    // console.log(profile);
+    // console.log(profile.latitude + " " + profile.longitude);
     getOrganizations();
   }, []);
-
-  const image2 = profile.profile_image;
 
   return (
     <View style={styles.container}>
       <MapView
         style={styles.mapStyle}
         showsScale={true}
-        initialRegion={{
-          latitude: profile.latitude,
-          longitude: profile.longitude,
-          latitudeDelta: 10,
-          longitudeDelta: 10
+        initialCamera={{
+          center: {
+            latitude: profile.latitude - 1, // Keeps marker centered.
+            longitude: profile.longitude
+          },
+          pitch: 45,
+          heading: 0,
+          altitude: 1000000,
+          zoom: 5
         }}
       >
         {profile.latitude && profile.longitude ? (
