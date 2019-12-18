@@ -1,15 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux'
 import {FontAwesome, MaterialIcons} from "@expo/vector-icons";
+import { withNavigationFocus } from 'react-navigation';
 import {getOrganizations, setMapSearchQuery} from '../../store/actions'
 import {
 	View,
 	Text,
 	TouchableOpacity,
 } from 'react-native'
-import {TextInput} from "react-native-gesture-handler";
-
+import {TextInput} from  "react-native-gesture-handler";
 import styles from '../../constants/Search/MapSearchBarComponent';
+import SvgUri from "react-native-svg-uri";
 
 const  MapSearchBarComponent = (props)=>{
 	const [selectionOptions, setSelectedOptions] = useState([
@@ -19,7 +20,7 @@ const  MapSearchBarComponent = (props)=>{
 				checked:true
 			},
 			{
-				label:'Organization Name',
+				label:'Organization',
 				field:'org_name',
 				query:'',
 				checked:false
@@ -30,19 +31,23 @@ const  MapSearchBarComponent = (props)=>{
 				checked:false
 			},
 	])
+	
 	const [state, setState] = useState({
 		query:'',
 		field:'location',
 		locationQuery:'',
 		shouldOpenFilter:false,
-		shouldOpenMessage:true,
+		shouldShowSearch:true,
 		message:'Please enter to search',
 	});
+	
+	// Clean up when navigate to a different screen
 	useEffect(()=>{
-	},[])
+	    setState({...state, query:'', shouldOpenFilter: false, shouldShowSearch:true})
+	},[!props.isFocused])
 	
 	const handleClearText = () => {
-		setState({...state, query:''});
+		setState({...state, query:'',shouldShowSearch: true})
 		handleQueryChange('')
 	}
 	
@@ -59,12 +64,12 @@ const  MapSearchBarComponent = (props)=>{
 		const updatedItem = selectionOptions[oldIndex]
 		updatedItem.checked = !updatedItem.checked
 		
-		
 		const newArr =
 			[ ...selectionOptions.slice(0, oldIndex),
 				updatedItem,
 				...selectionOptions.slice(oldIndex+1, selectionOptions.length),
 			]
+			
 		setSelectedOptions([...newArr]);
 		if (updatedItem.checked){
 			setState({ ...state, field})
@@ -74,8 +79,23 @@ const  MapSearchBarComponent = (props)=>{
 	
 	// Handler for text field value changes
 	const handleQueryChange = (query = state.query) => {
-		setState({ ...state, query: query, shouldOpenMessage:true })
+		console.log("query",query)
+		setState({ ...state, query: query})
 		props.setMapSearchQuery(query,state.field)
+	}
+	
+	const handleInputBlur = ()=>{
+		console.log("handleInputBlur")
+		// show search icon
+		if (state.query===''){
+			console.log("state.query===''")
+			setState({ ...state, shouldShowSearch: true})
+		}
+	}
+	
+	const handleInputFocus = () => {
+		console.log("handleInputFocus")
+		setState({ ...state, shouldShowSearch: false})
 	}
 	
 	const doSearch = (field) => {
@@ -85,47 +105,74 @@ const  MapSearchBarComponent = (props)=>{
 	const openFilter = (e)=>{
 		setState({...state,
 		shouldOpenFilter:!state.shouldOpenFilter,
-		shouldOpenMessage:true
 	});
+	}
+	
+	const renderSearchIcon = (stateProps)=>{
+		 if (stateProps){
+		    return (
+			    <TouchableOpacity style={[styles.searchButton ]}>
+				    <FontAwesome name="search" style={[styles.icon]} size={24} color="#333333"/>
+			    </TouchableOpacity>
+		    )
+		 }
+	}
+	
+	const renderClearIcon = (stateProps)=>{
+		if (stateProps){
+			return (
+				<TouchableOpacity style={styles.clearButton} onPress={handleClearText}>
+					<MaterialIcons tyle={styles.icon} name="clear" color={"#ccc"} size={24} />
+				</TouchableOpacity>
+			)
+		}
 	}
 	
 	return(
 		<View style={styles.container}>
-			<View style={styles.searchContainer}>
-				<View style={styles.searchInputContainer}>
-					<TouchableOpacity style={styles.dropDownArrow} onPress={openFilter}>
-						<MaterialIcons name="arrow-drop-down" size={30} color="#404040"/>
-					</TouchableOpacity>
-	                <TextInput style={styles.searchInput}
-						value={state.query}
-						placeholder="Search by City or Country"
-						onChangeText={query =>
-							handleQueryChange(query)
-						}
-					/>
-					<TouchableOpacity style={[styles.clearButton, (state.query) ?  styles.show :  styles.hide]} onPress={handleClearText}>
-						<MaterialIcons name="clear" color={"#ccc"} size={24} />
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.searchButton} onPress={()=>doSearch(state.field)}>
-						<FontAwesome name="search"  size={24} color="#5D8017"/>
-					</TouchableOpacity>
+			<View style={styles.outterContainer}>
+				<View style={styles.searchContainer}>
+					<View style={styles.searchInputContainer}>
+		                <TextInput style={[styles.searchInput,{paddingLeft: (state.shouldShowSearch) ? 50 : 16}]}
+							value={state.query}
+							placeholder="Search by city or country"
+							onFocus={()=> handleInputFocus()}
+							onBlur={()=>handleInputBlur()}
+							onChangeText={query =>
+								handleQueryChange(query)
+							}
+						/>
+						{renderSearchIcon(state.shouldShowSearch)}
+						{renderClearIcon(state.query)}
+						<TouchableOpacity style={styles.dropDownArrowButton} onPress={openFilter}>
+							<FontAwesome style={styles.icon} name="sliders" size={24} color="#333333"/>
+						</TouchableOpacity>
+					</View>
 				</View>
 				<View style={[styles.selectionRow, state.shouldOpenFilter && styles.show]}>
-                    <Text style={styles.selectionRowHeader}>Search By Category</Text>
-	
-					{selectionOptions.map((option) => {
-						return <TouchableOpacity key={option.field} style={styles.filterSelectOption}   >
-									{ option.checked === true
-										? <MaterialIcons onPress={()=>handleFieldChange(option.field )} name="radio-button-checked" size={22} color="#444" style={{marginRight:10}}/>
-										: <MaterialIcons onPress={()=>handleFieldChange(option.field )} name="radio-button-unchecked" size={22} color="#444" style={{marginRight:10}}/>
-									}
-									<Text style={styles.filterOption}>{option.label}</Text>
-								</TouchableOpacity>
+					{selectionOptions.map(option => {
+						return <TouchableOpacity key={option.field} style={styles.filterSelectOption}  >
+							{ option.checked === true
+								
+								?  <SvgUri
+									width="26"
+									height="26"
+									style={{marginRight:16}}
+									source={require("../../assets/icons/check-active.svg")}
+								/>
+								:  <SvgUri
+									width="26"
+									height="26"
+									style={{marginRight:16}}
+									source={require("../../assets/icons/check-inactive.svg")}
+								/>
+							}
+							<Text style={styles.filterOption}>{option.label}</Text>
+						</TouchableOpacity>
 					})}
-					
-				</View>
-				<View style={[styles.messageContainer, (state.shouldOpenMessage) ?  styles.show :  styles.hide]}>
-					<Text style={styles.messageText}>{props.message}</Text>
+					<View style={[styles.messageContainer]}>
+						<Text style={styles.messageText}>{props.message}</Text>
+					</View>
 				</View>
 			</View>
 		</View>
@@ -138,8 +185,7 @@ const mapPropsToState = (state)=>{
 	// Get filtered organization records
 	const filteredOrganization = state.filteredOrganization
 	// Filter out orgs with null coords
-	const cleanedupOrgs = filteredOrganization.filter(coords => coords.latitude && coords.longitude !== null);
-	const len = cleanedupOrgs.length
+	const len = filteredOrganization.length
 	if ( len <= 0){
 		 message = 'No organization found!'
 	}else{
@@ -155,4 +201,4 @@ const mapPropsToState = (state)=>{
 export default connect(
 	mapPropsToState,
 	{getOrganizations, setMapSearchQuery})
-(MapSearchBarComponent);
+(withNavigationFocus(MapSearchBarComponent));
