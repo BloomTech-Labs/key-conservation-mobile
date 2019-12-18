@@ -81,10 +81,10 @@ const MapStack = createStackNavigator(
           width="25"
           height="25"
           source={
-            // focused
-            //   ? require("../assets/icons/home-fill.svg")
-            //   : require("../assets/icons/globe.svg")
-            require("../assets/icons/globe.svg")
+            focused
+              ? require("../assets/icons/globe-fill.svg")
+              : require("../assets/icons/globe.svg")
+            // require("../assets/icons/globe.svg")
           }
         />
       )
