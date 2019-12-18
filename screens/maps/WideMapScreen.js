@@ -23,7 +23,6 @@ class WideMapScreen extends React.Component {
         };
       };
 
-
     render () {
         return(
             <View style={styles.container}>
@@ -32,14 +31,13 @@ class WideMapScreen extends React.Component {
                 <WideMap navigation={this.props.navigation}/>
             </View>
         );
-   } 
+   }
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection:"column",
-        paddingTop: '10%',
         paddingBottom: '5%',
         justifyContent: 'flex-start',
         alignItems:'center'
