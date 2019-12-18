@@ -1,45 +1,45 @@
-import { Dimensions } from 'react-native';
+import { Dimensions } from "react-native";
 
-const deviceWidth = Dimensions.get('window').width;
+const deviceWidth = Dimensions.get("window").width;
 export default {
   feedContainer: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: "#fff"
   },
   searchIcon: {
     marginRight: 20
   },
   container: {
     fontFamily: "Futura",
-    justifyContent: 'center',
+    justifyContent: "center",
     paddingBottom: 35
   },
   feedContainer: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: "#fff"
   },
   searchIcon: {
     marginRight: 20
   },
   orgTitleView: {
-    fontFamily: 'Futura-Bold',
+    fontFamily: "Futura-Medium",
     fontSize: 16,
-    fontWeight: 'bold'
+    fontWeight: "bold"
   },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
-    resizeMode: 'contain',
+    resizeMode: "contain",
     height: deviceWidth <= 415 ? deviceWidth : 415
   },
   goToCampaignButton: {
-    backgroundColor: '#00FF9D',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#00FF9D",
+    alignItems: "center",
+    justifyContent: "center",
     height: 37,
-    width: '100%'
+    width: "100%"
   },
   goToCampaignText: {
-    fontFamily: 'Futura-Bold',
+    fontFamily: "Futura-Medium",
     fontSize: 18
   },
   campDesc: {
@@ -49,16 +49,16 @@ export default {
     marginRight: 15
   },
   campDescText: {
-    fontFamily: 'Futura-Regular',
+    fontFamily: "Futura-Regular",
     fontSize: 14,
     lineHeight: 19
   },
   campDescName: {
-    fontFamily: 'Futura-Regular',
+    fontFamily: "Futura-Regular",
     fontSize: 16
   },
   timeText: {
-    color: '#929292',
+    color: "#929292",
     fontFamily: "Futura",
     fontSize: 10,
     marginLeft: 15,
@@ -66,14 +66,14 @@ export default {
   },
   loadMoreView: {
     paddingBottom: 25,
-    alignItems: 'center'
+    alignItems: "center"
   },
   loadMoreTouchable: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderWidth: 2,
-    borderColor: '#323338',
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderColor: "#323338",
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 5,
     height: 28,
     width: 243,
@@ -81,7 +81,7 @@ export default {
   },
   loadMoreText: {
     fontSize: 14,
-    fontFamily: 'Futura',
-    color: '#323338'
+    fontFamily: "Futura",
+    color: "#323338"
   }
 };

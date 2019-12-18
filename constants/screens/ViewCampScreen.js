@@ -19,7 +19,7 @@ export default {
     width: 243
   },
   touchableText: {
-    fontFamily: "Futura-Bold",
+    fontFamily: "Futura-Medium",
     color: "#323338",
     textTransform: "uppercase",
     letterSpacing: 2,
@@ -83,18 +83,18 @@ export default {
     marginRight: 15
   },
   campDescName: {
-    fontFamily: "Futura-Bold",
+    fontFamily: "Futura-Medium",
     fontSize: 17,
     lineHeight: 22,
     paddingBottom: 10
   },
   campDesc: {
-    fontFamily: "Futura-Bold",
+    fontFamily: "Futura-Medium",
     fontSize: 15,
     lineHeight: 19
   },
   listUsername: {
-    fontFamily: "Futura-Bold",
+    fontFamily: "Futura-Medium",
     fontSize: 16,
     lineHeight: 22,
     fontWeight: "bold"
