@@ -72,7 +72,7 @@ export default {
     justifyContent: "center"
   },
   buttonText: {
-    fontFamily: "Futura-Bold",
+    fontFamily: "Futura-Medium",
     letterSpacing: 0.8,
     textAlign: "center",
     color: "black",
