@@ -151,13 +151,14 @@ const  MapSearchBarComponent = (props)=>{
 				</View>
 				<View style={[styles.selectionRow, state.shouldOpenFilter && styles.show]}>
 					{selectionOptions.map(option => {
-						return <TouchableOpacity key={option.field} style={styles.filterSelectOption}  >
+						return <TouchableOpacity key={option.field} style={styles.filterSelectOption} 	onPress={()=>handleFieldChange(option.field )} >
 							{ option.checked === true
 								
 								?  <SvgUri
 									width="26"
 									height="26"
 									style={{marginRight:16}}
+								
 									source={require("../../assets/icons/check-active.svg")}
 								/>
 								:  <SvgUri
