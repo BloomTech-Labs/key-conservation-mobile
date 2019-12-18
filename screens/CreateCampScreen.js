@@ -111,7 +111,7 @@ class CreateCampScreen extends React.Component {
                     this.campNameInput = input;
                   }}
                   returnKeyType="next"
-                  placeholder="Add Campaign name"
+                  placeholder="Add Campaign Name"
                   style={styles.inputContain}
                   onChangeText={text => this.setState({ camp_name: text })}
                   onSubmitEditing={() => {

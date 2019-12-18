@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexWrap: "wrap",
     fontSize: 36,
-    fontFamily: "Futura-Bold",
+    fontFamily: "Futura-Medium",
     color: "white",
     marginTop: "9%"
   },
@@ -304,7 +304,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   buttonText: {
-    fontFamily: "Futura-Bold",
+    fontFamily: "Futura-Medium",
     fontStyle: "normal",
     letterSpacing: 0,
     textAlign: "center",

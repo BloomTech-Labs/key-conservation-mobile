@@ -25,7 +25,7 @@ export default {
   org: {
     lineHeight: 22,
     fontSize: 16,
-    fontFamily: "Futura-Bold",
+    fontFamily: "Futura-Medium",
     color: "white"
   },
   outline: {
