@@ -14,7 +14,7 @@ export default {
     paddingBottom: 3
   },
   orgTitleView: {
-    fontFamily: 'Lato',
+    fontFamily: 'Lato-Bold',
     fontSize: 17
   },
   campImgContain: {
@@ -89,17 +89,17 @@ export default {
   },
   campDescName: {
     fontFamily: 'Lato-Bold',
-    fontSize: 16,
+    fontSize: 17,
     paddingBottom: 10
   },
   campDescText: {
     fontFamily: 'Lato',
-    fontSize: 14,
+    fontSize: 15,
     lineHeight: 19
   },
   comments: {
     fontFamily: 'Lato',
-    fontSize: 13,
+    fontSize: 14,
     lineHeight: 16,
     marginLeft: 15,
     paddingTop: 12,

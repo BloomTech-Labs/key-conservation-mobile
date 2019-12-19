@@ -8,7 +8,7 @@ export default {
     paddingBottom: 2
   },
   orgTitleView: {
-    fontFamily: 'Lato',
+    fontFamily: 'Lato-Bold',
     fontSize: 17
   },
   updateBar: {
@@ -74,12 +74,12 @@ export default {
   },
   campDescName: {
     fontFamily: 'Lato-Bold',
-    fontSize: 16,
+    fontSize: 17,
     paddingBottom: 10
   },
   campDescText: {
     fontFamily: 'Lato',
-    fontSize: 14,
+    fontSize: 15,
     lineHeight: 19
   },
   readMore: {
