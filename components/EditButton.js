@@ -22,7 +22,7 @@ const EditButton = props => {
           style={{
             fontSize: 17,
             color: '#fff',
-            fontFamily: 'Futura'
+            fontFamily: 'Lato'
           }}
         >
           Edit

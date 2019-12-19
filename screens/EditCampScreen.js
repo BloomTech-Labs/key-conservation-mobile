@@ -32,7 +32,7 @@ class CreateCampScreen extends React.Component {
         textAlign: "center",
         flexGrow: 1,
         alignSelf: "center",
-        fontFamily: "Futura-Medium"
+        fontFamily: "Lato-Bold"
       },
       headerLeft: <BackButton navigation={navigation} />,
       headerRight: (

@@ -8,7 +8,7 @@ export default {
     paddingBottom: 2
   },
   orgTitleView: {
-    fontFamily: 'Futura',
+    fontFamily: 'Lato-Bold',
     fontSize: 17
   },
   updateBar: {
@@ -25,15 +25,15 @@ export default {
     alignItems: 'center'
   },
   updateBarText: {
-    fontFamily: 'Futura-Medium',
+    fontFamily: 'Lato-Bold',
     fontSize: 18,
     color: 'black'
   },
   iconRow: {
-    display:"flex",
+    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginRight:20,
+    marginRight: 20,
     marginTop: 15,
     height: 30
   },
@@ -59,7 +59,7 @@ export default {
     width: '100%'
   },
   goToCampaignText: {
-    fontFamily: 'Futura-Medium',
+    fontFamily: 'Lato-Bold',
     fontSize: 18
   },
   likesContainer: {
@@ -67,30 +67,19 @@ export default {
     marginTop: 15,
     alignItems: 'center'
   },
-  hearts: {
-    marginHorizontal: 15
-  },
-  heartOutline: {
-    fontSize: 28,
-    color: 'black'
-  },
-  heartFill: {
-    fontSize: 30,
-    color: '#e60024'
-  },
   campDesc: {
     marginLeft: 15,
     paddingTop: 15,
     marginRight: 15
   },
   campDescName: {
-    fontFamily: 'Futura-Medium',
-    fontSize: 16,
+    fontFamily: 'Lato-Bold',
+    fontSize: 17,
     paddingBottom: 10
   },
   campDescText: {
-    fontFamily: 'Futura-Medium',
-    fontSize: 14,
+    fontFamily: 'Lato',
+    fontSize: 15,
     lineHeight: 19
   },
   readMore: {
@@ -99,13 +88,13 @@ export default {
   timeText: {
     color: '#929292',
     fontSize: 10,
-    fontFamily: "Futura",
+    fontFamily: 'Lato',
     marginLeft: 15,
     marginTop: 15,
     paddingBottom: 3
   },
   subtitleText: {
-    fontFamily: "Futura"
+    fontFamily: 'Lato'
   },
   demarcation: {
     marginTop: 15,

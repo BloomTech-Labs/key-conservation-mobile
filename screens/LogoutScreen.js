@@ -30,7 +30,7 @@ const stylie = StyleSheet.create({
         height: 50,
         marginBottom: 18,
         borderRadius: 5,
-        fontFamily: 'Futura',
+        fontFamily: 'Lato',
         backgroundColor: '#00FF9D',
         shadowColor: 'rgba(0, 0, 0, 0.25)',
         shadowOffset: {
@@ -43,7 +43,7 @@ const stylie = StyleSheet.create({
         marginTop: 10
       },
     buttonText: {
-        fontFamily: 'Futura',
+        fontFamily: 'Lato',
         fontWeight: 'bold',
         fontStyle: 'normal',
         letterSpacing: 0,
