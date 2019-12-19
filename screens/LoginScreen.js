@@ -244,13 +244,13 @@ const styles = StyleSheet.create({
   selectText: {
     fontSize: 27,
     flexWrap: "wrap",
-    fontFamily: "Futura",
+    fontFamily: "Lato",
     color: "white",
     marginBottom: "5%"
   },
   alreadyText: {
     fontSize: 16,
-    fontFamily: "Futura",
+    fontFamily: "Lato",
     color: "white",
     marginBottom: "5%"
   },
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
     color: "#00FF9D",
     textDecorationLine: "underline",
     fontSize: 16,
-    fontFamily: "Futura",
+    fontFamily: "Lato",
     marginBottom: "5%"
   },
   titleContainer: {
@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexWrap: "wrap",
     fontSize: 36,
-    fontFamily: "Futura-Medium",
+    fontFamily: "Lato-Bold",
     color: "white",
     marginTop: "9%"
   },
@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
     height: 50,
     marginBottom: 18,
     borderRadius: 25,
-    fontFamily: "Futura",
+    fontFamily: "Lato",
     backgroundColor: "#00FF9D",
     shadowColor: "rgba(0, 0, 0, 0.25)",
     shadowOffset: {
@@ -304,7 +304,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   buttonText: {
-    fontFamily: "Futura-Medium",
+    fontFamily: "Lato-Bold",
     fontStyle: "normal",
     letterSpacing: 0,
     textAlign: "center",

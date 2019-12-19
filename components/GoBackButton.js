@@ -16,7 +16,7 @@ const GoBackButton = props => {
           style={{
             color: '#fff',
             fontSize: 17,
-            fontFamily: 'Futura'
+            fontFamily: 'Lato'
           }}
         >
           Go Back

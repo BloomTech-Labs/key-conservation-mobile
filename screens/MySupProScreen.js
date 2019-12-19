@@ -25,7 +25,7 @@ class MySupProScreen extends React.Component {
         textAlign: 'center',
         flexGrow: 1,
         alignSelf: 'center',
-        fontFamily: 'Futura-Medium'
+        fontFamily: 'Lato-Bold'
       },
       headerRight: (
         <EditButton navigation={navigation} editRoute={'EditSupPro'} />

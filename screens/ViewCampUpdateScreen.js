@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     width: 243
   },
   touchableText: {
-    fontFamily: 'Futura',
+    fontFamily: 'Lato',
     color: '#323338',
     textTransform: 'uppercase',
     fontWeight: 'bold',
@@ -250,17 +250,17 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   ogPostButton: {
-    fontFamily: 'Futura-Medium',
+    fontFamily: 'Lato-Bold',
     width: '60%',
     alignSelf: 'center'
   },
   supportMissionText: {
-    fontFamily: 'Futura-Medium',
+    fontFamily: 'Lato-Bold',
     fontSize: 14,
     paddingLeft: 10
   },
   campMissionText: {
-    fontFamily: 'Futura',
+    fontFamily: 'Lato',
     fontSize: 14,
     lineHeight: 19,
     paddingTop: 10
@@ -295,18 +295,18 @@ const styles = StyleSheet.create({
     marginRight: 15
   },
   campDescName: {
-    fontFamily: 'Futura-Medium',
+    fontFamily: 'Lato-Bold',
     fontSize: 16,
     lineHeight: 22
   },
   campDesc: {
-    fontFamily: 'Futura',
+    fontFamily: 'Lato',
     fontSize: 14,
     lineHeight: 19,
     paddingBottom: 15
   },
   listUsername: {
-    fontFamily: 'Futura-Medium',
+    fontFamily: 'Lato-Bold',
     fontSize: 16,
     lineHeight: 22
   },

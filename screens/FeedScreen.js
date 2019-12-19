@@ -22,7 +22,7 @@ class FeedScreen extends React.Component {
         textAlign: 'center',
         flexGrow: 1,
         alignSelf: 'center',
-        fontFamily: 'Futura-Medium'
+        fontFamily: 'Lato-Bold'
       },
       headerLeft: <View />,
       headerRight: (

@@ -14,7 +14,7 @@ export default {
     paddingBottom: 3
   },
   orgTitleView: {
-    fontFamily: 'Futura',
+    fontFamily: 'Lato',
     fontSize: 17
   },
   campImgContain: {
@@ -72,13 +72,13 @@ export default {
   },
   bookmarkFill: {
     fontSize: 30,
-    color: "#00FF9D"
+    color: '#00FF9D'
   },
   likes: {
     marginTop: 5
   },
   goToCampaignText: {
-    fontFamily: 'Futura-Medium',
+    fontFamily: 'Lato-Bold',
     fontSize: 18
   },
   campDesc: {
@@ -88,17 +88,17 @@ export default {
     marginBottom: 15
   },
   campDescName: {
-    fontFamily: 'Futura-Medium',
+    fontFamily: 'Lato-Bold',
     fontSize: 16,
     paddingBottom: 10
   },
   campDescText: {
-    fontFamily: 'Futura',
+    fontFamily: 'Lato',
     fontSize: 14,
     lineHeight: 19
   },
   comments: {
-    fontFamily: 'Futura',
+    fontFamily: 'Lato',
     fontSize: 13,
     lineHeight: 16,
     marginLeft: 15,
@@ -115,7 +115,7 @@ export default {
   timeText: {
     color: '#929292',
     fontSize: 10,
-    fontFamily: "Futura",
+    fontFamily: 'Lato',
     marginLeft: 15,
     marginTop: 15,
     paddingBottom: 8
@@ -124,7 +124,7 @@ export default {
     color: '#929292'
   },
   urgencyBarText: {
-    fontFamily: 'Futura-Medium',
+    fontFamily: 'Lato-Bold',
     fontSize: 18,
     color: 'black'
   },

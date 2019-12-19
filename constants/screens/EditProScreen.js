@@ -50,7 +50,7 @@ export default {
     width: '100%'
   },
   sectionsText: {
-    fontFamily: 'Futura',
+    fontFamily: 'Lato',
     fontSize: 20,
     marginBottom: 5
   },
@@ -65,15 +65,8 @@ export default {
     height: 30,
     marginBottom: 18,
     borderRadius: 4,
-    fontFamily: 'Futura',
+    fontFamily: 'Lato',
     backgroundColor: '#00FF9D',
-    // shadowColor: 'rgba(0, 0, 0, 0.25)',
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 4
-    // },
-    // shadowRadius: 4,
-    // shadowOpacity: 1,
     justifyContent: 'center'
   },
   buttonText: {
@@ -86,5 +79,5 @@ export default {
     justifyContent: 'center',
     alignItems: 'center',
     fontSize: 13
-  },
+  }
 };
