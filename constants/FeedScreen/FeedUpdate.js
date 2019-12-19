@@ -67,17 +67,6 @@ export default {
     marginTop: 15,
     alignItems: 'center'
   },
-  hearts: {
-    marginHorizontal: 15
-  },
-  heartOutline: {
-    fontSize: 28,
-    color: 'black'
-  },
-  heartFill: {
-    fontSize: 30,
-    color: '#e60024'
-  },
   campDesc: {
     marginLeft: 15,
     paddingTop: 15,
@@ -89,7 +78,7 @@ export default {
     paddingBottom: 10
   },
   campDescText: {
-    fontFamily: 'Lato-Bold',
+    fontFamily: 'Lato',
     fontSize: 14,
     lineHeight: 19
   },
