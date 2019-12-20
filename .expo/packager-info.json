@@ -2,8 +2,9 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19003,
-  "packagerPid": 20932,
+  "packagerPid": 26073,
   "expoServerNgrokUrl": "https://y2-8pv.katiefelten.key-conservation-mobile.exp.direct",
   "packagerNgrokUrl": "https://packager.y2-8pv.katiefelten.key-conservation-mobile.exp.direct",
-  "ngrokPid": 20944
+  "ngrokPid": 26090,
+  "webpackServerPort": null
 }
