@@ -19,7 +19,7 @@ export default {
     width: 243
   },
   touchableText: {
-    fontFamily: "OpenSans-Bold",
+    fontFamily: "Lato-Bold",
     color: "#323338",
     textTransform: "uppercase",
     letterSpacing: 2,
@@ -32,12 +32,12 @@ export default {
     alignItems: "center"
   },
   supportMissionText: {
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: "Lato",
     fontSize: 14,
     paddingLeft: 10
   },
   campMissionText: {
-    fontFamily: "OpenSans-Regular",
+    fontFamily: "Lato",
     fontSize: 14,
     lineHeight: 19,
     paddingTop: 10,
@@ -47,6 +47,7 @@ export default {
     marginLeft: 15,
     marginRight: 15,
     fontSize: 14,
+    fontFamily: "Lato",
     marginTop: 20,
     paddingTop: 19,
     paddingBottom: 19,
@@ -59,7 +60,7 @@ export default {
     marginLeft: 15,
     marginRight: 15,
     width: deviceWidth / 2,
-    fontFamily: "OpenSans-Regular",
+    fontFamily: "Lato",
     flexWrap: "wrap",
     flexDirection: "row",
     alignItems: "center",
@@ -82,18 +83,18 @@ export default {
     marginRight: 15
   },
   campDescName: {
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: "Lato-Bold",
     fontSize: 17,
     lineHeight: 22,
     paddingBottom: 10
   },
   campDesc: {
-    fontFamily: "OpenSans-Regular",
+    fontFamily: "Lato-Bold",
     fontSize: 15,
     lineHeight: 19
   },
   listUsername: {
-    fontFamily: "OpenSans-SemiBold",
+    fontFamily: "Lato-Bold",
     fontSize: 16,
     lineHeight: 22,
     fontWeight: "bold"

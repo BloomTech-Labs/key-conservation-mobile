@@ -19,6 +19,7 @@ import {
 } from '../store/actions';
 
 import EditButton from '../components/EditButton';
+import SettingsButton from '../components/SettingsButton';
 
 import ProfileHeader from '../components/Profile/ProfileHeader';
 
@@ -34,9 +35,9 @@ class MyProScreen extends React.Component {
         textAlign: 'center',
         flexGrow: 1,
         alignSelf: 'center',
-        fontFamily: 'OpenSans-SemiBold'
+        fontFamily: 'Lato-Bold'
       },
-      headerLeft: <View />,
+      headerLeft: <SettingsButton navigation={navigation} settingsRoute={'AccountSettings'} />,
       headerRight: <EditButton navigation={navigation} editRoute={'EditPro'} />
     };
   };

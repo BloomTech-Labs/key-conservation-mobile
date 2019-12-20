@@ -89,7 +89,7 @@ class ViewCampUpdateScreen extends React.Component {
               style={styles.campImgContain}
             />
           )}
-
+{/* 
           <View style={styles.likesContainer}>
             <View style={styles.hearts}>
               <View
@@ -133,7 +133,7 @@ class ViewCampUpdateScreen extends React.Component {
             ) : (
               <Text style={styles.likes}>{this.state.likes} like</Text>
             )}
-          </View>
+          </View> */}
           <View style={styles.campDescContain}>
             <Text style={styles.campDescName}>
               {this.props.selectedCampaign.camp_name}
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     width: 243
   },
   touchableText: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'Lato',
     color: '#323338',
     textTransform: 'uppercase',
     fontWeight: 'bold',
@@ -250,17 +250,17 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   ogPostButton: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Lato-Bold',
     width: '60%',
     alignSelf: 'center'
   },
   supportMissionText: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Lato-Bold',
     fontSize: 14,
     paddingLeft: 10
   },
   campMissionText: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'Lato',
     fontSize: 14,
     lineHeight: 19,
     paddingTop: 10
@@ -295,18 +295,18 @@ const styles = StyleSheet.create({
     marginRight: 15
   },
   campDescName: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Lato-Bold',
     fontSize: 16,
     lineHeight: 22
   },
   campDesc: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'Lato',
     fontSize: 14,
     lineHeight: 19,
     paddingBottom: 15
   },
   listUsername: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Lato-Bold',
     fontSize: 16,
     lineHeight: 22
   },

@@ -78,16 +78,17 @@ export default {
     fontSize: 13
   },
   sectionsText: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Lato',
     fontSize: 20,
     marginBottom: 5
   },
   urgencyMenu: {
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 10
   },
   checkMark: {
-    height: 14, width: 14
+    height: 14,
+    width: 14
   },
   urgencyOption: {
     flexDirection: 'row',

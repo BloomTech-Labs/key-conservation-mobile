@@ -234,7 +234,8 @@ const FeedUpdate = props => {
             </View>
           }
           leftAvatar={{ source: { uri: data.profile_image } }}
-          subtitle={data.location}
+          subtitle={
+            <View><Text style={styles.subtitleText}>{data.location}</Text></View>}
         />
       )}
       <View>
@@ -246,7 +247,7 @@ const FeedUpdate = props => {
               <View>
                 {loader ? (
                   <View style={styles.indicator}>
-                    <ActivityIndicator size='large' color='#00FF9D' />
+                    <ActivityIndicator size="large" color="#00FF9D" />
                   </View>
                 ) : null}
                 <View style={styles.updateBar}>
@@ -263,7 +264,7 @@ const FeedUpdate = props => {
                     isMuted={false}
                     shouldPlay={true}
                     isLooping
-                    resizeMode='cover'
+                    resizeMode="cover"
                     onPlaybackStatusUpdate={onPlaybackStatusUpdate}
                     style={styles.campImgContain}
                   />
@@ -290,7 +291,7 @@ const FeedUpdate = props => {
               <View>
                 {loader ? (
                   <View style={styles.indicator}>
-                    <ActivityIndicator size='large' color='#00FF9D' />
+                    <ActivityIndicator size="large" color="#00FF9D" />
                   </View>
                 ) : null}
                 <View style={styles.updateBar}>
@@ -307,7 +308,7 @@ const FeedUpdate = props => {
                     isMuted={false}
                     shouldPlay={true}
                     isLooping
-                    resizeMode='cover'
+                    resizeMode="cover"
                     onPlaybackStatusUpdate={onPlaybackStatusUpdate}
                     style={styles.campImgContain}
                   />
@@ -329,38 +330,43 @@ const FeedUpdate = props => {
         )}
       </View>
       {/* Above checks to see if the FeedUpdate is being displayed in the Feed or in the ViewCampScreen */}
-      <View style={styles.likesContainer}>
-        <View style={styles.hearts}>
-          <View style={!userLiked ? { zIndex: 1 } : { zIndex: -1 }}>
-            <FontAwesome
-              onPress={() => addLike(data.camp_id, data.update_id)}
-              name='heart-o'
-              style={styles.heartOutline}
-            />
+      {/* <View style={styles.iconRow}>
+
+        <View style={styles.likesContainer}>
+          <View style={styles.hearts}>
+            <View style={!userLiked ? { zIndex: 1 } : { zIndex: -1 }}>
+              <FontAwesome
+                onPress={() => addLike(data.camp_id, data.update_id)}
+                name="heart-o"
+                style={styles.heartOutline}
+              />
+            </View>
+            <View
+              animation={userLiked ? 'zoomIn' : 'zoomOut'}
+              style={
+                (userLiked ? { zIndex: 1 } : { zIndex: -1 },
+                Platform.OS === 'android'
+                  ? { marginTop: -29, marginLeft: -1.25 }
+                  : { marginTop: -28.75, marginLeft: -1.25 })
+              }
+              duration={300}
+            >
+              <FontAwesome
+                onPress={() => deleteLike(data.camp_id, data.update_id)}
+                name="heart"
+                style={styles.heartFill}
+              />
+            </View>
           </View>
-          <View
-            animation={userLiked ? 'zoomIn' : 'zoomOut'}
-            style={
-              (userLiked ? { zIndex: 1 } : { zIndex: -1 },
-              Platform.OS === 'android'
-                ? { marginTop: -29, marginLeft: -1.25 }
-                : { marginTop: -28.75, marginLeft: -1.25 })
-            }
-            duration={300}
-          >
-            <FontAwesome
-              onPress={() => deleteLike(data.camp_id, data.update_id)}
-              name='heart'
-              style={styles.heartFill}
-            />
-          </View>
+          {likes === 0 ? null : likes > 1 ? (
+            <Text style={styles.likes}>{likes} likes</Text>
+          ) : (
+            <Text style={styles.likes}>{likes} like</Text>
+          )}
         </View>
-        {likes === 0 ? null : likes > 1 ? (
-          <Text style={styles.likes}>{likes} likes</Text>
-        ) : (
-          <Text style={styles.likes}>{likes} like</Text>
-        )}
-      </View>
+
+      </View> */}
+
       <View style={styles.campDesc}>
         <Text style={styles.campDescName}>{data.camp_name}</Text>
         {toggled || data.update_desc.length < 80 ? (

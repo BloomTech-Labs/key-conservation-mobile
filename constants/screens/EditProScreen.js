@@ -50,7 +50,7 @@ export default {
     width: '100%'
   },
   sectionsText: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Lato',
     fontSize: 20,
     marginBottom: 5
   },
@@ -60,8 +60,24 @@ export default {
     backgroundColor: 'white',
     marginBottom: 20
   },
+  buttonContainer: {
+    width: '30%',
+    height: 30,
+    marginBottom: 18,
+    borderRadius: 4,
+    fontFamily: 'Lato',
+    backgroundColor: '#00FF9D',
+    justifyContent: 'center'
+  },
   buttonText: {
-    color: '#18A0FB',
-    fontSize: 20
+    fontWeight: 'bold',
+    color: 'black',
+    fontWeight: 'bold',
+    letterSpacing: 1,
+    textAlign: 'center',
+    color: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 13
   }
 };

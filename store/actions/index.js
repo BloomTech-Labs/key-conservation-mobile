@@ -3,11 +3,12 @@ import axios from "axios";
 import * as SecureStore from "expo-secure-store";
 
 // url for heroku staging vs production server
-const seturl = "https://key-conservation.herokuapp.com/api/";
+//const seturl = 'https://key-conservation.herokuapp.com/api/'
+const seturl = "https://key-conservation-staging.herokuapp.com/api/";
 
 const filterUrls = (keys, object) => {
-  // If a user doesn't include http or https in there URL this function will add it.
-  // If they already include it it will be ignored. and if its capital "Https || Http" it will become lowercase.
+  // If a user doesn't include http or https in their URL this function will add it.
+  // If they already include it it will be ignored. and if it is capital "Https || Http" it will become lowercase.
   keys.forEach(key => {
     if (
       object[key] &&
@@ -130,15 +131,14 @@ export const getProfileData = (
       }
     })
     .catch(err => {
-      () =>
+      dispatch =>
         Promise.all([
           SecureStore.deleteItemAsync("sub", {}),
           SecureStore.deleteItemAsync("email", {}),
           SecureStore.deleteItemAsync("roles", {}),
           SecureStore.deleteItemAsync("id", {}),
           SecureStore.deleteItemAsync("accessToken", {})
-        ]);
-      dispatch({ type: GET_PROFILE_ERROR, payload: err.message });
+        ]).then(dispatch({ type: GET_PROFILE_ERROR, payload: err.message }));
     });
 };
 
@@ -205,7 +205,9 @@ export const [POST_USER_START, POST_USER_ERROR, POST_USER_SUCCESS] = [
 
 export const postUser = user => async dispatch => {
   dispatch({ type: POST_USER_START });
+  // console.log('we in postUser')
   let token = await SecureStore.getItemAsync("accessToken");
+  // console.log(user, token, 'USER TOKEN in postUSER *****')
   axios
     .post(`${seturl}users`, user, {
       headers: {
@@ -218,6 +220,7 @@ export const postUser = user => async dispatch => {
       dispatch({ type: POST_USER_SUCCESS, payload: res.data.newUser });
     })
     .catch(err => {
+      // console.log(err, 'err in postUser')
       dispatch({ type: POST_USER_ERROR, payload: err });
     });
 };
@@ -285,6 +288,7 @@ export const getCampaign = id => async dispatch => {
       }
     })
     .then(res => {
+      // console.log(res.data);
       dispatch({ type: GET_CAMPAIGN_SUCCESS, payload: res.data.camp });
     })
     .catch(err => {
@@ -637,25 +641,65 @@ export const deleteComment = id => async dispatch => {
       }
     })
     .then(res => {
+      console.log("My data is UP IN HUR---->", res.data.data);
       dispatch({ type: DELETE_COMMENT_SUCCESS, payload: res.data.data });
     })
     .catch(err => {
-      console.lor("Here's my error =====>", err);
       dispatch({ type: DELETE_COMMENT_ERROR, payload: err });
     });
 };
 
 export const addLike = (id, userId) => async dispatch => {
   let token = await SecureStore.getItemAsync("accessToken");
-  axios.post(
-    `${seturl}social/likes/${id}`,
-    { users_id: userId, camp_id: id },
-    {
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
+  axios
+    .post(
+      `${seturl}social/likes/${id}`,
+      { users_id: userId, camp_id: id },
+      {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
       }
-    }
-  );
+    )
+    .then(console.log("word"));
 };
+
+export const [
+  GET_ORGANIZATIONS_STARTED,
+  GET_ORGANIZATIONS_SUCCESS,
+  GET_ORGANIZATIONS_ERROR,
+] = ['GET_ORGANIZATIONS_STARTED', 'GET_ORGANIZATIONS_SUCCESS', 'GET_ORGANIZATIONS_ERROR']
+
+export const getOrganizations = () => async dispatch => {
+  dispatch({ type: GET_ORGANIZATIONS_STARTED})
+  let url = `${seturl}maps`
+  const token = await SecureStore.getItemAsync("accessToken", {});
+  // console.log('token',token)
+  return axios
+      .get(url, {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }})
+      .then(response => {
+         // console.log("response.data ", response.data )
+           dispatch({ type: GET_ORGANIZATIONS_SUCCESS, payload: response.data })
+        })
+      .catch(error => {
+        dispatch({ type: GET_ORGANIZATIONS_ERROR, payload: error.message })
+      })
+  }
+  
+export const [
+  SET_MAP_SEARCH_QUERY
+] = ['SET_MAP_SEARCH_QUERY']
+
+export const setMapSearchQuery = (query, field) => async dispatch => {
+  dispatch(
+      { type: SET_MAP_SEARCH_QUERY,
+        payload: {query, field}
+      })
+}

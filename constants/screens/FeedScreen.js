@@ -10,6 +10,7 @@ export default {
     marginRight: 20
   },
   container: {
+    fontFamily: 'Lato',
     justifyContent: 'center',
     paddingBottom: 35
   },
@@ -21,9 +22,8 @@ export default {
     marginRight: 20
   },
   orgTitleView: {
-    fontFamily: 'OpenSans-SemiBold',
-    fontSize: 16,
-    fontWeight: 'bold'
+    fontFamily: 'Lato-Bold',
+    fontSize: 16
   },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
@@ -38,25 +38,27 @@ export default {
     width: '100%'
   },
   goToCampaignText: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Lato-Bold',
     fontSize: 18
   },
   campDesc: {
+    fontFamily: 'Lato',
     marginLeft: 15,
     paddingTop: 15,
     marginRight: 15
   },
   campDescText: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'Lato',
     fontSize: 14,
     lineHeight: 19
   },
   campDescName: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'Lato',
     fontSize: 16
   },
   timeText: {
     color: '#929292',
+    fontFamily: 'Lato',
     fontSize: 10,
     marginLeft: 15,
     marginTop: 10
@@ -78,7 +80,7 @@ export default {
   },
   loadMoreText: {
     fontSize: 14,
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'Lato',
     color: '#323338'
   }
 };

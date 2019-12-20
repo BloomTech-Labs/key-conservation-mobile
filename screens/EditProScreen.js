@@ -10,27 +10,17 @@ import {
 import { ScrollView, NavigationEvents } from "react-navigation";
 import { connect } from "react-redux";
 import BackButton from "../components/BackButton";
-import * as SecureStorage from "expo-secure-store";
+import * as SecureStore from "expo-secure-store";
 import DoneButton from "../components/DoneButton";
 import UploadMedia from "../components/UploadMedia";
 
 import { editProfileData, logout, clearMedia } from "../store/actions";
 import { AmpEvent } from "../components/withAmplitude";
+import LocationIQ from "react-native-locationiq";
 
 import styles from "../constants/screens/EditProScreen";
 
 class EditProScreen extends React.Component {
-  logoutPress = async () => {
-    await SecureStorage.deleteItemAsync("sub", {});
-    await SecureStorage.deleteItemAsync("email", {});
-    await SecureStorage.deleteItemAsync("roles", {});
-    await SecureStorage.deleteItemAsync("id", {});
-    await SecureStorage.deleteItemAsync("userId", {});
-    await SecureStorage.deleteItemAsync("accessToken", {});
-    this.props.logout();
-    this.props.navigation.navigate("Loading");
-  };
-
   static navigationOptions = ({ navigation }) => {
     return {
       title: "Edit Profile",
@@ -70,15 +60,28 @@ class EditProScreen extends React.Component {
     issues: this.props.currentUserProfile.issues,
     phone_number: this.props.currentUserProfile.phone_number,
     // supportUs: this.props.currentUserProfile.support_us,
-    org_cta: this.props.currentUserProfile.org_cta
+    org_cta: this.props.currentUserProfile.org_cta,
+    longitude: this.props.currentUserProfile.longitude,
+    latitude: this.props.currentUserProfile.latitude
   };
 
   componentDidMount() {
+    console.log("lon: " + this.state.latitude + "lat: " + this.state.longitude);
     this.props.navigation.setParams({ done: this.done });
     if (this.isProfileComplete(this.state) === true) {
       return AmpEvent("Profile Completed");
     }
+    this.getBackend();
+    !this.state.latitude && !this.state.longitude ? this.setCoords() : null;
+    this.resetVettingVars();
   }
+
+  resetVettingVars = async () => {
+    await SecureStore.deleteItemAsync("airtableID", {});
+    await SecureStore.deleteItemAsync("vettingEmail", {});
+    await SecureStore.deleteItemAsync("isVetting", {});
+    console.log("resetting vetting variables!");
+  }; // Also deletes vetting variables in case UsernameScreen doesn't execute.
 
   isProfileComplete = profile => {
     for (let p in profile) {
@@ -88,6 +91,7 @@ class EditProScreen extends React.Component {
   };
 
   done = () => {
+    !this.state.latitude && !this.state.longitude ? this.setCoords() : null;
     let changes = this.state;
     if (this.props.mediaUpload) {
       changes = {
@@ -101,12 +105,52 @@ class EditProScreen extends React.Component {
     } else {
       this.props.navigation.goBack();
     }
+    // console.log("*** Coordinates ***", this.state.coords);
   };
+
+  setCoords = () => {
+    // console.log(locations);
+    LocationIQ.init("pk.21494f179d6ad0c272404a3614275418");
+    LocationIQ.search(`${this.state.location}`)
+      .then(json => {
+        var lat = json[0].lat;
+        var lon = json[0].lon;
+        // console.log("coordinates", lat, lon);
+        this.setState({
+          longitude: parseFloat(lon),
+          latitude: parseFloat(lat)
+        });
+        console.log(
+          "lon: " + this.state.latitude + "lat: " + this.state.longitude
+        );
+      })
+      .catch(error => console.warn(error));
+  };
+
+  getBackend = async () => {
+    const state = await SecureStore.getItemAsync("stateBE", {});
+    const parseBE = JSON.parse(state);
+    parseBE
+      ? this.setState({
+          org_name: parseBE.org_name,
+          phone_number: parseBE.phone,
+          mini_bio: parseBE.mission,
+          species_and_habitats: parseBE.species,
+          issues: parseBE.issues,
+          facebook: parseBE.facebook,
+          instagram: parseBE.instagram,
+          twitter: parseBE.twitter,
+          org_link_url: parseBE.website,
+          location: parseBE.address + ", " + parseBE.country
+        })
+      : null;
+    await SecureStore.deleteItemAsync("stateBE", {});
+  }; // Retrieves state object from SecureStore that was created in the onboarding process. Repopulates fields in this component.
 
   render() {
     return (
       <KeyboardAvoidingView
-        behavior='height'
+        behavior="height"
         keyboardVerticalOffset={86}
         enabled
       >
@@ -120,7 +164,7 @@ class EditProScreen extends React.Component {
                 ref={input => {
                   this.org_nameInput = input;
                 }}
-                returnKeyType='next'
+                returnKeyType="next"
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ org_name: text })}
                 onSubmitEditing={() => {
@@ -129,7 +173,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === "android"}
                 value={this.state.org_name}
-                placeholder='Carribbean Sea Turtle Project'
+                placeholder="Carribbean Sea Turtle Project"
               />
             </View>
 
@@ -139,7 +183,7 @@ class EditProScreen extends React.Component {
                 ref={input => {
                   this.usernameInput = input;
                 }}
-                returnKeyType='next'
+                returnKeyType="next"
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ username: text })}
                 onSubmitEditing={() => {
@@ -148,7 +192,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === "android"}
                 value={this.state.username}
-                placeholder='@CarribbeanSTP'
+                placeholder="@CarribbeanSTP"
               />
             </View>
 
@@ -162,7 +206,7 @@ class EditProScreen extends React.Component {
                 ref={input => {
                   this.locationInput = input;
                 }}
-                returnKeyType='next'
+                returnKeyType="next"
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ location: text })}
                 onSubmitEditing={() => {
@@ -171,7 +215,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === "android"}
                 value={this.state.location}
-                placeholder='St. George’s, Grenada'
+                placeholder="St. George’s, Grenada"
               />
             </View>
 
@@ -181,12 +225,12 @@ class EditProScreen extends React.Component {
                 ref={input => {
                   this.mini_bioInput = input;
                 }}
-                returnKeyType='next'
+                returnKeyType="next"
                 style={styles.inputContain2}
                 onChangeText={text => this.setState({ mini_bio: text })}
                 multiline={true}
                 value={this.state.mini_bio}
-                placeholder='We have been working to conserve the sea turtles that visit our shores and surrounding ocean for the past 30 years.'
+                placeholder="We have been working to conserve the sea turtles that visit our shores and surrounding ocean for the past 30 years."
               />
             </View>
 
@@ -196,9 +240,9 @@ class EditProScreen extends React.Component {
                 ref={input => {
                   this.emailInput = input;
                 }}
-                returnKeyType='next'
-                placeholder='Email'
-                keyboardType='email-address'
+                returnKeyType="next"
+                placeholder="Email"
+                keyboardType="email-address"
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ email: text })}
                 onSubmitEditing={() => {
@@ -207,7 +251,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === "android"}
                 value={this.state.email}
-                placeholder='hello@carribbeanseaturtle.org'
+                placeholder="hello@carribbeanseaturtle.org"
               />
             </View>
 
@@ -217,11 +261,11 @@ class EditProScreen extends React.Component {
                 ref={input => {
                   this.org_link_urlInput = input;
                 }}
-                returnKeyType='next'
-                keyboardType='url'
+                returnKeyType="next"
+                keyboardType="default"
                 style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='Please include full URL'
+                autoCapitalize="none"
+                placeholder="Please include full URL"
                 onChangeText={text => this.setState({ org_link_url: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === "android") return;
@@ -229,7 +273,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === "android"}
                 value={this.state.org_link_url}
-                placeholder='https://www.carribbbeanseaturtle.org'
+                placeholder="https://www.carribbbeanseaturtle.org"
               />
             </View>
 
@@ -239,8 +283,8 @@ class EditProScreen extends React.Component {
                 ref={input => {
                   this.orgLinkTextInput = input;
                 }}
-                returnKeyType='next'
-                placeholder='How you wish your website to appear'
+                returnKeyType="next"
+                placeholder="How you wish your website to appear"
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ org_link_text: text })}
                 onSubmitEditing={() => {
@@ -258,11 +302,11 @@ class EditProScreen extends React.Component {
                 ref={input => {
                   this.org_ctaInput = input;
                 }}
-                returnKeyType='next'
-                keyboardType='url'
+                returnKeyType="next"
+                keyboardType="default"
                 style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='Please include full URL'
+                autoCapitalize="none"
+                placeholder="Please include full URL"
                 onChangeText={text => this.setState({ org_cta: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === "android") return;
@@ -270,7 +314,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === "android"}
                 value={this.state.org_cta}
-                placeholder='https://www.carribbbeanseaturtle.org/donate'
+                placeholder="https://www.carribbbeanseaturtle.org/donate"
               />
             </View>
 
@@ -280,11 +324,11 @@ class EditProScreen extends React.Component {
                 ref={input => {
                   this.phoneInput = input;
                 }}
-                returnKeyType='next'
-                keyboardType='numeric'
+                returnKeyType="next"
+                keyboardType="default"
                 style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='Please include full URL'
+                autoCapitalize="none"
+                placeholder="Please include full URL"
                 onChangeText={text => this.setState({ phone_number: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === "android") return;
@@ -292,7 +336,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === "android"}
                 value={this.state.phone_number}
-                placeholder='9998884747'
+                placeholder="9998884747"
               />
             </View>
 
@@ -302,11 +346,11 @@ class EditProScreen extends React.Component {
                 ref={input => {
                   this.facebookInput = input;
                 }}
-                returnKeyType='next'
-                keyboardType='url'
+                returnKeyType="next"
+                keyboardType="default"
                 style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='Please include full URL'
+                autoCapitalize="none"
+                placeholder="Please include full URL"
                 onChangeText={text => this.setState({ facebook: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === "android") return;
@@ -314,7 +358,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === "android"}
                 value={this.state.facebook}
-                placeholder='www.facebook.com/CSTP'
+                placeholder="www.facebook.com/CSTP"
               />
             </View>
 
@@ -324,11 +368,11 @@ class EditProScreen extends React.Component {
                 ref={input => {
                   this.instagramInput = input;
                 }}
-                returnKeyType='next'
-                keyboardType='url'
+                returnKeyType="next"
+                keyboardType="default"
                 style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='Please include full URL'
+                autoCapitalize="none"
+                placeholder="Please include full URL"
                 onChangeText={text => this.setState({ instagram: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === "android") return;
@@ -336,7 +380,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === "android"}
                 value={this.state.instagram}
-                placeholder='www.instagram.com/CSTP'
+                placeholder="www.instagram.com/CSTP"
               />
             </View>
 
@@ -346,11 +390,11 @@ class EditProScreen extends React.Component {
                 ref={input => {
                   this.twitterInput = input;
                 }}
-                returnKeyType='next'
-                keyboardType='url'
+                returnKeyType="next"
+                keyboardType="default"
                 style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='Please include full URL'
+                autoCapitalize="none"
+                placeholder="Please include full URL"
                 onChangeText={text => this.setState({ twitter: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === "android") return;
@@ -358,7 +402,7 @@ class EditProScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === "android"}
                 value={this.state.twitter}
-                placeholder='www.twitter.com/CSTP'
+                placeholder="www.twitter.com/CSTP"
               />
             </View>
 
@@ -368,12 +412,12 @@ class EditProScreen extends React.Component {
                 ref={input => {
                   this.about_usInput = input;
                 }}
-                returnKeyType='next'
+                returnKeyType="next"
                 style={styles.inputContain2}
                 onChangeText={text => this.setState({ about_us: text })}
                 multiline={true}
                 value={this.state.about_us}
-                placeholder='We have been working to conserve the sea turtles that visit our shores and surrounding ocean for the past 30 years.'
+                placeholder="We have been working to conserve the sea turtles that visit our shores and surrounding ocean for the past 30 years."
               />
             </View>
 
@@ -383,17 +427,17 @@ class EditProScreen extends React.Component {
                 ref={input => {
                   this.species_habitatsInput = input;
                 }}
-                returnKeyType='next'
+                returnKeyType="next"
                 style={styles.inputContain2}
                 onChangeText={text =>
                   this.setState({ species_and_habitats: text })
                 }
                 multiline={true}
                 value={this.state.species_and_habitats}
-                placeholder='We work with Hawksbill sea turtles,
+                placeholder="We work with Hawksbill sea turtles,
                 Leatherback sea turtles,Green sea turtles,
                 the Caribbean Ocean and Atlantic Ocean, as well as the Coral Reef
-                '
+                "
               />
             </View>
 
@@ -403,23 +447,13 @@ class EditProScreen extends React.Component {
                 ref={input => {
                   this.issuesInput = input;
                 }}
-                returnKeyType='next'
+                returnKeyType="next"
                 style={styles.inputContain2}
                 onChangeText={text => this.setState({ issues: text })}
                 multiline={true}
                 value={this.state.issues}
-                placeholder='We are doing our best to tackle lights on the beach at night, as well as coral reef bleaching. We are aslo highly concerned with plastic pollution and working dilligently against it.'
+                placeholder="We are doing our best to tackle lights on the beach at night, as well as coral reef bleaching. We are aslo highly concerned with plastic pollution and working dilligently against it."
               />
-            </View>
-
-            <View style={styles.logoutSection}>
-              <Text style={styles.accountSettingsText}>Account Settings</Text>
-              <TouchableOpacity
-                onPress={this.logoutPress}
-                style={styles.logoutButton}
-              >
-                <Text style={styles.buttonText}>Logout</Text>
-              </TouchableOpacity>
             </View>
           </View>
         </ScrollView>
@@ -433,7 +467,8 @@ const mapStateToProps = state => ({
   mediaUpload: state.mediaUpload
 });
 
-export default connect(
-  mapStateToProps,
-  { editProfileData, logout, clearMedia }
-)(EditProScreen);
+export default connect(mapStateToProps, {
+  editProfileData,
+  logout,
+  clearMedia
+})(EditProScreen);

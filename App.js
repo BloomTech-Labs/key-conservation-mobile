@@ -1,14 +1,14 @@
-import { AppLoading } from "expo";
-import { Asset } from "expo-asset";
-import * as Font from "expo-font";
-import React, { useState } from "react";
-import { MenuProvider } from "react-native-popup-menu";
-import { Platform, StatusBar, StyleSheet, View } from "react-native";
+import { AppLoading } from 'expo';
+import { Asset } from 'expo-asset';
+import * as Font from 'expo-font';
+import React, { useState } from 'react';
+import { MenuProvider } from 'react-native-popup-menu';
+import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 
-import AppNavigator from "./navigation/AppNavigator";
-import { AmpInit, AmpEvent } from "./components/withAmplitude";
-import { Provider } from "react-redux";
-import configureStore from "./store/configureStore";
+import AppNavigator from './navigation/AppNavigator';
+import { AmpInit, AmpEvent } from './components/withAmplitude';
+import { Provider } from 'react-redux';
+import configureStore from './store/configureStore';
 
 const store = configureStore();
 
@@ -21,8 +21,8 @@ function App(props) {
     routeSupply = () => {
       if (action.key) {
         const key = action.key;
-        if (key.search("id") === 0) {
-          return "Unique screen - Camp Post/Edit Pro/Detail screen";
+        if (key.search('id') === 0) {
+          return 'Unique screen - Camp Post/Edit Pro/Detail screen';
         } else {
           return action.key;
         }
@@ -30,7 +30,7 @@ function App(props) {
         return action.routeName;
       }
     };
-    AmpEvent("Screen Navigation", { navigatedTo: routeSupply() });
+    AmpEvent('Screen Navigation', { navigatedTo: routeSupply() });
   };
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
@@ -47,8 +47,8 @@ function App(props) {
   } else {
     return (
       <View style={styles.container}>
-        {Platform.OS === "ios" && <StatusBar barStyle='light-content' />}
-        {Platform.OS === "android" && (
+        {Platform.OS === 'ios' && <StatusBar barStyle='light-content' />}
+        {Platform.OS === 'android' && (
           <StatusBar barStyle='light-content' translucent />
         )}
         <Provider store={store}>
@@ -68,14 +68,13 @@ function App(props) {
 async function loadResourcesAsync() {
   await Promise.all([
     Asset.loadAsync([
-      require("./assets/images/keyFullBlack.png"),
-      require("./assets/images/keyFullWhite.png"),
-      require("./assets/images/FurBackground.png")
+      require('./assets/images/keyFullBlack.png'),
+      require('./assets/images/keyFullWhite.png'),
+      require('./assets/images/FurBackground.png')
     ]),
     Font.loadAsync({
-      "OpenSans-Regular": require("./assets/fonts/Open_Sans/OpenSans-Regular.ttf"),
-      "OpenSans-SemiBold": require("./assets/fonts/Open_Sans/OpenSans-SemiBold.ttf"),
-      "OpenSans-Bold": require("./assets/fonts/Open_Sans/OpenSans-Bold.ttf")
+      Lato: require('./assets/fonts/Lato/Lato-Regular.ttf'),
+      'Lato-Bold': require('./assets/fonts/Lato/Lato-Bold.ttf')
     })
   ]);
 }
@@ -91,6 +90,6 @@ function handleFinishLoading(setLoadingComplete) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: '#fff'
   }
 });

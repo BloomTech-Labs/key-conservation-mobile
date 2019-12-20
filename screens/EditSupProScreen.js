@@ -1,56 +1,48 @@
-import React from 'react';
+import React from "react";
 import {
   Platform,
-  StyleSheet,
+  Linking,
   Text,
   View,
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView
-} from 'react-native';
-import { ScrollView, NavigationEvents } from 'react-navigation';
-import { connect } from 'react-redux';
-import BackButton from '../components/BackButton';
+} from "react-native";
+import { ScrollView, NavigationEvents } from "react-navigation";
+import { connect } from "react-redux";
+import BackButton from "../components/BackButton";
 
-import * as SecureStorage from 'expo-secure-store';
+import * as SecureStorage from "expo-secure-store";
 
-import DoneButton from '../components/DoneButton';
-import UploadMedia from '../components/UploadMedia';
+import DoneButton from "../components/DoneButton";
+import UploadMedia from "../components/UploadMedia";
 
-import { editProfileData, logout, clearMedia } from '../store/actions';
-import { AmpEvent } from '../components/withAmplitude';
+import { editProfileData, logout, clearMedia } from "../store/actions";
+import { AmpEvent } from "../components/withAmplitude";
 
-import styles from '../constants/screens/EditSupProScreen';
+import styles from "../constants/screens/EditSupProScreen";
+import Axios from "axios";
+import AuthSession from "expo";
 
 class EditSupProScreen extends React.Component {
-  logoutPress = async () => {
-    await SecureStorage.deleteItemAsync('id', {});
-    await SecureStorage.deleteItemAsync('sub', {});
-    await SecureStorage.deleteItemAsync('email', {});
-    await SecureStorage.deleteItemAsync('roles', {});
-    await SecureStorage.deleteItemAsync('userId', {});
-    await SecureStorage.deleteItemAsync('accessToken', {});
-    this.props.logout();
-    this.props.navigation.navigate('Loading');
-  };
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Edit Details',
+      title: "Edit Details",
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: "#323338"
       },
-      headerTintColor: '#fff',
+      headerTintColor: "#fff",
       headerTitleStyle: {
-        textAlign: 'center',
+        textAlign: "center",
         flexGrow: 1,
-        alignSelf: 'center'
+        alignSelf: "center"
       },
       headerLeft: <BackButton navigation={navigation} />,
       headerRight: (
         <DoneButton
           navigation={navigation}
-          pressAction={navigation.getParam('done')}
+          pressAction={navigation.getParam("done")}
         />
       )
     };
@@ -72,7 +64,7 @@ class EditSupProScreen extends React.Component {
   componentDidMount() {
     this.props.navigation.setParams({ done: this.done });
     if (this.isProfileComplete(this.state) === true) {
-      return AmpEvent('Profile Completed');
+      return AmpEvent("Profile Completed");
     }
   }
 
@@ -94,7 +86,7 @@ class EditSupProScreen extends React.Component {
     }
     this.props.editProfileData(this.props.currentUserProfile.id, changes);
     if (this.props.firstLogin) {
-      this.props.navigation.navigate('Home');
+      this.props.navigation.navigate("Home");
     } else {
       this.props.navigation.goBack();
     }
@@ -103,7 +95,7 @@ class EditSupProScreen extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView
-        behavior='height'
+        behavior="height"
         keyboardVerticalOffset={86}
         enabled
       >
@@ -117,15 +109,15 @@ class EditSupProScreen extends React.Component {
                 ref={input => {
                   this.sup_nameInput = input;
                 }}
-                returnKeyType='next'
-                placeholder='John Doe'
+                returnKeyType="next"
+                placeholder="John Doe"
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ sup_name: text })}
                 onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
+                  if (Platform.OS === "android") return;
                   this.usernameInput.focus();
                 }}
-                blurOnSubmit={Platform.OS === 'android'}
+                blurOnSubmit={Platform.OS === "android"}
                 value={this.state.sup_name}
               />
             </View>
@@ -136,8 +128,8 @@ class EditSupProScreen extends React.Component {
                 ref={input => {
                   this.usernameInput = input;
                 }}
-                returnKeyType='next'
-                placeholder='@johndoe'
+                returnKeyType="next"
+                placeholder="@johndoe"
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ username: text })}
                 value={this.state.username}
@@ -154,15 +146,15 @@ class EditSupProScreen extends React.Component {
                 ref={input => {
                   this.locationInput = input;
                 }}
-                returnKeyType='next'
-                placeholder='Miami, Flordia'
+                returnKeyType="next"
+                placeholder="Miami, Flordia"
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ location: text })}
                 onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
+                  if (Platform.OS === "android") return;
                   this.mini_bioInput.focus();
                 }}
-                blurOnSubmit={Platform.OS === 'android'}
+                blurOnSubmit={Platform.OS === "android"}
                 value={this.state.location}
               />
             </View>
@@ -173,15 +165,15 @@ class EditSupProScreen extends React.Component {
                 ref={input => {
                   this.mini_bioInput = input;
                 }}
-                returnKeyType='next'
-                placeholder='Tell us about yourself!'
+                returnKeyType="next"
+                placeholder="Tell us about yourself!"
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ mini_bio: text })}
                 onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
+                  if (Platform.OS === "android") return;
                   this.emailInput.focus();
                 }}
-                blurOnSubmit={Platform.OS === 'android'}
+                blurOnSubmit={Platform.OS === "android"}
                 value={this.state.mini_bio}
               />
             </View>
@@ -192,16 +184,16 @@ class EditSupProScreen extends React.Component {
                 ref={input => {
                   this.emailInput = input;
                 }}
-                returnKeyType='next'
-                placeholder='youremail@gmail.com'
-                keyboardType='email-address'
+                returnKeyType="next"
+                placeholder="youremail@gmail.com"
+                keyboardType="email-address"
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ email: text })}
                 onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
+                  if (Platform.OS === "android") return;
                   this.facebookInput.focus();
                 }}
-                blurOnSubmit={Platform.OS === 'android'}
+                blurOnSubmit={Platform.OS === "android"}
                 value={this.state.email}
               />
             </View>
@@ -212,17 +204,17 @@ class EditSupProScreen extends React.Component {
                 ref={input => {
                   this.facebookInput = input;
                 }}
-                returnKeyType='next'
-                placeholder='https://www.facebook.com/orgname'
-                keyboardType='url'
+                returnKeyType="next"
+                placeholder="https://www.facebook.com/orgname"
+                keyboardType="default"
                 style={styles.inputContain}
-                autoCapitalize='none'
+                autoCapitalize="none"
                 onChangeText={text => this.setState({ facebook: text })}
                 onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
+                  if (Platform.OS === "android") return;
                   this.instagramInput.focus();
                 }}
-                blurOnSubmit={Platform.OS === 'android'}
+                blurOnSubmit={Platform.OS === "android"}
                 value={this.state.facebook}
               />
             </View>
@@ -233,17 +225,17 @@ class EditSupProScreen extends React.Component {
                 ref={input => {
                   this.instagramInput = input;
                 }}
-                returnKeyType='next'
-                keyboardType='url'
+                returnKeyType="next"
+                keyboardType="default"
                 style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='https://www.instagram.com/orgname'
+                autoCapitalize="none"
+                placeholder="https://www.instagram.com/orgname"
                 onChangeText={text => this.setState({ instagram: text })}
                 onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
+                  if (Platform.OS === "android") return;
                   this.twitterInput.focus();
                 }}
-                blurOnSubmit={Platform.OS === 'android'}
+                blurOnSubmit={Platform.OS === "android"}
                 value={this.state.instagram}
               />
             </View>
@@ -254,17 +246,17 @@ class EditSupProScreen extends React.Component {
                 ref={input => {
                   this.twitterInput = input;
                 }}
-                returnKeyType='next'
-                keyboardType='url'
+                returnKeyType="next"
+                keyboardType="default"
                 style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='https://www.twitter.com/orgname'
+                autoCapitalize="none"
+                placeholder="https://www.twitter.com/orgname"
                 onChangeText={text => this.setState({ twitter: text })}
                 onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
+                  if (Platform.OS === "android") return;
                   this.species_habitatsInput.focus();
                 }}
-                blurOnSubmit={Platform.OS === 'android'}
+                blurOnSubmit={Platform.OS === "android"}
                 value={this.state.twitter}
               />
             </View>
@@ -275,7 +267,7 @@ class EditSupProScreen extends React.Component {
                 ref={input => {
                   this.species_habitatsInput = input;
                 }}
-                returnKeyType='next'
+                returnKeyType="next"
                 style={styles.inputContain2}
                 onChangeText={text =>
                   this.setState({ species_and_habitats: text })
@@ -285,15 +277,14 @@ class EditSupProScreen extends React.Component {
               />
             </View>
 
-            <View style={styles.logoutSection}>
-              <Text style={styles.accountSettingsText}>Account Settings</Text>
+            {/* <View style={styles.logoutSection}>
               <TouchableOpacity
                 onPress={this.logoutPress}
-                style={styles.logoutButton}
+                style={styles.buttonContainer}
               >
                 <Text style={styles.buttonText}>Logout</Text>
               </TouchableOpacity>
-            </View>
+            </View> */}
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -307,7 +298,8 @@ const mapStateToProps = state => ({
   mediaUpload: state.mediaUpload
 });
 
-export default connect(
-  mapStateToProps,
-  { editProfileData, logout, clearMedia }
-)(EditSupProScreen);
+export default connect(mapStateToProps, {
+  editProfileData,
+  logout,
+  clearMedia
+})(EditSupProScreen);

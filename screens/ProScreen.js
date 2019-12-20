@@ -1,28 +1,30 @@
-import React from 'react';
-import { View, ScrollView } from 'react-native';
-import { connect } from 'react-redux';
-import { Viewport } from '@skele/components';
-import { getProfileData } from '../store/actions';
-import FeedCampaign from '../components/FeedScreen/FeedCampaign';
-import FeedUpdate from '../components/FeedScreen/FeedUpdate';
-import ProfileHeader from '../components/Profile/ProfileHeader';
-import BackButton from '../components/BackButton';
+import React from "react";
+import { View, ScrollView } from "react-native";
+import { connect } from "react-redux";
+import { Viewport } from "@skele/components";
+import { getProfileData } from "../store/actions";
+import FeedCampaign from "../components/FeedScreen/FeedCampaign";
+import FeedUpdate from "../components/FeedScreen/FeedUpdate";
+import ProfileHeader from "../components/Profile/ProfileHeader";
+import BackButton from "../components/BackButton";
 
 class ProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
+    const fromMap = navigation.getParam("fromMap", "defaultValue");
+
     return {
-      title: 'Profile',
+      title: "Profile",
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: "#323338"
       },
-      headerTintColor: '#fff',
+      headerTintColor: "#fff",
       headerTitleStyle: {
-        textAlign: 'center',
+        textAlign: "center",
         flexGrow: 1,
-        alignSelf: 'center',
-        fontFamily: 'OpenSans-SemiBold'
+        alignSelf: "center",
+        fontFamily: "Lato-Bold"
       },
-      headerLeft: <BackButton navigation={navigation} />,
+      headerLeft: <BackButton navigation={navigation} fromMap={fromMap} />,
       headerRight: <View />
     };
   };
@@ -69,7 +71,4 @@ const mapStateToProps = state => ({
   selectedProfile: state.selectedProfile
 });
 
-export default connect(
-  mapStateToProps,
-  { getProfileData }
-)(ProScreen);
+export default connect(mapStateToProps, { getProfileData })(ProScreen);

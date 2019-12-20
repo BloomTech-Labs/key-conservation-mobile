@@ -1,69 +1,71 @@
 export default {
   container: {
     flex: 1,
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-around",
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     paddingTop: 29,
-    flexWrap: "wrap"
+    flexWrap: 'wrap'
   },
   avatarContainer: {
-    width: "30%",
+    width: '30%',
     flex: 0,
-    alignItems: "center"
+    alignItems: 'center'
   },
   bioContainer: {
     marginTop: 25,
     marginBottom: 25,
-    width: "80%",
-    textAlign: "center",
-    alignItems: "center"
+    width: '80%',
+    textAlign: 'center',
+    alignItems: 'center'
   },
   bio: {
-    color: "white"
+    color: 'white',
+    fontFamily: 'Lato'
   },
   org: {
     lineHeight: 22,
     fontSize: 16,
-    fontFamily: "OpenSans-Bold",
-    color: "white"
+    fontFamily: 'Lato-Bold',
+    color: 'white'
   },
   outline: {
     fontSize: 15,
-    color: "white"
+    fontFamily: 'Lato',
+    color: 'white'
   },
   locationText: {
-    flexDirection: "row",
+    flexDirection: 'row',
     lineHeight: 19,
     fontSize: 14,
-    fontFamily: "OpenSans-Regular",
-    color: "white"
+    fontFamily: 'Lato',
+    color: 'white'
   },
   userText: {
     lineHeight: 19,
     fontSize: 14,
-    fontFamily: "OpenSans-Regular",
-    color: "white"
+    fontFamily: 'Lato',
+    color: 'white'
   },
   websiteText: {
     lineHeight: 19,
     fontSize: 14,
-    fontFamily: "OpenSans-SemiBold",
-    color: "white"
+    fontFamily: 'Lato-Bold',
+    color: 'white'
   },
   pic: {
     flex: 1
   },
   textContainer: {
     flex: 1,
-    color: "white"
+    color: 'white'
   },
   buttons: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    borderBottomColor: "#f5f5f5",
-    backgroundColor: "#fff",
-    shadowColor: "#000",
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    borderBottomColor: '#f5f5f5',
+    backgroundColor: '#fff',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 3
@@ -76,9 +78,9 @@ export default {
     flex: 1
   },
   ButtonStyle: {
-    alignItems: "center",
-    justifyContent: "center",
-    borderColor: "#eee",
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: '#eee',
     marginTop: 12,
     marginBottom: 12,
     flex: 1
@@ -86,14 +88,14 @@ export default {
 
   CampaignButton: {
     fontSize: 18,
-    color: "#000",
-    fontWeight: "bold",
-    fontFamily: "OpenSans-SemiBold"
+    color: '#000',
+    fontWeight: 'bold',
+    fontFamily: 'Lato-Bold'
   },
   DetailButton: {
     fontSize: 18,
-    color: "#C4C4C4",
-    fontWeight: "bold",
-    fontFamily: "OpenSans-SemiBold"
+    color: '#C4C4C4',
+    fontWeight: 'bold',
+    fontFamily: 'Lato-Bold'
   }
 };
