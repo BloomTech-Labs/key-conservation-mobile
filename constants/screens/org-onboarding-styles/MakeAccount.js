@@ -1,42 +1,43 @@
 export default {
   obBody: {
     flex: 1,
-    backgroundColor: 'white',
     justifyContent: 'center'
   },
+  obBorderView: {
+    flexGrow: 1,
+    alignSelf: 'center',
+    borderRadius: 30,
+    marginTop: '5%',
+    marginBottom: '20%',
+    paddingBottom: '5%',
+    marginLeft: '3%',
+    marginRight: '2%'
+  },
   obText: {
-    fontFamily: 'Lato-Bold',
-    fontStyle: 'normal',
+    color: '#000000',
+    fontFamily: 'Lato',
     fontSize: 18,
     lineHeight: 25,
-    color: '#000000'
+    marginLeft: '15%',
+    marginTop: '2%',
+    marginBottom: '2%',
+    marginRight: '15%'
   },
   obTitle: {
     color: '#000000',
     fontFamily: 'Lato-Bold',
     fontSize: 28,
     lineHeight: 38,
-    textAlign: 'center',
-    marginLeft: '5%',
-    marginTop: '2%',
-    marginBottom: '7%',
-    marginRight: '7%'
-  },
-  obSubtitle: {
-    color: '#000000',
-    fontFamily: 'Lato-Bold',
-    fontSize: 21,
-    lineHeight: 29,
-    marginLeft: '5%',
-    marginTop: '2%',
-    marginBottom: '2%',
-    marginRight: '7%'
+    marginLeft: '10%',
+    marginTop: '32%',
+    marginBottom: '3%',
+    marginRight: '10%'
   },
   obFwdContainer: {
     width: 112,
     height: 40,
-    backgroundColor: '#00ff9d',
     borderRadius: 20,
+    backgroundColor: '#FFF',
     alignSelf: 'flex-end',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -49,8 +50,15 @@ export default {
     fontStyle: 'normal',
     fontSize: 18,
     lineHeight: 25,
-
-    color: '#000000'
+    color: '#000'
+  },
+  arrowView: {
+    flexDirection: 'column',
+    justifyContent: 'left',
+    alignItems: 'left',
+    alignContent: 'left',
+    paddingTop: '15%',
+    paddingLeft: '10%'
   },
   obRectangle1: {
     position: 'absolute',
@@ -76,6 +84,7 @@ export default {
   },
   obFieldName: {
     fontFamily: 'Lato',
+    fontWeight: 300,
     fontSize: 14,
     lineHeight: 19,
     color: '#000000',
@@ -87,17 +96,14 @@ export default {
     borderRadius: 8,
     marginLeft: '5%',
     marginRight: '5%',
-    height: 50,
-    paddingLeft: 10,
-    fontFamily: 'Lato',
-    fontSize: 14,
-    color: '#000000'
+    lineHeight: 50
   },
   obNumInput: {
     marginLeft: 20,
     marginBottom: 20,
     backgroundColor: 'rgba(196, 196, 196, 0.5)',
-    borderRadius: 8
+    borderRadius: 8,
+    keyboardType: 'phone-pad'
   },
   obUploadBtn: {
     backgroundColor: '#00FF9D',
@@ -109,7 +115,10 @@ export default {
     width: 214,
     height: 68
   },
-  svg: {
-    paddingBottom: '15%'
+  spacer: {
+    flexGrow: 2
+  },
+  buttons: {
+    flexGrow: 1
   }
 };
