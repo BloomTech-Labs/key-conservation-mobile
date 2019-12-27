@@ -1,21 +1,21 @@
 import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
-
-import styles from '../../constants/screens/org-onboarding-styles/ToExpectNext.js';
-
+import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import styles from '../../constants/screens/org-onboarding-styles/ToExpectNext.js';
 
 const ToExpectNextScreen = props => {
   return (
     <View style={styles.obBody}>
       <ScrollView>
         <View>
-          <Text style={styles.obTitle}>Here's what you can expect next:</Text>
+          <Text style={styles.obTitle}>Up next: Register.</Text>
         </View>
         <View>
           <View style={styles.contentWrapper}>
             <View style={styles.iconWrapper}>
-              <AntDesign name='checkcircle' size={24} color='#00ff9d' />
+              <Image
+                source={require('../../assets/images/onboarding/gcheck.png')}
+              />
             </View>
             <View>
               <View style={{ width: '90%' }}>
@@ -50,11 +50,8 @@ const ToExpectNextScreen = props => {
               <Text style={styles.obTextBottom}>
                 Complete your base profile where we verify your organization.
                 Once approved, you'll receive a survey by email, followed by a
-                welcome kit.{' '}
-                <Text style={styles.span}>
-                  Now you can go visible! Start adding connections and
-                  campaigns!
-                </Text>
+                welcome kit. Now you can go visible! Start adding connections
+                and campaigns!
               </Text>
             </View>
           </View>
