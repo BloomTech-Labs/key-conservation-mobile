@@ -1,29 +1,7 @@
 export default {
   obBody: {
     flex: 1,
-    backgroundColor: 'white',
     justifyContent: 'center'
-  },
-  obTextTopContainer: {
-    borderColor: 'black',
-    backgroundColor: '#00FF98',
-    width: '20%',
-    height: '10%',
-    borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignContent: 'center',
-    marginLeft: '42.5%'
-  },
-  obTextTop: {
-    color: '#000000',
-    fontFamily: 'Lato',
-    fontSize: 18,
-    lineHeight: 25,
-    marginLeft: '5%',
-    marginTop: '3%',
-    marginBottom: '7%',
-    marginRight: '7%'
   },
   obText: {
     color: '#000000',
@@ -31,19 +9,25 @@ export default {
     fontSize: 18,
     lineHeight: 25,
     marginLeft: '5%',
-    marginTop: '2%',
+    marginTop: '10%',
     marginBottom: '2%',
-    marginRight: '7%'
+    marginRight: '7%',
+    borderWidth: 1,
+    borderColor: 'green'
   },
   obTitle: {
     color: '#000000',
     fontFamily: 'Lato-Bold',
     fontSize: 28,
     lineHeight: 38,
-    marginLeft: '5%',
-    marginTop: '18%',
+    marginLeft: '18%',
+    // marginTop: '25%',
+    paddingTop: '5%',
     marginBottom: '2%',
-    marginRight: '7%'
+    marginRight: '18%',
+    alignSelf: 'center',
+    borderWidth: 1,
+    borderColor: 'blue'
   },
   obSubtitle: {
     color: '#000000',
@@ -51,8 +35,8 @@ export default {
     fontSize: 21,
     lineHeight: 29,
     marginLeft: '5%',
-    marginTop: '2%',
-    marginBottom: '2%',
+    // marginTop: '2%',
+    // marginBottom: '2%',
     marginRight: '7%'
   },
   obFwdContainer: {
@@ -114,9 +98,9 @@ export default {
     height: 50,
     paddingLeft: 20,
     fontFamily: 'Lato',
-    fontSize: 14,
-    color: '#000000',
-    borderColor: '#DEDEDE',
+    fontSize: 15,
+    color: '#1F332B',
+    borderColor: '#1F332B',
     borderWidth: 0.5
   },
   obTextInputBottom: {
