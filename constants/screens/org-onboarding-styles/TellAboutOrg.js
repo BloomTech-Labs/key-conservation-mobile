@@ -20,11 +20,11 @@ export default {
     fontFamily: 'Lato-Bold',
     fontSize: 28,
     lineHeight: 38,
-    marginLeft: '18%',
-    // marginTop: '25%',
-    paddingTop: '5%',
-    marginBottom: '2%',
-    marginRight: '18%',
+    // marginLeft: '18%',
+    marginTop: '15%',
+    // paddingTop: '5%',
+    // marginBottom: '2%',
+    // marginRight: '18%',
     alignSelf: 'center',
     borderWidth: 1,
     borderColor: 'blue'
@@ -42,8 +42,8 @@ export default {
   obFwdContainer: {
     width: 112,
     height: 40,
-    backgroundColor: '#00FF98',
     borderRadius: 20,
+    backgroundColor: '#FFF',
     alignSelf: 'flex-end',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -56,7 +56,7 @@ export default {
     fontStyle: 'normal',
     fontSize: 18,
     lineHeight: 25,
-    color: '#000000'
+    color: '#000'
   },
   obRectangle1: {
     position: 'absolute',

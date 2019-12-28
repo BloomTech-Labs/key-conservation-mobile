@@ -81,124 +81,122 @@ const TellAboutOrganizationScreen = props => {
   };
 
   return (
-    <ImageBackground
-      source={require('../../assets/images/onboarding/tellus1.png')}
-      style={{
-        width: '100%',
-        height: '100%',
-        borderWidth: 1,
-        borderColor: 'red',
-        paddingTop: '15%'
-      }}
+    <KeyboardAvoidingView
+      style={styles.obBody}
+      behavior='height'
+      keyboardVerticalOffset={86}
+      enabled
     >
-      {/* <KeyboardAvoidingView
-        style={styles.obBody}
-        behavior='height'
-        keyboardVerticalOffset={86}
-        enabled
-      > */}
       <ScrollView>
-        <Text style={styles.obTitle}>Tell us about your organization.</Text>
-
-        <Text style={styles.obText}>
-          Fill in where your main headquarters are located. You'll have a chance
-          to give more details about where you work in the field on the next
-          screen.
-        </Text>
-        <Text style={styles.obSubtitle}>Basic Information</Text>
-
-        <TextInput
-          placeholder='Organization Name'
-          style={styles.obTextInput}
-          onChangeText={text =>
-            onChangeText({ ...airtableState, org_name: text })
-          }
-        />
-        <TextInput
-          placeholder='Main Address'
-          style={styles.obTextInput}
-          onChangeText={text =>
-            onChangeText({ ...airtableState, address: text })
-          }
-          value={airtableState.address}
-        />
-
-        {/* <Text style={styles.obFieldName}>Organization Country</Text> */}
-        <TextInput
-          placeholder='Country'
-          style={styles.obTextInput}
-          onChangeText={text =>
-            onChangeText({ ...airtableState, country: text })
-          }
-          value={airtableState.country}
-        />
-
-        {/* <Text style={styles.obFieldName}>Point of Contact Name</Text> */}
-        <TextInput
-          placeholder='Point Of Contact Name'
-          style={styles.obTextInput}
-          onChangeText={text =>
-            onChangeText({ ...airtableState, point_of_contact: text })
-          }
-          value={airtableState.point_of_contact}
-        />
-
-        {/* <Text style={styles.obFieldName}>Point of Contact Position</Text> */}
-        <TextInput
-          placeholder='Point Of Contact Position'
-          style={styles.obTextInput}
-          onChangeText={text =>
-            onChangeText({ ...airtableState, poc_position: text })
-          }
-          value={airtableState.poc_position}
-        />
-
-        {/* backend */}
-        {/* <Text style={styles.obFieldName}>Organization Phone</Text> */}
-        <TextInput
-          placeholder='Org Phone'
-          style={styles.obTextInput}
-          onChangeText={text => onChangeText({ ...airtableState, phone: text })}
-          value={airtableState.phone}
-        />
-        {/* backend */}
-
-        {/* <Text style={styles.obFieldName}>Website URL</Text> */}
-        <TextInput
-          placeholder='Website Url'
-          style={styles.obTextInputBottom}
-          onChangeText={text =>
-            onChangeText({ ...airtableState, website: text })
-          }
-          value={airtableState.website}
-        />
-
-        <TouchableOpacity
-          style={styles.obFwdContainer}
-          onPress={() => {
-            if (
-              airtableState.org_name === undefined ||
-              airtableState.website === undefined ||
-              airtableState.phone === undefined ||
-              airtableState.address === undefined ||
-              airtableState.country === undefined ||
-              airtableState.point_of_contact === undefined ||
-              airtableState.poc_position === undefined ||
-              airtableState.email === undefined
-            ) {
-              Alert.alert('Oops', 'Please fill in all sections of form', [
-                { text: 'Got it' }
-              ]);
-            } else {
-              sendAirtable();
-            }
+        <ImageBackground
+          source={require('../../assets/images/onboarding/tellus1.png')}
+          imageStyle={{ resizeMode: 'contain' }}
+          style={{
+            width: '100%',
+            height: '100%',
+            // position: 'absolute',
+            // zIndex: -1,
+            borderWidth: 1,
+            borderColor: 'red',
+            top: 0
           }}
         >
-          <Text style={styles.obFwdBtnText}>Next</Text>
-        </TouchableOpacity>
+          <Text style={styles.obTitle}>Tell us about your organization.</Text>
+
+          <Text style={styles.obText}>
+            Fill in where your main headquarters are located. You'll have a
+            chance to give more details about where you work in the field on the
+            next screen.
+          </Text>
+          <Text style={styles.obSubtitle}>Basic Information</Text>
+
+          <TextInput
+            placeholder='Organization Name'
+            style={styles.obTextInput}
+            onChangeText={text =>
+              onChangeText({ ...airtableState, org_name: text })
+            }
+          />
+          <TextInput
+            placeholder='Main Address'
+            style={styles.obTextInput}
+            onChangeText={text =>
+              onChangeText({ ...airtableState, address: text })
+            }
+            value={airtableState.address}
+          />
+
+          <TextInput
+            placeholder='Country'
+            style={styles.obTextInput}
+            onChangeText={text =>
+              onChangeText({ ...airtableState, country: text })
+            }
+            value={airtableState.country}
+          />
+
+          <TextInput
+            placeholder='Point Of Contact Name'
+            style={styles.obTextInput}
+            onChangeText={text =>
+              onChangeText({ ...airtableState, point_of_contact: text })
+            }
+            value={airtableState.point_of_contact}
+          />
+
+          <TextInput
+            placeholder='Point Of Contact Position'
+            style={styles.obTextInput}
+            onChangeText={text =>
+              onChangeText({ ...airtableState, poc_position: text })
+            }
+            value={airtableState.poc_position}
+          />
+
+          <TextInput
+            placeholder='Org Phone'
+            style={styles.obTextInput}
+            onChangeText={text =>
+              onChangeText({ ...airtableState, phone: text })
+            }
+            value={airtableState.phone}
+          />
+
+          <TextInput
+            placeholder='Website Url'
+            style={styles.obTextInputBottom}
+            onChangeText={text =>
+              onChangeText({ ...airtableState, website: text })
+            }
+            value={airtableState.website}
+          />
+
+          <TouchableOpacity
+            style={styles.obFwdContainer}
+            onPress={() => {
+              if (
+                airtableState.org_name === undefined ||
+                airtableState.website === undefined ||
+                airtableState.phone === undefined ||
+                airtableState.address === undefined ||
+                airtableState.country === undefined ||
+                airtableState.point_of_contact === undefined ||
+                airtableState.poc_position === undefined ||
+                airtableState.email === undefined
+              ) {
+                Alert.alert('Oops', 'Please fill in all sections of form', [
+                  { text: 'Got it' }
+                ]);
+              } else {
+                sendAirtable();
+              }
+            }}
+          >
+            <Text style={styles.obFwdBtnText}>Next</Text>
+          </TouchableOpacity>
+        </ImageBackground>
       </ScrollView>
-      {/* </KeyboardAvoidingView> */}
-    </ImageBackground>
+    </KeyboardAvoidingView>
   );
 };
 

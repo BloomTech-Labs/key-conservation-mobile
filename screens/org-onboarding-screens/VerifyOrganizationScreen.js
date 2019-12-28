@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
-  StyleSheet,
   Switch,
   Text,
   TextInput,
@@ -8,31 +7,32 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
-  Alert
-} from "react-native";
-import styles from "../../constants/screens/org-onboarding-styles/VerifyOrg.js";
-import * as SecureStore from "expo-secure-store";
+  Alert,
+  ImageBackground
+} from 'react-native';
+import styles from '../../constants/screens/org-onboarding-styles/VerifyOrg.js';
+import * as SecureStore from 'expo-secure-store';
 
 const VerifyOrganizationScreen = props => {
   const [airtableState, onChangeText] = useState({
-    other_countries: "",
-    multiple_projects: "",
-    affiliations_partnerships: "",
+    other_countries: '',
+    multiple_projects: '',
+    affiliations_partnerships: '',
     conservation_optimism: null,
     smartphone_access: null,
-    smartphone_type: ""
+    smartphone_type: ''
   });
 
-  const airtableKey = props.navigation.getParam("airtableKey", "defaultValue");
-  const airtableID = props.navigation.getParam("airtableID", "defaultValue");
+  const airtableKey = props.navigation.getParam('airtableKey', 'defaultValue');
+  const airtableID = props.navigation.getParam('airtableID', 'defaultValue');
   const airtableState2 = props.navigation.getParam(
-    "airtableState",
-    "defaultValue"
+    'airtableState',
+    'defaultValue'
   ); // this grabs the airtable form ID and data from previous component.
 
   setAirtableID = async () => {
-    await SecureStore.setItemAsync("airtableID", airtableID);
-    console.log(await SecureStore.getItemAsync("airtableID", {}));
+    await SecureStore.setItemAsync('airtableID', airtableID);
+    console.log(await SecureStore.getItemAsync('airtableID', {}));
   }; // This saves the current airtable form's ID in SecureStore.
 
   useEffect(() => {
@@ -47,9 +47,9 @@ const VerifyOrganizationScreen = props => {
   const updateAirtable = () => {
     // this updates the airtable form created in the previous component
 
-    var Airtable = require("airtable");
-    var base = new Airtable({ apiKey: airtableKey }).base("appbPeeXUSNCQWwnQ");
-    base("Table 1").update(
+    var Airtable = require('airtable');
+    var base = new Airtable({ apiKey: airtableKey }).base('appbPeeXUSNCQWwnQ');
+    base('Table 1').update(
       [
         {
           id: airtableID,
@@ -78,15 +78,28 @@ const VerifyOrganizationScreen = props => {
   return (
     <KeyboardAvoidingView
       style={styles.obBody}
-      behavior="height"
+      behavior='height'
       keyboardVerticalOffset={86}
       enabled
     >
       <ScrollView>
-        <View style={styles.obBody}>
+        <ImageBackground
+          source={'../../assets/images/onboarding/yellow.png'}
+          style={{
+            height: 160,
+            width: 350,
+            position: 'relative',
+            resizeMode: 'cover',
+            borderWidth: 1,
+            borderColor: 'red'
+          }}
+        >
           <Text style={styles.obTitle}>
-            Tell us more about your organization
+            Tell us about the work your organization does
           </Text>
+        </ImageBackground>
+
+        <View style={styles.obBody}>
           <Text style={styles.obText}>
             We'll take a deeper dive into your activities. You can separate
             lists of items with a comma.
@@ -101,7 +114,7 @@ const VerifyOrganizationScreen = props => {
               onChangeText({ ...airtableState, other_countries: text })
             }
             value={airtableState.other_countries}
-            placeholder="United States, Brazil, France, etc."
+            placeholder='United States, Brazil, France, etc.'
           />
 
           <Text style={styles.obFieldName}>
@@ -113,7 +126,7 @@ const VerifyOrganizationScreen = props => {
               onChangeText({ ...airtableState, multiple_projects: text })
             }
             value={airtableState.multiple_projects}
-            placeholder="Project 1, Project 2, etc."
+            placeholder='Project 1, Project 2, etc.'
           />
 
           <Text style={styles.obFieldName}>
@@ -128,14 +141,14 @@ const VerifyOrganizationScreen = props => {
               })
             }
             value={airtableState.affiliations_partnerships}
-            placeholder="Partnership 1, Partnership 2, etc."
+            placeholder='Partnership 1, Partnership 2, etc.'
           />
 
           <Text style={styles.obFieldName}>
             Will you join us in Conservation Optimism?
           </Text>
           <Switch
-            trackColor={{ true: "#00FF9D" }}
+            trackColor={{ true: '#00FF9D' }}
             style={styles.obSwitchButton}
             value={airtableState.conservation_optimism}
             onValueChange={newValue =>
@@ -151,7 +164,7 @@ const VerifyOrganizationScreen = props => {
           </Text>
           <Switch
             style={styles.obSwitchButton}
-            trackColor={{ true: "#00FF9D" }}
+            trackColor={{ true: '#00FF9D' }}
             value={airtableState.smartphone_access}
             onValueChange={newValue =>
               onChangeText({ ...airtableState, smartphone_access: newValue })
@@ -173,26 +186,26 @@ const VerifyOrganizationScreen = props => {
             style={styles.obFwdContainer}
             onPress={() => {
               if (
-                airtableState.other_countries === "" ||
-                airtableState.multiple_projects === "" ||
+                airtableState.other_countries === '' ||
+                airtableState.multiple_projects === '' ||
                 //airtableState.affiliations_partnerships === "" ||
-                airtableState.smartphone_type === ""
+                airtableState.smartphone_type === ''
               ) {
-                Alert.alert("Oops", "Please fill in all sections of form", [
-                  { text: "Got it." }
+                Alert.alert('Oops', 'Please fill in all sections of form', [
+                  { text: 'Got it.' }
                 ]);
               } else if (
                 airtableState.conservation_optimism === false ||
                 airtableState.smartphone_access === false
               ) {
                 Alert.alert(
-                  "Oops",
-                  "Agree to conservation optimism and smart phone use",
-                  [{ text: "Got it." }]
+                  'Oops',
+                  'Agree to conservation optimism and smart phone use',
+                  [{ text: 'Got it.' }]
                 );
               } else {
                 updateAirtable();
-                props.navigation.navigate("VerifyDocumentation", {
+                props.navigation.navigate('VerifyDocumentation', {
                   airtableStateAdd: airtableStateAdd,
                   airtableKey: airtableKey
                 }); // This passes the combined fields sent to airtable needed for backend to the next component.
