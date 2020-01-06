@@ -25,7 +25,7 @@ const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
         }}
       >
         {coords.map(coordinate => {
-          console.log("coordinate", coordinate);
+          // console.log("coordinate", coordinate);
           return (
             <Marker
               key={coordinate.users_id}
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     padding: 3
   },
   markerCallout: {
-    width: 70,
+    width: 70
   },
   calloutOrgName: {
     fontWeight: "bold"
