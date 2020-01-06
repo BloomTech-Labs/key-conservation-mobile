@@ -66,13 +66,12 @@ class EditProScreen extends React.Component {
   };
 
   componentDidMount() {
-    console.log("lon: " + this.state.latitude + "lat: " + this.state.longitude);
     this.props.navigation.setParams({ done: this.done });
     if (this.isProfileComplete(this.state) === true) {
       return AmpEvent("Profile Completed");
     }
     this.getBackend();
-    !this.state.latitude && !this.state.longitude ? this.setCoords() : null;
+    this.setCoords();
     this.resetVettingVars();
   }
 
@@ -91,7 +90,6 @@ class EditProScreen extends React.Component {
   };
 
   done = () => {
-    !this.state.latitude && !this.state.longitude ? this.setCoords() : null;
     let changes = this.state;
     if (this.props.mediaUpload) {
       changes = {
@@ -105,23 +103,21 @@ class EditProScreen extends React.Component {
     } else {
       this.props.navigation.goBack();
     }
-    // console.log("*** Coordinates ***", this.state.coords);
   };
 
   setCoords = () => {
-    // console.log(locations);
     LocationIQ.init("pk.21494f179d6ad0c272404a3614275418");
     LocationIQ.search(`${this.state.location}`)
       .then(json => {
         var lat = json[0].lat;
         var lon = json[0].lon;
-        // console.log("coordinates", lat, lon);
         this.setState({
           longitude: parseFloat(lon),
           latitude: parseFloat(lat)
         });
+        console.log("lat: " + lat, "lon: " + lon);
         console.log(
-          "lon: " + this.state.latitude + "lat: " + this.state.longitude
+          "lat: " + this.state.latitude + "lon: " + this.state.longitude
         );
       })
       .catch(error => console.warn(error));
