@@ -66,21 +66,40 @@ class EditProScreen extends React.Component {
   };
 
   componentDidMount() {
-    this.props.navigation.setParams({ done: this.done });
+    this.props.navigation.setParams({ done: this.setCoords });
     if (this.isProfileComplete(this.state) === true) {
       return AmpEvent("Profile Completed");
     }
     this.getBackend();
-    this.setCoords();
     this.resetVettingVars();
   }
+
+  getBackend = async () => {
+    const state = await SecureStore.getItemAsync("stateBE", {});
+    const parseBE = JSON.parse(state);
+    parseBE
+      ? this.setState({
+          org_name: parseBE.org_name,
+          phone_number: parseBE.phone,
+          mini_bio: parseBE.mission,
+          species_and_habitats: parseBE.species,
+          issues: parseBE.issues,
+          facebook: parseBE.facebook,
+          instagram: parseBE.instagram,
+          twitter: parseBE.twitter,
+          org_link_url: parseBE.website,
+          location: parseBE.address + ", " + parseBE.country
+        })
+      : null;
+    await SecureStore.deleteItemAsync("stateBE", {});
+  }; // Retrieves state object from SecureStore that was created in the onboarding process. Repopulates fields in this component.
 
   resetVettingVars = async () => {
     await SecureStore.deleteItemAsync("airtableID", {});
     await SecureStore.deleteItemAsync("vettingEmail", {});
     await SecureStore.deleteItemAsync("isVetting", {});
     console.log("resetting vetting variables!");
-  }; // Also deletes vetting variables in case UsernameScreen doesn't execute.
+  }; // Also deletes vetting variables in case UsernameScreen isn't executed before starting a new organization onboarding process.
 
   isProfileComplete = profile => {
     for (let p in profile) {
@@ -89,8 +108,22 @@ class EditProScreen extends React.Component {
     return true;
   };
 
+  setCoords = () => {
+    LocationIQ.init("pk.21494f179d6ad0c272404a3614275418");
+    LocationIQ.search(`${this.state.location}`)
+      .then(json => {
+        var lat = json[0].lat;
+        var lon = json[0].lon;
+        this.setState({
+          longitude: parseFloat(lon),
+          latitude: parseFloat(lat)
+        });
+        this.done();
+      })
+      .catch(error => console.warn(error));
+  }; // Converts concatenated location into coordinates, sets coords to state then continues with rest of backend functions.
+
   done = () => {
-    // this.setCoords();
     let changes = this.state;
     if (this.props.mediaUpload) {
       changes = {
@@ -104,25 +137,6 @@ class EditProScreen extends React.Component {
     } else {
       this.props.navigation.goBack();
     }
-  };
-
-  setCoords = () => {
-    console.log("location: " + this.state.location);
-    LocationIQ.init("pk.21494f179d6ad0c272404a3614275418");
-    LocationIQ.search(`${this.state.location}`)
-      .then(json => {
-        var lat = json[0].lat;
-        var lon = json[0].lon;
-        console.log("coordinates", lat, lon);
-        this.setState({
-          longitude: parseFloat(lon),
-          latitude: parseFloat(lat)
-        });
-        console.log(
-          "lat: " + this.state.latitude + " lon: " + this.state.longitude
-        );
-      })
-      .catch(error => console.warn(error));
   };
 
   getBackend = async () => {

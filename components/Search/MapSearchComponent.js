@@ -81,22 +81,22 @@ const MapSearchBarComponent = props => {
 
   // Handler for text field value changes
   const handleQueryChange = (query = state.query) => {
-    console.log('query', query);
+    // console.log('query', query);
     setState({ ...state, query: query });
     props.setMapSearchQuery(query, state.field);
   };
 
   const handleInputBlur = () => {
-    console.log('handleInputBlur');
+    // console.log('handleInputBlur');
     // show search icon
     if (state.query === '') {
-      console.log("state.query===''");
+      // console.log("state.query===''");
       setState({ ...state, shouldShowSearch: true });
     }
   };
 
   const handleInputFocus = () => {
-    console.log('handleInputFocus');
+    // console.log('handleInputFocus');
     setState({ ...state, shouldShowSearch: false });
   };
 

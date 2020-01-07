@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import MapView, { Marker, Callout } from "react-native-maps";
-import { StyleSheet, View, Image, Dimensions, Text } from "react-native";
-import { connect } from "react-redux";
-import { getOrganizations, getProfileData } from "../../store/actions";
+import React, { useEffect } from 'react';
+import MapView, { Marker, Callout } from 'react-native-maps';
+import { StyleSheet, View, Image, Dimensions, Text } from 'react-native';
+import { connect } from 'react-redux';
+import { getOrganizations, getProfileData } from '../../store/actions';
 const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
   useEffect(() => {
     getOrganizations();
@@ -10,7 +10,7 @@ const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
 
   const goToProfile = async id => {
     await getProfileData(id);
-    navigation.navigate("Pro", { fromMap: true }); // For BackButton.
+    navigation.navigate('Pro', { fromMap: true }); // For BackButton.
   };
 
   return (
@@ -25,11 +25,10 @@ const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
         }}
       >
         {coords.map(coordinate => {
-          // console.log("coordinate", coordinate);
           return (
             <Marker
               key={coordinate.users_id}
-              pinColor="#00FF9D"
+              pinColor='#00FF9D'
               coordinate={{
                 latitude: coordinate.latitude,
                 longitude: coordinate.longitude
@@ -57,32 +56,32 @@ const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
 };
 const styles = StyleSheet.create({
   mapStyle: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height
   },
   markerImg: {
     height: 40,
     width: 40,
     borderRadius: 20,
     borderWidth: 3,
-    borderColor: "#00FF9D",
+    borderColor: '#00FF9D',
     padding: 3
   },
   markerCallout: {
     width: 70
   },
   calloutOrgName: {
-    fontWeight: "bold"
+    fontWeight: 'bold'
   },
   calloutButton: {
-    backgroundColor: "#00FF9D",
+    backgroundColor: '#00FF9D',
     marginTop: 5,
     borderRadius: 3,
     paddingTop: 2,
     paddingBottom: 2
   },
   calloutButtonText: {
-    textAlign: "center"
+    textAlign: 'center'
   }
 });
 const mapPropsToState = state => {
