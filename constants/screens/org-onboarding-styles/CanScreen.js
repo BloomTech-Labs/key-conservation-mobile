@@ -17,13 +17,13 @@ export default {
     maxWidth: '100%'
   },
   highlight: {
-    backgroundColor: '#00ff9d',
+    backgroundColor: '#D7FF43',
     borderRadius: 10
   },
   contentWrapper: {
     display: 'flex',
     marginLeft: '5%',
-    flexWrap: 'nowrap',
+    flexWrap: 'wrap',
     flexDirection: 'row',
     marginTop: '5%'
   },
@@ -67,7 +67,8 @@ export default {
   obFwdContainer: {
     width: 112,
     height: 40,
-    backgroundColor: '#00ff9d',
+    borderWidth: 2,
+    borderColor: '#000',
     borderRadius: 20,
     alignSelf: 'flex-end',
     flexDirection: 'column',

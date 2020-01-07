@@ -25,7 +25,7 @@ const CantScreen = (props) => {
 					<View>
 					<View style={{width: "90%"}}>
 					<Text style={styles.obText}>
-					Guarantee that all of your requests will get support and funding
+					Guarantee that all of your requests will get support and funding.
 					</Text>
 					</View>
 					</View>
