@@ -66,62 +66,13 @@ class EditProScreen extends React.Component {
   };
 
   componentDidMount() {
-    this.props.navigation.setParams({ done: this.done });
+    this.props.navigation.setParams({ done: this.setCoords });
     if (this.isProfileComplete(this.state) === true) {
       return AmpEvent("Profile Completed");
     }
     this.getBackend();
-    this.setCoords();
     this.resetVettingVars();
   }
-
-  resetVettingVars = async () => {
-    await SecureStore.deleteItemAsync("airtableID", {});
-    await SecureStore.deleteItemAsync("vettingEmail", {});
-    await SecureStore.deleteItemAsync("isVetting", {});
-    console.log("resetting vetting variables!");
-  }; // Also deletes vetting variables in case UsernameScreen doesn't execute.
-
-  isProfileComplete = profile => {
-    for (let p in profile) {
-      if (!profile[p]) return false;
-    }
-    return true;
-  };
-
-  done = () => {
-    let changes = this.state;
-    if (this.props.mediaUpload) {
-      changes = {
-        ...this.state,
-        profile_image: this.props.mediaUpload
-      };
-    }
-    this.props.editProfileData(this.props.currentUserProfile.id, changes);
-    if (this.props.firstLogin) {
-      this.props.navigation.navigate("Home");
-    } else {
-      this.props.navigation.goBack();
-    }
-  };
-
-  setCoords = () => {
-    LocationIQ.init("pk.21494f179d6ad0c272404a3614275418");
-    LocationIQ.search(`${this.state.location}`)
-      .then(json => {
-        var lat = json[0].lat;
-        var lon = json[0].lon;
-        this.setState({
-          longitude: parseFloat(lon),
-          latitude: parseFloat(lat)
-        });
-        console.log("lat: " + lat, "lon: " + lon);
-        console.log(
-          "lat: " + this.state.latitude + "lon: " + this.state.longitude
-        );
-      })
-      .catch(error => console.warn(error));
-  };
 
   getBackend = async () => {
     const state = await SecureStore.getItemAsync("stateBE", {});
@@ -142,6 +93,51 @@ class EditProScreen extends React.Component {
       : null;
     await SecureStore.deleteItemAsync("stateBE", {});
   }; // Retrieves state object from SecureStore that was created in the onboarding process. Repopulates fields in this component.
+
+  resetVettingVars = async () => {
+    await SecureStore.deleteItemAsync("airtableID", {});
+    await SecureStore.deleteItemAsync("vettingEmail", {});
+    await SecureStore.deleteItemAsync("isVetting", {});
+    console.log("resetting vetting variables!");
+  }; // Also deletes vetting variables in case UsernameScreen isn't executed before starting a new organization onboarding process.
+
+  isProfileComplete = profile => {
+    for (let p in profile) {
+      if (!profile[p]) return false;
+    }
+    return true;
+  };
+
+  setCoords = () => {
+    LocationIQ.init("pk.21494f179d6ad0c272404a3614275418");
+    LocationIQ.search(`${this.state.location}`)
+      .then(json => {
+        var lat = json[0].lat;
+        var lon = json[0].lon;
+        this.setState({
+          longitude: parseFloat(lon),
+          latitude: parseFloat(lat)
+        });
+        this.done();
+      })
+      .catch(error => console.warn(error));
+  }; // Converts concatenated location into coordinates, sets coords to state then continues with rest of backend functions.
+
+  done = () => {
+    let changes = this.state;
+    if (this.props.mediaUpload) {
+      changes = {
+        ...this.state,
+        profile_image: this.props.mediaUpload
+      };
+    }
+    this.props.editProfileData(this.props.currentUserProfile.id, changes);
+    if (this.props.firstLogin) {
+      this.props.navigation.navigate("Home");
+    } else {
+      this.props.navigation.goBack();
+    }
+  };
 
   render() {
     return (
