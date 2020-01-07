@@ -63,9 +63,7 @@ const HeyThereScreen = props => {
           <TouchableOpacity
             style={styles.obFwdContainer}
             onPress={() => {
-              // props.navigation.navigate('ToExpect');
-              // props.navigation.navigate('VerifyOrganization');
-              props.navigation.navigate('MakeAccount');
+              props.navigation.navigate('ToExpect');
             }}
           >
             <Text style={styles.obFwdBtnText}>Next</Text>

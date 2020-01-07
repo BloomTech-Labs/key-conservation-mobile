@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
+  StyleSheet,
   Switch,
   Text,
   TextInput,
@@ -7,8 +8,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
-  Alert,
-  ImageBackground
+  Alert
 } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/VerifyOrg.js';
 import * as SecureStore from 'expo-secure-store';
@@ -83,28 +83,14 @@ const VerifyOrganizationScreen = props => {
       enabled
     >
       <ScrollView>
-        <ImageBackground
-          source={'../../assets/images/onboarding/yellow.png'}
-          style={{
-            height: 160,
-            width: 350,
-            position: 'relative',
-            resizeMode: 'cover',
-            borderWidth: 1,
-            borderColor: 'red'
-          }}
-        >
-          <Text style={styles.obTitle}>
-            Tell us about the work your organization does
-          </Text>
-        </ImageBackground>
-
         <View style={styles.obBody}>
+          <Text style={styles.obTitle}>
+            Tell us more about your organization
+          </Text>
           <Text style={styles.obText}>
             We'll take a deeper dive into your activities. You can separate
             lists of items with a comma.
           </Text>
-
           <Text style={styles.obFieldName}>
             In what countries does your organization work?
           </Text>
@@ -116,7 +102,6 @@ const VerifyOrganizationScreen = props => {
             value={airtableState.other_countries}
             placeholder='United States, Brazil, France, etc.'
           />
-
           <Text style={styles.obFieldName}>
             Projects your organization is working on:
           </Text>
@@ -128,7 +113,6 @@ const VerifyOrganizationScreen = props => {
             value={airtableState.multiple_projects}
             placeholder='Project 1, Project 2, etc.'
           />
-
           <Text style={styles.obFieldName}>
             Current partnerships and affiliations:
           </Text>
@@ -143,7 +127,6 @@ const VerifyOrganizationScreen = props => {
             value={airtableState.affiliations_partnerships}
             placeholder='Partnership 1, Partnership 2, etc.'
           />
-
           <Text style={styles.obFieldName}>
             Will you join us in Conservation Optimism?
           </Text>
@@ -158,7 +141,6 @@ const VerifyOrganizationScreen = props => {
               })
             }
           />
-
           <Text style={styles.obFieldName}>
             Does your organization have access to a smartphone?
           </Text>
@@ -170,7 +152,6 @@ const VerifyOrganizationScreen = props => {
               onChangeText({ ...airtableState, smartphone_access: newValue })
             }
           />
-
           <Text style={styles.obFieldName}>
             If so what kind of smartphone? (Apple or Android)
           </Text>
@@ -181,7 +162,6 @@ const VerifyOrganizationScreen = props => {
             }
             value={airtableState.smartphone_type}
           />
-
           <TouchableOpacity
             style={styles.obFwdContainer}
             onPress={() => {
@@ -219,5 +199,4 @@ const VerifyOrganizationScreen = props => {
     </KeyboardAvoidingView>
   );
 };
-
 export default VerifyOrganizationScreen;

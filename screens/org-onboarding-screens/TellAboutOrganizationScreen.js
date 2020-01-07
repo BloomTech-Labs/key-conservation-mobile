@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/TellAboutOrg.js';
 import * as SecureStore from 'expo-secure-store';
-import SvgUri from 'react-native-svg-uri';
 
 const TellAboutOrganizationScreen = props => {
   const [airtableKey, setAirtableKey] = useState({
@@ -91,10 +90,6 @@ const TellAboutOrganizationScreen = props => {
     >
       <ScrollView>
         <View style={styles.obBody}>
-          <SvgUri
-            style={styles.svg}
-            source={require(`../../assets/icons/onboarding/g_circle.svg`)}
-          />
           <Text style={styles.obTitle}>Tell us about your organization.</Text>
 
           <Text style={styles.obText}>

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef } from 'react';
 import {
   Button,
   View,
@@ -8,52 +8,52 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   ScrollView
-} from "react-native";
+} from 'react-native';
 
-import useForm from "./hooks/useForm";
-import DropDownSelect from "./formElement/DropDownSelect";
-import { Feather } from "@expo/vector-icons";
-import styles from "../../constants/screens/org-onboarding-styles/OrganizationSurvey";
-import NavigateButton from "./formElement/NavigateButton.js";
+import useForm from './hooks/useForm';
+import DropDownSelect from './formElement/DropDownSelect';
+import { Feather } from '@expo/vector-icons';
+import styles from '../../constants/screens/org-onboarding-styles/OrganizationSurvey';
+import NavigateButton from './formElement/NavigateButton.js';
 
-import * as SecureStore from "expo-secure-store";
+import * as SecureStore from 'expo-secure-store';
 
 const OrganizationSurveyScreen = props => {
   const [values, handleChange] = useState({
-    mission: "",
-    issues: "",
-    species: "",
-    facebook: "",
-    instagram: "",
-    twitter: ""
+    mission: '',
+    issues: '',
+    species: '',
+    facebook: '',
+    instagram: '',
+    twitter: ''
   });
 
   const airtableStateAdd = props.navigation.getParam(
-    "airtableStateAdd",
-    "defaultValue"
+    'airtableStateAdd',
+    'defaultValue'
   );
-  const key = props.navigation.getParam("airtableKey", "defaultValue");
+  const key = props.navigation.getParam('airtableKey', 'defaultValue');
 
   1;
   var today = new Date();
   //var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
   var date =
-    today.getMonth() + 1 + "-" + today.getDate() + "-" + today.getFullYear();
+    today.getMonth() + 1 + '-' + today.getDate() + '-' + today.getFullYear();
 
   handleSubmit = async () => {
     airtableStateAdd2 = Object.assign({ ...airtableStateAdd, ...values }); // Updates state for backend with new fields.
     // console.log(airtableStateAdd2)
     stringBE = JSON.stringify(airtableStateAdd2);
-    await SecureStore.setItemAsync("stateBE", stringBE); // Finally stores data object in SecureStore to be opened in 'EditPro' after user is vetted.
-    await SecureStore.setItemAsync("vetting", "true");
+    await SecureStore.setItemAsync('stateBE', stringBE); // Finally stores data object in SecureStore to be opened in 'EditPro' after user is vetted.
+    await SecureStore.setItemAsync('vetting', 'true');
     // Sets variables to be checked in 'LoadingScreen' to determine whether current user is in vetting process.
-    props.navigation.navigate("Vetting", {});
+    props.navigation.navigate('Vetting', {});
   };
 
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior="height"
+      behavior='height'
       keyboardVerticalOffset={86}
       enabled
     >
@@ -61,18 +61,18 @@ const OrganizationSurveyScreen = props => {
         <View style={[styles.container]}>
           <View style={[styles.buttonRow, styles.greenBg]}>
             <View>
-              <Text style={[styles.h5Text, { fontWeight: "600" }]}>
+              <Text style={[styles.h5Text, { fontWeight: '600' }]}>
                 Application Status: Processing
               </Text>
               <Text style={styles.h5Text}> Uploaded {date}</Text>
             </View>
             <View>
-              <Feather name="info" size={40} />
+              <Feather name='info' size={40} />
             </View>
           </View>
           <View>
             <Text style={[styles.obTitle, { marginBottom: 24 }]}>
-              Let Supporters {"\n"}Know about you!
+              Let Supporters {'\n'}Know about you!
             </Text>
           </View>
           <View style={styles.inputBlock}>
@@ -84,9 +84,9 @@ const OrganizationSurveyScreen = props => {
               multiline
               onChangeText={text => handleChange({ ...values, mission: text })}
               value={values.mission}
-              placeholder="Type here"
-              type="mission"
-              name="mission"
+              placeholder='Type here'
+              type='mission'
+              name='mission'
               required
             />
           </View>
@@ -99,12 +99,11 @@ const OrganizationSurveyScreen = props => {
               multiline
               onChangeText={text => handleChange({ ...values, species: text })}
               value={values.species}
-              placeholder="Type here"
-              type="species"
-              name="species"
+              placeholder='Type here'
+              type='species'
+              name='species'
               required
             />
-            {/* <DropDownSelect style={styles.dropDown} /> */}
           </View>
           <View style={styles.inputBlock}>
             <Text style={styles.obText}>
@@ -115,9 +114,9 @@ const OrganizationSurveyScreen = props => {
               multiline
               onChangeText={text => handleChange({ ...values, issues: text })}
               value={values.issues}
-              placeholder="Type here"
-              type="issues"
-              name="issues"
+              placeholder='Type here'
+              type='issues'
+              name='issues'
               required
             />
           </View>
@@ -129,9 +128,9 @@ const OrganizationSurveyScreen = props => {
             <TextInput
               style={[styles.textRounded]}
               onChangeText={text => handleChange({ ...values, facebook: text })}
-              placeholder="Enter url"
-              type="url"
-              name="facebook"
+              placeholder='Enter url'
+              type='url'
+              name='facebook'
               value={values.facebook}
             />
           </View>
@@ -143,23 +142,23 @@ const OrganizationSurveyScreen = props => {
                 handleChange({ ...values, instagram: text })
               }
               value={values.instagram}
-              placeholder="Enter url"
-              type="url"
-              name="instagram"
+              placeholder='Enter url'
+              type='url'
+              name='instagram'
             />
           </View>
           <View style={styles.inputBlockSm}>
             <Text style={styles.obText}>Twitter</Text>
             <TextInput
-              style={[styles.textRounded, { marginBottom: "7%" }]}
+              style={[styles.textRounded, { marginBottom: '7%' }]}
               onChangeText={text => handleChange({ ...values, twitter: text })}
               value={values.twitter}
-              placeholder="Enter url"
-              type="url"
-              name="twitter"
+              placeholder='Enter url'
+              type='url'
+              name='twitter'
             />
           </View>
-          <NavigateButton label="Preview" onButtonPress={handleSubmit} />
+          <NavigateButton label='Preview' onButtonPress={handleSubmit} />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import styles from '../../constants/screens/org-onboarding-styles/ToExpectNext.js';
+import SvgUri from 'react-native-svg-uri';
 
 const ToExpectNextScreen = props => {
   return (
@@ -13,8 +14,9 @@ const ToExpectNextScreen = props => {
         <View>
           <View style={styles.contentWrapper}>
             <View style={styles.iconWrapper}>
-              <Image
-                source={require('../../assets/images/onboarding/gcheck.png')}
+              <SvgUri
+                style={styles.svg}
+                source={require('./../../assets/icons/onboarding/check_mark.svg')}
               />
             </View>
             <View>

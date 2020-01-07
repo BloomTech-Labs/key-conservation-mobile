@@ -11,23 +11,15 @@ export default {
     marginLeft: '5%',
     marginTop: '10%',
     marginBottom: '2%',
-    marginRight: '7%',
-    borderWidth: 1,
-    borderColor: 'green'
+    marginRight: '7%'
   },
   obTitle: {
     color: '#000000',
     fontFamily: 'Lato-Bold',
     fontSize: 28,
     lineHeight: 38,
-    // marginLeft: '18%',
     marginTop: '15%',
-    // paddingTop: '5%',
-    // marginBottom: '2%',
-    // marginRight: '18%',
-    alignSelf: 'center',
-    borderWidth: 1,
-    borderColor: 'blue'
+    alignSelf: 'center'
   },
   obSubtitle: {
     color: '#000000',
@@ -35,21 +27,27 @@ export default {
     fontSize: 21,
     lineHeight: 29,
     marginLeft: '5%',
-    // marginTop: '2%',
-    // marginBottom: '2%',
     marginRight: '7%'
   },
   obFwdContainer: {
     width: 112,
     height: 40,
+    borderWidth: 2,
+    borderColor: '#000',
     borderRadius: 20,
-    backgroundColor: '#FFF',
     alignSelf: 'flex-end',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     alignContent: 'center',
     marginRight: '5%'
+  },
+  obFwdBtnText: {
+    fontFamily: 'Lato-Bold',
+    fontStyle: 'normal',
+    fontSize: 18,
+    lineHeight: 25,
+    color: '#000000'
   },
   obFwdBtnText: {
     fontFamily: 'Lato-Bold',

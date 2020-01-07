@@ -1,7 +1,7 @@
 export default {
   obBody: {
     flex: 1,
-    // backgroundColor: 'white',
+    backgroundColor: 'white',
     justifyContent: 'center'
   },
   obText: {
@@ -18,11 +18,11 @@ export default {
     color: '#000000',
     fontFamily: 'Lato-Bold',
     fontSize: 28,
-    lineHeight: 38
-    // marginLeft: '5%',
-    // marginTop: '18%',
-    // marginBottom: '2%',
-    // marginRight: '7%'
+    lineHeight: 38,
+    marginLeft: '5%',
+    marginTop: '18%',
+    marginBottom: '2%',
+    marginRight: '7%'
   },
   obSubtitle: {
     color: '#000000',
@@ -37,7 +37,8 @@ export default {
   obFwdContainer: {
     width: 112,
     height: 40,
-    backgroundColor: '#00FF98',
+    borderWidth: 2,
+    borderColor: '#000',
     borderRadius: 20,
     alignSelf: 'flex-end',
     flexDirection: 'column',
