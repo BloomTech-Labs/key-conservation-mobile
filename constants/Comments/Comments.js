@@ -1,37 +1,36 @@
 export default {
   commentWrapper: {
-    flexDirection: "column",
-    width: "90%"
+    flexDirection: 'column',
+    width: '90%'
   },
   commentView: {
-    flexDirection: "row"
+    flexDirection: 'row'
   },
   feedCommentWrapper: {
-    flexDirection: "column",
-    width: "90%",
+    flexDirection: 'column',
+    width: '90%',
     marginTop: 5
   },
   commentButton: {
     marginTop: 10
   },
   replyView: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginTop: 20
   },
   username: {
     marginLeft: 7,
     paddingBottom: 3,
     marginTop: 5,
-    fontWeight: "bold",
-    fontFamily: "Futura-Medium"
+    fontFamily: 'Lato-Bold'
   },
   commentBody: {
     marginLeft: 7
   },
   commentText: {
-    flexDirection: "column",
+    flexDirection: 'column',
     width: 300,
-    fontFamily: "Futura-Medium"
+    fontFamily: 'Lato-Bold'
   },
   input: {
     minHeight: 48,
@@ -42,22 +41,22 @@ export default {
     marginLeft: 5,
     marginRight: 5,
     marginBottom: 20,
-    backgroundColor: "#f7f9fc",
-    width: "80%"
+    backgroundColor: '#f7f9fc',
+    width: '80%'
   },
   inputWrapper: {
-    flexDirection: "row",
+    flexDirection: 'row',
     height: 48,
     marginLeft: 6,
     borderRadius: 5,
-    backgroundColor: "#f7f9fc"
+    backgroundColor: '#f7f9fc'
   },
   interaction: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginBottom: 15
   },
   timeText: {
-    color: "#929292",
+    color: '#929292',
     fontSize: 10,
     marginLeft: 43,
     marginRight: 15,
@@ -78,47 +77,47 @@ export default {
     marginTop: 7
   },
   confirmation: {
-    flexDirection: "row"
+    flexDirection: 'row'
   },
   confirmText: {
-    color: "#ff0a55",
+    color: '#ff0a55',
     fontSize: 12,
     marginRight: 15,
     marginTop: 7
   },
   confirmNo: {
-    color: "#00FF9D",
+    color: '#00FF9D',
     fontSize: 12,
     marginRight: 10,
     marginTop: 7
   },
   indicator: {
     flex: 1,
-    justifyContent: "center"
+    justifyContent: 'center'
   },
   moreContainer: {
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center"
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   more: {
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     borderWidth: 2,
-    borderColor: "black",
-    alignItems: "center",
-    justifyContent: "center",
+    borderColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 5,
     height: 28,
     width: 243
   },
   moreText: {
     fontSize: 14,
-    fontFamily: "Futura",
-    color: "black"
+    fontFamily: 'Lato',
+    color: 'black'
   },
   icon: {
     fontSize: 30,
     marginTop: 9,
-    color: "#7B7D88"
+    color: '#7B7D88'
   }
 };

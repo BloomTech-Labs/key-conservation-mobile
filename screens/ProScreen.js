@@ -22,7 +22,7 @@ class ProScreen extends React.Component {
         textAlign: "center",
         flexGrow: 1,
         alignSelf: "center",
-        fontFamily: "Futura-Medium"
+        fontFamily: "Lato-Bold"
       },
       headerLeft: <BackButton navigation={navigation} fromMap={fromMap} />,
       headerRight: <View />

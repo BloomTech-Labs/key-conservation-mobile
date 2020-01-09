@@ -13,7 +13,7 @@ export default {
     marginBottom: 10
   },
   touchableText: {
-    fontFamily: 'Futura-Medium',
+    fontFamily: 'Lato-Bold',
     color: '#323338',
     fontSize: 16
   },

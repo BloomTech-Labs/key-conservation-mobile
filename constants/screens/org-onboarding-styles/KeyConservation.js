@@ -3,42 +3,39 @@ export default {
     flex: 1,
     justifyContent: 'center'
   },
-  obText: {
-    color: '#000000',
-    fontFamily: 'Futura',
-    fontSize: 18,
-    lineHeight: 25,
-    marginLeft: '5%',
-    marginTop: '2%',
-    marginBottom: '2%',
-    marginRight: '7%'
+  arrowView: {
+    flexDirection: 'column',
+    justifyContent: 'left',
+    alignItems: 'left',
+    alignContent: 'left',
+    paddingTop: '15%',
+    paddingLeft: '10%'
+  },
+  obBorderView: {
+    flexGrow: 1,
+    alignSelf: 'center',
+    borderRadius: 30,
+    marginTop: '5%',
+    marginBottom: '20%',
+    paddingBottom: '5%',
+    marginLeft: '3%',
+    marginRight: '2%'
   },
   obTitle: {
     color: '#000000',
-    fontFamily: 'Futura-Bold',
+    fontFamily: 'Lato-Bold',
     fontSize: 28,
     lineHeight: 38,
-    textAlign: 'center',
-    marginLeft: '5%',
+    marginLeft: '15%',
     marginTop: '2%',
-    marginBottom: '7%',
-    marginRight: '7%'
-  },
-  obSubtitle: {
-    color: '#000000',
-    fontFamily: 'Futura-Bold',
-    fontSize: 21,
-    lineHeight: 29,
-    marginLeft: '5%',
-    marginTop: '2%',
-    marginBottom: '2%',
-    marginRight: '7%'
+    marginBottom: '3%',
+    marginRight: '15%'
   },
   obFwdContainer: {
     width: 112,
     height: 40,
-    backgroundColor: '#00ff9d',
     borderRadius: 20,
+    backgroundColor: '#FFF',
     alignSelf: 'flex-end',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -47,11 +44,11 @@ export default {
     marginRight: '5%'
   },
   obFwdBtnText: {
-    fontFamily: 'Futura-Bold',
+    fontFamily: 'Lato-Bold',
     fontStyle: 'normal',
     fontSize: 18,
     lineHeight: 25,
-    color: '#000000'
+    color: '#000'
   },
   obRectangle1: {
     position: 'absolute',
@@ -76,7 +73,7 @@ export default {
     borderColor: '#00FF9D'
   },
   obFieldName: {
-    fontFamily: 'Futura',
+    fontFamily: 'Lato',
     fontWeight: 300,
     fontSize: 14,
     lineHeight: 19,
@@ -107,12 +104,9 @@ export default {
     height: 68
   },
   spacer: {
-    height: '10%'
+    flexGrow: 2
   },
-  svg: {
-    paddingBottom: '15%'
-  },
-  test: {
-    paddingBottom: '15%'
+  buttons: {
+    flexGrow: 1
   }
 };

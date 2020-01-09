@@ -32,7 +32,7 @@ class CreateCampUpdateScreen extends React.Component {
         textAlign: 'center',
         flexGrow: 1,
         alignSelf: 'center',
-        fontFamily: 'Futura-Medium'
+        fontFamily: 'Lato-Bold'
       },
       headerLeft: <BackButton navigation={navigation} />,
       headerRight: (
@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
     fontSize: 13
   },
   sectionsText: {
-    fontFamily: 'Futura-Medium',
+    fontFamily: 'Lato-Bold',
     fontSize: 20,
     marginBottom: 5,
     textAlign: 'center'
@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   goToCampaignText: {
-    fontFamily: 'Futura-Medium',
+    fontFamily: 'Lato-Bold',
     fontSize: 18
   },
   indicator: {

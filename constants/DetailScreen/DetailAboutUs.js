@@ -1,71 +1,71 @@
 export default {
   container: {
-    alignItems: "flex-start",
+    alignItems: 'flex-start',
     top: 0,
     marginLeft: 8,
     marginRight: 8,
-    textAlign: "justify",
+    textAlign: 'justify',
     lineHeight: 30
   },
   body: {
     marginTop: 10,
-    flexDirection: "column",
-    flexWrap: "nowrap",
+    flexDirection: 'column',
+    flexWrap: 'nowrap',
     fontSize: 15,
-    fontFamily: "Futura"
+    fontFamily: 'Lato'
   },
   iconWrap: {
-    flexWrap: "wrap",
-    alignItems: "center",
-    flexDirection: "row",
-    borderBottomColor: "#eee",
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    flexDirection: 'row',
+    borderBottomColor: '#eee',
     borderBottomWidth: 1,
     marginBottom: 2,
     paddingBottom: 20
   },
   sections: {
     marginTop: 8,
-    backgroundColor: "#fff",
-    width: "100%",
+    backgroundColor: '#fff',
+    width: '100%',
     padding: 25,
     borderRadius: 5,
     fontSize: 15
   },
   title: {
     fontSize: 18,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginLeft: 10,
-    fontFamily: "Futura-Medium"
+    fontFamily: 'Lato'
   },
   campMission: {
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     padding: 25,
     borderRadius: 5,
-    width: "100%",
-    fontFamily: "Futura",
-    flexWrap: "wrap",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    width: '100%',
+    fontFamily: 'Lato',
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     fontSize: 15,
     marginTop: 8,
     marginBottom: 8
   },
   donateTitle: {
     fontSize: 18,
-    textAlign: "center",
+    textAlign: 'center',
     marginLeft: 10,
-    fontFamily: "Futura-Medium"
+    fontFamily: 'Lato-Bold'
   },
   donateButton: {
-    alignItems: "center",
-    width: "100%"
+    alignItems: 'center',
+    width: '100%'
   },
   donateText: {
     marginTop: 10,
     fontSize: 15,
-    textAlign: "center",
-    fontFamily: "Futura-Medium"
+    textAlign: 'center',
+    fontFamily: 'Lato-Bold'
   },
   forcedMargin: {
     marginTop: 5
