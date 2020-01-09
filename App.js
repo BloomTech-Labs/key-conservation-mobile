@@ -47,9 +47,9 @@ function App(props) {
   } else {
     return (
       <View style={styles.container}>
-        {Platform.OS === "ios" && <StatusBar barStyle='light-content' />}
+        {Platform.OS === "ios" && <StatusBar barStyle="light-content" />}
         {Platform.OS === "android" && (
-          <StatusBar barStyle='light-content' translucent />
+          <StatusBar barStyle="light-content" translucent />
         )}
         <Provider store={store}>
           <MenuProvider>
@@ -73,10 +73,9 @@ async function loadResourcesAsync() {
       require("./assets/images/FurBackground.png")
     ]),
     Font.loadAsync({
-      // "OpenSans-Regular": require("./assets/fonts/Open_Sans/OpenSans-Regular.ttf"),
-      // "OpenSans-SemiBold": require("./assets/fonts/Open_Sans/OpenSans-SemiBold.ttf"),
-      // "OpenSans-Bold": require("./assets/fonts/Open_Sans/OpenSans-Bold.ttf"),
-      "Futura": require("./assets/fonts/Futura/Futura.ttf"),
+      Lato: require("./assets/fonts/Lato/Lato-Regular.ttf"),
+      "Lato-Bold": require("./assets/fonts/Lato/Lato-Bold.ttf"),
+      Futura: require("./assets/fonts/Futura/Futura.ttf"),
       "Futura-Medium": require("./assets/fonts/Futura/Futura-Heavy.ttf"),
       "Futura-Bold": require("./assets/fonts/Futura/Futura-Bold.ttf")
     })
