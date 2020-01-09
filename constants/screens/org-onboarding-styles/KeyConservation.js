@@ -24,6 +24,10 @@ export default {
   obTitle: {
     color: '#000000',
     fontFamily: 'Lato-Bold',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
     fontSize: 28,
     lineHeight: 38,
     marginLeft: '15%',
