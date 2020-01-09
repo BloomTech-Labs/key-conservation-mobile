@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     padding: 3
   },
   markerCallout: {
-    width: 100
+    width: 120
   },
   calloutOrgName: {
     fontWeight: "bold",
