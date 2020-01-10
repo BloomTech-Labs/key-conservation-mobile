@@ -2,7 +2,9 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 46331,
-  "ngrokPid": 46344,
-  "webpackServerPort": null
+  "packagerPid": 45180,
+  "ngrokPid": 45197,
+  "webpackServerPort": null,
+  "expoServerNgrokUrl": "https://y2-8pv.camerona.key-conservation-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.y2-8pv.camerona.key-conservation-mobile.exp.direct"
 }
