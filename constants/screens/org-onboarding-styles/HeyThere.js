@@ -6,14 +6,11 @@ export default {
   obBorderView: {
     flexGrow: 1,
     alignSelf: 'center',
-    borderWidth: 2,
-    borderColor: '#00FF9D',
     borderRadius: 30,
-    marginTop: '10%',
+    marginTop: '5%',
     marginBottom: '20%',
-    paddingTop: '10%',
     paddingBottom: '5%',
-    marginLeft: '2%',
+    marginLeft: '3%',
     marginRight: '2%'
   },
   obText: {
@@ -21,36 +18,36 @@ export default {
     fontFamily: 'Lato',
     fontSize: 18,
     lineHeight: 25,
-    marginLeft: '5%',
+    marginLeft: '15%',
     marginTop: '2%',
     marginBottom: '2%',
-    marginRight: '7%'
+    marginRight: '15%'
   },
   obTitle: {
     color: '#000000',
     fontFamily: 'Lato-Bold',
     fontSize: 28,
     lineHeight: 38,
-    marginLeft: '5%',
+    marginLeft: '15%',
     marginTop: '2%',
     marginBottom: '3%',
-    marginRight: '7%'
+    marginRight: '15%'
   },
   obSubtitle: {
     color: '#000000',
     fontFamily: 'Lato-Bold',
     fontSize: 21,
     lineHeight: 29,
-    marginLeft: '5%',
+    marginLeft: '15%',
     marginTop: '2%',
     marginBottom: '3%',
-    marginRight: '7%'
+    marginRight: '15%'
   },
   obFwdContainer: {
     width: 112,
     height: 40,
-    backgroundColor: '#00ff9d',
     borderRadius: 20,
+    backgroundColor: '#FFF',
     alignSelf: 'flex-end',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -63,7 +60,15 @@ export default {
     fontStyle: 'normal',
     fontSize: 18,
     lineHeight: 25,
-    color: '#000000'
+    color: '#000'
+  },
+  arrowView: {
+    flexDirection: 'column',
+    justifyContent: 'left',
+    alignItems: 'left',
+    alignContent: 'left',
+    paddingTop: '15%',
+    paddingLeft: '10%'
   },
   obRectangle1: {
     position: 'absolute',

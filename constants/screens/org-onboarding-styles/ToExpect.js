@@ -57,7 +57,8 @@ export default {
   obFwdContainer: {
     width: 112,
     height: 40,
-    backgroundColor: '#00ff9d',
+    borderWidth: 2,
+    borderColor: '#000',
     borderRadius: 20,
     alignSelf: 'flex-end',
     flexDirection: 'column',
