@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, ScrollView, Text, TouchableOpacity, Image } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/CanScreen.js';
+import SvgUri from 'react-native-svg-uri';
 
 const CanScreen = props => {
   return (
@@ -15,8 +16,9 @@ const CanScreen = props => {
         <View>
           <View style={styles.contentWrapper}>
             <View style={styles.iconWrapper}>
-              <Image
-                source={require('../../assets/images/onboarding/gcheck.png')}
+              <SvgUri
+                style={styles.svg}
+                source={require('./../../assets/icons/onboarding/check_mark.svg')}
               />
             </View>
             <View style={styles.textBox}>
@@ -29,8 +31,9 @@ const CanScreen = props => {
           </View>
           <View style={styles.contentWrapper}>
             <View style={styles.iconWrapper}>
-              <Image
-                source={require('../../assets/images/onboarding/gcheck.png')}
+              <SvgUri
+                style={styles.svg}
+                source={require('./../../assets/icons/onboarding/check_mark.svg')}
               />
             </View>
             <View style={styles.textBox}>
@@ -43,8 +46,9 @@ const CanScreen = props => {
           </View>
           <View style={styles.contentWrapper}>
             <View style={styles.iconWrapper}>
-              <Image
-                source={require('../../assets/images/onboarding/gcheck.png')}
+              <SvgUri
+                style={styles.svg}
+                source={require('./../../assets/icons/onboarding/check_mark.svg')}
               />
             </View>
             <View style={styles.textBox}>

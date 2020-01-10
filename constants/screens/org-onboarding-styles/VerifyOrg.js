@@ -37,7 +37,8 @@ export default {
   obFwdContainer: {
     width: 112,
     height: 40,
-    backgroundColor: '#00FF98',
+    borderWidth: 2,
+    borderColor: '#000',
     borderRadius: 20,
     alignSelf: 'flex-end',
     flexDirection: 'column',
@@ -95,8 +96,8 @@ export default {
     paddingLeft: 20,
     fontFamily: 'Lato',
     fontSize: 14,
-    color: '#000000',
-    borderColor: '#DEDEDE',
+    color: '#313639',
+    borderColor: '#313639',
     borderWidth: 0.5
   },
   obSwitchButton: {
@@ -114,7 +115,8 @@ export default {
     height: 50,
     paddingLeft: 20,
     fontFamily: 'Lato',
-    borderColor: '#DEDEDE',
+    color: '#313639',
+    borderColor: '#313639',
     borderWidth: 0.5
   },
   obNumInput: {

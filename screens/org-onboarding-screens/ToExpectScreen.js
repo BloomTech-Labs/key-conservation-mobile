@@ -2,7 +2,6 @@ import React from 'react';
 import { View, ScrollView, Text, Button, TouchableOpacity } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/ToExpect.js';
 import { AntDesign } from '@expo/vector-icons';
-import SvgUri from 'react-native-svg-uri';
 
 const ToExpectScreen = props => {
   return (
