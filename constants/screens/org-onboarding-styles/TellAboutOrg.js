@@ -4,27 +4,6 @@ export default {
     backgroundColor: 'white',
     justifyContent: 'center'
   },
-  obTextTopContainer: {
-    borderColor: 'black',
-    backgroundColor: '#00FF98',
-    width: '20%',
-    height: '10%',
-    borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignContent: 'center',
-    marginLeft: '42.5%'
-  },
-  obTextTop: {
-    color: '#000000',
-    fontFamily: 'Lato',
-    fontSize: 18,
-    lineHeight: 25,
-    marginLeft: '5%',
-    marginTop: '3%',
-    marginBottom: '7%',
-    marginRight: '7%'
-  },
   obText: {
     color: '#000000',
     fontFamily: 'Lato',
@@ -58,7 +37,8 @@ export default {
   obFwdContainer: {
     width: 112,
     height: 40,
-    backgroundColor: '#00FF98',
+    borderWidth: 2,
+    borderColor: '#000',
     borderRadius: 20,
     alignSelf: 'flex-end',
     flexDirection: 'column',
@@ -98,6 +78,7 @@ export default {
   },
   obFieldName: {
     fontFamily: 'Lato',
+    fontWeight: '300',
     fontSize: 14,
     lineHeight: 19,
     color: '#000000',
@@ -115,9 +96,14 @@ export default {
     paddingLeft: 20,
     fontFamily: 'Lato',
     fontSize: 14,
-    color: '#000000',
-    borderColor: '#DEDEDE',
+    color: '#313639',
+    borderColor: '#313639',
     borderWidth: 0.5
+  },
+  obSwitchButton: {
+    marginLeft: '5%',
+    marginBottom: '1%',
+    marginTop: '2%'
   },
   obTextInputBottom: {
     backgroundColor: 'white',
@@ -129,7 +115,8 @@ export default {
     height: 50,
     paddingLeft: 20,
     fontFamily: 'Lato',
-    borderColor: '#DEDEDE',
+    color: '#313639',
+    borderColor: '#313639',
     borderWidth: 0.5
   },
   obNumInput: {
@@ -139,14 +126,25 @@ export default {
     borderRadius: 8,
     keyboardType: 'phone-pad'
   },
-  obUploadBtn: {
-    backgroundColor: '#00FF9D',
-    borderRadius: 8
-  },
   obOrgBtn: {
     backgroundColor: '#C4C4C4',
     borderRadius: 24,
-    width: 214,
-    height: 68
+    width: '50%',
+    height: '10%',
+    marginLeft: '25%',
+    marginBottom: '5%',
+    flexDirection: 'column'
+  },
+  obOrgBtnText: {
+    color: '#000000',
+    fontFamily: 'Lato',
+    fontSize: 18,
+    lineHeight: 25,
+    flex: 1,
+    textAlign: 'center',
+    paddingTop: '9%'
+  },
+  spacer: {
+    height: '5%'
   }
 };

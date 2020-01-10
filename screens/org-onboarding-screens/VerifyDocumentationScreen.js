@@ -1,39 +1,40 @@
-import React, { Component } from "react";
-import { Button, Text, View, TouchableOpacity, Alert } from "react-native";
-import styles from "../../constants/screens/org-onboarding-styles/VerifyDocs.js";
+import React, { Component } from 'react';
+import { Button, Text, View, TouchableOpacity, Alert } from 'react-native';
+import styles from '../../constants/screens/org-onboarding-styles/VerifyDocs.js';
 
-import { Ionicons, Feather } from "@expo/vector-icons";
-import * as WebBrowser from "expo-web-browser";
-import * as SecureStore from "expo-secure-store";
+import { Ionicons, Feather } from '@expo/vector-icons';
+import * as WebBrowser from 'expo-web-browser';
+import * as SecureStore from 'expo-secure-store';
+import SvgUri from 'react-native-svg-uri';
 
-import NavigateButton from "./formElement/NavigateButton.js";
+import NavigateButton from './formElement/NavigateButton.js';
 
 export default class VerifyDocumentationScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
+      email: '',
       result: null
     };
   }
 
   async componentDidMount() {
-    const email = await SecureStore.getItemAsync("email", {});
+    const email = await SecureStore.getItemAsync('email', {});
     await this.setState({ email: email });
 
     checkAirtableDoc = (record, key) => {
       const airtableStateAdd = this.props.navigation.getParam(
-        "airtableStateAdd",
-        "defaultValue"
+        'airtableStateAdd',
+        'defaultValue'
       );
       // console.log("checkAirtableDoc activated");
       record.fields.attachments
-        ? this.props.navigation.navigate("ReviewYourInfo", {
+        ? this.props.navigation.navigate('ReviewYourInfo', {
             airtableStateAdd: airtableStateAdd,
             airtableKey: key
           })
-        : Alert.alert("Oops", "Image required inside form sumbission.", [
-            { text: "Got it" }
+        : Alert.alert('Oops', 'Image required inside form sumbission.', [
+            { text: 'Got it' }
           ]);
     }; // This checks if the user uploaded an image to the form before allowing progress.
   }
@@ -41,11 +42,11 @@ export default class VerifyDocumentationScreen extends Component {
   _handlePressButtonAsync = async () => {
     try {
       let result = await WebBrowser.openAuthSessionAsync(
-        "https://airtable.com/shrkK93NtoOkfnMP8"
+        'https://airtable.com/shrkK93NtoOkfnMP8'
       );
       let redirectData;
       if (result.url) {
-        redirectData = "https://airtable.com/shrkK93NtoOkfnMP8";
+        redirectData = 'https://airtable.com/shrkK93NtoOkfnMP8';
       }
       this.setState({ result, redirectData });
     } catch (error) {
@@ -54,16 +55,16 @@ export default class VerifyDocumentationScreen extends Component {
   }; // This opens up the in-app browser for 'Table 2' submission. This is required because the Airtable API doesnt allow for non-URL image uploads.
 
   getAirtable = () => {
-    const key = this.props.navigation.getParam("airtableKey", "defaultValue");
+    const key = this.props.navigation.getParam('airtableKey', 'defaultValue');
     // console.log("key inside VerifyDoc: " + key);
-    var Airtable = require("airtable");
-    var base = new Airtable({ apiKey: key }).base("appbPeeXUSNCQWwnQ");
+    var Airtable = require('airtable');
+    var base = new Airtable({ apiKey: key }).base('appbPeeXUSNCQWwnQ');
     // console.log(this.state.email);
-    console.log("VerifyDocumentation getAirtable activated");
-    base("Table 2")
+    console.log('VerifyDocumentation getAirtable activated');
+    base('Table 2')
       .select({
         maxRecords: 20,
-        view: "Grid view",
+        view: 'Grid view',
         filterByFormula: `{email} = \'${this.state.email}\'`
       })
       .eachPage(
@@ -97,7 +98,7 @@ export default class VerifyDocumentationScreen extends Component {
             style={styles.obUploadBtn}
             onPress={() => this._handlePressButtonAsync()}
           >
-            <Feather name="plus" size={30} color="white" />
+            <Feather name='plus' size={30} color='#313639' />
           </TouchableOpacity>
           <Text style={styles.obText}>
             By clicking the button, you’ll be taken to an Airtable link to
@@ -106,7 +107,7 @@ export default class VerifyDocumentationScreen extends Component {
         </View>
         <View style={styles.noBorderConatiner}>
           <View>
-            <Ionicons name="ios-lock" size={36} color="#00FF9D" />
+            <Ionicons name='ios-lock' size={36} color='#313639' />
           </View>
           <View>
             <Text style={styles.obSubtitle}>Privacy</Text>
@@ -118,7 +119,7 @@ export default class VerifyDocumentationScreen extends Component {
 
         <View style={styles.spacer} />
         <NavigateButton
-          label="Next"
+          label='Next'
           onButtonPress={() => {
             this.getAirtable();
           }}

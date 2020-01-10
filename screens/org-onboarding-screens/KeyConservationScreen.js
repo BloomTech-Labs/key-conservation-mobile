@@ -15,9 +15,6 @@ const KeyConservationScreen = props => {
       source={require('../../assets/images/onboarding/sg3.png')}
       style={{ width: '100%', height: '100%' }}
     >
-      <TouchableOpacity onPress={this.logoutPress} style={styles.arrowView}>
-        <Image source={require('../../assets/images/onboarding/w_arrow.png')} />
-      </TouchableOpacity>
       <View style={styles.obBody}>
         <View style={styles.spacer} />
         <View style={styles.obBorderView}>

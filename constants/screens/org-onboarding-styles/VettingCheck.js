@@ -1,26 +1,8 @@
 export default {
   obBody: {
-    flex: 1,
     paddingTop: '5%',
     paddingBottom: '5%',
     justifyContent: 'center'
-  },
-  highlight: {
-    backgroundColor: '#f66767',
-    borderRadius: 10
-  },
-  span: {
-    fontFamily: 'Lato-Bold'
-  },
-  contentWrapper: {
-    display: 'flex',
-    marginLeft: '5%',
-    flexWrap: 'nowrap',
-    flexDirection: 'row',
-    marginTop: '5%'
-  },
-  iconWrapper: {
-    marginTop: '3%'
   },
   obText: {
     color: '#000000',
@@ -29,8 +11,28 @@ export default {
     lineHeight: 25,
     marginLeft: '5%',
     marginTop: '2%',
-    marginBottom: '2%',
-    marginRight: '7%'
+    marginBottom: '12%',
+    marginRight: '7%',
+    maxWidth: '100%'
+  },
+  highlight: {
+    backgroundColor: '#D7FF43',
+    borderRadius: 10
+  },
+  contentWrapper: {
+    display: 'flex',
+    marginLeft: '5%',
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: '5%'
+  },
+  iconWrapper: {
+    marginTop: '5%'
+  },
+  textBox: {
+    width: '90%',
+    height: 125
   },
   obTextBottom: {
     color: '#000000',
@@ -48,10 +50,9 @@ export default {
     fontSize: 28,
     lineHeight: 38,
     marginLeft: '5%',
-    marginTop: '2%',
+    marginTop: '18%',
     marginBottom: '7%',
-    marginRight: '7%',
-    marginTop: '18%'
+    marginRight: '7%'
   },
   obSubtitle: {
     color: '#000000',
@@ -64,46 +65,47 @@ export default {
     marginRight: '7%'
   },
   obFwdContainer: {
-    width: 112,
-    height: 40,
+    width: 282,
+    height: 50,
     borderWidth: 2,
     borderColor: '#000',
     borderRadius: 20,
-    alignSelf: 'flex-end',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    alignContent: 'center',
-    marginRight: '5%'
+    alignContent: 'center'
   },
   obFwdBtnText: {
     fontFamily: 'Lato-Bold',
     fontStyle: 'normal',
+    letterSpacing: 2,
     fontSize: 18,
     lineHeight: 25,
     color: '#000000'
   },
-  obRectangle1: {
-    position: 'absolute',
-    width: 241,
-    height: 241,
-    left: 16,
-    top: 433,
-    backgroundColor: '#C4C4C4',
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#C4C4C4'
+  buttons: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-  obRectangle2: {
-    position: 'absolute',
-    width: 241,
-    height: 241,
-    left: 94,
-    top: 411,
-    backgroundColor: '#C4C4C4',
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#00FF9D'
+  greenButton: {
+    width: 282,
+    height: 55,
+    borderRadius: 20,
+    backgroundColor: '#00FF9D',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignContent: 'center'
+  },
+  greenText: {
+    fontFamily: 'Lato-Bold',
+    letterSpacing: 2,
+    fontStyle: 'normal',
+    fontSize: 18,
+    lineHeight: 25,
+    color: '#000000'
   },
   obFieldName: {
     fontFamily: 'Lato',
@@ -126,14 +128,13 @@ export default {
     borderRadius: 8,
     keyboardType: 'phone-pad'
   },
-  obUploadBtn: {
-    backgroundColor: '#00FF9D',
-    borderRadius: 8
-  },
   obOrgBtn: {
     backgroundColor: '#C4C4C4',
     borderRadius: 24,
     width: 214,
     height: 68
+  },
+  spacer: {
+    height: 30
   }
 };
