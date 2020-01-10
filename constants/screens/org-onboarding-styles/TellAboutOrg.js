@@ -1,6 +1,7 @@
 export default {
   obBody: {
     flex: 1,
+    backgroundColor: 'white',
     justifyContent: 'center'
   },
   obText: {
@@ -9,7 +10,7 @@ export default {
     fontSize: 18,
     lineHeight: 25,
     marginLeft: '5%',
-    marginTop: '10%',
+    marginTop: '2%',
     marginBottom: '2%',
     marginRight: '7%'
   },
@@ -18,8 +19,10 @@ export default {
     fontFamily: 'Lato-Bold',
     fontSize: 28,
     lineHeight: 38,
-    marginTop: '15%',
-    alignSelf: 'center'
+    marginLeft: '5%',
+    marginTop: '18%',
+    marginBottom: '2%',
+    marginRight: '7%'
   },
   obSubtitle: {
     color: '#000000',
@@ -27,6 +30,8 @@ export default {
     fontSize: 21,
     lineHeight: 29,
     marginLeft: '5%',
+    marginTop: '2%',
+    marginBottom: '2%',
     marginRight: '7%'
   },
   obFwdContainer: {
@@ -48,13 +53,6 @@ export default {
     fontSize: 18,
     lineHeight: 25,
     color: '#000000'
-  },
-  obFwdBtnText: {
-    fontFamily: 'Lato-Bold',
-    fontStyle: 'normal',
-    fontSize: 18,
-    lineHeight: 25,
-    color: '#000'
   },
   obRectangle1: {
     position: 'absolute',
@@ -80,6 +78,7 @@ export default {
   },
   obFieldName: {
     fontFamily: 'Lato',
+    fontWeight: '300',
     fontSize: 14,
     lineHeight: 19,
     color: '#000000',
@@ -96,10 +95,15 @@ export default {
     height: 50,
     paddingLeft: 20,
     fontFamily: 'Lato',
-    fontSize: 15,
-    color: '#1F332B',
-    borderColor: '#1F332B',
+    fontSize: 14,
+    color: '#313639',
+    borderColor: '#313639',
     borderWidth: 0.5
+  },
+  obSwitchButton: {
+    marginLeft: '5%',
+    marginBottom: '1%',
+    marginTop: '2%'
   },
   obTextInputBottom: {
     backgroundColor: 'white',
@@ -111,7 +115,8 @@ export default {
     height: 50,
     paddingLeft: 20,
     fontFamily: 'Lato',
-    borderColor: '#DEDEDE',
+    color: '#313639',
+    borderColor: '#313639',
     borderWidth: 0.5
   },
   obNumInput: {
@@ -121,14 +126,25 @@ export default {
     borderRadius: 8,
     keyboardType: 'phone-pad'
   },
-  obUploadBtn: {
-    backgroundColor: '#00FF9D',
-    borderRadius: 8
-  },
   obOrgBtn: {
     backgroundColor: '#C4C4C4',
     borderRadius: 24,
-    width: 214,
-    height: 68
+    width: '50%',
+    height: '10%',
+    marginLeft: '25%',
+    marginBottom: '5%',
+    flexDirection: 'column'
+  },
+  obOrgBtnText: {
+    color: '#000000',
+    fontFamily: 'Lato',
+    fontSize: 18,
+    lineHeight: 25,
+    flex: 1,
+    textAlign: 'center',
+    paddingTop: '9%'
+  },
+  spacer: {
+    height: '5%'
   }
 };

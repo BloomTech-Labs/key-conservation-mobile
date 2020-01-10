@@ -96,8 +96,8 @@ export default {
     paddingLeft: 20,
     fontFamily: 'Lato',
     fontSize: 14,
-    color: '#000000',
-    borderColor: '#DEDEDE',
+    color: '#313639',
+    borderColor: '#313639',
     borderWidth: 0.5
   },
   obSwitchButton: {
