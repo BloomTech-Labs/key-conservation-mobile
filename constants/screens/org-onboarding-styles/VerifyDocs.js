@@ -11,7 +11,7 @@ export default {
     marginLeft: '5%',
     marginRight: '5%',
     borderRadius: 30,
-    borderColor: '#00FF9D',
+    borderColor: '#313639',
     borderWidth: 1
   },
 
@@ -50,7 +50,7 @@ export default {
     fontSize: 28,
     lineHeight: 38,
     marginLeft: '5%',
-    marginTop: '18%',
+    marginTop: '13%',
     marginBottom: '2%',
     marginRight: '7%'
   },
@@ -115,7 +115,7 @@ export default {
     backgroundColor: '#C4C4C4',
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: '#00FF9D'
+    borderColor: '#D7FF43'
   },
   obFieldName: {
     fontFamily: 'Lato',
@@ -141,7 +141,7 @@ export default {
     keyboardType: 'phone-pad'
   },
   obUploadBtn: {
-    backgroundColor: '#00FF9D',
+    backgroundColor: '#D7FF43',
     display: 'flex',
     width: 90,
     height: 90,
@@ -154,5 +154,12 @@ export default {
     borderRadius: 24,
     width: 214,
     height: 68
+  },
+  spacer: {
+    paddingTop: 18
+  },
+  svg: {
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 };

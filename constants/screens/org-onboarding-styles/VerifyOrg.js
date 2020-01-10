@@ -115,7 +115,8 @@ export default {
     height: 50,
     paddingLeft: 20,
     fontFamily: 'Lato',
-    borderColor: '#DEDEDE',
+    color: '#313639',
+    borderColor: '#313639',
     borderWidth: 0.5
   },
   obNumInput: {

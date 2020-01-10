@@ -55,7 +55,10 @@ const ToExpectNextCreateProfileScreen = props => {
           </View>
           <View style={styles.contentWrapper}>
             <View style={styles.iconWrapper}>
-              <AntDesign name='checkcircleo' size={24} />
+              <SvgUri
+                style={styles.svg}
+                source={require('./../../assets/icons/onboarding/check_mark.svg')}
+              />
             </View>
             <View style={{ width: '90%' }}>
               <Text style={styles.obSubtitle}>Create Your Profile</Text>
