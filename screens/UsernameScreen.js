@@ -69,9 +69,7 @@ class UsernameScreen extends React.Component {
       };
       await this.props.postUser(user);
       AmpEvent("Account Created");
-      this.props.navigation.navigate(
-        this.props.error ? "CreateAccount" : "Loading"
-      );
+      this.props.navigation.navigate(error ? "CreateAccount" : "Loading");
       await SecureStore.deleteItemAsync("airtableID", {});
       await SecureStore.deleteItemAsync("vettingEmail", {});
       await SecureStore.deleteItemAsync("isVetting", {});
