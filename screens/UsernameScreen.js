@@ -59,7 +59,7 @@ class UsernameScreen extends React.Component {
       this.setState({ id: id });
       id ? this.updateAirtable() : null; // Checks if organization with an airtable ID, if not then has to be a supporter.
       this.setState({
-        error: null
+        error: ""
       });
       let user = {
         username: username,
@@ -73,6 +73,7 @@ class UsernameScreen extends React.Component {
       await SecureStore.deleteItemAsync("airtableID", {});
       await SecureStore.deleteItemAsync("vettingEmail", {});
       await SecureStore.deleteItemAsync("isVetting", {});
+
       // Deletes vetting variables, checked by 'LoadingScreen', to allow additional organizations to sign up.
     } else {
       this.setState({

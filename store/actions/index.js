@@ -220,7 +220,7 @@ export const postUser = user => async dispatch => {
       dispatch({ type: POST_USER_SUCCESS, payload: res.data.newUser });
     })
     .catch(err => {
-      // console.log(err, 'err in postUser')
+      console.log(err, "err in postUser");
       dispatch({ type: POST_USER_ERROR, payload: err });
     });
 };
@@ -669,37 +669,37 @@ export const addLike = (id, userId) => async dispatch => {
 export const [
   GET_ORGANIZATIONS_STARTED,
   GET_ORGANIZATIONS_SUCCESS,
-  GET_ORGANIZATIONS_ERROR,
-] = ['GET_ORGANIZATIONS_STARTED', 'GET_ORGANIZATIONS_SUCCESS', 'GET_ORGANIZATIONS_ERROR']
+  GET_ORGANIZATIONS_ERROR
+] = [
+  "GET_ORGANIZATIONS_STARTED",
+  "GET_ORGANIZATIONS_SUCCESS",
+  "GET_ORGANIZATIONS_ERROR"
+];
 
 export const getOrganizations = () => async dispatch => {
-  dispatch({ type: GET_ORGANIZATIONS_STARTED})
-  let url = `${seturl}maps`
+  dispatch({ type: GET_ORGANIZATIONS_STARTED });
+  let url = `${seturl}maps`;
   const token = await SecureStore.getItemAsync("accessToken", {});
   // console.log('token',token)
   return axios
-      .get(url, {
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }})
-      .then(response => {
-         // console.log("response.data ", response.data )
-           dispatch({ type: GET_ORGANIZATIONS_SUCCESS, payload: response.data })
-        })
-      .catch(error => {
-        dispatch({ type: GET_ORGANIZATIONS_ERROR, payload: error.message })
-      })
-  }
-  
-export const [
-  SET_MAP_SEARCH_QUERY
-] = ['SET_MAP_SEARCH_QUERY']
+    .get(url, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => {
+      // console.log("response.data ", response.data )
+      dispatch({ type: GET_ORGANIZATIONS_SUCCESS, payload: response.data });
+    })
+    .catch(error => {
+      dispatch({ type: GET_ORGANIZATIONS_ERROR, payload: error.message });
+    });
+};
+
+export const [SET_MAP_SEARCH_QUERY] = ["SET_MAP_SEARCH_QUERY"];
 
 export const setMapSearchQuery = (query, field) => async dispatch => {
-  dispatch(
-      { type: SET_MAP_SEARCH_QUERY,
-        payload: {query, field}
-      })
-}
+  dispatch({ type: SET_MAP_SEARCH_QUERY, payload: { query, field } });
+};
