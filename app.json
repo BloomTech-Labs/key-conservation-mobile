@@ -32,11 +32,11 @@
           }
         ]
       },
-      "buildNumber": "8",
+      "buildNumber": "9",
       "supportsTablet": true,
       "bundleIdentifier": "com.kc.keyconservation"
     },
-    "description": "The Key Conservation App\n\nVersion 3.2.0",
+    "description": "The Key Conservation App\n\nVersion 3.2.1",
     "githubUrl": "https://github.com/labs14-key-conservation/Frontend-Mobile"
   }
 }
