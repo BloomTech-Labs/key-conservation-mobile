@@ -67,12 +67,7 @@ function App(props) {
 
 async function loadResourcesAsync() {
   await Promise.all([
-    Asset.loadAsync([
-      // require('./assets/images/keyFullBlack.png'),
-      // require('./assets/images/keyFullWhite.png'),
-      // require('./assets/images/FurBackground.png')
-      require('./assets/images/splash.png')
-    ]),
+    Asset.loadAsync([require('./assets/images/splash.png')]),
     Font.loadAsync({
       Lato: require('./assets/fonts/Lato/Lato-Regular.ttf'),
       'Lato-Bold': require('./assets/fonts/Lato/Lato-Bold.ttf')
