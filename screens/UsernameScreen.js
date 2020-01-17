@@ -114,9 +114,6 @@ class UsernameScreen extends React.Component {
             <Text style={styles.obTitle}>
               You're in! Next step: please choose a username.
             </Text>
-            <Text style={styles.obText}>
-              Type in a username that clearly describes your organization.
-            </Text>
           </View>
           <TextInput
             returnKeyType='go'
