@@ -89,7 +89,7 @@ class ViewCampUpdateScreen extends React.Component {
               style={styles.campImgContain}
             />
           )}
-{/* 
+          {/* 
           <View style={styles.likesContainer}>
             <View style={styles.hearts}>
               <View
@@ -256,12 +256,12 @@ const styles = StyleSheet.create({
   },
   supportMissionText: {
     fontFamily: 'Lato-Bold',
-    fontSize: 14,
+    fontSize: 16,
     paddingLeft: 10
   },
   campMissionText: {
     fontFamily: 'Lato',
-    fontSize: 14,
+    fontSize: 16,
     lineHeight: 19,
     paddingTop: 10
   },
@@ -296,18 +296,19 @@ const styles = StyleSheet.create({
   },
   campDescName: {
     fontFamily: 'Lato-Bold',
-    fontSize: 16,
-    lineHeight: 22
+    fontSize: 18,
+    lineHeight: 22,
+    paddingBottom: 10
   },
   campDesc: {
     fontFamily: 'Lato',
-    fontSize: 14,
+    fontSize: 16,
     lineHeight: 19,
     paddingBottom: 15
   },
   listUsername: {
     fontFamily: 'Lato-Bold',
-    fontSize: 16,
+    fontSize: 18,
     lineHeight: 22
   },
   ogPostView: {
@@ -326,7 +327,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(
-  mapStateToProps,
-  { getProfileData, getCampaign }
-)(ViewCampUpdateScreen);
+export default connect(mapStateToProps, { getProfileData, getCampaign })(
+  ViewCampUpdateScreen
+);
