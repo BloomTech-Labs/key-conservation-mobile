@@ -23,6 +23,11 @@ class UsernameScreen extends React.Component {
     id: ""
   };
 
+  async componentDidMount() {
+    const id = await SecureStore.getItemAsync("airtableID", {});
+    this.setState({ id: id });
+  }
+
   updateAirtable = () => {
     console.log("UsernameScreen updateAirtable triggered");
     base("Table 1").update(
@@ -52,12 +57,9 @@ class UsernameScreen extends React.Component {
     const sub = await SecureStore.getItemAsync("sub", {});
     const email = await SecureStore.getItemAsync("email", {});
     const role = await SecureStore.getItemAsync("roles", {});
-    const id = await SecureStore.getItemAsync("airtableID", {});
     const username = this.state.usernameInput;
 
     if (username.length > 4) {
-      this.setState({ id: id });
-      id ? this.updateAirtable() : null; // Checks if organization with an airtable ID, if not then has to be a supporter.
       this.setState({
         error: ""
       });
@@ -67,12 +69,17 @@ class UsernameScreen extends React.Component {
         roles: role,
         email: email
       };
-      await this.props.postUser(user);
+      await this.props.postUser(user).then(e => {
+        this.state.id ? this.updateAirtable() : null; // Checks if organization with an airtable ID, if not then has to be a supporter.
+        this.navigate();
+      });
+      // nogo ? console.log("its a no go") : null;
       AmpEvent("Account Created");
-      this.props.navigation.navigate(error ? "CreateAccount" : "Loading");
-      await SecureStore.deleteItemAsync("airtableID", {});
-      await SecureStore.deleteItemAsync("vettingEmail", {});
-      await SecureStore.deleteItemAsync("isVetting", {});
+      console.log("props.error:", JSON.stringify(error.message));
+      (await this.state.id) ? this.updateAirtable() : null; // Checks if organization with an airtable ID, if not then has to be a supporter.
+      // await SecureStore.deleteItemAsync("airtableID", {});
+      // await SecureStore.deleteItemAsync("vettingEmail", {});
+      // await SecureStore.deleteItemAsync("isVetting", {});
 
       // Deletes vetting variables, checked by 'LoadingScreen', to allow additional organizations to sign up.
     } else {
@@ -80,6 +87,12 @@ class UsernameScreen extends React.Component {
         error: "Username is required to be at least 5 characters"
       });
     }
+  };
+
+  navigate = () => {
+    this.props.navigation.navigate(
+      this.props.error ? "CreateAccount" : "Loading"
+    );
   };
 
   logoutPress = async () => {

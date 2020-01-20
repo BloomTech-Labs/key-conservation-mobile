@@ -64,7 +64,7 @@ export default VerifyDocumentationScreen = props => {
       })
       .eachPage(
         function page(records) {
-          console.log(records[0]);
+          // console.log(records[0]);
           records[0] === undefined
             ? Alert.alert(
                 "Oops",
