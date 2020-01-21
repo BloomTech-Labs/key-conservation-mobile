@@ -163,16 +163,11 @@ class LoadingScreen extends React.Component {
       <>
         {/* {this.getAirtable()} */}
         <ImageBackground
-          source={require("../assets/images/FurBackground.png")}
+          source={require('../assets/images/splash.png')}
           style={styles.container}
         >
-          <Image
-            style={styles.logo}
-            source={require("../assets/images/keyFullWhite.png")}
-          />
-
           <View style={styles.indicator}>
-            <ActivityIndicator size="large" color="white" />
+            <ActivityIndicator size='large' color='white' />
           </View>
         </ImageBackground>
       </>

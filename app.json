@@ -5,11 +5,8 @@
     "privacy": "unlisted",
     "sdkVersion": "36.0.0",
     "scheme": "keyconservation",
-    "platforms": [
-      "ios",
-      "android"
-    ],
-    "version": "3.1.0",
+    "platforms": ["ios", "android"],
+    "version": "3.2.0",
     "orientation": "portrait",
     "icon": "./assets/images/keyapplogo.png",
     "splash": {
@@ -20,12 +17,10 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "android": {
       "package": "com.kc.keyconservation",
-      "versionCode": 3
+      "versionCode": 4
     },
     "ios": {
       "infoPlist": {
@@ -33,17 +28,15 @@
           {
             "CFBundleTypeRole": "None",
             "CFBundleURLName": "auth0",
-            "CFBundleURLSchemes": [
-              "com.kc.keyconservation"
-            ]
+            "CFBundleURLSchemes": ["com.kc.keyconservation"]
           }
         ]
       },
-      "buildNumber": "7",
+      "buildNumber": "9",
       "supportsTablet": true,
       "bundleIdentifier": "com.kc.keyconservation"
     },
-    "description": "The Key Conservation App\n\nVersion 3.1.0",
+    "description": "The Key Conservation App\n\nVersion 3.2.1",
     "githubUrl": "https://github.com/labs14-key-conservation/Frontend-Mobile"
   }
 }

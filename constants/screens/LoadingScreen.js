@@ -12,11 +12,30 @@ export default {
     height: 189
   },
   text: {
-    marginTop: 20,
+    marginTop: 30,
     fontSize: 30,
-    color: 'white'
+    color: 'white',
+    fontFamily: 'Lato-Bold'
   },
   indicator: {
     marginTop: 50
+  },
+  touchableView: {
+    width: 282,
+    height: 55,
+    borderRadius: 20,
+    backgroundColor: '#00FF9D',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignContent: 'center'
+  },
+  touchableText: {
+    fontFamily: 'Lato-Bold',
+    letterSpacing: 2,
+    fontStyle: 'normal',
+    fontSize: 18,
+    lineHeight: 25,
+    color: '#000000'
   }
 };
