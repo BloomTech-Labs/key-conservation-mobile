@@ -15,13 +15,14 @@ export default {
     marginTop: 30,
     fontSize: 30,
     color: 'white',
-    fontFamily: 'Lato-Bold'
+    fontFamily: 'Lato-Bold',
+    paddingBottom: 40
   },
   indicator: {
     marginTop: 50
   },
-  touchableView: {
-    width: 282,
+  touchableContainer: {
+    width: 262,
     height: 55,
     borderRadius: 20,
     backgroundColor: '#00FF9D',
@@ -34,7 +35,7 @@ export default {
     fontFamily: 'Lato-Bold',
     letterSpacing: 2,
     fontStyle: 'normal',
-    fontSize: 18,
+    fontSize: 22,
     lineHeight: 25,
     color: '#000000'
   }

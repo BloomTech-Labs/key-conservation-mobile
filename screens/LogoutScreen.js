@@ -6,7 +6,7 @@ import styles from '../constants/screens/LoadingScreen';
 const LogoutScreen = props => {
   return (
     <ImageBackground
-      source={require('../assets/images/splash.png')}
+      source={require('../assets/images/loginscreen2.png')}
       style={styles.container}
     >
       <Text style={styles.text}>Logout successful!</Text>
@@ -16,7 +16,7 @@ const LogoutScreen = props => {
           props.navigation.navigate({ routeName: 'Loading' });
         }}
       >
-        <Text style={styles.touchableText}>Log Back In</Text>
+        <Text style={styles.touchableText}>LOG BACK IN</Text>
       </TouchableOpacity>
     </ImageBackground>
   );
