@@ -158,7 +158,7 @@ const OrganizationSurveyScreen = props => {
               name='twitter'
             />
           </View>
-          <NavigateButton label='Preview' onButtonPress={handleSubmit} />
+          <NavigateButton label='Submit Profile' onButtonPress={handleSubmit} />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
