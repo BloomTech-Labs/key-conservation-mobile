@@ -67,12 +67,12 @@ const OrganizationSurveyScreen = props => {
               <Text style={styles.h5Text}> Uploaded {date}</Text>
             </View>
             <View>
-              <Feather name='info' size={40} />
+              <Feather name='info' size={20} />
             </View>
           </View>
           <View>
             <Text style={[styles.obTitle, { marginBottom: 24 }]}>
-              Let Supporters {'\n'}Know about you!
+              Let Supporters {'\n'}Know About You!
             </Text>
           </View>
           <View style={styles.inputBlock}>
