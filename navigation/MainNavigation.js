@@ -329,6 +329,7 @@ export const ConsNavigator = createBottomTabNavigator(
   },
   {
     tabBarOptions: {
+      showIcon: true,
       showLabel: false
     }
   }
@@ -363,6 +364,7 @@ export const SupNavigator = createBottomTabNavigator(
   },
   {
     tabBarOptions: {
+      showIcon: true,
       showLabel: false
     }
   }
