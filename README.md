@@ -6,7 +6,7 @@ You can find the deployed project at [Expo - Key Conservation](https://expo.io/@
 
 # Contributors
 
-## Labs 20 - (Current) Fourth Product Cycleee
+## Labs 20 - (Current) Fourth Product Cycle
 
 #### Team Lead:
 
