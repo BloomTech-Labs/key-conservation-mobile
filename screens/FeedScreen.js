@@ -1,46 +1,46 @@
-import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
-import { ScrollView, NavigationEvents } from 'react-navigation';
-import { connect } from 'react-redux';
-import { getCampaigns } from '../store/actions';
-import FeedCampaign from '../components/FeedScreen/FeedCampaign';
-import FeedUpdate from '../components/FeedScreen/FeedUpdate';
-import SvgUri from 'react-native-svg-uri';
-import styles from '../constants/screens/FeedScreen';
-import { AmpInit } from '../components/withAmplitude';
-import { Viewport } from '@skele/components';
+import React from "react";
+import { Text, View, TouchableOpacity } from "react-native";
+import { ScrollView, NavigationEvents } from "react-navigation";
+import { connect } from "react-redux";
+import { getCampaigns } from "../store/actions";
+import FeedCampaign from "../components/FeedScreen/FeedCampaign";
+import FeedUpdate from "../components/FeedScreen/FeedUpdate";
+import SvgUri from "react-native-svg-uri";
+import styles from "../constants/screens/FeedScreen";
+import { AmpInit } from "../components/withAmplitude";
+import { Viewport } from "@skele/components";
 
 class FeedScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'LIVE Feed',
+      title: "LIVE Feed",
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: "#323338"
       },
-      headerTintColor: '#fff',
+      headerTintColor: "#fff",
       headerTitleStyle: {
-        textAlign: 'center',
+        textAlign: "center",
         flexGrow: 1,
-        alignSelf: 'center',
-        fontFamily: 'Lato-Bold'
+        alignSelf: "center",
+        fontFamily: "Lato-Bold"
       },
       headerLeft: <View />,
       headerRight: (
         <TouchableOpacity
-          onPress={() => navigation.navigate('Search')}
+          onPress={() => navigation.navigate("Search")}
           style={{
             width: 70,
             height: 45,
-            justifyContent: 'center',
-            alignItems: 'flex-end',
+            justifyContent: "center",
+            alignItems: "flex-end",
             marginRight: 15
           }}
         >
           <SvgUri
-            fill='#fff'
-            width='25'
-            height='25'
-            source={require('../assets/icons/search-regular.svg')}
+            fill="#fff"
+            width="25"
+            height="25"
+            source={require("../assets/icons/search-regular.svg")}
           />
         </TouchableOpacity>
       )
@@ -77,11 +77,11 @@ class FeedScreen extends React.Component {
     return (
       <Viewport.Tracker>
         <ScrollView scrollEventThrottle={16}>
-          <NavigationEvents
-            onDidFocus={this.startGettingCampaigns}
-            onDidBlur={this.stopGettingCampaigns}
-          />
           <View style={styles.feedContainer}>
+            <NavigationEvents
+              onDidFocus={this.startGettingCampaigns}
+              onDidBlur={this.stopGettingCampaigns}
+            />
             {this.props.allCampaigns.length > 0 &&
               this.props.allCampaigns
                 .slice(0, this.state.campaignsVisible)
@@ -133,7 +133,4 @@ const mapStateToProps = state => ({
   campaignsToggled: state.campaignsToggled
 });
 
-export default connect(
-  mapStateToProps,
-  { getCampaigns }
-)(FeedScreen);
+export default connect(mapStateToProps, { getCampaigns })(FeedScreen);

@@ -94,7 +94,7 @@ export default {
   },
   campDescText: {
     fontFamily: 'Lato',
-    fontSize: 15,
+    fontSize: 16,
     lineHeight: 19
   },
   comments: {

@@ -74,12 +74,12 @@ export default {
   },
   campDescName: {
     fontFamily: 'Lato-Bold',
-    fontSize: 17,
+    fontSize: 18,
     paddingBottom: 10
   },
   campDescText: {
     fontFamily: 'Lato',
-    fontSize: 15,
+    fontSize: 16,
     lineHeight: 19
   },
   readMore: {
