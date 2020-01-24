@@ -1,1 +1,8 @@
-{}
+{
+  "dev": true,
+  "minify": false,
+  "hostType": "lan",
+  "lanType": "ip",
+  "urlRandomness": "63-gqr",
+  "https": false
+}
