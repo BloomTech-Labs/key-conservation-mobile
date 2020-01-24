@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "ngrokPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 23040,
+  "ngrokPid": 23059,
+  "expoServerNgrokUrl": "https://d3-9et.katiefelten.key-conservation-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.d3-9et.katiefelten.key-conservation-mobile.exp.direct",
   "webpackServerPort": null
 }
