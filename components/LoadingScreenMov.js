@@ -1,8 +1,13 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { Video } from 'expo-av';
 
-export default function LoadingScreenMov() {
+export default function LoadingScreenMov({ navigation }) {
+	_onPlaybackStatusUpdate = (playbackStatus) => {
+		if (playbackStatus.didJustFinish) {
+			navigation.navigate('Loading');
+		}
+	};
 	return (
 		<View>
 			<Video
@@ -12,11 +17,15 @@ export default function LoadingScreenMov() {
 				resizeMode='cover'
 				shouldPlay
 				didJustFinish
+				playbackStatus
 				style={{ width: '100%', height: '100%' }}
+				onPlaybackStatusUpdate={(playbackStatus) => _onPlaybackStatusUpdate(playbackStatus)}
 			/>
 		</View>
 	);
 }
+
+//Code with background color and automatic slide
 // import React from 'react';
 // import { View, Image, StyleSheet, Dimensions } from 'react-native';
 // // import Slick from 'react-native-slick';

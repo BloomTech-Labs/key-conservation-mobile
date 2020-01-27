@@ -1,8 +1,6 @@
 import React from "react";
 import {
-  Text,
   View,
-  Image,
   Alert,
   ActivityIndicator,
   ImageBackground
