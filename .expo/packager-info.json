@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "ngrokPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
+  "expoServerPort": 19000,
+  "packagerPort": 19006,
+  "packagerPid": 3377,
+  "ngrokPid": 3404,
+  "expoServerNgrokUrl": "https://ga-ju6.arizephyr123.key-conservation-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.ga-ju6.arizephyr123.key-conservation-mobile.exp.direct",
   "webpackServerPort": null
 }
