@@ -19,7 +19,6 @@ import Constants from "expo-constants";
 import * as WebBrowser from "expo-web-browser";
 import { AmpEvent, AmpInit } from "../components/withAmplitude";
 import styles from "../constants/screens/LoadingScreen";
-import LoadingScreenMov from "../components/LoadingScreenMov";
 
 class LoadingScreen extends React.Component {
   constructor(props) {
@@ -163,14 +162,14 @@ class LoadingScreen extends React.Component {
     return (
       <>
         {/* {this.getAirtable()} */}
-        {/* <ImageBackground
-          source={require{...loadingScreen}}
+        <ImageBackground
+          source={require("../assets/images/splash.png")}
           style={styles.container}
         >
           <View style={styles.indicator}>
             <ActivityIndicator size="large" color="white" />
           </View>
-        </ImageBackground> */}
+        </ImageBackground>
       </>
     );
   }

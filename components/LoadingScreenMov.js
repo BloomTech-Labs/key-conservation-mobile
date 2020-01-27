@@ -1,77 +1,96 @@
 import React from 'react';
-import { View, Image, StyleSheet, Dimensions } from 'react-native';
-// import Slick from 'react-native-slick';
-import FadingSlides from 'react-native-fading-slides';
-const { height } = Dimensions.get('window');
+import { Text, View, StyleSheet } from 'react-native';
+import { Video } from 'expo-av';
 
-const slides = [
-	{
-		image       : require('../assets/images/greatgreen.png'),
-		imageWidth  : '100%',
-		imageHeight : '100%',
-	},
-	{
-		image       : require('../assets/images/bongo.png'),
-		imageWidth  : '100%',
-		imageHeight : '100%',
-	},
-	{
-		image       : require('../assets/images/kakapo.png'),
-		imageWidth  : '100%',
-		imageHeight : '100%',
-	},
-	{
-		image       : require('../assets/images/zebra.png'),
-		imageWidth  : '100%',
-		imageHeight : '100%',
-	},
-	{
-		image       : require('../assets/images/bubble.png'),
-		imageWidth  : '100%',
-		imageHeight : '100%',
-	},
-	{
-		image       : require('../assets/images/loading-whaleshark.png'),
-		imageWidth  : '100%',
-		imageHeight : '100%',
-	},
-	{
-		image       : require('../assets/images/loading-pangolin.png'),
-		imageWidth  : '100%',
-		imageHeight : '100%',
-	},
-	{
-		image       : require('../assets/images/loading-gorilla.png'),
-		imageWidth  : '100%',
-		imageHeight : '100%',
-	},
-	{
-		image       : require('../assets/images/loading-stripes.png'),
-		imageWidth  : '100%',
-		imageHeight : '100%',
-	},
-	{
-		image       : require('../assets/images/splash.png'),
-		imageWidth  : '100%',
-		imageHeight : '100%',
-	},
-];
-
-const styles = StyleSheet.create({
-	container : {
-		flex            : 1,
-		backgroundColor : '#8B4513',
-	},
-});
-export default class LoadingScreenMov extends React.Component {
-	render() {
-		return (
-			<View style={styles.container}>
-				<FadingSlides slides={slides} fadeDuration={800} stillDuration={0} height={height} />
-			</View>
-		);
-	}
+export default function LoadingScreenMov() {
+	return (
+		<View>
+			<Video
+				source={require('../assets/images/Key_Intro.mp4')}
+				rate={1.0}
+				volume={1.0}
+				resizeMode='cover'
+				shouldPlay
+				didJustFinish
+				style={{ width: '100%', height: '100%' }}
+			/>
+		</View>
+	);
 }
+// import React from 'react';
+// import { View, Image, StyleSheet, Dimensions } from 'react-native';
+// // import Slick from 'react-native-slick';
+// import FadingSlides from 'react-native-fading-slides';
+// const { height } = Dimensions.get('window');
+
+// const slides = [
+// 	{
+// 		image       : require('../assets/images/greatgreen.png'),
+// 		imageWidth  : '100%',
+// 		imageHeight : '100%',
+// 	},
+// 	{
+// 		image       : require('../assets/images/bongo.png'),
+// 		imageWidth  : '100%',
+// 		imageHeight : '100%',
+// 	},
+// 	{
+// 		image       : require('../assets/images/kakapo.png'),
+// 		imageWidth  : '100%',
+// 		imageHeight : '100%',
+// 	},
+// 	{
+// 		image       : require('../assets/images/zebra.png'),
+// 		imageWidth  : '100%',
+// 		imageHeight : '100%',
+// 	},
+// 	{
+// 		image       : require('../assets/images/bubble.png'),
+// 		imageWidth  : '100%',
+// 		imageHeight : '100%',
+// 	},
+// 	{
+// 		image       : require('../assets/images/loading-whaleshark.png'),
+// 		imageWidth  : '100%',
+// 		imageHeight : '100%',
+// 	},
+// 	{
+// 		image       : require('../assets/images/loading-pangolin.png'),
+// 		imageWidth  : '100%',
+// 		imageHeight : '100%',
+// 	},
+// 	{
+// 		image       : require('../assets/images/loading-gorilla.png'),
+// 		imageWidth  : '100%',
+// 		imageHeight : '100%',
+// 	},
+// 	{
+// 		image       : require('../assets/images/loading-stripes.png'),
+// 		imageWidth  : '100%',
+// 		imageHeight : '100%',
+// 	},
+// 	{
+// 		image       : require('../assets/images/splash.png'),
+// 		imageWidth  : '100%',
+// 		imageHeight : '100%',
+// 	},
+// ];
+
+// const styles = StyleSheet.create({
+// 	container : {
+// 		flex            : 1,
+// 		backgroundColor : '#8B4513',
+// 	},
+// });
+// export default class LoadingScreenMov extends React.Component {
+// 	render() {
+// 		return (
+// 			<View style={styles.container}>
+// 				<FadingSlides slides={slides} fadeDuration={800} stillDuration={0} height={height} />
+// 			</View>
+// 		);
+// 	}
+// }
 // export default function LoadingScreenMov() {
 // 	return (
 // 		<View style={styles.container}>

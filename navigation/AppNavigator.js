@@ -10,9 +10,9 @@ import {
 	OrgOnboardStack,
 	AccountSettingsStack,
 } from './MainNavigation';
+import LoadingScreenMov from '../components/LoadingScreenMov';
 import LoadingScreen from '../screens/LoadingScreen';
 import VettingCheck from '../screens/VettingCheck';
-import LoadingScreenMov from '../components/LoadingScreenMov';
 
 // This is the top level navigator for the app. It covers the loading process, and sorts the user into the version of the app they will be seeing.
 export default createAppContainer(
