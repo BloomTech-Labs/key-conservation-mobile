@@ -171,9 +171,6 @@ class LoadingScreen extends React.Component {
             <ActivityIndicator size="large" color="white" />
           </View>
         </ImageBackground> */}
-        <View>
-          <LoadingScreenMov />
-        </View>
       </>
     );
   }
