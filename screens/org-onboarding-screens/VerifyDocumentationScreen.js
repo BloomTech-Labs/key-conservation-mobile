@@ -86,7 +86,7 @@ export default VerifyDocumentationScreen = props => {
   navigate = () => {
     props.navigation.navigate("ReviewYourInfo", {
       airtableStateAdd: state.airtableState,
-      airtableKey: state.key
+      airtableKey: key
     });
   };
 
