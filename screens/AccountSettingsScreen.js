@@ -1,46 +1,46 @@
-import React from "react";
-import { Text, Image, View, TouchableOpacity, Linking } from "react-native";
-import SvgUri from "react-native-svg-uri";
-import { ScrollView, NavigationEvents } from "react-navigation";
-import { connect } from "react-redux";
-import { logout } from "../store/actions";
-import * as SecureStorage from "expo-secure-store";
-import GoBackButton from "../components/BackButton";
-import DoneButton from "../components/DoneButton";
+import React from 'react';
+import { Text, Image, View, TouchableOpacity, Linking } from 'react-native';
+import SvgUri from 'react-native-svg-uri';
+import { ScrollView, NavigationEvents } from 'react-navigation';
+import { connect } from 'react-redux';
+import { logout } from '../store/actions';
+import * as SecureStorage from 'expo-secure-store';
+import GoBackButton from '../components/BackButton';
+import DoneButton from '../components/DoneButton';
 
-import styles from "../constants/screens/AccountSettingsScreen";
-import * as WebBrowser from "expo-web-browser";
+import styles from '../constants/screens/AccountSettingsScreen';
+import * as WebBrowser from 'expo-web-browser';
 
-import Constants from "expo-constants";
+import Constants from 'expo-constants';
 
 class AccountSettingsScreen extends React.Component {
   state = {
     result: null,
-    roles: ""
+    roles: ''
   };
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: "Account Settings",
+      title: 'Account Settings',
       headerStyle: {
-        backgroundColor: "#323338"
+        backgroundColor: '#323338'
       },
-      headerTintColor: "#fff",
+      headerTintColor: '#fff',
       headerTitleStyle: {
-        textAlign: "center",
+        textAlign: 'center',
         flexGrow: 1,
-        alignSelf: "center"
+        alignSelf: 'center'
       },
       headerRight: (
         <DoneButton
           navigation={navigation}
-          pressAction={navigation.getParam("done")}
+          pressAction={navigation.getParam('done')}
         />
       )
     };
   };
   getRole = async () => {
-    const myRoles = await SecureStorage.getItemAsync("roles", {});
+    const myRoles = await SecureStorage.getItemAsync('roles', {});
     this.setState({ roles: myRoles });
   };
 
@@ -50,24 +50,26 @@ class AccountSettingsScreen extends React.Component {
   }
 
   done = () => {
-    if (this.state.roles === "conservationist") {
-      this.props.navigation.navigate("MyPro");
+    if (this.state.roles === 'conservationist') {
+      this.props.navigation.navigate('MyPro');
     } else {
-      this.props.navigation.navigate("MySupPro");
+      this.props.navigation.navigate('MySupPro');
     }
   };
-
+  viewReports = () => {
+    this.props.navigation.navigate('AdminScreen');
+  };
   logoutPress = async () => {
-    await SecureStorage.deleteItemAsync("sub", {});
-    await SecureStorage.deleteItemAsync("email", {});
-    await SecureStorage.deleteItemAsync("roles", {});
-    await SecureStorage.deleteItemAsync("id", {});
-    await SecureStorage.deleteItemAsync("userId", {});
-    await SecureStorage.deleteItemAsync("accessToken", {});
+    await SecureStorage.deleteItemAsync('sub', {});
+    await SecureStorage.deleteItemAsync('email', {});
+    await SecureStorage.deleteItemAsync('roles', {});
+    await SecureStorage.deleteItemAsync('id', {});
+    await SecureStorage.deleteItemAsync('userId', {});
+    await SecureStorage.deleteItemAsync('accessToken', {});
     // await SecureStorage.deleteItemAsync("airtableKey", {}); // for development
     this.props.logout();
 
-    const logoutURL = "https://key-conservation.auth0.com/v2/logout?federated";
+    const logoutURL = 'https://key-conservation.auth0.com/v2/logout?federated';
 
     if (Constants.platform.ios) {
       await WebBrowser.openAuthSessionAsync(logoutURL).then(result => {
@@ -78,7 +80,7 @@ class AccountSettingsScreen extends React.Component {
         this.setState({ result });
       });
     }
-    this.props.navigation.navigate("Logout");
+    this.props.navigation.navigate('Logout');
   };
 
   render() {
@@ -91,7 +93,28 @@ class AccountSettingsScreen extends React.Component {
                 fill="#3b3b3b"
                 width="25"
                 height="25"
-                source={require("../assets/icons/user.svg")}
+                source={require('../assets/icons/user.svg')}
+              />
+              <Text style={styles.title}>Admin Controls</Text>
+            </View>
+            <TouchableOpacity
+              style={styles.linkWrap}
+              onPress={this.viewReports}
+            >
+              <Image
+                source={require('../assets/icons/logout.png')}
+                style={styles.logoutButton}
+              />
+              <Text style={styles.linkText}>Manage Reports</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.sections}>
+            <View style={styles.iconWrap}>
+              <SvgUri
+                fill="#3b3b3b"
+                width="25"
+                height="25"
+                source={require('../assets/icons/user.svg')}
               />
               <Text style={styles.title}>Logout Of Your Profile</Text>
             </View>
@@ -100,7 +123,7 @@ class AccountSettingsScreen extends React.Component {
               onPress={this.logoutPress}
             >
               <Image
-                source={require("../assets/icons/logout.png")}
+                source={require('../assets/icons/logout.png')}
                 style={styles.logoutButton}
               />
               <Text style={styles.linkText}>Logout</Text>
