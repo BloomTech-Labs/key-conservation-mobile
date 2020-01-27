@@ -26,6 +26,7 @@ export default function LoadingScreenMov({ navigation }) {
 }
 
 //Code with background color and automatic slide
+
 // import React from 'react';
 // import { View, Image, StyleSheet, Dimensions } from 'react-native';
 // // import Slick from 'react-native-slick';
