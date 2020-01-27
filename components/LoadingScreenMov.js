@@ -209,6 +209,7 @@ export default function LoadingScreenMov({ navigation }) {
 //     slide: "View",
 //     cssEase: "linear"
 //   });
+
 //   // On before slide change
 //   slider.on("afterChange", function(event, slick, currentSlide, nextSlide) {
 //     //check the length of total items in .slide container
