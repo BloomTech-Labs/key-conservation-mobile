@@ -163,17 +163,14 @@ class LoadingScreen extends React.Component {
     return (
       <>
         {/* {this.getAirtable()} */}
-        {/* <ImageBackground
-          source={require{...loadingScreen}}
+        <ImageBackground
+          source={require("../assets/images/splash.png")}
           style={styles.container}
         >
           <View style={styles.indicator}>
             <ActivityIndicator size="large" color="white" />
           </View>
-        </ImageBackground> */}
-        <View>
-          <LoadingScreenMov />
-        </View>
+        </ImageBackground>
       </>
     );
   }
