@@ -13,7 +13,7 @@ export default VerifyDocumentationScreen = props => {
     email: null,
     result: null,
     airtableState: null,
-    key: null,
+    key: "",
     checked: false
   });
 
