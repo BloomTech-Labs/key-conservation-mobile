@@ -1,12 +1,15 @@
 # Key Conservation
 
-Current version: 4.1.0
+Current version: 4.1.0. This app is in Beta for iOS and Android.
 
-You can find the deployed project at [Expo - Key Conservation](https://expo.io/@labs14_key_conservation/key-conservation). This app is currently in Beta for iOS and Android.
+[Key Conservation PVD](https://www.notion.so/Key-Conservation-9de81dcdeca546ba85509f2982d211cc)
 
 # Contributors
 
 ## Labs 20 - (Current) Fourth Product Cycle
+
+### Trello Board
+Check out what we are working on. [Trello](https://trello.com/b/cUouSxH7/key-conservation-labs-20)
 
 #### Team Lead:
 
@@ -34,9 +37,6 @@ Zach Baca - [Github](https://github.com/zacharybaca)
 <br>
 
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
-![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)
-![Typescript](https://img.shields.io/npm/types/typescript.svg?style=flat)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b5c4db1c-b10d-42c3-b157-3746edd9e81d/deploy-status)]
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 ## Previous Labs Teams Who Contributed To This Project
@@ -142,17 +142,17 @@ Additionally, supporters of conservation organizations want more transparency as
 
 ### Key Features
 
-- Authentication with Auth0
+- Authentication with Auth0.
 - Airtable API integration for organization onboarding.
-- Conservation profiles to create campaigns
-- Create/Update/Delete campaigns
-- Supporter profiles to donate to campaigns
-- Search campaigns
-- All users can edit/personalize profile
-- Commenting on campaigns
-- Video uploading
-- Urgency levels for campaign posts
-- Liking and Bookmarking posts
+- Conservation profiles to create campaigns.
+- Create/Update/Delete campaigns.
+- Supporter profiles to donate to campaigns.
+- Search campaigns.
+- All users can edit/personalize profile.
+- Commenting on campaigns.
+- Video uploading.
+- Urgency levels for campaign posts.
+- Map to view location of conservationists.
 
 ## Tech Stack
 
@@ -164,8 +164,6 @@ Additionally, supporters of conservation organizations want more transparency as
 - Expo is able to produce code base for iOS and Android
 - Relatable to current React experience for Development Team
 - Expo is widely supported and used by many companies
-
-#### React (https://www.npmjs.com/package/react)
 
 #### React-Native (https://www.npmjs.com/package/react-native)
 
@@ -179,15 +177,16 @@ Additionally, supporters of conservation organizations want more transparency as
 
 #### React-Native-Search-Filter (https://www.npmjs.com/package/react-native-search-filter)
 
-#### Front end Published to `Expo`
+#### Front End Published to `Expo`
 
-#### [Back end](https://github.com/labs14-key-conservation/backend) built using:
+#### [Back End](https://github.com/Lambda-School-Labs/key-conservation-be) built using:
 
 #### NodeJs/Express/PostgreSQL
 
-- Express server for resftul API
-- Familiarity and experience in creating production ready code
-- Ease of integration to Expo
+- Express server for resftul API.
+- Familiarity and experience in creating production ready code.
+- Ease of integration to Expo.
+- PGAdmin to quickly edit/view database.
 
 # APIs
 
