@@ -1,9 +1,10 @@
 {
   "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 37364,
-  "expoServerNgrokUrl": "https://ns-upn.bacazach.key-conservation-mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.ns-upn.bacazach.key-conservation-mobile.exp.direct",
-  "ngrokPid": 1916
+  "packagerPort": 19007,
+  "packagerPid": 10513,
+  "expoServerNgrokUrl": "https://ns-upn.arizephyr123.key-conservation-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.ns-upn.arizephyr123.key-conservation-mobile.exp.direct",
+  "ngrokPid": 10524,
+  "webpackServerPort": null
 }
