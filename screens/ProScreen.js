@@ -8,7 +8,6 @@ import FeedUpdate from "../components/FeedScreen/FeedUpdate";
 import ProfileHeader from "../components/Profile/ProfileHeader";
 import BackButton from "../components/BackButton";
 
-// Campaign Profile Screen
 class ProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const fromMap = navigation.getParam("fromMap", "defaultValue");

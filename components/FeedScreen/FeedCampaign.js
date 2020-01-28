@@ -479,12 +479,12 @@ const FeedCampaign = props => {
             return (
               <View
                 style={styles2.commentWrapper}
-                onPress={goToCommenterProfile}
+                // onPress={goToCommenterProfile}
               >
                 <View style={styles2.commentView}>
                   <View style={styles2.feedAvatar}>
                     <Avatar
-                      onPress={goToCommenterProfile}
+                      // onPress={goToCommenterProfile}
                       rounded
                       source={{
                         uri: item.profile_image
