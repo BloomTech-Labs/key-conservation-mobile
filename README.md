@@ -6,6 +6,9 @@ Current version: 4.1.0. This app is in Beta for iOS and Android.
 
 [Trello Board](https://trello.com/b/cUouSxH7/key-conservation-labs-20)
 
+![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+
 # Contributors
 
 ## Labs 20 - (Current) Fourth Product Cycle
@@ -31,12 +34,7 @@ Arielle Hollingsworth- [Github](https://github.com/arizephyr123) | [LinkedIn](ht
 Rasha Moumneh - [Github](https://github.com/RashaMou) | [LinkedIn](https://www.linkedin.com/in/rashamoumneh/)
 
 Zach Baca - [Github](https://github.com/zacharybaca)
-| [LinkedIn](https://www.linkedin.com/in/z46350/)  
-<br>
-<br>
-
-![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+| [LinkedIn](https://www.linkedin.com/in/z46350/)
 
 ## Previous Labs Teams Who Contributed To This Project
 
@@ -125,11 +123,6 @@ Zach Christy - [GitHub](https://github.com/zchristy) | [LinkedIn](https://www.li
 
 Sam Jeffcoat - [GitHub](https://github.com/samjeffcoat) | [LinkedIn](https://www.linkedin.com/in/samjeffcoat/)
 
-## Project Overview
-
-[Trello Board](https://trello.com/b/cUouSxH7/key-conservation-labs-18)
-
-[Product Canvas](https://www.notion.so/Key-Conservation-9de81dcdeca546ba85509f2982d211cc)
 
 ## Project Description
 
