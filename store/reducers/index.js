@@ -38,7 +38,12 @@ const initialState = {
   userRegistered: true,
   organizations: [], // All Organizations
   organizationWithCoords: [], // Organizations with coordinates that can be displayed on map,
-  filteredOrganization: [] // Filtered Organizations
+  filteredOrganization: [], // Filtered Organizations
+  reports: {
+    data: null,
+    loading: false,
+    error: ""
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -495,7 +500,33 @@ const reducer = (state = initialState, action) => {
           state.organizationWithCoords
         )
       };
-      case actions.GET_REPORTS_START:
+    case actions.GET_REPORTS_START:
+      return {
+        ...state,
+        reports: {
+          ...state.reports,
+          loading: true,
+          error: ""
+        }
+      };
+    case actions.GET_REPORTS_SUCCESS:
+      return {
+        ...state,
+        reports: {
+          ...state.reports,
+          data: action.payload,
+          loading: false
+        }
+      };
+    case actions.GET_REPORTS_ERROR:
+      return {
+        ...state,
+        reports: {
+          ...state.reports,
+          loading: false,
+          error: action.payload
+        }
+      };
 
     default:
       return state;
