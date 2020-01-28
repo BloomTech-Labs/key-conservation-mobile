@@ -158,16 +158,15 @@ const FeedCampaign = props => {
     props.navigation.navigate("Pro");
   };
 
-  // TODO how do we specify where we want to navigate here? We have the commenter user id. data.comments[6]
-  // const goToCommenterProfile = async () => {
-  //   console.log(data.comments[0].users_id);
-  //   await dispatch(getProfileData(data.comments[0].users_id));
-  //   AmpEvent("Select Profile from Campaign", {
-  //     profile: data.username,
-  //     campaign: data.camp_name
-  //   });
-  //   props.navigation.navigate("Pro");
-  // };
+  const goToCommenterProfile = async () => {
+    console.log(data.comments[0].users_id);
+    await dispatch(getProfileData(data.comments[0].users_id));
+    AmpEvent("Select Profile from Campaign", {
+      profile: data.username,
+      campaign: data.camp_name
+    });
+    props.navigation.navigate("SupPro");
+  };
 
   const goToCampaign = async () => {
     console.log("GOTOCAMPAIGN FUNCTION FIRES");
@@ -477,14 +476,11 @@ const FeedCampaign = props => {
           keyExtractor={comment => comment.comment_id.toString()}
           renderItem={({ item }) => {
             return (
-              <View
-                style={styles2.commentWrapper}
-                // onPress={goToCommenterProfile}
-              >
+              <View style={styles2.commentWrapper}>
                 <View style={styles2.commentView}>
                   <View style={styles2.feedAvatar}>
                     <Avatar
-                      // onPress={goToCommenterProfile}
+                      onPress={goToCommenterProfile}
                       rounded
                       source={{
                         uri: item.profile_image
