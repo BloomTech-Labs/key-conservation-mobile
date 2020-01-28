@@ -27,6 +27,7 @@ import EditProScreen from "../screens/EditProScreen";
 import DetailScreen from "../screens/DetailScreen";
 import MyDetailScreen from "../screens/MyDetailScreen";
 import LocationScreen from "../screens/LocationScreen";
+import SupProScreen from "../screens/SupProScreen";
 import MySupProScreen from "../screens/MySupProScreen";
 import LoginScreen from "../screens/LoginScreen";
 import UsernameScreen from "../screens/UsernameScreen";
@@ -237,7 +238,7 @@ const MyProStack = createStackNavigator(
   }
 );
 
-const SupProStack = createStackNavigator(
+const MySupProStack = createStackNavigator(
   {
     MySupPro: { screen: MySupProScreen },
     EditSupPro: { screen: EditSupProScreen }
@@ -351,8 +352,8 @@ export const SupNavigator = createBottomTabNavigator(
         navigation.navigate("Home"), defaultHandler();
       }
     },
-    SupProStack: {
-      screen: SupProStack,
+    MySupProStack: {
+      screen: MySupProStack,
       path: "",
       navigationOptions: {
         tabBarOnPress: ({ navigation, defaultHandler }) => {

@@ -9,7 +9,7 @@ import BackButton from "../components/BackButton";
 class SupProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: "Commenter's Profile", //! used to be My Profile
+      title: `${this.props.selectedProfile.username}'s Profile`,
       headerLeft: <BackButton navigation={navigation} />,
       headerStyle: {
         backgroundColor: "#323338"
