@@ -1,12 +1,47 @@
 # Key Conservation
 
-Current version: 3.1.0
+Current version: 4.1.0
 
-You can find the deployed project at [Expo - Key Conservation](https://expo.io/@labs14_key_conservation/key-conservation). This app is currently in Test Flight for iOS and Android.
+You can find the deployed project at [Expo - Key Conservation](https://expo.io/@labs14_key_conservation/key-conservation). This app is currently in Beta for iOS and Android.
 
 # Contributors
 
-## Labs 18 - (Current) Third Product Cycle
+## Labs 20 - (Current) Fourth Product Cycle
+
+#### Team Lead:
+
+Katie Rose Felten - [GitHub](https://github.com/katie-rose) | [LinkedIn](https://www.linkedin.com/in/kfelten)
+
+#### Android Developer:
+
+Albert Yakubov - [GitHub](https://github.com/albert-yakubov) | [LinkedIn](https://www.linkedin.com/in/albert-yakubov-57654334/)
+
+#### React Native Developers:
+
+Mohammad Tourjoman - [GitHub](https://github.com/mtourj) | [LinkedIn](https://www.linkedin.com/in/mohammad-tourjoman-6b811259/)
+
+Jasmine Kasheboon Khoury - [GitHub](https://github.com/jasminekh96) | [LinkedIn](https://www.linkedin.com/in/jasmine-kasheboon-khoury/)
+
+Brianna Workman - [GitHub](https://github.com/briworkman) | [LinkedIn](https://www.linkedin.com/in/brianna-workman-b38326193/)
+
+Arielle Hollingsworth- [Github](https://github.com/arizephyr123) | [LinkedIn](https://www.linkedin.com/in/arielle-hollingsworth/)
+
+Rasha Moumneh - [Github](https://github.com/RashaMou) | [LinkedIn](https://www.linkedin.com/in/rashamoumneh/)
+
+Zach Baca - [Github](https://github.com/zacharybaca)
+| [LinkedIn](https://www.linkedin.com/in/z46350/)  
+<br>
+<br>
+
+![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
+![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)
+![Typescript](https://img.shields.io/npm/types/typescript.svg?style=flat)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b5c4db1c-b10d-42c3-b157-3746edd9e81d/deploy-status)]
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+
+## Previous Labs Teams Who Contributed To This Project
+
+## Labs 18 - Third Product Cycle
 
 #### Team Lead:
 
@@ -18,7 +53,7 @@ Nilpa Jhaveri - [LinkedIn](https://www.linkedin.com/in/njhaveri/)
 
 Dylan Stephenson - [LinkedIn](https://www.linkedin.com/in/dylan-stephenson-068b33aa/)
 
-#### Developers:
+#### React Native Developers:
 
 Cameron Alvarado - [GitHub](https://github.com/CameronAlvarado) | [LinkedIn](https://www.linkedin.com/in/cameron-alvarado-7200a1193/)
 
@@ -35,14 +70,6 @@ Iris Jitomo - [Github](https://github.com/irisjitomo)
 <br>
 <br>
 
-![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
-![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)
-![Typescript](https://img.shields.io/npm/types/typescript.svg?style=flat)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b5c4db1c-b10d-42c3-b157-3746edd9e81d/deploy-status)]
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-
-## Previous Labs Teams Who Contributed To This Project
-
 ### Labs 16 - Second Product Cycle
 
 #### Team Lead:
@@ -55,7 +82,7 @@ Daniel Stadler - [LinkedIn](https://www.linkedin.com/in/danstad/)
 
 Colton Mortensen - [LinkedIn](https://www.linkedin.com/colton-mortensen/)
 
-#### Developers:
+#### React Native Developers:
 
 Mary Sabol - [GitHub](https://github.com/ntsum) | [LinkedIn](https://www.linkedin.com/in/marycodes/)
 
@@ -81,7 +108,7 @@ Luis Morabito - [LinkedIn](https://www.linkedin.com/in/luismorabito/)
 
 Gabby Loscalzo - [LinkedIn](https://www.linkedin.com/in/gabby-loscalzo-829596183/)
 
-#### Developers:
+#### React Native Developers:
 
 Cori Paris - [GitHub](https://github.com/coriagogo) | [LinkedIn](https://www.linkedin.com/pearl-paris)
 

@@ -2,18 +2,21 @@ export default {
   obBody: {
     paddingTop: '5%',
     paddingBottom: '5%',
-    justifyContent: 'center'
+    paddingLeft: '2%',
+    paddingRight: '2%',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'center'
   },
   obText: {
     color: '#000000',
     fontFamily: 'Lato',
     fontSize: 18,
     lineHeight: 25,
-    marginLeft: '5%',
-    marginTop: '2%',
-    marginBottom: '12%',
-    marginRight: '7%',
-    maxWidth: '100%'
+    marginTop: '5%',
+    marginBottom: '10%'
   },
   highlight: {
     backgroundColor: '#D7FF43',
@@ -34,35 +37,13 @@ export default {
     width: '90%',
     height: 125
   },
-  obTextBottom: {
-    color: '#000000',
-    fontFamily: 'Lato',
-    fontSize: 18,
-    lineHeight: 25,
-    marginLeft: '5%',
-    marginTop: '2%',
-    marginBottom: '7%',
-    marginRight: '7%'
-  },
   obTitle: {
     color: '#000000',
     fontFamily: 'Lato-Bold',
     fontSize: 28,
     lineHeight: 38,
-    marginLeft: '5%',
-    marginTop: '18%',
-    marginBottom: '7%',
-    marginRight: '7%'
-  },
-  obSubtitle: {
-    color: '#000000',
-    fontFamily: 'Lato-Bold',
-    fontSize: 21,
-    lineHeight: 29,
-    marginLeft: '5%',
-    marginTop: '2%',
-    marginBottom: '2%',
-    marginRight: '7%'
+    marginTop: '15%',
+    marginBottom: '5%'
   },
   obFwdContainer: {
     width: 282,

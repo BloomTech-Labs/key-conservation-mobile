@@ -29,7 +29,6 @@ import { AmpEvent } from '../withAmplitude';
 import styles from '../../constants/FeedScreen/FeedCampaign';
 import styles2 from '../../constants/Comments/Comments';
 
-
 // url for heroku staging vs production server
 const seturl = 'https://key-conservation.herokuapp.com/api/';
 
@@ -44,33 +43,34 @@ const ViewportAwareVideo = Viewport.Aware(
 );
 
 const FeedCampaign = props => {
-  const [likes, setLikes] = useState(props.data.likes.length);
-  const [userLiked, setUserLiked] = useState(false);
-  const [userBookmarked, setUserBookmarked] = useState(false);
+  // const [likes, setLikes] = useState(props.data.likes.length);
+  // const [userLiked, setUserLiked] = useState(false);
+  // const [userBookmarked, setUserBookmarked] = useState(false);
   const [urgTop, setUrgTop] = useState(0);
   const [loader, setLoader] = useState(true);
 
-  useEffect(() => {
-    const liked = data.likes.filter(
-      l => l.users_id === props.currentUserProfile.id
-    );
-    const bookmarked = props.currentUserProfile.bookmarks.filter(
-      b => b.camp_id === data.camp_id
-    );
-    if (liked.length > 0) {
-      setUserLiked(true);
-    }
-    if (bookmarked.length > 0) {
-      setUserBookmarked(true);
-    }
-    if (
-      data.camp_img.includes('.mov') ||
-      data.camp_img.includes('.mp3') ||
-      data.camp_img.includes('.mp4')
-    ) {
-      setUrgTop(3);
-    }
-  }, []);
+  // old code for Likes + Bookmarks
+  // useEffect(() => {
+  //   const liked = data.likes.filter(
+  //     l => l.users_id === props.currentUserProfile.id
+  //   );
+  //   const bookmarked = props.currentUserProfile.bookmarks.filter(
+  //     b => b.camp_id === data.camp_id
+  //   );
+  //   if (liked.length > 0) {
+  //     setUserLiked(true);
+  //   }
+  //   if (bookmarked.length > 0) {
+  //     setUserBookmarked(true);
+  //   }
+  //   if (
+  //     data.camp_img.includes('.mov') ||
+  //     data.camp_img.includes('.mp3') ||
+  //     data.camp_img.includes('.mp4')
+  //   ) {
+  //     setUrgTop(3);
+  //   }
+  // }, []);
 
   const dispatch = useDispatch();
   const { data, toggled } = props;
@@ -163,13 +163,13 @@ const FeedCampaign = props => {
       profile: data.username
     });
     props.navigation.navigate('Camp', {
-      likes: likes,
-      userLiked: userLiked,
-      addLike: addLike,
-      deleteLike: deleteLike,
-      userBookmarked: userBookmarked,
-      addBookmark: addBookmark,
-      deleteBookmark: deleteBookmark,
+      // likes: likes,
+      // userLiked: userLiked,
+      // addLike: addLike,
+      // deleteLike: deleteLike,
+      // userBookmarked: userBookmarked,
+      // addBookmark: addBookmark,
+      // deleteBookmark: deleteBookmark,
       media: data.camp_img
     });
   };
@@ -186,145 +186,144 @@ const FeedCampaign = props => {
     }
   };
 
-  const addLike = (campId, updateId) => {
-    if (updateId) {
-      axios
-        .post(
-          `${seturl}social/update/${data.update_id}`,
-          {
-            users_id: props.currentUserProfile.id,
-            update_id: data.update_id
-          },
-          {
-            headers: {
-              Accept: 'application/json',
-              Authorization: `Bearer ${props.token}`,
-              'Content-Type': 'application/json'
-            }
-          }
-        )
-        .then(res => {
-          setLikes(res.data.data.length);
-          setUserLiked(true);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    } else {
-      axios
-        .post(
-          `${seturl}social/likes/${campId}`,
-          {
-            users_id: props.currentUserProfile.id,
-            camp_id: campId
-          },
-          {
-            headers: {
-              Accept: 'application/json',
-              Authorization: `Bearer ${props.token}`,
-              'Content-Type': 'application/json'
-            }
-          }
-        )
-        .then(res => {
-          setLikes(res.data.data.length);
-          setUserLiked(true);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-  };
+  // const addLike = (campId, updateId) => {
+  //   if (updateId) {
+  //     axios
+  //       .post(
+  //         `${seturl}social/update/${data.update_id}`,
+  //         {
+  //           users_id: props.currentUserProfile.id,
+  //           update_id: data.update_id
+  //         },
+  //         {
+  //           headers: {
+  //             Accept: 'application/json',
+  //             Authorization: `Bearer ${props.token}`,
+  //             'Content-Type': 'application/json'
+  //           }
+  //         }
+  //       )
+  //       .then(res => {
+  //         setLikes(res.data.data.length);
+  //         setUserLiked(true);
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //       });
+  //   } else {
+  //     axios
+  //       .post(
+  //         `${seturl}social/likes/${campId}`,
+  //         {
+  //           users_id: props.currentUserProfile.id,
+  //           camp_id: campId
+  //         },
+  //         {
+  //           headers: {
+  //             Accept: 'application/json',
+  //             Authorization: `Bearer ${props.token}`,
+  //             'Content-Type': 'application/json'
+  //           }
+  //         }
+  //       )
+  //       .then(res => {
+  //         setLikes(res.data.data.length);
+  //         setUserLiked(true);
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //       });
+  //   }
+  // };
 
-  const deleteLike = (campId, updateId) => {
-    if (updateId) {
-      axios
-        .delete(
-          `${seturl}social/update/${data.update_id}/${props.currentUserProfile.id}`,
-          {
-            headers: {
-              Accept: 'application/json',
-              Authorization: `Bearer ${props.token}`,
-              'Content-Type': 'application/json'
-            }
-          }
-        )
-        .then(res => {
-          setLikes(likes - 1);
-          setUserLiked(false);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    } else {
-      axios
-        .delete(
-          `${seturl}social/likes/${campId}/${props.currentUserProfile.id}`,
-          {
-            headers: {
-              Accept: 'application/json',
-              Authorization: `Bearer ${props.token}`,
-              'Content-Type': 'application/json'
-            }
-          }
-        )
-        .then(res => {
-          setLikes(likes - 1);
-          setUserLiked(false);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-  };
+  // const deleteLike = (campId, updateId) => {
+  //   if (updateId) {
+  //     axios
+  //       .delete(
+  //         `${seturl}social/update/${data.update_id}/${props.currentUserProfile.id}`,
+  //         {
+  //           headers: {
+  //             Accept: 'application/json',
+  //             Authorization: `Bearer ${props.token}`,
+  //             'Content-Type': 'application/json'
+  //           }
+  //         }
+  //       )
+  //       .then(res => {
+  //         setLikes(likes - 1);
+  //         setUserLiked(false);
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //       });
+  //   } else {
+  //     axios
+  //       .delete(
+  //         `${seturl}social/likes/${campId}/${props.currentUserProfile.id}`,
+  //         {
+  //           headers: {
+  //             Accept: 'application/json',
+  //             Authorization: `Bearer ${props.token}`,
+  //             'Content-Type': 'application/json'
+  //           }
+  //         }
+  //       )
+  //       .then(res => {
+  //         setLikes(likes - 1);
+  //         setUserLiked(false);
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //       });
+  //   }
+  // };
 
-  const addBookmark = () => {
-    axios
-      .post(
-        `${seturl}social/bookmark/${data.camp_id}`,
-        {
-          users_id: props.currentUserProfile.id,
-          camp_id: data.camp_id
-        },
-        {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${props.token}`,
-            'Content-Type': 'application/json'
-          }
-        }
-      )
-      .then(res => {
-        setUserBookmarked(true);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+  // const addBookmark = () => {
+  //   axios
+  //     .post(
+  //       `${seturl}social/bookmark/${data.camp_id}`,
+  //       {
+  //         users_id: props.currentUserProfile.id,
+  //         camp_id: data.camp_id
+  //       },
+  //       {
+  //         headers: {
+  //           Accept: 'application/json',
+  //           Authorization: `Bearer ${props.token}`,
+  //           'Content-Type': 'application/json'
+  //         }
+  //       }
+  //     )
+  //     .then(res => {
+  //       setUserBookmarked(true);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // };
 
-  const deleteBookmark = () => {
-    axios
-      .delete(
-        `${seturl}social/bookmark/${data.camp_id}/${props.currentUserProfile.id}`,
-        {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${props.token}`,
-            'Content-Type': 'application/json'
-          }
-        }
-      )
-      .then(res => {
-        setUserBookmarked(false);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+  // const deleteBookmark = () => {
+  //   axios
+  //     .delete(
+  //       `${seturl}social/bookmark/${data.camp_id}/${props.currentUserProfile.id}`,
+  //       {
+  //         headers: {
+  //           Accept: 'application/json',
+  //           Authorization: `Bearer ${props.token}`,
+  //           'Content-Type': 'application/json'
+  //         }
+  //       }
+  //     )
+  //     .then(res => {
+  //       setUserBookmarked(false);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // };
 
   return (
     <View style={styles.container}>
-    
       <ListItem
         onPress={goToProfile}
         title={
@@ -348,7 +347,7 @@ const FeedCampaign = props => {
               ) : null}
               {loader ? (
                 <View style={styles.indicator}>
-                  <ActivityIndicator size="large" color="#00FF9D" />
+                  <ActivityIndicator size='large' color='#00FF9D' />
                 </View>
               ) : null}
               {props.isFocused ? (
@@ -362,7 +361,7 @@ const FeedCampaign = props => {
                   isMuted={false}
                   shouldPlay={true}
                   isLooping
-                  resizeMode="cover"
+                  resizeMode='cover'
                   onPlaybackStatusUpdate={onPlaybackStatusUpdate}
                   style={styles.campImgContain}
                 />
@@ -507,12 +506,9 @@ const mapStateToProps = state => ({
   currentUser: state.currentUser,
   token: state.token
 });
-export default connect(
-  mapStateToProps,
-  {
-    getProfileData,
-    getCampaign,
-    toggleCampaignText
-  }
-)(withNavigationFocus(FeedCampaign));
+export default connect(mapStateToProps, {
+  getProfileData,
+  getCampaign,
+  toggleCampaignText
+})(withNavigationFocus(FeedCampaign));
 // withNavigationFocus unmounts video and prevents audio playing across the navigation stack
