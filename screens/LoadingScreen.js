@@ -1,8 +1,6 @@
 import React from "react";
 import {
-  Text,
   View,
-  Image,
   Alert,
   ActivityIndicator,
   ImageBackground
@@ -163,11 +161,11 @@ class LoadingScreen extends React.Component {
       <>
         {/* {this.getAirtable()} */}
         <ImageBackground
-          source={require('../assets/images/splash.png')}
+          source={require("../assets/images/splash.png")}
           style={styles.container}
         >
           <View style={styles.indicator}>
-            <ActivityIndicator size='large' color='white' />
+            <ActivityIndicator size="large" color="white" />
           </View>
         </ImageBackground>
       </>

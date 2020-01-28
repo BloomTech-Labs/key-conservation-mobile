@@ -13,7 +13,6 @@ export default VerifyDocumentationScreen = props => {
     email: null,
     result: null,
     airtableState: null,
-    key: null,
     checked: false
   });
 
@@ -21,8 +20,9 @@ export default VerifyDocumentationScreen = props => {
     getState();
   }, []);
 
+  const key = props.navigation.getParam("airtableKey", "defaultValue");
+
   getState = async () => {
-    const key = props.navigation.getParam("airtableKey", "defaultValue");
     const email = await SecureStore.getItemAsync("email", {});
     const airtableState = props.navigation.getParam(
       "airtableStateAdd",
@@ -31,7 +31,6 @@ export default VerifyDocumentationScreen = props => {
     setState({
       ...state,
       airtableState: airtableState,
-      key: key,
       email: email
     });
   };
@@ -52,9 +51,9 @@ export default VerifyDocumentationScreen = props => {
   }; // This opens up the in-app browser for 'Table 2' submission. This is required because the Airtable API doesnt allow for non-URL image uploads.
 
   getAirtable = () => {
-    console.log(state.key);
+    console.log(key);
     var Airtable = require("airtable");
-    var base = new Airtable({ apiKey: state.key }).base("appbPeeXUSNCQWwnQ");
+    var base = new Airtable({ apiKey: key }).base("appbPeeXUSNCQWwnQ");
     console.log("VerifyDocumentation getAirtable activated");
     base("Table 2")
       .select({
@@ -87,7 +86,7 @@ export default VerifyDocumentationScreen = props => {
   navigate = () => {
     props.navigation.navigate("ReviewYourInfo", {
       airtableStateAdd: state.airtableState,
-      airtableKey: state.key
+      airtableKey: key
     });
   };
 
