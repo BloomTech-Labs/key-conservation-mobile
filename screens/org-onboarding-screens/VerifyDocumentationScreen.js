@@ -24,6 +24,7 @@ export default VerifyDocumentationScreen = props => {
 
   getState = async () => {
     const email = await SecureStore.getItemAsync("email", {});
+    console.log(email)
     const airtableState = props.navigation.getParam(
       "airtableStateAdd",
       "defaultValue"
