@@ -267,6 +267,34 @@ const MySupProStack = createStackNavigator(
   }
 );
 
+const SupProStack = createStackNavigator(
+  {
+    SupPro: { screen: SupProScreen }
+  },
+  {
+    transitionConfig: () => ({
+      transitionSpec: {
+        duration: 0
+      }
+    }),
+    navigationOptions: {
+      tabBarLabel: "Some user's Profile",
+      tabBarIcon: ({ focused }) => (
+        <SvgUri
+          fill="#3b3b3b"
+          width="25"
+          height="25"
+          source={
+            focused
+              ? require("../assets/icons/user-fill.svg")
+              : require("../assets/icons/user.svg")
+          }
+        />
+      )
+    }
+  }
+);
+
 export const UsernameStack = createStackNavigator({
   Username: {
     screen: UsernameScreen,
