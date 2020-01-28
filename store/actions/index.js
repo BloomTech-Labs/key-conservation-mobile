@@ -703,3 +703,32 @@ export const setMapSearchQuery = (query, field) => async dispatch => {
         payload: {query, field}
       })
 }
+
+export const [
+GET_REPORTS_START,
+GET_REPORTS_SUCCESS,
+GET_REPORTS_ERROR,
+] = ["GET_REPORTS_START",
+  "GET_REPORTS_SUCCESS",
+  "GET_REPORTS_ERROR"]
+
+export const getReports = () => async dispatch => {
+dispatch({ type: GET_REPORTS_START})
+
+let url = `${seturl}reports`
+  const token = await SecureStore.getItemAsync("accessToken", {});
+  return axios
+      .get(url, {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }})
+      .then(response => {
+         // console.log("response.data ", response.data )
+           dispatch({ type: GET_REPORTS_SUCCESS, payload: response.data })
+        })
+      .catch(error => {
+        dispatch({ type: GET_REPORTS_ERROR, payload: error.message })
+      })
+}
