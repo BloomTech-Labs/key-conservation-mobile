@@ -4,7 +4,7 @@ Current version: 4.1.0. This app is in Beta for iOS and Android.
 
 [Key Conservation PVD](https://www.notion.so/Key-Conservation-9de81dcdeca546ba85509f2982d211cc)
 
-Check out what we are working on. [Trello Board](https://trello.com/b/cUouSxH7/key-conservation-labs-20)
+[Trello Board](https://trello.com/b/cUouSxH7/key-conservation-labs-20)
 
 # Contributors
 
