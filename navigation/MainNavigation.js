@@ -44,6 +44,9 @@ import WideMapScreen from "../screens/maps/WideMapScreen";
 import LogoutScreen from "../screens/LogoutScreen";
 import ToExpectNextScreen from "../screens/org-onboarding-screens/ToExpectNextScreen";
 
+import GlobeFill from "../assets/icons/globe-fill.svg";
+import Globe from "../assets/icons/globe.svg";
+
 export const OrgOnboardStack = createStackNavigator(
   {
     HeyThere: HeyThereScreen,
@@ -75,17 +78,18 @@ const MapStack = createStackNavigator(
     navigationOptions: {
       tabBarLabel: "Map",
       tabBarIcon: ({ focused }) => (
-        <SvgUri
-          fill="#3b3b3b"
-          width="25"
-          height="25"
-          source={
-            focused
-              ? require("../assets/icons/globe-fill.svg")
-              : require("../assets/icons/globe.svg")
-            // require("../assets/icons/globe.svg")
-          }
-        />
+        <Globe />
+        // <SvgUri
+        //   fill="#3b3b3b"
+        //   width="25"
+        //   height="25"
+        //   source={
+        //     focused
+        //       ? require("../assets/icons/globe-fill.svg")
+        //       : require("../assets/icons/globe.svg")
+        //     // require("../assets/icons/globe.svg")
+        //   }
+        // />
       )
     }
   }
