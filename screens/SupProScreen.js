@@ -15,19 +15,18 @@ const SupProScreen = props => {
 
   return (
     <View>
-      <SupProfileHeader
-        // navigation={navigation}
-        profile={props.selectedProfile}
-      />
+      <SupProfileHeader profile={props.selectedProfile} />
       <SupProfileBody profile={props.selectedProfile} />
     </View>
   );
 };
 
 SupProScreen.navigationOptions = navigationData => {
+  const username = navigationData.navigation.getParam("username");
+
   return {
-    headerTitle: "Test title",
-    // headerLeft: () => <BackButton />,
+    headerTitle: username,
+    headerLeft: () => <BackButton />,
     headerStyle: {
       backgroundColor: "#323338"
     },
@@ -41,47 +40,6 @@ SupProScreen.navigationOptions = navigationData => {
     headerRight: () => <View />
   };
 };
-
-// class SupProScreen extends React.Component {
-// static navigationOptions = ({ navigation }) => {
-//   return {
-//     title: `${this.props.selectedProfile.username}'s Profile`,
-//     headerLeft: <BackButton navigation={navigation} />,
-//     headerStyle: {
-//       backgroundColor: "#323338"
-//     },
-//     headerTintColor: "#fff",
-//     headerTitleStyle: {
-//       textAlign: "center",
-//       flexGrow: 1,
-//       alignSelf: "center",
-//       fontFamily: "Lato-Bold"
-//     },
-//     headerRight: <View />
-//   };
-// };
-
-// componentDidMount() {
-//   this.props.getProfileData(
-//     this.props.selectedProfile.id,
-//     false,
-//     "myProfile"
-//   );
-// }
-
-//   render() {
-//     const { navigation } = this.props;
-//     return (
-//       <Viewport.Tracker>
-//         <SupProfileHeader
-//           navigation={navigation}
-//           profile={this.props.selectedProfile}
-//         />
-//         <SupProfileBody profile={this.props.selectedProfile} />
-//       </Viewport.Tracker>
-//     );
-//   }
-// }
 
 const mapStateToProps = state => ({
   selectedProfile: state.selectedProfile

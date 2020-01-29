@@ -164,7 +164,9 @@ const FeedCampaign = props => {
     let users_id = data.comments[0].users_id;
     await dispatch(getProfileData(users_id)); // this goes to the store. What does it do?
     //? How does the users_id get to the SupPro screen??
-    props.navigation.navigate("SupPro");
+    props.navigation.navigate("SupPro", {
+      username: data.comments[0].username
+    });
   };
 
   const goToCampaign = async () => {
