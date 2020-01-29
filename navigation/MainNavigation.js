@@ -147,8 +147,10 @@ const FeedStack = createStackNavigator(
       }
     },
     Camp: ViewCampScreen,
-    CampUpdate: ViewCampUpdateScreen
+    CampUpdate: ViewCampUpdateScreen,
+    SupPro: SupProScreen
   },
+
   {
     navigationOptions: {
       tabBarLabel: "Feed",
@@ -251,34 +253,6 @@ const MySupProStack = createStackNavigator(
     }),
     navigationOptions: {
       tabBarLabel: "My Profile",
-      tabBarIcon: ({ focused }) => (
-        <SvgUri
-          fill="#3b3b3b"
-          width="25"
-          height="25"
-          source={
-            focused
-              ? require("../assets/icons/user-fill.svg")
-              : require("../assets/icons/user.svg")
-          }
-        />
-      )
-    }
-  }
-);
-
-const SupProStack = createStackNavigator(
-  {
-    SupPro: { screen: SupProScreen }
-  },
-  {
-    transitionConfig: () => ({
-      transitionSpec: {
-        duration: 0
-      }
-    }),
-    navigationOptions: {
-      tabBarLabel: "Some user's Profile",
       tabBarIcon: ({ focused }) => (
         <SvgUri
           fill="#3b3b3b"
