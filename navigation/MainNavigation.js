@@ -1,15 +1,7 @@
-<<<<<<< HEAD
 import React from 'react';
-import {
-  createStackNavigator,
-  createBottomTabNavigator
-} from 'react-navigation';
-=======
-import React from "react";
-import { createBottomTabNavigator } from "react-navigation-tabs";
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 
-import { createStackNavigator } from "react-navigation-stack";
->>>>>>> c1501456fb7bfe05ecbcc7095a77a7d71c4ca0cc
+import { createStackNavigator } from 'react-navigation-stack';
 
 import CanScreen from '../screens/org-onboarding-screens/CanScreen';
 import CantScreen from '../screens/org-onboarding-screens/CantScreen';
