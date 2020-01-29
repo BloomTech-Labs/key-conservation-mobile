@@ -26,7 +26,7 @@ SupProScreen.navigationOptions = navigationData => {
 
   return {
     headerTitle: username,
-    headerLeft: () => <BackButton />,
+    headerLeft: () => <BackButton navigation={navigationData.navigation} />,
     headerStyle: {
       backgroundColor: "#323338"
     },
