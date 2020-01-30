@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Modal,
   Text,
@@ -6,6 +6,7 @@ import {
   View,
   StyleSheet
 } from "react-native";
+import SvgUri from "react-native-svg-uri";
 
 const ConservationOptimismModal = props => {
   return (
@@ -18,19 +19,24 @@ const ConservationOptimismModal = props => {
       <View style={styles.background}>
         <View style={styles.modal}>
           <TouchableHighlight
-            style={{ alignItems: "flex-end" }}
+            style={{ alignItems: "flex-end", marginBottom: 15 }}
             onPress={() => {
               props.setIsModalVisible(false);
             }}
           >
-            <Text>X</Text>
+            <SvgUri
+              fill="#3b3b3b"
+              width="31"
+              height="31"
+              source={require("../assets/icons/x.svg")}
+            />
           </TouchableHighlight>
-          <Text style={{ fontSize: 16, marginBottom: 15 }}>
+          <Text style={styles.text}>
             Practicing Conservation Optimism means that you will help promote
             messages of hope instead of negativity while using the Key
             Conservation app.
           </Text>
-          <Text style={{ fontSize: 16 }}>
+          <Text style={styles.text}>
             We know there will be trying days and bad things will happen but we
             can still be hopeful that we can make a difference. This means you
             will be honest about what is happening in your posts but you will
@@ -56,6 +62,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20
+  },
+  text: {
+    fontSize: 16,
+    marginBottom: 15
   }
 });
 
