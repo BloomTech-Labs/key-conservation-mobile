@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 19170,
+  "packagerPort": 19003,
+  "packagerPid": 34899,
   "expoServerNgrokUrl": "https://ug-67k.rmoumneh.keycons.exp.direct",
   "packagerNgrokUrl": "https://packager.ug-67k.rmoumneh.keycons.exp.direct",
-  "ngrokPid": 19181
+  "ngrokPid": 34919
 }
