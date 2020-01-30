@@ -101,7 +101,7 @@ class ViewCampScreen extends React.Component {
           <KeyboardAvoidingView
             enabled
             keyboardVerticalOffset={86}
-            behavior='height'
+            behavior="height"
           >
             <Viewport.Tracker>
               <ScrollView>
@@ -130,7 +130,7 @@ class ViewCampScreen extends React.Component {
                       rate={1.0}
                       volume={1.0}
                       useNativeControls={true}
-                      resizeMode='cover'
+                      resizeMode="cover"
                       style={styles.campImgContain}
                     />
                   ) : (
@@ -234,14 +234,14 @@ class ViewCampScreen extends React.Component {
                     <Text style={styles.timeText}>{timeDiff}</Text>
                   </View>
                   <View style={styles.commentsView}>
-                    <CommentsView />
+                    <CommentsView  />
                   </View>
                   <View style={styles.donateView}>
                     <View style={styles.campMission}>
                       <SvgUri
-                        fill='#3b3b3b'
-                        width='25'
-                        height='25'
+                        fill="#3b3b3b"
+                        width="25"
+                        height="25"
                         source={require("../assets/icons/hand.svg")}
                       />
                       <Text style={styles.supportMissionText}>
@@ -322,7 +322,7 @@ class ViewCampScreen extends React.Component {
                       volume={1.0}
                       isMuted={true}
                       useNativeControls={true}
-                      resizeMode='cover'
+                      resizeMode="cover"
                       style={styles.campImgContain}
                     />
                   ) : (
@@ -431,9 +431,9 @@ class ViewCampScreen extends React.Component {
                   <View style={styles.donateView}>
                     <View style={styles.campMission}>
                       <SvgUri
-                        fill='#3b3b3b'
-                        width='25'
-                        height='25'
+                        fill="#3b3b3b"
+                        width="25"
+                        height="25"
                         source={require("../assets/icons/hand.svg")}
                       />
                       <Text style={styles.supportMissionText}>
@@ -538,7 +538,4 @@ const mapStateToProps = state => ({
   token: state.token
 });
 
-export default connect(
-  mapStateToProps,
-  { getProfileData }
-)(ViewCampScreen);
+export default connect(mapStateToProps, { getProfileData })(ViewCampScreen);
