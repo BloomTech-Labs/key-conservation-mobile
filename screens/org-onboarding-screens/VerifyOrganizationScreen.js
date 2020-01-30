@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  StyleSheet,
   Button,
   Switch,
   Text,
@@ -9,11 +8,13 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
-  Alert
+  Alert,
+  TouchableHighlight
 } from "react-native";
 import styles from "../../constants/screens/org-onboarding-styles/VerifyOrg.js";
 import ConservationOptimismModal from "../../components/ConservationOptimismModal";
 import * as SecureStore from "expo-secure-store";
+import SvgUri from "react-native-svg-uri";
 
 const VerifyOrganizationScreen = props => {
   const [airtableState, onChangeText] = useState({
@@ -131,10 +132,20 @@ const VerifyOrganizationScreen = props => {
             value={airtableState.affiliations_partnerships}
             placeholder="Partnership 1, Partnership 2, etc."
           />
+
           <Text style={styles.obFieldName}>
             Will you join us in Conservation Optimism?
+            <TouchableHighlight onPress={() => setIsModalVisible(true)}>
+              <SvgUri
+                style={{ marginLeft: 10, marginTop: 3 }}
+                fill="#3b3b3b"
+                width="18"
+                height="18"
+                source={require("../../assets/icons/question-circle.svg")}
+              />
+            </TouchableHighlight>
           </Text>
-          <Button title="show modal" onPress={() => setIsModalVisible(true)} />
+
           <ConservationOptimismModal
             setIsModalVisible={setIsModalVisible}
             isModalVisible={isModalVisible}
