@@ -1,9 +1,10 @@
 {
-  "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19003,
-  "packagerPid": 34899,
-  "expoServerNgrokUrl": "https://ug-67k.rmoumneh.keycons.exp.direct",
-  "packagerNgrokUrl": "https://packager.ug-67k.rmoumneh.keycons.exp.direct",
-  "ngrokPid": 34919
+  "devToolsPort": 19003,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
+  "webpackServerPort": null
 }
