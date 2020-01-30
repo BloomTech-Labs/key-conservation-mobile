@@ -2,15 +2,13 @@ import React, { useState } from "react";
 import { Modal, Text, TouchableHighlight, View, Alert } from "react-native";
 
 const ConservationOptimismModal = props => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
   return (
     <View style={{ marginTop: 22 }}>
       <Modal
         animationType="slide"
         transparent={false}
-        visible={isModalVisible}
-        onRequestClose={() => setIsModalVisible(false)}
+        visible={props.isModalVisible}
+        onRequestClose={() => props.setIsModalVisible(false)}
       >
         <View style={{ marginTop: 22 }}>
           <View>
@@ -27,7 +25,7 @@ const ConservationOptimismModal = props => {
 
             <TouchableHighlight
               onPress={() => {
-                setIsModalVisible(false);
+                props.setIsModalVisible(false);
               }}
             >
               <Text>X</Text>
