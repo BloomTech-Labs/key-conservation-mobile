@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ImageBackground
 } from "react-native";
-import SvgUri  from "react-native-svg-uri";
+import SvgUri from "react-native-svg-uri";
 
 import { useSelector, useDispatch } from "react-redux";
 import { AuthSession } from "expo";
@@ -19,8 +19,6 @@ import {
   loginSuccess,
   getProfileData
 } from "../store/actions";
-
-
 
 import * as SecureStore from "expo-secure-store";
 import Axios from "axios";
@@ -220,18 +218,17 @@ export default LoginScreen = props => {
           <Text style={styles.buttonText}>My organization needs help</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.iconContainer}>
-      <TouchableOpacity
-                  style={{ padding: 0, padding: 0 }}
-                   onPress={() => navigation.navigate("Animals")}
-                >
-                  <SvgUri
-                    width="31"
-                    height="31"
-                    source={require("../assets/icons/envelope.svg")}
-                    //source={require("../assets/icons/Key_Info_Green.svg")}
-                  />
-                </TouchableOpacity>
+      <View style={styles.aboutIconContainer}>
+        <TouchableOpacity onPress={() => navigation.navigate("Animals")}>
+          <SvgUri
+            style={styles.aboutIcon}
+            fill={"#6fee93"}
+            width="31"
+            height="31"
+            source={require("../assets/icons/envelope.svg")}
+            //source={require("../assets/icons/Key_Info_Green.svg")}
+          />
+        </TouchableOpacity>
       </View>
     </ImageBackground>
   );
@@ -326,8 +323,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
-  iconContainer: {
-    borderColor: "red",
-    borderWidth: 1
+  aboutIconContainer: {
+    width: 375,
+    height: "7.9%"
+  },
+  aboutIcon: {
+    height: "100%",
+    justifyContent: "center",
+    padding: 15
   }
 });
