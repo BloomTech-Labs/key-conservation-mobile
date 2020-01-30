@@ -21,6 +21,12 @@ import {
 
 import * as SecureStore from 'expo-secure-store';
 import Axios from 'axios';
+
+// url for heroku staging vs production server
+// production
+//const seturl = 'https://key-conservation.herokuapp.com/api/'
+// staging
+const seturl = "https://key-conservation-staging.herokuapp.com/api/";
 /*
  Converts an object to a query string to be used by the request to auth0 via the dashboard application
 */
@@ -154,7 +160,7 @@ export default LoginScreen = props => {
     } else {
       console.log('getEnVar activated');
       const token = await SecureStore.getItemAsync('accessToken', {});
-      Axios.get('https://key-conservation.herokuapp.com/api/airtable', {
+      Axios.get('${seturl}airtable', {
         headers: {
           Accept: 'application/json',
           Authorization: `Bearer ${token}`,

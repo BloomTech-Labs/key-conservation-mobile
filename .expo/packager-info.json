@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": "https://ug-67k.katiefelten.key-conservation-mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.ug-67k.katiefelten.key-conservation-mobile.exp.direct",
-  "ngrokPid": 38578
+  "expoServerPort": 19000,
+  "packagerPort": 19008,
+  "packagerPid": 43671,
+  "expoServerNgrokUrl": "https://ug-67k.arizephyr123.key-conservation-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.ug-67k.arizephyr123.key-conservation-mobile.exp.direct",
+  "ngrokPid": 43701
 }
