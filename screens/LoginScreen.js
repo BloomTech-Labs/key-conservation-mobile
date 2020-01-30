@@ -225,8 +225,8 @@ export default LoginScreen = props => {
             fill={"#6fee93"}
             width="31"
             height="31"
-            source={require("../assets/icons/envelope.svg")}
-            //source={require("../assets/icons/Key_Info_Green.svg")}
+            //source={require("../assets/icons/twitter.svg")}
+            source={require("../assets/icons/Key_Info_Green_copy.svg")}
           />
         </TouchableOpacity>
       </View>
