@@ -4,12 +4,16 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  Modal,
+  Alert,
+  TouchableHighlight
 } from "react-native";
 
 import AnimalCard from "./AnimalCard";
 
 const Animals = props => {
+  const [modalVisible, setModalVisible] = useState(false);
   const animalData = [
     {
       image: "../../assets/images/africanelephant.png",
@@ -28,7 +32,7 @@ const Animals = props => {
     }
   ];
   return (
-    <View style={styles.container}>
+    <View style={styles.modalContainer}>
       <Text style={styles.title}>
         Click to learn more about these beautiful Animals!
       </Text>
