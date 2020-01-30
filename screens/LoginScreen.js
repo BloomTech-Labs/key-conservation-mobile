@@ -20,6 +20,8 @@ import {
   getProfileData
 } from "../store/actions";
 
+
+
 import * as SecureStore from "expo-secure-store";
 import Axios from "axios";
 
@@ -221,7 +223,7 @@ export default LoginScreen = props => {
       <View style={styles.iconContainer}>
       <TouchableOpacity
                   style={{ padding: 0, padding: 0 }}
-                  // onPress={() => this.props.navigation.navigate("EditPro")}
+                   onPress={() => navigation.navigate("Animals")}
                 >
                   <SvgUri
                     width="31"
