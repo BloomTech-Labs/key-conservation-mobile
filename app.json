@@ -36,11 +36,6 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.kc.keyconservation"
     },
-    "packagerOpts": {
-      "config": "metro.config.js",
-      "sourceExts": ["js", "jsx", "ts", "tsx", "svg"],
-      "transformer": "node_modules/react-native-svg-transformer/index.js"
-    },
     "description": "The Key Conservation App\n\nVersion 3.2.1",
     "githubUrl": "https://github.com/labs14-key-conservation/Frontend-Mobile"
   }
