@@ -27,7 +27,7 @@ import Comment from "./Comment";
 import styles from "../../constants/Comments/Comments";
 
 // url for heroku staging vs production server
-const seturl = 'https://key-conservation.herokuapp.com/api/';
+const seturl = "https://key-conservation.herokuapp.com/api/";
 
 // If you check out the actions and reducer, you'll see we have a commentOnCampaign action. Despite that, we simply could not trigger a re-render and decided to use
 // axios calls in the component itself. We presume this issue has something to do with the ansychronous nature of what's happening, but...
@@ -64,7 +64,7 @@ class CommentsView extends React.Component {
     ) {
       return (
         <View style={styles.indicator}>
-          <ActivityIndicator size='large' color='#00FF9D' />
+          <ActivityIndicator size="large" color="#00FF9D" />
         </View>
       );
     }
@@ -150,7 +150,7 @@ class CommentsView extends React.Component {
             </View>
             <View style={styles.inputWrapper}>
               <TextInput
-                placeholder='Be a part of the conversation...'
+                placeholder="Be a part of the conversation..."
                 onChangeText={text =>
                   this.setState({ comment: text, latestComment: text })
                 }
@@ -165,13 +165,13 @@ class CommentsView extends React.Component {
                 ref={input => {
                   this.commentInput = input;
                 }}
-                returnKeyType='next'
+                returnKeyType="next"
               />
               {this.state.comment === null || this.state.comment === "" ? (
                 <TouchableOpacity style={styles.commentButton}>
                   <SvgUri
-                    width='26'
-                    height='26'
+                    width="26"
+                    height="26"
                     source={require("../../assets/icons/inactive_comment.svg")}
                   />
                 </TouchableOpacity>
@@ -181,8 +181,8 @@ class CommentsView extends React.Component {
                   onPress={() => this.makeComment()}
                 >
                   <SvgUri
-                    width='26'
-                    height='26'
+                    width="26"
+                    height="26"
                     source={require("../../assets/icons/active_comment.svg")}
                   />
                 </TouchableOpacity>
@@ -274,7 +274,8 @@ const mapStateToProps = state => ({
   token: state.token
 });
 
-export default connect(
-  mapStateToProps,
-  { commentOnCampaign, deleteComment, getCampaign }
-)(CommentsView);
+export default connect(mapStateToProps, {
+  commentOnCampaign,
+  deleteComment,
+  getCampaign
+})(CommentsView);
