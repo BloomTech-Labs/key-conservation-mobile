@@ -95,7 +95,7 @@ export default LoginScreen = props => {
       }
     };
 
-    //dynamicly navigating the proper routes on the auth0 app
+    //dynamically navigating the proper routes on the auth0 app
     // the domain url is found in the Auth0 dashboard at applications -> select App -> settings -> Domain
     const domain = "https://key-conservation.auth0.com";
     const authUrl = `${domain}/authorize` + queryParams();
@@ -219,14 +219,14 @@ export default LoginScreen = props => {
         </TouchableOpacity>
       </View>
       <View style={styles.aboutIconContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate("Animals")}>
+        <TouchableOpacity onPress={() => navigation.navigate("AnimalModal")}>
           <SvgUri
             style={styles.aboutIcon}
-            fill={"#6fee93"}
+            fill={"#00F48A"}
             width="31"
             height="31"
-            //source={require("../assets/icons/twitter.svg")}
-            source={require("../assets/icons/Key_Info_Green_copy.svg")}
+            source={require("../assets/icons/twitter.svg")}
+            //source={require("../assets/icons/Key_Info_Green_copy.svg")}
           />
         </TouchableOpacity>
       </View>

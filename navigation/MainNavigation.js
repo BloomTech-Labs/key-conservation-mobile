@@ -43,7 +43,7 @@ import WideMapScreen from "../screens/maps/WideMapScreen";
 
 import LogoutScreen from "../screens/LogoutScreen";
 import ToExpectNextScreen from "../screens/org-onboarding-screens/ToExpectNextScreen";
-import Animals from "../components/Animals/Animals"
+import AnimalModal from "../components/Animals/AnimalModal"
 
 export const OrgOnboardStack = createStackNavigator(
   {
@@ -286,7 +286,7 @@ export const UsernameStack = createStackNavigator({
 });
 
 export const LoginStack = createStackNavigator(
-  { Login: LoginScreen, Animals: Animals },
+  { Login: LoginScreen, AnimalModal: AnimalModal },
   {
     headerMode: "none"
   }
