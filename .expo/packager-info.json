@@ -3,8 +3,8 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerNgrokUrl": "https://3p-qtp.jasminekh96.key-conservation-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.3p-qtp.jasminekh96.key-conservation-mobile.exp.direct",
+  "ngrokPid": 9155,
   "webpackServerPort": null
 }
