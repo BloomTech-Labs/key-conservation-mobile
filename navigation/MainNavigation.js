@@ -1,49 +1,50 @@
-import React from 'react';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import React from "react";
+import { createBottomTabNavigator } from "react-navigation-tabs";
 
-import { createStackNavigator } from 'react-navigation-stack';
+import { createStackNavigator } from "react-navigation-stack";
 
-import CanScreen from '../screens/org-onboarding-screens/CanScreen';
-import CantScreen from '../screens/org-onboarding-screens/CantScreen';
-import HeyThereScreen from '../screens/org-onboarding-screens/HeyThereScreen';
-import KeyConservationScreen from '../screens/org-onboarding-screens/KeyConservationScreen';
-import MakeAccountScreen from '../screens/org-onboarding-screens/MakeAccountScreen';
-import TellAboutOrganizationScreen from '../screens/org-onboarding-screens/TellAboutOrganizationScreen';
-import ToExpectScreen from '../screens/org-onboarding-screens/ToExpectScreen';
-import ToExpectNext from '../screens/org-onboarding-screens/ToExpectNextScreen';
-import VerifyDocumentationScreen from '../screens/org-onboarding-screens/VerifyDocumentationScreen';
-import VerifyOrganizationScreen from '../screens/org-onboarding-screens/VerifyOrganizationScreen';
-import AlmostDone from '../screens/org-onboarding-screens/AlmostDoneScreen';
-import ThankYouScreen from '../screens/org-onboarding-screens/ThankYouScreen';
-import ReviewYourInfoScreen from '../screens/org-onboarding-screens/ReviewYourInfoScreen';
-import OrganizationSurveyScreen from '../screens/org-onboarding-screens/OrganizationSurveyScreen';
-import ToExpectNextCreateProfileScreen from '../screens/org-onboarding-screens/ToExpectNextCreateProfileScreen';
+import CanScreen from "../screens/org-onboarding-screens/CanScreen";
+import CantScreen from "../screens/org-onboarding-screens/CantScreen";
+import HeyThereScreen from "../screens/org-onboarding-screens/HeyThereScreen";
+import KeyConservationScreen from "../screens/org-onboarding-screens/KeyConservationScreen";
+import MakeAccountScreen from "../screens/org-onboarding-screens/MakeAccountScreen";
+import TellAboutOrganizationScreen from "../screens/org-onboarding-screens/TellAboutOrganizationScreen";
+import ToExpectScreen from "../screens/org-onboarding-screens/ToExpectScreen";
+import ToExpectNext from "../screens/org-onboarding-screens/ToExpectNextScreen";
+import VerifyDocumentationScreen from "../screens/org-onboarding-screens/VerifyDocumentationScreen";
+import VerifyOrganizationScreen from "../screens/org-onboarding-screens/VerifyOrganizationScreen";
+import AlmostDone from "../screens/org-onboarding-screens/AlmostDoneScreen";
+import ThankYouScreen from "../screens/org-onboarding-screens/ThankYouScreen";
+import ReviewYourInfoScreen from "../screens/org-onboarding-screens/ReviewYourInfoScreen";
+import OrganizationSurveyScreen from "../screens/org-onboarding-screens/OrganizationSurveyScreen";
+import ToExpectNextCreateProfileScreen from "../screens/org-onboarding-screens/ToExpectNextCreateProfileScreen";
 
-import FeedScreen from '../screens/FeedScreen';
-import CreateCampScreen from '../screens/CreateCampScreen';
-import ProScreen from '../screens/ProScreen';
-import MyProScreen from '../screens/MyProScreen';
-import EditProScreen from '../screens/EditProScreen';
-import DetailScreen from '../screens/DetailScreen';
-import MyDetailScreen from '../screens/MyDetailScreen';
-import LocationScreen from '../screens/LocationScreen';
-import MySupProScreen from '../screens/MySupProScreen';
-import LoginScreen from '../screens/LoginScreen';
-import UsernameScreen from '../screens/UsernameScreen';
-import SvgUri from 'react-native-svg-uri';
-import SearchScreen from '../screens/SearchScreen';
-import ViewCampScreen from '../screens/ViewCampScreen';
-import EditCampScreen from '../screens/EditCampScreen';
-import EditSupProScreen from '../screens/EditSupProScreen';
-import ViewCampUpdateScreen from '../screens/ViewCampUpdateScreen';
-import CreateCampUpdateScreen from '../screens/CreateCampUpdateScreen';
-import EditCampUpdateScreen from '../screens/EditCampUpdateScreen';
-import AccountSettingsScreen from '../screens/AccountSettingsScreen';
-import WideMapScreen from '../screens/maps/WideMapScreen';
-import AdminReportScreen from '../screens/AdminReportScreen';
+import FeedScreen from "../screens/FeedScreen";
+import CreateCampScreen from "../screens/CreateCampScreen";
+import ProScreen from "../screens/ProScreen";
+import MyProScreen from "../screens/MyProScreen";
+import EditProScreen from "../screens/EditProScreen";
+import DetailScreen from "../screens/DetailScreen";
+import MyDetailScreen from "../screens/MyDetailScreen";
+import LocationScreen from "../screens/LocationScreen";
+import MySupProScreen from "../screens/MySupProScreen";
+import LoginScreen from "../screens/LoginScreen";
+import UsernameScreen from "../screens/UsernameScreen";
+import SvgUri from "react-native-svg-uri";
+import SearchScreen from "../screens/SearchScreen";
+import ViewCampScreen from "../screens/ViewCampScreen";
+import EditCampScreen from "../screens/EditCampScreen";
+import EditSupProScreen from "../screens/EditSupProScreen";
+import ViewCampUpdateScreen from "../screens/ViewCampUpdateScreen";
+import CreateCampUpdateScreen from "../screens/CreateCampUpdateScreen";
+import EditCampUpdateScreen from "../screens/EditCampUpdateScreen";
+import AccountSettingsScreen from "../screens/AccountSettingsScreen";
+import WideMapScreen from "../screens/maps/WideMapScreen";
+import AdminReportScreen from "../screens/AdminReportScreen";
+import ReportDetailScreen from "../screens/ReportDetailScreen";
 
-import LogoutScreen from '../screens/LogoutScreen';
-import ToExpectNextScreen from '../screens/org-onboarding-screens/ToExpectNextScreen';
+import LogoutScreen from "../screens/LogoutScreen";
+import ToExpectNextScreen from "../screens/org-onboarding-screens/ToExpectNextScreen";
 
 export const OrgOnboardStack = createStackNavigator(
   {
@@ -64,7 +65,7 @@ export const OrgOnboardStack = createStackNavigator(
     ToExpectNextCreateProfile: ToExpectNextCreateProfileScreen
   },
   {
-    headerMode: 'none'
+    headerMode: "none"
   }
 );
 
@@ -74,7 +75,7 @@ const MapStack = createStackNavigator(
   },
   {
     navigationOptions: {
-      tabBarLabel: 'Map',
+      tabBarLabel: "Map",
       tabBarIcon: ({ focused }) => (
         <SvgUri
           fill="#3b3b3b"
@@ -82,8 +83,8 @@ const MapStack = createStackNavigator(
           height="25"
           source={
             focused
-              ? require('../assets/icons/globe-fill.svg')
-              : require('../assets/icons/globe.svg')
+              ? require("../assets/icons/globe-fill.svg")
+              : require("../assets/icons/globe.svg")
             // require("../assets/icons/globe.svg")
           }
         />
@@ -104,45 +105,45 @@ const FeedStack = createStackNavigator(
     Pro: {
       screen: ProScreen,
       navigationOptions: {
-        title: 'Profile',
-        headerTintColor: '#fff',
+        title: "Profile",
+        headerTintColor: "#fff",
         headerTitleStyle: {
-          textAlign: 'center',
+          textAlign: "center",
           flexGrow: 1,
-          alignSelf: 'center'
+          alignSelf: "center"
         },
         headerStyle: {
-          backgroundColor: '#323338'
+          backgroundColor: "#323338"
         }
       }
     },
     Detail: {
       screen: DetailScreen,
       navigationOptions: {
-        title: 'Profile',
-        headerTintColor: '#fff',
+        title: "Profile",
+        headerTintColor: "#fff",
         headerTitleStyle: {
-          textAlign: 'center',
+          textAlign: "center",
           flexGrow: 1,
-          alignSelf: 'center'
+          alignSelf: "center"
         },
         headerStyle: {
-          backgroundColor: '#323338'
+          backgroundColor: "#323338"
         }
       }
     },
     Location: {
       screen: LocationScreen,
       navigationOptions: {
-        title: 'Profile',
-        headerTintColor: '#fff',
+        title: "Profile",
+        headerTintColor: "#fff",
         headerTitleStyle: {
-          textAlign: 'center',
+          textAlign: "center",
           flexGrow: 1,
-          alignSelf: 'center'
+          alignSelf: "center"
         },
         headerStyle: {
-          backgroundColor: '#323338'
+          backgroundColor: "#323338"
         }
       }
     },
@@ -151,7 +152,7 @@ const FeedStack = createStackNavigator(
   },
   {
     navigationOptions: {
-      tabBarLabel: 'Feed',
+      tabBarLabel: "Feed",
       tabBarIcon: ({ focused }) => (
         <SvgUri
           fill="#3b3b3b"
@@ -159,8 +160,8 @@ const FeedStack = createStackNavigator(
           height="25"
           source={
             focused
-              ? require('../assets/icons/home-fill.svg')
-              : require('../assets/icons/home.svg')
+              ? require("../assets/icons/home-fill.svg")
+              : require("../assets/icons/home.svg")
           }
         />
       )
@@ -179,7 +180,7 @@ const CreateCampStack = createStackNavigator(
   {
     navigationOptions: {
       headerLeft: null,
-      tabBarLabel: 'Create Campaign',
+      tabBarLabel: "Create Campaign",
       tabBarIcon: ({ focused }) => (
         <SvgUri
           fill="#3b3b3b"
@@ -187,14 +188,22 @@ const CreateCampStack = createStackNavigator(
           height="25"
           source={
             focused
-              ? require('../assets/icons/plus-fill.svg')
-              : require('../assets/icons/plus.svg')
+              ? require("../assets/icons/plus-fill.svg")
+              : require("../assets/icons/plus.svg")
           }
         />
       )
     }
   }
 );
+
+export const AdminReportStack = createStackNavigator({
+  AdminScreen: AdminReportScreen
+});
+
+export const ReportDetailStack = createStackNavigator({
+  ReportScreen: ReportDetailScreen
+})
 
 export const AccountSettingsStack = createStackNavigator({
   AccountSettings: AccountSettingsScreen
@@ -206,9 +215,8 @@ const MyProStack = createStackNavigator(
     MyDetail: { screen: MyDetailScreen },
     EditPro: {
       screen: EditProScreen,
-      navigationOptions: { title: 'Edit Profile' }
+      navigationOptions: { title: "Edit Profile" }
     },
-    AdminScreen: AdminReportScreen,
     Camp: ViewCampScreen,
     EditCamp: EditCampScreen,
     CampUpdate: ViewCampUpdateScreen,
@@ -222,7 +230,7 @@ const MyProStack = createStackNavigator(
       }
     }),
     navigationOptions: {
-      tabBarLabel: 'My Profile',
+      tabBarLabel: "My Profile",
       tabBarIcon: ({ focused }) => (
         <SvgUri
           fill="#3b3b3b"
@@ -230,8 +238,8 @@ const MyProStack = createStackNavigator(
           height="25"
           source={
             focused
-              ? require('../assets/icons/user-fill.svg')
-              : require('../assets/icons/user.svg')
+              ? require("../assets/icons/user-fill.svg")
+              : require("../assets/icons/user.svg")
           }
         />
       )
@@ -251,7 +259,7 @@ const SupProStack = createStackNavigator(
       }
     }),
     navigationOptions: {
-      tabBarLabel: 'My Profile',
+      tabBarLabel: "My Profile",
       tabBarIcon: ({ focused }) => (
         <SvgUri
           fill="#3b3b3b"
@@ -259,8 +267,8 @@ const SupProStack = createStackNavigator(
           height="25"
           source={
             focused
-              ? require('../assets/icons/user-fill.svg')
-              : require('../assets/icons/user.svg')
+              ? require("../assets/icons/user-fill.svg")
+              : require("../assets/icons/user.svg")
           }
         />
       )
@@ -273,14 +281,14 @@ export const UsernameStack = createStackNavigator({
     screen: UsernameScreen,
 
     navigationOptions: {
-      title: 'Sign Up',
+      title: "Sign Up",
       headerTitleStyle: {
         flex: 1,
-        textAlign: 'center',
-        color: 'white'
+        textAlign: "center",
+        color: "white"
       },
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: "#323338"
       }
     }
   }
@@ -289,14 +297,14 @@ export const UsernameStack = createStackNavigator({
 export const LoginStack = createStackNavigator(
   { Login: LoginScreen },
   {
-    headerMode: 'none'
+    headerMode: "none"
   }
 );
 
 export const LogoutStack = createStackNavigator(
   { Logout: LogoutScreen },
   {
-    headerMode: 'none'
+    headerMode: "none"
   }
 );
 
@@ -304,26 +312,26 @@ export const ConsNavigator = createBottomTabNavigator(
   {
     FeedStack: {
       screen: FeedStack,
-      path: '',
+      path: "",
       navigationOptions: {
         tabBarOnPress: ({ navigation, defaultHandler }) => {
-          navigation.navigate('Home'), defaultHandler();
+          navigation.navigate("Home"), defaultHandler();
         }
       }
     },
     MapStack: {
       screen: MapStack,
       tabBarOnPress: ({ navigation, defaultHandler }) => {
-        navigation.navigate('MapHome'), defaultHandler();
+        navigation.navigate("MapHome"), defaultHandler();
       }
     },
-    CreateCampStack: { screen: CreateCampStack, path: '' },
+    CreateCampStack: { screen: CreateCampStack, path: "" },
     MyProStack: {
       screen: MyProStack,
-      path: '',
+      path: "",
       navigationOptions: {
         tabBarOnPress: ({ navigation, defaultHandler }) => {
-          navigation.navigate('MyPro'), defaultHandler();
+          navigation.navigate("MyPro"), defaultHandler();
         }
       }
     }
@@ -340,25 +348,25 @@ export const SupNavigator = createBottomTabNavigator(
   {
     FeedStack: {
       screen: FeedStack,
-      path: '',
+      path: "",
       navigationOptions: {
         tabBarOnPress: ({ navigation, defaultHandler }) => {
-          navigation.navigate('Home'), defaultHandler();
+          navigation.navigate("Home"), defaultHandler();
         }
       }
     },
     MapStack: {
       screen: MapStack,
       tabBarOnPress: ({ navigation, defaultHandler }) => {
-        navigation.navigate('Home'), defaultHandler();
+        navigation.navigate("Home"), defaultHandler();
       }
     },
     SupProStack: {
       screen: SupProStack,
-      path: '',
+      path: "",
       navigationOptions: {
         tabBarOnPress: ({ navigation, defaultHandler }) => {
-          navigation.navigate('MySupPro'), defaultHandler();
+          navigation.navigate("MySupPro"), defaultHandler();
         }
       }
     }

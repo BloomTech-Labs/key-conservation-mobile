@@ -33,7 +33,7 @@ class AccountSettingsScreen extends React.Component {
       },
       headerRight: (
         <DoneButton
-          navigation={navigation}
+          // navigation={navigation}
           pressAction={navigation.getParam("done")}
         />
       )

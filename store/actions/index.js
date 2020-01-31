@@ -4,9 +4,9 @@ import * as SecureStore from 'expo-secure-store';
 
 // url for heroku staging vs production server
 // production
-const seturl = 'https://key-conservation.herokuapp.com/api/';
+// const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
-// const seturl = "https://key-conservation-staging.herokuapp.com/api/";
+const seturl = "https://key-conservation-staging.herokuapp.com/api/";
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
@@ -705,3 +705,28 @@ export const [SET_MAP_SEARCH_QUERY] = ['SET_MAP_SEARCH_QUERY'];
 export const setMapSearchQuery = (query, field) => async dispatch => {
   dispatch({ type: SET_MAP_SEARCH_QUERY, payload: { query, field } });
 };
+
+export const [
+  GET_REPORTS_START,
+  GET_REPORTS_SUCCESS,
+  GET_REPORTS_ERROR
+] = [
+  'GET_REPORTS_START',
+  'GET_REPORTS_SUCCESS',
+  'GET_REPORTS_ERROR'
+]
+
+export const getReports = () => async dispatch => {
+  dispatch({type: GET_REPORTS_START});
+  let url = `${seturl}reports`;
+  const token = await SecureStore.getItemAsync('accessToken', {});
+  return axios.get(url, {headers: {
+    Accept: 'application/json',
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  }}).then(res => {
+    dispatch({type: GET_REPORTS_SUCCESS, payload: res.data})
+  }).catch(err => {
+    dispatch({type: GET_REPORTS_ERROR, payload: err.message})
+  })
+}
