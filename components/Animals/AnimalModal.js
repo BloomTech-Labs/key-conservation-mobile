@@ -44,9 +44,9 @@ const AnimalModal = props => {
               source={require("../../assets/icons/x.svg")}
             />
           </TouchableHighlight>
-          {/* <View>
+          <View style={styles.animalList}>
             <Animals />
-          </View> */}
+          </View>
         </View>
       </View>
     </Modal>
@@ -69,7 +69,15 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     marginBottom: 15
-  }
+  },
+  animalList: {
+    flex: 1,
+    height: 180,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20
+  },
+  
 });
 
 export default AnimalModal;

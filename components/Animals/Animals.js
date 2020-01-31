@@ -7,7 +7,9 @@ import {
   ScrollView,
   Modal,
   Alert,
-  TouchableHighlight
+  TouchableHighlight,
+  Image,
+  FlatList
 } from "react-native";
 
 import AnimalCard from "./AnimalCard";
@@ -25,70 +27,48 @@ const Animals = props => {
       wwfLink: "https://www.worldwildlife.org/species/whale-shark"
     },
     {
-      image: "../../assets/images/africanelephant.png",
+      image: "../../assets/images/tortoise.png",
       name: "Giant Tortoise",
       wwfLink: "https://www.worldwildlife.org/species/giant-tortoise"
     }
   ];
+
+  // const animalData = [
+  //   "require('../../assets/images/loginscreen2.png')",
+  //   "require('../../assets/images/loginscreen2.png')",
+  //   "require('../../assets/images/loginscreen2.png')",
+  //   "require('../../assets/images/loginscreen2.png')"
+  // ];
+
   return (
-    <View style={styles.modalContainer}>
+    <View style={styles.animalsList}>
       <Text style={styles.title}>
         Click to learn more about these beautiful Animals!
       </Text>
       <View style={styles.reportList}>
-        <ScrollView>
-          {animalData.map(animal => (
-            <AnimalCard animal={animal} />
-          ))}
-        </ScrollView>
+        <FlatList
+          data={animalData}
+          renderItem={animal => <AnimalCard {...animal} />}
+          keyExtractor={item => item.index}
+        />
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  animalsList: {
     flex: 1,
-    backgroundColor: "rgb(242,242,251)"
+    backgroundColor: "pink",
+    padding: 12
+    //height: 80
   },
   title: {
+    backgroundColor: "yellow",
     fontSize: 24,
     fontWeight: "bold",
-    padding: 16,
-    marginHorizontal: 8
-  },
-  section: {
-    flex: 1,
-    backgroundColor: "white",
-    borderRadius: 8,
-    margin: 8
-  },
-  tabSelector: {
-    width: "100%",
-    flexDirection: "row",
-    height: 32,
-    alignItems: "center",
-    justifyContent: "space-between"
-  },
-  tab: {
-    flex: 1,
-    height: "100%",
-    alignItems: "center"
-  },
-  tabText: {
-    flex: 1,
-    letterSpacing: 0.7,
-    fontSize: 17
-  },
-  reportList: {
-    flex: 1,
-    padding: 12,
-    flexDirection: "column"
-  },
-  selectedTab: {
-    width: "100%",
-    backgroundColor: "#00FF9D",
-    height: 3
+    padding: 16
+    //marginHorizontal: 8
   }
 });
 
