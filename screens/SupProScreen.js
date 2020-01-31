@@ -9,7 +9,6 @@ import BackButton from "../components/BackButton";
 
 const SupProScreen = props => {
   useEffect(() => {
-    console.log("hello?");
     props.getProfileData(props.userId, false, "myProfile");
   });
 
