@@ -43,7 +43,7 @@ class ViewCampScreen extends React.Component {
         flexGrow: 1,
         alignSelf: "center"
       },
-      headerLeft: <BackButton navigation={navigation} popToTop />,
+      headerLeft: <BackButton navigation={navigation} />,
       headerRight: <View />
     };
   };
@@ -234,7 +234,7 @@ class ViewCampScreen extends React.Component {
                     <Text style={styles.timeText}>{timeDiff}</Text>
                   </View>
                   <View style={styles.commentsView}>
-                    <CommentsView  />
+                    <CommentsView />
                   </View>
                   <View style={styles.donateView}>
                     <View style={styles.campMission}>
