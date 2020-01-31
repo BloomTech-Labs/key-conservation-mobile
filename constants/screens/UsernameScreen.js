@@ -39,7 +39,6 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
-    alignContent: 'center'
   },
   touchableText: {
     fontFamily: 'Lato-Bold',
@@ -85,7 +84,6 @@ export default {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    alignContent: 'center'
   },
   obFwdBtnText: {
     fontFamily: 'Lato-Bold',
