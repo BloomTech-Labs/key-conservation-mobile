@@ -33,7 +33,7 @@ import styles2 from '../../constants/Comments/Comments';
 // production
 //const seturl = 'https://key-conservation.herokuapp.com/api/'
 // staging
-const seturl = "https://key-conservation-staging.herokuapp.com/api/";
+const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
@@ -51,6 +51,7 @@ const FeedCampaign = props => {
   // const [userBookmarked, setUserBookmarked] = useState(false);
   const [urgTop, setUrgTop] = useState(0);
   const [loader, setLoader] = useState(true);
+  // console.log("PROPS FROM FEEDCAMPAIGN", props);
 
   // old code for Likes + Bookmarks
   // useEffect(() => {
@@ -152,6 +153,7 @@ const FeedCampaign = props => {
 
   const goToProfile = async () => {
     await dispatch(getProfileData(data.users_id));
+    console.log('GOTOPROFILE FUNCTION FIRES');
     AmpEvent('Select Profile from Campaign', {
       profile: data.username,
       campaign: data.camp_name
@@ -159,7 +161,16 @@ const FeedCampaign = props => {
     props.navigation.navigate('Pro');
   };
 
+  const goToCommenterProfile = async () => {
+    let users_id = data.comments[0].users_id;
+    await dispatch(getProfileData(users_id));
+    props.navigation.navigate('SupPro', {
+      username: data.comments[0].username
+    });
+  };
+
   const goToCampaign = async () => {
+    console.log('GOTOCAMPAIGN FUNCTION FIRES');
     await dispatch(getCampaign(data.camp_id));
     AmpEvent('Select Profile from Campaign', {
       campaign: data.camp_name,
@@ -470,6 +481,7 @@ const FeedCampaign = props => {
                 <View style={styles2.commentView}>
                   <View style={styles2.feedAvatar}>
                     <Avatar
+                      onPress={goToCommenterProfile}
                       rounded
                       source={{
                         uri: item.profile_image

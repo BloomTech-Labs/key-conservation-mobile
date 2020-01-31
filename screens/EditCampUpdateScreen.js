@@ -32,8 +32,8 @@ class EditCampUpdateScreen extends React.Component {
         alignSelf: 'center',
         fontFamily: 'Lato-Bold'
       },
-      headerLeft: <BackButton navigation={navigation} />,
-      headerRight: (
+      headerLeft: () => <BackButton navigation={navigation} />,
+      headerRight: () => (
         <DoneButton
           navigation={navigation}
           pressAction={navigation.getParam('edit')}
