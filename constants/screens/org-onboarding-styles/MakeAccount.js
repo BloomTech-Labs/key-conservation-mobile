@@ -54,8 +54,6 @@ export default {
   },
   arrowView: {
     flexDirection: 'column',
-    justifyContent: 'left',
-    alignItems: 'left',
     paddingTop: '15%',
     paddingLeft: '10%'
   },
