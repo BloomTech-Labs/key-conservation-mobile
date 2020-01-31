@@ -13,6 +13,8 @@ import * as WebBrowser from "expo-web-browser";
 
 import Constants from "expo-constants";
 
+import Smile from "../assets/js icons/bottom navigation/Smile";
+
 class AccountSettingsScreen extends React.Component {
   state = {
     result: null,
@@ -87,12 +89,14 @@ class AccountSettingsScreen extends React.Component {
         <View style={styles.container}>
           <View style={styles.sections}>
             <View style={styles.iconWrap}>
-              <SvgUri
+              <Smile />
+              {/* <SvgUri
                 fill="#3b3b3b"
                 width="25"
                 height="25"
                 source={require("../assets/icons/user.svg")}
-              />
+              /> */}
+
               <Text style={styles.title}>Logout Of Your Profile</Text>
             </View>
             <TouchableOpacity
