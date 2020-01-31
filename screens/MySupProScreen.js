@@ -1,34 +1,35 @@
-import React from 'react';
-import { View } from 'react-native';
-import { ScrollView } from 'react-navigation';
-import { connect } from 'react-redux';
-import { getProfileData } from '../store/actions';
-import EditButton from '../components/EditButton';
-import SettingsButton from '../components/SettingsButton';
-import SupProfileHeader from '../components/Profile/SupProfileHeader';
-import SupProfileBody from '../components/Profile/SupProfileBody';
+import React from "react";
+import { View } from "react-native";
+import { ScrollView } from "react-navigation";
+import { connect } from "react-redux";
+import { getProfileData } from "../store/actions";
+import EditButton from "../components/EditButton";
+import SettingsButton from "../components/SettingsButton";
+import SupProfileHeader from "../components/Profile/SupProfileHeader";
+import SupProfileBody from "../components/Profile/SupProfileBody";
 
 class MySupProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'My Profile',
-      headerLeft:
-      <SettingsButton
-         navigation={navigation}
-         settingsRoute={'AccountSettings'}
-       />,
+      title: "My Profile",
+      headerLeft: () => (
+        <SettingsButton
+          navigation={navigation}
+          settingsRoute={"AccountSettings"}
+        />
+      ),
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: "#323338"
       },
-      headerTintColor: '#fff',
+      headerTintColor: "#fff",
       headerTitleStyle: {
-        textAlign: 'center',
+        textAlign: "center",
         flexGrow: 1,
-        alignSelf: 'center',
-        fontFamily: 'Lato-Bold'
+        alignSelf: "center",
+        fontFamily: "Lato-Bold"
       },
-      headerRight: (
-        <EditButton navigation={navigation} editRoute={'EditSupPro'} />
+      headerRight: () => (
+        <EditButton navigation={navigation} editRoute={"EditSupPro"} />
       )
     };
   };
@@ -37,7 +38,7 @@ class MySupProScreen extends React.Component {
     this.props.getProfileData(
       this.props.currentUserProfile.id,
       false,
-      'myProfile'
+      "myProfile"
     );
   }
 
@@ -62,7 +63,4 @@ const optionsStyles = {
   }
 };
 
-export default connect(
-  mapStateToProps,
-  { getProfileData }
-)(MySupProScreen);
+export default connect(mapStateToProps, { getProfileData })(MySupProScreen);

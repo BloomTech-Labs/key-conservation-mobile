@@ -24,8 +24,10 @@ class ProScreen extends React.Component {
         alignSelf: "center",
         fontFamily: "Lato-Bold"
       },
-      headerLeft: <BackButton navigation={navigation} />,
-      headerRight: <View />
+      headerLeft: () => (
+        <BackButton navigation={navigation} fromMap={fromMap} />
+      ),
+      headerRight: () => <View />
     };
   };
 
