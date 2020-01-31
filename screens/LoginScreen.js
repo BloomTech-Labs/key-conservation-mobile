@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
   Image,
   TouchableOpacity,
+  TouchableHighlight,
   ImageBackground
 } from "react-native";
 import SvgUri from "react-native-svg-uri";
@@ -19,6 +20,7 @@ import {
   loginSuccess,
   getProfileData
 } from "../store/actions";
+import AnimalModal from "../components/Animals/AnimalModal";
 
 import * as SecureStore from "expo-secure-store";
 import Axios from "axios";
@@ -181,6 +183,8 @@ export default LoginScreen = props => {
     }
   };
 
+  //const [isModalVisible, setIsModalVisible] = useState(false);
+
   return (
     <ImageBackground
       source={require("../assets/images/loginscreen2.png")}
@@ -219,16 +223,16 @@ export default LoginScreen = props => {
         </TouchableOpacity>
       </View>
       <View style={styles.aboutIconContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate("AnimalModal")}>
+        <TouchableHighlight onPress={() => navigation.navigate("AnimalModal")}>
           <SvgUri
-            style={styles.aboutIcon}
-            fill={"#00F48A"}
-            width="31"
-            height="31"
+            // style={{ marginLeft: 10, marginTop: 3 }}
+            fill="#00F48A"
+             width="31"
+             height="31"
             source={require("../assets/icons/twitter.svg")}
             //source={require("../assets/icons/Key_Info_Green_copy.svg")}
           />
-        </TouchableOpacity>
+        </TouchableHighlight>
       </View>
     </ImageBackground>
   );
@@ -326,10 +330,12 @@ const styles = StyleSheet.create({
   aboutIconContainer: {
     width: 375,
     height: "7.9%"
-  },
-  aboutIcon: {
-    height: "100%",
-    justifyContent: "center",
-    padding: 15
   }
+  // aboutIcon: {
+  //   height: "100%",
+  //   justifyContent: "center",
+  //   padding: 15,
+  //   marginLeft: 10,
+  //   marginTop: 3
+  // }
 });

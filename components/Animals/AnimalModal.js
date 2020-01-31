@@ -6,64 +6,70 @@ import {
   View,
   StyleSheet
 } from "react-native";
+import SvgUri from "react-native-svg-uri";
+
 import Animals from "../Animals/Animals";
 
 const AnimalModal = props => {
-  const [modalVisible, setModalVisible] = useState(true);
+    const [isModalVisible, setIsModalVisible] = useState(true);
 
-  const { navigation } = props;
+    const { navigation } = props;
 
-  const toggleVisible = () => {
-    setModalVisible(!modalVisible);
-    console.log(modalVisible);
-  };
+    const toggleVisible = () => {
+      setIsModalVisible(!isModalVisible);
+    };
 
   return (
-    <View>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => navigation.navigate("Loading")}
-      >
-        <View style={styles.modalContainer}>
-          <View>
-            <Text style={styles.title}>
-              Click to find out more about these beautiful animals!
-            </Text>
-            <Animals />
-            <TouchableHighlight
-              onPress={() => {
+    <Modal
+      animationType="fade"
+      transparent={true}
+      visible={isModalVisible}
+      onRequestClose={() => {
+        toggleVisible()
+    
+      }}
+    >
+      <View style={styles.background}>
+        <View style={styles.modal}>
+          <TouchableHighlight
+            style={{ alignItems: "flex-end", marginBottom: 15 }}
+            onPress={() => {navigation.navigate("Loading");
                 toggleVisible();
-                navigation.navigate("Loading");
-              }}
-            >
-              <Text style={styles.back}>Back to Sign In</Text>
-            </TouchableHighlight>
-          </View>
+            }}
+          >
+            <SvgUri
+              fill="#3b3b3b"
+              width="31"
+              height="31"
+              source={require("../../assets/icons/x.svg")}
+            />
+          </TouchableHighlight>
+          {/* <View>
+            <Animals />
+          </View> */}
         </View>
-      </Modal>
-    </View>
+      </View>
+    </Modal>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  modal: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 8
+  },
+  background: {
     flex: 1,
-    padding: 220,
-    width: 300,
-    height: 300
+    height: 200,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20
   },
-  modalContainer: {
-    flex: 1,
-    margin: 22
-    //width: 300,
-    //height: 300
-  },
-  title: {
-    fontSize: 22
-  },
-  back: {}
+  text: {
+    fontSize: 16,
+    marginBottom: 15
+  }
 });
 
 export default AnimalModal;

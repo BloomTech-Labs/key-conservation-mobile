@@ -3,12 +3,12 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
 
 const AnimalCard = props => {
-console.log(props);
+console.log(props.animal.image);
     return (
        <View style={styles.reportCard}>
            <View style={styles.imageContainer}>
                <Text>{props.animal.name}</Text>
-          <Image source={props.animal.image} style={styles.image}></Image>
+          {/* <Image source={require(props.animal.image)} style={styles.image}></Image> */}
         </View>
 
        </View>

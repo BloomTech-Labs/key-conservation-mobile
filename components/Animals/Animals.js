@@ -13,7 +13,6 @@ import {
 import AnimalCard from "./AnimalCard";
 
 const Animals = props => {
-  const [modalVisible, setModalVisible] = useState(false);
   const animalData = [
     {
       image: "../../assets/images/africanelephant.png",
