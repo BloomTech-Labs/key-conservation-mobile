@@ -1,10 +1,10 @@
 {
-  "devToolsPort": 19003,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "devToolsPort": 19002,
+  "expoServerPort": 19000,
+  "packagerPort": 19003,
+  "packagerPid": 2421,
+  "expoServerNgrokUrl": "https://rh-bw7.rmoumneh.keycons.exp.direct",
+  "packagerNgrokUrl": "https://packager.rh-bw7.rmoumneh.keycons.exp.direct",
+  "ngrokPid": 2437,
   "webpackServerPort": null
 }

@@ -1,32 +1,39 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { ScrollView } from 'react-navigation';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { ScrollView } from "react-navigation";
+import { connect } from "react-redux";
 
-import DetailHeader from '../components/DetailScreen/DetailHeader';
-import DetailAboutUs from '../components/DetailScreen/DetailAboutUs';
+import DetailHeader from "../components/DetailScreen/DetailHeader";
+import DetailAboutUs from "../components/DetailScreen/DetailAboutUs";
 
-import EditButton from '../components/EditButton';
-import SettingsButton from '../components/SettingsButton';
+import EditButton from "../components/EditButton";
+import SettingsButton from "../components/SettingsButton";
 
-import styles from '../constants/screens/MyDetailScreen';
+import styles from "../constants/screens/MyDetailScreen";
 
 class MyDetailsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'My Profile',
+      title: "My Profile",
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: "#323338"
       },
-      headerTintColor: '#fff',
+      headerTintColor: "#fff",
       headerTitleStyle: {
-        textAlign: 'center',
+        textAlign: "center",
         flexGrow: 1,
-        alignSelf: 'center',
-        fontFamily: 'Lato-Bold'
+        alignSelf: "center",
+        fontFamily: "Lato-Bold"
       },
-      headerLeft: <SettingsButton navigation={navigation} settingsRoute={'AccountSettings'} />,
-      headerRight: <EditButton navigation={navigation} editRoute={'EditPro'} />
+      headerLeft: () => (
+        <SettingsButton
+          navigation={navigation}
+          settingsRoute={"AccountSettings"}
+        />
+      ),
+      headerRight: () => (
+        <EditButton navigation={navigation} editRoute={"EditPro"} />
+      )
     };
   };
 
