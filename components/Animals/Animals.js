@@ -19,17 +19,20 @@ const Animals = props => {
     {
       image: '../../assets/images/africanelephant.png',
       name: 'African Elephant',
-      wwfLink: 'https://www.worldwildlife.org/species/african-elephant'
+      wwfLink: 'https://www.worldwildlife.org/species/african-elephant',
+      photoCred: "Photographer's Name"
     },
     {
       image: '../../assets/images/whaleshark.png',
       name: 'Whale Shark',
-      wwfLink: 'https://www.worldwildlife.org/species/whale-shark'
+      wwfLink: 'https://www.worldwildlife.org/species/whale-shark',
+      photoCred: "Photographer's Name"
     },
     {
       image: '../../assets/images/tortoise.png',
       name: 'Giant Tortoise',
-      wwfLink: 'https://www.worldwildlife.org/species/giant-tortoise'
+      wwfLink: 'https://www.worldwildlife.org/species/giant-tortoise',
+      photoCred: "Photographer's Name"
     }
   ];
 
