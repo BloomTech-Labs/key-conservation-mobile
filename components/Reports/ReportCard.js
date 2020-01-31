@@ -1,21 +1,22 @@
-import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
-import SvgUri from "react-native-svg-uri";
+import React from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import ReportDetails from './ReportDetails';
+import SvgUri from 'react-native-svg-uri';
 
 const ReportCard = props => {
   let type;
   switch (props.table_name) {
-    case "campaignUpdates":
-      type = "Campaign Reported";
+    case 'campaignUpdates':
+      type = 'Campaign Reported';
       break;
-    case "campaigns":
-      type = "Campaign Reported";
+    case 'campaigns':
+      type = 'Campaign Reported';
       break;
-    case "comments":
-      type = "Comment Reported";
+    case 'comments':
+      type = 'Comment Reported';
       break;
-    case "users":
-      type = "User Reported";
+    case 'users':
+      type = 'User Reported';
       break;
 
     default:
@@ -36,13 +37,17 @@ const ReportCard = props => {
       <View style={styles.right}>
         <View style={styles.reportCount}></View>
         <View style={styles.arrowContainer}>
-          <SvgUri
-            style={styles.arrowIcon}
-            source={require("../../assets/icons/chevron-left-solid.svg")}
-            fill={"#000000"}
-            width="25"
-            height="100%"
-          />
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate('ReportDetails')}
+          >
+            <SvgUri
+              style={styles.arrowIcon}
+              source={require('../../assets/icons/chevron-left-solid.svg')}
+              fill={'#000000'}
+              width="25"
+              height="100%"
+            />
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -52,11 +57,11 @@ const ReportCard = props => {
 const styles = StyleSheet.create({
   reportCard: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
     height: 48,
     marginVertical: 4,
-    alignItems: "center",
-    justifyContent: "space-between"
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
   imageContainer: {
     height: 48,
@@ -76,29 +81,29 @@ const styles = StyleSheet.create({
   },
   reportType: {
     fontSize: 12,
-    color: "grey"
+    color: 'grey'
   },
   reportCount: {},
   arrowContainer: {
-    width: "10%",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100%"
+    width: '10%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%'
   },
   arrowIcon: {
-    transform: [{ rotateZ: "180deg" }],
-    paddingVertical: 18,
+    transform: [{ rotateZ: '180deg' }],
+    paddingVertical: 18
   },
   left: {
     flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   right: {
-    justifyContent: "flex-end",
-    flexDirection: "row",
+    justifyContent: 'flex-end',
+    flexDirection: 'row',
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center'
   }
 });
 
