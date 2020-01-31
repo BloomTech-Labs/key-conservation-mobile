@@ -17,7 +17,7 @@ import ReportDetailScreen from "./ReportDetailScreen";
 class AdminReportScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: "Manage Reports",
+      title: navigation.getParam("reportTitle"),
       headerStyle: {
         backgroundColor: "#323338"
       },
@@ -52,11 +52,13 @@ class AdminReportScreen extends React.Component {
   };
 
   componentDidMount() {
+    this.props.navigation.setParams( { reportTitle: "Manage Reports"})
     this.props.navigation.setParams( {adminBack: this.goBack} )
     this.props.getReports();
   }
 
   openReport = report => {
+    this.props.navigation.setParams( {reportTitle: report.name} )
     this.setState({currentReport: report});
   }
 
@@ -112,7 +114,7 @@ class AdminReportScreen extends React.Component {
               <FlatList
                 data={reports}
                 renderItem={report => (
-                  <TouchableOpacity onPress={this.openReport.bind(report)}>
+                  <TouchableOpacity onPress={this.openReport.bind(this, report.item)}>
                     <ReportCard {...report.item} />
                   </TouchableOpacity>
                 )}
