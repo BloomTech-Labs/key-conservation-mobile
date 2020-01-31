@@ -87,18 +87,18 @@ const styles = StyleSheet.create({
   },
   arrowIcon: {
     transform: [{ rotateZ: "180deg" }],
-    paddingVertical: 18,
+    paddingVertical: 18
   },
   left: {
     flex: 1,
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "center"
   },
   right: {
     justifyContent: "flex-end",
     flexDirection: "row",
     flex: 1,
-    alignItems: "center",
+    alignItems: "center"
   }
 });
 
