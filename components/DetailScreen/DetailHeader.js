@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, Linking, Platform } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { Avatar } from 'react-native-elements';
-import SvgUri from 'react-native-svg-uri';
 import { AmpEvent } from '../withAmplitude';
 
 import styles from '../../constants/DetailScreen/DetailHeader';
@@ -121,7 +120,7 @@ export default class DetailHeader extends Component {
 							<TouchableOpacity
 								style={{ padding: 0, padding: 0 }}
 								onPress={() => this.props.navigation.navigate('EditPro')}>
-								<TwitterAdd />{' '}
+								<TwitterAdd />
 							</TouchableOpacity>
 						) : null : (
 							<TouchableOpacity onPress={() => WebBrowser.openBrowserAsync(profile.twitter)}>
@@ -132,7 +131,7 @@ export default class DetailHeader extends Component {
 							<TouchableOpacity
 								style={{ padding: 0, padding: 0 }}
 								onPress={() => this.props.navigation.navigate('EditPro')}>
-								<FbAdd />{' '}
+								<FbAdd />
 							</TouchableOpacity>
 						) : null : (
 							<TouchableOpacity onPress={() => WebBrowser.openBrowserAsync(profile.facebook)}>
