@@ -1,47 +1,46 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
   View,
   Image,
   TouchableOpacity,
-  TouchableHighlight,
   ImageBackground
-} from "react-native";
-import SvgUri from "react-native-svg-uri";
+} from 'react-native';
+import SvgUri from 'react-native-svg-uri';
 
-import { useSelector, useDispatch } from "react-redux";
-import { AuthSession } from "expo";
-import jwtDecode from "jwt-decode";
+import { useSelector, useDispatch } from 'react-redux';
+import { AuthSession } from 'expo';
+import jwtDecode from 'jwt-decode';
 
 import {
   loginStart,
   loginError,
   loginSuccess,
   getProfileData
-} from "../store/actions";
-import AnimalModal from "../components/Animals/AnimalModal";
+} from '../store/actions';
+import AnimalModal from '../components/Animals/AnimalModal';
 
-import * as SecureStore from "expo-secure-store";
-import Axios from "axios";
+import * as SecureStore from 'expo-secure-store';
+import Axios from 'axios';
 
 // url for heroku staging vs production server
 // production
 //const seturl = 'https://key-conservation.herokuapp.com/api/'
 // staging
-const seturl = "https://key-conservation-staging.herokuapp.com/api/";
+const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 /*
  Converts an object to a query string to be used by the request to auth0 via the dashboard application
 */
 function toQueryString(params) {
   return (
-    "?" +
+    '?' +
     Object.entries(params)
       .map(
         ([key, value]) =>
           `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
       )
-      .join("&")
+      .join('&')
   );
 }
 
@@ -68,38 +67,38 @@ export default LoginScreen = props => {
 
     //this variable structures a query param for the /authorize API call to the auth0 API
     const queryParams = () => {
-      if (roles === "conservationist") {
+      if (roles === 'conservationist') {
         return toQueryString({
           //this must come from your auth0 dashboard.
-          client_id: "elyo5qK7vYReEsKAPEADW2T8LAMpIJaf",
+          client_id: 'elyo5qK7vYReEsKAPEADW2T8LAMpIJaf',
           redirect_uri: redirectUrl,
           // this is the API that should be built in relation to this app. This address is found in the Auth0 dashboard at API's -> select API -> settings -> identifier
-          audience: "https://key-conservation",
+          audience: 'https://key-conservation',
           // id_token will return a JWT token, token is access_token
-          response_type: "id_token token",
+          response_type: 'id_token token',
           // retrieve the user's profile and email from the openID
-          scope: "openid profile email",
-          nonce: "nonce"
+          scope: 'openid profile email',
+          nonce: 'nonce'
         });
-      } else if (roles === "supporter") {
+      } else if (roles === 'supporter') {
         return toQueryString({
           //this must come from your auth0 dashboard.
-          client_id: "DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S",
+          client_id: 'DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S',
           redirect_uri: redirectUrl,
           // this is the API that should be built in relation to this app. This address is found in the Auth0 dashboard at API's -> select API -> settings -> identifier
-          audience: "https://key-conservation",
+          audience: 'https://key-conservation',
           // id_token will return a JWT token, token is access_token
-          response_type: "id_token token",
+          response_type: 'id_token token',
           // retrieve the user's profile and email from the openID
-          scope: "openid profile email",
-          nonce: "nonce"
+          scope: 'openid profile email',
+          nonce: 'nonce'
         });
       }
     };
 
     //dynamically navigating the proper routes on the auth0 app
     // the domain url is found in the Auth0 dashboard at applications -> select App -> settings -> Domain
-    const domain = "https://key-conservation.auth0.com";
+    const domain = 'https://key-conservation.auth0.com';
     const authUrl = `${domain}/authorize` + queryParams();
 
     // Perform the authentication
@@ -109,12 +108,12 @@ export default LoginScreen = props => {
     //if successful then it will call the next function!!!
     //this should contain the access token and the id token
     //this calls the function below, passing the tokens as parameters
-    if (response.type === "success") {
+    if (response.type === 'success') {
       if (response.error) {
         dispatch(loginError(response.error));
         Alert(
-          "Authentication error",
-          response.error_description || "something went wrong"
+          'Authentication error',
+          response.error_description || 'something went wrong'
         );
         return;
       }
@@ -136,44 +135,44 @@ export default LoginScreen = props => {
         sub: decoded.sub
       };
 
-      await SecureStore.setItemAsync("accessToken", chosenDecoded.accessToken);
-      await SecureStore.setItemAsync("sub", chosenDecoded.sub);
-      await SecureStore.setItemAsync("email", chosenDecoded.email);
+      await SecureStore.setItemAsync('accessToken', chosenDecoded.accessToken);
+      await SecureStore.setItemAsync('sub', chosenDecoded.sub);
+      await SecureStore.setItemAsync('email', chosenDecoded.email);
       await SecureStore.setItemAsync(
-        "roles",
-        roles === "conservationist" ? "conservationist" : "supporter"
+        'roles',
+        roles === 'conservationist' ? 'conservationist' : 'supporter'
       );
       dispatch(loginSuccess(chosenDecoded));
 
       await dispatch(getProfileData(null, chosenDecoded.sub, true));
       if (currentUser.id) {
-        await SecureStore.setItemAsync("id", currentUser.id);
+        await SecureStore.setItemAsync('id', currentUser.id);
         console.log(currentUser.id);
       }
       getEnvVar();
-      navigation.navigate("Loading");
+      navigation.navigate('Loading');
     }
   };
 
   getEnvVar = async () => {
-    const key = await SecureStore.getItemAsync("airtableKey", {});
+    const key = await SecureStore.getItemAsync('airtableKey', {});
     if (key) {
-      console.log("key already exists!");
+      console.log('key already exists!');
       return null;
     } else {
-      console.log("getEnVar activated");
-      const token = await SecureStore.getItemAsync("accessToken", {});
-      Axios.get("${seturl}airtable", {
+      console.log('getEnVar activated');
+      const token = await SecureStore.getItemAsync('accessToken', {});
+      Axios.get('${seturl}airtable', {
         headers: {
-          Accept: "application/json",
+          Accept: 'application/json',
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json'
         }
       })
         .then(async function(response) {
           // console.log("AIRTABLE KEY: " + response.data.airtable_key);
           await SecureStore.setItemAsync(
-            "airtableKey",
+            'airtableKey',
             response.data.airtable_key
           );
         })
@@ -183,17 +182,21 @@ export default LoginScreen = props => {
     }
   };
 
-  //const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   return (
     <ImageBackground
-      source={require("../assets/images/loginscreen2.png")}
+      source={require('../assets/images/loginscreen2.png')}
       style={styles.container}
     >
       <View style={styles.logoContainer}>
+        <AnimalModal
+          setIsModalVisible={setIsModalVisible}
+          isModalVisible={isModalVisible}
+        />
         <Image
           style={styles.logo}
-          source={require("../assets/images/keyFullWhite.png")}
+          source={require('../assets/images/keyFullWhite.png')}
         />
       </View>
 
@@ -205,7 +208,7 @@ export default LoginScreen = props => {
       <View style={styles.buttons}>
         <TouchableOpacity
           onPress={() => {
-            roles = "supporter";
+            roles = 'supporter';
             login(navigation);
           }}
           style={styles.buttonContainer}
@@ -214,7 +217,7 @@ export default LoginScreen = props => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            roles = "conservationist";
+            roles = 'conservationist';
             login(navigation);
           }}
           style={styles.buttonContainer}
@@ -223,16 +226,20 @@ export default LoginScreen = props => {
         </TouchableOpacity>
       </View>
       <View style={styles.aboutIconContainer}>
-        <TouchableHighlight onPress={() => navigation.navigate("AnimalModal")}>
+        <TouchableOpacity
+          onPress={() => {
+            setIsModalVisible(true);
+          }}
+        >
           <SvgUri
-            // style={{ marginLeft: 10, marginTop: 3 }}
-            fill="#00F48A"
-             width="31"
-             height="31"
-            source={require("../assets/icons/twitter.svg")}
+            style={isModalVisible === true ? styles.aboutIconHidden : null}
+            fill='#00F48A'
+            width='31'
+            height='31'
+            source={require('../assets/icons/twitter.svg')}
             //source={require("../assets/icons/Key_Info_Green_copy.svg")}
           />
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
     </ImageBackground>
   );
@@ -241,13 +248,13 @@ export default LoginScreen = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: "2%",
-    alignItems: "center",
-    justifyContent: "center"
+    paddingTop: '2%',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   button: {
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   logo: {
     height: 215,
@@ -256,86 +263,75 @@ const styles = StyleSheet.create({
   logoContainer: {
     flex: 1,
     flexShrink: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingTop: 25,
     paddingBottom: 5
   },
   titleContainer: {
     flex: 0,
     paddingBottom: 25,
-    alignItems: "center"
+    alignItems: 'center'
   },
   selectTitle: {
     fontSize: 30,
-    fontFamily: "Lato-Bold",
-    color: "white"
+    fontFamily: 'Lato-Bold',
+    color: 'white'
   },
   highlight: {
-    flexWrap: "wrap",
+    flexWrap: 'wrap',
     marginTop: 3,
     fontSize: 30,
-    fontFamily: "Lato-Bold",
-    color: "black",
-    backgroundColor: "#d7ff43"
+    fontFamily: 'Lato-Bold',
+    color: 'black',
+    backgroundColor: '#d7ff43'
   },
   selectText: {
-    alignItems: "center",
+    alignItems: 'center',
     marginTop: 30,
     fontSize: 20,
-    flexWrap: "wrap",
-    fontFamily: "Lato",
-    color: "white"
+    flexWrap: 'wrap',
+    fontFamily: 'Lato',
+    color: 'white'
   },
   buttons: {
     flex: 1,
     marginTop: 10,
-    alignItems: "center",
-    width: "90%"
+    alignItems: 'center',
+    width: '90%'
   },
   buttonContainer: {
-    width: "90%",
+    width: '90%',
     height: 50,
     marginBottom: 18,
     borderRadius: 5,
-    fontFamily: "Lato",
-    backgroundColor: "#F4F5F7",
-    shadowColor: "rgba(0, 0, 0, 0.25)",
+    fontFamily: 'Lato',
+    backgroundColor: '#F4F5F7',
+    shadowColor: 'rgba(0, 0, 0, 0.25)',
     shadowOffset: {
       width: 0,
       height: 4
     },
     shadowRadius: 4,
     shadowOpacity: 1,
-    justifyContent: "center"
+    justifyContent: 'center'
   },
   buttonText: {
-    fontFamily: "Lato-Bold",
+    fontFamily: 'Lato-Bold',
     letterSpacing: 0,
-    textAlign: "center",
-    color: "black",
-    justifyContent: "center",
-    alignItems: "center",
+    textAlign: 'center',
+    color: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
     fontSize: 20
   },
-  needHelp: {
-    flexDirection: "row",
-    width: 375,
-    height: "7.9%",
-    opacity: 0,
-    backgroundColor: "black",
-    justifyContent: "center",
-    alignItems: "center"
-  },
   aboutIconContainer: {
-    width: 375,
-    height: "7.9%"
+    justifyContent: 'center',
+    alignSelf: 'flex-start',
+    width: '20%',
+    margin: 30
+  },
+  aboutIconHidden: {
+    display: 'none'
   }
-  // aboutIcon: {
-  //   height: "100%",
-  //   justifyContent: "center",
-  //   padding: 15,
-  //   marginLeft: 10,
-  //   marginTop: 3
-  // }
 });

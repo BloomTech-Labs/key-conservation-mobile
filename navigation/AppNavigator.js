@@ -1,5 +1,5 @@
-import React from "react";
-import { createAppContainer, createSwitchNavigator } from "react-navigation";
+import React from 'react';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 import {
   ConsNavigator,
@@ -9,11 +9,10 @@ import {
   LogoutStack,
   OrgOnboardStack,
   AccountSettingsStack
-} from "./MainNavigation";
-import LoadingScreenMov from "../components/LoadingScreenMov";
-import LoadingScreen from "../screens/LoadingScreen";
-import VettingCheck from "../screens/VettingCheck";
-import AnimalModal from "../components/Animals/AnimalModal";
+} from './MainNavigation';
+import LoadingScreenMov from '../components/LoadingScreenMov';
+import LoadingScreen from '../screens/LoadingScreen';
+import VettingCheck from '../screens/VettingCheck';
 
 // This is the top level navigator for the app. It covers the loading process, and sorts the user into the version of the app they will be seeing.
 export default createAppContainer(
@@ -21,7 +20,6 @@ export default createAppContainer(
     // First three routes deal with login / onboarding of users
     Mov: LoadingScreenMov,
     Loading: LoadingScreen,
-    AnimalModal: AnimalModal,
     OrgOnboard: OrgOnboardStack,
     Login: LoginStack,
     Vetting: VettingCheck,

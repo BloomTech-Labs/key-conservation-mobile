@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -10,26 +10,26 @@ import {
   TouchableHighlight,
   Image,
   FlatList
-} from "react-native";
+} from 'react-native';
 
-import AnimalCard from "./AnimalCard";
+import AnimalCard from './AnimalCard';
 
 const Animals = props => {
   const animalData = [
     {
-      image: "../../assets/images/africanelephant.png",
-      name: "African Elephant",
-      wwfLink: "https://www.worldwildlife.org/species/african-elephant"
+      image: '../../assets/images/africanelephant.png',
+      name: 'African Elephant',
+      wwfLink: 'https://www.worldwildlife.org/species/african-elephant'
     },
     {
-      image: "../../assets/images/whaleshark.png",
-      name: "Whale Shark",
-      wwfLink: "https://www.worldwildlife.org/species/whale-shark"
+      image: '../../assets/images/whaleshark.png',
+      name: 'Whale Shark',
+      wwfLink: 'https://www.worldwildlife.org/species/whale-shark'
     },
     {
-      image: "../../assets/images/tortoise.png",
-      name: "Giant Tortoise",
-      wwfLink: "https://www.worldwildlife.org/species/giant-tortoise"
+      image: '../../assets/images/tortoise.png',
+      name: 'Giant Tortoise',
+      wwfLink: 'https://www.worldwildlife.org/species/giant-tortoise'
     }
   ];
 
@@ -59,16 +59,20 @@ const Animals = props => {
 const styles = StyleSheet.create({
   animalsList: {
     flex: 1,
-    backgroundColor: "pink",
+    //backgroundColor: "pink",
     padding: 12
-    //height: 80
+    //height: 80,
+    //borderColor: 'blue',
+    //borderWidth: 2
   },
   title: {
-    backgroundColor: "yellow",
+    //backgroundColor: "yellow",
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     padding: 16
-    //marginHorizontal: 8
+    //marginHorizontal: 8,
+    //borderColor: 'blue',
+    //borderWidth: 2
   }
 });
 

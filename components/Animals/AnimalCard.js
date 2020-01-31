@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -6,8 +6,8 @@ import {
   Image,
   StyleSheet,
   ImageBackground
-} from "react-native";
-import SvgUri from "react-native-svg-uri";
+} from 'react-native';
+import SvgUri from 'react-native-svg-uri';
 
 const AnimalCard = props => {
   const image = `require("${props.item.image}")`;
@@ -17,7 +17,7 @@ const AnimalCard = props => {
       <View style={styles.left}>
         <View style={styles.imageContainer}>
           <Image
-            source={require("../../assets/images/tortoise.png")}
+            source={require('../../assets/images/tortoise.png')}
             style={styles.image}
           />
           {/* <Image source={image} style={{ width: 50, height: 50 }} /> */}
@@ -33,10 +33,10 @@ const AnimalCard = props => {
         <View style={styles.arrowContainer}>
           <SvgUri
             style={styles.arrowIcon}
-            fill="#00F48A"
-            width="31"
-            height="31"
-            source={require("../../assets/icons/plus.svg")}
+            fill='#00F48A'
+            width='31'
+            height='31'
+            source={require('../../assets/icons/plus.svg')}
           />
         </View>
       </View>
@@ -47,15 +47,15 @@ const AnimalCard = props => {
 const styles = StyleSheet.create({
   animalCard: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
     height: 48,
     marginVertical: 4,
-    alignItems: "center",
-    justifyContent: "space-between"
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
   imageContainer: {
-    borderColor: "red",
-    borderWidth: 2,
+    // borderColor: 'red',
+    // borderWidth: 2,
     height: 48,
     width: 48
   },
@@ -66,40 +66,40 @@ const styles = StyleSheet.create({
     width: 300
   },
   reportInfo: {
-     marginHorizontal: -26
+    marginHorizontal: -26
   },
   animalName: {
-    color: "black",
+    color: 'black',
     fontSize: 20,
-    fontWeight: "bold",
-    borderColor: "red",
-    borderWidth: 2,
+    fontWeight: 'bold',
+    // borderColor: 'red',
+    // borderWidth: 2,
     borderRadius: 10,
     padding: 8
   },
   arrowContainer: {
-    width: "10%",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100%",
-    borderColor: "red",
-    borderWidth: 2
+    width: '10%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%'
+    //borderColor: "red",
+    //borderWidth: 2
   },
   arrowIcon: {
-    transform: [{ rotateZ: "180deg" }],
+    transform: [{ rotateZ: '180deg' }],
     paddingVertical: 18
   },
   left: {
     flex: 4,
-    flexDirection: "row",
-    alignItems: "center",
-    borderColor: "red",
-    borderWidth: 2
+    flexDirection: 'row',
+    alignItems: 'center'
+    //borderColor: "red",
+    //borderWidth: 2
   },
   right: {
-    justifyContent: "center",
+    justifyContent: 'center',
     flex: 1,
-    alignItems: "center"
+    alignItems: 'center'
   }
 });
 

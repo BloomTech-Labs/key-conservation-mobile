@@ -1,49 +1,30 @@
-import React, { useState } from "react";
-import {
-  Modal,
-  Text,
-  TouchableHighlight,
-  View,
-  StyleSheet
-} from "react-native";
-import SvgUri from "react-native-svg-uri";
+import React from 'react';
+import { Modal, View, StyleSheet, TouchableOpacity } from 'react-native';
+import SvgUri from 'react-native-svg-uri';
 
-import Animals from "../Animals/Animals";
+import Animals from '../Animals/Animals';
 
 const AnimalModal = props => {
-    const [isModalVisible, setIsModalVisible] = useState(true);
-
-    const { navigation } = props;
-
-    const toggleVisible = () => {
-      setIsModalVisible(!isModalVisible);
-    };
-
   return (
     <Modal
-      animationType="fade"
+      animationType='fade'
       transparent={true}
-      visible={isModalVisible}
-      onRequestClose={() => {
-        toggleVisible()
-    
-      }}
+      visible={props.isModalVisible}
+      onRequestClose={() => props.setIsModalVisible(!props.isModalVisible)}
     >
       <View style={styles.background}>
         <View style={styles.modal}>
-          <TouchableHighlight
-            style={{ alignItems: "flex-end", marginBottom: 15 }}
-            onPress={() => {navigation.navigate("Loading");
-                toggleVisible();
-            }}
+          <TouchableOpacity
+            style={styles.x}
+            onPress={() => props.setIsModalVisible(!props.isModalVisible)}
           >
             <SvgUri
-              fill="#3b3b3b"
-              width="31"
-              height="31"
-              source={require("../../assets/icons/x.svg")}
+              fill='#3b3b3b'
+              width='31'
+              height='31'
+              source={require('../../assets/icons/x.svg')}
             />
-          </TouchableHighlight>
+          </TouchableOpacity>
           <View style={styles.animalList}>
             <Animals />
           </View>
@@ -55,29 +36,43 @@ const AnimalModal = props => {
 
 const styles = StyleSheet.create({
   modal: {
-    backgroundColor: "white",
-    padding: 20,
+    backgroundColor: 'white',
+    margin: 60,
+    marginLeft: 30,
+    marginRight: 30,
     borderRadius: 8
+    // borderColor: 'orange',
+    // borderWidth: 2
   },
   background: {
+    opacity: 100,
     flex: 1,
-    height: 200,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20
+    justifyContent: 'center',
+    alignItems: 'center'
+    // borderColor: 'yellow',
+    // borderWidth: 2
   },
-  text: {
-    fontSize: 16,
-    marginBottom: 15
+  x: {
+    alignSelf: 'flex-end',
+    padding: 5
+    // borderColor: 'orange',
+    // borderWidth: 2
   },
+  //   text: {
+  //     fontSize: 16,
+  //     marginBottom: 15,
+  //     borderColor: 'orange',
+  //     borderWidth: 2
+  //   },
   animalList: {
     flex: 1,
-    height: 180,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20
-  },
-  
+    //height: 180,
+    justifyContent: 'center',
+    alignItems: 'flex-start'
+    // padding: 20,
+    // borderColor: 'blue',
+    // borderWidth: 2
+  }
 });
 
 export default AnimalModal;
