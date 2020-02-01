@@ -52,287 +52,291 @@ import Globe from '../assets/js icons/bottom navigation/Globe';
 import Smile from '../assets/js icons/bottom navigation/Smile';
 
 export const OrgOnboardStack = createStackNavigator(
-	{
-		HeyThere                  : HeyThereScreen,
-		ToExpect                  : ToExpectScreen,
-		KeyConservation           : KeyConservationScreen,
-		Can                       : CanScreen,
-		Cant                      : CantScreen,
-		ToExpectNext              : ToExpectNextScreen,
-		MakeAccount               : MakeAccountScreen,
-		TellAboutOrganization     : TellAboutOrganizationScreen,
-		VerifyDocumentation       : VerifyDocumentationScreen,
-		VerifyOrganization        : VerifyOrganizationScreen,
-		AlmostDone                : AlmostDone,
-		ThankYou                  : ThankYouScreen,
-		ReviewYourInfo            : ReviewYourInfoScreen,
-		OrganizationSurvey        : OrganizationSurveyScreen,
-		ToExpectNextCreateProfile : ToExpectNextCreateProfileScreen,
-	},
-	{
-		headerMode : 'none',
-	},
+  {
+    HeyThere: HeyThereScreen,
+    ToExpect: ToExpectScreen,
+    KeyConservation: KeyConservationScreen,
+    Can: CanScreen,
+    Cant: CantScreen,
+    ToExpectNext: ToExpectNextScreen,
+    MakeAccount: MakeAccountScreen,
+    TellAboutOrganization: TellAboutOrganizationScreen,
+    VerifyDocumentation: VerifyDocumentationScreen,
+    VerifyOrganization: VerifyOrganizationScreen,
+    AlmostDone: AlmostDone,
+    ThankYou: ThankYouScreen,
+    ReviewYourInfo: ReviewYourInfoScreen,
+    OrganizationSurvey: OrganizationSurveyScreen,
+    ToExpectNextCreateProfile: ToExpectNextCreateProfileScreen
+  },
+  {
+    headerMode: 'none'
+  }
 );
 
 const MapStack = createStackNavigator(
-	{
-		MapHome : WideMapScreen,
-	},
-	{
-		navigationOptions : {
-			tabBarLabel : 'Map',
-			tabBarIcon  : ({ focused }) => (
-				// focused ? <GlobeFill /> : <Globe />
-				<Globe />
-			),
-		},
-	},
+  {
+    MapHome: WideMapScreen
+  },
+  {
+    navigationOptions: {
+      tabBarLabel: 'Map',
+      tabBarIcon: ({ focused }) => (
+        // focused ? <GlobeFill /> : <Globe />
+        <Globe />
+      )
+    }
+  }
 );
 
 const FeedStack = createStackNavigator(
-	{
-		Home       : FeedScreen,
-		Search     : {
-			screen            : SearchScreen,
-			navigationOptions : {
-				header : null,
-			},
-		},
-		Pro        : {
-			screen            : ProScreen,
-			navigationOptions : {
-				title            : 'Profile',
-				headerTintColor  : '#fff',
-				headerTitleStyle : {
-					textAlign : 'center',
-					flexGrow  : 1,
-					alignSelf : 'center',
-				},
-				headerStyle      : {
-					backgroundColor : '#323338',
-				},
-			},
-		},
-		Detail     : {
-			screen            : DetailScreen,
-			navigationOptions : {
-				title            : 'Profile',
-				headerTintColor  : '#fff',
-				headerTitleStyle : {
-					textAlign : 'center',
-					flexGrow  : 1,
-					alignSelf : 'center',
-				},
-				headerStyle      : {
-					backgroundColor : '#323338',
-				},
-			},
-		},
-		Location   : {
-			screen            : LocationScreen,
-			navigationOptions : {
-				title            : 'Profile',
-				headerTintColor  : '#fff',
-				headerTitleStyle : {
-					textAlign : 'center',
-					flexGrow  : 1,
-					alignSelf : 'center',
-				},
-				headerStyle      : {
-					backgroundColor : '#323338',
-				},
-			},
-		},
-		Camp       : ViewCampScreen,
-		CampUpdate : ViewCampUpdateScreen,
-		SupPro     : SupProScreen,
-	},
-	{
-		navigationOptions : {
-			tabBarLabel : 'Feed',
-			tabBarIcon  : ({ focused }) => (
-				// focused ? <HomeFill/> : <Home/>
-				<Lightening />
-			),
-		},
+  {
+    Home: FeedScreen,
+    Search: {
+      screen: SearchScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    Pro: {
+      screen: ProScreen,
+      navigationOptions: {
+        title: 'Profile',
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          textAlign: 'center',
+          flexGrow: 1,
+          alignSelf: 'center'
+        },
+        headerStyle: {
+          backgroundColor: '#323338'
+        }
+      }
+    },
+    Detail: {
+      screen: DetailScreen,
+      navigationOptions: {
+        title: 'Profile',
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          textAlign: 'center',
+          flexGrow: 1,
+          alignSelf: 'center'
+        },
+        headerStyle: {
+          backgroundColor: '#323338'
+        }
+      }
+    },
+    Location: {
+      screen: LocationScreen,
+      navigationOptions: {
+        title: 'Profile',
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          textAlign: 'center',
+          flexGrow: 1,
+          alignSelf: 'center'
+        },
+        headerStyle: {
+          backgroundColor: '#323338'
+        }
+      }
+    },
+    Camp: ViewCampScreen,
+    CampUpdate: ViewCampUpdateScreen,
+    SupPro: SupProScreen
+  },
+  {
+    navigationOptions: {
+      tabBarLabel: 'Feed',
+      tabBarIcon: ({ focused }) => (
+        // focused ? <HomeFill/> : <Home/>
+        <Lightening />
+      )
+    },
 
-		transitionConfig  : () => ({
-			transitionSpec : {
-				duration : 0,
-			},
-		}),
-	},
+    transitionConfig: () => ({
+      transitionSpec: {
+        duration: 0
+      }
+    })
+  }
 );
 
 const CreateCampStack = createStackNavigator(
-	{ CreateCampaign: CreateCampScreen },
-	{
-		navigationOptions : {
-			headerLeft  : null,
-			tabBarLabel : 'Create Campaign',
-			tabBarIcon  : ({ focused }) => (
-				<SvgUri
-					fill='#3b3b3b'
-					width='25'
-					height='25'
-					source={focused ? require('../assets/icons/plus-fill.svg') : require('../assets/icons/plus.svg')}
-				/>
-			),
-		},
-	},
+  { CreateCampaign: CreateCampScreen },
+  {
+    navigationOptions: {
+      headerLeft: null,
+      tabBarLabel: 'Create Campaign',
+      tabBarIcon: ({ focused }) => (
+        <SvgUri
+          fill='#3b3b3b'
+          width='25'
+          height='25'
+          source={
+            focused
+              ? require('../assets/icons/plus-fill.svg')
+              : require('../assets/icons/plus.svg')
+          }
+        />
+      )
+    }
+  }
 );
 
 export const AccountSettingsStack = createStackNavigator({
-	AccountSettings : AccountSettingsScreen,
+  AccountSettings: AccountSettingsScreen
 });
 
 const MyProStack = createStackNavigator(
-	{
-		MyPro            : { screen: MyProScreen },
-		MyDetail         : { screen: MyDetailScreen },
-		EditPro          : {
-			screen            : EditProScreen,
-			navigationOptions : { title: 'Edit Profile' },
-		},
-		Camp             : ViewCampScreen,
-		EditCamp         : EditCampScreen,
-		CampUpdate       : ViewCampUpdateScreen,
-		CreateCampUpdate : CreateCampUpdateScreen,
-		EditCampUpdate   : EditCampUpdateScreen,
-	},
-	{
-		transitionConfig  : () => ({
-			transitionSpec : {
-				duration : 0,
-			},
-		}),
-		navigationOptions : {
-			tabBarLabel : 'My Profile',
-			tabBarIcon  : ({ focused }) => (
-				// focused ? <UserFill /> : <User />
-				<Smile />
-			),
-		},
-	},
+  {
+    MyPro: { screen: MyProScreen },
+    MyDetail: { screen: MyDetailScreen },
+    EditPro: {
+      screen: EditProScreen,
+      navigationOptions: { title: 'Edit Profile' }
+    },
+    Camp: ViewCampScreen,
+    EditCamp: EditCampScreen,
+    CampUpdate: ViewCampUpdateScreen,
+    CreateCampUpdate: CreateCampUpdateScreen,
+    EditCampUpdate: EditCampUpdateScreen
+  },
+  {
+    transitionConfig: () => ({
+      transitionSpec: {
+        duration: 0
+      }
+    }),
+    navigationOptions: {
+      tabBarLabel: 'My Profile',
+      tabBarIcon: ({ focused }) => (
+        // focused ? <UserFill /> : <User />
+        <Smile />
+      )
+    }
+  }
 );
 
 const MySupProStack = createStackNavigator(
-	{
-		MySupPro   : { screen: MySupProScreen },
-		EditSupPro : { screen: EditSupProScreen },
-	},
-	{
-		transitionConfig  : () => ({
-			transitionSpec : {
-				duration : 0,
-			},
-		}),
-		navigationOptions : {
-			tabBarLabel : 'My Profile',
-			tabBarIcon  : ({ focused }) => <Smile />,
-		},
-	},
+  {
+    MySupPro: { screen: MySupProScreen },
+    EditSupPro: { screen: EditSupProScreen }
+  },
+  {
+    transitionConfig: () => ({
+      transitionSpec: {
+        duration: 0
+      }
+    }),
+    navigationOptions: {
+      tabBarLabel: 'My Profile',
+      tabBarIcon: ({ focused }) => <Smile />
+    }
+  }
 );
 
 export const UsernameStack = createStackNavigator({
-	Username : {
-		screen            : UsernameScreen,
+  Username: {
+    screen: UsernameScreen,
 
-		navigationOptions : {
-			title            : 'Sign Up',
-			headerTitleStyle : {
-				flex      : 1,
-				textAlign : 'center',
-				color     : 'white',
-			},
-			headerStyle      : {
-				backgroundColor : '#323338',
-			},
-		},
-	},
+    navigationOptions: {
+      title: 'Sign Up',
+      headerTitleStyle: {
+        flex: 1,
+        textAlign: 'center',
+        color: 'white'
+      },
+      headerStyle: {
+        backgroundColor: '#323338'
+      }
+    }
+  }
 });
 
 export const LoginStack = createStackNavigator(
-	{ Login: LoginScreen },
-	{
-		headerMode : 'none',
-	},
+  { Login: LoginScreen },
+  {
+    headerMode: 'none'
+  }
 );
 
 export const LogoutStack = createStackNavigator(
-	{ Logout: LogoutScreen },
-	{
-		headerMode : 'none',
-	},
+  { Logout: LogoutScreen },
+  {
+    headerMode: 'none'
+  }
 );
 
 export const ConsNavigator = createBottomTabNavigator(
-	{
-		FeedStack       : {
-			screen            : FeedStack,
-			path              : '',
-			navigationOptions : {
-				tabBarOnPress : ({ navigation, defaultHandler }) => {
-					navigation.navigate('Home'), defaultHandler();
-				},
-			},
-		},
-		MapStack        : {
-			screen        : MapStack,
-			tabBarOnPress : ({ navigation, defaultHandler }) => {
-				navigation.navigate('MapHome'), defaultHandler();
-			},
-		},
-		CreateCampStack : { screen: CreateCampStack, path: '' },
-		MyProStack      : {
-			screen            : MyProStack,
-			path              : '',
-			navigationOptions : {
-				tabBarOnPress : ({ navigation, defaultHandler }) => {
-					navigation.navigate('MyPro'), defaultHandler();
-				},
-			},
-		},
-	},
-	{
-		tabBarOptions : {
-			showIcon  : true,
-			showLabel : false,
-		},
-	},
+  {
+    FeedStack: {
+      screen: FeedStack,
+      path: '',
+      navigationOptions: {
+        tabBarOnPress: ({ navigation, defaultHandler }) => {
+          navigation.navigate('Home'), defaultHandler();
+        }
+      }
+    },
+    MapStack: {
+      screen: MapStack,
+      tabBarOnPress: ({ navigation, defaultHandler }) => {
+        navigation.navigate('MapHome'), defaultHandler();
+      }
+    },
+    CreateCampStack: { screen: CreateCampStack, path: '' },
+    MyProStack: {
+      screen: MyProStack,
+      path: '',
+      navigationOptions: {
+        tabBarOnPress: ({ navigation, defaultHandler }) => {
+          navigation.navigate('MyPro'), defaultHandler();
+        }
+      }
+    }
+  },
+  {
+    tabBarOptions: {
+      showIcon: true,
+      showLabel: false
+    }
+  }
 );
 
 export const SupNavigator = createBottomTabNavigator(
-	{
-		FeedStack     : {
-			screen            : FeedStack,
-			path              : '',
-			navigationOptions : {
-				tabBarOnPress : ({ navigation, defaultHandler }) => {
-					navigation.navigate('Home'), defaultHandler();
-				},
-			},
-		},
-		MapStack      : {
-			screen        : MapStack,
-			tabBarOnPress : ({ navigation, defaultHandler }) => {
-				navigation.navigate('Home'), defaultHandler();
-			},
-		},
-		MySupProStack : {
-			screen            : MySupProStack,
-			path              : '',
-			navigationOptions : {
-				tabBarOnPress : ({ navigation, defaultHandler }) => {
-					navigation.navigate('MySupPro'), defaultHandler();
-				},
-			},
-		},
-	},
-	{
-		tabBarOptions : {
-			showIcon  : true,
-			showLabel : false,
-		},
-	},
+  {
+    FeedStack: {
+      screen: FeedStack,
+      path: '',
+      navigationOptions: {
+        tabBarOnPress: ({ navigation, defaultHandler }) => {
+          navigation.navigate('Home'), defaultHandler();
+        }
+      }
+    },
+    MapStack: {
+      screen: MapStack,
+      tabBarOnPress: ({ navigation, defaultHandler }) => {
+        navigation.navigate('Home'), defaultHandler();
+      }
+    },
+    MySupProStack: {
+      screen: MySupProStack,
+      path: '',
+      navigationOptions: {
+        tabBarOnPress: ({ navigation, defaultHandler }) => {
+          navigation.navigate('MySupPro'), defaultHandler();
+        }
+      }
+    }
+  },
+  {
+    tabBarOptions: {
+      showIcon: true,
+      showLabel: false
+    }
+  }
 );

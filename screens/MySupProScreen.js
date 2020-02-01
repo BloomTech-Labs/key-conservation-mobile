@@ -7,49 +7,60 @@ import EditButton from '../components/EditButton';
 import SettingsButton from '../components/SettingsButton';
 import SupProfileHeader from '../components/Profile/SupProfileHeader';
 import SupProfileBody from '../components/Profile/SupProfileBody';
-import { AutoScaling } from 'aws-sdk';
 
 class MySupProScreen extends React.Component {
-	static navigationOptions = ({ navigation }) => {
-		return {
-			title            : 'My Profile',
-			headerLeft       : <SettingsButton navigation={navigation} settingsRoute={'AccountSettings'} />,
-			headerStyle      : {
-				backgroundColor : '#323338',
-			},
-			headerTintColor  : '#fff',
-			headerTitleStyle : {
-				textAlign  : 'center',
-				flexGrow   : 1,
-				fontFamily : 'Lato-Bold',
-			},
-			headerRight      : <EditButton navigation={navigation} editRoute={'EditSupPro'} />,
-		};
-	};
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'My Profile',
+      headerLeft: () => (
+        <SettingsButton
+          navigation={navigation}
+          settingsRoute={'AccountSettings'}
+        />
+      ),
+      headerStyle: {
+        backgroundColor: '#323338'
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        textAlign: 'center',
+        flexGrow: 1,
+        alignSelf: 'center',
+        fontFamily: 'Lato-Bold'
+      },
+      headerRight: () => (
+        <EditButton navigation={navigation} editRoute={'EditSupPro'} />
+      )
+    };
+  };
 
-	componentDidMount() {
-		this.props.getProfileData(this.props.currentUserProfile.id, false, 'myProfile');
-	}
+  componentDidMount() {
+    this.props.getProfileData(
+      this.props.currentUserProfile.id,
+      false,
+      'myProfile'
+    );
+  }
 
-	render() {
-		return (
-			<ScrollView>
-				<View>
-					<SupProfileHeader profile={this.props.currentUserProfile} />
-					<SupProfileBody profile={this.props.currentUserProfile} />
-				</View>
-			</ScrollView>
-		);
-	}
+  render() {
+    return (
+      <ScrollView>
+        <View>
+          <SupProfileHeader profile={this.props.currentUserProfile} />
+          <SupProfileBody profile={this.props.currentUserProfile} />
+        </View>
+      </ScrollView>
+    );
+  }
 }
 
-const mapStateToProps = (state) => ({
-	currentUserProfile : state.currentUserProfile,
+const mapStateToProps = state => ({
+  currentUserProfile: state.currentUserProfile
 });
 const optionsStyles = {
-	optionsContainer : {
-		width : 75,
-	},
+  optionsContainer: {
+    width: 75
+  }
 };
 
 export default connect(mapStateToProps, { getProfileData })(MySupProScreen);

@@ -26,8 +26,8 @@ class FeedScreen extends React.Component {
         alignSelf: 'center',
         fontFamily: 'Lato-Bold'
       },
-      headerLeft: <View />,
-      headerRight: (
+      headerLeft: () => <View />,
+      headerRight: () => (
         <TouchableOpacity
           onPress={() => navigation.navigate('Search')}
           style={{

@@ -8,10 +8,10 @@ import { ListItem } from 'react-native-elements';
 
 import { getProfileData, deleteCampaign, setCampaign, deleteCampaignUpdate } from '../store/actions';
 
-import EditButton from '../components/EditButton';
-import SettingsButton from '../components/SettingsButton';
+import EditButton from "../components/EditButton";
+import SettingsButton from "../components/SettingsButton";
 
-import ProfileHeader from '../components/Profile/ProfileHeader';
+import ProfileHeader from "../components/Profile/ProfileHeader";
 
 class MyProScreen extends React.Component {
 	static navigationOptions = ({ navigation }) => {
