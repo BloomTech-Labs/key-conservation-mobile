@@ -8,7 +8,6 @@ export default {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    alignContent: 'center'
   },
   obText: {
     color: '#000000',
@@ -54,7 +53,6 @@ export default {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    alignContent: 'center'
   },
   obFwdBtnText: {
     fontFamily: 'Lato-Bold',
@@ -78,7 +76,6 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
-    alignContent: 'center'
   },
   greenText: {
     fontFamily: 'Lato-Bold',
