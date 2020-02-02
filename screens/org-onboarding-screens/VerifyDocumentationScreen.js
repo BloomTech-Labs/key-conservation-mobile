@@ -51,38 +51,39 @@ export default VerifyDocumentationScreen = props => {
     }
   }; // This opens up the in-app browser for 'Table 2' submission. This is required because the Airtable API doesnt allow for non-URL image uploads.
 
-  // getAirtable = () => {
-  //   // console.log(key);
-  //   var Airtable = require("airtable");
-  //   var base = new Airtable({ apiKey: key }).base("appbPeeXUSNCQWwnQ");
-  //   console.log("VerifyDocumentation getAirtable activated");
-  //   base("Table 2")
-  //     .select({
-  //       maxRecords: 20,
-  //       view: "Grid view",
-  //       filterByFormula: `{email} = \'${state.email}\'`
-  //     })
-  //     .eachPage(
-  //       function page(records) {
-  //         // console.log(records[0]);
-  //         records[0] === undefined
-  //           ? Alert.alert(
-  //               "Oops",
-  //               "Please make sure the email provided in the document form matches the one you signed up with",
-  //               [{ text: "Got it" }]
-  //             )
-  //           : records.forEach(function(record) {
-  //               navigate(record); // Calls function and passes state via Navigation Parameters.
-  //             });
-  //       },
-  //       function done(err) {
-  //         if (err) {
-  //           console.error(err);
-  //           return;
-  //         }
-  //       }
-  //     );
-  // }; // This checks the 'Table 2' form for correct email, then checks for document upload.
+  getAirtable = () => {
+    return null;
+    // // console.log(key);
+    // var Airtable = require("airtable");
+    // var base = new Airtable({ apiKey: key }).base("appbPeeXUSNCQWwnQ");
+    // console.log("VerifyDocumentation getAirtable activated");
+    // base("Table 2")
+    //   .select({
+    //     maxRecords: 20,
+    //     view: "Grid view",
+    //     filterByFormula: `{email} = \'${state.email}\'`
+    //   })
+    //   .eachPage(
+    //     function page(records) {
+    //       // console.log(records[0]);
+    //       records[0] === undefined
+    //         ? Alert.alert(
+    //             "Oops",
+    //             "Please make sure the email provided in the document form matches the one you signed up with",
+    //             [{ text: "Got it" }]
+    //           )
+    //         : records.forEach(function(record) {
+    //             navigate(record); // Calls function and passes state via Navigation Parameters.
+    //           });
+    //     },
+    //     function done(err) {
+    //       if (err) {
+    //         console.error(err);
+    //         return;
+    //       }
+    //     }
+    //   );
+  }; // This checks the 'Table 2' form for correct email, then checks for document upload.
 
   navigate = () => {
     props.navigation.navigate("ReviewYourInfo", {

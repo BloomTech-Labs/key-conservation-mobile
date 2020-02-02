@@ -469,10 +469,6 @@ const ReviewYourInfoScreen = props => {
                 ]);
               } else {
                 updateAirtable();
-                // const key = props.navigation.getParam(
-                //   "airtableKey",
-                //   "defaultValue"
-                // );
                 props.navigation.navigate("ToExpectNextCreateProfile", {
                   airtableStateAdd: state,
                   airtableKey: key
