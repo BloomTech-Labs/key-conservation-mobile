@@ -37,8 +37,8 @@ class ViewCampUpdateScreen extends React.Component {
         flexGrow: 1,
         alignSelf: 'center'
       },
-      headerLeft: <BackButton navigation={navigation} />,
-      headerRight: <View />
+      headerLeft: () => <BackButton navigation={navigation} />,
+      headerRight: () => <View />
     };
   };
 

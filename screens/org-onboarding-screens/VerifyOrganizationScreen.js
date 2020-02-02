@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
-  StyleSheet,
+  Button,
   Switch,
   Text,
   TextInput,
@@ -8,10 +8,13 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
-  Alert
+  Alert,
+  TouchableHighlight
 } from "react-native";
 import styles from "../../constants/screens/org-onboarding-styles/VerifyOrg.js";
+import ConservationOptimismModal from "../../components/ConservationOptimismModal";
 import * as SecureStore from "expo-secure-store";
+import SvgUri from "react-native-svg-uri";
 
 const VerifyOrganizationScreen = props => {
   const [airtableState, onChangeText] = useState({
@@ -23,6 +26,8 @@ const VerifyOrganizationScreen = props => {
     smartphone_type: ""
   });
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   const airtableKey = props.navigation.getParam("airtableKey", "defaultValue");
   const airtableID = props.navigation.getParam("airtableID", "defaultValue");
   const airtableState2 = props.navigation.getParam(
@@ -32,6 +37,7 @@ const VerifyOrganizationScreen = props => {
 
   setAirtableID = async () => {
     await SecureStore.setItemAsync("airtableID", airtableID);
+    console.log(await SecureStore.getItemAsync("airtableID", {}));
   }; // This saves the current airtable form's ID in SecureStore.
 
   useEffect(() => {
@@ -126,9 +132,24 @@ const VerifyOrganizationScreen = props => {
             value={airtableState.affiliations_partnerships}
             placeholder="Partnership 1, Partnership 2, etc."
           />
+
           <Text style={styles.obFieldName}>
             Will you join us in Conservation Optimism?
+            <TouchableHighlight onPress={() => setIsModalVisible(true)}>
+              <SvgUri
+                style={{ marginLeft: 10, marginTop: 3 }}
+                fill="#3b3b3b"
+                width="18"
+                height="18"
+                source={require("../../assets/icons/question-circle.svg")}
+              />
+            </TouchableHighlight>
           </Text>
+
+          <ConservationOptimismModal
+            setIsModalVisible={setIsModalVisible}
+            isModalVisible={isModalVisible}
+          />
           <Switch
             trackColor={{ true: "#00FF9D" }}
             style={styles.obSwitchButton}

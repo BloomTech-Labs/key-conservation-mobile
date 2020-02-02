@@ -31,7 +31,7 @@ class AccountSettingsScreen extends React.Component {
         flexGrow: 1,
         alignSelf: "center"
       },
-      headerRight: (
+      headerRight: () => (
         <DoneButton
           navigation={navigation}
           pressAction={navigation.getParam("done")}

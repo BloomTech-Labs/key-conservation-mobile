@@ -1,53 +1,68 @@
-import React, { useState } from 'react';
-import { View, Text } from 'react-native';
-import { Avatar } from 'react-native-elements';
-import moment from 'moment';
+import React, { useState } from "react";
+import { View, Text } from "react-native";
+import { Avatar } from "react-native-elements";
+import moment from "moment";
+import { connect } from "react-redux";
+import { getProfileData } from "../../store/actions";
+import { useDispatch } from "react-redux";
+import { withNavigation } from "react-navigation";
+import styles from "../../constants/Comments/Comments";
 
-import styles from '../../constants/Comments/Comments';
+// {
+//   navigation,
+//   comment,
+//   currentUserProfile,
+//   selectedCampaign,
+//   deleteComment
+// }
 
-const Comment = ({
-  comment,
-  currentUserProfile,
-  selectedCampaign,
-  deleteComment
-}) => {
+const Comment = props => {
+  const dispatch = useDispatch();
+
   const [confirm, setConfirm] = useState(false);
   const [deleted, setDeleted] = useState(false);
 
-  const createdAt = comment.created_at;
+  const createdAt = props.comment.created_at;
   const currentTime = moment();
   const postTime = moment(createdAt);
   let timeDiff;
-  if (currentTime.diff(postTime, 'days') < 1) {
-    if (currentTime.diff(postTime, 'hours') < 1) {
-      if (currentTime.diff(postTime, 'minutes') < 1) {
-        timeDiff = 'just now';
+  if (currentTime.diff(postTime, "days") < 1) {
+    if (currentTime.diff(postTime, "hours") < 1) {
+      if (currentTime.diff(postTime, "minutes") < 1) {
+        timeDiff = "just now";
       } else {
-        if (currentTime.diff(postTime, 'minutes') === 1) {
-          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO`;
+        if (currentTime.diff(postTime, "minutes") === 1) {
+          timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTE AGO`;
         } else {
-          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`;
+          timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTES AGO`;
         }
       }
     } else {
-      if (currentTime.diff(postTime, 'hours') === 1) {
-        timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO`;
+      if (currentTime.diff(postTime, "hours") === 1) {
+        timeDiff = `${currentTime.diff(postTime, "hours")} HOUR AGO`;
       } else {
-        timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`;
+        timeDiff = `${currentTime.diff(postTime, "hours")} HOURS AGO`;
       }
     }
   } else {
-    if (currentTime.diff(postTime, 'days') === 1) {
-      timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO`;
+    if (currentTime.diff(postTime, "days") === 1) {
+      timeDiff = `${currentTime.diff(postTime, "days")} DAY AGO`;
     } else {
-      timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
+      timeDiff = `${currentTime.diff(postTime, "days")} DAYS AGO`;
     }
   }
 
   childDelete = id => {
     setDeleted(true);
     setConfirm(false);
-    deleteComment(id);
+    props.deleteComment(id);
+  };
+
+  const goToCommenterProfile = async () => {
+    await dispatch(getProfileData(props.comment.users_id));
+    props.navigation.navigate("SupPro", {
+      username: props.comment.username
+    });
   };
 
   return (
@@ -56,31 +71,35 @@ const Comment = ({
         <View style={styles.commentWrapper}>
           <View style={styles.commentView}>
             <View style={styles.avatar}>
-              {comment.users_id === selectedCampaign.users_id ? (
+              {props.comment.users_id === props.selectedCampaign.users_id ? (
                 <Avatar
+                  onPress={goToCommenterProfile}
                   rounded
-                  containerStyle={{ borderWidth: 1, borderColor: '#00FF9D' }}
+                  containerStyle={{ borderWidth: 1, borderColor: "#00FF9D" }}
                   source={{
-                    uri: comment.profile_image
+                    uri: props.comment.profile_image
                   }}
                 />
               ) : (
                 <Avatar
+                  onPress={goToCommenterProfile}
                   rounded
                   source={{
-                    uri: comment.profile_image
+                    uri: props.comment.profile_image
                   }}
                 />
               )}
             </View>
             <View>
-              <Text style={styles.username}>{comment.username}</Text>
-              <Text style={styles.commentBody}>{comment.comment_body}</Text>
+              <Text style={styles.username}>{props.comment.username}</Text>
+              <Text style={styles.commentBody}>
+                {props.comment.comment_body}
+              </Text>
             </View>
           </View>
           <View style={styles.interaction}>
             <Text style={styles.timeText}>{timeDiff}</Text>
-            {currentUserProfile.id === comment.users_id ? (
+            {props.currentUserProfile.id === props.comment.users_id ? (
               confirm === false && deleted === false ? (
                 <Text
                   style={styles.deleteText}
@@ -95,7 +114,7 @@ const Comment = ({
                 <Text style={styles.confirmText}>Are you sure?</Text>
                 <Text
                   style={styles.confirmText}
-                  onPress={() => childDelete(comment.comment_id)}
+                  onPress={() => childDelete(props.comment.comment_id)}
                 >
                   Yes
                 </Text>
@@ -120,4 +139,4 @@ const Comment = ({
   );
 };
 
-export default Comment;
+export default connect(null, { getProfileData })(withNavigation(Comment));
