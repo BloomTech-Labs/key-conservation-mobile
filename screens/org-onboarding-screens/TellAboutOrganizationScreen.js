@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   KeyboardAvoidingView,
   ScrollView,
@@ -9,28 +9,28 @@ import {
   ImageBackground,
   Image,
   View
-} from 'react-native';
-import styles from '../../constants/screens/org-onboarding-styles/TellAboutOrg.js';
-import * as SecureStore from 'expo-secure-store';
+} from "react-native";
+import styles from "../../constants/screens/org-onboarding-styles/TellAboutOrg.js";
+import * as SecureStore from "expo-secure-store";
 
 const TellAboutOrganizationScreen = props => {
   const [airtableKey, setAirtableKey] = useState({
-    key: ''
+    key: ""
   });
   const [airtableState, onChangeText] = useState({
-    org_name: '',
-    website: '',
-    address: '',
-    country: '',
-    phone: '',
-    point_of_contact: '',
-    poc_position: '',
-    email: ''
+    org_name: "",
+    website: "",
+    address: "",
+    country: "",
+    phone: "",
+    point_of_contact: "",
+    poc_position: "",
+    email: ""
   }); // This state holds field data for airtable create(), and backend for later use.
 
   getEmail = async () => {
-    const email2 = await SecureStore.getItemAsync('email', {});
-    const key = await SecureStore.getItemAsync('airtableKey', {});
+    const email2 = await SecureStore.getItemAsync("email", {});
+    const key = await SecureStore.getItemAsync("airtableKey", {});
     onChangeText({ email: email2 });
     setAirtableKey({ key: key });
   }; // This assigns the current account's email to the new airtable form.
@@ -39,17 +39,13 @@ const TellAboutOrganizationScreen = props => {
     getEmail();
   }, []);
 
-  // var Airtable = require("airtable");
-  // var base = new Airtable({ apiKey: airtableKey }).base("appbPeeXUSNCQWwnQ"); // These are the Airtable variables ^^^
-
   const sendAirtable = () => {
     // this creates a new Airtable form.
-    // console.log("key: " + airtableKey.key);
-    var Airtable = require('airtable');
+    var Airtable = require("airtable");
     var base = new Airtable({ apiKey: airtableKey.key }).base(
-      'appbPeeXUSNCQWwnQ'
+      "appbPeeXUSNCQWwnQ"
     ); // These are the Airtable variables ^^^
-    base('Table 1').create(
+    base("Table 1").create(
       [
         {
           fields: {
@@ -66,12 +62,12 @@ const TellAboutOrganizationScreen = props => {
       ],
       function(err, records) {
         if (err) {
-          console.error(err + '*** test ***');
+          console.error(err + "*** test ***");
           return;
         }
         records.forEach(function(record) {
           let airtableID = record.getId();
-          props.navigation.navigate('VerifyOrganization', {
+          props.navigation.navigate("VerifyOrganization", {
             airtableID: airtableID,
             airtableState: airtableState,
             airtableKey: airtableKey.key
@@ -84,7 +80,7 @@ const TellAboutOrganizationScreen = props => {
   return (
     <KeyboardAvoidingView
       style={styles.obBody}
-      behavior='height'
+      behavior="height"
       keyboardVerticalOffset={86}
       enabled
     >
@@ -100,14 +96,14 @@ const TellAboutOrganizationScreen = props => {
           <Text style={styles.obSubtitle}>Basic Information</Text>
 
           <TextInput
-            placeholder='Organization Name'
+            placeholder="Organization Name"
             style={styles.obTextInput}
             onChangeText={text =>
               onChangeText({ ...airtableState, org_name: text })
             }
           />
           <TextInput
-            placeholder='Main Address'
+            placeholder="Main Address"
             style={styles.obTextInput}
             onChangeText={text =>
               onChangeText({ ...airtableState, address: text })
@@ -116,7 +112,7 @@ const TellAboutOrganizationScreen = props => {
           />
 
           <TextInput
-            placeholder='Country'
+            placeholder="Country"
             style={styles.obTextInput}
             onChangeText={text =>
               onChangeText({ ...airtableState, country: text })
@@ -125,7 +121,7 @@ const TellAboutOrganizationScreen = props => {
           />
 
           <TextInput
-            placeholder='Point Of Contact Name'
+            placeholder="Point Of Contact Name"
             style={styles.obTextInput}
             onChangeText={text =>
               onChangeText({ ...airtableState, point_of_contact: text })
@@ -134,7 +130,7 @@ const TellAboutOrganizationScreen = props => {
           />
 
           <TextInput
-            placeholder='Point Of Contact Position'
+            placeholder="Point Of Contact Position"
             style={styles.obTextInput}
             onChangeText={text =>
               onChangeText({ ...airtableState, poc_position: text })
@@ -143,7 +139,7 @@ const TellAboutOrganizationScreen = props => {
           />
 
           <TextInput
-            placeholder='Org Phone'
+            placeholder="Org Phone"
             style={styles.obTextInput}
             onChangeText={text =>
               onChangeText({ ...airtableState, phone: text })
@@ -152,7 +148,7 @@ const TellAboutOrganizationScreen = props => {
           />
 
           <TextInput
-            placeholder='Website Url'
+            placeholder="Website Url"
             style={styles.obTextInputBottom}
             onChangeText={text =>
               onChangeText({ ...airtableState, website: text })
@@ -173,11 +169,11 @@ const TellAboutOrganizationScreen = props => {
                 airtableState.poc_position === undefined ||
                 airtableState.email === undefined
               ) {
-                Alert.alert('Oops', 'Please fill in all sections of form', [
-                  { text: 'Got it' }
+                Alert.alert("Oops", "Please fill in all sections of form", [
+                  { text: "Got it" }
                 ]);
               } else {
-                sendAirtable();
+                sendAirtable(); // This sendss the airtable form and navigates. Also sends variables through navigation props.
               }
             }}
           >
