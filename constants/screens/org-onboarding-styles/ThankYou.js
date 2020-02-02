@@ -53,7 +53,6 @@ export default {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    alignContent: 'center'
   },
   obFwdBtnText: {
     fontFamily: 'Lato-Bold',

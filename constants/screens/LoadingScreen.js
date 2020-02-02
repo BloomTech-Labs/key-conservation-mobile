@@ -29,7 +29,6 @@ export default {
 		alignItems      : 'center',
 		justifyContent  : 'center',
 		flexDirection   : 'column',
-		alignContent    : 'center',
 	},
 	touchableText      : {
 		fontFamily    : 'Lato-Bold',

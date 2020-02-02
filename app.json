@@ -20,7 +20,7 @@
     "assetBundlePatterns": ["**/*"],
     "android": {
       "package": "com.kc.keyconservation",
-      "versionCode": 7
+      "versionCode": 8
     },
     "ios": {
       "infoPlist": {
