@@ -153,14 +153,11 @@ const FeedStack = createStackNavigator(
       tabBarIcon: ({ focused }) => (
         // focused ? <HomeFill/> : <Home/>
         <Lightening />
-      )
-    },
-
-    transitionConfig: () => ({
+      ),
       transitionSpec: {
         duration: 0
       }
-    })
+    }
   }
 );
 
@@ -205,17 +202,15 @@ const MyProStack = createStackNavigator(
     EditCampUpdate: EditCampUpdateScreen
   },
   {
-    transitionConfig: () => ({
-      transitionSpec: {
-        duration: 0
-      }
-    }),
     navigationOptions: {
       tabBarLabel: 'My Profile',
       tabBarIcon: ({ focused }) => (
         // focused ? <UserFill /> : <User />
         <Smile />
-      )
+      ),
+      transitionSpec: {
+        duration: 0
+      }
     }
   }
 );
@@ -226,14 +221,12 @@ const MySupProStack = createStackNavigator(
     EditSupPro: { screen: EditSupProScreen }
   },
   {
-    transitionConfig: () => ({
+    navigationOptions: {
+      tabBarLabel: 'My Profile',
+      tabBarIcon: ({ focused }) => <Smile />,
       transitionSpec: {
         duration: 0
       }
-    }),
-    navigationOptions: {
-      tabBarLabel: 'My Profile',
-      tabBarIcon: ({ focused }) => <Smile />
     }
   }
 );
