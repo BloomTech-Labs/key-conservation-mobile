@@ -11,4 +11,34 @@ export default StyleSheet.create({
     height: DEVICE_HEIGHT,
     backgroundColor: "white"
   },
+  user_info: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 32
+  },
+  user_image_container: {
+    width: 128,
+    height: 128,
+    marginRight: 16
+  }, 
+  user_image: {
+    flex: 1,
+    borderRadius: 100,
+    width: null,
+    height: null
+  },
+  user_details: {
+    flex: 1,
+    flexDirection: 'column'
+  },
+  user_name: {
+    fontWeight: 'bold',
+    fontSize: 20
+  },
+  user_detail: {
+    color: 'gray',
+    fontSize: 11
+  }
 });
