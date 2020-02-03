@@ -14,15 +14,6 @@ const DoneButton = props => {
           <Text>
                 <FontAwesome name="long-arrow-left" style={styles.outline} />
               </Text>
-        {/* <Text
-          style={{
-            color: "#fff",
-            fontSize: 17,
-            fontFamily: "Lato"
-          }}
-        >
-          Back
-        </Text> */}
     </TouchableOpacity>
   );
 };
