@@ -7,7 +7,9 @@ import {
   TouchableOpacity,
   ImageBackground
 } from 'react-native';
-import SvgUri from 'react-native-svg-uri';
+//import SvgUri from 'react-native-svg-uri';
+import KeyInfoGreen from '../assets/js icons/KeyCon/Key_Info_Green';
+import Twitter from '../assets/js icons/social media /Twitter';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { AuthSession } from 'expo';
@@ -227,17 +229,17 @@ export default LoginScreen = props => {
       </View>
       <View style={styles.aboutIconContainer}>
         <TouchableOpacity
+          style={styles.aboutIconTouch}
           onPress={() => {
             setIsModalVisible(true);
           }}
         >
-          <SvgUri
-            style={isModalVisible === true ? styles.aboutIconHidden : null}
-            fill='#00F48A'
-            width='31'
-            height='31'
-            source={require('../assets/icons/twitter.svg')}
-            //source={require("../assets/icons/Key_Info_Green_copy.svg")}
+          <KeyInfoGreen
+            style={
+              isModalVisible === true
+                ? styles.aboutIconHidden
+                : styles.aboutIcon
+            }
           />
         </TouchableOpacity>
       </View>
@@ -248,7 +250,7 @@ export default LoginScreen = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: '2%',
+    padding: '2%',
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -326,10 +328,20 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   aboutIconContainer: {
-    justifyContent: 'center',
-    alignSelf: 'flex-start',
-    width: '20%',
-    margin: 30
+    width: '90%'
+    // borderColor: 'orange',
+    // borderWidth: 2
+  },
+  aboutIconTouch: {
+    // height: '90%',
+    //alignSelf: 'flex-start',
+    padding: 10
+    // borderColor: 'red',
+    // borderWidth: 2
+  },
+  aboutIcon: {
+    // borderColor: 'red',
+    // borderWidth: 2
   },
   aboutIconHidden: {
     display: 'none'
