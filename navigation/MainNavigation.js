@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-
+import { TabNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import CanScreen from '../screens/org-onboarding-screens/CanScreen';
@@ -301,7 +301,8 @@ export const ConsNavigator = createBottomTabNavigator(
   {
     tabBarOptions: {
       showIcon: true,
-      showLabel: false
+      showLabel: false,
+      activeBackgroundColor: '#EAEAEA'
     }
   }
 );
@@ -335,8 +336,9 @@ export const SupNavigator = createBottomTabNavigator(
   },
   {
     tabBarOptions: {
+      showLabel: false,
       showIcon: true,
-      showLabel: false
+      activeBackgroundColor: '#EAEAEA'
     }
   }
 );
