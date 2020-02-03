@@ -5,12 +5,12 @@ const DEVICE_HEIGHT = Dimensions.get('screen').height;
 
 export default StyleSheet.create({
   container: {
-    position: "absolute",
+    position: 'absolute',
     top: 0,
     padding: 24,
     width: DEVICE_WIDTH,
     height: DEVICE_HEIGHT,
-    backgroundColor: "white"
+    backgroundColor: 'white'
   },
   user_info: {
     flex: 1,
@@ -25,7 +25,7 @@ export default StyleSheet.create({
     width: 128,
     height: 128,
     marginRight: 16
-  }, 
+  },
   user_image: {
     flex: 1,
     borderRadius: 100,
@@ -43,5 +43,32 @@ export default StyleSheet.create({
   user_detail: {
     color: 'gray',
     fontSize: 11
+  },
+  report_details: {
+    marginVertical: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    padding: 8
+  },
+  detail_section: {},
+  mini_header: {
+    color: 'gray',
+    fontSize: 12
+  },
+  detail_field: {
+    flexDirection: 'row',
+    margin: 8
+  },
+  text_label: {
+    flex: 1
+  },
+  touch_op: {
+    flex: 1
+  },
+  time_stamp: {
+    flex: 1,
+    color: 'gray',
+    textAlign: 'right',
+    marginVertical: 2
   }
 });
