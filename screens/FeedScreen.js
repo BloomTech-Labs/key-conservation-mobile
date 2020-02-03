@@ -23,6 +23,7 @@ class FeedScreen extends React.Component {
       headerTitleStyle: {
         textAlign: 'center',
         flexGrow: 1,
+        marginTop: 18,
         alignSelf: 'center',
         fontFamily: 'Lato-Bold'
       },
@@ -39,12 +40,6 @@ class FeedScreen extends React.Component {
           }}
         >
           <Search />
-          {/* <SvgUri
-            fill="#fff"
-            width="25"
-            height="25"
-            source={require("../assets/icons/search-regular.svg")}
-          /> */}
         </TouchableOpacity>
       )
     };

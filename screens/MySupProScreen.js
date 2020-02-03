@@ -25,6 +25,7 @@ class MySupProScreen extends React.Component {
       headerTitleStyle: {
         textAlign: 'center',
         flexGrow: 1,
+        marginTop: 10,
         alignSelf: 'center',
         fontFamily: 'Lato-Bold'
       },
