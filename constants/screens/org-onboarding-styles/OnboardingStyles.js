@@ -43,7 +43,6 @@ export default {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    alignContent: 'center',
     marginLeft: '5%',
     marginTop: '6%'
   },
@@ -56,7 +55,6 @@ export default {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    alignContent: 'center',
     marginLeft: '50%',
     marginRight: '50%',
     marginTop: '6%'
@@ -70,7 +68,6 @@ export default {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    alignContent: 'center',
     marginRight: '5%'
   },
   obFwdBtnText: {
