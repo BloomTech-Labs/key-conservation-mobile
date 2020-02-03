@@ -40,6 +40,7 @@ const initialState = {
   organizationWithCoords: [], // Organizations with coordinates that can be displayed on map,
   filteredOrganization: [], // Filtered Organizations
   reports: {
+    currentReport: null,
     data: null,
     loading: false,
     error: ""
@@ -527,7 +528,33 @@ const reducer = (state = initialState, action) => {
           error: action.payload
         }
       };
-
+    case actions.GET_REPORT_START:
+      return {
+        ...state,
+        reports: {
+          ...state.reports,
+          loading: true,
+          error: ''
+        }
+      }
+    case actions.GET_REPORT_SUCCESS:
+      return {
+        ...state,
+        reports: {
+          ...state.reports,
+          loading: false,
+          currentReport: action.payload
+        }
+      }
+    case actions.GET_REPORT_ERROR:
+      return {
+        ...state,
+        reports: {
+          ...state.reports,
+          loading: false,
+          error: action.payload
+        }
+      }
     default:
       return state;
   }

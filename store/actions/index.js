@@ -730,3 +730,29 @@ export const getReports = () => async dispatch => {
     dispatch({type: GET_REPORTS_ERROR, payload: err.message})
   })
 }
+
+export const [
+  GET_REPORT_START,
+  GET_REPORT_SUCCESS,
+  GET_REPORT_ERROR
+] = [
+  'GET_REPORT_START',
+  'GET_REPORT_SUCCESS',
+  'GET_REPORT_ERROR'
+]
+
+export const getReport = id => async dispatch => {
+  dispatch({type: GET_REPORT_START});
+  let url = `${seturl}reports/${id}`;
+  const token = await SecureStore.getItemAsync('accessToken', {});
+  return axios.get(url, {headers: {
+    Accept: 'application/json',
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application-json'
+  }}).then(res => {
+    console.log(res.data);
+    dispatch({type: GET_REPORT_SUCCESS, payload: res.data});
+  }).catch(err => {
+    dispatch({type: GET_REPORT_ERROR, payload: err.message})
+  })
+}

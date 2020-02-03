@@ -7,6 +7,7 @@ export default StyleSheet.create({
   container: {
     position: "absolute",
     top: 0,
+    padding: 24,
     width: DEVICE_WIDTH,
     height: DEVICE_HEIGHT,
     backgroundColor: "white"
@@ -16,7 +17,9 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 32
+    padding: 8,
+    paddingBottom: 16,
+    borderBottomWidth: 1
   },
   user_image_container: {
     width: 128,

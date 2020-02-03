@@ -1,11 +1,10 @@
 import React from "react";
-import { Text, Image, View, TouchableOpacity, Linking } from "react-native";
+import { Text, Image, View, TouchableOpacity } from "react-native";
 import SvgUri from "react-native-svg-uri";
-import { ScrollView, NavigationEvents } from "react-navigation";
+import { ScrollView } from "react-navigation";
 import { connect } from "react-redux";
 import { logout } from "../store/actions";
 import * as SecureStorage from "expo-secure-store";
-import GoBackButton from "../components/BackButton";
 import DoneButton from "../components/DoneButton";
 
 import styles from "../constants/screens/AccountSettingsScreen";
@@ -33,7 +32,6 @@ class AccountSettingsScreen extends React.Component {
       },
       headerRight: (
         <DoneButton
-          // navigation={navigation}
           pressAction={navigation.getParam("done")}
         />
       )
