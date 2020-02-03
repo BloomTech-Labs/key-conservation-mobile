@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import SvgUri from 'react-native-svg-uri';
+import * as WebBrowser from 'expo-web-browser';
+import { AmpEvent } from '../../components/withAmplitude';
 
 const AnimalCard = props => {
   const [selected, setSelected] = useState(false);
@@ -20,13 +21,22 @@ const AnimalCard = props => {
     }
   }, [selected]);
 
+  const WebsiteClick = async () => {
+    if (props.wwfLink && props.wwfLink !== null) {
+      (await WebBrowser.openBrowserAsync(props.wwfLink)) &&
+        AmpEvent('Website Link Clicked');
+    }
+  };
+
   return (
     <View style={cardStyle}>
       <TouchableOpacity onPress={() => setSelected(!selected)}>
         <View style={styles.imageContainer}>
           <View style={infoStyle}>
             <Text style={styles.animalName}>{props.name}</Text>
-            <Text style={styles.link}>Learn More</Text>
+            <Text style={styles.link} onPress={WebsiteClick}>
+              Learn More
+            </Text>
             <Text style={styles.photoCred}>{props.photoCred}</Text>
           </View>
           <Image
