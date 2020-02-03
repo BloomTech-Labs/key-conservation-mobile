@@ -23,7 +23,7 @@ class FeedScreen extends React.Component {
       headerTitleStyle: {
         textAlign: 'center',
         flexGrow: 1,
-        marginTop: 10,
+        marginTop: 18,
         alignSelf: 'center',
         fontFamily: 'Lato-Bold'
       },

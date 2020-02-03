@@ -1,5 +1,7 @@
 import React from "react";
 import { TouchableOpacity, View, Text } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
+import styles from "../constants/Buttons/Back";
 
 const DoneButton = props => {
   // console.log(props);
@@ -8,16 +10,11 @@ const DoneButton = props => {
   };
 
   return (
-    <TouchableOpacity onPress={handlePress} style={{ padding: 18 }}>
-      <View
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: 5,
-          height: 35
-        }}
-      >
-        <Text
+    <TouchableOpacity onPress={handlePress} style={styles.container}>
+          <Text>
+                <FontAwesome name="long-arrow-left" style={styles.outline} />
+              </Text>
+        {/* <Text
           style={{
             color: "#fff",
             fontSize: 17,
@@ -25,8 +22,7 @@ const DoneButton = props => {
           }}
         >
           Back
-        </Text>
-      </View>
+        </Text> */}
     </TouchableOpacity>
   );
 };
