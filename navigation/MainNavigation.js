@@ -191,17 +191,6 @@ const FeedStack = createStackNavigator(
       transitionSpec: {
         duration: 0
       }
-
-      // <SvgUri
-      //   fill="#3b3b3b"
-      //   width="25"
-      //   height="25"
-      //   source={
-      //     focused
-      //       ? require("../assets/icons/home-fill.svg")
-      //       : require("../assets/icons/home.svg")
-      //   }
-      // />
     }
   }
 );
