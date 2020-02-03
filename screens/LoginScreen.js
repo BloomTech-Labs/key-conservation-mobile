@@ -227,7 +227,13 @@ export default LoginScreen = props => {
           <Text style={styles.buttonText}>My organization needs help</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.aboutIconContainer}>
+      <View
+        style={
+          isModalVisible === false
+            ? styles.aboutIconContainer
+            : styles.aboutIconHidden
+        }
+      >
         <TouchableOpacity
           style={styles.aboutIconTouch}
           onPress={() => {
@@ -235,11 +241,7 @@ export default LoginScreen = props => {
           }}
         >
           <KeyInfoGreen
-            style={
-              isModalVisible === true
-                ? styles.aboutIconHidden
-                : styles.aboutIcon
-            }
+          // style={isModalVisible === true ? styles.aboutIconHidden : null}
           />
         </TouchableOpacity>
       </View>
@@ -249,6 +251,7 @@ export default LoginScreen = props => {
 
 const styles = StyleSheet.create({
   container: {
+    //display: 'none',
     flex: 1,
     padding: '2%',
     alignItems: 'center',
@@ -339,10 +342,10 @@ const styles = StyleSheet.create({
     // borderColor: 'red',
     // borderWidth: 2
   },
-  aboutIcon: {
-    // borderColor: 'red',
-    // borderWidth: 2
-  },
+  //   aboutIcon: {
+  //     // borderColor: 'red',
+  //     // borderWidth: 2
+  //   },
   aboutIconHidden: {
     display: 'none'
   }

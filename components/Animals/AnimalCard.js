@@ -1,49 +1,112 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
 
 const AnimalCard = props => {
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState(false);
+  const [cardStyle, setCardStyle] = useState(styles.animalCard);
+  const [imageStyle, setImageStyle] = useState(styles.image);
+  const [infoStyle, setInfoStyle] = useState(styles.animalInfo);
+
+  useEffect(() => {
+    if (selected === true) {
+      setCardStyle(styles.animalCardSelected);
+      setImageStyle(styles.imageSelected);
+      setInfoStyle(styles.animalInfoSelected);
+    } else {
+      setCardStyle(styles.animalCard);
+      setImageStyle(styles.image);
+      setInfoStyle(styles.animalInfo);
+    }
+  }, [selected]);
 
   return (
-    <View style={styles.animalCard}>
-      <View style={styles.imageContainer}>
-        <Image source={props.image} style={styles.image} />
-      </View>
-
-      <View style={styles.reportInfo}>
-        <Text style={styles.animalName}>{props.name}</Text>
-        <Text style={styles.link}>Learn More</Text>
-        <Text style={styles.photoCred}>{props.photoCred}</Text>
-      </View>
+    <View style={cardStyle}>
+      <TouchableOpacity onPress={() => setSelected(!selected)}>
+        <View style={styles.imageContainer}>
+          <View style={infoStyle}>
+            <Text style={styles.animalName}>{props.name}</Text>
+            <Text style={styles.link}>Learn More</Text>
+            <Text style={styles.photoCred}>{props.photoCred}</Text>
+          </View>
+          <Image
+            source={props.image}
+            style={imageStyle}
+            resizeMode='cover'
+            offset={{ x: -250, y: 250 }}
+          />
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   animalCard: {
-    // flex: 1,
-    // height: 170,
-    // width: 100,
-    // //marginVertical: 4,
-    //alignItems: 'center',
-    //justifyContent: 'space-between'
+    flex: 1,
+    borderColor: 'red',
+    borderWidth: 2,
+    flex: 1,
+    height: 120,
+    width: 340,
+    borderRadius: 8,
+    alignItems: 'center'
+  },
+  animalCardSelected: {
+    borderColor: 'red',
+    borderWidth: 2,
+    flex: 2,
+    height: 340,
+    width: 340,
+    borderRadius: 8,
+    alignItems: 'center'
   },
   imageContainer: {
-    //borderColor: 'orange',
-    //borderWidth: 2
-    //height: 170,
-    //width: '100%'
+    flex: 1,
+    borderColor: 'orange',
+    borderWidth: 2,
+    paddingVertical: 1.2,
+    width: 335
   },
   image: {
-    // flex: 1,
-    // borderRadius: 8,
-    // borderColor: 'red',
-    // borderWidth: 2
+    flex: 1,
+    //resizeMode: 'cover',
+    aspectRatio: 2.8,
+    //paddingVertical: 2,
+    borderRadius: 8,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // borderColor: 'yellow',
+    // borderWidth: 2,
+    //width: '100%',
+    height: '100%'
     //overflow: 'hidden'
   },
-  reportInfo: {
-    //marginHorizontal: -26
+  imageSelected: {
+    flex: 2,
+    //resizeMode: 'cover',
+    aspectRatio: 1,
+    //paddingVertical: 2,
+    borderRadius: 8,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // borderColor: 'yellow',
+    // borderWidth: 2,
+    //width: '100%',
+    height: '100%'
+    //overflow: 'hidden'
+  },
+  animalInfoSelected: {
+    top: 140,
+    height: '60%',
+    zIndex: 3,
+    borderRadius: 10,
+    borderColor: '#00F48A',
+    borderWidth: 4,
+    backgroundColor: '#F4F5F7'
+  },
+  animalInfo: {
+    display: 'none'
   },
   animalName: {
     //color: 'black',
@@ -54,7 +117,12 @@ const styles = StyleSheet.create({
     // borderRadius: 10,
     // padding: 8
   },
-  link: {},
+  link: {
+    borderRadius: 8,
+    borderColor: '#3b3b3b',
+    borderWidth: 2,
+    backgroundColor: '#d7ff43'
+  },
   photoCred: {}
   //   left: {
   //     flex: 4,

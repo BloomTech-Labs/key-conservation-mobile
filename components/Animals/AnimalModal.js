@@ -14,21 +14,22 @@ const AnimalModal = props => {
     >
       <View style={styles.background}>
         <View style={styles.modal}>
-          <View style={styles.headerContainer}></View>
-          <TouchableOpacity
-            style={styles.x}
-            onPress={() => props.setIsModalVisible(!props.isModalVisible)}
-          >
-            <SvgUri
-              fill='#3b3b3b'
-              width='31'
-              height='31'
-              source={require('../../assets/icons/x.svg')}
-            />
-          </TouchableOpacity>
-          <Text style={styles.title}>
-            Click to learn more about these beautiful Animals!
-          </Text>
+          <View style={styles.headerContainer}>
+            <TouchableOpacity
+              style={styles.x}
+              onPress={() => props.setIsModalVisible(!props.isModalVisible)}
+            >
+              <SvgUri
+                fill='#3b3b3b'
+                width='31'
+                height='31'
+                source={require('../../assets/icons/x.svg')}
+              />
+            </TouchableOpacity>
+            <Text style={styles.title}>
+              Click to learn more about these beautiful Animals!
+            </Text>
+          </View>
           <View style={styles.animalList}>
             <Animals />
           </View>
@@ -47,47 +48,36 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F4F5F7',
-    marginTop: 60,
-    marginLeft: 30,
-    marginRight: 30,
-    borderRadius: 10,
-    borderColor: 'red',
-    borderWidth: 2
+    backgroundColor: 'black',
+    marginHorizontal: 30,
+    marginVertical: 60,
+    borderRadius: 8,
+    borderColor: 'black',
+    borderWidth: 5
   },
 
-  title: {
-    opacity: 70,
-    fontSize: 24,
-    fontWeight: 'bold',
-    padding: 16,
-    //fontSize: 17,
-    fontFamily: 'Lato',
-    //marginHorizontal: 8,
-    borderColor: 'blue',
-    borderWidth: 2
-  },
   headerContainer: {
+    justifyContent: 'space-between',
     flexDirection: 'row-reverse',
-    alignSelf: 'center',
-    padding: 5,
-    borderColor: 'orange',
-    borderWidth: 2
+    paddingHorizontal: 10
   },
-  //   text: {
-  //     fontSize: 16,
-  //     marginBottom: 15,
-  //     borderColor: 'orange',
-  //     borderWidth: 2
-  //   },
+  x: {
+    alignSelf: 'flex-start',
+    backgroundColor: '#d7ff43',
+    borderRadius: 50,
+    padding: 3,
+    margin: 10
+  },
+  title: {
+    fontSize: 20,
+    //color: '#00F48A',
+    color: '#F4F5F7',
+    fontFamily: 'Lato',
+    marginHorizontal: 8
+  },
   animalList: {
     flex: 1,
-    //height: 180,
-    justifyContent: 'center',
-    alignItems: 'flex-start'
-    // padding: 20,
-    // borderColor: 'blue',
-    // borderWidth: 2
+    alignItems: 'center'
   }
 });
 
