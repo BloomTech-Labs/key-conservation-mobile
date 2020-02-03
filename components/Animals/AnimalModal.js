@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Modal, View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
 
 import Animals from '../Animals/Animals';
@@ -14,6 +14,7 @@ const AnimalModal = props => {
     >
       <View style={styles.background}>
         <View style={styles.modal}>
+          <View style={styles.headerContainer}></View>
           <TouchableOpacity
             style={styles.x}
             onPress={() => props.setIsModalVisible(!props.isModalVisible)}
@@ -25,6 +26,9 @@ const AnimalModal = props => {
               source={require('../../assets/icons/x.svg')}
             />
           </TouchableOpacity>
+          <Text style={styles.title}>
+            Click to learn more about these beautiful Animals!
+          </Text>
           <View style={styles.animalList}>
             <Animals />
           </View>
@@ -35,28 +39,40 @@ const AnimalModal = props => {
 };
 
 const styles = StyleSheet.create({
-  modal: {
-    backgroundColor: 'white',
-    margin: 60,
-    marginLeft: 30,
-    marginRight: 30,
-    borderRadius: 8
-    // borderColor: 'orange',
-    // borderWidth: 2
-  },
   background: {
-    opacity: 100,
+    flex: 1,
+    opacity: 100
+  },
+  modal: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
-    // borderColor: 'yellow',
-    // borderWidth: 2
+    alignItems: 'center',
+    backgroundColor: '#F4F5F7',
+    marginTop: 60,
+    marginLeft: 30,
+    marginRight: 30,
+    borderRadius: 10,
+    borderColor: 'red',
+    borderWidth: 2
   },
-  x: {
-    alignSelf: 'flex-end',
-    padding: 5
-    // borderColor: 'orange',
-    // borderWidth: 2
+
+  title: {
+    opacity: 70,
+    fontSize: 24,
+    fontWeight: 'bold',
+    padding: 16,
+    //fontSize: 17,
+    fontFamily: 'Lato',
+    //marginHorizontal: 8,
+    borderColor: 'blue',
+    borderWidth: 2
+  },
+  headerContainer: {
+    flexDirection: 'row-reverse',
+    alignSelf: 'center',
+    padding: 5,
+    borderColor: 'orange',
+    borderWidth: 2
   },
   //   text: {
   //     fontSize: 16,
