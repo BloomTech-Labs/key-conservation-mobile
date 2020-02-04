@@ -4,9 +4,9 @@ import * as SecureStore from "expo-secure-store";
 
 // url for heroku staging vs production server
 // production
-const seturl = 'https://key-conservation.herokuapp.com/api/'
+// const seturl = 'https://key-conservation.herokuapp.com/api/'
 // staging
-// const seturl = "https://key-conservation-staging.herokuapp.com/api/";
+const seturl = "https://key-conservation-staging.herokuapp.com/api/";
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
