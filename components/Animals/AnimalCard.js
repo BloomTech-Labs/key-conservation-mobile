@@ -1,61 +1,56 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { AmpEvent } from '../../components/withAmplitude';
 
 const AnimalCard = props => {
   const [selected, setSelected] = useState(false);
-  const [cardStyle, setCardStyle] = useState(styles.animalCard);
-  const [imageStyle, setImageStyle] = useState(styles.image);
-  const [infoStyle, setInfoStyle] = useState(styles.animalInfo);
-
-  useEffect(() => {
-    if (selected === true) {
-      setCardStyle(styles.animalCardSelected);
-      setImageStyle(styles.imageSelected);
-      setInfoStyle(styles.animalInfoSelected);
-    } else {
-      setCardStyle(styles.animalCard);
-      setImageStyle(styles.image);
-      setInfoStyle(styles.animalInfo);
-    }
-  }, [selected]);
 
   const WebsiteClick = async () => {
-    if (props.wwfLink && props.wwfLink !== null) {
-      (await WebBrowser.openBrowserAsync(props.wwfLink)) &&
+    if (props.link && props.link !== null) {
+      (await WebBrowser.openBrowserAsync(props.link)) &&
         AmpEvent('Website Link Clicked');
     }
   };
 
   return (
-    <View style={cardStyle}>
-      <TouchableOpacity onPress={() => setSelected(!selected)}>
-        <View style={styles.imageContainer}>
-          <View style={infoStyle}>
-            <Text style={styles.animalName}>{props.name}</Text>
-            <Text style={styles.link} onPress={WebsiteClick}>
-              Learn More
-            </Text>
-            <Text style={styles.photoCred}>{props.photoCred}</Text>
-          </View>
+    <TouchableOpacity onPress={() => setSelected(!selected)}>
+      <View
+        style={[
+          styles.animalCard,
+          selected === true && styles.animalCardSelected
+        ]}
+      >
+        <View>
           <Image
             source={props.image}
-            style={imageStyle}
+            style={[styles.image, selected === true && styles.imageSelected]}
             resizeMode='cover'
-            offset={{ x: -250, y: 250 }}
           />
         </View>
-      </TouchableOpacity>
-    </View>
+        <View
+          style={[
+            styles.animalInfo,
+            selected === false && styles.animalInfoHidden
+          ]}
+        >
+          <Text style={styles.animalName}>{props.name}</Text>
+          <Text style={styles.link} onPress={WebsiteClick}>
+            Learn More
+          </Text>
+          {props.photoCred && props.photoCred !== '' ? (
+            <Text style={styles.photoCred}>Photo by: {props.photoCred}</Text>
+          ) : null}
+        </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   animalCard: {
     flex: 1,
-    borderColor: 'red',
-    borderWidth: 2,
+    flexDirection: 'row',
     flex: 1,
     height: 120,
     width: 340,
@@ -63,89 +58,56 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   animalCardSelected: {
-    borderColor: 'red',
-    borderWidth: 2,
-    flex: 2,
-    height: 340,
-    width: 340,
-    borderRadius: 8,
-    alignItems: 'center'
-  },
-  imageContainer: {
     flex: 1,
-    borderColor: 'orange',
-    borderWidth: 2,
-    paddingVertical: 1.2,
-    width: 335
+    height: 340
   },
   image: {
     flex: 1,
-    //resizeMode: 'cover',
-    aspectRatio: 2.8,
-    //paddingVertical: 2,
+    aspectRatio: 2.87,
+    width: '200%',
     borderRadius: 8,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // borderColor: 'yellow',
-    // borderWidth: 2,
-    //width: '100%',
-    height: '100%'
-    //overflow: 'hidden'
+    justifyContent: 'flex-start',
+    alignSelf: 'auto'
   },
   imageSelected: {
-    flex: 2,
-    //resizeMode: 'cover',
     aspectRatio: 1,
-    //paddingVertical: 2,
-    borderRadius: 8,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // borderColor: 'yellow',
-    // borderWidth: 2,
-    //width: '100%',
-    height: '100%'
-    //overflow: 'hidden'
+    height: 200
   },
-  animalInfoSelected: {
-    top: 140,
-    height: '60%',
-    zIndex: 3,
+  animalInfo: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+    right: '85%',
+    height: '40%',
+    width: '70%',
     borderRadius: 10,
     borderColor: '#00F48A',
     borderWidth: 4,
     backgroundColor: '#F4F5F7'
   },
-  animalInfo: {
+  animalInfoHidden: {
     display: 'none'
   },
   animalName: {
-    //color: 'black',
-    // fontSize: 20,
-    // fontWeight: 'bold',
-    // borderColor: 'red',
-    // borderWidth: 2,
-    // borderRadius: 10,
-    // padding: 8
+    color: 'black',
+    fontSize: 20,
+    fontWeight: 'bold',
+    fontFamily: 'Lato',
+    alignItems: 'center',
+    padding: 5
   },
   link: {
-    borderRadius: 8,
+    borderRadius: 5,
     borderColor: '#3b3b3b',
     borderWidth: 2,
-    backgroundColor: '#d7ff43'
+    backgroundColor: '#d7ff43',
+    fontFamily: 'Lato',
+    padding: 5
   },
-  photoCred: {}
-  //   left: {
-  //     flex: 4,
-  //     flexDirection: 'row',
-  //     alignItems: 'center'
-  //     //borderColor: "red",
-  //     //borderWidth: 2
-  //   },
-  //   right: {
-  //     justifyContent: 'center',
-  //     flex: 1,
-  //     alignItems: 'center'
-  //   }
+  photoCred: {
+    padding: 5,
+    fontFamily: 'Lato'
+  }
 });
 
 export default AnimalCard;

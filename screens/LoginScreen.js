@@ -7,9 +7,7 @@ import {
   TouchableOpacity,
   ImageBackground
 } from 'react-native';
-//import SvgUri from 'react-native-svg-uri';
 import KeyInfoGreen from '../assets/js icons/KeyCon/Key_Info_Green';
-import Twitter from '../assets/js icons/social media /Twitter';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { AuthSession } from 'expo';
@@ -240,9 +238,7 @@ export default LoginScreen = props => {
             setIsModalVisible(true);
           }}
         >
-          <KeyInfoGreen
-          // style={isModalVisible === true ? styles.aboutIconHidden : null}
-          />
+          <KeyInfoGreen />
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -251,7 +247,6 @@ export default LoginScreen = props => {
 
 const styles = StyleSheet.create({
   container: {
-    //display: 'none',
     flex: 1,
     padding: '2%',
     alignItems: 'center',
@@ -332,20 +327,10 @@ const styles = StyleSheet.create({
   },
   aboutIconContainer: {
     width: '90%'
-    // borderColor: 'orange',
-    // borderWidth: 2
   },
   aboutIconTouch: {
-    // height: '90%',
-    //alignSelf: 'flex-start',
     padding: 10
-    // borderColor: 'red',
-    // borderWidth: 2
   },
-  //   aboutIcon: {
-  //     // borderColor: 'red',
-  //     // borderWidth: 2
-  //   },
   aboutIconHidden: {
     display: 'none'
   }

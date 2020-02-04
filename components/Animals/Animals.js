@@ -18,8 +18,6 @@ const Animals = props => {
 
 const styles = StyleSheet.create({
   animalsList: {
-    // borderWidth: 2,
-    // borderColor: 'red',
     flex: 1,
     width: '100%'
   }

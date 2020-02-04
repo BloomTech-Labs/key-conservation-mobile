@@ -27,7 +27,7 @@ const AnimalModal = props => {
               />
             </TouchableOpacity>
             <Text style={styles.title}>
-              Click to learn more about these beautiful Animals!
+              Click to learn more about these beautiful creatures!
             </Text>
           </View>
           <View style={styles.animalList}>
@@ -48,12 +48,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black',
+    backgroundColor: '#F4F5F7',
     marginHorizontal: 30,
     marginVertical: 60,
-    borderRadius: 8,
-    borderColor: 'black',
-    borderWidth: 5
+    borderRadius: 8
+    //borderColor: 'black',
+    //borderWidth: 5
   },
 
   headerContainer: {
@@ -63,15 +63,16 @@ const styles = StyleSheet.create({
   },
   x: {
     alignSelf: 'flex-start',
-    backgroundColor: '#d7ff43',
+    //backgroundColor: '#d7ff43',
+    backgroundColor: '#00F48A',
     borderRadius: 50,
     padding: 3,
     margin: 10
   },
   title: {
     fontSize: 20,
+    color: 'black',
     //color: '#00F48A',
-    color: '#F4F5F7',
     fontFamily: 'Lato',
     marginHorizontal: 8
   },

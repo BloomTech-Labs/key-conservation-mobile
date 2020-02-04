@@ -26,81 +26,73 @@ const [
 
 export default animalData = [
   {
-    id: 1,
-    image: africanelephant,
-    name: 'African Elephant',
-    wwfLink: 'https://www.worldwildlife.org/species/african-elephant',
-    photoCred: "Photographer's Name"
-  },
-  {
     id: 2,
     image: whaleshark,
     name: 'Whale Shark',
-    wwfLink: 'https://www.worldwildlife.org/species/whale-shark',
-    photoCred: "Photographer's Name"
-  },
-  {
-    id: 3,
-    image: tortoise,
-    name: 'Giant Tortoise',
-    wwfLink: 'https://www.worldwildlife.org/species/giant-tortoise',
-    photoCred: "Photographer's Name"
-  },
-  {
-    id: 4,
-    image: africanwilddog,
-    name: 'Afican Wild Dog',
-    wwfLink: 'https://www.worldwildlife.org',
-    photoCred: "Photographer's Name"
-  },
-  {
-    id: 5,
-    image: bongo,
-    name: 'Bongo',
-    wwfLink: 'https://google.com',
-    photoCred: "Photographer's Name"
+    link: 'https://www.worldwildlife.org/species/whale-shark',
+    photoCred: 'Photographer Name'
   },
   {
     id: 6,
     image: bubble,
     name: 'Bubble???',
-    wwfLink: 'https://www.worldwildlife.org',
-    photoCred: "Photographer's Name"
-  },
-  {
-    id: 7,
-    image: gorilla,
-    name: 'Gorilla',
-    wwfLink: 'https://www.worldwildlife.org',
-    photoCred: "Photographer's Name"
+    link: 'https://www.worldwildlife.org',
+    photoCred: ''
   },
   {
     id: 8,
     image: greatgreen,
     name: 'Great Green??',
-    wwfLink: 'https://www.worldwildlife.org',
-    photoCred: "Photographer's Name"
+    link: 'https://www.worldwildlife.org',
+    photoCred: ''
   },
   {
     id: 9,
     image: kakapo,
     name: 'Kakapo',
-    wwfLink: 'https://www.worldwildlife.org',
-    photoCred: "Photographer's Name"
+    link: 'https://www.worldwildlife.org',
+    photoCred: ''
+  },
+  {
+    id: 3,
+    image: tortoise,
+    name: 'Giant Tortoise',
+    link: 'https://www.worldwildlife.org/species/giant-tortoise',
+    photoCred: ''
+  },
+  {
+    id: 7,
+    image: gorilla,
+    name: 'Gorilla',
+    link: 'https://www.worldwildlife.org',
+    photoCred: ''
+  },
+  {
+    id: 4,
+    image: africanwilddog,
+    name: 'Afican Wild Dog',
+    link: 'https://www.worldwildlife.org',
+    photoCred: ''
+  },
+  {
+    id: 1,
+    image: africanelephant,
+    name: 'African Elephant',
+    link: 'https://www.worldwildlife.org/species/african-elephant',
+    photoCred: ''
   },
   {
     id: 10,
     image: pangolin,
-
     name: 'Pangolin',
-    wwfLink: 'https://www.worldwildlife.org/species/pangolin',
-    photoCred: "Photographer's Name"
+    link: 'https://www.worldwildlife.org/species/pangolin',
+    photoCred: ''
   },
   {
-    id: 11,
-    image: zebra,
-    name: 'Zebra',
-    wwfLink: 'https://www.worldwildlife.org/species/zebra',
-    photoCred: "Photographer's Name"
+    id: 5,
+    image: bongo,
+    name: 'Bongo',
+    link: 'https://google.com',
+    photoCred: ''
   }
 ];
