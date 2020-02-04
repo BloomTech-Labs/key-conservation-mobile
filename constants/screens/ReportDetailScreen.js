@@ -8,11 +8,13 @@ export default StyleSheet.create({
     position: 'absolute',
     top: 0,
     padding: 24,
+    paddingTop: 0,
     width: DEVICE_WIDTH,
     height: DEVICE_HEIGHT,
     backgroundColor: 'white'
   },
   user_info: {
+    paddingTop: 24,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
@@ -22,9 +24,9 @@ export default StyleSheet.create({
     borderBottomWidth: 1
   },
   user_image_container: {
-    width: 128,
-    height: 128,
-    marginRight: 16
+    width: 96,
+    height: 96,
+    marginRight: 16,
   },
   user_image: {
     flex: 1,
@@ -34,7 +36,7 @@ export default StyleSheet.create({
   },
   user_details: {
     flex: 1,
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   user_name: {
     fontWeight: 'bold',
@@ -44,31 +46,40 @@ export default StyleSheet.create({
     color: 'gray',
     fontSize: 11
   },
-  report_details: {
-    marginVertical: 12,
-    borderRadius: 8,
-    borderWidth: 1,
-    padding: 8
+  deactivate_btn_container: {
+    paddingVertical: 4
   },
-  detail_section: {},
-  mini_header: {
-    color: 'gray',
-    fontSize: 12
+  deactivate_btn: {
+    color: 'crimson',
+    fontSize: 15
   },
-  detail_field: {
-    flexDirection: 'row',
-    margin: 8
-  },
-  text_label: {
-    flex: 1
-  },
-  touch_op: {
-    flex: 1
-  },
-  time_stamp: {
+  other_reports_section: {
     flex: 1,
-    color: 'gray',
-    textAlign: 'right',
-    marginVertical: 2
+    paddingVertical: 12,
+    borderTopWidth: 1,
+    marginVertical: 8,
+    marginBottom: 16
+  },
+  other_section_header: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    
+  },
+  load_overlay: {
+    flex: 1,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'black',
+    opacity: 0.7,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 100,
+  },
+  load_text: {
+    fontWeight: 'bold',
+    color: 'white'
   }
 });

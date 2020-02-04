@@ -6,7 +6,7 @@ import * as SecureStore from 'expo-secure-store';
 // production
 // const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
-const seturl = "https://key-conservation-staging.herokuapp.com/api/";
+const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
@@ -133,14 +133,19 @@ export const getProfileData = (
       }
     })
     .catch(err => {
-      dispatch =>
-        Promise.all([
-          SecureStore.deleteItemAsync('sub', {}),
-          SecureStore.deleteItemAsync('email', {}),
-          SecureStore.deleteItemAsync('roles', {}),
-          SecureStore.deleteItemAsync('id', {}),
-          SecureStore.deleteItemAsync('accessToken', {})
-        ]).then(dispatch({ type: GET_PROFILE_ERROR, payload: err.message }));
+      if (noDispatch) {
+        console.log(url);
+        return err.message;
+      } else {
+        dispatch =>
+          Promise.all([
+            SecureStore.deleteItemAsync('sub', {}),
+            SecureStore.deleteItemAsync('email', {}),
+            SecureStore.deleteItemAsync('roles', {}),
+            SecureStore.deleteItemAsync('id', {}),
+            SecureStore.deleteItemAsync('accessToken', {})
+          ]).then(dispatch({ type: GET_PROFILE_ERROR, payload: err.message }));
+      }
     });
 };
 
@@ -706,53 +711,66 @@ export const setMapSearchQuery = (query, field) => async dispatch => {
   dispatch({ type: SET_MAP_SEARCH_QUERY, payload: { query, field } });
 };
 
-export const [
-  GET_REPORTS_START,
-  GET_REPORTS_SUCCESS,
-  GET_REPORTS_ERROR
-] = [
+export const [GET_REPORTS_START, GET_REPORTS_SUCCESS, GET_REPORTS_ERROR] = [
   'GET_REPORTS_START',
   'GET_REPORTS_SUCCESS',
   'GET_REPORTS_ERROR'
-]
+];
 
 export const getReports = () => async dispatch => {
-  dispatch({type: GET_REPORTS_START});
+  dispatch({ type: GET_REPORTS_START });
   let url = `${seturl}reports`;
   const token = await SecureStore.getItemAsync('accessToken', {});
-  return axios.get(url, {headers: {
-    Accept: 'application/json',
-    Authorization: `Bearer ${token}`,
-    'Content-Type': 'application/json'
-  }}).then(res => {
-    dispatch({type: GET_REPORTS_SUCCESS, payload: res.data})
-  }).catch(err => {
-    dispatch({type: GET_REPORTS_ERROR, payload: err.message})
-  })
-}
+  return axios
+    .get(url, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => {
+      dispatch({ type: GET_REPORTS_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      dispatch({ type: GET_REPORTS_ERROR, payload: err.message });
+    });
+};
 
-export const [
-  GET_REPORT_START,
-  GET_REPORT_SUCCESS,
-  GET_REPORT_ERROR
-] = [
+export const [GET_REPORT_START, GET_REPORT_SUCCESS, GET_REPORT_ERROR] = [
   'GET_REPORT_START',
   'GET_REPORT_SUCCESS',
   'GET_REPORT_ERROR'
-]
+];
 
 export const getReport = id => async dispatch => {
-  dispatch({type: GET_REPORT_START});
+  dispatch({ type: GET_REPORT_START });
   let url = `${seturl}reports/${id}`;
   const token = await SecureStore.getItemAsync('accessToken', {});
-  return axios.get(url, {headers: {
-    Accept: 'application/json',
-    Authorization: `Bearer ${token}`,
-    'Content-Type': 'application-json'
-  }}).then(res => {
-    console.log(res.data);
-    dispatch({type: GET_REPORT_SUCCESS, payload: res.data});
-  }).catch(err => {
-    dispatch({type: GET_REPORT_ERROR, payload: err.message})
-  })
-}
+  return axios
+    .get(url, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application-json'
+      }
+    })
+    .then(res => {
+      dispatch({ type: GET_REPORT_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      dispatch({ type: GET_REPORT_ERROR, payload: err.message });
+    });
+};
+
+export const deactivateUser = async id => {
+  let url = `${seturl}users/deactivate/${id}`;
+  const token = await SecureStore.getItemAsync('accessToken', {});
+  return axios.get(url, {
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application-json'
+    }
+  });
+};

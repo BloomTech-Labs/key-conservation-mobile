@@ -1,49 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   FlatList
-} from "react-native";
-import { getReports } from "../store/actions";
-import { connect } from "react-redux";
-import ReportCard from "../components/Reports/ReportCard";
+} from 'react-native';
+import { getReports } from '../store/actions';
+import { connect } from 'react-redux';
+import ReportCard from '../components/Reports/ReportCard';
 
-import styles from "../constants/screens/AdminReportScreen";
-import GoBackButton from "../components/GoBackButton";
-import ReportDetailScreen from "./ReportDetailScreen";
+import styles from '../constants/screens/AdminReportScreen';
+import GoBackButton from '../components/GoBackButton';
+import ReportDetailScreen from './ReportDetailScreen';
 
 class AdminReportScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: navigation.getParam("reportTitle"),
+      title: navigation.getParam('reportTitle'),
       headerStyle: {
-        backgroundColor: "#323338"
+        backgroundColor: '#323338'
       },
-      headerTintColor: "#fff",
+      headerTintColor: '#fff',
       headerTitleStyle: {
-        textAlign: "center",
+        textAlign: 'center',
         flexGrow: 1,
-        alignSelf: "center"
+        alignSelf: 'center'
       },
       headerLeft: (
-        <GoBackButton
-          pressAction={navigation.getParam("adminBack")}
-        />
+        <GoBackButton pressAction={navigation.getParam('adminBack')} />
       )
     };
   };
 
   goBack = () => {
-    if(this.state.currentReport) {
-      this.setState({currentReport: null});
-    } else this.props.navigation.navigate("AccountSettings");
-  }
+    if (this.state.currentReport) {
+      this.setState({ currentReport: null });
+    } else this.props.navigation.navigate('AccountSettings');
+  };
 
   constructor(props) {
     super(props);
-    this.TABS = ["All", "Users", "Campaigns", "Comments"];
+    this.TABS = ['All', 'Users', 'Campaigns', 'Comments'];
   }
 
   state = {
@@ -52,28 +50,42 @@ class AdminReportScreen extends React.Component {
   };
 
   componentDidMount() {
-    this.props.navigation.setParams( { reportTitle: "Manage Reports"})
-    this.props.navigation.setParams( {adminBack: this.goBack} )
+    this.props.navigation.setParams({ reportTitle: 'Manage Reports' });
+    this.props.navigation.setParams({ adminBack: this.goBack });
     this.props.getReports();
   }
 
-  openReport = report => {
-    this.props.navigation.setParams( {reportTitle: report.name} )
-    this.setState({currentReport: report});
+  componentDidUpdate() {
+    let targetTitle;
+    if (this.state.currentReport) {
+      targetTitle = this.state.currentReport.name;
+      if (this.props.navigation.getParam('reportTitle') !== targetTitle)
+        this.props.navigation.setParams({
+          reportTitle: targetTitle
+        });
+    } else {
+      targetTitle = 'Manage Reports';
+      if (this.props.navigation.getParam('reportTitle') !== targetTitle)
+        this.props.navigation.setParams({ reportTitle: targetTitle });
+    }
   }
+
+  openReport = report => {
+    this.setState({ currentReport: report });
+  };
 
   render() {
     const reports = this.props.reports.data?.reports.filter(report => {
       switch (this.state.currentTab) {
         case 1:
-          return report.table_name === "users";
+          return report.table_name === 'users';
         case 2:
           return (
-            report.table_name === "campaigns" ||
-            report.table_name === "campaignUpdates"
+            report.table_name === 'campaigns' ||
+            report.table_name === 'campaignUpdates'
           );
         case 3:
-          return report.table_name === "comments";
+          return report.table_name === 'comments';
         default:
           return true;
       }
@@ -101,11 +113,11 @@ class AdminReportScreen extends React.Component {
             <View
               style={{
                 flex: 1,
-                alignItems: "center",
-                justifyContent: "center"
+                alignItems: 'center',
+                justifyContent: 'center'
               }}
             >
-              <Text style={{ color: "crimson" }}>
+              <Text style={{ color: 'crimson' }}>
                 {this.props.reports.error}
               </Text>
             </View>
@@ -114,7 +126,9 @@ class AdminReportScreen extends React.Component {
               <FlatList
                 data={reports}
                 renderItem={report => (
-                  <TouchableOpacity onPress={this.openReport.bind(this, report.item)}>
+                  <TouchableOpacity
+                    onPress={this.openReport.bind(this, report.item)}
+                  >
                     <ReportCard {...report.item} />
                   </TouchableOpacity>
                 )}

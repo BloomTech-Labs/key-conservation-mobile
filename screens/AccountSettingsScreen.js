@@ -82,7 +82,6 @@ class AccountSettingsScreen extends React.Component {
   };
 
   render() {
-    console.log(this.props.currentUserProfile.admin);
     return (
       <ScrollView contentContainerStyle={styles.scrollBG}>
         <View style={styles.container}>
