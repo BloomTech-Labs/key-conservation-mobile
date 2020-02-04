@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-
+import { TabNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import CanScreen from '../screens/org-onboarding-screens/CanScreen';
@@ -161,27 +161,23 @@ const FeedStack = createStackNavigator(
   }
 );
 
-const CreateCampStack = createStackNavigator(
-  { CreateCampaign: CreateCampScreen },
-  {
-    navigationOptions: {
-      headerLeft: null,
-      tabBarLabel: 'Create Campaign',
-      tabBarIcon: ({ focused }) => (
-        <SvgUri
-          fill='#3b3b3b'
-          width='25'
-          height='25'
-          source={
-            focused
-              ? require('../assets/icons/plus-fill.svg')
-              : require('../assets/icons/plus.svg')
-          }
-        />
-      )
-    }
-  }
-);
+// const CreateCampStack = createStackNavigator(
+//   { CreateCampaign: CreateCampScreen },
+//   {
+//     navigationOptions: {
+//       headerLeft: null,
+//       tabBarLabel: 'Create Campaign'
+//       // tabBarIcon  : ({ focused }) => (
+//       // 	<SvgUri
+//       // 		fill='#3b3b3b'
+//       // 		width='25'
+//       // 		height='25'
+//       // 		source={focused ? require('../assets/icons/plus-fill.svg') : require('../assets/icons/plus.svg')}
+//       // 	/>
+//       // ),
+//     }
+//   }
+// );
 
 export const AccountSettingsStack = createStackNavigator({
   AccountSettings: AccountSettingsScreen
@@ -280,7 +276,7 @@ export const ConsNavigator = createBottomTabNavigator(
         navigation.navigate('MapHome'), defaultHandler();
       }
     },
-    CreateCampStack: { screen: CreateCampStack, path: '' },
+    // CreateCampStack: { screen: CreateCampStack, path: '' },
     MyProStack: {
       screen: MyProStack,
       path: '',
@@ -294,7 +290,19 @@ export const ConsNavigator = createBottomTabNavigator(
   {
     tabBarOptions: {
       showIcon: true,
-      showLabel: false
+      showLabel: false,
+      activeBackgroundColor: '#EAEAEA',
+      style: {
+        borderTopColor: 'transparent'
+      },
+      tabStyle: {
+        borderRightColor: '#EAEAEA',
+        borderRightWidth: 1,
+        borderRightHeight: 10,
+        borderLeftColor: '#EAEAEA',
+        borderLeftWidth: 1,
+        borderLeftHeight: 10
+      }
     }
   }
 );
@@ -328,8 +336,20 @@ export const SupNavigator = createBottomTabNavigator(
   },
   {
     tabBarOptions: {
+      showLabel: false,
       showIcon: true,
-      showLabel: false
+      activeBackgroundColor: '#EAEAEA',
+      style: {
+        borderTopColor: 'transparent'
+      },
+      tabStyle: {
+        borderRightColor: '#EAEAEA',
+        borderRightWidth: 1,
+        borderRightHeight: 10,
+        borderLeftColor: '#EAEAEA',
+        borderLeftWidth: 1,
+        borderLeftHeight: 10
+      }
     }
   }
 );
