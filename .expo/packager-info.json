@@ -3,8 +3,6 @@
   "expoServerPort": 19000,
   "packagerPort": 19001,
   "packagerPid": 31543,
-  "expoServerNgrokUrl": "https://y9-vgd.katiefelten.key-conservation-mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.y9-vgd.katiefelten.key-conservation-mobile.exp.direct",
   "ngrokPid": 31557,
   "webpackServerPort": null
 }
