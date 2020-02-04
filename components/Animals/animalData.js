@@ -8,8 +8,7 @@ const [
   kakapo,
   pangolin,
   tortoise,
-  whaleshark,
-  zebra
+  whaleshark
 ] = [
   require('../../assets/images/africanelephant.png'),
   require('../../assets/images/africanwilddog.png'),
@@ -20,8 +19,7 @@ const [
   require('../../assets/images/kakapo.png'),
   require('../../assets/images/pangolin.png'),
   require('../../assets/images/tortoise.png'),
-  require('../../assets/images/whaleshark.png'),
-  require('../../assets/images/zebra.png')
+  require('../../assets/images/whaleshark.png')
 ];
 
 export default animalData = [
@@ -29,50 +27,50 @@ export default animalData = [
     id: 2,
     image: whaleshark,
     name: 'Whale Shark',
-    link: 'https://www.worldwildlife.org/species/whale-shark',
-    photoCred: 'Photographer Name'
+    link: 'https://www.iucnredlist.org/species/19488/2365291',
+    photoCred: 'Doug Perrine'
   },
   {
     id: 6,
     image: bubble,
-    name: 'Bubble???',
+    name: 'Stone Frog',
     link: 'https://www.worldwildlife.org',
-    photoCred: ''
+    photoCred: 'Pedro Peloso'
   },
   {
     id: 8,
     image: greatgreen,
-    name: 'Great Green??',
-    link: 'https://www.worldwildlife.org',
-    photoCred: ''
+    name: 'Great Green Macaw',
+    link: 'https://www.iucnredlist.org/species/22685553/93079606',
+    photoCred: 'Edwin Giesbers'
   },
   {
     id: 9,
     image: kakapo,
     name: 'Kakapo',
-    link: 'https://www.worldwildlife.org',
-    photoCred: ''
+    link: 'https://www.iucnredlist.org/species/22685245/129751169',
+    photoCred: 'Paddy Ryan'
   },
   {
     id: 3,
     image: tortoise,
-    name: 'Giant Tortoise',
-    link: 'https://www.worldwildlife.org/species/giant-tortoise',
-    photoCred: ''
+    name: 'Radiated Tortoise',
+    link: 'https://www.iucnredlist.org/species/9014/12950491',
+    photoCred: 'Edwin Giesbers'
   },
   {
     id: 7,
     image: gorilla,
-    name: 'Gorilla',
-    link: 'https://www.worldwildlife.org',
-    photoCred: ''
+    name: 'Mountain Gorilla',
+    link: 'https://www.iucnredlist.org/species/39999/17989719',
+    photoCred: 'Andy Rouse'
   },
   {
     id: 4,
     image: africanwilddog,
-    name: 'Afican Wild Dog',
-    link: 'https://www.worldwildlife.org',
-    photoCred: ''
+    name: 'African Wild Dog',
+    link: 'https://www.iucnredlist.org/species/12436/16711116',
+    photoCred: 'Glenn Nagel'
   },
   {
     id: 1,
@@ -85,14 +83,14 @@ export default animalData = [
     id: 10,
     image: pangolin,
     name: 'Pangolin',
-    link: 'https://www.worldwildlife.org/species/pangolin',
-    photoCred: ''
+    link: 'https://www.iucnredlist.org/species/12766/123586126',
+    photoCred: 'Nigel Dennis'
   },
   {
     id: 5,
     image: bongo,
-    name: 'Bongo',
-    link: 'https://google.com',
-    photoCred: ''
+    name: 'Eastern Mountain Bongo',
+    link: 'https://www.iucnredlist.org/species/22057/50197212',
+    photoCred: 'Mark MacEwen'
   }
 ];
