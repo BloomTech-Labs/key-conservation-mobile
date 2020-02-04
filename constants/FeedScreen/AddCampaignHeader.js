@@ -20,7 +20,7 @@ export default {
 		alignItems : 'center',
 		alignSelf  : 'center',
 	},
-	lightening      : {
+	plusLightening  : {
 		alignItems : 'center',
 		alignSelf  : 'center',
 	},

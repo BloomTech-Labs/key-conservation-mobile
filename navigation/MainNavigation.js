@@ -166,21 +166,20 @@ const FeedStack = createStackNavigator(
 );
 
 // const CreateCampStack = createStackNavigator(
-//   { CreateCampaign: CreateCampScreen },
-//   {
-//     navigationOptions: {
-//       headerLeft: null,
-//       tabBarLabel: 'Create Campaign'
-//       // tabBarIcon  : ({ focused }) => (
-//<PlusSign/>
-//       // ),
-//     }
-//   }
+// 	{ CreateCampaign: CreateCampScreen },
+// 	{
+// 		navigationOptions : {
+// 			headerLeft  : null,
+// 			tabBarLabel : 'Create Campaign',
+// 			tabBarIcon  : ({ focused }) => <PlusSign />,
+// 		},
+// 	},
 // );
+// export const CampStack = createStackNavigator((CreateCampStack = { screen: CreateCampStack, path: '' }));
 
-export const AccountSettingsStack = createStackNavigator({
-	AccountSettings : AccountSettingsScreen,
-});
+// export const AccountSettingsStack = createStackNavigator({
+// 	AccountSettings : AccountSettingsScreen,
+// });
 
 const MyProStack = createStackNavigator(
 	{
