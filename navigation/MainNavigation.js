@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-
+import { TabNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import CanScreen from '../screens/org-onboarding-screens/CanScreen';
@@ -50,6 +50,7 @@ import ToExpectNextScreen from '../screens/org-onboarding-screens/ToExpectNextSc
 import Lightening from '../assets/js icons/bottom navigation/Lightening';
 import Globe from '../assets/js icons/bottom navigation/Globe';
 import Smile from '../assets/js icons/bottom navigation/Smile';
+import PlusSign from '../assets/js icons/headerIcons/plusSign';
 
 export const OrgOnboardStack = createStackNavigator(
   {
@@ -153,39 +154,32 @@ const FeedStack = createStackNavigator(
       tabBarIcon: ({ focused }) => (
         // focused ? <HomeFill/> : <Home/>
         <Lightening />
-      ),
+      )
+    },
+
+    transitionConfig: () => ({
       transitionSpec: {
         duration: 0
       }
-    }
+    })
   }
 );
 
-const CreateCampStack = createStackNavigator(
-  { CreateCampaign: CreateCampScreen },
-  {
-    navigationOptions: {
-      headerLeft: null,
-      tabBarLabel: 'Create Campaign',
-      tabBarIcon: ({ focused }) => (
-        <SvgUri
-          fill='#3b3b3b'
-          width='25'
-          height='25'
-          source={
-            focused
-              ? require('../assets/icons/plus-fill.svg')
-              : require('../assets/icons/plus.svg')
-          }
-        />
-      )
-    }
-  }
-);
+// const CreateCampStack = createStackNavigator(
+// 	{ CreateCampaign: CreateCampScreen },
+// 	{
+// 		navigationOptions : {
+// 			headerLeft  : null,
+// 			tabBarLabel : 'Create Campaign',
+// 			tabBarIcon  : ({ focused }) => <PlusSign />,
+// 		},
+// 	},
+// );
+// export const CampStack = createStackNavigator((CreateCampStack = { screen: CreateCampStack, path: '' }));
 
-export const AccountSettingsStack = createStackNavigator({
-  AccountSettings: AccountSettingsScreen
-});
+// export const AccountSettingsStack = createStackNavigator({
+// 	AccountSettings : AccountSettingsScreen,
+// });
 
 const MyProStack = createStackNavigator(
   {
@@ -202,15 +196,17 @@ const MyProStack = createStackNavigator(
     EditCampUpdate: EditCampUpdateScreen
   },
   {
+    transitionConfig: () => ({
+      transitionSpec: {
+        duration: 0
+      }
+    }),
     navigationOptions: {
       tabBarLabel: 'My Profile',
       tabBarIcon: ({ focused }) => (
         // focused ? <UserFill /> : <User />
         <Smile />
-      ),
-      transitionSpec: {
-        duration: 0
-      }
+      )
     }
   }
 );
@@ -221,12 +217,14 @@ const MySupProStack = createStackNavigator(
     EditSupPro: { screen: EditSupProScreen }
   },
   {
-    navigationOptions: {
-      tabBarLabel: 'My Profile',
-      tabBarIcon: ({ focused }) => <Smile />,
+    transitionConfig: () => ({
       transitionSpec: {
         duration: 0
       }
+    }),
+    navigationOptions: {
+      tabBarLabel: 'My Profile',
+      tabBarIcon: ({ focused }) => <Smile />
     }
   }
 );
@@ -280,7 +278,7 @@ export const ConsNavigator = createBottomTabNavigator(
         navigation.navigate('MapHome'), defaultHandler();
       }
     },
-    CreateCampStack: { screen: CreateCampStack, path: '' },
+    // CreateCampStack: { screen: CreateCampStack, path: '' },
     MyProStack: {
       screen: MyProStack,
       path: '',
@@ -294,7 +292,19 @@ export const ConsNavigator = createBottomTabNavigator(
   {
     tabBarOptions: {
       showIcon: true,
-      showLabel: false
+      showLabel: false,
+      activeBackgroundColor: '#EAEAEA',
+      style: {
+        borderTopColor: 'transparent'
+      },
+      tabStyle: {
+        borderRightColor: '#EAEAEA',
+        borderRightWidth: 1,
+        borderRightHeight: 10,
+        borderLeftColor: '#EAEAEA',
+        borderLeftWidth: 1,
+        borderLeftHeight: 10
+      }
     }
   }
 );
@@ -328,8 +338,21 @@ export const SupNavigator = createBottomTabNavigator(
   },
   {
     tabBarOptions: {
+      showLabel: false,
       showIcon: true,
-      showLabel: false
+      activeBackgroundColor: '#EAEAEA',
+      style: {
+        borderTopColor: 'transparent',
+        marginBottom: -10
+      },
+      tabStyle: {
+        borderRightColor: '#EAEAEA',
+        borderRightWidth: 1,
+        borderRightHeight: 10,
+        borderLeftColor: '#EAEAEA',
+        borderLeftWidth: 1,
+        borderLeftHeight: 10
+      }
     }
   }
 );

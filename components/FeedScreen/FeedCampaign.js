@@ -512,7 +512,7 @@ const FeedCampaign = props => {
         ) : null}
       </View>
       <Text style={styles.timeText}>{timeDiff}</Text>
-      <View style={styles.demarcation}></View>
+      <View style={styles.demarcation} />
     </View>
   );
 };
