@@ -351,8 +351,7 @@ export const SupNavigator = createBottomTabNavigator(
       showIcon: true,
       activeBackgroundColor: '#EAEAEA',
       style: {
-        borderTopColor: 'transparent',
-        marginBottom: -10
+        borderTopColor: 'transparent'
       },
       tabStyle: {
         borderRightColor: '#EAEAEA',
