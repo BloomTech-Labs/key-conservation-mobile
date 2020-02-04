@@ -302,7 +302,18 @@ export const ConsNavigator = createBottomTabNavigator(
     tabBarOptions: {
       showIcon: true,
       showLabel: false,
-      activeBackgroundColor: '#EAEAEA'
+      activeBackgroundColor: '#EAEAEA',
+      style: {
+        borderTopColor: 'transparent'
+      },
+      tabStyle: {
+        borderRightColor: '#EAEAEA',
+        borderRightWidth: 1,
+        borderRightHeight: 10,
+        borderLeftColor: '#EAEAEA',
+        borderLeftWidth: 1,
+        borderLeftHeight: 10
+      }
     }
   }
 );
@@ -338,7 +349,19 @@ export const SupNavigator = createBottomTabNavigator(
     tabBarOptions: {
       showLabel: false,
       showIcon: true,
-      activeBackgroundColor: '#EAEAEA'
+      activeBackgroundColor: '#EAEAEA',
+      style: {
+        borderTopColor: 'transparent',
+        marginBottom: -10
+      },
+      tabStyle: {
+        borderRightColor: '#EAEAEA',
+        borderRightWidth: 1,
+        borderRightHeight: 10,
+        borderLeftColor: '#EAEAEA',
+        borderLeftWidth: 1,
+        borderLeftHeight: 10
+      }
     }
   }
 );
