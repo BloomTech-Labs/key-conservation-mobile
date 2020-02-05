@@ -9,6 +9,7 @@ import SvgUri from 'react-native-svg-uri';
 import styles from '../constants/screens/FeedScreen';
 import { AmpInit } from '../components/withAmplitude';
 import { Viewport } from '@skele/components';
+import AddCampaignHeader from '../components/FeedScreen/AddCampaignHeader';
 
 import Search from '../assets/jsicons/SearchIcon';
 
@@ -76,6 +77,10 @@ class FeedScreen extends React.Component {
       <Viewport.Tracker>
         <ScrollView scrollEventThrottle={16}>
           <View style={styles.feedContainer}>
+            {/* <AddCampaignHeader profile={this.props.currentUserProfile} /> */}
+            {this.props.currentUserProfile.roles === 'conservationist' ? (
+              <AddCampaignHeader profile={this.props.currentUserProfile} />
+            ) : null}
             <NavigationEvents
               onDidFocus={this.startGettingCampaigns}
               onDidBlur={this.stopGettingCampaigns}
