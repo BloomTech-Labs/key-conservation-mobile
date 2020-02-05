@@ -47,11 +47,10 @@ import LogoutScreen from '../screens/LogoutScreen';
 import ToExpectNextScreen from '../screens/org-onboarding-screens/ToExpectNextScreen';
 
 //icon imports
-
-import Lightening from '../assets/js icons/bottom navigation/Lightening';
-import Globe from '../assets/js icons/bottom navigation/Globe';
-import Smile from '../assets/js icons/bottom navigation/Smile';
-import PlusSign from '../assets/js icons/headerIcons/plusSign';
+import Lightening from '../assets/jsicons/bottomnavigation/Lightening';
+import Globe from '../assets/jsicons/bottomnavigation/Globe';
+import Smile from '../assets/jsicons/bottomnavigation/Smile';
+import PlusSign from '../assets/jsicons/headerIcons/plusSign';
 
 export const OrgOnboardStack = createStackNavigator(
 	{
