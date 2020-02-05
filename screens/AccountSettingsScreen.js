@@ -1,17 +1,18 @@
 import React from "react";
-import { Text, Image, View, TouchableOpacity, Linking } from "react-native";
+import { Text, Image, View, TouchableOpacity } from "react-native";
 import SvgUri from "react-native-svg-uri";
-import { ScrollView, NavigationEvents } from "react-navigation";
+import { ScrollView } from "react-navigation";
 import { connect } from "react-redux";
 import { logout } from "../store/actions";
 import * as SecureStorage from "expo-secure-store";
-import GoBackButton from "../components/BackButton";
 import DoneButton from "../components/DoneButton";
 
 import styles from "../constants/screens/AccountSettingsScreen";
 import * as WebBrowser from "expo-web-browser";
 
 import Constants from "expo-constants";
+
+import Smile from "../assets/jsicons/bottomnavigation/Smile";
 
 class AccountSettingsScreen extends React.Component {
   state = {
@@ -31,9 +32,8 @@ class AccountSettingsScreen extends React.Component {
         flexGrow: 1,
         alignSelf: "center"
       },
-      headerRight: (
+      headerRight: () => (
         <DoneButton
-          navigation={navigation}
           pressAction={navigation.getParam("done")}
         />
       )
@@ -56,7 +56,9 @@ class AccountSettingsScreen extends React.Component {
       this.props.navigation.navigate("MySupPro");
     }
   };
-
+  viewReports = () => {
+    this.props.navigation.navigate("AdminScreen");
+  };
   logoutPress = async () => {
     await SecureStorage.deleteItemAsync("sub", {});
     await SecureStorage.deleteItemAsync("email", {});
@@ -85,14 +87,40 @@ class AccountSettingsScreen extends React.Component {
     return (
       <ScrollView contentContainerStyle={styles.scrollBG}>
         <View style={styles.container}>
+          {this.props.currentUserProfile.admin && (
+            <View style={styles.sections}>
+              <View style={styles.iconWrap}>
+                <Smile />
+                {/* <SvgUri
+                  fill="#3b3b3b"
+                  width="25"
+                  height="25"
+                  source={require("../assets/icons/user.svg")}
+                /> */}
+                <Text style={styles.title}>Admin Controls</Text>
+              </View>
+              <TouchableOpacity
+                style={styles.linkWrap}
+                onPress={this.viewReports}
+              >
+                <Image
+                  source={require("../assets/icons/logout.png")}
+                  style={styles.logoutButton}
+                />
+                <Text style={styles.linkText}>Manage Reports</Text>
+              </TouchableOpacity>
+            </View>
+          )}
           <View style={styles.sections}>
             <View style={styles.iconWrap}>
-              <SvgUri
+              <Smile />
+              {/* <SvgUri
                 fill="#3b3b3b"
                 width="25"
                 height="25"
                 source={require("../assets/icons/user.svg")}
-              />
+              /> */}
+
               <Text style={styles.title}>Logout Of Your Profile</Text>
             </View>
             <TouchableOpacity

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Text,
   ImageBackground,
@@ -6,31 +6,34 @@ import {
   TouchableOpacity,
   FlatList,
   Platform
-} from 'react-native';
-import { withNavigationFocus } from 'react-navigation';
-import { View } from 'react-native-animatable';
-import moment from 'moment';
-import { Video } from 'expo-av';
-import { Avatar } from 'react-native-elements';
-import { ListItem } from 'react-native-elements';
-import { useDispatch } from 'react-redux';
-import { connect } from 'react-redux';
-import { FontAwesome } from '@expo/vector-icons';
-import axios from 'axios';
-import { Viewport } from '@skele/components';
+} from "react-native";
+import { withNavigationFocus } from "react-navigation";
+import { View } from "react-native-animatable";
+import moment from "moment";
+import { Video } from "expo-av";
+import { Avatar } from "react-native-elements";
+import { ListItem } from "react-native-elements";
+import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
+import { FontAwesome } from "@expo/vector-icons";
+import axios from "axios";
+import { Viewport } from "@skele/components";
 
 import {
   getProfileData,
   getCampaign,
   toggleCampaignText
-} from '../../store/actions';
-import { AmpEvent } from '../withAmplitude';
+} from "../../store/actions";
+import { AmpEvent } from "../withAmplitude";
 
-import styles from '../../constants/FeedScreen/FeedCampaign';
-import styles2 from '../../constants/Comments/Comments';
+import styles from "../../constants/FeedScreen/FeedCampaign";
+import styles2 from "../../constants/Comments/Comments";
 
 // url for heroku staging vs production server
-const seturl = 'https://key-conservation.herokuapp.com/api/';
+// production
+// const seturl = 'https://key-conservation.herokuapp.com/api/'
+// staging
+const seturl = "https://key-conservation-staging.herokuapp.com/api/";
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
@@ -48,6 +51,7 @@ const FeedCampaign = props => {
   // const [userBookmarked, setUserBookmarked] = useState(false);
   const [urgTop, setUrgTop] = useState(0);
   const [loader, setLoader] = useState(true);
+  // console.log("PROPS FROM FEEDCAMPAIGN", props);
 
   // old code for Likes + Bookmarks
   // useEffect(() => {
@@ -80,7 +84,7 @@ const FeedCampaign = props => {
       return string;
     } else {
       let end = cutoff;
-      const avoidChars = [' ', ',', '.', '!'];
+      const avoidChars = [" ", ",", ".", "!"];
       while (avoidChars.includes(string.charAt(end)) && end >= cutoff - 10) {
         end--;
       }
@@ -92,77 +96,87 @@ const FeedCampaign = props => {
   const currentTime = moment();
   const postTime = moment(createdAt);
   let timeDiff;
-  if (currentTime.diff(postTime, 'days') < 1) {
-    if (currentTime.diff(postTime, 'hours') < 1) {
-      if (currentTime.diff(postTime, 'minutes') < 1) {
-        timeDiff = 'just now';
+  if (currentTime.diff(postTime, "days") < 1) {
+    if (currentTime.diff(postTime, "hours") < 1) {
+      if (currentTime.diff(postTime, "minutes") < 1) {
+        timeDiff = "just now";
       } else {
-        if (currentTime.diff(postTime, 'minutes') === 1) {
-          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO`;
+        if (currentTime.diff(postTime, "minutes") === 1) {
+          timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTE AGO`;
         } else {
-          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`;
+          timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTES AGO`;
         }
       }
     } else {
-      if (currentTime.diff(postTime, 'hours') === 1) {
-        timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO`;
+      if (currentTime.diff(postTime, "hours") === 1) {
+        timeDiff = `${currentTime.diff(postTime, "hours")} HOUR AGO`;
       } else {
-        timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`;
+        timeDiff = `${currentTime.diff(postTime, "hours")} HOURS AGO`;
       }
     }
   } else {
-    if (currentTime.diff(postTime, 'days') === 1) {
-      timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO`;
+    if (currentTime.diff(postTime, "days") === 1) {
+      timeDiff = `${currentTime.diff(postTime, "days")} DAY AGO`;
     } else {
-      timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
+      timeDiff = `${currentTime.diff(postTime, "days")} DAYS AGO`;
     }
   }
 
   //// All styles for the urgency bar
   let urgencyColor;
-  if (data.urgency === 'Critical') {
-    urgencyColor = 'rgba(227,16,89,0.7)';
-  } else if (data.urgency === 'Urgent') {
-    urgencyColor = 'rgba(255,199,0,0.7)';
-  } else if (data.urgency === 'Longterm') {
-    urgencyColor = 'rgba(0,255,157,0.7)';
+  if (data.urgency === "Critical") {
+    urgencyColor = "rgba(227,16,89,0.7)";
+  } else if (data.urgency === "Urgent") {
+    urgencyColor = "rgba(255,199,0,0.7)";
+  } else if (data.urgency === "Longterm") {
+    urgencyColor = "rgba(0,255,157,0.7)";
   } else {
-    urgencyColor = '#323338BF';
+    urgencyColor = "#323338BF";
   }
   let urgencyStatus;
   if (data.urgency) {
     urgencyStatus = data.urgency.toUpperCase();
   } else {
-    urgencyStatus = 'Standard';
+    urgencyStatus = "Standard";
   }
 
   const urgencyStyles = {
     backgroundColor: urgencyColor,
     height: 37,
-    width: '100%',
-    position: 'absolute',
+    width: "100%",
+    position: "absolute",
     top: urgTop,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     zIndex: 1
   };
 
   const goToProfile = async () => {
     await dispatch(getProfileData(data.users_id));
-    AmpEvent('Select Profile from Campaign', {
+    console.log("GOTOPROFILE FUNCTION FIRES");
+    AmpEvent("Select Profile from Campaign", {
       profile: data.username,
       campaign: data.camp_name
     });
-    props.navigation.navigate('Pro');
+    props.navigation.navigate("Pro");
+  };
+
+  const goToCommenterProfile = async () => {
+    let users_id = data.comments[0].users_id;
+    await dispatch(getProfileData(users_id));
+    props.navigation.navigate("SupPro", {
+      username: data.comments[0].username
+    });
   };
 
   const goToCampaign = async () => {
+    console.log("GOTOCAMPAIGN FUNCTION FIRES");
     await dispatch(getCampaign(data.camp_id));
-    AmpEvent('Select Profile from Campaign', {
+    AmpEvent("Select Profile from Campaign", {
       campaign: data.camp_name,
       profile: data.username
     });
-    props.navigation.navigate('Camp', {
+    props.navigation.navigate("Camp", {
       // likes: likes,
       // userLiked: userLiked,
       // addLike: addLike,
@@ -336,9 +350,9 @@ const FeedCampaign = props => {
       />
       <View>
         <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
-          {data.camp_img.includes('.mov') ||
-          data.camp_img.includes('.mp3') ||
-          data.camp_img.includes('.mp4') ? (
+          {data.camp_img.includes(".mov") ||
+          data.camp_img.includes(".mp3") ||
+          data.camp_img.includes(".mp4") ? (
             <View>
               {data.urgency ? (
                 <View style={urgencyStyles}>
@@ -347,7 +361,7 @@ const FeedCampaign = props => {
               ) : null}
               {loader ? (
                 <View style={styles.indicator}>
-                  <ActivityIndicator size='large' color='#00FF9D' />
+                  <ActivityIndicator size="large" color="#00FF9D" />
                 </View>
               ) : null}
               {props.isFocused ? (
@@ -361,7 +375,7 @@ const FeedCampaign = props => {
                   isMuted={false}
                   shouldPlay={true}
                   isLooping
-                  resizeMode='cover'
+                  resizeMode="cover"
                   onPlaybackStatusUpdate={onPlaybackStatusUpdate}
                   style={styles.campImgContain}
                 />
@@ -467,6 +481,7 @@ const FeedCampaign = props => {
                 <View style={styles2.commentView}>
                   <View style={styles2.feedAvatar}>
                     <Avatar
+                      onPress={goToCommenterProfile}
                       rounded
                       source={{
                         uri: item.profile_image

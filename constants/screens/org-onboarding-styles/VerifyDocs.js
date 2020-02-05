@@ -84,7 +84,6 @@ export default {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    alignContent: 'center',
     marginRight: '5%'
   },
   obFwdBtnText: {

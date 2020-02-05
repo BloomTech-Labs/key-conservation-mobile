@@ -20,7 +20,7 @@
     "assetBundlePatterns": ["**/*"],
     "android": {
       "package": "com.kc.keyconservation",
-      "versionCode": 7
+      "versionCode": 8
     },
     "ios": {
       "infoPlist": {
@@ -32,7 +32,7 @@
           }
         ]
       },
-      "buildNumber": "9",
+      "buildNumber": "10",
       "supportsTablet": true,
       "bundleIdentifier": "com.kc.keyconservation"
     },
