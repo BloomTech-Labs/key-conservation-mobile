@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { AmpEvent } from '../../components/withAmplitude';
 
-import ChevronLeft from '../../assets/js icons/miscIcons/chevron-left-solid';
+import ChevronLeft from '../../assets/jsicons/miscIcons/chevron-left-solid';
 import SvgUri from 'react-native-svg-uri';
 
 const AnimalCard = props => {

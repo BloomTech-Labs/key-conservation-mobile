@@ -7,8 +7,7 @@ import {
   TouchableOpacity,
   ImageBackground
 } from 'react-native';
-import KeyInfoGreen from '../assets/js icons/KeyCon/Key_Info_Green';
-import ChevronLeft from '../assets/js icons/miscIcons/chevron-left-solid';
+import KeyInfoGreen from '../assets/jsicons/KeyCon/Key_Info_Green';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { AuthSession } from 'expo';
