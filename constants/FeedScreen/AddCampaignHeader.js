@@ -3,8 +3,8 @@ export default {
     height: 70,
     flex: 1,
     flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderBottomColor: 'black',
+    borderBottomWidth: 6,
+    borderBottomColor: '#c4c4c4',
     justifyContent: 'center',
     justifyContent: 'space-between',
     marginBottom: 15

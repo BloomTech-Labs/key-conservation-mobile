@@ -8,19 +8,6 @@ import CreateCampScreen from '../../screens/CreateCampScreen';
 import { withNavigation } from 'react-navigation';
 
 const AddCampaignHeader = props => {
-  console.log(props);
-  // const CreateCampStack = createStackNavigator(
-  // 	{ CreateCampaign: CreateCampScreen },
-  // 	{
-  // 		navigationOptions : {
-  // 			headerLeft : null,
-  // 		},
-  // 	},
-  // );
-
-  // const CreateCampNavigator = createStackNavigator({
-  // 	createStackNavigator : { screen: CreateCampScreen, path: '' },
-  // });
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
@@ -44,12 +31,6 @@ const AddCampaignHeader = props => {
             <PlusLightening />
           </View>
         </TouchableOpacity>
-        {/* <TouchableOpacity
-					onPress={(navigation) => {
-						alert('You tapped the button!');
-						navigation.navigate('Loading');
-					}}
-				/> */}
       </View>
     </View>
   );
