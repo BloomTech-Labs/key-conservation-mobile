@@ -48,9 +48,9 @@ import ToExpectNextScreen from '../screens/org-onboarding-screens/ToExpectNextSc
 
 //icon imports
 
-import Lightening from '../assets/js icons/bottom navigation/Lightening';
-import Globe from '../assets/js icons/bottom navigation/Globe';
-import Smile from '../assets/js icons/bottom navigation/Smile';
+import Lightening from '../assets/jsicons/bottomnavigation/Lightening';
+import Globe from '../assets/jsicons/bottomnavigation/Globe';
+import Smile from '../assets/jsicons/bottomnavigation/Smile';
 
 export const OrgOnboardStack = createStackNavigator(
   {
