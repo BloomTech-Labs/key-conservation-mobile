@@ -55,6 +55,39 @@ export const afterFirstLogin = () => ({
   type: AFTER_FIRST_LOGIN
 });
 
+export const getCustomById = (table_name, id) => async dispatch => {
+  let url = `${seturl}`;
+
+  switch(table_name) {
+    case 'campaignUpdates': {
+      url += '/updates';
+      break;
+    }
+    case 'comments' : {
+      url += '/comments/com';
+      break;
+    }
+    case 'campaigns': {
+      url += '/campaigns';
+      break;
+    }
+    default: {
+      console.warn(`Invalid table name ${table_name}: getCustomById(table_name, id) in actions`)
+      return;
+    }
+  }
+
+  let token = await SecureStore.getItemAsync('accessToken');
+
+  return axios.get(`${url}/${id}`, {
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+  });
+}
+
 //// These actions are for the loading page to determine if:
 // A) The user is logged in
 // B) The account exists and user is not logged in

@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, Animated, Image, Button, Alert } from 'react-native';
+import { View, Text, Animated, Image, SafeAreaView, Alert } from 'react-native';
 
 import styles, { DEVICE_WIDTH } from '../constants/screens/ReportDetailScreen';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
@@ -70,7 +70,7 @@ class ReportDetailScreen extends Component {
   promptDeactivate() {
     Alert.alert(
       'Deactivate User',
-      'Are you sure you want to deactivate this user?',
+      `Are you sure you want to deactivate this user? This will also archive all their current reports`,
       [
         {
           text: 'Deactivate',
@@ -90,7 +90,7 @@ class ReportDetailScreen extends Component {
             <Text style={styles.load_text}>Loading...</Text>
           </View>
         )}
-        <ScrollView>
+        <ScrollView style={styles.scrollView}>
           <View style={styles.user_info}>
             <View style={styles.user_image_container}>
               <Image
@@ -103,8 +103,8 @@ class ReportDetailScreen extends Component {
             <View style={styles.user_details}>
               <Text style={styles.user_name}>{this.props.report?.name}</Text>
               <Text style={styles.user_detail}>
-                {1 + this.state.currentReport?.other_reports?.length || '---'} ACTIVE
-                REPORTS
+                {1 + this.state.currentReport?.other_reports?.length || '---'}{' '}
+                ACTIVE REPORTS
               </Text>
               <Text style={styles.user_detail}>
                 This user has {this.state.currentUser?.strikes || '0'} strikes
@@ -117,7 +117,12 @@ class ReportDetailScreen extends Component {
               </TouchableOpacity>
             </View>
           </View>
-          <ReportDetailCard currentReport={this.state.currentReport} />
+          {this.state.currentReport && (
+            <ReportDetailCard
+              currentReport={this.state.currentReport}
+              unique_reports={this.props.report?.unique_reports}
+            />
+          )}
           {this.state.currentReport?.other_reports.length ? (
             <View style={styles.other_reports_section}>
               <Text style={styles.other_section_header}>
@@ -126,6 +131,7 @@ class ReportDetailScreen extends Component {
               {this.state.currentReport?.other_reports.map(report => {
                 return (
                   <ReportDetailCard
+                    unique_reports={this.props.report?.unique_reports}
                     currentReport={report}
                     collapsed={true}
                     key={report.id}

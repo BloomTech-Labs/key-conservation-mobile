@@ -7,11 +7,16 @@ export default StyleSheet.create({
   container: {
     position: 'absolute',
     top: 0,
-    padding: 24,
     paddingTop: 0,
+    paddingBottom: 64,
     width: DEVICE_WIDTH,
     height: DEVICE_HEIGHT,
     backgroundColor: 'white'
+  },
+  scrollView: {
+    flex: 1,
+    padding: 24,
+    marginBottom: 48,
   },
   user_info: {
     paddingTop: 24,

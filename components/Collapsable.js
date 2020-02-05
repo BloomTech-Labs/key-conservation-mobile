@@ -13,6 +13,16 @@ import arrow from '../assets/icons/chevron-left-solid.svg';
 
 // create a component
 class Collapsable extends Component {
+  constructor(props) {
+    super(props);
+
+    const typeOfRight = typeof props.right;
+
+    if(typeOfRight !== 'undefined' && typeOfRight !== 'object') {
+      console.error('Prop `right` in Collapsable must be a valid React component!');
+    }
+  }
+
   state = {
     collapsed: this.props.collapsed || false,
     animation: new Animated.Value(),
@@ -88,6 +98,9 @@ class Collapsable extends Component {
             onLayout={this.setMinHeight.bind(this)}
           >
             <Text style={styles.title}>{this.props.title}</Text>
+            <View style={styles.right_content}>
+            {this.props.right}
+            </View>
             <Animated.View
               style={[
                 styles.arrowContainer,
@@ -129,10 +142,14 @@ const styles = StyleSheet.create({
   title_bar: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     padding: 8
   },
+  right_content: {
+    flex: 0.5,
+  },  
   title: {
-    flex: 1,
+    flex: 2,
     padding: 10,
     fontWeight: 'bold',
     fontSize: 16
@@ -149,7 +166,8 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 8,
-    paddingTop: 8
+    paddingTop: 8,
+    overflow: 'hidden'
   }
 });
 
