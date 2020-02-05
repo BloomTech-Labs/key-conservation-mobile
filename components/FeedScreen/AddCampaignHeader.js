@@ -7,50 +7,52 @@ import { createStackNavigator } from 'react-navigation-stack';
 import CreateCampScreen from '../../screens/CreateCampScreen';
 import { withNavigation } from 'react-navigation';
 
-const AddCampaignHeader = ({ navigation }) => {
-	// const CreateCampStack = createStackNavigator(
-	// 	{ CreateCampaign: CreateCampScreen },
-	// 	{
-	// 		navigationOptions : {
-	// 			headerLeft : null,
-	// 		},
-	// 	},
-	// );
+const AddCampaignHeader = props => {
+  console.log(props);
+  // const CreateCampStack = createStackNavigator(
+  // 	{ CreateCampaign: CreateCampScreen },
+  // 	{
+  // 		navigationOptions : {
+  // 			headerLeft : null,
+  // 		},
+  // 	},
+  // );
 
-	// const CreateCampNavigator = createStackNavigator({
-	// 	createStackNavigator : { screen: CreateCampScreen, path: '' },
-	// });
-	return (
-		<View style={styles.container}>
-			<View style={styles.avatarContainer}>
-				<Avatar
-					size={48}
-					rounded
-					// 	source={{
-					// 		uri : name,
-					// 	}}
-				/>
-			</View>
-			<Text style={styles.text}>Add New Campaign</Text>
-			<View style={styles.plusLightening}>
-				<TouchableOpacity
-					style={styles.button}
-					onPress={() => {
-						navigation.navigate('CreateCampaign');
-					}}>
-					<View>
-						<PlusLightening />
-					</View>
-				</TouchableOpacity>
-				{/* <TouchableOpacity
+  // const CreateCampNavigator = createStackNavigator({
+  // 	createStackNavigator : { screen: CreateCampScreen, path: '' },
+  // });
+  return (
+    <View style={styles.container}>
+      <View style={styles.avatarContainer}>
+        <Avatar
+          size={48}
+          rounded
+          source={{
+            uri: props.profile.profile_image
+          }}
+        />
+      </View>
+      <Text style={styles.text}>Add New Campaign</Text>
+      <View style={styles.plusLightening}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            props.navigation.navigate('CreateCampaign');
+          }}
+        >
+          <View>
+            <PlusLightening />
+          </View>
+        </TouchableOpacity>
+        {/* <TouchableOpacity
 					onPress={(navigation) => {
 						alert('You tapped the button!');
 						navigation.navigate('Loading');
 					}}
 				/> */}
-			</View>
-		</View>
-	);
+      </View>
+    </View>
+  );
 };
 
 export default withNavigation(AddCampaignHeader);
