@@ -10,7 +10,7 @@ import styles from '../constants/screens/FeedScreen';
 import { AmpInit } from '../components/withAmplitude';
 import { Viewport } from '@skele/components';
 
-import Search from '../assets/js icons/SearchIcon';
+import Search from '../assets/jsicons/SearchIcon';
 
 class FeedScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {

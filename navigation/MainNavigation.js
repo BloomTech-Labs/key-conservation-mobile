@@ -41,15 +41,16 @@ import CreateCampUpdateScreen from '../screens/CreateCampUpdateScreen';
 import EditCampUpdateScreen from '../screens/EditCampUpdateScreen';
 import AccountSettingsScreen from '../screens/AccountSettingsScreen';
 import WideMapScreen from '../screens/maps/WideMapScreen';
-
+import AdminReportScreen from "../screens/AdminReportScreen";
+import ReportDetailScreen from "../screens/ReportDetailScreen";
 import LogoutScreen from '../screens/LogoutScreen';
 import ToExpectNextScreen from '../screens/org-onboarding-screens/ToExpectNextScreen';
 
 //icon imports
 
-import Lightening from '../assets/js icons/bottom navigation/Lightening';
-import Globe from '../assets/js icons/bottom navigation/Globe';
-import Smile from '../assets/js icons/bottom navigation/Smile';
+import Lightening from '../assets/jsicons/bottomnavigation/Lightening';
+import Globe from '../assets/jsicons/bottomnavigation/Globe';
+import Smile from '../assets/jsicons/bottomnavigation/Smile';
 
 export const OrgOnboardStack = createStackNavigator(
   {
@@ -161,6 +162,13 @@ const FeedStack = createStackNavigator(
   }
 );
 
+export const AdminReportStack = createStackNavigator({
+  AdminScreen: AdminReportScreen
+});
+
+export const ReportDetailStack = createStackNavigator({
+  ReportScreen: ReportDetailScreen
+})
 // const CreateCampStack = createStackNavigator(
 //   { CreateCampaign: CreateCampScreen },
 //   {

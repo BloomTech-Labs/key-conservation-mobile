@@ -1,7 +1,7 @@
-import React from "react";
-import { TouchableOpacity, View, Text } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
-import styles from "../constants/Buttons/Back";
+import React from 'react';
+import { TouchableOpacity, View, Text } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
+import styles from '../constants/Buttons/Back';
 
 const DoneButton = props => {
   // console.log(props);
@@ -11,9 +11,9 @@ const DoneButton = props => {
 
   return (
     <TouchableOpacity onPress={handlePress} style={styles.container}>
-          <Text>
-                <FontAwesome name="long-arrow-left" style={styles.outline} />
-              </Text>
+      <Text>
+        <FontAwesome name='long-arrow-left' style={styles.outline} />
+      </Text>
     </TouchableOpacity>
   );
 };

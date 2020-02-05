@@ -9,6 +9,8 @@ import {
 	LogoutStack,
 	OrgOnboardStack,
 	AccountSettingsStack,
+	AdminReportStack,
+	ReportDetailStack
 } from './MainNavigation';
 import LoadingScreenMov from '../components/LoadingScreenMov';
 import LoadingScreen from '../screens/LoadingScreen';
@@ -28,5 +30,7 @@ export default createAppContainer(
 		Supporter       : SupNavigator,
 		Logout          : LogoutStack,
 		AccountSettings : AccountSettingsStack,
+		AdminScreen			: AdminReportStack,
+		ReportScreen		: ReportDetailStack
 	}),
 );
