@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from '../../constants/FeedScreen/AddCampaignHeader';
 import { Avatar } from 'react-native-elements';
-import PlusLightening from '../../assets/js icons/headerIcons/plusLightening';
+import PlusLightening from '../../assets/jsicons/headerIcons/plusLightening';
 import { createStackNavigator } from 'react-navigation-stack';
 import CreateCampScreen from '../../screens/CreateCampScreen';
 import { withNavigation } from 'react-navigation';
