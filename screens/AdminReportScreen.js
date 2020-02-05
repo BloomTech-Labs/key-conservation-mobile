@@ -27,7 +27,7 @@ class AdminReportScreen extends React.Component {
         flexGrow: 1,
         alignSelf: 'center'
       },
-      headerLeft: (
+      headerLeft: () => (
         <GoBackButton pressAction={navigation.getParam('adminBack')} />
       )
     };

@@ -15,8 +15,11 @@ import DropDownSelect from './formElement/DropDownSelect';
 import { Feather } from '@expo/vector-icons';
 import styles from '../../constants/screens/org-onboarding-styles/OrganizationSurvey';
 import NavigateButton from './formElement/NavigateButton.js';
+import uploadMedia from '../../components/UploadMedia';
+import { connect } from 'react-redux';
 
 import * as SecureStore from 'expo-secure-store';
+import UploadMedia from '../../constants/UploadMedia';
 
 const OrganizationSurveyScreen = props => {
   const [values, handleChange] = useState({
@@ -27,6 +30,8 @@ const OrganizationSurveyScreen = props => {
     instagram: '',
     twitter: ''
   });
+
+  const [logo, setLogo] = useState('');
 
   const airtableStateAdd = props.navigation.getParam(
     'airtableStateAdd',
@@ -41,7 +46,12 @@ const OrganizationSurveyScreen = props => {
     today.getMonth() + 1 + '-' + today.getDate() + '-' + today.getFullYear();
 
   handleSubmit = async () => {
-    airtableStateAdd2 = Object.assign({ ...airtableStateAdd, ...values }); // Updates state for backend with new fields.
+    setLogo(props.mediaUpload);
+    airtableStateAdd2 = Object.assign({
+      ...airtableStateAdd,
+      ...values,
+      profile_image: logo
+    }); // Updates state for backend with new fields.
     // console.log(airtableStateAdd2)
     stringBE = JSON.stringify(airtableStateAdd2);
     await SecureStore.setItemAsync('stateBE', stringBE); // Finally stores data object in SecureStore to be opened in 'EditPro' after user is vetted.
@@ -120,6 +130,12 @@ const OrganizationSurveyScreen = props => {
               required
             />
           </View>
+          <View>
+            <Text style={[styles.obSubtitle, { fontSize: 18 }]}>
+              Upload your organization's logo:
+            </Text>
+            <UploadMedia />
+          </View>
           <View style={styles.inputBlockSm}>
             <Text style={[styles.obSubtitle, { fontSize: 18 }]}>
               Connect to your social media sites:
@@ -165,4 +181,8 @@ const OrganizationSurveyScreen = props => {
   );
 };
 
-export default OrganizationSurveyScreen;
+const mapStateToProps = state => ({
+  mediaUpload: state.mediaUpload
+});
+
+export default connect(mapStateToProps, {})(OrganizationSurveyScreen);
