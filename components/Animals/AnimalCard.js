@@ -3,6 +3,9 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { AmpEvent } from '../../components/withAmplitude';
 
+import ChevronLeft from '../../assets/js icons/miscIcons/chevron-left-solid';
+import SvgUri from 'react-native-svg-uri';
+
 const AnimalCard = props => {
   const [selected, setSelected] = useState(false);
 
@@ -34,14 +37,26 @@ const AnimalCard = props => {
             selected === false && styles.animalInfoHidden
           ]}
         >
-          <Text style={styles.animalName}>{props.name}</Text>
+          <View style={styles.infoLeft}>
+            <Text style={styles.animalName}>{props.name}</Text>
+            {props.photoCred && props.photoCred !== '' ? (
+              <Text style={styles.photoCred}>© {props.photoCred}</Text>
+            ) : null}
+          </View>
           <Text style={styles.link} onPress={WebsiteClick}>
             Learn More
           </Text>
-          {props.photoCred && props.photoCred !== '' ? (
-            <Text style={styles.photoCred}>Photo by: {props.photoCred}</Text>
-          ) : null}
         </View>
+        <TouchableOpacity
+          onPress={() => {
+            setIsModalVisible(!isModalVisible);
+          }}
+        >
+          <SvgUri
+            style={styles.logo}
+            source={require('../../assets/icons/chevron-left-solid.svg')}
+          />
+        </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );
@@ -65,7 +80,6 @@ const styles = StyleSheet.create({
     flex: 1,
     aspectRatio: 2.87,
     width: '200%',
-    borderRadius: 8,
     justifyContent: 'flex-start',
     alignSelf: 'auto'
   },
@@ -74,39 +88,56 @@ const styles = StyleSheet.create({
     height: 200
   },
   animalInfo: {
+    bottom: '25%',
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     padding: 10,
-    right: '85%',
-    height: '40%',
-    width: '70%',
-    borderRadius: 10,
-    borderColor: '#00F48A',
-    borderWidth: 4,
+    right: '105%',
+    height: '20%',
+    width: '90%',
+    borderRadius: 5,
     backgroundColor: '#F4F5F7'
   },
   animalInfoHidden: {
     display: 'none'
   },
+  infoLeft: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start'
+  },
   animalName: {
     color: 'black',
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
     fontFamily: 'Lato',
     alignItems: 'center',
-    padding: 5
+    paddingTop: 5
   },
   link: {
-    borderRadius: 5,
-    borderColor: '#3b3b3b',
-    borderWidth: 2,
+    shadowColor: 'rgba(0, 0, 0, 0.25)',
+    shadowOffset: {
+      width: 4,
+      height: 4
+    },
+    shadowRadius: 4,
+    shadowOpacity: 5,
+    borderRadius: 10,
     backgroundColor: '#d7ff43',
     fontFamily: 'Lato',
     padding: 5
   },
   photoCred: {
-    padding: 5,
-    fontFamily: 'Lato'
+    fontSize: 18,
+    fontWeight: '900',
+    fontFamily: 'Lato',
+    paddingBottom: 5
+  },
+  aboutIconTouch: {
+    borderColor: 'red',
+    borderWidth: 2
+    // width: 25,
+    // height: 25,
   }
 });
 
