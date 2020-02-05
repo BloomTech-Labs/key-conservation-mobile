@@ -22,8 +22,8 @@ class LocationScreen extends React.Component {
         alignSelf: "center",
         fontFamily: "Lato-Bold"
       },
-      headerLeft: <View />,
-      headerRight: <View />
+      headerLeft: () => <View />,
+      headerRight: () => <View />
     };
   };
 
