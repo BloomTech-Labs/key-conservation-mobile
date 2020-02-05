@@ -1,28 +1,29 @@
-import React, { Component } from "react";
-import { View } from "react-native";
-import { ScrollView } from "react-navigation";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import { ScrollView } from 'react-navigation';
+import { connect } from 'react-redux';
 
-import DetailHeader from "../components/DetailScreen/DetailHeader";
-import DetailAboutUs from "../components/DetailScreen/DetailAboutUs";
+import DetailHeader from '../components/DetailScreen/DetailHeader';
+import DetailAboutUs from '../components/DetailScreen/DetailAboutUs';
+import BackButton from '../components/BackButton';
 
-import styles from "../constants/screens/MyDetailScreen";
+import styles from '../constants/screens/MyDetailScreen';
 
 class DetailsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: "Profile",
+      title: 'Profile',
       headerStyle: {
-        backgroundColor: "#323338"
+        backgroundColor: '#323338'
       },
-      headerTintColor: "#fff",
+      headerTintColor: '#fff',
       headerTitleStyle: {
-        textAlign: "center",
+        textAlign: 'center',
         flexGrow: 1,
-        alignSelf: "center",
-        fontFamily: "Lato-Bold"
+        alignSelf: 'center',
+        fontFamily: 'Lato-Bold'
       },
-      headerLeft: () => <View />,
+      headerLeft: () => <BackButton navigation={navigation} />,
       headerRight: () => <View />
     };
   };
