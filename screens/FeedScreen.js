@@ -11,7 +11,7 @@ import { AmpInit } from '../components/withAmplitude';
 import { Viewport } from '@skele/components';
 import AddCampaignHeader from '../components/FeedScreen/AddCampaignHeader';
 
-import Search from '../assets/js icons/SearchIcon';
+import Search from '../assets/jsicons/SearchIcon';
 
 class FeedScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -24,7 +24,7 @@ class FeedScreen extends React.Component {
       headerTitleStyle: {
         textAlign: 'center',
         flexGrow: 1,
-        marginTop: 18,
+        marginTop: 10,
         alignSelf: 'center',
         fontFamily: 'Lato-Bold'
       },
