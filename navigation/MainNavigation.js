@@ -31,7 +31,6 @@ import SupProScreen from '../screens/SupProScreen';
 import MySupProScreen from '../screens/MySupProScreen';
 import LoginScreen from '../screens/LoginScreen';
 import UsernameScreen from '../screens/UsernameScreen';
-import SvgUri from 'react-native-svg-uri';
 import SearchScreen from '../screens/SearchScreen';
 import ViewCampScreen from '../screens/ViewCampScreen';
 import EditCampScreen from '../screens/EditCampScreen';
@@ -51,299 +50,299 @@ import ToExpectNextScreen from '../screens/org-onboarding-screens/ToExpectNextSc
 import Lightening from '../assets/jsicons/bottomnavigation/Lightening';
 import Globe from '../assets/jsicons/bottomnavigation/Globe';
 import Smile from '../assets/jsicons/bottomnavigation/Smile';
-import PlusSign from '../assets/jsicons/headerIcons/plusSign';
 
 export const OrgOnboardStack = createStackNavigator(
-	{
-		HeyThere                  : HeyThereScreen,
-		ToExpect                  : ToExpectScreen,
-		KeyConservation           : KeyConservationScreen,
-		Can                       : CanScreen,
-		Cant                      : CantScreen,
-		ToExpectNext              : ToExpectNextScreen,
-		MakeAccount               : MakeAccountScreen,
-		TellAboutOrganization     : TellAboutOrganizationScreen,
-		VerifyDocumentation       : VerifyDocumentationScreen,
-		VerifyOrganization        : VerifyOrganizationScreen,
-		AlmostDone                : AlmostDone,
-		ThankYou                  : ThankYouScreen,
-		ReviewYourInfo            : ReviewYourInfoScreen,
-		OrganizationSurvey        : OrganizationSurveyScreen,
-		ToExpectNextCreateProfile : ToExpectNextCreateProfileScreen,
-	},
-	{
-		headerMode : 'none',
-	},
+  {
+    HeyThere: HeyThereScreen,
+    ToExpect: ToExpectScreen,
+    KeyConservation: KeyConservationScreen,
+    Can: CanScreen,
+    Cant: CantScreen,
+    ToExpectNext: ToExpectNextScreen,
+    MakeAccount: MakeAccountScreen,
+    TellAboutOrganization: TellAboutOrganizationScreen,
+    VerifyDocumentation: VerifyDocumentationScreen,
+    VerifyOrganization: VerifyOrganizationScreen,
+    AlmostDone: AlmostDone,
+    ThankYou: ThankYouScreen,
+    ReviewYourInfo: ReviewYourInfoScreen,
+    OrganizationSurvey: OrganizationSurveyScreen,
+    ToExpectNextCreateProfile: ToExpectNextCreateProfileScreen
+  },
+  {
+    headerMode: 'none'
+  }
 );
 
 const MapStack = createStackNavigator(
-	{
-		MapHome : WideMapScreen,
-	},
-	{
-		navigationOptions : {
-			tabBarLabel : 'Map',
-			tabBarIcon  : ({ focused }) => (
-				// focused ? <GlobeFill /> : <Globe />
-				<Globe />
-			),
-		},
-	},
+  {
+    MapHome: WideMapScreen
+  },
+  {
+    navigationOptions: {
+      tabBarLabel: 'Map',
+      tabBarIcon: ({ focused }) => (
+        // focused ? <GlobeFill /> : <Globe />
+        <Globe />
+      )
+    }
+  }
 );
 
 const FeedStack = createStackNavigator(
-	{
-		Home       : FeedScreen,
-		Search     : {
-			screen            : SearchScreen,
-			navigationOptions : {
-				header : null,
-			},
-		},
-		Pro        : {
-			screen            : ProScreen,
-			navigationOptions : {
-				title            : 'Profile',
-				headerTintColor  : '#fff',
-				headerTitleStyle : {
-					textAlign : 'center',
-					flexGrow  : 1,
-					alignSelf : 'center',
-				},
-				headerStyle      : {
-					backgroundColor : '#323338',
-				},
-			},
-		},
-		Detail     : {
-			screen            : DetailScreen,
-			navigationOptions : {
-				title            : 'Profile',
-				headerTintColor  : '#fff',
-				headerTitleStyle : {
-					textAlign : 'center',
-					flexGrow  : 1,
-					alignSelf : 'center',
-				},
-				headerStyle      : {
-					backgroundColor : '#323338',
-				},
-			},
-		},
-		Location   : {
-			screen            : LocationScreen,
-			navigationOptions : {
-				title            : 'Profile',
-				headerTintColor  : '#fff',
-				headerTitleStyle : {
-					textAlign : 'center',
-					flexGrow  : 1,
-					alignSelf : 'center',
-				},
-				headerStyle      : {
-					backgroundColor : '#323338',
-				},
-			},
-		},
-		Camp       : ViewCampScreen,
-		CampUpdate : ViewCampUpdateScreen,
-		SupPro     : SupProScreen,
-	},
-	{
-		navigationOptions : {
-			tabBarLabel    : 'Feed',
-			tabBarIcon     : ({ focused }) => (
-				// focused ? <HomeFill/> : <Home/>
-				<Lightening />
-			),
-			transitionSpec : {
-				duration : 0,
-			},
-		},
-	},
+  {
+    Home: FeedScreen,
+    Search: {
+      screen: SearchScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    Pro: {
+      screen: ProScreen,
+      navigationOptions: {
+        headerTransparent: true,
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          textAlign: 'center',
+          flexGrow: 1,
+          alignSelf: 'center'
+        }
+      }
+    },
+    Detail: {
+      screen: DetailScreen,
+      navigationOptions: {
+        title: 'Profile',
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          textAlign: 'center',
+          flexGrow: 1,
+          alignSelf: 'center'
+        },
+        headerStyle: {
+          backgroundColor: '#323338'
+        }
+      }
+    },
+    Location: {
+      screen: LocationScreen,
+      navigationOptions: {
+        title: 'Profile',
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          textAlign: 'center',
+          flexGrow: 1,
+          alignSelf: 'center'
+        },
+        headerStyle: {
+          backgroundColor: '#323338'
+        }
+      }
+    },
+    Camp: ViewCampScreen,
+    CampUpdate: ViewCampUpdateScreen,
+    SupPro: SupProScreen
+  },
+  {
+    navigationOptions: {
+      tabBarLabel: 'Feed',
+      tabBarIcon: ({ focused }) => (
+        // focused ? <HomeFill/> : <Home/>
+        <Lightening />
+      )
+    },
+
+    transitionConfig: () => ({
+      transitionSpec: {
+        duration: 0
+      }
+    })
+  }
 );
 
 export const AdminReportStack = createStackNavigator({
-	AdminScreen : AdminReportScreen,
+  AdminScreen: AdminReportScreen
 });
 
 export const ReportDetailStack = createStackNavigator({
-	ReportScreen : ReportDetailScreen,
+  ReportScreen: ReportDetailScreen
 });
 
 export const AccountSettingsStack = createStackNavigator({
-	AccountSettings : AccountSettingsScreen,
+  AccountSettings: AccountSettingsScreen
 });
 
 const MyProStack = createStackNavigator(
-	{
-		Home             : FeedScreen,
-		MyPro            : { screen: MyProScreen },
-		MyDetail         : { screen: MyDetailScreen },
-		EditPro          : {
-			screen            : EditProScreen,
-			navigationOptions : { title: 'Edit Profile' },
-		},
-		Camp             : ViewCampScreen,
-		CreateCampaign   : CreateCampScreen,
-		EditCamp         : EditCampScreen,
-		CampUpdate       : ViewCampUpdateScreen,
-		CreateCampUpdate : CreateCampUpdateScreen,
-		EditCampUpdate   : EditCampUpdateScreen,
-	},
-	{
-		navigationOptions : {
-			tabBarLabel    : 'My Profile',
-			tabBarIcon     : ({ focused }) => (
-				// focused ? <UserFill /> : <User />
-				<Smile />
-			),
-			transitionSpec : {
-				duration : 0,
-			},
-		},
-	},
+  {
+    Home: FeedScreen,
+    MyPro: { screen: MyProScreen },
+    MyDetail: { screen: MyDetailScreen },
+    EditPro: {
+      screen: EditProScreen,
+      navigationOptions: { title: 'Edit Profile' }
+    },
+    Camp: ViewCampScreen,
+    CreateCampaign: CreateCampScreen,
+    EditCamp: EditCampScreen,
+    CampUpdate: ViewCampUpdateScreen,
+    CreateCampUpdate: CreateCampUpdateScreen,
+    EditCampUpdate: EditCampUpdateScreen
+  },
+  {
+    navigationOptions: {
+      tabBarLabel: 'My Profile',
+      tabBarIcon: ({ focused }) => (
+        // focused ? <UserFill /> : <User />
+        <Smile />
+      ),
+      transitionSpec: {
+        duration: 0
+      }
+    }
+  }
 );
 
 const MySupProStack = createStackNavigator(
-	{
-		MySupPro   : { screen: MySupProScreen },
-		EditSupPro : { screen: EditSupProScreen },
-	},
-	{
-		navigationOptions : {
-			tabBarLabel    : 'My Profile',
-			tabBarIcon     : ({ focused }) => <Smile />,
-			transitionSpec : {
-				duration : 0,
-			},
-		},
-	},
+  {
+    MySupPro: { screen: MySupProScreen },
+    EditSupPro: { screen: EditSupProScreen }
+  },
+  {
+    navigationOptions: {
+      tabBarLabel: 'My Profile',
+      tabBarIcon: ({ focused }) => <Smile />,
+      transitionSpec: {
+        duration: 0
+      }
+    }
+  }
 );
 
 export const UsernameStack = createStackNavigator({
-	Username : {
-		screen            : UsernameScreen,
+  Username: {
+    screen: UsernameScreen,
 
-		navigationOptions : {
-			title            : 'Sign Up',
-			headerTitleStyle : {
-				flex      : 1,
-				textAlign : 'center',
-				color     : 'white',
-			},
-			headerStyle      : {
-				backgroundColor : '#323338',
-			},
-		},
-	},
+    navigationOptions: {
+      title: 'Sign Up',
+      headerTitleStyle: {
+        flex: 1,
+        textAlign: 'center',
+        color: 'white'
+      },
+      headerStyle: {
+        borderWidth: 2,
+        backgroundColor: '#323338'
+      }
+    }
+  }
 });
 
 export const LoginStack = createStackNavigator(
-	{ Login: LoginScreen },
-	{
-		headerMode : 'none',
-	},
+  { Login: LoginScreen },
+  {
+    headerMode: 'none'
+  }
 );
 
 export const LogoutStack = createStackNavigator(
-	{ Logout: LogoutScreen },
-	{
-		headerMode : 'none',
-	},
+  { Logout: LogoutScreen },
+  {
+    headerMode: 'none'
+  }
 );
 
 export const ConsNavigator = createBottomTabNavigator(
-	{
-		FeedStack  : {
-			screen            : FeedStack,
-			path              : '',
-			navigationOptions : {
-				tabBarOnPress : ({ navigation, defaultHandler }) => {
-					navigation.navigate('Home'), defaultHandler();
-				},
-			},
-		},
-		MapStack   : {
-			screen        : MapStack,
-			tabBarOnPress : ({ navigation, defaultHandler }) => {
-				navigation.navigate('MapHome'), defaultHandler();
-			},
-		},
-		// CreateCampStack: { screen: CreateCampStack, path: '' },
-		MyProStack : {
-			screen            : MyProStack,
-			path              : '',
-			navigationOptions : {
-				tabBarOnPress : ({ navigation, defaultHandler }) => {
-					navigation.navigate('MyPro'), defaultHandler();
-				},
-			},
-		},
-	},
-	{
-		tabBarOptions : {
-			showIcon              : true,
-			showLabel             : false,
-			activeBackgroundColor : '#EAEAEA',
-			style                 : {
-				borderTopColor : 'transparent',
-			},
-			tabStyle              : {
-				borderRightColor  : '#EAEAEA',
-				borderRightWidth  : 1,
-				borderRightHeight : 10,
-				borderLeftColor   : '#EAEAEA',
-				borderLeftWidth   : 1,
-				borderLeftHeight  : 10,
-			},
-		},
-	},
+  {
+    FeedStack: {
+      screen: FeedStack,
+      path: '',
+      navigationOptions: {
+        tabBarOnPress: ({ navigation, defaultHandler }) => {
+          navigation.navigate('Home'), defaultHandler();
+        }
+      }
+    },
+    MapStack: {
+      screen: MapStack,
+      tabBarOnPress: ({ navigation, defaultHandler }) => {
+        navigation.navigate('MapHome'), defaultHandler();
+      }
+    },
+    // CreateCampStack: { screen: CreateCampStack, path: '' },
+    MyProStack: {
+      screen: MyProStack,
+      path: '',
+      navigationOptions: {
+        tabBarOnPress: ({ navigation, defaultHandler }) => {
+          navigation.navigate('MyPro'), defaultHandler();
+        }
+      }
+    }
+  },
+  {
+    tabBarOptions: {
+      showIcon: true,
+      showLabel: false,
+      activeBackgroundColor: '#EAEAEA',
+      style: {
+        borderTopColor: 'transparent'
+      },
+      tabStyle: {
+        borderRightColor: '#EAEAEA',
+        borderRightWidth: 1,
+        borderRightHeight: 10,
+        borderLeftColor: '#EAEAEA',
+        borderLeftWidth: 1,
+        borderLeftHeight: 10
+      }
+    }
+  }
 );
 
 export const SupNavigator = createBottomTabNavigator(
-	{
-		FeedStack     : {
-			screen            : FeedStack,
-			path              : '',
-			navigationOptions : {
-				tabBarOnPress : ({ navigation, defaultHandler }) => {
-					navigation.navigate('Home'), defaultHandler();
-				},
-			},
-		},
-		MapStack      : {
-			screen        : MapStack,
-			tabBarOnPress : ({ navigation, defaultHandler }) => {
-				navigation.navigate('Home'), defaultHandler();
-			},
-		},
-		MySupProStack : {
-			screen            : MySupProStack,
-			path              : '',
-			navigationOptions : {
-				tabBarOnPress : ({ navigation, defaultHandler }) => {
-					navigation.navigate('MySupPro'), defaultHandler();
-				},
-			},
-		},
-	},
-	{
-		tabBarOptions : {
-			showLabel             : false,
-			showIcon              : true,
-			activeBackgroundColor : '#EAEAEA',
-			style                 : {
-				borderTopColor : 'transparent',
-			},
-			tabStyle              : {
-				borderRightColor  : '#EAEAEA',
-				borderRightWidth  : 1,
-				borderRightHeight : 10,
-				borderLeftColor   : '#EAEAEA',
-				borderLeftWidth   : 1,
-				borderLeftHeight  : 10,
-			},
-		},
-	},
+  {
+    FeedStack: {
+      screen: FeedStack,
+      path: '',
+      navigationOptions: {
+        tabBarOnPress: ({ navigation, defaultHandler }) => {
+          navigation.navigate('Home'), defaultHandler();
+        }
+      }
+    },
+    MapStack: {
+      screen: MapStack,
+      tabBarOnPress: ({ navigation, defaultHandler }) => {
+        navigation.navigate('Home'), defaultHandler();
+      }
+    },
+    MySupProStack: {
+      screen: MySupProStack,
+      path: '',
+      navigationOptions: {
+        tabBarOnPress: ({ navigation, defaultHandler }) => {
+          navigation.navigate('MySupPro'), defaultHandler();
+        }
+      }
+    }
+  },
+  {
+    tabBarOptions: {
+      showLabel: false,
+      showIcon: true,
+      activeBackgroundColor: '#EAEAEA',
+      style: {
+        borderTopColor: 'transparent'
+      },
+      tabStyle: {
+        borderRightColor: '#EAEAEA',
+        borderRightWidth: 1,
+        borderRightHeight: 10,
+        borderLeftColor: '#EAEAEA',
+        borderLeftWidth: 1,
+        borderLeftHeight: 10
+      }
+    }
+  }
 );
