@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ImageBackground
 } from 'react-native';
+import KeyInfoGreen from '../assets/jsicons/KeyCon/Key_Info_Green';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { AuthSession } from 'expo';
@@ -18,9 +19,16 @@ import {
   loginSuccess,
   getProfileData
 } from '../store/actions';
+import AnimalModal from '../components/Animals/AnimalModal';
 
 import * as SecureStore from 'expo-secure-store';
 import Axios from 'axios';
+
+// url for heroku staging vs production server
+// production
+//const seturl = 'https://key-conservation.herokuapp.com/api/'
+// staging
+const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 /*
  Converts an object to a query string to be used by the request to auth0 via the dashboard application
 */
@@ -88,7 +96,7 @@ export default LoginScreen = props => {
       }
     };
 
-    //dynamicly navigating the proper routes on the auth0 app
+    //dynamically navigating the proper routes on the auth0 app
     // the domain url is found in the Auth0 dashboard at applications -> select App -> settings -> Domain
     const domain = 'https://key-conservation.auth0.com';
     const authUrl = `${domain}/authorize` + queryParams();
@@ -154,7 +162,7 @@ export default LoginScreen = props => {
     } else {
       console.log('getEnVar activated');
       const token = await SecureStore.getItemAsync('accessToken', {});
-      Axios.get('https://key-conservation.herokuapp.com/api/airtable', {
+      Axios.get('${seturl}airtable', {
         headers: {
           Accept: 'application/json',
           Authorization: `Bearer ${token}`,
@@ -174,14 +182,21 @@ export default LoginScreen = props => {
     }
   };
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   return (
     <ImageBackground
       source={require('../assets/images/loginscreen2.png')}
       style={styles.container}
     >
+      <AnimalModal
+        setIsModalVisible={setIsModalVisible}
+        isModalVisible={isModalVisible}
+      />
       <View style={styles.logoContainer}>
         <Image
-          style={styles.logo}
+          //   style={styles.logo}
+          style={isModalVisible === false ? styles.logo : styles.Hidden}
           source={require('../assets/images/keyFullWhite.png')}
         />
       </View>
@@ -211,7 +226,21 @@ export default LoginScreen = props => {
           <Text style={styles.buttonText}>My organization needs help</Text>
         </TouchableOpacity>
       </View>
-      {/* <View style={styles.spacer} /> */}
+      <View
+        style={
+          isModalVisible === false ? styles.aboutIconContainer : styles.Hidden
+        }
+      >
+        <TouchableOpacity
+          style={styles.aboutIconTouch}
+          onPress={() => {
+            setIsModalVisible(true);
+          }}
+        >
+          {/* <ChevronLeft /> */}
+          <KeyInfoGreen />
+        </TouchableOpacity>
+      </View>
     </ImageBackground>
   );
 };
@@ -219,7 +248,7 @@ export default LoginScreen = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: '2%',
+    padding: '2%',
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -284,7 +313,7 @@ const styles = StyleSheet.create({
       height: 4
     },
     shadowRadius: 4,
-    shadowOpacity: 1,
+    shadowOpacity: 10,
     justifyContent: 'center'
   },
   buttonText: {
@@ -296,16 +325,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     fontSize: 20
   },
-  needHelp: {
-    flexDirection: 'row',
-    width: 375,
-    height: '7.9%',
-    opacity: 0,
-    backgroundColor: 'black',
-    justifyContent: 'center',
-    alignItems: 'center'
+  aboutIconContainer: {
+    width: '90%'
   },
-  spacer: {
-    height: '3%'
+  aboutIconTouch: {
+    padding: 10
+  },
+  Hidden: {
+    display: 'none'
   }
 });
