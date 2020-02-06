@@ -100,8 +100,8 @@ const OrganizationSurveyScreen = props => {
             <TextInput
               style={[styles.textArea]}
               multiline
-              onChangeText={text => handleChange({ ...values, mission: text })}
-              value={values.mission}
+              onChangeText={text => handleChange({ ...values, about_us: text })}
+              value={values.about_us}
               placeholder='Give us an in-depth summary of your organization’s mission.'
               type='mission'
               name='mission'

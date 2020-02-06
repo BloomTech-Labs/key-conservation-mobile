@@ -90,7 +90,7 @@ export const getCustomById = (table_name, id) => async dispatch => {
   });
 };
 
-//// These actions are for the loading page to determine if:
+// These actions are for the loading page to determine if:
 // A) The user is logged in
 // B) The account exists and user is not logged in
 // C) The user has a sub and needs to register
@@ -123,8 +123,7 @@ export const getLoadingData = sub => async dispatch => {
       }
     })
     .catch(error => {
-      if(error.logout)
-        console.log("Account Deactivated")
+      if (error.logout) console.log('Account Deactivated');
       else dispatch({ type: GET_AUTH_ERROR, payload: error.message });
     });
 };
@@ -184,6 +183,16 @@ export const getProfileData = (
           ]).then(dispatch({ type: GET_PROFILE_ERROR, payload: err.message }));
       }
     });
+};
+
+export const [SET_PROFILE_START, SET_PROFILE_ERROR, SET_PROFILE_SUCCESS] = [
+  'SET_PROFILE_START',
+  'SET_PROFILE_ERROR',
+  'SET_PROFILE_SUCCESS'
+];
+
+export const setProfileData = (id, profileData) => async dispatch => {
+  dispatch({ type: EDIT_PROFILE_START });
 };
 
 export const [EDIT_PROFILE_START, EDIT_PROFILE_ERROR, EDIT_PROFILE_SUCCESS] = [
@@ -247,6 +256,7 @@ export const [POST_USER_START, POST_USER_ERROR, POST_USER_SUCCESS] = [
   'POST_USER_SUCCESS'
 ];
 
+// Posts username from UsernameScreen
 export const postUser = user => async dispatch => {
   dispatch({ type: POST_USER_START });
   // console.log('we in postUser')
