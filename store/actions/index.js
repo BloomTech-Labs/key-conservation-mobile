@@ -115,7 +115,7 @@ export const getLoadingData = sub => async dispatch => {
       }
     })
     .then(response => {
-      let dbCheck = response.data.check.check;
+      let dbCheck = response.data.check;
       if (dbCheck === true) {
         dispatch({ type: GET_AUTH_USER, payload: dbCheck });
       } else {
