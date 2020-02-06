@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   StyleSheet,
   TextInput,
@@ -8,44 +8,50 @@ import {
   Platform,
   Alert,
   ActivityIndicator
-} from 'react-native';
-import { ScrollView, NavigationEvents } from 'react-navigation';
-import { connect } from 'react-redux';
-import axios from 'axios';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+} from "react-native";
+import { ScrollView, NavigationEvents } from "react-navigation";
+import { connect } from "react-redux";
+import axios from "axios";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import { postCampaignUpdate, getCampaigns, clearMedia } from '../store/actions';
-import BackButton from '../components/BackButton';
-import PublishButton from '../components/PublishButton';
-import UploadMedia from '../components/UploadMedia';
-import { AmpEvent } from '../components/withAmplitude';
+import { postCampaignUpdate, getCampaigns, clearMedia } from "../store/actions";
+import BackButton from "../components/BackButton";
+import PublishButton from "../components/PublishButton";
+import UploadMedia from "../components/UploadMedia";
+import { AmpEvent } from "../components/withAmplitude";
+
+// url for heroku staging vs production server
+// production
+//const seturl = 'https://key-conservation.herokuapp.com/api/'
+// staging
+const seturl = "https://key-conservation-staging.herokuapp.com/api/";
 
 class CreateCampUpdateScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Update Post',
+      title: "Update Post",
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: "#323338"
       },
-      headerTintColor: '#fff',
+      headerTintColor: "#fff",
       headerTitleStyle: {
-        textAlign: 'center',
+        textAlign: "center",
         flexGrow: 1,
-        alignSelf: 'center',
-        fontFamily: 'Lato-Bold'
+        alignSelf: "center",
+        fontFamily: "Lato-Bold"
       },
-      headerLeft: <BackButton navigation={navigation} />,
-      headerRight: (
+      headerLeft: () => <BackButton navigation={navigation} />,
+      headerRight: () => (
         <PublishButton
           navigation={navigation}
-          pressAction={navigation.getParam('publish')}
+          pressAction={navigation.getParam("publish")}
         />
       )
     };
   };
 
   state = {
-    update_desc: '',
+    update_desc: "",
     loading: false
   };
 
@@ -57,21 +63,21 @@ class CreateCampUpdateScreen extends React.Component {
     if (this.state.loading === true) {
       return (
         <View style={styles.indicator}>
-          <ActivityIndicator size='large' color='#00FF9D' />
+          <ActivityIndicator size="large" color="#00FF9D" />
         </View>
       );
     }
     return (
       <KeyboardAvoidingView
-        behavior='padding'
+        behavior="padding"
         keyboardVerticalOffset={90}
-        enabled={Platform.OS === 'android' ? true : false}
+        enabled={Platform.OS === "android" ? true : false}
       >
         <KeyboardAwareScrollView>
           <ScrollView
             contentContainerStyle={{
-              backgroundColor: '#fff',
-              minHeight: '100%'
+              backgroundColor: "#fff",
+              minHeight: "100%"
             }}
           >
             <NavigationEvents
@@ -94,8 +100,8 @@ class CreateCampUpdateScreen extends React.Component {
                   ref={input => {
                     this.campDetailsInput = input;
                   }}
-                  returnKeyType='next'
-                  placeholder='Write an update here to tell people what has happened since their donation.'
+                  returnKeyType="next"
+                  placeholder="Write an update here to tell people what has happened since their donation."
                   style={styles.inputContain2}
                   onChangeText={text => this.setState({ update_desc: text })}
                   multiline={true}
@@ -116,10 +122,10 @@ class CreateCampUpdateScreen extends React.Component {
     });
     if (!this.props.mediaUpload || !this.state.update_desc) {
       const errorMessage =
-        'Form incomplete. Please include:' +
-        (this.props.mediaUpload ? '' : '\n    - Update Image') +
-        (this.state.update_desc ? '' : '\n    - Update Details');
-      return Alert.alert('Error', errorMessage);
+        "Form incomplete. Please include:" +
+        (this.props.mediaUpload ? "" : "\n    - Update Image") +
+        (this.state.update_desc ? "" : "\n    - Update Details");
+      return Alert.alert("Error", errorMessage);
     } else {
       const campUpdate = {
         update_desc: this.state.update_desc,
@@ -133,43 +139,43 @@ class CreateCampUpdateScreen extends React.Component {
 
   postCampaignUpdate = campUpdate => {
     if (
-      this.props.mediaUpload.includes('.mov') ||
-      this.props.mediaUpload.includes('.mp3') ||
-      this.props.mediaUpload.includes('.mp4')
+      this.props.mediaUpload.includes(".mov") ||
+      this.props.mediaUpload.includes(".mp3") ||
+      this.props.mediaUpload.includes(".mp4")
     ) {
       Alert.alert("We're uploading your video!");
     }
     const uri = campUpdate.update_img;
 
-    let uriParts = uri.split('.');
+    let uriParts = uri.split(".");
     let fileType = uriParts[uriParts.length - 1];
 
     let formData = new FormData();
-    formData.append('photo', {
+    formData.append("photo", {
       uri,
       name: `photo.${fileType}`,
       type: `image/${fileType}`
     });
 
-    formData.append('update_desc', campUpdate.update_desc);
-    formData.append('users_id', campUpdate.users_id);
-    formData.append('camp_id', campUpdate.camp_id);
+    formData.append("update_desc", campUpdate.update_desc);
+    formData.append("users_id", campUpdate.users_id);
+    formData.append("camp_id", campUpdate.camp_id);
 
     axios
-      .post(`https://key-conservation.herokuapp.com/api/updates`, formData, {
+      .post(`${seturl}updates`, formData, {
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'multipart/form-data',
+          Accept: "application/json",
+          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${this.props.token}`
         }
       })
       .then(async res => {
-        console.log('SUCCESS', res.data.newCamps);
+        console.log("SUCCESS", res.data.newCamps);
         await this.setState({
           ...this.state,
           loading: false
         });
-        this.props.navigation.navigate('Home');
+        this.props.navigation.navigate("Home");
       })
       .catch(err => {
         console.log(err);
@@ -178,7 +184,7 @@ class CreateCampUpdateScreen extends React.Component {
 
   clearState = () => {
     this.setState({
-      update_desc: ''
+      update_desc: ""
     });
   };
 }
@@ -188,49 +194,50 @@ const mapStateToProps = state => ({
   mediaUpload: state.mediaUpload,
   token: state.token
 });
-export default connect(
-  mapStateToProps,
-  { postCampaignUpdate, getCampaigns, clearMedia }
-)(CreateCampUpdateScreen);
+export default connect(mapStateToProps, {
+  postCampaignUpdate,
+  getCampaigns,
+  clearMedia
+})(CreateCampUpdateScreen);
 
 const styles = StyleSheet.create({
   sectionContainer: {
-    flexDirection: 'column',
-    flexWrap: 'wrap',
+    flexDirection: "column",
+    flexWrap: "wrap",
     margin: 15
   },
   buttons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: '#fff',
-    borderBottomColor: '#f5f5f5',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "#fff",
+    borderBottomColor: "#f5f5f5",
     paddingLeft: 10,
     paddingRight: 10,
     height: 75
   },
   TouchableOpacity: {},
   ButtonStyle: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: '#eee',
+    alignItems: "center",
+    justifyContent: "center",
+    borderColor: "#eee",
     marginTop: 12,
     marginBottom: 12,
     flex: 1
   },
   CancelButton: {
     fontSize: 16,
-    color: 'black'
+    color: "black"
   },
   PublishButton: {
     fontSize: 16,
-    color: 'black',
-    fontWeight: 'bold'
+    color: "black",
+    fontWeight: "bold"
   },
   camera: {
-    backgroundColor: '#C4C4C4',
-    width: '100%',
+    backgroundColor: "#C4C4C4",
+    width: "100%",
     height: 150,
-    flexDirection: 'row'
+    flexDirection: "row"
   },
   CameraContainerButton: {
     marginTop: 120,
@@ -240,53 +247,53 @@ const styles = StyleSheet.create({
   inputContain2: {
     height: 146,
     borderWidth: 2,
-    borderColor: '#C4C4C4',
+    borderColor: "#C4C4C4",
     padding: 5,
     borderRadius: 5,
     fontSize: 20,
     marginBottom: 25,
-    textAlignVertical: 'top'
+    textAlignVertical: "top"
   },
   Card: {
     marginTop: 20,
-    backgroundColor: '#fff',
-    width: '100%',
+    backgroundColor: "#fff",
+    width: "100%",
     padding: 25
   },
   cardText: {
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 10,
     fontSize: 25
   },
   cardPara: {
     marginTop: 10,
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 13
   },
   sectionsText: {
-    fontFamily: 'Lato-Bold',
+    fontFamily: "Lato-Bold",
     fontSize: 20,
     marginBottom: 5,
-    textAlign: 'center'
+    textAlign: "center"
   },
   goToCampaignButton: {
-    backgroundColor: '#00FF9D',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#00FF9D",
+    alignItems: "center",
+    justifyContent: "center",
     height: 37,
-    width: '100%'
+    width: "100%"
   },
   goToCampaignText: {
-    fontFamily: 'Lato-Bold',
+    fontFamily: "Lato-Bold",
     fontSize: 18
   },
   indicator: {
-    position: 'absolute',
+    position: "absolute",
     left: 0,
     right: 0,
     top: 0,
     bottom: 0,
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: "center",
+    justifyContent: "center"
   }
 });

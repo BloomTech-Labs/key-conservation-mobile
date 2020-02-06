@@ -11,12 +11,14 @@ import SupProfileBody from '../components/Profile/SupProfileBody';
 class MySupProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
+      headerTransparent: true,
       title: 'My Profile',
-      headerLeft:
-      <SettingsButton
-         navigation={navigation}
-         settingsRoute={'AccountSettings'}
-       />,
+      headerLeft: () => (
+        <SettingsButton
+          navigation={navigation}
+          settingsRoute={'AccountSettings'}
+        />
+      ),
       headerStyle: {
         backgroundColor: '#323338'
       },
@@ -24,10 +26,11 @@ class MySupProScreen extends React.Component {
       headerTitleStyle: {
         textAlign: 'center',
         flexGrow: 1,
+        marginTop: 10,
         alignSelf: 'center',
         fontFamily: 'Lato-Bold'
       },
-      headerRight: (
+      headerRight: () => (
         <EditButton navigation={navigation} editRoute={'EditSupPro'} />
       )
     };
@@ -62,7 +65,4 @@ const optionsStyles = {
   }
 };
 
-export default connect(
-  mapStateToProps,
-  { getProfileData }
-)(MySupProScreen);
+export default connect(mapStateToProps, { getProfileData })(MySupProScreen);
