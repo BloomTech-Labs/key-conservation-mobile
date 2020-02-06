@@ -22,7 +22,8 @@ import * as SecureStore from 'expo-secure-store';
 
 const OrganizationSurveyScreen = props => {
   const [values, handleChange] = useState({
-    mission: '',
+    mini_bio: '',
+    about_us: '',
     issues: '',
     species: '',
     facebook: '',
@@ -47,6 +48,7 @@ const OrganizationSurveyScreen = props => {
       ...values,
       profile_image: props.mediaUpload
     }; // Updates state for backend with new fields.
+    console.log('state object from OSS', airtableStateAdd2);
     stringBE = JSON.stringify(airtableStateAdd2);
     await SecureStore.setItemAsync('stateBE', stringBE); // Finally stores data object in SecureStore to be opened in 'EditPro' after user is vetted.
     await SecureStore.setItemAsync('vetting', 'true');
@@ -80,17 +82,31 @@ const OrganizationSurveyScreen = props => {
             </Text>
           </View>
           <View style={styles.inputBlock}>
-            <Text style={styles.obText}>
-              In a brief statement, what is your organization’s mission?
-            </Text>
+            <Text style={styles.obText}>About Us</Text>
             <TextInput
               style={[styles.textArea]}
               multiline
-              onChangeText={text => handleChange({ ...values, mission: text })}
-              value={values.mission}
-              placeholder='Type here'
-              type='mission'
-              name='mission'
+              //! mini-bio needs to change to about_us here and in backend
+              onChangeText={text => handleChange({ ...values, mini_bio: text })}
+              value={values.mini_bi}
+              placeholder='Write a short summary about your organization. 150 characters max'
+              type='mini_bio'
+              name='mini_bio'
+              maxLength={150}
+              required
+            />
+          </View>
+          <View style={styles.inputBlock}>
+            <Text style={styles.obText}>Our Mission</Text>
+            <TextInput
+              style={[styles.textArea]}
+              multiline
+              //! about_us needs to change to mission here and in backend
+              onChangeText={text => handleChange({ ...values, about_us: text })}
+              value={values.about_us}
+              placeholder='Give us an in-depth summary of your organization’s mission.'
+              type='about_us'
+              name='about_us'
               required
             />
           </View>
