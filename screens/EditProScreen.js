@@ -55,7 +55,7 @@ class EditProScreen extends React.Component {
     facebook: this.props.currentUserProfile.facebook,
     instagram: this.props.currentUserProfile.instagram,
     twitter: this.props.currentUserProfile.twitter,
-    about_us: this.props.currentUserProfile.about_us,
+    mission: this.props.currentUserProfile.mission,
     species_and_habitats: this.props.currentUserProfile.species_and_habitats,
     issues: this.props.currentUserProfile.issues,
     phone_number: this.props.currentUserProfile.phone_number,
@@ -81,7 +81,7 @@ class EditProScreen extends React.Component {
       ? this.setState({
           org_name: parseBE.org_name,
           phone_number: parseBE.phone,
-          mini_bio: parseBE.mission,
+          mini_bio: parseBE.mini_bio,
           species_and_habitats: parseBE.species,
           issues: parseBE.issues,
           facebook: parseBE.facebook,
@@ -423,13 +423,13 @@ class EditProScreen extends React.Component {
               <Text style={styles.sectionsText}>About Us</Text>
               <TextInput
                 ref={input => {
-                  this.about_usInput = input;
+                  this.missionInput = input;
                 }}
                 returnKeyType='next'
                 style={styles.inputContain2}
-                onChangeText={text => this.setState({ about_us: text })}
+                onChangeText={text => this.setState({ mission: text })}
                 multiline={true}
-                value={this.state.about_us}
+                value={this.state.mission}
                 placeholder='We have been working to conserve the sea turtles that visit our shores and surrounding ocean for the past 30 years.'
               />
             </View>
