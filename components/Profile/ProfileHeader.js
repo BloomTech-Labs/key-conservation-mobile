@@ -7,6 +7,7 @@ import { AmpEvent } from '../withAmplitude';
 import { FontAwesome } from '@expo/vector-icons';
 
 import styles from '../../constants/Profile/ProfileHeader';
+import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
 
 const ProfileHeader = (props) => {
 	let profile = props.profile;
@@ -46,7 +47,7 @@ const ProfileHeader = (props) => {
 						)}
 						{profile.location === null || profile.location === '' ? null : (
 							<Text style={styles.locationText}>
-								<FontAwesome name='map-pin' style={styles.outline} /> {profile.location}
+								<MapMarker /> {profile.location}
 							</Text>
 						)}
 						{profile.org_link_url || profile.org_link_url !== '' ? profile.org_link_text ||

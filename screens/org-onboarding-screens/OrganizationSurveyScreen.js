@@ -15,11 +15,10 @@ import DropDownSelect from './formElement/DropDownSelect';
 import { Feather } from '@expo/vector-icons';
 import styles from '../../constants/screens/org-onboarding-styles/OrganizationSurvey';
 import NavigateButton from './formElement/NavigateButton.js';
-import uploadMedia from '../../components/UploadMedia';
+import UploadMedia from '../../components/UploadMedia';
 import { connect } from 'react-redux';
 
 import * as SecureStore from 'expo-secure-store';
-import UploadMedia from '../../constants/UploadMedia';
 
 const OrganizationSurveyScreen = props => {
   const [values, handleChange] = useState({
@@ -28,31 +27,26 @@ const OrganizationSurveyScreen = props => {
     species: '',
     facebook: '',
     instagram: '',
-    twitter: ''
+    twitter: '',
+    profile_image: ''
   });
-
-  const [logo, setLogo] = useState('');
-
   const airtableStateAdd = props.navigation.getParam(
     'airtableStateAdd',
     'defaultValue'
   );
   const key = props.navigation.getParam('airtableKey', 'defaultValue');
 
-  1;
   var today = new Date();
-  //var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
   var date =
     today.getMonth() + 1 + '-' + today.getDate() + '-' + today.getFullYear();
 
   handleSubmit = async () => {
-    setLogo(props.mediaUpload);
-    airtableStateAdd2 = Object.assign({
+    airtableStateAdd2 = {
       ...airtableStateAdd,
       ...values,
-      profile_image: logo
-    }); // Updates state for backend with new fields.
-    // console.log(airtableStateAdd2)
+      profile_image: props.mediaUpload
+    }; // Updates state for backend with new fields.
+    console.log('airtablestateadd2 from org survey', airtableStateAdd2);
     stringBE = JSON.stringify(airtableStateAdd2);
     await SecureStore.setItemAsync('stateBE', stringBE); // Finally stores data object in SecureStore to be opened in 'EditPro' after user is vetted.
     await SecureStore.setItemAsync('vetting', 'true');
@@ -134,7 +128,9 @@ const OrganizationSurveyScreen = props => {
             <Text style={[styles.obSubtitle, { fontSize: 18 }]}>
               Upload your organization's logo:
             </Text>
-            <UploadMedia />
+            <View>
+              <UploadMedia circular />
+            </View>
           </View>
           <View style={styles.inputBlockSm}>
             <Text style={[styles.obSubtitle, { fontSize: 18 }]}>
