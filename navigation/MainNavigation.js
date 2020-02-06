@@ -41,16 +41,17 @@ import CreateCampUpdateScreen from '../screens/CreateCampUpdateScreen';
 import EditCampUpdateScreen from '../screens/EditCampUpdateScreen';
 import AccountSettingsScreen from '../screens/AccountSettingsScreen';
 import WideMapScreen from '../screens/maps/WideMapScreen';
-
+import AdminReportScreen from '../screens/AdminReportScreen';
+import ReportDetailScreen from '../screens/ReportDetailScreen';
 import LogoutScreen from '../screens/LogoutScreen';
 import ToExpectNextScreen from '../screens/org-onboarding-screens/ToExpectNextScreen';
 
 //icon imports
 
-import Lightening from '../assets/js icons/bottom navigation/Lightening';
-import Globe from '../assets/js icons/bottom navigation/Globe';
-import Smile from '../assets/js icons/bottom navigation/Smile';
-import PlusSign from '../assets/js icons/headerIcons/plusSign';
+import Lightening from '../assets/jsicons/bottomnavigation/Lightening';
+import Globe from '../assets/jsicons/bottomnavigation/Globe';
+import Smile from '../assets/jsicons/bottomnavigation/Smile';
+import PlusSign from '../assets/jsicons/headerIcons/plusSign';
 
 export const OrgOnboardStack = createStackNavigator(
   {
@@ -170,17 +171,13 @@ const FeedStack = createStackNavigator(
   }
 );
 
-// const CreateCampStack = createStackNavigator(
-// 	{ CreateCampaign: CreateCampScreen },
-// 	{
-// 		navigationOptions : {
-// 			headerLeft  : null,
-// 			tabBarLabel : 'Create Campaign',
-// 			tabBarIcon  : ({ focused }) => <PlusSign />,
-// 		},
-// 	},
-// );
-// export const CampStack = createStackNavigator((CreateCampStack = { screen: CreateCampStack, path: '' }));
+export const AdminReportStack = createStackNavigator({
+  AdminScreen: AdminReportScreen
+});
+
+export const ReportDetailStack = createStackNavigator({
+  ReportScreen: ReportDetailScreen
+});
 
 export const AccountSettingsStack = createStackNavigator({
   AccountSettings: AccountSettingsScreen
@@ -188,6 +185,7 @@ export const AccountSettingsStack = createStackNavigator({
 
 const MyProStack = createStackNavigator(
   {
+    Home: FeedScreen,
     MyPro: { screen: MyProScreen },
     MyDetail: { screen: MyDetailScreen },
     EditPro: {
@@ -195,23 +193,22 @@ const MyProStack = createStackNavigator(
       navigationOptions: { title: 'Edit Profile' }
     },
     Camp: ViewCampScreen,
+    CreateCampaign: CreateCampScreen,
     EditCamp: EditCampScreen,
     CampUpdate: ViewCampUpdateScreen,
     CreateCampUpdate: CreateCampUpdateScreen,
     EditCampUpdate: EditCampUpdateScreen
   },
   {
-    transitionConfig: () => ({
-      transitionSpec: {
-        duration: 0
-      }
-    }),
     navigationOptions: {
       tabBarLabel: 'My Profile',
       tabBarIcon: ({ focused }) => (
         // focused ? <UserFill /> : <User />
         <Smile />
-      )
+      ),
+      transitionSpec: {
+        duration: 0
+      }
     }
   }
 );
@@ -222,14 +219,12 @@ const MySupProStack = createStackNavigator(
     EditSupPro: { screen: EditSupProScreen }
   },
   {
-    transitionConfig: () => ({
+    navigationOptions: {
+      tabBarLabel: 'My Profile',
+      tabBarIcon: ({ focused }) => <Smile />,
       transitionSpec: {
         duration: 0
       }
-    }),
-    navigationOptions: {
-      tabBarLabel: 'My Profile',
-      tabBarIcon: ({ focused }) => <Smile />
     }
   }
 );
@@ -348,8 +343,7 @@ export const SupNavigator = createBottomTabNavigator(
       showIcon: true,
       activeBackgroundColor: '#EAEAEA',
       style: {
-        borderTopColor: 'transparent',
-        marginBottom: -10
+        borderTopColor: 'transparent'
       },
       tabStyle: {
         borderRightColor: '#EAEAEA',

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import SvgUri from 'react-native-svg-uri';
+
+import BackArrow from '../../assets/jsicons/miscIcons/BackArrow';
 
 import Animals from '../Animals/Animals';
 
@@ -12,27 +13,18 @@ const AnimalModal = props => {
       visible={props.isModalVisible}
       onRequestClose={() => props.setIsModalVisible(!props.isModalVisible)}
     >
-      <View style={styles.background}>
-        <View style={styles.modal}>
-          <View style={styles.headerContainer}>
-            <TouchableOpacity
-              style={styles.x}
-              onPress={() => props.setIsModalVisible(!props.isModalVisible)}
-            >
-              <SvgUri
-                fill='#3b3b3b'
-                width='31'
-                height='31'
-                source={require('../../assets/icons/x.svg')}
-              />
-            </TouchableOpacity>
-            <Text style={styles.title}>
-              Click to learn more about these beautiful creatures!
-            </Text>
-          </View>
-          <View style={styles.animalList}>
-            <Animals />
-          </View>
+      <View style={styles.modal}>
+        <View style={styles.headerContainer}>
+          <TouchableOpacity
+            style={styles.backArrow}
+            onPress={() => props.setIsModalVisible(!props.isModalVisible)}
+          >
+            <BackArrow />
+          </TouchableOpacity>
+          <Text style={styles.text}>What is it?</Text>
+        </View>
+        <View style={styles.animalList}>
+          <Animals />
         </View>
       </View>
     </Modal>
@@ -41,44 +33,58 @@ const AnimalModal = props => {
 
 const styles = StyleSheet.create({
   background: {
-    flex: 1,
-    opacity: 100
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1
   },
   modal: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F4F5F7',
-    marginHorizontal: 30,
-    marginVertical: 60,
+    // width: '80%',
+    // height: '30%',
+    //backgroundColor: '#3b3b3b',
+    marginHorizontal: 40,
+    marginVertical: 70,
     borderRadius: 8
-    //borderColor: 'black',
-    //borderWidth: 5
+    // borderColor: 'black',
+    // borderWidth: 5
   },
 
   headerContainer: {
-    justifyContent: 'space-between',
-    flexDirection: 'row-reverse',
+    // borderColor: 'purple',
+    // borderWidth: 2,
+    backgroundColor: 'transparent',
+    zIndex: 100,
+    flex: 0,
+    flexDirection: 'row',
     paddingHorizontal: 10
   },
-  x: {
-    alignSelf: 'flex-start',
-    //backgroundColor: '#d7ff43',
-    backgroundColor: '#00F48A',
-    borderRadius: 50,
+  backArrow: {
     padding: 3,
     margin: 10
   },
   title: {
     fontSize: 20,
     color: 'black',
-    //color: '#00F48A',
     fontFamily: 'Lato',
     marginHorizontal: 8
   },
   animalList: {
+    backgroundColor: 'grey',
+    borderRadius: 8,
+    //bottom: '7%',
+    // borderColor: 'red',
+    // borderWidth: 2,
     flex: 1,
-    alignItems: 'center'
+    alignSelf: 'center'
+  },
+  text: {
+    alignSelf: 'center',
+    paddingHorizontal: 40,
+    fontFamily: 'Lato',
+    color: '#F4F5F7',
+    fontSize: 30
+    // borderColor: 'purple',
+    // borderWidth: 2
   }
 });
 

@@ -3,8 +3,12 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { AmpEvent } from '../../components/withAmplitude';
 
+import Collapsible2 from '../../components/Collapsible2';
+import ChevronLeft from '../../assets/jsicons/miscIcons/ChevronLeftSolid';
+
 const AnimalCard = props => {
   const [selected, setSelected] = useState(false);
+  console.log(props);
 
   const WebsiteClick = async () => {
     if (props.link && props.link !== null) {
@@ -34,14 +38,20 @@ const AnimalCard = props => {
             selected === false && styles.animalInfoHidden
           ]}
         >
-          <Text style={styles.animalName}>{props.name}</Text>
+          <View style={styles.infoLeft}>
+            <Text style={styles.animalName}>{props.name}</Text>
+            {props.photoCred && props.photoCred !== '' ? (
+              <Text style={styles.photoCred}>© {props.photoCred}</Text>
+            ) : null}
+          </View>
           <Text style={styles.link} onPress={WebsiteClick}>
             Learn More
           </Text>
-          {props.photoCred && props.photoCred !== '' ? (
-            <Text style={styles.photoCred}>Photo by: {props.photoCred}</Text>
-          ) : null}
         </View>
+        <TouchableOpacity
+          style={styles.chevronTouch}
+          onPress={() => setSelected(!selected)}
+        ></TouchableOpacity>
       </View>
     </TouchableOpacity>
   );
@@ -65,7 +75,6 @@ const styles = StyleSheet.create({
     flex: 1,
     aspectRatio: 2.87,
     width: '200%',
-    borderRadius: 8,
     justifyContent: 'flex-start',
     alignSelf: 'auto'
   },
@@ -74,40 +83,61 @@ const styles = StyleSheet.create({
     height: 200
   },
   animalInfo: {
+    bottom: '25%',
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     padding: 10,
-    right: '85%',
-    height: '40%',
-    width: '70%',
-    borderRadius: 10,
-    borderColor: '#00F48A',
-    borderWidth: 4,
+    right: '105%',
+    height: '20%',
+    width: '95%',
+    borderRadius: 5,
     backgroundColor: '#F4F5F7'
   },
   animalInfoHidden: {
     display: 'none'
   },
+  infoLeft: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start'
+  },
   animalName: {
     color: 'black',
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
     fontFamily: 'Lato',
     alignItems: 'center',
-    padding: 5
+    paddingTop: 5
   },
   link: {
-    borderRadius: 5,
-    borderColor: '#3b3b3b',
-    borderWidth: 2,
+    shadowColor: 'rgba(0, 0, 0, 0.25)',
+    shadowOffset: {
+      width: 4,
+      height: 4
+    },
+    shadowRadius: 4,
+    shadowOpacity: 5,
+    borderRadius: 10,
     backgroundColor: '#d7ff43',
     fontFamily: 'Lato',
     padding: 5
   },
   photoCred: {
-    padding: 5,
-    fontFamily: 'Lato'
-  }
+    fontSize: 18,
+    fontWeight: '900',
+    fontFamily: 'Lato',
+    paddingBottom: 5
+  },
+  chevronTouch: {
+    zIndex: 3,
+    // borderColor: 'red',
+    // borderWidth: 2,
+    right: 70,
+    bottom: 15,
+    color: 'white'
+  },
+  chevron: {},
+  chevronDown: {}
 });
 
 export default AnimalCard;

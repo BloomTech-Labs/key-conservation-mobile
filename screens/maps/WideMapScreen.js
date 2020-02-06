@@ -18,7 +18,7 @@ class WideMapScreen extends React.Component {
       headerTitleStyle: {
         textAlign: "center",
         flexGrow: 1,
-        marginTop: 18,
+        marginTop: 10,
         alignSelf: "center"
       },
       headerLeft: () => <BackButton navigation={navigation} />

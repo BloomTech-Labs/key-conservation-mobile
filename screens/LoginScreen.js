@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ImageBackground
 } from 'react-native';
-import KeyInfoGreen from '../assets/js icons/KeyCon/Key_Info_Green';
+import KeyInfoGreen from '../assets/jsicons/KeyCon/Key_Info_Green';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { AuthSession } from 'expo';
@@ -189,13 +189,14 @@ export default LoginScreen = props => {
       source={require('../assets/images/loginscreen2.png')}
       style={styles.container}
     >
+      <AnimalModal
+        setIsModalVisible={setIsModalVisible}
+        isModalVisible={isModalVisible}
+      />
       <View style={styles.logoContainer}>
-        <AnimalModal
-          setIsModalVisible={setIsModalVisible}
-          isModalVisible={isModalVisible}
-        />
         <Image
-          style={styles.logo}
+          //   style={styles.logo}
+          style={isModalVisible === false ? styles.logo : styles.Hidden}
           source={require('../assets/images/keyFullWhite.png')}
         />
       </View>
@@ -227,9 +228,7 @@ export default LoginScreen = props => {
       </View>
       <View
         style={
-          isModalVisible === false
-            ? styles.aboutIconContainer
-            : styles.aboutIconHidden
+          isModalVisible === false ? styles.aboutIconContainer : styles.Hidden
         }
       >
         <TouchableOpacity
@@ -238,6 +237,7 @@ export default LoginScreen = props => {
             setIsModalVisible(true);
           }}
         >
+          {/* <ChevronLeft /> */}
           <KeyInfoGreen />
         </TouchableOpacity>
       </View>
@@ -313,7 +313,7 @@ const styles = StyleSheet.create({
       height: 4
     },
     shadowRadius: 4,
-    shadowOpacity: 1,
+    shadowOpacity: 10,
     justifyContent: 'center'
   },
   buttonText: {
@@ -331,7 +331,7 @@ const styles = StyleSheet.create({
   aboutIconTouch: {
     padding: 10
   },
-  aboutIconHidden: {
+  Hidden: {
     display: 'none'
   }
 });

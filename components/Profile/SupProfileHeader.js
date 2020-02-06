@@ -14,11 +14,10 @@ import SvgUri from 'react-native-svg-uri';
 import styles from '../../constants/Profile/SupProfileHeader';
 import traschCan from '../../constants/DetailScreen/DetailHeader';
 //icons
-import Envelope from '../../assets/js icons/social media /Envelope';
-import Instagram from '../../assets/js icons/social media /Instagram';
-import Twitter from '../../assets/js icons/social media /Twitter';
-import Facebook from '../../assets/js icons/social media /Facebook';
-import { randomImage } from '../../components/Animals/RandomImage';
+import Envelope from '../../assets/jsicons/socialmedia/Envelope';
+import Instagram from '../../assets/jsicons/socialmedia/Instagram';
+import Twitter from '../../assets/jsicons/socialmedia/Twitter';
+import Facebook from '../../assets/jsicons/socialmedia/Facebook';
 
 const SupProfileHeader = props => {
   let profile = props.profile;

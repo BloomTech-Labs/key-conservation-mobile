@@ -7,15 +7,15 @@ import { AmpEvent } from '../withAmplitude';
 import styles from '../../constants/DetailScreen/DetailHeader';
 
 //icons
-import Envelope from '../../assets/js icons/social media /Envelope';
-import Instagram from '../../assets/js icons/social media /Instagram';
-import Twitter from '../../assets/js icons/social media /Twitter';
-import Facebook from '../../assets/js icons/social media /Facebook';
-import Phone from '../../assets/js icons/social media /Phone';
-import PhoneAdd from '../../assets/js icons/social media /PhoneAdd';
-import IgAdd from '../../assets/js icons/social media /IgAdd';
-import TwitterAdd from '../../assets/js icons/social media /TwitterAdd';
-import FbAdd from '../../assets/js icons/social media /FbAdd';
+import Envelope from '../../assets/jsicons/socialmedia/Envelope';
+import Instagram from '../../assets/jsicons/socialmedia/Instagram';
+import Twitter from '../../assets/jsicons/socialmedia/Twitter';
+import Facebook from '../../assets/jsicons/socialmedia/Facebook';
+import Phone from '../../assets/jsicons/socialmedia/Phone';
+import PhoneAdd from '../../assets/jsicons/socialmedia/PhoneAdd';
+import IgAdd from '../../assets/jsicons/socialmedia/IgAdd';
+import TwitterAdd from '../../assets/jsicons/socialmedia/TwitterAdd';
+import FbAdd from '../../assets/jsicons/socialmedia/FbAdd';
 
 export default class DetailHeader extends Component {
 	makeCall = () => {
