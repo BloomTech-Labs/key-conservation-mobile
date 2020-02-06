@@ -26,8 +26,6 @@ export default VerifyDocumentationScreen = props => {
       'airtableStateAdd',
       'defaultValue'
     );
-    console.log('airtableState from VerifyDocScreen', airtableState);
-
     setState({
       ...state,
       airtableState: airtableState
@@ -130,7 +128,6 @@ export default VerifyDocumentationScreen = props => {
         label='Next'
         onButtonPress={() => {
           navigate();
-          console.log('state from verifydocscreen', state);
         }}
       />
     </View>

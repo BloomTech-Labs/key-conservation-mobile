@@ -47,7 +47,6 @@ const OrganizationSurveyScreen = props => {
       ...values,
       profile_image: props.mediaUpload
     }; // Updates state for backend with new fields.
-    console.log('airtablestateadd2 from org survey', airtableStateAdd2);
     stringBE = JSON.stringify(airtableStateAdd2);
     await SecureStore.setItemAsync('stateBE', stringBE); // Finally stores data object in SecureStore to be opened in 'EditPro' after user is vetted.
     await SecureStore.setItemAsync('vetting', 'true');
@@ -141,7 +140,7 @@ const OrganizationSurveyScreen = props => {
               style={[styles.textRounded, { marginBottom: '7%' }]}
               autoCapitalize='none'
               onChangeText={text => handleChange({ ...values, org_cta: text })}
-              value={values.twitter}
+              value={values.org_cta}
               placeholder='Enter url'
               type='url'
               name='org_cta'

@@ -42,12 +42,7 @@ const ReviewYourInfoScreen = props => {
   });
 
   useEffect(() => {
-    const testairtabledata = props.navigation.getParam(
-      'airtableStateAdd',
-      'defaultValue'
-    );
     setState(props.navigation.getParam('airtableStateAdd', 'defaultValue'));
-    console.log('testairtabledata', testairtabledata);
     getAirtableID();
   }, []); // Grabs state for backend through nav params again.
 
