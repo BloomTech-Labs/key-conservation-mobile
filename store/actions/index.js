@@ -115,7 +115,7 @@ export const getLoadingData = sub => async dispatch => {
       }
     })
     .then(response => {
-      let dbCheck = response.data.check;
+      let dbCheck = response.data.check.check;
       if (dbCheck === true) {
         dispatch({ type: GET_AUTH_USER, payload: dbCheck });
       } else {
@@ -123,7 +123,9 @@ export const getLoadingData = sub => async dispatch => {
       }
     })
     .catch(error => {
-      dispatch({ type: GET_AUTH_ERROR, payload: error.message });
+      if(error.logout)
+        console.log("Account Deactivated")
+      else dispatch({ type: GET_AUTH_ERROR, payload: error.message });
     });
 };
 
