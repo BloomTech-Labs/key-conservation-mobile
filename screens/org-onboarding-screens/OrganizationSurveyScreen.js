@@ -28,7 +28,8 @@ const OrganizationSurveyScreen = props => {
     facebook: '',
     instagram: '',
     twitter: '',
-    profile_image: ''
+    profile_image: '',
+    org_cta: ''
   });
   const airtableStateAdd = props.navigation.getParam(
     'airtableStateAdd',
@@ -132,6 +133,20 @@ const OrganizationSurveyScreen = props => {
               <UploadMedia circular />
             </View>
           </View>
+          <View>
+            <Text style={[styles.obSubtitle, { fontSize: 18 }]}>
+              Donation Link
+            </Text>
+            <TextInput
+              style={[styles.textRounded, { marginBottom: '7%' }]}
+              autoCapitalize='none'
+              onChangeText={text => handleChange({ ...values, org_cta: text })}
+              value={values.twitter}
+              placeholder='Enter url'
+              type='url'
+              name='org_cta'
+            />
+          </View>
           <View style={styles.inputBlockSm}>
             <Text style={[styles.obSubtitle, { fontSize: 18 }]}>
               Connect to your social media sites:
@@ -139,6 +154,7 @@ const OrganizationSurveyScreen = props => {
             <Text style={styles.obText}>Facebook</Text>
             <TextInput
               style={[styles.textRounded]}
+              autoCapitalize='none'
               onChangeText={text => handleChange({ ...values, facebook: text })}
               placeholder='Enter url'
               type='url'
@@ -150,6 +166,7 @@ const OrganizationSurveyScreen = props => {
             <Text style={styles.obText}>Instagram</Text>
             <TextInput
               style={[styles.textRounded]}
+              autoCapitalize='none'
               onChangeText={text =>
                 handleChange({ ...values, instagram: text })
               }
@@ -163,6 +180,7 @@ const OrganizationSurveyScreen = props => {
             <Text style={styles.obText}>Twitter</Text>
             <TextInput
               style={[styles.textRounded, { marginBottom: '7%' }]}
+              autoCapitalize='none'
               onChangeText={text => handleChange({ ...values, twitter: text })}
               value={values.twitter}
               placeholder='Enter url'
