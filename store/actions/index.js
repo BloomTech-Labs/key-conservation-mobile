@@ -123,7 +123,9 @@ export const getLoadingData = sub => async dispatch => {
       }
     })
     .catch(error => {
-      dispatch({ type: GET_AUTH_ERROR, payload: error.message });
+      if(error.logout)
+        console.log("Account Deactivated")
+      else dispatch({ type: GET_AUTH_ERROR, payload: error.message });
     });
 };
 
