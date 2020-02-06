@@ -1,76 +1,58 @@
-import React from "react";
-import { View, ScrollView } from "react-native";
-import { connect } from "react-redux";
-import { Viewport } from "@skele/components";
-import { getProfileData } from "../store/actions";
-import FeedCampaign from "../components/FeedScreen/FeedCampaign";
-import FeedUpdate from "../components/FeedScreen/FeedUpdate";
-import ProfileHeader from "../components/Profile/ProfileHeader";
-import BackButton from "../components/BackButton";
+import React from 'react';
+import { View, ScrollView } from 'react-native';
+import { connect } from 'react-redux';
+import { Viewport } from '@skele/components';
+import { getProfileData } from '../store/actions';
+import FeedCampaign from '../components/FeedScreen/FeedCampaign';
+import FeedUpdate from '../components/FeedScreen/FeedUpdate';
+import ProfileHeader from '../components/Profile/ProfileHeader';
+import BackButton from '../components/BackButton';
+import CampBlankSpace from '../components/Profile/CampBlankSpace';
 
 class ProScreen extends React.Component {
-  static navigationOptions = ({ navigation }) => {
-    const fromMap = navigation.getParam("fromMap", "defaultValue");
+	static navigationOptions = ({ navigation }) => {
+		const fromMap = navigation.getParam('fromMap', 'defaultValue');
 
-    return {
-      title: "Profile",
-      headerStyle: {
-        backgroundColor: "#323338"
-      },
-      headerTintColor: "#fff",
-      headerTitleStyle: {
-        textAlign: "center",
-        flexGrow: 1,
-        alignSelf: "center",
-        fontFamily: "Lato-Bold"
-      },
-      headerLeft: () => (
-        <BackButton navigation={navigation} fromMap={fromMap} />
-      ),
-      headerRight: () => <View />
-    };
-  };
+		return {
+			title            : 'Profile',
+			headerStyle      : {
+				backgroundColor : '#323338',
+			},
+			headerTintColor  : '#fff',
+			headerTitleStyle : {
+				textAlign  : 'center',
+				flexGrow   : 1,
+				alignSelf  : 'center',
+				fontFamily : 'Lato-Bold',
+			},
+			headerLeft       : () => <BackButton navigation={navigation} fromMap={fromMap} />,
+			headerRight      : () => <View />,
+		};
+	};
 
-  render() {
-    const { navigation } = this.props;
-    return (
-      // creates sticky header
-      <Viewport.Tracker>
-        <ScrollView stickyHeaderIndices={[0]}>
-          <ProfileHeader
-            navigation={navigation}
-            profile={this.props.selectedProfile}
-            myProfile={false}
-          />
-          {this.props.selectedProfile.campaigns.map(camp => {
-            if (camp.update_id) {
-              return (
-                <FeedUpdate
-                  key={`update${camp.update_id}`}
-                  data={camp}
-                  toggled
-                  navigation={navigation}
-                />
-              );
-            } else {
-              return (
-                <FeedCampaign
-                  key={camp.camp_id}
-                  data={camp}
-                  toggled
-                  navigation={navigation}
-                />
-              );
-            }
-          })}
-        </ScrollView>
-      </Viewport.Tracker>
-    );
-  }
+	render() {
+		const { navigation } = this.props;
+		return (
+			// creates sticky header
+			<Viewport.Tracker>
+				<ScrollView stickyHeaderIndices={[ 0 ]}>
+					<ProfileHeader navigation={navigation} profile={this.props.selectedProfile} myProfile={false} />
+					<CampBlankSpace />
+					{this.props.selectedProfile.campaigns.map((camp) => {
+						if (camp.update_id) {
+							return <FeedUpdate key={`update${camp.update_id}`} data={camp} toggled navigation={navigation} />;
+						} else {
+							return <FeedCampaign key={camp.camp_id} data={camp} toggled navigation={navigation} />;
+						}
+					})}
+				</ScrollView>
+			</Viewport.Tracker>
+		);
+	}
 }
 
-const mapStateToProps = state => ({
-  selectedProfile: state.selectedProfile
+const mapStateToProps = (state) => ({
+	selectedProfile : state.selectedProfile,
 });
 
 export default connect(mapStateToProps, { getProfileData })(ProScreen);
