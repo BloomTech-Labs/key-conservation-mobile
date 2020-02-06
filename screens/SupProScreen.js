@@ -1,15 +1,15 @@
-import React, { useEffect } from "react";
-import { View } from "react-native";
-import { Viewport } from "@skele/components";
-import { connect } from "react-redux";
-import { getProfileData } from "../store/actions";
-import SupProfileHeader from "../components/Profile/SupProfileHeader";
-import SupProfileBody from "../components/Profile/SupProfileBody";
-import BackButton from "../components/BackButton";
+import React, { useEffect } from 'react';
+import { View } from 'react-native';
+import { Viewport } from '@skele/components';
+import { connect } from 'react-redux';
+import { getProfileData } from '../store/actions';
+import SupProfileHeader from '../components/Profile/SupProfileHeader';
+import SupProfileBody from '../components/Profile/SupProfileBody';
+import BackButton from '../components/BackButton';
 
 const SupProScreen = props => {
   useEffect(() => {
-    props.getProfileData(props.userId, false, "myProfile");
+    props.getProfileData(props.userId, false, 'myProfile');
   });
 
   return (
@@ -21,20 +21,21 @@ const SupProScreen = props => {
 };
 
 SupProScreen.navigationOptions = navigationData => {
-  const username = navigationData.navigation.getParam("username");
+  const username = navigationData.navigation.getParam('username');
 
   return {
+    headerTransparent: true,
     headerTitle: username,
     headerLeft: () => <BackButton navigation={navigationData.navigation} />,
-    headerStyle: {
-      backgroundColor: "#323338"
-    },
-    headerTintColor: "#fff",
+    // headerStyle: {
+    //   backgroundColor: 'red'
+    // },
+    headerTintColor: '#fff',
     headerTitleStyle: {
-      textAlign: "center",
+      textAlign: 'center',
       flexGrow: 1,
-      alignSelf: "center",
-      fontFamily: "Lato-Bold"
+      alignSelf: 'center',
+      fontFamily: 'Lato-Bold'
     },
     headerRight: () => <View />
   };

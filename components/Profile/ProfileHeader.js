@@ -13,7 +13,7 @@ import { AmpEvent } from '../withAmplitude';
 import { FontAwesome } from '@expo/vector-icons';
 
 import styles from '../../constants/Profile/ProfileHeader';
-import MapMarker from '../../assets/js icons/headerIcons/map-marker';
+import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
 import { randomImage } from '../../components/Animals/RandomImage';
 
 const ProfileHeader = props => {

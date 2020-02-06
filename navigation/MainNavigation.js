@@ -31,7 +31,6 @@ import SupProScreen from '../screens/SupProScreen';
 import MySupProScreen from '../screens/MySupProScreen';
 import LoginScreen from '../screens/LoginScreen';
 import UsernameScreen from '../screens/UsernameScreen';
-import SvgUri from 'react-native-svg-uri';
 import SearchScreen from '../screens/SearchScreen';
 import ViewCampScreen from '../screens/ViewCampScreen';
 import EditCampScreen from '../screens/EditCampScreen';
@@ -51,7 +50,6 @@ import ToExpectNextScreen from '../screens/org-onboarding-screens/ToExpectNextSc
 import Lightening from '../assets/jsicons/bottomnavigation/Lightening';
 import Globe from '../assets/jsicons/bottomnavigation/Globe';
 import Smile from '../assets/jsicons/bottomnavigation/Smile';
-import PlusSign from '../assets/jsicons/headerIcons/plusSign';
 
 export const OrgOnboardStack = createStackNavigator(
   {
@@ -104,19 +102,11 @@ const FeedStack = createStackNavigator(
       screen: ProScreen,
       navigationOptions: {
         headerTransparent: true,
-        //opacity: 100,
-        //zIndex: 3,
-        title: 'Profile',
-        //backgroundColor: 'transparent',
         headerTintColor: '#fff',
         headerTitleStyle: {
           textAlign: 'center',
           flexGrow: 1,
           alignSelf: 'center'
-        },
-        headerStyle: {
-          //backgroundColor: 'transparent'
-          //opacity: 100
         }
       }
     },

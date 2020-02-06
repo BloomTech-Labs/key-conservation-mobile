@@ -18,6 +18,7 @@ import Envelope from '../../assets/jsicons/socialmedia/Envelope';
 import Instagram from '../../assets/jsicons/socialmedia/Instagram';
 import Twitter from '../../assets/jsicons/socialmedia/Twitter';
 import Facebook from '../../assets/jsicons/socialmedia/Facebook';
+import { randomImage } from '../Animals/RandomImage';
 
 const SupProfileHeader = props => {
   let profile = props.profile;
@@ -27,9 +28,8 @@ const SupProfileHeader = props => {
       <ImageBackground
         source={randomHeaderImage}
         style={{
-          width: '100%',
-          height: '100%',
-          backgroundColor: '#000'
+          backgroundColor: '#000',
+          paddingTop: 100
         }}
         imageStyle={{ opacity: 0.7 }}
       >
