@@ -177,9 +177,9 @@ const FeedStack = createStackNavigator(
 // );
 // export const CampStack = createStackNavigator((CreateCampStack = { screen: CreateCampStack, path: '' }));
 
-// export const AccountSettingsStack = createStackNavigator({
-// 	AccountSettings : AccountSettingsScreen,
-// });
+export const AccountSettingsStack = createStackNavigator({
+  AccountSettings: AccountSettingsScreen
+});
 
 const MyProStack = createStackNavigator(
   {
