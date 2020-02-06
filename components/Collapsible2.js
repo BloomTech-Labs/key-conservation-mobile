@@ -5,7 +5,8 @@ import {
   Text,
   StyleSheet,
   Animated,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  Image
 } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
 
@@ -32,7 +33,7 @@ class Collapsible2 extends Component {
     maxHeight: 0
   };
 
-  ARROW_COLLAPSED = '270deg';
+  ARROW_COLLAPSED = '180deg';
   ARROW_OPEN = '90deg';
 
   toggle = () => {
@@ -78,6 +79,7 @@ class Collapsible2 extends Component {
   };
 
   render() {
+    console.log(this.state.collapsed);
     let arrowRot = this.state.collapsed
       ? this.ARROW_COLLAPSED
       : this.ARROW_OPEN;
@@ -99,7 +101,12 @@ class Collapsible2 extends Component {
             style={styles.title_bar}
             onLayout={this.setMinHeight.bind(this)}
           >
-            <Text style={styles.title}>{this.props.title}</Text>
+            <Image
+              source={this.props.image}
+              style={styles.image}
+              resizeMode='cover'
+            />
+            {/* </Image><Text style={styles.title}>{this.props.title}</Text> */}
             <View style={styles.right_content}>{this.props.right}</View>
             <Animated.View
               style={[
@@ -110,7 +117,7 @@ class Collapsible2 extends Component {
               <SvgUri
                 style={styles.arrow}
                 source={arrow}
-                fill='#000000'
+                fill='white'
                 width='15'
                 height='100%'
               />
@@ -132,14 +139,16 @@ class Collapsible2 extends Component {
 // define your styles
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 8,
+    //borderWidth: 1,
+    // borderColor: 'gray',
+    // borderRadius: 8,
     marginVertical: 12,
     borderRadius: 8,
     overflow: 'hidden'
   },
   title_bar: {
+    borderColor: 'red',
+    borderWidth: 2,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -168,6 +177,13 @@ const styles = StyleSheet.create({
     padding: 8,
     paddingTop: 8,
     overflow: 'hidden'
+  },
+  image: {
+    flex: 1,
+    aspectRatio: 2.87,
+    width: '200%',
+    justifyContent: 'flex-start',
+    alignSelf: 'auto'
   }
 });
 

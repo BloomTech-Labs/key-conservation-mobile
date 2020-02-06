@@ -3,10 +3,8 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { AmpEvent } from '../../components/withAmplitude';
 
-import Collapsible from '../../components/Collapsible';
-
+import Collapsible2 from '../../components/Collapsible2';
 import ChevronLeft from '../../assets/jsicons/miscIcons/ChevronLeftSolid';
-import { setLightEstimationEnabled } from 'expo/build/AR';
 
 const AnimalCard = props => {
   const [selected, setSelected] = useState(false);
@@ -52,13 +50,8 @@ const AnimalCard = props => {
         </View>
         <TouchableOpacity
           style={styles.chevronTouch}
-          onPress={() => {
-            setIsModalVisible(!isModalVisible);
-          }}
-        >
-          <Collapsible />
-          {/* <ChevronLeft style={styles.chevron} /> */}
-        </TouchableOpacity>
+          onPress={() => setSelected(!selected)}
+        ></TouchableOpacity>
       </View>
     </TouchableOpacity>
   );
@@ -97,7 +90,7 @@ const styles = StyleSheet.create({
     padding: 10,
     right: '105%',
     height: '20%',
-    width: '90%',
+    width: '95%',
     borderRadius: 5,
     backgroundColor: '#F4F5F7'
   },
@@ -136,14 +129,11 @@ const styles = StyleSheet.create({
     paddingBottom: 5
   },
   chevronTouch: {
-    //   transform: {
-    //     ''
-    //   }
     zIndex: 3,
-    borderColor: 'red',
-    borderWidth: 2,
+    // borderColor: 'red',
+    // borderWidth: 2,
     right: 70,
-    bottom: 20,
+    bottom: 15,
     color: 'white'
   },
   chevron: {},
