@@ -29,16 +29,18 @@ const ProfileHeader = props => {
   const randomHeaderImage = randomImage();
 
   return (
-    <ScrollView style={styles.pic}>
-      <ImageBackground
-        source={randomHeaderImage}
-        style={{
-          width: '100%',
-          height: '100%',
-          backgroundColor: '#000'
-        }}
-        imageStyle={{ opacity: 0.7 }}
-      >
+    <ImageBackground
+      source={randomHeaderImage}
+      resizeMode='cover'
+      style={{
+        // zIndex: 2,
+        paddingTop: 100,
+        //flex: 2,
+        backgroundColor: '#000000'
+      }}
+      imageStyle={{ opacity: 0.7 }}
+    >
+      <ScrollView style={styles.pic}>
         <View style={styles.container}>
           <View style={styles.avatarContainer}>
             <Avatar
@@ -111,8 +113,8 @@ const ProfileHeader = props => {
             </View>
           </TouchableOpacity>
         </View>
-      </ImageBackground>
-    </ScrollView>
+      </ScrollView>
+    </ImageBackground>
   );
 };
 

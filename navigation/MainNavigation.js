@@ -102,7 +102,11 @@ const FeedStack = createStackNavigator(
     Pro: {
       screen: ProScreen,
       navigationOptions: {
+        headerTransparent: true,
+        //opacity: 100,
+        //zIndex: 3,
         title: 'Profile',
+        //backgroundColor: 'transparent',
         headerTintColor: '#fff',
         headerTitleStyle: {
           textAlign: 'center',
@@ -110,7 +114,8 @@ const FeedStack = createStackNavigator(
           alignSelf: 'center'
         },
         headerStyle: {
-          backgroundColor: '#323338'
+          //backgroundColor: 'transparent'
+          //opacity: 100
         }
       }
     },
@@ -241,6 +246,7 @@ export const UsernameStack = createStackNavigator({
         color: 'white'
       },
       headerStyle: {
+        borderWidth: 2,
         backgroundColor: '#323338'
       }
     }
