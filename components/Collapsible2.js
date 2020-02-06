@@ -12,14 +12,16 @@ import SvgUri from 'react-native-svg-uri';
 import arrow from '../assets/icons/chevron-left-solid.svg';
 
 // create a component
-class Collapsable extends Component {
+class Collapsible2 extends Component {
   constructor(props) {
     super(props);
 
     const typeOfRight = typeof props.right;
 
-    if(typeOfRight !== 'undefined' && typeOfRight !== 'object') {
-      console.error('Prop `right` in Collapsable must be a valid React component!');
+    if (typeOfRight !== 'undefined' && typeOfRight !== 'object') {
+      console.error(
+        'Prop `right` in Collapsible must be a valid React component!'
+      );
     }
   }
 
@@ -98,9 +100,7 @@ class Collapsable extends Component {
             onLayout={this.setMinHeight.bind(this)}
           >
             <Text style={styles.title}>{this.props.title}</Text>
-            <View style={styles.right_content}>
-            {this.props.right}
-            </View>
+            <View style={styles.right_content}>{this.props.right}</View>
             <Animated.View
               style={[
                 styles.arrowContainer,
@@ -146,8 +146,8 @@ const styles = StyleSheet.create({
     padding: 8
   },
   right_content: {
-    flex: 0.5,
-  },  
+    flex: 0.5
+  },
   title: {
     flex: 2,
     padding: 10,
@@ -172,4 +172,4 @@ const styles = StyleSheet.create({
 });
 
 //make this component available to the app
-export default Collapsable;
+export default Collapsible2;

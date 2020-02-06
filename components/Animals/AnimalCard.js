@@ -3,11 +3,14 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { AmpEvent } from '../../components/withAmplitude';
 
+import Collapsible from '../../components/Collapsible';
+
 import ChevronLeft from '../../assets/jsicons/miscIcons/ChevronLeftSolid';
-import SvgUri from 'react-native-svg-uri';
+import { setLightEstimationEnabled } from 'expo/build/AR';
 
 const AnimalCard = props => {
   const [selected, setSelected] = useState(false);
+  console.log(props);
 
   const WebsiteClick = async () => {
     if (props.link && props.link !== null) {
@@ -48,15 +51,13 @@ const AnimalCard = props => {
           </Text>
         </View>
         <TouchableOpacity
+          style={styles.chevronTouch}
           onPress={() => {
             setIsModalVisible(!isModalVisible);
           }}
         >
-          <ChevronLeft />
-          {/* <SvgUri
-            style={styles.logo}
-            source={require('../../assets/icons/chevron-left-solid.svg')}
-          /> */}
+          <Collapsible />
+          {/* <ChevronLeft style={styles.chevron} /> */}
         </TouchableOpacity>
       </View>
     </TouchableOpacity>
@@ -134,12 +135,19 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato',
     paddingBottom: 5
   },
-  aboutIconTouch: {
+  chevronTouch: {
+    //   transform: {
+    //     ''
+    //   }
+    zIndex: 3,
     borderColor: 'red',
-    borderWidth: 2
-    // width: 25,
-    // height: 25,
-  }
+    borderWidth: 2,
+    right: 70,
+    bottom: 20,
+    color: 'white'
+  },
+  chevron: {},
+  chevronDown: {}
 });
 
 export default AnimalCard;

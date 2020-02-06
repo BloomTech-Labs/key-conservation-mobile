@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, ScrollView } from 'react-native';
 
 import AnimalCard from './AnimalCard';
 import animalData from './animalData';
-
 const Animals = props => {
   return (
     <View style={styles.animalsList}>
-      <FlatList
-        data={animalData}
-        renderItem={animal => <AnimalCard {...animal.item} />}
-        keyExtractor={item => item.id.toString()}
-      />
+      <ScrollView>
+        <View>
+          <FlatList
+            bounces={false}
+            scrollToOverflowEnabled={true}
+            // alwaysBounceVertical={false}
+            data={animalData}
+            renderItem={animal => <AnimalCard {...animal.item} />}
+            keyExtractor={item => item.id.toString()}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 };

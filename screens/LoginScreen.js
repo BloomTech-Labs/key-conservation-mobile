@@ -195,7 +195,8 @@ export default LoginScreen = props => {
       />
       <View style={styles.logoContainer}>
         <Image
-          style={styles.logo}
+          //   style={styles.logo}
+          style={isModalVisible === false ? styles.logo : styles.Hidden}
           source={require('../assets/images/keyFullWhite.png')}
         />
       </View>
@@ -227,9 +228,7 @@ export default LoginScreen = props => {
       </View>
       <View
         style={
-          isModalVisible === false
-            ? styles.aboutIconContainer
-            : styles.aboutIconHidden
+          isModalVisible === false ? styles.aboutIconContainer : styles.Hidden
         }
       >
         <TouchableOpacity
@@ -332,7 +331,7 @@ const styles = StyleSheet.create({
   aboutIconTouch: {
     padding: 10
   },
-  aboutIconHidden: {
+  Hidden: {
     display: 'none'
   }
 });

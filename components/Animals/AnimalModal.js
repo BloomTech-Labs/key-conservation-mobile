@@ -1,16 +1,7 @@
 import React from 'react';
-import {
-  Modal,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  TouchableHighlight,
-  Text
-} from 'react-native';
+import { Modal, View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 
 import BackArrow from '../../assets/jsicons/miscIcons/BackArrow';
-// import ChevronLeft from '../../assets/jsicons/miscIcons/ChevronLeftSolid';
-// import SvgUri from 'react-native-svg-uri';
 
 import Animals from '../Animals/Animals';
 
@@ -22,55 +13,52 @@ const AnimalModal = props => {
       visible={props.isModalVisible}
       onRequestClose={() => props.setIsModalVisible(!props.isModalVisible)}
     >
-      {/* <View style={styles.background}> */}
       <View style={styles.modal}>
         <View style={styles.headerContainer}>
-          <TouchableHighlight
+          <TouchableOpacity
             style={styles.backArrow}
             onPress={() => props.setIsModalVisible(!props.isModalVisible)}
           >
             <BackArrow />
-          </TouchableHighlight>
+          </TouchableOpacity>
+          <Text style={styles.text}>What is it?</Text>
         </View>
         <View style={styles.animalList}>
           <Animals />
         </View>
       </View>
-      {/* </View> */}
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
   background: {
-    borderColor: 'red',
-    borderWidth: 5,
-    flex: 1,
-    opacity: 50
-    //backgroundColor: '#F4F5F7'
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1
   },
   modal: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#2F4F4F',
-    marginHorizontal: 30,
-    marginVertical: 60,
+    // width: '80%',
+    // height: '30%',
+    //backgroundColor: '#3b3b3b',
+    marginHorizontal: 40,
+    marginVertical: 70,
     borderRadius: 8
     // borderColor: 'black',
     // borderWidth: 5
   },
 
   headerContainer: {
+    // borderColor: 'purple',
+    // borderWidth: 2,
+    backgroundColor: 'transparent',
+    zIndex: 100,
     flex: 0,
-    borderColor: 'orange',
-    borderWidth: 2,
-    flexDirection: 'column',
+    flexDirection: 'row',
     paddingHorizontal: 10
   },
   backArrow: {
-    borderColor: 'red',
-    borderWidth: 2,
     padding: 3,
     margin: 10
   },
@@ -81,8 +69,22 @@ const styles = StyleSheet.create({
     marginHorizontal: 8
   },
   animalList: {
+    backgroundColor: 'grey',
+    borderRadius: 8,
+    //bottom: '7%',
+    // borderColor: 'red',
+    // borderWidth: 2,
     flex: 1,
-    alignItems: 'center'
+    alignSelf: 'center'
+  },
+  text: {
+    alignSelf: 'center',
+    paddingHorizontal: 40,
+    fontFamily: 'Lato',
+    color: '#F4F5F7',
+    fontSize: 30
+    // borderColor: 'purple',
+    // borderWidth: 2
   }
 });
 
