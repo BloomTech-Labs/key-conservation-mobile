@@ -8,7 +8,7 @@ import {
   Image,
   Alert
 } from 'react-native';
-import Collapsable from '../Collapsable';
+import Collapsible from '../Collapsible';
 
 import moment from 'moment';
 
@@ -86,8 +86,9 @@ class ReportDetailCard extends Component {
       !this.isUser && !(this.state.postText && this.state.postImage);
 
     return (
-      <Collapsable
-        title={`${this.type || '---'} #${this.props.currentReport.post_id || '---'}`}
+      <Collapsible
+        title={`${this.type || '---'} #${this.props.currentReport.post_id ||
+          '---'}`}
         collapsed={this.props.collapsed}
         right={
           <View style={styles.report_count}>
@@ -98,7 +99,9 @@ class ReportDetailCard extends Component {
               width='15'
               height='100%'
             />
-            <Text style={styles.unique_reports}>{this.props.unique_reports}</Text>
+            <Text style={styles.unique_reports}>
+              {this.props.unique_reports}
+            </Text>
           </View>
         }
       >
@@ -136,7 +139,7 @@ class ReportDetailCard extends Component {
             <Text style={styles.timestamp}>{timestamp || '---'}</Text>
           </View>
         </View>
-      </Collapsable>
+      </Collapsible>
     );
   }
 }

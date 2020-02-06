@@ -58,12 +58,12 @@ export const afterFirstLogin = () => ({
 export const getCustomById = (table_name, id) => async dispatch => {
   let url = `${seturl}`;
 
-  switch(table_name) {
+  switch (table_name) {
     case 'campaignUpdates': {
       url += '/updates';
       break;
     }
-    case 'comments' : {
+    case 'comments': {
       url += '/comments/com';
       break;
     }
@@ -72,7 +72,9 @@ export const getCustomById = (table_name, id) => async dispatch => {
       break;
     }
     default: {
-      console.warn(`Invalid table name ${table_name}: getCustomById(table_name, id) in actions`)
+      console.warn(
+        `Invalid table name ${table_name}: getCustomById(table_name, id) in actions`
+      );
       return;
     }
   }
@@ -86,7 +88,7 @@ export const getCustomById = (table_name, id) => async dispatch => {
       'Content-Type': 'application/json'
     }
   });
-}
+};
 
 //// These actions are for the loading page to determine if:
 // A) The user is logged in
@@ -121,7 +123,9 @@ export const getLoadingData = sub => async dispatch => {
       }
     })
     .catch(error => {
-      dispatch({ type: GET_AUTH_ERROR, payload: error.message });
+      if(error.logout)
+        console.log("Account Deactivated")
+      else dispatch({ type: GET_AUTH_ERROR, payload: error.message });
     });
 };
 

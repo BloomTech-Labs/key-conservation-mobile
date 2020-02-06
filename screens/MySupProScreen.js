@@ -11,6 +11,7 @@ import SupProfileBody from '../components/Profile/SupProfileBody';
 class MySupProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
+      headerTransparent: true,
       title: 'My Profile',
       headerLeft: () => (
         <SettingsButton
