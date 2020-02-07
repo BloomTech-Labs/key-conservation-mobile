@@ -16,6 +16,7 @@ import Collapsible from '../Collapsible';
 import moment from 'moment';
 
 import flag from '../../assets/icons/flag-alt-solid.svg';
+import Ellipse from '../../assets/jsicons/Ellipse';
 
 import { connect } from 'react-redux';
 
@@ -110,18 +111,38 @@ class ReportDetailCard extends Component {
 
     del(this.props.currentReport.post_id)
       .then(err => {
-        if(err)
-          throw new Error(err || '');
+        if (err) throw new Error(err || '');
       })
       .then(() => {
         this.props.navigation.goBack(null);
       })
       .catch(error => {
-        Alert.alert(`Failed to delete ${this.type.toLowerCase()}`, error.msg || '', [
-          { text: 'Try Again', onPress: this.deletePost },
-          { text: 'Dismiss' }
-        ]);
+        Alert.alert(
+          `Failed to delete ${this.type.toLowerCase()}`,
+          error.msg || '',
+          [{ text: 'Try Again', onPress: this.deletePost }, { text: 'Dismiss' }]
+        );
       });
+  };
+
+  showOptions = () => {
+    const buttons = [
+      { text: 'Cancel' },
+      { text: `Delete post`, style: 'destructive', onPress: this.deletePost }
+    ];
+
+    if (!this.props.currentReport.is_archived) {
+      buttons.push({
+        text: 'Archive Report',
+        style: 'destructive',
+        onPress: this.props.archiveReport.bind(
+          this,
+          this.props.currentReport.id
+        )
+      });
+    }
+
+    Alert.alert('Report Actions', '', buttons);
   };
 
   shorten = (text, charLimit) => {
@@ -171,10 +192,10 @@ class ReportDetailCard extends Component {
                 <Text style={styles.text_content}>
                   "{this.shorten(this.state.postText, 80)}"
                 </Text>
-                <TouchableOpacity onPress={this.deletePost}>
-                  <Text style={styles.delete_button}>Delete this post</Text>
-                </TouchableOpacity>
               </View>
+              <TouchableOpacity onPress={this.showOptions}>
+                <Ellipse style={{color: 'black'}} />
+              </TouchableOpacity>
             </View>
           )}
           <View style={styles.detail_section}>
@@ -204,7 +225,7 @@ const mapStateToProps = state => ({
 });
 
 //make this component available to the app
-export default connect(null, {
+export default connect(mapStateToProps, {
   getCustomById,
   getCampaign,
   deleteComment,

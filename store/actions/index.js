@@ -835,3 +835,17 @@ export const deactivateUser = id => dispatch => {
   });
 };
 
+export const reportUser = id => dispatch => {
+  return axiosWithAuth(dispatch, aaxios => {
+    let url = `${seturl}reports`;
+    return aaxios
+      .post(url, {})
+      .then(res => {
+        console.log('Report Successful');
+      })
+      .catch(err => {
+        console.log(err);
+        return err.message;
+      });
+  });
+};
