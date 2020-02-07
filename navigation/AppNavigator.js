@@ -8,7 +8,7 @@ import {
 	UsernameStack,
 	LogoutStack,
 	OrgOnboardStack,
-	AccountSettingsStack,
+	AccountSettingsStack
 } from './MainNavigation';
 import LoadingScreenMov from '../components/LoadingScreenMov';
 import LoadingScreen from '../screens/LoadingScreen';
@@ -27,6 +27,6 @@ export default createAppContainer(
 		Conservationist : ConsNavigator,
 		Supporter       : SupNavigator,
 		Logout          : LogoutStack,
-		AccountSettings : AccountSettingsStack,
+		AccountSettings : AccountSettingsStack
 	}),
 );

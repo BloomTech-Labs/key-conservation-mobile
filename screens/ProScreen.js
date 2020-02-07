@@ -1,31 +1,38 @@
-import React from "react";
-import { View, ScrollView } from "react-native";
-import { connect } from "react-redux";
-import { Viewport } from "@skele/components";
-import { getProfileData } from "../store/actions";
-import FeedCampaign from "../components/FeedScreen/FeedCampaign";
-import FeedUpdate from "../components/FeedScreen/FeedUpdate";
-import ProfileHeader from "../components/Profile/ProfileHeader";
-import BackButton from "../components/BackButton";
+import React from 'react';
+import { View, ScrollView } from 'react-native';
+import { connect } from 'react-redux';
+import { Viewport } from '@skele/components';
+import { getProfileData } from '../store/actions';
+import FeedCampaign from '../components/FeedScreen/FeedCampaign';
+import FeedUpdate from '../components/FeedScreen/FeedUpdate';
+import ProfileHeader from '../components/Profile/ProfileHeader';
+import BackButton from '../components/BackButton';
+import CampBlankSpace from '../components/Profile/CampBlankSpace';
+import {  TouchableOpacity } from 'react-native-gesture-handler';
+import Ellipse from '../assets/jsicons/Ellipse';
 
 class ProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
-    const fromMap = navigation.getParam("fromMap", "defaultValue");
+    const fromMap = navigation.getParam('fromMap', 'defaultValue');
 
     return {
-      title: "Profile",
+      title: 'Profile',
       headerStyle: {
-        backgroundColor: "#323338"
+        backgroundColor: '#323338'
       },
-      headerTintColor: "#fff",
+      headerTintColor: '#fff',
       headerTitleStyle: {
-        textAlign: "center",
+        textAlign: 'center',
         flexGrow: 1,
-        alignSelf: "center",
-        fontFamily: "Lato-Bold"
+        alignSelf: 'center',
+        fontFamily: 'Lato-Bold'
       },
-      headerLeft: <BackButton navigation={navigation} fromMap={fromMap} />,
-      headerRight: <View />
+      headerLeft: () => (
+        <BackButton navigation={navigation} fromMap={fromMap} />
+      ),
+      headerRight: () => <TouchableOpacity>
+        <Ellipse />
+      </TouchableOpacity>
     };
   };
 
@@ -40,6 +47,9 @@ class ProScreen extends React.Component {
             profile={this.props.selectedProfile}
             myProfile={false}
           />
+          {this.props.selectedProfile.campaigns.length === 0 ? (
+            <CampBlankSpace profile={this.props.selectedProfile} />
+          ) : null}
           {this.props.selectedProfile.campaigns.map(camp => {
             if (camp.update_id) {
               return (

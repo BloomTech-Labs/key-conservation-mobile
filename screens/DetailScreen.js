@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import DetailHeader from '../components/DetailScreen/DetailHeader';
 import DetailAboutUs from '../components/DetailScreen/DetailAboutUs';
+import BackButton from '../components/BackButton';
 
 import styles from '../constants/screens/MyDetailScreen';
 
@@ -22,8 +23,8 @@ class DetailsScreen extends React.Component {
         alignSelf: 'center',
         fontFamily: 'Lato-Bold'
       },
-      headerLeft: <View />,
-      headerRight: <View />
+      headerLeft: () => <BackButton navigation={navigation} />,
+      headerRight: () => <View />
     };
   };
 

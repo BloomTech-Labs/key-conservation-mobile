@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { View, Text } from "react-native";
-import { Avatar } from "react-native-elements";
-import moment from "moment";
-import { connect } from "react-redux";
-import { getProfileData } from "../../store/actions";
-import { useDispatch } from "react-redux";
-import { withNavigation } from "react-navigation";
-import styles from "../../constants/Comments/Comments";
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { Avatar } from 'react-native-elements';
+import moment from 'moment';
+import { connect } from 'react-redux';
+import { getProfileData } from '../../store/actions';
+import { useDispatch } from 'react-redux';
+import { withNavigation } from 'react-navigation';
+import styles from '../../constants/Comments/Comments';
+import ReportUserEllipse from '../../components/ReportUserEllipse';
 
 // {
 //   navigation,
@@ -26,29 +27,29 @@ const Comment = props => {
   const currentTime = moment();
   const postTime = moment(createdAt);
   let timeDiff;
-  if (currentTime.diff(postTime, "days") < 1) {
-    if (currentTime.diff(postTime, "hours") < 1) {
-      if (currentTime.diff(postTime, "minutes") < 1) {
-        timeDiff = "just now";
+  if (currentTime.diff(postTime, 'days') < 1) {
+    if (currentTime.diff(postTime, 'hours') < 1) {
+      if (currentTime.diff(postTime, 'minutes') < 1) {
+        timeDiff = 'just now';
       } else {
-        if (currentTime.diff(postTime, "minutes") === 1) {
-          timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTE AGO`;
+        if (currentTime.diff(postTime, 'minutes') === 1) {
+          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO`;
         } else {
-          timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTES AGO`;
+          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`;
         }
       }
     } else {
-      if (currentTime.diff(postTime, "hours") === 1) {
-        timeDiff = `${currentTime.diff(postTime, "hours")} HOUR AGO`;
+      if (currentTime.diff(postTime, 'hours') === 1) {
+        timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO`;
       } else {
-        timeDiff = `${currentTime.diff(postTime, "hours")} HOURS AGO`;
+        timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`;
       }
     }
   } else {
-    if (currentTime.diff(postTime, "days") === 1) {
-      timeDiff = `${currentTime.diff(postTime, "days")} DAY AGO`;
+    if (currentTime.diff(postTime, 'days') === 1) {
+      timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO`;
     } else {
-      timeDiff = `${currentTime.diff(postTime, "days")} DAYS AGO`;
+      timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
     }
   }
 
@@ -60,7 +61,7 @@ const Comment = props => {
 
   const goToCommenterProfile = async () => {
     await dispatch(getProfileData(props.comment.users_id));
-    props.navigation.navigate("SupPro", {
+    props.navigation.navigate('SupPro', {
       username: props.comment.username
     });
   };
@@ -75,7 +76,7 @@ const Comment = props => {
                 <Avatar
                   onPress={goToCommenterProfile}
                   rounded
-                  containerStyle={{ borderWidth: 1, borderColor: "#00FF9D" }}
+                  containerStyle={{ borderWidth: 1, borderColor: '#00FF9D' }}
                   source={{
                     uri: props.comment.profile_image
                   }}
@@ -95,6 +96,7 @@ const Comment = props => {
               <Text style={styles.commentBody}>
                 {props.comment.comment_body}
               </Text>
+              <ReportUserEllipse />
             </View>
           </View>
           <View style={styles.interaction}>

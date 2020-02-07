@@ -6,6 +6,13 @@ export default {
     flex: 1,
     backgroundColor: '#fff'
   },
+  username: {
+    flexDirection: 'row'
+  },
+  ellipse: {
+    paddingTop: 3,
+    paddingLeft: 5
+  },
   searchIcon: {
     marginRight: 20
   },
