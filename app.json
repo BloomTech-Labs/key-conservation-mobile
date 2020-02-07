@@ -36,7 +36,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.kc.keyconservation"
     },
-    "description": "The Key Conservation App\n\nVersion 3.2.1",
-    "githubUrl": "https://github.com/labs14-key-conservation/Frontend-Mobile"
+    "description": "The Key Conservation App\n\nVersion 4.1.1",
+    "githubUrl": "https://github.com/Lambda-School-Labs/key-conservation-mobile"
   }
 }
