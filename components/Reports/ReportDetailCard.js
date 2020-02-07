@@ -1,6 +1,13 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  Alert,
+  Button
+} from 'react-native';
 
 import styles from '../../constants/Reports/ReportDetailCard';
 
@@ -12,7 +19,15 @@ import flag from '../../assets/icons/flag-alt-solid.svg';
 
 import { connect } from 'react-redux';
 
-import { getCustomById, getCampaign } from '../../store/actions';
+import {
+  getCustomById,
+  getCampaign,
+  deleteComment,
+  deleteCampaign,
+  deleteCampaignUpdate,
+  clearReportError,
+  archiveReport
+} from '../../store/actions';
 import SvgUri from 'react-native-svg-uri';
 import LoadingOverlay from '../LoadingOverlay';
 
@@ -77,6 +92,43 @@ class ReportDetailCard extends Component {
     } else this.type = 'User Profile';
   }
 
+  deletePost = () => {
+    // Delete this post
+    let del;
+
+    switch (this.props.currentReport.table_name) {
+      case 'comments': {
+        del = this.props.deleteComment;
+      }
+      case 'campaigns': {
+        del = this.props.deleteCampaign;
+      }
+      case 'campaignUpdates': {
+        del = this.props.deleteCampaignUpdate;
+      }
+    }
+
+    del(this.props.currentReport.post_id)
+      .then(err => {
+        if(err)
+          throw new Error(err || '');
+      })
+      .then(() => {
+        this.props.navigation.goBack(null);
+      })
+      .catch(error => {
+        Alert.alert(`Failed to delete ${this.type.toLowerCase()}`, error.msg || '', [
+          { text: 'Try Again', onPress: this.deletePost },
+          { text: 'Dismiss' }
+        ]);
+      });
+  };
+
+  shorten = (text, charLimit) => {
+    if (text.length > charLimit) return text.slice(0, charLimit).trim() + '...';
+    else return text;
+  };
+
   render() {
     const timestamp = `Reported on ${moment(
       this.props.currentReport.reported_at
@@ -115,7 +167,14 @@ class ReportDetailCard extends Component {
                   source={loading ? null : { uri: this.state.postImage }}
                 />
               </View>
-              <Text style={styles.text_content}>{this.state.postText}</Text>
+              <View style={styles.text_content_container}>
+                <Text style={styles.text_content}>
+                  "{this.shorten(this.state.postText, 80)}"
+                </Text>
+                <TouchableOpacity onPress={this.deletePost}>
+                  <Text style={styles.delete_button}>Delete this post</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           )}
           <View style={styles.detail_section}>
@@ -140,5 +199,17 @@ class ReportDetailCard extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  reportError: state.reports.error
+});
+
 //make this component available to the app
-export default connect(null, { getCustomById, getCampaign })(ReportDetailCard);
+export default connect(null, {
+  getCustomById,
+  getCampaign,
+  deleteComment,
+  deleteCampaign,
+  deleteCampaignUpdate,
+  clearReportError,
+  archiveReport
+})(ReportDetailCard);

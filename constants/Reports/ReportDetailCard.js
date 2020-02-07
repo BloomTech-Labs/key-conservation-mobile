@@ -35,9 +35,17 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     paddingVertical: 3
   },
+  text_content_container: {
+    flex: 1,
+    justifyContent: 'flex-start'
+  },
   text_content: {
     flex: 1,
     fontWeight: 'bold'
+  },
+  delete_button: {
+    fontSize: 16,
+    color: 'crimson'
   },
   image_content_container: {
     marginRight: 16,

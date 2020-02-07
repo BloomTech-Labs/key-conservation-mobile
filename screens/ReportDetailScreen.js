@@ -61,6 +61,9 @@ class ReportDetailScreen extends Component {
       .then(error => {
         if(error)
           Alert.alert(error);
+        else {
+          this.props.navigation.goBack(null);
+        }
       })
   }
 
@@ -113,6 +116,7 @@ class ReportDetailScreen extends Component {
           </View>
           {this.props.currentReport && !this.props.loading && (
             <ReportDetailCard
+              navigation={this.props.navigation}
               currentReport={this.props.currentReport}
               unique_reports={this.props.currentReport?.unique_reports}
             />
@@ -125,6 +129,7 @@ class ReportDetailScreen extends Component {
               {this.props.currentReport?.other_reports.map(report => {
                 return (
                   <ReportDetailCard
+                    navigation={this.props.navigation}
                     unique_reports={report.unique_reports}
                     currentReport={report}
                     collapsed={true}

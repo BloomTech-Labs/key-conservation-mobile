@@ -557,6 +557,32 @@ const reducer = (state = initialState, action) => {
           error: action.payload
         }
       }
+    case actions.ARCHIVE_REPORT_START:
+      return {
+        ...state,
+        reports: {
+          ...state.reports,
+          loading: true,
+          error: ''
+        }
+      }
+    case actions.ARCHIVE_REPORT_SUCCESS:
+      return {
+        ...state,
+        reports: {
+          ...state.reports,
+          loading: false,
+        }
+      }
+    case actions.ARCHIVE_REPORT_ERROR:
+      return {
+        ...state,
+        reports: {
+          ...state.reports,
+          loading: false,
+          error: action.payload
+        }
+      }
     default:
       return state;
   }

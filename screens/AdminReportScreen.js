@@ -116,7 +116,7 @@ class AdminReportScreen extends React.Component {
               </TouchableOpacity>
             ))}
           </View>
-          <Text style={styles.title}>Current Reports</Text>
+          <Text style={styles.title}>{this.state.masterTab === 0 ? "Current Reports" : "Archived Reports"}</Text>
           <View style={{ flex: 1 }}>
             <View style={styles.tabSelector}>
               {this.TABS.map((tabTitle, index) => (
