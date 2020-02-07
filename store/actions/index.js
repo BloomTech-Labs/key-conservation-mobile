@@ -11,7 +11,7 @@ import { Alert } from 'react-native';
 // // IMPORTANT USAGE NOTES
 // // Usage:
 // /*
-//   axiosWithAuth(axiosInstance => {
+//   axiosWithAuth(dispatch, axiosInstance => {
 //     return axiosInstance...
 //   })
 // */
@@ -745,9 +745,9 @@ export const [GET_REPORTS_START, GET_REPORTS_SUCCESS, GET_REPORTS_ERROR] = [
   'GET_REPORTS_ERROR'
 ];
 
-export const getReports = (page = 0) => dispatch => {
+export const getReports = (page = 0, type='all', archive=false) => dispatch => {
   dispatch({ type: GET_REPORTS_START });
-  let url = `${seturl}reports?page=${page}`;
+  let url = `${seturl}reports?page=${page}&type=${type}&archive=${archive}`;
 
   return axiosWithAuth(dispatch, aaxios => {
     return aaxios
