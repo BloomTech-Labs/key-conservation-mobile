@@ -39,14 +39,14 @@ class AdminReportScreen extends React.Component {
 
   nextPage = () => {
     if (this.state.currentPage < this.props.reports.data.pages - 1) {
-      this.props.getReports(this.state.currentPage + 1);
+      this.updateReports(this.state.currentPage + 1);
       this.setState(prevState => ({ currentPage: prevState.currentPage + 1 }));
     }
   };
 
   prevPage = () => {
     if (this.state.currentPage > 0) {
-      this.props.getReports(this.state.currentPage - 1);
+      this.updateReports(this.state.currentPage - 1);
       this.setState(prevState => ({ currentPage: prevState.currentPage - 1 }));
     }
   };
@@ -60,22 +60,43 @@ class AdminReportScreen extends React.Component {
     this.props.navigation.navigate('ReportScreen');
   };
 
-  render() {
-    const reports = this.props.reports.data?.reports.filter(report => {
-      switch (this.state.currentTab) {
-        case 1:
-          return report.table_name === 'users';
-        case 2:
-          return (
-            report.table_name === 'campaigns' ||
-            report.table_name === 'campaignUpdates'
-          );
-        case 3:
-          return report.table_name === 'comments';
-        default:
-          return true;
-      }
+  getReportType = () => {
+    switch (this.state.currentTab) {
+      case 0:
+        return 'all';
+      case 1:
+        return 'users';
+      case 2:
+        return 'campaigns';
+      case 3:
+        return 'comments';
+      default:
+        return 'all';
+    }
+  };
+
+  setMasterTab = tab => {
+    this.setState({ masterTab: tab, currentTab: 0, currentPage: 0 }, () => {
+      this.updateReports(this.state.currentPage);
     });
+  };
+
+  setCurrentTab = tab => {
+    this.setState({ currentTab: tab, currentPage: 0 }, () => {
+      this.updateReports(this.state.currentPage);
+    });
+  };
+
+  updateReports = pageNum => {
+    this.props.getReports(
+      pageNum,
+      this.getReportType(),
+      this.state.masterTab === 1
+    );
+  };
+
+  render() {
+    const reports = this.props.reports.data?.reports;
 
     return (
       <View style={styles.container}>
@@ -84,35 +105,34 @@ class AdminReportScreen extends React.Component {
           <View style={styles.tabSelector}>
             {this.MASTER_TABS.map((tabTitle, index) => (
               <TouchableOpacity
-                onPress={() => this.setState({ masterTab: index })}
+                onPress={() => this.setMasterTab(index)}
                 key={index}
                 style={[styles.tab, { flex: tabTitle.length }]}
               >
                 <Text style={styles.tabText}>{tabTitle}</Text>
-                {index === this.state.masterTab && (
+                {index === this.state.masterTab ? (
                   <View style={styles.selectedTab}></View>
-                )}
+                ) : null}
               </TouchableOpacity>
             ))}
           </View>
           <Text style={styles.title}>Current Reports</Text>
           <View style={{ flex: 1 }}>
-            
             <View style={styles.tabSelector}>
               {this.TABS.map((tabTitle, index) => (
                 <TouchableOpacity
-                  onPress={() => this.setState({ currentTab: index })}
+                  onPress={() => this.setCurrentTab(index)}
                   key={index}
                   style={[styles.tab, { flex: tabTitle.length }]}
                 >
                   <Text style={styles.tabText}>{tabTitle}</Text>
-                  {index === this.state.currentTab && (
+                  {index === this.state.currentTab ? (
                     <View style={styles.selectedTab}></View>
-                  )}
+                  ) : null}
                 </TouchableOpacity>
               ))}
             </View>
-            {this.props.reports.error ? (
+            {this.props.reports.error || reports?.length === 0 ? (
               <View
                 style={{
                   flex: 1,
@@ -120,9 +140,13 @@ class AdminReportScreen extends React.Component {
                   justifyContent: 'center'
                 }}
               >
-                <Text style={{ color: 'crimson' }}>
-                  {this.props.reports.error}
-                </Text>
+                {reports?.length === 0 ? (
+                  <Text>No reports to see here!</Text>
+                ) : (
+                  <Text style={{ color: 'crimson' }}>
+                    {this.props.reports.error}
+                  </Text>
+                )}
               </View>
             ) : (
               <View style={styles.reportList}>
@@ -140,27 +164,27 @@ class AdminReportScreen extends React.Component {
                 <View style={styles.pageSelector}>
                   <View style={styles.pageControl}>
                     {this.props.reports.data?.pages &&
-                      this.state.currentPage > 0 && (
-                        <Button
-                          title='Previous'
-                          onPress={this.prevPage}
-                          disabled={this.props.reports.loading}
-                        />
-                      )}
+                    this.state.currentPage > 0 ? (
+                      <Button
+                        title='Previous'
+                        onPress={this.prevPage}
+                        disabled={this.props.reports.loading}
+                      />
+                    ) : null}
                   </View>
                   <Text style={styles.pageNumber}>{`Page ${this.state
                     .currentPage + 1 || '-'} of ${this.props.reports.data
                     ?.pages || '-'}`}</Text>
                   <View style={styles.pageControl}>
                     {this.props.reports.data?.pages &&
-                      this.state.currentPage <
-                        this.props.reports.data?.pages - 1 && (
-                        <Button
-                          title='Next'
-                          onPress={this.nextPage}
-                          disabled={this.props.reports.loading}
-                        />
-                      )}
+                    this.state.currentPage <
+                      this.props.reports.data?.pages - 1 ? (
+                      <Button
+                        title='Next'
+                        onPress={this.nextPage}
+                        disabled={this.props.reports.loading}
+                      />
+                    ) : null}
                   </View>
                 </View>
               </View>
