@@ -191,64 +191,65 @@ export const [SET_PROFILE_START, SET_PROFILE_ERROR, SET_PROFILE_SUCCESS] = [
   'SET_PROFILE_SUCCESS'
 ];
 
-export const setProfileData = (id, profileData) => async dispatch => {
-  dispatch({ type: EDIT_PROFILE_START });
-};
+//! Rasha temporarily commented out this code so we can push to development and switch over to the new git workflow
+// export const setProfileData = (id, profileData) => async dispatch => {
+//   dispatch({ type: EDIT_PROFILE_START });
+// };
 
-export const [EDIT_PROFILE_START, EDIT_PROFILE_ERROR, EDIT_PROFILE_SUCCESS] = [
-  'EDIT_PROFILE_START',
-  'EDIT_PROFILE_ERROR',
-  'EDIT_PROFILE_SUCCESS'
-];
+// export const [EDIT_PROFILE_START, EDIT_PROFILE_ERROR, EDIT_PROFILE_SUCCESS] = [
+//   'EDIT_PROFILE_START',
+//   'EDIT_PROFILE_ERROR',
+//   'EDIT_PROFILE_SUCCESS'
+// ];
 
-export const editProfileData = (id, changes) => async dispatch => {
-  dispatch({ type: EDIT_PROFILE_START });
+// export const editProfileData = (id, changes) => async dispatch => {
+//   dispatch({ type: EDIT_PROFILE_START });
 
-  const filteredChanges = filterUrls(
-    ['facebook', 'twitter', 'instagram', 'org_link_url', 'org_cta'],
-    changes
-  );
+//   const filteredChanges = filterUrls(
+//     ['facebook', 'twitter', 'instagram', 'org_link_url', 'org_cta'],
+//     changes
+//   );
 
-  let formData = new FormData();
+//   let formData = new FormData();
 
-  let keys = Object.keys(filteredChanges).filter(key => {
-    return key !== 'profile_image';
-  });
+//   let keys = Object.keys(filteredChanges).filter(key => {
+//     return key !== 'profile_image';
+//   });
 
-  if (filteredChanges.profile_image) {
-    const uri = filteredChanges.profile_image;
+//   if (filteredChanges.profile_image) {
+//     const uri = filteredChanges.profile_image;
 
-    let uriParts = uri.split('.');
-    let fileType = uriParts[uriParts.length - 1];
+//     let uriParts = uri.split('.');
+//     let fileType = uriParts[uriParts.length - 1];
 
-    formData.append('photo', {
-      uri,
-      name: `photo.${fileType}`,
-      type: `image/${fileType}`
-    });
-  }
+//     formData.append('photo', {
+//       uri,
+//       name: `photo.${fileType}`,
+//       type: `image/${fileType}`
+//     });
+//   }
 
-  keys.forEach(key => {
-    if (filteredChanges[key] !== null) {
-      formData.append(key, filteredChanges[key]);
-    }
-  });
-  let token = await SecureStore.getItemAsync('accessToken');
-  return axios
-    .put(`${seturl}users/${id}`, formData, {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${token}`
-      }
-    })
-    .then(res => {
-      dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.editUser });
-    })
-    .catch(err => {
-      dispatch({ type: EDIT_PROFILE_ERROR, payload: err });
-    });
-};
+//   keys.forEach(key => {
+//     if (filteredChanges[key] !== null) {
+//       formData.append(key, filteredChanges[key]);
+//     }
+//   });
+//   let token = await SecureStore.getItemAsync('accessToken');
+//   return axios
+//     .put(`${seturl}users/${id}`, formData, {
+//       headers: {
+//         Accept: 'application/json',
+//         'Content-Type': 'multipart/form-data',
+//         Authorization: `Bearer ${token}`
+//       }
+//     })
+//     .then(res => {
+//       dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.editUser });
+//     })
+//     .catch(err => {
+//       dispatch({ type: EDIT_PROFILE_ERROR, payload: err });
+//     });
+// };
 
 export const [POST_USER_START, POST_USER_ERROR, POST_USER_SUCCESS] = [
   'POST_USER_START',
