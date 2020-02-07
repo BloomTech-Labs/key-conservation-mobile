@@ -1,8 +1,35 @@
 import React from 'react';
-import { Alert, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Alert, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 import Ellipse from '../assets/jsicons/Ellipse';
+import { reportUser, getProfileData } from '../store/actions';
 
-const AlertExample = () => {
+const Report = props => {
+  const reportUser = () => {
+    props.reportUser(props.currentUserProfile.id).then(error => {
+      if (error) Alert.alert(error);
+    });
+  };
+
+  const promptReport = () => {
+    Alert.alert(
+      'Report User',
+      `Why are you reporting this user?`,
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: "It's Inappropriate",
+          onPress: () => reportUser()
+        },
+        {
+          text: "It's Spam",
+          onPress: () => reportUser()
+        }
+      ],
+      { cancelable: true }
+    );
+  };
+
   const showAlert = () => {
     Alert.alert(
       'Report',
@@ -10,17 +37,7 @@ const AlertExample = () => {
       [
         {
           text: 'Report User',
-          onPress: () =>
-            Alert.alert(
-              'Report',
-              'Why are you reporting this user?',
-              [
-                { text: 'Cancel', style: 'cancel' },
-                { text: "It's Inappropriate" },
-                { text: "It's Spam" }
-              ],
-              { cancelable: true }
-            )
+          onPress: promptReport
         },
         { text: 'Deactivate User', style: 'destructive' },
         { text: 'Cancel', style: 'cancel' }
@@ -34,4 +51,12 @@ const AlertExample = () => {
     </TouchableOpacity>
   );
 };
-export default AlertExample;
+
+const mapStateToProps = state => ({
+  currentUserProfile: state.currentUserProfile
+});
+
+export default connect(mapStateToProps, {
+  reportUser,
+  getProfileData
+})(Report);

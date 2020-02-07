@@ -94,7 +94,6 @@ export const loginSuccess = user => ({
 export const LOGOUT = 'LOGOUT';
 
 export const logout = (message = '') => async dispatch => {
-
   await SecureStore.deleteItemAsync('sub', {});
   await SecureStore.deleteItemAsync('email', {});
   await SecureStore.deleteItemAsync('roles', {});
@@ -791,6 +790,21 @@ export const deactivateUser = id => dispatch => {
       .post(url, {})
       .then(res => {
         console.log('Deactivated successfully');
+      })
+      .catch(err => {
+        console.log(err);
+        return err.message;
+      });
+  });
+};
+
+export const reportUser = id => dispatch => {
+  return axiosWithAuth(dispatch, aaxios => {
+    let url = `${seturl}reports`;
+    return aaxios
+      .post(url, {})
+      .then(res => {
+        console.log('Report Successful');
       })
       .catch(err => {
         console.log(err);
