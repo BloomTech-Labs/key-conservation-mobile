@@ -37,7 +37,8 @@ export default StyleSheet.create({
     flex: 1,
     borderRadius: 100,
     width: null,
-    height: null
+    height: null,
+    backgroundColor: 'gray'
   },
   user_details: {
     flex: 1,
@@ -68,23 +69,5 @@ export default StyleSheet.create({
   other_section_header: {
     fontWeight: 'bold',
     fontSize: 16,
-    
   },
-  load_overlay: {
-    flex: 1,
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'black',
-    opacity: 0.7,
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 100,
-  },
-  load_text: {
-    fontWeight: 'bold',
-    color: 'white'
-  }
 });

@@ -1,3 +1,8 @@
 node_modules
+
+# VSCode Config Files
 .vscode
+
+# Expo Local Config Files
 .expo
+.expo/*.json

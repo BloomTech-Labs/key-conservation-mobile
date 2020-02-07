@@ -1,6 +1,5 @@
 import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { TabNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import CanScreen from '../screens/org-onboarding-screens/CanScreen';
@@ -10,7 +9,6 @@ import KeyConservationScreen from '../screens/org-onboarding-screens/KeyConserva
 import MakeAccountScreen from '../screens/org-onboarding-screens/MakeAccountScreen';
 import TellAboutOrganizationScreen from '../screens/org-onboarding-screens/TellAboutOrganizationScreen';
 import ToExpectScreen from '../screens/org-onboarding-screens/ToExpectScreen';
-import ToExpectNext from '../screens/org-onboarding-screens/ToExpectNextScreen';
 import VerifyDocumentationScreen from '../screens/org-onboarding-screens/VerifyDocumentationScreen';
 import VerifyOrganizationScreen from '../screens/org-onboarding-screens/VerifyOrganizationScreen';
 import AlmostDone from '../screens/org-onboarding-screens/AlmostDoneScreen';
@@ -153,24 +151,18 @@ const FeedStack = createStackNavigator(
       )
     },
 
-    transitionConfig: () => ({
-      transitionSpec: {
-        duration: 0
-      }
-    })
+    // transitionConfig: () => ({
+    //   transitionSpec: {
+    //     duration: 0
+    //   }
+    // })
   }
 );
 
-export const AdminReportStack = createStackNavigator({
-  AdminScreen: AdminReportScreen
-});
-
-export const ReportDetailStack = createStackNavigator({
-  ReportScreen: ReportDetailScreen
-});
-
 export const AccountSettingsStack = createStackNavigator({
-  AccountSettings: AccountSettingsScreen
+  AccountSettings: AccountSettingsScreen,
+  AdminScreen: AdminReportScreen,
+  ReportScreen: ReportDetailScreen
 });
 
 const MyProStack = createStackNavigator(
@@ -196,9 +188,9 @@ const MyProStack = createStackNavigator(
         // focused ? <UserFill /> : <User />
         <Smile />
       ),
-      transitionSpec: {
-        duration: 0
-      }
+      // transitionSpec: {
+      //   duration: 0
+      // }
     }
   }
 );
