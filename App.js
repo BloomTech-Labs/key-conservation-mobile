@@ -10,7 +10,9 @@ import { AmpInit, AmpEvent } from './components/withAmplitude';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 
-const store = configureStore();
+export const store = configureStore();
+
+import { navigationRef } from './navigation/RootNavigator';
 
 export default App;
 
@@ -54,6 +56,7 @@ function App(props) {
         <Provider store={store}>
           <MenuProvider>
             <AppNavigator
+              ref={navigationRef}
               onNavigationStateChange={(prevState, newState, action) => {
                 handleNavigationChange(prevState, newState, action);
               }}

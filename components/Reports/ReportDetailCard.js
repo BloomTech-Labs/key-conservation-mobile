@@ -1,13 +1,9 @@
 //import liraries
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  Alert
-} from 'react-native';
+import { View, Text, TouchableOpacity, Image, Alert } from 'react-native';
+
+import styles from '../../constants/Reports/ReportDetailCard';
+
 import Collapsable from '../Collapsable';
 
 import moment from 'moment';
@@ -18,22 +14,31 @@ import { connect } from 'react-redux';
 
 import { getCustomById, getCampaign } from '../../store/actions';
 import SvgUri from 'react-native-svg-uri';
+import LoadingOverlay from '../LoadingOverlay';
 
 // create a component
 class ReportDetailCard extends Component {
   constructor(props) {
     super(props);
 
-    this.isUser = props.currentReport.table_name === 'users';
-
     this.state = {
       postText: '',
-      postImage: ''
+      postImage: '',
+      isUser: undefined
     };
   }
 
   componentDidMount() {
-    if (!this.isUser) {
+    const isUser = this.props.currentReport.table_name === 'users';
+
+    this.setState({ isUser });
+
+    if (!isUser) {
+      console.log(`
+      =====================
+      this.props.getCustomById: ${this.props.getCustomById}
+      this.props.currentReport: ${this.props.currentReport}
+      `)
       this.props
         .getCustomById(
           this.props.currentReport.table_name,
@@ -83,11 +88,12 @@ class ReportDetailCard extends Component {
     ).format('lll')}`;
 
     const loading =
-      !this.isUser && !(this.state.postText && this.state.postImage);
+      !this.state.isUser && !(this.state.postText && this.state.postImage);
 
     return (
       <Collapsable
-        title={`${this.type || '---'} #${this.props.currentReport.post_id || '---'}`}
+        title={`${this.type || '---'} #${this.props.currentReport.post_id ||
+          '---'}`}
         collapsed={this.props.collapsed}
         right={
           <View style={styles.report_count}>
@@ -98,17 +104,15 @@ class ReportDetailCard extends Component {
               width='15'
               height='100%'
             />
-            <Text style={styles.unique_reports}>{this.props.unique_reports}</Text>
+            <Text style={styles.unique_reports}>
+              {this.props.unique_reports}
+            </Text>
           </View>
         }
       >
-        {loading && (
-          <View style={styles.load_overlay}>
-            <Text style={styles.load_text}>Loading...</Text>
-          </View>
-        )}
+        <LoadingOverlay loading={loading} />
         <View style={styles.report_details}>
-          {this.isUser ? null : (
+          {this.state.isUser ? null : (
             <View style={styles.post_preview}>
               <View style={styles.image_content_container}>
                 <Image
@@ -140,88 +144,6 @@ class ReportDetailCard extends Component {
     );
   }
 }
-
-// define your styles
-const styles = StyleSheet.create({
-  load_overlay: {
-    position: 'absolute',
-    zIndex: 50,
-    backgroundColor: 'black',
-    opacity: 0.6,
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  load_text: {
-    fontWeight: 'bold',
-    color: 'white'
-  },
-  report_details: {},
-  post_preview: {
-    borderBottomWidth: 1,
-    marginBottom: 8,
-    padding: 8,
-    paddingTop: 0,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  detail_section: {},
-  mini_header: {
-    color: 'gray',
-    fontSize: 11
-  },
-  detail_field: {
-    flexDirection: 'row',
-    padding: 8
-  },
-  text_label: {
-    flex: 1
-  },
-  user_link: {
-    fontWeight: 'bold',
-    color: 'dodgerblue'
-  },
-  touch_op: {
-    flex: 1
-  },
-  timestamp: {
-    flex: 1,
-    color: 'gray',
-    textAlign: 'right',
-    paddingVertical: 3
-  },
-  text_content: {
-    flex: 1,
-    fontWeight: 'bold'
-  },
-  image_content_container: {
-    marginRight: 16,
-    width: 70,
-    height: 70
-  },
-  image_content: {
-    backgroundColor: 'gray',
-    width: null,
-    height: null,
-    flex: 1
-  },
-  report_count: {
-    flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  flag_icon: {
-    marginRight: 2
-  },
-  unique_reports: {
-    fontWeight: 'bold',
-    marginHorizontal: 6
-  }
-});
 
 //make this component available to the app
 export default connect(null, { getCustomById, getCampaign })(ReportDetailCard);

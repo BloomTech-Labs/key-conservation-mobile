@@ -4,7 +4,6 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "rgb(242,242,251)",
-    // height: '100%'
   },
   title: {
     fontSize: 24,
@@ -16,7 +15,8 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     borderRadius: 8,
-    margin: 8
+    margin: 8,
+    marginBottom: 24
   },
   tabSelector: {
     width: "100%",
@@ -25,8 +25,24 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between"
   },
+  pageSelector : {
+    // flex: 1,
+    height: 48,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  pageNumber : {
+    flex: 1,
+    textAlign: 'center'
+  },
+  pageControl: {
+    width: 20,
+    flex: 1,
+  },
   tab: {
     flex: 1,
+    paddingTop: 4,
     height: "100%",
     alignItems: "center"
   },

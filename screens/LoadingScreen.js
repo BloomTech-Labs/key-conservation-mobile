@@ -27,20 +27,15 @@ class LoadingScreen extends React.Component {
   }
 
   logoutPress = async props => {
-    await SecureStore.deleteItemAsync("sub", {});
-    await SecureStore.deleteItemAsync("email", {});
-    await SecureStore.deleteItemAsync("roles", {});
-    await SecureStore.deleteItemAsync("id", {});
-    await SecureStore.deleteItemAsync("accessToken", {});
     this.props.logout();
 
-    const logoutURL = "https://key-conservation.auth0.com/v2/logout?federated";
+    // const logoutURL = "https://key-conservation.auth0.com/v2/logout?federated";
 
-    if (Constants.platform.ios) {
-      await WebBrowser.openAuthSessionAsync(logoutURL).then(result => {});
-    } else {
-      await WebBrowser.openBrowserAsync(logoutURL).then(result => {});
-    }
+    // if (Constants.platform.ios) {
+    //   await WebBrowser.openAuthSessionAsync(logoutURL).then(result => {});
+    // } else {
+    //   await WebBrowser.openBrowserAsync(logoutURL).then(result => {});
+    // }
     this.props.navigation.navigate("Logout");
   };
 

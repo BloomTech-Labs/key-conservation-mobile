@@ -162,13 +162,6 @@ const FeedStack = createStackNavigator(
   }
 );
 
-export const AdminReportStack = createStackNavigator({
-  AdminScreen: AdminReportScreen
-});
-
-export const ReportDetailStack = createStackNavigator({
-  ReportScreen: ReportDetailScreen
-})
 // const CreateCampStack = createStackNavigator(
 //   { CreateCampaign: CreateCampScreen },
 //   {
@@ -188,7 +181,9 @@ export const ReportDetailStack = createStackNavigator({
 // );
 
 export const AccountSettingsStack = createStackNavigator({
-  AccountSettings: AccountSettingsScreen
+  AccountSettings: AccountSettingsScreen,
+  AdminScreen: AdminReportScreen,
+  ReportScreen: ReportDetailScreen
 });
 
 const MyProStack = createStackNavigator(
