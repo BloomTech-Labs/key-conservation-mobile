@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Dimensions
+} from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { AmpEvent } from '../../components/withAmplitude';
 
-import Collapsible2 from '../../components/Collapsible2';
 import ChevronLeft from '../../assets/jsicons/miscIcons/ChevronLeftSolid';
 
 const AnimalCard = props => {
@@ -18,42 +24,47 @@ const AnimalCard = props => {
   };
 
   return (
-    <TouchableOpacity onPress={() => setSelected(!selected)}>
+    // <TouchableOpacity onPress={() => setSelected(!selected)}>
+    <View
+      style={[
+        styles.animalCard,
+        selected === true && styles.animalCardSelected
+      ]}
+    >
+      <View>
+        <Image
+          source={props.image}
+          style={[styles.image, selected === true && styles.imageSelected]}
+          resizeMode='cover'
+        />
+        <TouchableOpacity
+          style={[
+            styles.chevronTouch,
+            selected === true && styles.chevronSelected
+          ]}
+          onPress={() => setSelected(!selected)}
+        >
+          <ChevronLeft />
+        </TouchableOpacity>
+      </View>
       <View
         style={[
-          styles.animalCard,
-          selected === true && styles.animalCardSelected
+          styles.animalInfo,
+          selected === false && styles.animalInfoHidden
         ]}
       >
-        <View>
-          <Image
-            source={props.image}
-            style={[styles.image, selected === true && styles.imageSelected]}
-            resizeMode='cover'
-          />
+        <View style={styles.infoLeft}>
+          <Text style={styles.animalName}>{props.name}</Text>
+          {props.photoCred && props.photoCred !== '' ? (
+            <Text style={styles.photoCred}>© {props.photoCred}</Text>
+          ) : null}
         </View>
-        <View
-          style={[
-            styles.animalInfo,
-            selected === false && styles.animalInfoHidden
-          ]}
-        >
-          <View style={styles.infoLeft}>
-            <Text style={styles.animalName}>{props.name}</Text>
-            {props.photoCred && props.photoCred !== '' ? (
-              <Text style={styles.photoCred}>© {props.photoCred}</Text>
-            ) : null}
-          </View>
-          <Text style={styles.link} onPress={WebsiteClick}>
-            Learn More
-          </Text>
-        </View>
-        <TouchableOpacity
-          style={styles.chevronTouch}
-          onPress={() => setSelected(!selected)}
-        ></TouchableOpacity>
+        <Text style={styles.link} onPress={WebsiteClick}>
+          Learn More
+        </Text>
       </View>
-    </TouchableOpacity>
+    </View>
+    // </TouchableOpacity>
   );
 };
 
@@ -61,26 +72,20 @@ const styles = StyleSheet.create({
   animalCard: {
     flex: 1,
     flexDirection: 'row',
-    flex: 1,
-    height: 120,
-    width: 340,
-    borderRadius: 8,
+    height: Dimensions.get('window').height * 0.11,
+    width: Dimensions.get('window').width,
+    justifyContent: 'center',
     alignItems: 'center'
   },
   animalCardSelected: {
-    flex: 1,
-    height: 340
+    height: Dimensions.get('window').height * 0.36,
+    left: '50%'
   },
   image: {
     flex: 1,
-    aspectRatio: 2.87,
-    width: '200%',
-    justifyContent: 'flex-start',
-    alignSelf: 'auto'
-  },
-  imageSelected: {
-    aspectRatio: 1,
-    height: 200
+    height: Dimensions.get('screen').height,
+    width: Dimensions.get('screen').width,
+    alignItems: 'flex-start'
   },
   animalInfo: {
     bottom: '25%',
@@ -90,7 +95,7 @@ const styles = StyleSheet.create({
     padding: 10,
     right: '105%',
     height: '20%',
-    width: '95%',
+    width: '80%',
     borderRadius: 5,
     backgroundColor: '#F4F5F7'
   },
@@ -129,15 +134,16 @@ const styles = StyleSheet.create({
     paddingBottom: 5
   },
   chevronTouch: {
+    transform: [{ rotateZ: '180deg' }],
     zIndex: 3,
-    // borderColor: 'red',
-    // borderWidth: 2,
-    right: 70,
-    bottom: 15,
-    color: 'white'
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    padding: 25
   },
-  chevron: {},
-  chevronDown: {}
+  chevronSelected: {
+    transform: [{ rotateZ: '90deg' }]
+  }
 });
 
 export default AnimalCard;
