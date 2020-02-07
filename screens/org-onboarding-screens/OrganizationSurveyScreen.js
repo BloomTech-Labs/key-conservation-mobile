@@ -23,7 +23,7 @@ import * as SecureStore from 'expo-secure-store';
 const OrganizationSurveyScreen = props => {
   const [values, handleChange] = useState({
     mini_bio: '',
-    mission: '',
+    about_us: '',
     issues: '',
     species: '',
     facebook: '',
@@ -103,8 +103,8 @@ const OrganizationSurveyScreen = props => {
               onChangeText={text => handleChange({ ...values, about_us: text })}
               value={values.about_us}
               placeholder='Give us an in-depth summary of your organization’s mission.'
-              type='mission'
-              name='mission'
+              type='about_us'
+              name='about_us'
               required
             />
           </View>
