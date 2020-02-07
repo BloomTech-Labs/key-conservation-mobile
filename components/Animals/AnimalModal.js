@@ -25,7 +25,9 @@ const AnimalModal = props => {
       <View style={styles.modalContainer}>
         <View style={styles.headerContainer}>
           <View style={styles.aroundBackArrow}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => props.setIsModalVisible(!props.isModalVisible)}
+            >
               <BackArrow style={styles.backArrow} />
             </TouchableOpacity>
           </View>
@@ -44,9 +46,7 @@ const AnimalModal = props => {
         </View>
       </View>
       <View style={styles.listContainer}>
-        <ScrollView>
-          <Animals />
-        </ScrollView>
+        <Animals />
       </View>
     </Modal>
   );
@@ -64,9 +64,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   aroundBackArrow: {
-    padding: 10,
+    flex: 0,
     alignSelf: 'flex-start',
-    paddingLeft: 25
+    paddingLeft: 15
   },
   headerInfo: {
     flex: 1
@@ -76,15 +76,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingLeft: 15
+    paddingLeft: 10
   },
   title: {
+    flex: 0,
     alignSelf: 'center',
     fontFamily: 'Lato-Bold',
     color: '#F4F5F7',
-    fontSize: 30,
+    fontSize: 22,
     fontWeight: 'bold',
-    paddingLeft: 8
+    paddingLeft: 5
   },
   headerText: {
     flex: 2,
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontFamily: 'Lato',
     color: '#F4F5F7',
-    fontSize: 20,
+    fontSize: 16,
     paddingBottom: 20
   },
   listContainer: {

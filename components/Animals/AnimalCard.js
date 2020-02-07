@@ -72,14 +72,16 @@ const styles = StyleSheet.create({
   animalCard: {
     flex: 1,
     flexDirection: 'row',
-    height: Dimensions.get('window').height * 0.11,
-    width: Dimensions.get('window').width,
-    justifyContent: 'center',
+    height: Dimensions.get('screen').height * 0.11,
+    width: Dimensions.get('screen').width,
+    justifyContent: 'flex-start',
     alignItems: 'center'
+    //left: '25%'
   },
   animalCardSelected: {
-    height: Dimensions.get('window').height * 0.36,
-    left: '50%'
+    flex: 1,
+    height: Dimensions.get('screen').height * 0.66
+    //left: '32%'
   },
   image: {
     flex: 1,
@@ -94,9 +96,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     padding: 10,
     right: '105%',
-    height: '20%',
+    height: '10%',
     width: '80%',
-    borderRadius: 5,
+    borderRadius: 8,
     backgroundColor: '#F4F5F7'
   },
   animalInfoHidden: {
@@ -124,13 +126,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 5,
     borderRadius: 10,
     backgroundColor: '#d7ff43',
-    fontFamily: 'Lato',
+    fontFamily: 'Lato-Bold',
     padding: 5
   },
   photoCred: {
     fontSize: 18,
     fontWeight: '900',
-    fontFamily: 'Lato',
+    fontFamily: 'Lato-Bold',
     paddingBottom: 5
   },
   chevronTouch: {
@@ -138,7 +140,7 @@ const styles = StyleSheet.create({
     zIndex: 3,
     position: 'absolute',
     right: 0,
-    top: 0,
+    top: 9,
     padding: 25
   },
   chevronSelected: {

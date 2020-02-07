@@ -5,17 +5,15 @@ import AnimalCard from './AnimalCard';
 import animalData from './animalData';
 const Animals = props => {
   return (
-    <ScrollView>
-      <View>
-        <FlatList
-          bounces={false}
-          scrollToOverflowEnabled={true}
-          data={animalData}
-          renderItem={animal => <AnimalCard {...animal.item} />}
-          keyExtractor={item => item.id.toString()}
-        />
-      </View>
-    </ScrollView>
+    <View>
+      <FlatList
+        bounces={false}
+        scrollToOverflowEnabled={true}
+        data={animalData}
+        renderItem={animal => <AnimalCard {...animal.item} />}
+        keyExtractor={item => item.id.toString()}
+      />
+    </View>
   );
 };
 
