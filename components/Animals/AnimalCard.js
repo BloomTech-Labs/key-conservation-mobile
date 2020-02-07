@@ -8,7 +8,7 @@ import ChevronLeft from '../../assets/jsicons/miscIcons/ChevronLeftSolid';
 
 const AnimalCard = props => {
   const [selected, setSelected] = useState(false);
-  console.log(props);
+  //console.log(props);
 
   const WebsiteClick = async () => {
     if (props.link && props.link !== null) {

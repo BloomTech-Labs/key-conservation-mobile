@@ -19,7 +19,7 @@ import {
   loginSuccess,
   getProfileData
 } from '../store/actions';
-import AnimalModal from '../components/Animals/AnimalModal';
+import AnimalModal2 from '../components/Animals/AnimalModal2';
 
 import * as SecureStore from 'expo-secure-store';
 import Axios from 'axios';
@@ -189,7 +189,7 @@ export default LoginScreen = props => {
       source={require('../assets/images/loginscreen2.png')}
       style={styles.container}
     >
-      <AnimalModal
+      <AnimalModal2
         setIsModalVisible={setIsModalVisible}
         isModalVisible={isModalVisible}
       />
@@ -237,7 +237,6 @@ export default LoginScreen = props => {
             setIsModalVisible(true);
           }}
         >
-          {/* <ChevronLeft /> */}
           <KeyInfoGreen />
         </TouchableOpacity>
       </View>
