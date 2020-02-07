@@ -14,6 +14,11 @@ export default {
   commentButton: {
     marginTop: 10
   },
+  ellipse: {
+    paddingTop: 7,
+    paddingLeft: 5,
+    flexDirection: 'flex-end'
+  },
   replyView: {
     flexDirection: 'row',
     marginTop: 20
