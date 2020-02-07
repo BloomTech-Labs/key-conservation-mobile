@@ -1,9 +1,7 @@
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 
-import { store } from '../App';
-
-import { logout } from '../store/actions';
+import { store } from '../store/configureStore';
 
 // IMPORTANT USAGE NOTES
 // Usage:
@@ -23,6 +21,8 @@ export default req => {
     .then(token => {
       const instance = axios.create({
         headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`
         }
       });
@@ -31,7 +31,9 @@ export default req => {
       instance.interceptors.response.use(
         response => response,
         error => {
-          if(error.response?.data?.logout) {
+          console.log("==============Code: ", error.message?.includes("401"));
+          if(error.response?.data?.logout || error.response?.status === 401 || error.message?.includes("401")) {
+            const { logout } = require('../store/actions');
             store.dispatch(logout(error.response.data.msg));
           }
           return Promise.reject(error);

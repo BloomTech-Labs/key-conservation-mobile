@@ -8,9 +8,7 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import AppNavigator from './navigation/AppNavigator';
 import { AmpInit, AmpEvent } from './components/withAmplitude';
 import { Provider } from 'react-redux';
-import configureStore from './store/configureStore';
-
-export const store = configureStore();
+import store from './store/configureStore';
 
 import { navigationRef } from './navigation/RootNavigator';
 

@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container: {
+    overflow: 'hidden',
     flex: 1,
     backgroundColor: "rgb(242,242,251)",
   },

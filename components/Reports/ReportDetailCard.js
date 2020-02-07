@@ -34,11 +34,6 @@ class ReportDetailCard extends Component {
     this.setState({ isUser });
 
     if (!isUser) {
-      console.log(`
-      =====================
-      this.props.getCustomById: ${this.props.getCustomById}
-      this.props.currentReport: ${this.props.currentReport}
-      `)
       this.props
         .getCustomById(
           this.props.currentReport.table_name,

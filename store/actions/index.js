@@ -1,9 +1,38 @@
-import axiosWithAuth from '../../util/axiosWithAuth';
+// import axiosWithAuth from '../../util/axiosWithAuth';
+import axios from 'axios';
 
 import * as SecureStore from 'expo-secure-store';
 
 import { navigate } from '../../navigation/RootNavigator';
 import { Alert } from 'react-native';
+
+const axiosWithAuth = (dispatch, req) => {
+  return SecureStore.getItemAsync('accessToken')
+    .then(token => {
+      // Create request with auth header
+      const instance = axios.create({
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      // Response interceptor to check whether or not
+      // to log the user out
+      instance.interceptors.response.use(
+        response => response,
+        error => {
+          if (error.response?.data?.logout) {
+            dispatch(logout(error.response.data.msg));
+          }
+          return Promise.reject(error);
+        }
+      );
+
+      return req(instance);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
 
 // url for heroku staging vs production server
 // production
@@ -50,7 +79,6 @@ export const loginSuccess = user => ({
 export const LOGOUT = 'LOGOUT';
 
 export const logout = (message = '') => async dispatch => {
-  console.log('logout invoked');
 
   await SecureStore.deleteItemAsync('sub', {});
   await SecureStore.deleteItemAsync('email', {});
@@ -103,7 +131,7 @@ export const getCustomById = (table_name, id) => dispatch => {
     }
   }
 
-  return axiosWithAuth(aaxios => {
+  return axiosWithAuth(dispatch, aaxios => {
     return aaxios.get(`${url}/${id}`);
   });
 };
@@ -123,7 +151,7 @@ export const [
 export const getLoadingData = sub => dispatch => {
   let url = `${seturl}users/subcheck/${sub}`;
 
-  return axiosWithAuth(aaxios => {
+  return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .get(url)
       .then(response => {
@@ -161,7 +189,7 @@ export const getProfileData = (
   if (id) url = `${seturl}users/${id}`;
   else if (sub) url = `${seturl}users/sub/${sub}`;
 
-  return axiosWithAuth(aaxios => {
+  return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .get(url)
       .then(res => {
@@ -235,7 +263,7 @@ export const editProfileData = (id, changes) => dispatch => {
     }
   });
 
-  return axiosWithAuth(aaxios => {
+  return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .put(`${seturl}users/${id}`, formData, {
         headers: {
@@ -261,7 +289,7 @@ export const [POST_USER_START, POST_USER_ERROR, POST_USER_SUCCESS] = [
 export const postUser = user => dispatch => {
   dispatch({ type: POST_USER_START });
 
-  return axiosWithAuth(aaxios => {
+  return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .post(`${seturl}users`, user)
       .then(res => {
@@ -283,7 +311,7 @@ export const [
 export const getCampaigns = () => dispatch => {
   dispatch({ type: GET_CAMPAIGNS_START });
   let campaigns;
-  return axiosWithAuth(aaxios => {
+  return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .get(`${seturl}campaigns`)
       .then(res => {
@@ -316,7 +344,7 @@ export const [GET_CAMPAIGN_START, GET_CAMPAIGN_ERROR, GET_CAMPAIGN_SUCCESS] = [
 export const getCampaign = id => dispatch => {
   dispatch({ type: GET_CAMPAIGN_START });
 
-  return axiosWithAuth(aaxios => {
+  return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .get(`${seturl}campaigns/${id}`)
       .then(res => {
@@ -365,7 +393,7 @@ export const postCampaign = camp => dispatch => {
   formData.append('users_id', filteredCamp.users_id);
   formData.append('urgency', filteredCamp.urgency);
 
-  return axiosWithAuth(aaxios => {
+  return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .post(`${seturl}campaigns`, formData, {
         headers: {
@@ -395,7 +423,7 @@ export const [
 export const deleteCampaign = id => dispatch => {
   dispatch({ type: DELETE_CAMPAIGN_START });
 
-  return axiosWithAuth(aaxios => {
+  return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .delete(`${seturl}campaigns/${id}`)
       .then(res => {
@@ -439,7 +467,7 @@ export const editCampaign = (id, changes) => dispatch => {
     formData.append(key, changes[key]);
   });
 
-  return axiosWithAuth(aaxios => {
+  return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .put(`${seturl}campaigns/${id}`, formData, {
         headers: {
@@ -485,7 +513,7 @@ export const postCampaignUpdate = campUpdate => dispatch => {
   formData.append('users_id', campUpdate.users_id);
   formData.append('camp_id', campUpdate.camp_id);
 
-  return axiosWithAuth(aaxios => {
+  return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .post(`${seturl}updates`, formData, {
         headers: {
@@ -541,7 +569,7 @@ export const editCampaignUpdate = (id, changes) => dispatch => {
     formData.append(key, changes[key]);
   });
 
-  return axiosWithAuth(aaxios => {
+  return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .put(`${seturl}updates/${id}`, formData, {
         headers: {
@@ -573,7 +601,7 @@ export const [
 
 export const deleteCampaignUpdate = id => dispatch => {
   dispatch({ type: DELETE_CAMPAIGN_UPDATE_START });
-  return axiosWithAuth(aaxios => {
+  return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .delete(`${seturl}updates/${id}`)
       .then(res => {
@@ -619,12 +647,12 @@ export const [
 export const commentOnCampaign = (id, body) => dispatch => {
   dispatch({ type: POST_COMMENT_START });
 
-  return axiosWithAuth(aaxios => {
+  return axiosWithAuth(dispatch, aaxios => {
     return aaxios
-      .post(
-        `${seturl}comments/${id}`,
-        { users_id: body.users_id, comment_body: body.comment_body }
-      )
+      .post(`${seturl}comments/${id}`, {
+        users_id: body.users_id,
+        comment_body: body.comment_body
+      })
       .then(res => {
         dispatch({ type: POST_COMMENT_SUCCESS, payload: res.data.data });
         aaxios.get(`${seturl}comments/${id}`);
@@ -644,7 +672,7 @@ export const [
 export const deleteComment = id => dispatch => {
   dispatch({ type: DELETE_COMMENT_START });
 
-  return axiosWithAuth(aaxios => {
+  return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .delete(`${seturl}comments/com/${id}`)
       .then(res => {
@@ -657,7 +685,7 @@ export const deleteComment = id => dispatch => {
 };
 
 export const addLike = (id, userId) => dispatch => {
-  return axiosWithAuth(aaxios => {
+  return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .post(`${seturl}social/likes/${id}`, { users_id: userId, camp_id: id })
       .then(console.log('word'));
@@ -678,7 +706,7 @@ export const getOrganizations = () => dispatch => {
   dispatch({ type: GET_ORGANIZATIONS_STARTED });
   let url = `${seturl}maps`;
 
-  return axiosWithAuth(aaxios => {
+  return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .get(url)
       .then(response => {
@@ -706,7 +734,7 @@ export const getReports = (page = 0) => dispatch => {
   dispatch({ type: GET_REPORTS_START });
   let url = `${seturl}reports?page=${page}`;
 
-  return axiosWithAuth(aaxios => {
+  return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .get(url)
       .then(res => {
@@ -728,7 +756,7 @@ export const getReport = id => dispatch => {
   dispatch({ type: GET_REPORT_START });
   let url = `${seturl}reports/${id}`;
 
-  return axiosWithAuth(aaxios => {
+  return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .get(url)
       .then(res => {
@@ -743,7 +771,7 @@ export const getReport = id => dispatch => {
 export const deactivateUser = id => dispatch => {
   let url = `${seturl}users/deactivate/${id}`;
 
-  return axiosWithAuth(aaxios => {
+  return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .post(url, {})
       .then(res => {

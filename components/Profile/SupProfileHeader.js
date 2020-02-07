@@ -39,14 +39,6 @@ const SupProfileHeader = (props) => {
 						<View style={styles.textContainer}>
 							<View style={traschCan.nameContainer}>
 								<Text style={styles.titleText}>{profile.sup_name}</Text>
-								<TouchableOpacity style={{ padding: 0, padding: 0 }}>
-									<SvgUri
-										fill='#DCDCDC'
-										width='15'
-										height='15'
-										source={require('../../assets/icons/trash-alt-solid.svg')}
-									/>
-								</TouchableOpacity>
 							</View>
 							<Text style={styles.userText}>{profile.location}</Text>
 							<Text style={styles.userText}>@{profile.username}</Text>
