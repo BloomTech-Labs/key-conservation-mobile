@@ -1,45 +1,61 @@
-// import axiosWithAuth from '../../util/axiosWithAuth';
 import axios from 'axios';
+import axiosWithAuth from '../../util/axiosWithAuth';
 
 import * as SecureStore from 'expo-secure-store';
 
 import { navigate } from '../../navigation/RootNavigator';
 import { Alert } from 'react-native';
 
-const axiosWithAuth = (dispatch, req) => {
-  return SecureStore.getItemAsync('accessToken')
-    .then(token => {
-      // Create request with auth header
-      const instance = axios.create({
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      // Response interceptor to check whether or not
-      // to log the user out
-      instance.interceptors.response.use(
-        response => response,
-        error => {
-          if (error.response?.data?.logout) {
-            dispatch(logout(error.response.data.msg));
-          }
-          return Promise.reject(error);
-        }
-      );
+// // This is defined here to prevent
+// // any un
 
-      return req(instance);
-    })
-    .catch(err => {
-      console.log(err);
-    });
-};
+// // IMPORTANT USAGE NOTES
+// // Usage:
+// /*
+//   axiosWithAuth(axiosInstance => {
+//     return axiosInstance...
+//   })
+// */
+// // axiosWithAuth will take a callback function
+// // that gets an axios instance.
+// // By using that axios instance to perform a
+// // request that required authentication, the
+// // user's token will be included in the header
+// const axiosWithAuth = (dispatch, req) => {
+//   return SecureStore.getItemAsync('accessToken')
+//     .then(token => {
+//       // Create request with auth header
+//       const instance = axios.create({
+//         headers: {
+//           Authorization: `Bearer ${token}`
+//         }
+//       });
+//       // Response interceptor to check whether or not
+//       // to log the user out
+//       instance.interceptors.response.use(
+//         response => response,
+//         error => {
+//           if (error.response?.data?.logout) {
+//             dispatch(logout(error.response.data.msg));
+//           }
+//           return Promise.reject(error);
+//         }
+//       );
+
+//       return req(instance);
+//     })
+//     .catch(err => {
+//       console.log(err);
+//     });
+// };
 
 // url for heroku staging vs production server
 // Automatically set based on environment
 // production
 const PRODUCTION = 'https://key-conservation.herokuapp.com/api/';
 // staging
-const STAGING = 'https://key-conservation-staging.herokuapp.com/api/';
+const STAGING = 'http://192.168.1.13:8000/api/';
+// const STAGING = 'https://key-conservation-staging.herokuapp.com/api/';
 const seturl = __DEV__ ? STAGING : PRODUCTION;
 
 const filterUrls = (keys, object) => {

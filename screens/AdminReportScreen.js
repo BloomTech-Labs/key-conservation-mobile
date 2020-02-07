@@ -79,6 +79,7 @@ class AdminReportScreen extends React.Component {
 
     return (
       <View style={styles.container}>
+        <LoadingOverlay loading={this.props.reports.loading} />
         <View style={styles.section}>
           <View style={styles.tabSelector}>
             {this.MASTER_TABS.map((tabTitle, index) => (
@@ -96,7 +97,7 @@ class AdminReportScreen extends React.Component {
           </View>
           <Text style={styles.title}>Current Reports</Text>
           <View style={{ flex: 1 }}>
-            <LoadingOverlay loading={this.props.reports.loading} />
+            
             <View style={styles.tabSelector}>
               {this.TABS.map((tabTitle, index) => (
                 <TouchableOpacity
