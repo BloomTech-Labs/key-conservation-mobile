@@ -8,6 +8,8 @@ import FeedUpdate from '../components/FeedScreen/FeedUpdate';
 import ProfileHeader from '../components/Profile/ProfileHeader';
 import BackButton from '../components/BackButton';
 import CampBlankSpace from '../components/Profile/CampBlankSpace';
+import {  TouchableOpacity } from 'react-native-gesture-handler';
+import Ellipse from '../assets/jsicons/Ellipse';
 
 class ProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -28,7 +30,9 @@ class ProScreen extends React.Component {
       headerLeft: () => (
         <BackButton navigation={navigation} fromMap={fromMap} />
       ),
-      headerRight: () => <View />
+      headerRight: () => <TouchableOpacity>
+        <Ellipse />
+      </TouchableOpacity>
     };
   };
 
