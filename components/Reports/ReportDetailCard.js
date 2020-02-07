@@ -100,17 +100,21 @@ class ReportDetailCard extends Component {
     switch (this.props.currentReport.table_name) {
       case 'comments': {
         del = this.props.deleteComment;
+        break;
       }
       case 'campaigns': {
         del = this.props.deleteCampaign;
+        break;
       }
       case 'campaignUpdates': {
         del = this.props.deleteCampaignUpdate;
+        break;
       }
     }
 
     del(this.props.currentReport.post_id)
       .then(err => {
+        console.log(err);
         if (err) throw new Error(err || '');
       })
       .then(() => {
@@ -127,14 +131,13 @@ class ReportDetailCard extends Component {
 
   showOptions = () => {
     const buttons = [
-      { text: 'Cancel' },
+      { text: 'Cancel', style: 'cancel' },
       { text: `Delete post`, style: 'destructive', onPress: this.deletePost }
     ];
 
     if (!this.props.currentReport.is_archived) {
       buttons.push({
         text: 'Archive Report',
-        style: 'destructive',
         onPress: this.props.archiveReport.bind(
           this,
           this.props.currentReport.id
@@ -194,7 +197,7 @@ class ReportDetailCard extends Component {
                 </Text>
               </View>
               <TouchableOpacity onPress={this.showOptions}>
-                <Ellipse style={{color: 'black'}} />
+                <Ellipse />
               </TouchableOpacity>
             </View>
           )}

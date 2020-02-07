@@ -441,7 +441,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         selectedCampaign: {
-          ...selectedCampaign,
+          ...state.selectedCampaign,
           comments: action.payload
         }
       };
@@ -459,9 +459,9 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         selectedCampaign: {
-          ...selectedCampaign,
+          ...state.selectedCampaign,
           comments: [
-            state.comments.filter(c => c.comment_id !== action.payload)
+            state.comments?.filter(c => c.comment_id !== action.payload)
           ]
         }
       };
