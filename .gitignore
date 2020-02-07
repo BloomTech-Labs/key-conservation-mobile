@@ -94,6 +94,10 @@ RNTester/Pods/*
 /ReactCommon/fabric/components/rncore/
 /schema-rncore.json
 
-# Visual studio
+# VSCode Config Files
 .vscode
 .vs
+
+# Expo Local Config Files
+.expo
+.expo/*.json

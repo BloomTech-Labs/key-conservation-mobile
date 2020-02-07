@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, } from 'react-native';
+
+import styles from '../../constants/Reports/ReportCard';
 
 import flag from '../../assets/icons/flag-alt-solid.svg';
 
@@ -60,68 +62,5 @@ const ReportCard = props => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  reportCard: {
-    flex: 1,
-    flexDirection: 'row',
-    height: 48,
-    marginVertical: 4,
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  },
-  imageContainer: {
-    height: 48,
-    width: 48
-  },
-  image: {
-    flex: 1,
-    borderRadius: 40,
-    height: null,
-    width: null
-  },
-  reportInfo: {
-    marginHorizontal: 6
-  },
-  reportName: {
-    fontSize: 16
-  },
-  reportType: {
-    fontSize: 12,
-    color: 'grey'
-  },
-  reportCount: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  arrowContainer: {
-    width: '10%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%'
-  },
-  flagIcon: {
-    marginRight: 2
-  },
-  unique_reports: {
-    fontWeight: 'bold',
-    marginHorizontal: 6
-  },
-  arrowIcon: {
-    transform: [{ rotateZ: '180deg' }],
-    paddingVertical: 18
-  },
-  left: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  right: {
-    justifyContent: 'flex-end',
-    flexDirection: 'row',
-    flex: 1,
-    alignItems: 'center'
-  }
-});
 
 export default ReportCard;

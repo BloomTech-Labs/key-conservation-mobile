@@ -28,9 +28,9 @@ import styles from '../../constants/Comments/Comments';
 
 // url for heroku staging vs production server
 // production
-// const seturl = 'https://key-conservation.herokuapp.com/api/'
+const seturl = 'https://key-conservation.herokuapp.com/api/'
 // staging
-const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+// const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
 // If you check out the actions and reducer, you'll see we have a commentOnCampaign action. Despite that, we simply could not trigger a re-render and decided to use
 // axios calls in the component itself. We presume this issue has something to do with the ansychronous nature of what's happening, but...
