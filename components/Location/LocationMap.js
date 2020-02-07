@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import MapView, { Marker, Callout } from "react-native-maps";
-import { StyleSheet, View, Dimensions, Image } from "react-native";
-import { connect } from "react-redux";
-import { getOrganizations } from "../../store/actions";
+import React, { useEffect } from 'react';
+import MapView, { Marker, Callout } from 'react-native-maps';
+import { StyleSheet, View, Dimensions, Image } from 'react-native';
+import { connect } from 'react-redux';
+import { getOrganizations } from '../../store/actions';
 
 const LocationMap = ({ getOrganizations, profile }) => {
   useEffect(() => {
@@ -29,7 +29,7 @@ const LocationMap = ({ getOrganizations, profile }) => {
         {profile.latitude && profile.longitude ? (
           <Marker
             key={Math.random()}
-            pinColor="#00FF9D"
+            pinColor='#00FF9D'
             // image={image1}
             coordinate={{
               latitude: profile.latitude,
@@ -55,15 +55,15 @@ const LocationMap = ({ getOrganizations, profile }) => {
 
 const styles = StyleSheet.create({
   mapStyle: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height
   },
   imageMarker: {
     height: 50,
     width: 50,
     borderRadius: 25,
     borderWidth: 3,
-    borderColor: "#00FF9D"
+    borderColor: '#00FF9D'
   }
 });
 

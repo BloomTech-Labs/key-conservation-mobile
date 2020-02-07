@@ -1,6 +1,5 @@
 import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { TabNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import CanScreen from '../screens/org-onboarding-screens/CanScreen';
@@ -10,7 +9,6 @@ import KeyConservationScreen from '../screens/org-onboarding-screens/KeyConserva
 import MakeAccountScreen from '../screens/org-onboarding-screens/MakeAccountScreen';
 import TellAboutOrganizationScreen from '../screens/org-onboarding-screens/TellAboutOrganizationScreen';
 import ToExpectScreen from '../screens/org-onboarding-screens/ToExpectScreen';
-import ToExpectNext from '../screens/org-onboarding-screens/ToExpectNextScreen';
 import VerifyDocumentationScreen from '../screens/org-onboarding-screens/VerifyDocumentationScreen';
 import VerifyOrganizationScreen from '../screens/org-onboarding-screens/VerifyOrganizationScreen';
 import AlmostDone from '../screens/org-onboarding-screens/AlmostDoneScreen';
@@ -31,7 +29,6 @@ import SupProScreen from '../screens/SupProScreen';
 import MySupProScreen from '../screens/MySupProScreen';
 import LoginScreen from '../screens/LoginScreen';
 import UsernameScreen from '../screens/UsernameScreen';
-import SvgUri from 'react-native-svg-uri';
 import SearchScreen from '../screens/SearchScreen';
 import ViewCampScreen from '../screens/ViewCampScreen';
 import EditCampScreen from '../screens/EditCampScreen';
@@ -41,8 +38,8 @@ import CreateCampUpdateScreen from '../screens/CreateCampUpdateScreen';
 import EditCampUpdateScreen from '../screens/EditCampUpdateScreen';
 import AccountSettingsScreen from '../screens/AccountSettingsScreen';
 import WideMapScreen from '../screens/maps/WideMapScreen';
-import AdminReportScreen from "../screens/AdminReportScreen";
-import ReportDetailScreen from "../screens/ReportDetailScreen";
+import AdminReportScreen from '../screens/AdminReportScreen';
+import ReportDetailScreen from '../screens/ReportDetailScreen';
 import LogoutScreen from '../screens/LogoutScreen';
 import ToExpectNextScreen from '../screens/org-onboarding-screens/ToExpectNextScreen';
 
@@ -102,15 +99,12 @@ const FeedStack = createStackNavigator(
     Pro: {
       screen: ProScreen,
       navigationOptions: {
-        title: 'Profile',
+        headerTransparent: true,
         headerTintColor: '#fff',
         headerTitleStyle: {
           textAlign: 'center',
           flexGrow: 1,
           alignSelf: 'center'
-        },
-        headerStyle: {
-          backgroundColor: '#323338'
         }
       }
     },
@@ -154,31 +148,16 @@ const FeedStack = createStackNavigator(
       tabBarIcon: ({ focused }) => (
         // focused ? <HomeFill/> : <Home/>
         <Lightening />
-      ),
-      transitionSpec: {
-        duration: 0
-      }
-    }
+      )
+    },
+
+    // transitionConfig: () => ({
+    //   transitionSpec: {
+    //     duration: 0
+    //   }
+    // })
   }
 );
-
-// const CreateCampStack = createStackNavigator(
-//   { CreateCampaign: CreateCampScreen },
-//   {
-//     navigationOptions: {
-//       headerLeft: null,
-//       tabBarLabel: 'Create Campaign'
-//       // tabBarIcon  : ({ focused }) => (
-//       // 	<SvgUri
-//       // 		fill='#3b3b3b'
-//       // 		width='25'
-//       // 		height='25'
-//       // 		source={focused ? require('../assets/icons/plus-fill.svg') : require('../assets/icons/plus.svg')}
-//       // 	/>
-//       // ),
-//     }
-//   }
-// );
 
 export const AccountSettingsStack = createStackNavigator({
   AccountSettings: AccountSettingsScreen,
@@ -188,6 +167,7 @@ export const AccountSettingsStack = createStackNavigator({
 
 const MyProStack = createStackNavigator(
   {
+    Home: FeedScreen,
     MyPro: { screen: MyProScreen },
     MyDetail: { screen: MyDetailScreen },
     EditPro: {
@@ -195,6 +175,7 @@ const MyProStack = createStackNavigator(
       navigationOptions: { title: 'Edit Profile' }
     },
     Camp: ViewCampScreen,
+    CreateCampaign: CreateCampScreen,
     EditCamp: EditCampScreen,
     CampUpdate: ViewCampUpdateScreen,
     CreateCampUpdate: CreateCampUpdateScreen,
@@ -207,9 +188,9 @@ const MyProStack = createStackNavigator(
         // focused ? <UserFill /> : <User />
         <Smile />
       ),
-      transitionSpec: {
-        duration: 0
-      }
+      // transitionSpec: {
+      //   duration: 0
+      // }
     }
   }
 );
@@ -242,6 +223,7 @@ export const UsernameStack = createStackNavigator({
         color: 'white'
       },
       headerStyle: {
+        borderWidth: 2,
         backgroundColor: '#323338'
       }
     }

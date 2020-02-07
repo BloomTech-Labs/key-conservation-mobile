@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, Image, Alert } from 'react-native';
 
 import styles from '../../constants/Reports/ReportDetailCard';
 
-import Collapsable from '../Collapsable';
+import Collapsible from '../Collapsible';
 
 import moment from 'moment';
 
@@ -86,7 +86,7 @@ class ReportDetailCard extends Component {
       !this.state.isUser && !(this.state.postText && this.state.postImage);
 
     return (
-      <Collapsable
+      <Collapsible
         title={`${this.type || '---'} #${this.props.currentReport.post_id ||
           '---'}`}
         collapsed={this.props.collapsed}
@@ -135,7 +135,7 @@ class ReportDetailCard extends Component {
             <Text style={styles.timestamp}>{timestamp || '---'}</Text>
           </View>
         </View>
-      </Collapsable>
+      </Collapsible>
     );
   }
 }
