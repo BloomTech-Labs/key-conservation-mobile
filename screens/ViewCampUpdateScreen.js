@@ -22,9 +22,9 @@ const deviceWidth = Dimensions.get('window').width;
 
 // url for heroku staging vs production server
 // production
-//const seturl = 'https://key-conservation.herokuapp.com/api/'
+const seturl = 'https://key-conservation.herokuapp.com/api/'
 // staging
-const seturl = "https://key-conservation-staging.herokuapp.com/api/";
+// const seturl = "https://key-conservation-staging.herokuapp.com/api/";
 
 // Redux gave us a hard time on this project. We worked on comments first and when our commentOnCampaign action failed to trigger the re-render we expected, and when we couldn't solve the
 // issue in labs_help, we settled for in-component axios calls. Not elegant. Probably not super scalable—but it worked. Hopefully a more talented team can solve what we couldn't.

@@ -26,9 +26,9 @@ import Axios from 'axios';
 
 // url for heroku staging vs production server
 // production
-//const seturl = 'https://key-conservation.herokuapp.com/api/'
+const seturl = 'https://key-conservation.herokuapp.com/api/'
 // staging
-const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+// const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 /*
  Converts an object to a query string to be used by the request to auth0 via the dashboard application
 */
