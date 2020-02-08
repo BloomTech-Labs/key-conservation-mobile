@@ -34,7 +34,8 @@ export default {
   },
   sections: {
     marginTop: 20,
-    backgroundColor: '#eee',
+    backgroundColor: '#fff',
+    borderRadius: 10,
     width: '100%',
     padding: 25
   },
