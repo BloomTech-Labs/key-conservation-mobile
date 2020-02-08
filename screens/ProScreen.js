@@ -16,7 +16,7 @@ class ProScreen extends React.Component {
     const fromMap = navigation.getParam('fromMap', 'defaultValue');
 
     return {
-      title: 'Profile',
+      title: '',
       headerStyle: {
         backgroundColor: '#323338'
       },
