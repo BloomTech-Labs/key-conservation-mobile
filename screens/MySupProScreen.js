@@ -12,7 +12,7 @@ class MySupProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerTransparent: true,
-      title: 'My Profile',
+      title: '',
       headerLeft: () => (
         <SettingsButton
           navigation={navigation}
