@@ -21,14 +21,7 @@ class ReportDetailScreen extends Component {
         backgroundColor: '#323338'
       },
       headerTintColor: '#fff',
-      headerTitleStyle: {
-        textAlign: 'center',
-        flexGrow: 1,
-        alignSelf: 'center'
-      },
-      headerLeft: () => (
-        <BackButton navigation={navigation} />
-      )
+      headerLeft: () => <BackButton navigation={navigation} />
     };
   };
 
@@ -56,18 +49,15 @@ class ReportDetailScreen extends Component {
   }
 
   deactivateUser = () => {
-    this.props
-      .deactivateUser(this.state.currentUser.id)
-      .then(error => {
-        if(error)
-          Alert.alert(error);
-        else {
-          this.props.navigation.goBack(null);
-        }
-      })
-  }
+    this.props.deactivateUser(this.state.currentUser.id).then(error => {
+      if (error) Alert.alert(error);
+      else {
+        this.props.navigation.goBack(null);
+      }
+    });
+  };
 
-  promptDeactivate =() => {
+  promptDeactivate = () => {
     Alert.alert(
       'Deactivate User',
       `Are you sure you want to deactivate this user? This will also archive all their current reports`,
@@ -77,10 +67,29 @@ class ReportDetailScreen extends Component {
           style: 'destructive',
           onPress: this.deactivateUser
         },
-        { text: 'Cancel' }
+        { text: 'Cancel', style: 'cancel' }
       ]
-    )
-  }
+    );
+  };
+
+  goToProfile = userData => {
+    this.props.getProfileData(userData.id).then(usr => {
+      if (usr) {
+        if (!usr.roles) {
+          console.log('profile data: ', usr);
+          return;
+        }
+        const screen =
+          usr.roles === 'supporter'
+            ? 'SupProDetails'
+            : 'ProDetails';
+
+        this.props.navigation.navigate(screen, {
+          username: usr.username
+        });
+      }
+    });
+  };
 
   render() {
     return (
@@ -97,7 +106,9 @@ class ReportDetailScreen extends Component {
               />
             </View>
             <View style={styles.user_details}>
-              <Text style={styles.user_name}>{this.state.currentUser?.username || '---'}</Text>
+              <Text style={styles.user_name}>
+                {this.state.currentUser?.username || '---'}
+              </Text>
               <Text style={styles.user_detail}>
                 {1 + this.props.currentReport?.other_reports?.length || '---'}{' '}
                 ACTIVE REPORTS
@@ -116,12 +127,14 @@ class ReportDetailScreen extends Component {
           </View>
           {this.props.currentReport && !this.props.loading && (
             <ReportDetailCard
+              goToProfile={this.goToProfile}
               navigation={this.props.navigation}
               currentReport={this.props.currentReport}
               unique_reports={this.props.currentReport?.unique_reports}
             />
           )}
-          {this.props.currentReport?.other_reports.length && !this.props.loading ? (
+          {this.props.currentReport?.other_reports.length &&
+          !this.props.loading ? (
             <View style={styles.other_reports_section}>
               <Text style={styles.other_section_header}>
                 Other reports on this user
@@ -129,6 +142,7 @@ class ReportDetailScreen extends Component {
               {this.props.currentReport?.other_reports.map(report => {
                 return (
                   <ReportDetailCard
+                    goToProfile={this.goToProfile}
                     navigation={this.props.navigation}
                     unique_reports={report.unique_reports}
                     currentReport={report}
@@ -146,9 +160,10 @@ class ReportDetailScreen extends Component {
 }
 
 const mapStateToProps = state => ({
-  loading: state.reports.loading,
+  loading: state.reports.loading || state.pending.getProfile,
   currentReport: state.reports.currentReport,
-  currentUserProfile: state.currentUserProfile
+  currentUserProfile: state.currentUserProfile,
+
 });
 
 export default connect(mapStateToProps, {

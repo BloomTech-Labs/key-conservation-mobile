@@ -2,13 +2,13 @@ import React from 'react';
 import { View, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
-import { getProfileData } from '../store/actions';
+import { getProfileData, createReport } from '../store/actions';
 import FeedCampaign from '../components/FeedScreen/FeedCampaign';
 import FeedUpdate from '../components/FeedScreen/FeedUpdate';
 import ProfileHeader from '../components/Profile/ProfileHeader';
 import BackButton from '../components/BackButton';
 import CampBlankSpace from '../components/Profile/CampBlankSpace';
-import {  TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import Ellipse from '../assets/jsicons/Ellipse';
 
 class ProScreen extends React.Component {
@@ -21,18 +21,16 @@ class ProScreen extends React.Component {
         backgroundColor: '#323338'
       },
       headerTintColor: '#fff',
-      headerTitleStyle: {
-        textAlign: 'center',
-        flexGrow: 1,
-        alignSelf: 'center',
-        fontFamily: 'Lato-Bold'
-      },
       headerLeft: () => (
         <BackButton navigation={navigation} fromMap={fromMap} />
       ),
-      headerRight: () => <TouchableOpacity>
-        <Ellipse />
-      </TouchableOpacity>
+      headerRight: () => (
+        <TouchableOpacity
+          style={{ transform: [{ rotate: '90deg' }], marginRight: 10 }}
+        >
+          <Ellipse />
+        </TouchableOpacity>
+      )
     };
   };
 
@@ -41,7 +39,7 @@ class ProScreen extends React.Component {
     return (
       // creates sticky header
       <Viewport.Tracker>
-        <ScrollView stickyHeaderIndices={[0]}>
+        <ScrollView stickyHeaderIndices={[0]} scrollEventThrottle={16}>
           <ProfileHeader
             navigation={navigation}
             profile={this.props.selectedProfile}
@@ -81,4 +79,6 @@ const mapStateToProps = state => ({
   selectedProfile: state.selectedProfile
 });
 
-export default connect(mapStateToProps, { getProfileData })(ProScreen);
+export default connect(mapStateToProps, { getProfileData, createReport })(
+  ProScreen
+);

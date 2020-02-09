@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View } from 'react-native';
-import { Viewport } from '@skele/components';
 import { connect } from 'react-redux';
 import { getProfileData } from '../store/actions';
 import SupProfileHeader from '../components/Profile/SupProfileHeader';
@@ -8,9 +7,6 @@ import SupProfileBody from '../components/Profile/SupProfileBody';
 import BackButton from '../components/BackButton';
 
 const SupProScreen = props => {
-  useEffect(() => {
-    props.getProfileData(props.userId, false, 'myProfile');
-  });
 
   return (
     <View>
@@ -31,12 +27,6 @@ SupProScreen.navigationOptions = navigationData => {
     //   backgroundColor: 'red'
     // },
     headerTintColor: '#fff',
-    headerTitleStyle: {
-      textAlign: 'center',
-      flexGrow: 1,
-      alignSelf: 'center',
-      fontFamily: 'Lato-Bold'
-    },
     headerRight: () => <View />
   };
 };

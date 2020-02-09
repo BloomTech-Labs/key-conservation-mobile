@@ -26,7 +26,6 @@ export default StyleSheet.create({
     justifyContent: 'center',
     padding: 8,
     paddingBottom: 16,
-    borderBottomWidth: 1
   },
   user_image_container: {
     width: 96,

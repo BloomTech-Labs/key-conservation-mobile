@@ -22,13 +22,6 @@ class MyProScreen extends React.Component {
 				backgroundColor : '#323338',
 			},
 			headerTintColor  : '#fff',
-			headerTitleStyle : {
-				textAlign  : 'center',
-				flexGrow   : 1,
-				marginTop  : 10,
-				alignSelf  : 'center',
-				fontFamily : 'Lato-Bold',
-			},
 			headerLeft       : <SettingsButton navigation={navigation} settingsRoute={'AccountSettings'} />,
 			headerRight      : <EditButton navigation={navigation} editRoute={'EditPro'} />,
 		};

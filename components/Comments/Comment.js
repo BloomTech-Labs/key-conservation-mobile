@@ -7,7 +7,6 @@ import { getProfileData } from '../../store/actions';
 import { useDispatch } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import styles from '../../constants/Comments/Comments';
-import ReportUserEllipse from '../../components/ReportUserEllipse';
 
 // {
 //   navigation,
@@ -96,7 +95,6 @@ const Comment = props => {
               <Text style={styles.commentBody}>
                 {props.comment.comment_body}
               </Text>
-              <ReportUserEllipse />
             </View>
           </View>
           <View style={styles.interaction}>

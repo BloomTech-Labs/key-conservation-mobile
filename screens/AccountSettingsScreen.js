@@ -27,11 +27,6 @@ class AccountSettingsScreen extends React.Component {
         backgroundColor: "#323338"
       },
       headerTintColor: "#fff",
-      headerTitleStyle: {
-        textAlign: "center",
-        flexGrow: 1,
-        alignSelf: "center"
-      },
       headerRight: () => (
         <DoneButton
           pressAction={navigation.getParam("done")}

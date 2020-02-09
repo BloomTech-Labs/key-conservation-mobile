@@ -16,18 +16,13 @@ class AdminReportScreen extends React.Component {
         backgroundColor: '#323338'
       },
       headerTintColor: '#fff',
-      headerTitleStyle: {
-        textAlign: 'center',
-        flexGrow: 1,
-        alignSelf: 'center'
-      },
       headerLeft: () => <BackButton navigation={navigation} />
     };
   };
 
   constructor(props) {
     super(props);
-    this.MASTER_TABS = ['Current', 'Archived'];
+    this.MASTER_TABS = ['Active', 'Archived'];
     this.TABS = ['All', 'Users', 'Campaigns', 'Comments'];
   }
 
@@ -116,7 +111,7 @@ class AdminReportScreen extends React.Component {
               </TouchableOpacity>
             ))}
           </View>
-          <Text style={styles.title}>{this.state.masterTab === 0 ? "Current Reports" : "Archived Reports"}</Text>
+          <Text style={styles.title}>{this.state.masterTab === 0 ? "Active Reports" : "Archived Reports"}</Text>
           <View style={{ flex: 1 }}>
             <View style={styles.tabSelector}>
               {this.TABS.map((tabTitle, index) => (

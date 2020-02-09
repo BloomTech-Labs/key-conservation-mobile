@@ -40,11 +40,6 @@ class ViewCampUpdateScreen extends React.Component {
         backgroundColor: '#323338'
       },
       headerTintColor: '#fff',
-      headerTitleStyle: {
-        textAlign: 'center',
-        flexGrow: 1,
-        alignSelf: 'center'
-      },
       headerLeft: () => <BackButton navigation={navigation} />,
       headerRight: () => <View />
     };

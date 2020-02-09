@@ -101,11 +101,6 @@ const FeedStack = createStackNavigator(
       navigationOptions: {
         headerTransparent: true,
         headerTintColor: '#fff',
-        headerTitleStyle: {
-          textAlign: 'center',
-          flexGrow: 1,
-          alignSelf: 'center'
-        }
       }
     },
     Detail: {
@@ -113,11 +108,6 @@ const FeedStack = createStackNavigator(
       navigationOptions: {
         title: 'Profile',
         headerTintColor: '#fff',
-        headerTitleStyle: {
-          textAlign: 'center',
-          flexGrow: 1,
-          alignSelf: 'center'
-        },
         headerStyle: {
           backgroundColor: '#323338'
         }
@@ -128,11 +118,6 @@ const FeedStack = createStackNavigator(
       navigationOptions: {
         title: 'Profile',
         headerTintColor: '#fff',
-        headerTitleStyle: {
-          textAlign: 'center',
-          flexGrow: 1,
-          alignSelf: 'center'
-        },
         headerStyle: {
           backgroundColor: '#323338'
         }
@@ -162,13 +147,17 @@ const FeedStack = createStackNavigator(
 export const AccountSettingsStack = createStackNavigator({
   AccountSettings: AccountSettingsScreen,
   AdminScreen: AdminReportScreen,
-  ReportScreen: ReportDetailScreen
+  ReportScreen: ReportDetailScreen,
+  SupProDetails: SupProScreen,
+  ProDetails: ProScreen
 });
 
 const MyProStack = createStackNavigator(
   {
     Home: FeedScreen,
-    MyPro: { screen: MyProScreen },
+    MyPro: {
+      screen: MyProScreen
+    },
     MyDetail: { screen: MyDetailScreen },
     EditPro: {
       screen: EditProScreen,
@@ -217,11 +206,6 @@ export const UsernameStack = createStackNavigator({
 
     navigationOptions: {
       title: 'Sign Up',
-      headerTitleStyle: {
-        flex: 1,
-        textAlign: 'center',
-        color: 'white'
-      },
       headerStyle: {
         borderWidth: 2,
         backgroundColor: '#323338'
