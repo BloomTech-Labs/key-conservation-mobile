@@ -11,7 +11,7 @@ import { Alert } from 'react-native';
 // // IMPORTANT USAGE NOTES
 // // Usage:
 // /*
-//   axiosWithAuth(axiosInstance => {
+//   axiosWithAuth(dispatch, axiosInstance => {
 //     return axiosInstance...
 //   })
 // */
@@ -94,7 +94,6 @@ export const loginSuccess = user => ({
 export const LOGOUT = 'LOGOUT';
 
 export const logout = (message = '') => async dispatch => {
-
   await SecureStore.deleteItemAsync('sub', {});
   await SecureStore.deleteItemAsync('email', {});
   await SecureStore.deleteItemAsync('roles', {});
@@ -446,6 +445,7 @@ export const deleteCampaign = id => dispatch => {
       })
       .catch(err => {
         dispatch({ type: DELETE_CAMPAIGN_ERROR, payload: err });
+        return err;
       });
   });
 };
@@ -624,6 +624,7 @@ export const deleteCampaignUpdate = id => dispatch => {
       })
       .catch(err => {
         dispatch({ type: DELETE_CAMPAIGN_UPDATE_ERROR, payload: err });
+        return err;
       });
   });
 };
@@ -670,7 +671,7 @@ export const commentOnCampaign = (id, body) => dispatch => {
       })
       .then(res => {
         dispatch({ type: POST_COMMENT_SUCCESS, payload: res.data.data });
-        aaxios.get(`${seturl}comments/${id}`);
+        return aaxios.get(`${seturl}comments/${id}`);
       })
       .catch(err => {
         dispatch({ type: POST_COMMENT_ERROR, payload: err });
@@ -695,6 +696,7 @@ export const deleteComment = id => dispatch => {
       })
       .catch(err => {
         dispatch({ type: DELETE_COMMENT_ERROR, payload: err });
+        return err;
       });
   });
 };
@@ -745,9 +747,37 @@ export const [GET_REPORTS_START, GET_REPORTS_SUCCESS, GET_REPORTS_ERROR] = [
   'GET_REPORTS_ERROR'
 ];
 
-export const getReports = (page = 0) => dispatch => {
+export const [
+  ARCHIVE_REPORT_START,
+  ARCHIVE_REPORT_SUCCESS,
+  ARCHIVE_REPORT_ERROR
+] = ['ARCHIVE_REPORT_START', 'ARCHIVE_REPORT_SUCCESS', 'ARCHIVE_REPORT_ERROR'];
+
+export const archiveReport = id => dispatch => {
+  dispatch({ type: ARCHIVE_REPORT_START });
+  let url = `${seturl}reports/archive/${id}`;
+
+  return axiosWithAuth(dispatch, aaxios => {
+    return aaxios
+      .post(url)
+      .then(res => {
+        dispatch({ type: ARCHIVE_REPORT_SUCCESS });
+      })
+      .catch(err => {
+        const error = err.error || err.message;
+        console.log(error);
+        dispatch({ type: ARCHIVE_REPORT_SUCCESS, payload: error });
+      });
+  });
+};
+
+export const getReports = (
+  page = 0,
+  type = 'all',
+  archive = false
+) => dispatch => {
   dispatch({ type: GET_REPORTS_START });
-  let url = `${seturl}reports?page=${page}`;
+  let url = `${seturl}reports?page=${page}&type=${type}&archive=${archive}`;
 
   return axiosWithAuth(dispatch, aaxios => {
     return aaxios
@@ -766,6 +796,12 @@ export const [GET_REPORT_START, GET_REPORT_SUCCESS, GET_REPORT_ERROR] = [
   'GET_REPORT_SUCCESS',
   'GET_REPORT_ERROR'
 ];
+
+export const CLEAR_REPORT_ERROR = 'CLEAR_REPORT_ERROR';
+
+export const clearReportError = () => {
+  return {type: CLEAR_REPORT_ERROR};
+}
 
 export const getReport = id => dispatch => {
   dispatch({ type: GET_REPORT_START });
@@ -791,6 +827,21 @@ export const deactivateUser = id => dispatch => {
       .post(url, {})
       .then(res => {
         console.log('Deactivated successfully');
+      })
+      .catch(err => {
+        console.log(err);
+        return err.message;
+      });
+  });
+};
+
+export const reportUser = id => dispatch => {
+  return axiosWithAuth(dispatch, aaxios => {
+    let url = `${seturl}reports`;
+    return aaxios
+      .post(url, {})
+      .then(res => {
+        console.log('Report Successful');
       })
       .catch(err => {
         console.log(err);

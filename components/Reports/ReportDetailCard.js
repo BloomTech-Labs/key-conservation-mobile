@@ -1,6 +1,13 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  Alert,
+  Button
+} from 'react-native';
 
 import styles from '../../constants/Reports/ReportDetailCard';
 
@@ -9,10 +16,19 @@ import Collapsible from '../Collapsible';
 import moment from 'moment';
 
 import flag from '../../assets/icons/flag-alt-solid.svg';
+import Ellipse from '../../assets/jsicons/Ellipse';
 
 import { connect } from 'react-redux';
 
-import { getCustomById, getCampaign } from '../../store/actions';
+import {
+  getCustomById,
+  getCampaign,
+  deleteComment,
+  deleteCampaign,
+  deleteCampaignUpdate,
+  clearReportError,
+  archiveReport
+} from '../../store/actions';
 import SvgUri from 'react-native-svg-uri';
 import LoadingOverlay from '../LoadingOverlay';
 
@@ -77,6 +93,66 @@ class ReportDetailCard extends Component {
     } else this.type = 'User Profile';
   }
 
+  deletePost = () => {
+    // Delete this post
+    let del;
+
+    switch (this.props.currentReport.table_name) {
+      case 'comments': {
+        del = this.props.deleteComment;
+        break;
+      }
+      case 'campaigns': {
+        del = this.props.deleteCampaign;
+        break;
+      }
+      case 'campaignUpdates': {
+        del = this.props.deleteCampaignUpdate;
+        break;
+      }
+    }
+
+    del(this.props.currentReport.post_id)
+      .then(err => {
+        console.log(err);
+        if (err) throw new Error(err || '');
+      })
+      .then(() => {
+        this.props.navigation.goBack(null);
+      })
+      .catch(error => {
+        Alert.alert(
+          `Failed to delete ${this.type.toLowerCase()}`,
+          error.msg || '',
+          [{ text: 'Try Again', onPress: this.deletePost }, { text: 'Dismiss' }]
+        );
+      });
+  };
+
+  showOptions = () => {
+    const buttons = [
+      { text: 'Cancel', style: 'cancel' },
+      { text: `Delete post`, style: 'destructive', onPress: this.deletePost }
+    ];
+
+    if (!this.props.currentReport.is_archived) {
+      buttons.push({
+        text: 'Archive Report',
+        onPress: this.props.archiveReport.bind(
+          this,
+          this.props.currentReport.id
+        )
+      });
+    }
+
+    Alert.alert('Report Actions', '', buttons);
+  };
+
+  shorten = (text, charLimit) => {
+    if (text.length > charLimit) return text.slice(0, charLimit).trim() + '...';
+    else return text;
+  };
+
   render() {
     const timestamp = `Reported on ${moment(
       this.props.currentReport.reported_at
@@ -115,7 +191,14 @@ class ReportDetailCard extends Component {
                   source={loading ? null : { uri: this.state.postImage }}
                 />
               </View>
-              <Text style={styles.text_content}>{this.state.postText}</Text>
+              <View style={styles.text_content_container}>
+                <Text style={styles.text_content}>
+                  "{this.shorten(this.state.postText, 80)}"
+                </Text>
+              </View>
+              <TouchableOpacity onPress={this.showOptions}>
+                <Ellipse />
+              </TouchableOpacity>
             </View>
           )}
           <View style={styles.detail_section}>
@@ -140,5 +223,17 @@ class ReportDetailCard extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  reportError: state.reports.error
+});
+
 //make this component available to the app
-export default connect(null, { getCustomById, getCampaign })(ReportDetailCard);
+export default connect(mapStateToProps, {
+  getCustomById,
+  getCampaign,
+  deleteComment,
+  deleteCampaign,
+  deleteCampaignUpdate,
+  clearReportError,
+  archiveReport
+})(ReportDetailCard);

@@ -18,6 +18,7 @@ import { connect } from 'react-redux';
 import { FontAwesome } from '@expo/vector-icons';
 import axios from 'axios';
 import { Viewport } from '@skele/components';
+import ReportUserEllipse from '../ReportUserEllipse';
 
 import {
   getProfileData,
@@ -31,7 +32,7 @@ import styles2 from '../../constants/Comments/Comments';
 
 // url for heroku staging vs production server
 // production
-const seturl = 'https://key-conservation.herokuapp.com/api/'
+const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
 // const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
@@ -341,8 +342,11 @@ const FeedCampaign = props => {
       <ListItem
         onPress={goToProfile}
         title={
-          <View>
+          <View style={styles.username}>
             <Text style={styles.orgTitleView}>{data.username}</Text>
+            <View style={styles.ellipse}>
+              <ReportUserEllipse />
+            </View>
           </View>
         }
         leftAvatar={{ source: { uri: data.profile_image } }}
