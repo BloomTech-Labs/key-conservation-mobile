@@ -158,6 +158,10 @@ class ReportDetailCard extends Component {
     else return text;
   };
 
+  goToPost = () => {
+    // TODO: Implement a way to view the post (comment, campaign or campaign update)
+  }
+
   render() {
     const timestamp = `Reported on ${moment(
       this.props.currentReport.reported_at
@@ -189,7 +193,7 @@ class ReportDetailCard extends Component {
         <LoadingOverlay loading={loading} />
         <View style={styles.report_details}>
           {this.state.isUser ? null : (
-            <TouchableWithoutFeedback style={styles.post_preview}>
+            <TouchableWithoutFeedback onPress={this.goToPost} style={styles.post_preview}>
               <View style={styles.image_content_container}>
                 <Image
                   style={styles.image_content}
@@ -213,7 +217,6 @@ class ReportDetailCard extends Component {
             </View>
             <View style={styles.detail_field}>
               <Text style={styles.text_label}>Reported By</Text>
-              {/* TODO: onPress: go to user's profile using user's id */}
               <TouchableOpacity
                 onPress={this.props.goToProfile.bind(
                   this,

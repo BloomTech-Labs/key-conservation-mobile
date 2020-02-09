@@ -25,6 +25,7 @@ import {
 import { AmpEvent } from '../withAmplitude';
 
 import styles from '../../constants/FeedScreen/FeedUpdate';
+import Ellipse from '../../assets/jsicons/Ellipse';
 
 // url for heroku staging vs production server
 // production
@@ -241,6 +242,11 @@ const FeedUpdate = props => {
             <View>
               <Text style={styles.subtitleText}>{data.location}</Text>
             </View>
+          }
+          rightElement={
+            <TouchableOpacity style={{transform: [{rotate: '90deg'}], padding: 12}}>
+              <Ellipse style={{fill: '#000'}} />
+            </TouchableOpacity>
           }
         />
       )}

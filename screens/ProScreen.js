@@ -26,9 +26,13 @@ class ProScreen extends React.Component {
       ),
       headerRight: () => (
         <TouchableOpacity
-          style={{ transform: [{ rotate: '90deg' }], marginRight: 10 }}
+          style={{
+            transform: [{ rotate: '90deg' }],
+            padding: 16,
+            paddingRight: 24,
+          }}
         >
-          <Ellipse />
+          <Ellipse width='25' height='25' />
         </TouchableOpacity>
       )
     };

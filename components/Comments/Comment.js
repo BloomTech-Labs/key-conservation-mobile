@@ -7,6 +7,7 @@ import { getProfileData } from '../../store/actions';
 import { useDispatch } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import styles from '../../constants/Comments/Comments';
+import Ellipse from '../../assets/jsicons/Ellipse';
 
 // {
 //   navigation,
@@ -52,11 +53,11 @@ const Comment = props => {
     }
   }
 
-  childDelete = id => {
-    setDeleted(true);
-    setConfirm(false);
-    props.deleteComment(id);
-  };
+  // childDelete = id => {
+  //   setDeleted(true);
+  //   setConfirm(false);
+  //   props.deleteComment(id);
+  // };
 
   const goToCommenterProfile = async () => {
     await dispatch(getProfileData(props.comment.users_id));
@@ -66,9 +67,9 @@ const Comment = props => {
   };
 
   return (
-    <View>
+    <View style={styles.commentWrapper}>
       {deleted === false ? (
-        <View style={styles.commentWrapper}>
+        <View>
           <View style={styles.commentView}>
             <View style={styles.avatar}>
               {props.comment.users_id === props.selectedCampaign.users_id ? (
@@ -90,16 +91,19 @@ const Comment = props => {
                 />
               )}
             </View>
-            <View>
+            <View style={styles.commentBody}>
               <Text style={styles.username}>{props.comment.username}</Text>
-              <Text style={styles.commentBody}>
+              <Text>
                 {props.comment.comment_body}
               </Text>
             </View>
+            <TouchableOpacity style={styles.commentOptions}>
+              <Ellipse fill='#000' />
+            </TouchableOpacity>
           </View>
           <View style={styles.interaction}>
             <Text style={styles.timeText}>{timeDiff}</Text>
-            {props.currentUserProfile.id === props.comment.users_id ? (
+            {/* {props.currentUserProfile.id === props.comment.users_id ? (
               confirm === false && deleted === false ? (
                 <Text
                   style={styles.deleteText}
@@ -108,7 +112,7 @@ const Comment = props => {
                   Delete
                 </Text>
               ) : null
-            ) : null}
+            ) : null} */}
             {confirm === true ? (
               <View style={styles.confirmation}>
                 <Text style={styles.confirmText}>Are you sure?</Text>

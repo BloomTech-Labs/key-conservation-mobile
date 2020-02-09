@@ -4,6 +4,7 @@ import {
   ImageBackground,
   ActivityIndicator,
   TouchableOpacity,
+  TouchableWithoutFeedback
 } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 import { View } from 'react-native-animatable';
@@ -24,6 +25,8 @@ import { AmpEvent } from '../withAmplitude';
 
 import styles from '../../constants/FeedScreen/FeedCampaign';
 import styles2 from '../../constants/Comments/Comments';
+import Ellipse from '../../assets/jsicons/Ellipse';
+import Comment from '../Comments/Comment';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
@@ -336,6 +339,13 @@ const FeedCampaign = props => {
           </View>
         }
         leftAvatar={{ source: { uri: data.profile_image } }}
+        rightElement={
+          <TouchableOpacity
+            style={{ transform: [{ rotate: '90deg' }], padding: 12 }}
+          >
+            <Ellipse fill='#000' />
+          </TouchableOpacity>
+        }
         subtitle={data.location}
       />
       <View>
@@ -461,31 +471,19 @@ const FeedCampaign = props => {
           </Text>
         )}
       </View>
-      <View style={{ marginLeft: 17 }}>
-        {data.comments.length > 0 && (
-          <View style={styles2.commentWrapper}>
-            <View style={styles2.commentView}>
-              <View style={styles2.feedAvatar}>
-                <Avatar
-                  onPress={goToCommenterProfile}
-                  rounded
-                  source={{
-                    uri: data.comments[0].profile_image
-                  }}
-                />
-              </View>
-              <View style={styles2.feedCommentWrapper}>
-                <Text style={styles2.username}>
-                  {data.comments[0].username}
-                </Text>
-                <Text style={styles2.commentBody}>
-                  {data.comments[0].comment_body}
-                </Text>
-              </View>
-            </View>
-          </View>
-        )}
-      </View>
+      <TouchableWithoutFeedback
+        onPress={goToCampaign}
+      >
+        <View style={{ flex: 1, marginHorizontal: 16 }}>
+          {data.comments.length > 0 && (
+            <Comment
+              comment={data.comments[0]}
+              selectedCampaign={data}
+              navigation={props.navigation}
+            />
+          )}
+        </View>
+      </TouchableWithoutFeedback>
       <View>
         {data.comments.length >= 1 ? (
           data.comments.length === 1 ? (
