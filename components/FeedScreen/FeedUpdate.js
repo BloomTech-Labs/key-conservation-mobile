@@ -28,9 +28,9 @@ import styles from '../../constants/FeedScreen/FeedUpdate';
 
 // url for heroku staging vs production server
 // production
-// const seturl = 'https://key-conservation.herokuapp.com/api/'
+const seturl = 'https://key-conservation.herokuapp.com/api/'
 // staging
-const seturl = "https://key-conservation-staging.herokuapp.com/api/";
+// const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
@@ -238,7 +238,10 @@ const FeedUpdate = props => {
           }
           leftAvatar={{ source: { uri: data.profile_image } }}
           subtitle={
-            <View><Text style={styles.subtitleText}>{data.location}</Text></View>}
+            <View>
+              <Text style={styles.subtitleText}>{data.location}</Text>
+            </View>
+          }
         />
       )}
       <View>
@@ -250,7 +253,7 @@ const FeedUpdate = props => {
               <View>
                 {loader ? (
                   <View style={styles.indicator}>
-                    <ActivityIndicator size="large" color="#00FF9D" />
+                    <ActivityIndicator size='large' color='#00FF9D' />
                   </View>
                 ) : null}
                 <View style={styles.updateBar}>
@@ -267,7 +270,7 @@ const FeedUpdate = props => {
                     isMuted={false}
                     shouldPlay={true}
                     isLooping
-                    resizeMode="cover"
+                    resizeMode='cover'
                     onPlaybackStatusUpdate={onPlaybackStatusUpdate}
                     style={styles.campImgContain}
                   />
@@ -294,7 +297,7 @@ const FeedUpdate = props => {
               <View>
                 {loader ? (
                   <View style={styles.indicator}>
-                    <ActivityIndicator size="large" color="#00FF9D" />
+                    <ActivityIndicator size='large' color='#00FF9D' />
                   </View>
                 ) : null}
                 <View style={styles.updateBar}>
@@ -311,7 +314,7 @@ const FeedUpdate = props => {
                     isMuted={false}
                     shouldPlay={true}
                     isLooping
-                    resizeMode="cover"
+                    resizeMode='cover'
                     onPlaybackStatusUpdate={onPlaybackStatusUpdate}
                     style={styles.campImgContain}
                   />
@@ -395,12 +398,9 @@ const mapStateToProps = state => ({
   token: state.token
 });
 
-export default connect(
-  mapStateToProps,
-  {
-    getProfileData,
-    setCampaign,
-    toggleCampaignText
-  }
-)(withNavigationFocus(FeedUpdate));
+export default connect(mapStateToProps, {
+  getProfileData,
+  setCampaign,
+  toggleCampaignText
+})(withNavigationFocus(FeedUpdate));
 // withNavigationFocus unmounts video and prevents audio playing across the navigation stack

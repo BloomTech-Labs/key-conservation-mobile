@@ -24,6 +24,12 @@ import UploadMedia from "../components/UploadMedia";
 import styles from "../constants/screens/CreateCampScreen";
 import CheckMark from "../assets/icons/checkmark-24.png";
 
+// url for heroku staging vs production server
+// production
+const seturl = 'https://key-conservation.herokuapp.com/api/'
+// staging
+// const seturl = "https://key-conservation-staging.herokuapp.com/api/";
+
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in there URL this function will add it.
   // If they already include it it will be ignored. and if its capital "Https || Http" it will become lowercase.
@@ -281,7 +287,7 @@ class CreateCampScreen extends React.Component {
     formData.append("users_id", filteredCamp.users_id);
     formData.append("urgency", filteredCamp.urgency);
     axios
-      .post(`https://key-conservation.herokuapp.com/api/campaigns/`, formData, {
+      .post(`${seturl}campaigns/`, formData, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${this.props.token}`,

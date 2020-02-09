@@ -3,37 +3,53 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   TouchableOpacity,
   Image,
-  Alert
+  Alert,
+  Button
 } from 'react-native';
-import Collapsable from '../Collapsable';
+
+import styles from '../../constants/Reports/ReportDetailCard';
+
+import Collapsible from '../Collapsible';
 
 import moment from 'moment';
 
 import flag from '../../assets/icons/flag-alt-solid.svg';
+import Ellipse from '../../assets/jsicons/Ellipse';
 
 import { connect } from 'react-redux';
 
-import { getCustomById, getCampaign } from '../../store/actions';
+import {
+  getCustomById,
+  getCampaign,
+  deleteComment,
+  deleteCampaign,
+  deleteCampaignUpdate,
+  clearReportError,
+  archiveReport
+} from '../../store/actions';
 import SvgUri from 'react-native-svg-uri';
+import LoadingOverlay from '../LoadingOverlay';
 
 // create a component
 class ReportDetailCard extends Component {
   constructor(props) {
     super(props);
 
-    this.isUser = props.currentReport.table_name === 'users';
-
     this.state = {
       postText: '',
-      postImage: ''
+      postImage: '',
+      isUser: undefined
     };
   }
 
   componentDidMount() {
-    if (!this.isUser) {
+    const isUser = this.props.currentReport.table_name === 'users';
+
+    this.setState({ isUser });
+
+    if (!isUser) {
       this.props
         .getCustomById(
           this.props.currentReport.table_name,
@@ -77,17 +93,78 @@ class ReportDetailCard extends Component {
     } else this.type = 'User Profile';
   }
 
+  deletePost = () => {
+    // Delete this post
+    let del;
+
+    switch (this.props.currentReport.table_name) {
+      case 'comments': {
+        del = this.props.deleteComment;
+        break;
+      }
+      case 'campaigns': {
+        del = this.props.deleteCampaign;
+        break;
+      }
+      case 'campaignUpdates': {
+        del = this.props.deleteCampaignUpdate;
+        break;
+      }
+    }
+
+    del(this.props.currentReport.post_id)
+      .then(err => {
+        console.log(err);
+        if (err) throw new Error(err || '');
+      })
+      .then(() => {
+        this.props.navigation.goBack(null);
+      })
+      .catch(error => {
+        Alert.alert(
+          `Failed to delete ${this.type.toLowerCase()}`,
+          error.msg || '',
+          [{ text: 'Try Again', onPress: this.deletePost }, { text: 'Dismiss' }]
+        );
+      });
+  };
+
+  showOptions = () => {
+    const buttons = [
+      { text: 'Cancel', style: 'cancel' },
+      { text: `Delete post`, style: 'destructive', onPress: this.deletePost }
+    ];
+
+    if (!this.props.currentReport.is_archived) {
+      buttons.push({
+        text: 'Archive Report',
+        onPress: this.props.archiveReport.bind(
+          this,
+          this.props.currentReport.id
+        )
+      });
+    }
+
+    Alert.alert('Report Actions', '', buttons);
+  };
+
+  shorten = (text, charLimit) => {
+    if (text.length > charLimit) return text.slice(0, charLimit).trim() + '...';
+    else return text;
+  };
+
   render() {
     const timestamp = `Reported on ${moment(
       this.props.currentReport.reported_at
     ).format('lll')}`;
 
     const loading =
-      !this.isUser && !(this.state.postText && this.state.postImage);
+      !this.state.isUser && !(this.state.postText && this.state.postImage);
 
     return (
-      <Collapsable
-        title={`${this.type || '---'} #${this.props.currentReport.post_id || '---'}`}
+      <Collapsible
+        title={`${this.type || '---'} #${this.props.currentReport.post_id ||
+          '---'}`}
         collapsed={this.props.collapsed}
         right={
           <View style={styles.report_count}>
@@ -98,17 +175,15 @@ class ReportDetailCard extends Component {
               width='15'
               height='100%'
             />
-            <Text style={styles.unique_reports}>{this.props.unique_reports}</Text>
+            <Text style={styles.unique_reports}>
+              {this.props.unique_reports}
+            </Text>
           </View>
         }
       >
-        {loading && (
-          <View style={styles.load_overlay}>
-            <Text style={styles.load_text}>Loading...</Text>
-          </View>
-        )}
+        <LoadingOverlay loading={loading} />
         <View style={styles.report_details}>
-          {this.isUser ? null : (
+          {this.state.isUser ? null : (
             <View style={styles.post_preview}>
               <View style={styles.image_content_container}>
                 <Image
@@ -116,7 +191,14 @@ class ReportDetailCard extends Component {
                   source={loading ? null : { uri: this.state.postImage }}
                 />
               </View>
-              <Text style={styles.text_content}>{this.state.postText}</Text>
+              <View style={styles.text_content_container}>
+                <Text style={styles.text_content}>
+                  "{this.shorten(this.state.postText, 80)}"
+                </Text>
+              </View>
+              <TouchableOpacity onPress={this.showOptions}>
+                <Ellipse />
+              </TouchableOpacity>
             </View>
           )}
           <View style={styles.detail_section}>
@@ -136,92 +218,22 @@ class ReportDetailCard extends Component {
             <Text style={styles.timestamp}>{timestamp || '---'}</Text>
           </View>
         </View>
-      </Collapsable>
+      </Collapsible>
     );
   }
 }
 
-// define your styles
-const styles = StyleSheet.create({
-  load_overlay: {
-    position: 'absolute',
-    zIndex: 50,
-    backgroundColor: 'black',
-    opacity: 0.6,
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  load_text: {
-    fontWeight: 'bold',
-    color: 'white'
-  },
-  report_details: {},
-  post_preview: {
-    borderBottomWidth: 1,
-    marginBottom: 8,
-    padding: 8,
-    paddingTop: 0,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  detail_section: {},
-  mini_header: {
-    color: 'gray',
-    fontSize: 11
-  },
-  detail_field: {
-    flexDirection: 'row',
-    padding: 8
-  },
-  text_label: {
-    flex: 1
-  },
-  user_link: {
-    fontWeight: 'bold',
-    color: 'dodgerblue'
-  },
-  touch_op: {
-    flex: 1
-  },
-  timestamp: {
-    flex: 1,
-    color: 'gray',
-    textAlign: 'right',
-    paddingVertical: 3
-  },
-  text_content: {
-    flex: 1,
-    fontWeight: 'bold'
-  },
-  image_content_container: {
-    marginRight: 16,
-    width: 70,
-    height: 70
-  },
-  image_content: {
-    backgroundColor: 'gray',
-    width: null,
-    height: null,
-    flex: 1
-  },
-  report_count: {
-    flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  flag_icon: {
-    marginRight: 2
-  },
-  unique_reports: {
-    fontWeight: 'bold',
-    marginHorizontal: 6
-  }
+const mapStateToProps = state => ({
+  reportError: state.reports.error
 });
 
 //make this component available to the app
-export default connect(null, { getCustomById, getCampaign })(ReportDetailCard);
+export default connect(mapStateToProps, {
+  getCustomById,
+  getCampaign,
+  deleteComment,
+  deleteCampaign,
+  deleteCampaignUpdate,
+  clearReportError,
+  archiveReport
+})(ReportDetailCard);

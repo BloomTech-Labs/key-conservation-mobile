@@ -1,73 +1,73 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, Animated, Image, SafeAreaView, Alert } from 'react-native';
+import { View, Text, Image, Alert } from 'react-native';
 
-import styles, { DEVICE_WIDTH } from '../constants/screens/ReportDetailScreen';
+import styles from '../constants/screens/ReportDetailScreen';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 
 import { connect } from 'react-redux';
 
-import { getReport, deactivateUser, getProfileData } from '../store/actions';
+import { deactivateUser, getProfileData } from '../store/actions';
 import ReportDetailCard from '../components/Reports/ReportDetailCard';
 
-// create a component
-class ReportDetailScreen extends Component {
-  left = new Animated.Value(DEVICE_WIDTH);
+import BackButton from '../components/BackButton';
+import LoadingOverlay from '../components/LoadingOverlay';
 
-  openAnim = Animated.spring(this.left, { toValue: 0 });
-  closeAnim = Animated.spring(this.left, { toValue: DEVICE_WIDTH });
+class ReportDetailScreen extends Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Report Details',
+      headerStyle: {
+        backgroundColor: '#323338'
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        textAlign: 'center',
+        flexGrow: 1,
+        alignSelf: 'center'
+      },
+      headerLeft: () => (
+        <BackButton navigation={navigation} />
+      )
+    };
+  };
+
   state = {
-    currentReport: null,
     currentUser: null
   };
+
   componentDidUpdate() {
-    if (this.props.report) {
-      // Animate IN
-      this.closeAnim.stop();
-      this.openAnim.start();
-      if (!this.state.currentReport) {
-        if (
-          this.props.currentReport &&
-          this.props.currentReport.id === this.props.report.id
-        ) {
-          this.setState({ currentReport: this.props.currentReport });
-          this.props
-            .getProfileData(
-              this.props.currentReport.reported_user,
-              null,
-              false,
-              true
-            )
-            .then(res => {
-              this.setState({ currentUser: res });
-            });
-        } else {
-          this.props.getReport(this.props.report.id);
-        }
-      }
-    } else {
-      this.openAnim.stop();
-      this.closeAnim.start();
-      if (this.state.currentReport) {
-        this.setState({ currentReport: null, currentUser: null });
-      }
+    if (
+      this.props.currentReport &&
+      !this.state.currentUser &&
+      !this.props.loading
+    ) {
+      this.props
+        .getProfileData(
+          this.props.currentReport.reported_user,
+          null,
+          false,
+          true
+        )
+        .then(res => {
+          this.setState({ currentUser: res });
+        });
     }
   }
 
-  deactivateUser() {
+  deactivateUser = () => {
     this.props
-      .deactivateUser(this.state.currentReport?.reported_user)
-      .then(res => {
-        console.log('Deactivated successfully');
-        // TODO on backend: archive all reports
-        // that are related to this user
+      .deactivateUser(this.state.currentUser.id)
+      .then(error => {
+        if(error)
+          Alert.alert(error);
+        else {
+          this.props.navigation.goBack(null);
+        }
       })
-      .catch(err => {
-        Alert.alert(err.error);
-      });
   }
 
-  promptDeactivate() {
+  promptDeactivate =() => {
     Alert.alert(
       'Deactivate User',
       `Are you sure you want to deactivate this user? This will also archive all their current reports`,
@@ -79,31 +79,27 @@ class ReportDetailScreen extends Component {
         },
         { text: 'Cancel' }
       ]
-    );
+    )
   }
 
   render() {
     return (
-      <Animated.View style={[styles.container, { left: this.left }]}>
-        {this.props.loading && (
-          <View style={styles.load_overlay}>
-            <Text style={styles.load_text}>Loading...</Text>
-          </View>
-        )}
+      <View style={[styles.container, { left: this.left }]}>
+        <LoadingOverlay loading={this.props.loading} />
         <ScrollView style={styles.scrollView}>
           <View style={styles.user_info}>
             <View style={styles.user_image_container}>
               <Image
                 style={styles.user_image}
                 source={{
-                  uri: this.props.report?.image
+                  uri: this.state.currentUser?.profile_image
                 }}
               />
             </View>
             <View style={styles.user_details}>
-              <Text style={styles.user_name}>{this.props.report?.name}</Text>
+              <Text style={styles.user_name}>{this.state.currentUser?.username || '---'}</Text>
               <Text style={styles.user_detail}>
-                {1 + this.state.currentReport?.other_reports?.length || '---'}{' '}
+                {1 + this.props.currentReport?.other_reports?.length || '---'}{' '}
                 ACTIVE REPORTS
               </Text>
               <Text style={styles.user_detail}>
@@ -112,26 +108,29 @@ class ReportDetailScreen extends Component {
               <TouchableOpacity
                 style={styles.deactivate_btn_container}
                 onPress={this.promptDeactivate}
+                disabled={!this.state.currentUser}
               >
                 <Text style={styles.deactivate_btn}>Deactivate this user</Text>
               </TouchableOpacity>
             </View>
           </View>
-          {this.state.currentReport && (
+          {this.props.currentReport && !this.props.loading && (
             <ReportDetailCard
-              currentReport={this.state.currentReport}
-              unique_reports={this.props.report?.unique_reports}
+              navigation={this.props.navigation}
+              currentReport={this.props.currentReport}
+              unique_reports={this.props.currentReport?.unique_reports}
             />
           )}
-          {this.state.currentReport?.other_reports.length ? (
+          {this.props.currentReport?.other_reports.length && !this.props.loading ? (
             <View style={styles.other_reports_section}>
               <Text style={styles.other_section_header}>
                 Other reports on this user
               </Text>
-              {this.state.currentReport?.other_reports.map(report => {
+              {this.props.currentReport?.other_reports.map(report => {
                 return (
                   <ReportDetailCard
-                    unique_reports={this.props.report?.unique_reports}
+                    navigation={this.props.navigation}
+                    unique_reports={report.unique_reports}
                     currentReport={report}
                     collapsed={true}
                     key={report.id}
@@ -141,7 +140,7 @@ class ReportDetailScreen extends Component {
             </View>
           ) : null}
         </ScrollView>
-      </Animated.View>
+      </View>
     );
   }
 }
@@ -153,7 +152,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  getReport,
   deactivateUser,
   getProfileData
 })(ReportDetailScreen);

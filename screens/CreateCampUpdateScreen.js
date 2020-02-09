@@ -20,6 +20,12 @@ import PublishButton from "../components/PublishButton";
 import UploadMedia from "../components/UploadMedia";
 import { AmpEvent } from "../components/withAmplitude";
 
+// url for heroku staging vs production server
+// production
+const seturl = 'https://key-conservation.herokuapp.com/api/'
+// staging
+// const seturl = "https://key-conservation-staging.herokuapp.com/api/";
+
 class CreateCampUpdateScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -156,7 +162,7 @@ class CreateCampUpdateScreen extends React.Component {
     formData.append("camp_id", campUpdate.camp_id);
 
     axios
-      .post(`https://key-conservation.herokuapp.com/api/updates`, formData, {
+      .post(`${seturl}updates`, formData, {
         headers: {
           Accept: "application/json",
           "Content-Type": "multipart/form-data",
