@@ -22,8 +22,8 @@ class MyProScreen extends React.Component {
 				backgroundColor : '#323338',
 			},
 			headerTintColor  : '#fff',
-			headerLeft       : <SettingsButton navigation={navigation} settingsRoute={'AccountSettings'} />,
-			headerRight      : <EditButton navigation={navigation} editRoute={'EditPro'} />,
+			headerLeft       : () => <SettingsButton navigation={navigation} settingsRoute={'AccountSettings'} />,
+			headerRight      : () => <EditButton navigation={navigation} editRoute={'EditPro'} />,
 		};
 	};
 

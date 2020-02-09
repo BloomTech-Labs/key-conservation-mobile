@@ -15,22 +15,27 @@ export default StyleSheet.create({
   },
   scrollView: {
     flex: 1,
-    padding: 24,
-    marginBottom: 48,
+    paddingBottom: 24,
+    paddingTop: 0,
+    marginBottom: 48
   },
   user_info: {
-    paddingTop: 24,
+    padding: 20,
+    paddingTop: 32,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 8,
-    paddingBottom: 16,
+    backgroundColor: 'white',
+    paddingBottom: 16
+  },
+  reports: {
+    marginHorizontal: 20
   },
   user_image_container: {
     width: 96,
     height: 96,
-    marginRight: 16,
+    marginRight: 16
   },
   user_image: {
     flex: 1,
@@ -41,7 +46,10 @@ export default StyleSheet.create({
   },
   user_details: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'column'
+  },
+  arrow_icon_container: {
+    transform: [{ rotate: '180deg' }]
   },
   user_name: {
     fontWeight: 'bold',
@@ -52,7 +60,10 @@ export default StyleSheet.create({
     fontSize: 11
   },
   deactivate_btn_container: {
-    paddingVertical: 4
+    padding: 6,
+    paddingTop: 10,
+    paddingLeft: 0,
+    alignSelf: 'flex-start'
   },
   deactivate_btn: {
     color: 'crimson',
@@ -67,6 +78,6 @@ export default StyleSheet.create({
   },
   other_section_header: {
     fontWeight: 'bold',
-    fontSize: 16,
-  },
+    fontSize: 16
+  }
 });

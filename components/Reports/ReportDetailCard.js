@@ -217,7 +217,7 @@ class ReportDetailCard extends Component {
               <TouchableOpacity
                 onPress={this.props.goToProfile.bind(
                   this,
-                  this.props.currentReport.reported_by
+                  this.props.currentReport.reported_by.id
                 )}
                 style={styles.touch_op}
               >

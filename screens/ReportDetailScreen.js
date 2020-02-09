@@ -13,6 +13,8 @@ import ReportDetailCard from '../components/Reports/ReportDetailCard';
 import BackButton from '../components/BackButton';
 import LoadingOverlay from '../components/LoadingOverlay';
 
+import ChevronLeft from '../assets/jsicons/miscIcons/ChevronLeftSolid';
+
 class ReportDetailScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -72,17 +74,16 @@ class ReportDetailScreen extends Component {
     );
   };
 
-  goToProfile = userData => {
-    this.props.getProfileData(userData.id).then(usr => {
+  goToProfile = id => {
+    if (!id) return;
+    this.props.getProfileData(id).then(usr => {
       if (usr) {
         if (!usr.roles) {
           console.log('profile data: ', usr);
           return;
         }
         const screen =
-          usr.roles === 'supporter'
-            ? 'SupProDetails'
-            : 'ProDetails';
+          usr.roles === 'supporter' ? 'SupProDetails' : 'ProDetails';
 
         this.props.navigation.navigate(screen, {
           username: usr.username
@@ -96,7 +97,11 @@ class ReportDetailScreen extends Component {
       <View style={[styles.container, { left: this.left }]}>
         <LoadingOverlay loading={this.props.loading} />
         <ScrollView style={styles.scrollView}>
-          <View style={styles.user_info}>
+          <TouchableOpacity
+            style={styles.user_info}
+            disabled={!this.state.currentUser}
+            onPress={this.goToProfile.bind(this, this.state.currentUser?.id)}
+          >
             <View style={styles.user_image_container}>
               <Image
                 style={styles.user_image}
@@ -124,35 +129,40 @@ class ReportDetailScreen extends Component {
                 <Text style={styles.deactivate_btn}>Deactivate this user</Text>
               </TouchableOpacity>
             </View>
-          </View>
-          {this.props.currentReport && !this.props.loading && (
-            <ReportDetailCard
-              goToProfile={this.goToProfile}
-              navigation={this.props.navigation}
-              currentReport={this.props.currentReport}
-              unique_reports={this.props.currentReport?.unique_reports}
-            />
-          )}
-          {this.props.currentReport?.other_reports.length &&
-          !this.props.loading ? (
-            <View style={styles.other_reports_section}>
-              <Text style={styles.other_section_header}>
-                Other reports on this user
-              </Text>
-              {this.props.currentReport?.other_reports.map(report => {
-                return (
-                  <ReportDetailCard
-                    goToProfile={this.goToProfile}
-                    navigation={this.props.navigation}
-                    unique_reports={report.unique_reports}
-                    currentReport={report}
-                    collapsed={true}
-                    key={report.id}
-                  />
-                );
-              })}
+            <View style={styles.arrow_icon_container}>
+              <ChevronLeft fill='#000' width='20' height='20' />
             </View>
-          ) : null}
+          </TouchableOpacity>
+          <View style={styles.reports}>
+            {this.props.currentReport && !this.props.loading && (
+              <ReportDetailCard
+                goToProfile={this.goToProfile}
+                navigation={this.props.navigation}
+                currentReport={this.props.currentReport}
+                unique_reports={this.props.currentReport?.unique_reports}
+              />
+            )}
+            {this.props.currentReport?.other_reports.length &&
+            !this.props.loading ? (
+              <View style={styles.other_reports_section}>
+                <Text style={styles.other_section_header}>
+                  Other reports on this user
+                </Text>
+                {this.props.currentReport?.other_reports.map(report => {
+                  return (
+                    <ReportDetailCard
+                      goToProfile={this.goToProfile}
+                      navigation={this.props.navigation}
+                      unique_reports={report.unique_reports}
+                      currentReport={report}
+                      collapsed={true}
+                      key={report.id}
+                    />
+                  );
+                })}
+              </View>
+            ) : null}
+          </View>
         </ScrollView>
       </View>
     );
@@ -162,8 +172,7 @@ class ReportDetailScreen extends Component {
 const mapStateToProps = state => ({
   loading: state.reports.loading || state.pending.getProfile,
   currentReport: state.reports.currentReport,
-  currentUserProfile: state.currentUserProfile,
-
+  currentUserProfile: state.currentUserProfile
 });
 
 export default connect(mapStateToProps, {

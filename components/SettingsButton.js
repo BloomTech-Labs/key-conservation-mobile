@@ -6,11 +6,10 @@ const SettingsButton = props => {
   const { navigation } = props;
   return (
     <TouchableOpacity
-    onPress={() => {
+      onPress={() => {
         navigation.navigate(props.settingsRoute);
       }}
-      style={{ padding: 18,
-               paddingTop: 20}}
+      style={{ padding: 18, paddingTop: 20 }}
     >
       <View
         style={{
@@ -18,13 +17,10 @@ const SettingsButton = props => {
           justifyContent: 'center',
           borderRadius: 5,
           height: 35
-        }}>
-           <AntDesign
-                name='setting'
-                color='#fff'
-                size={23}
-            />
-        </View>
+        }}
+      >
+        <AntDesign name='setting' color='#fff' size={23} />
+      </View>
     </TouchableOpacity>
   );
 };
