@@ -115,7 +115,7 @@ class ReportDetailScreen extends Component {
                 {this.state.currentUser?.username || '---'}
               </Text>
               <Text style={styles.user_detail}>
-                {1 + this.props.currentReport?.other_reports?.length || '---'}{' '}
+                {1 + this.props.currentReport?.other_reports?.filter(r => !r.is_archived).length || '---'}{' '}
                 ACTIVE REPORTS
               </Text>
               <Text style={styles.user_detail}>
