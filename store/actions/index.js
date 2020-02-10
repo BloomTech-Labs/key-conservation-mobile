@@ -800,8 +800,8 @@ export const [GET_REPORT_START, GET_REPORT_SUCCESS, GET_REPORT_ERROR] = [
 export const CLEAR_REPORT_ERROR = 'CLEAR_REPORT_ERROR';
 
 export const clearReportError = () => {
-  return {type: CLEAR_REPORT_ERROR};
-}
+  return { type: CLEAR_REPORT_ERROR };
+};
 
 export const getReport = id => dispatch => {
   dispatch({ type: GET_REPORT_START });

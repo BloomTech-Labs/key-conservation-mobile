@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Text,
   ImageBackground,
@@ -25,6 +25,8 @@ import {
 import { AmpEvent } from '../withAmplitude';
 
 import styles from '../../constants/FeedScreen/FeedUpdate';
+import Ellipse from '../../assets/jsicons/Ellipse';
+import CampaignActionSheet from '../Reports/CampaignActionSheet';
 
 // url for heroku staging vs production server
 // production
@@ -46,6 +48,7 @@ const FeedUpdate = props => {
   const [likes, setLikes] = useState(props.data.likes.length);
   const [userLiked, setUserLiked] = useState(false);
   const [loader, setLoader] = useState(true);
+  const actionSheetRef = useRef(null);
 
   useEffect(() => {
     const liked = data.likes.filter(
@@ -226,8 +229,17 @@ const FeedUpdate = props => {
     }
   };
 
+  const showActionSheet = () => {
+    actionSheetRef.current?.show();
+  };
+
   return (
     <View style={styles.container}>
+      <CampaignActionSheet
+        ref={actionSheetRef}
+        admin={props.currentUserProfile.admin}
+        update={data}
+      />
       {props.hideUsername === undefined && (
         <ListItem
           onPress={goToProfile}
@@ -237,6 +249,14 @@ const FeedUpdate = props => {
             </View>
           }
           leftAvatar={{ source: { uri: data.profile_image } }}
+          rightElement={
+            <TouchableOpacity
+              onPress={showActionSheet}
+              style={{ transform: [{ rotate: '90deg' }], padding: 12 }}
+            >
+              <Ellipse fill='#000' />
+            </TouchableOpacity>
+          }
           subtitle={
             <View>
               <Text style={styles.subtitleText}>{data.location}</Text>

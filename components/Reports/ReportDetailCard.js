@@ -1,13 +1,8 @@
 //import liraries
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  Alert,
-  Button
-} from 'react-native';
+import { View, Text, TouchableOpacity, Image, Alert } from 'react-native';
+
+import { AmpEvent } from '../withAmplitude';
 
 import styles from '../../constants/Reports/ReportDetailCard';
 
@@ -16,9 +11,10 @@ import Collapsible from '../Collapsible';
 import moment from 'moment';
 
 import flag from '../../assets/icons/flag-alt-solid.svg';
-import Ellipse from '../../assets/jsicons/Ellipse';
 
 import { connect } from 'react-redux';
+
+import { shorten } from '../../util';
 
 import {
   getCustomById,
@@ -27,10 +23,12 @@ import {
   deleteCampaign,
   deleteCampaignUpdate,
   clearReportError,
-  archiveReport
+  archiveReport,
+  getProfileData
 } from '../../store/actions';
 import SvgUri from 'react-native-svg-uri';
 import LoadingOverlay from '../LoadingOverlay';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 // create a component
 class ReportDetailCard extends Component {
@@ -129,29 +127,37 @@ class ReportDetailCard extends Component {
       });
   };
 
-  showOptions = () => {
-    const buttons = [
-      { text: 'Cancel', style: 'cancel' },
-      { text: `Delete post`, style: 'destructive', onPress: this.deletePost }
-    ];
-
-    if (!this.props.currentReport.is_archived) {
-      buttons.push({
-        text: 'Archive Report',
-        onPress: this.props.archiveReport.bind(
-          this,
-          this.props.currentReport.id
-        )
-      });
-    }
-
-    Alert.alert('Report Actions', '', buttons);
+  promptDeletePost = () => {
+    Alert.alert(
+      `Delete Post`,
+      `Are you sure you want to delete this post? This will add a strike on this user's record and cannot be undone`,
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Delete Post', style: 'destructive' }
+      ]
+    );
   };
 
-  shorten = (text, charLimit) => {
-    if (text.length > charLimit) return text.slice(0, charLimit).trim() + '...';
-    else return text;
+  archiveReport = () => {
+    this.props.archiveReport(this.props.currentReport.id).then(() => {
+      this.props.navigation.goBack('AdminScreen');
+    });
   };
+
+  promptArchiveReport = () => {
+    Alert.alert(
+      `Archive Report`,
+      `Are you sure you want to archive this report? It may still be viewed in the Archived reports tab`,
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Archive', style: 'default' }
+      ]
+    );
+  };
+
+  goToPost = () => {
+    // TODO: Implement a way to view the post (comment, campaign or campaign update)
+  }
 
   render() {
     const timestamp = `Reported on ${moment(
@@ -184,7 +190,7 @@ class ReportDetailCard extends Component {
         <LoadingOverlay loading={loading} />
         <View style={styles.report_details}>
           {this.state.isUser ? null : (
-            <View style={styles.post_preview}>
+            <TouchableWithoutFeedback onPress={this.goToPost} style={styles.post_preview}>
               <View style={styles.image_content_container}>
                 <Image
                   style={styles.image_content}
@@ -193,13 +199,10 @@ class ReportDetailCard extends Component {
               </View>
               <View style={styles.text_content_container}>
                 <Text style={styles.text_content}>
-                  "{this.shorten(this.state.postText, 80)}"
+                  "{shorten(this.state.postText, 86)}"
                 </Text>
               </View>
-              <TouchableOpacity onPress={this.showOptions}>
-                <Ellipse />
-              </TouchableOpacity>
-            </View>
+            </TouchableWithoutFeedback>
           )}
           <View style={styles.detail_section}>
             <Text style={styles.mini_header}>REPORT DETAILS</Text>
@@ -211,9 +214,38 @@ class ReportDetailCard extends Component {
             </View>
             <View style={styles.detail_field}>
               <Text style={styles.text_label}>Reported By</Text>
-              <TouchableOpacity style={styles.touch_op}>
-                <Text style={styles.user_link}>User</Text>
+              <TouchableOpacity
+                onPress={this.props.goToProfile.bind(
+                  this,
+                  this.props.currentReport.reported_by.id
+                )}
+                style={styles.touch_op}
+              >
+                <Text style={styles.user_link}>
+                  {this.props.currentReport.reported_by.username}
+                </Text>
               </TouchableOpacity>
+            </View>
+            <View style={styles.detail_field}>
+              <Text style={styles.text_label}>Actions</Text>
+              <View style={styles.actions}>
+                {!this.props.currentReport.is_archived && (
+                  <TouchableOpacity
+                    onPress={this.promptArchiveReport}
+                    style={styles.action_button_container}
+                  >
+                    <Text style={styles.action_button}>Archive Report</Text>
+                  </TouchableOpacity>
+                )}
+                {this.props.currentReport.table_name !== 'users' && (
+                  <TouchableOpacity
+                    onPress={this.promptDeletePost}
+                    style={styles.action_button_container}
+                  >
+                    <Text style={styles.action_button}>Delete Post</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
             </View>
             <Text style={styles.timestamp}>{timestamp || '---'}</Text>
           </View>
@@ -235,5 +267,6 @@ export default connect(mapStateToProps, {
   deleteCampaign,
   deleteCampaignUpdate,
   clearReportError,
-  archiveReport
+  archiveReport,
+  getProfileData
 })(ReportDetailCard);

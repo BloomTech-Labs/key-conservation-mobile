@@ -111,11 +111,11 @@ class MyProScreen extends React.Component {
           myProfile={true}
           profile={this.props.currentUserProfile}
         />
-        <View />
-        {this.props.currentUserProfile.campaigns.length === 0 ? (
-          <CampBlankSpace />
-        ) : null}
         <View>
+          {this.props.currentUserProfile.campaigns === undefined ||
+          this.props.currentUserProfile.campaigns.length === 0 ? (
+            <CampBlankSpace />
+          ) : null}
           {this.props.currentUserProfile.campaigns &&
             this.props.currentUserProfile.campaigns.map(camp => {
               if (camp.update_id) {
@@ -363,6 +363,7 @@ class MyProScreen extends React.Component {
               }
             })}
         </View>
+        {/* {console.log(this.props.currentUserProfile.campaigns.length)} */}
       </ScrollView>
     );
   }
