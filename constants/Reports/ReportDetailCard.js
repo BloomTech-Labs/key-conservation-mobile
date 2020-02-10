@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     padding: 8,
     paddingTop: 0,
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center'
   },
@@ -36,16 +37,12 @@ const styles = StyleSheet.create({
     paddingVertical: 3
   },
   text_content_container: {
-    flex: 1,
+    flex: 10,
     justifyContent: 'flex-start'
   },
   text_content: {
     flex: 1,
     fontWeight: 'bold'
-  },
-  delete_button: {
-    fontSize: 16,
-    color: 'crimson'
   },
   image_content_container: {
     marginRight: 16,
@@ -70,6 +67,22 @@ const styles = StyleSheet.create({
   unique_reports: {
     fontWeight: 'bold',
     marginHorizontal: 6
+  },
+  actions: {
+    flex: 1
+  },
+  action_button_container: {
+    paddingVertical: 4,
+    marginBottom: 6,
+    backgroundColor: 'crimson',
+    borderRadius: 6
+  },
+  action_button: {
+    color: 'white',
+    padding: 6,
+    paddingHorizontal: 12,
+    fontSize: 14,
+    fontWeight: 'bold'
   }
 });
 

@@ -19,7 +19,6 @@ import Instagram from '../../assets/jsicons/socialmedia/Instagram';
 import Twitter from '../../assets/jsicons/socialmedia/Twitter';
 import Facebook from '../../assets/jsicons/socialmedia/Facebook';
 import { randomImage } from '../Animals/RandomImage';
-import ReportUserEllipse from '../ReportUserEllipse';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
 
 const SupProfileHeader = props => {
@@ -49,7 +48,6 @@ const SupProfileHeader = props => {
             <View style={styles.textContainer}>
               <View style={traschCan.nameContainer}>
                 <Text style={styles.titleText}>{profile.sup_name}</Text>
-                <ReportUserEllipse />
               </View>
               <Text style={styles.userText}>
                 <MapMarker />

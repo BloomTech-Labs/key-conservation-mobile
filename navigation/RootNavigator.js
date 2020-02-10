@@ -10,3 +10,9 @@ export function navigate(routeName, params) {
      NavigationActions.navigate({routeName, params})
    );
 }
+
+export function goBack(routeKey = '') {
+  navigationRef.current?.dispatch(
+    NavigationActions.back(routeKey)
+  )
+}

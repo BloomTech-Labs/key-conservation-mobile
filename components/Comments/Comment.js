@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import moment from 'moment';
@@ -7,7 +7,8 @@ import { getProfileData } from '../../store/actions';
 import { useDispatch } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import styles from '../../constants/Comments/Comments';
-import ReportUserEllipse from '../../components/ReportUserEllipse';
+import Ellipse from '../../assets/jsicons/Ellipse';
+import CommentActionSheet from '../Reports/CommentActionSheet';
 
 // {
 //   navigation,
@@ -22,6 +23,7 @@ const Comment = props => {
 
   const [confirm, setConfirm] = useState(false);
   const [deleted, setDeleted] = useState(false);
+  const actionSheetRef = useRef(null);
 
   const createdAt = props.comment.created_at;
   const currentTime = moment();
@@ -53,11 +55,11 @@ const Comment = props => {
     }
   }
 
-  childDelete = id => {
-    setDeleted(true);
-    setConfirm(false);
-    props.deleteComment(id);
-  };
+  // childDelete = id => {
+  //   setDeleted(true);
+  //   setConfirm(false);
+  //   props.deleteComment(id);
+  // };
 
   const goToCommenterProfile = async () => {
     await dispatch(getProfileData(props.comment.users_id));
@@ -66,10 +68,20 @@ const Comment = props => {
     });
   };
 
+  const showActionSheet = () => {
+    actionSheetRef.current?.show();
+  };
+
   return (
-    <View>
+    <View style={styles.commentWrapper}>
       {deleted === false ? (
-        <View style={styles.commentWrapper}>
+        <View>
+          <CommentActionSheet
+            admin={props.admin}
+            commentId={props.comment.comment_id}
+            ref={actionSheetRef}
+            camp={props.selectedCampaign}
+          />
           <View style={styles.commentView}>
             <View style={styles.avatar}>
               {props.comment.users_id === props.selectedCampaign.users_id ? (
@@ -91,17 +103,20 @@ const Comment = props => {
                 />
               )}
             </View>
-            <View>
+            <View style={styles.commentBody}>
               <Text style={styles.username}>{props.comment.username}</Text>
-              <Text style={styles.commentBody}>
-                {props.comment.comment_body}
-              </Text>
-              <ReportUserEllipse />
+              <Text>{props.comment.comment_body}</Text>
             </View>
+            <TouchableOpacity
+              onPress={showActionSheet}
+              style={styles.commentOptions}
+            >
+              <Ellipse fill='#000' />
+            </TouchableOpacity>
           </View>
           <View style={styles.interaction}>
             <Text style={styles.timeText}>{timeDiff}</Text>
-            {props.currentUserProfile.id === props.comment.users_id ? (
+            {/* {props.currentUserProfile.id === props.comment.users_id ? (
               confirm === false && deleted === false ? (
                 <Text
                   style={styles.deleteText}
@@ -110,7 +125,7 @@ const Comment = props => {
                   Delete
                 </Text>
               ) : null
-            ) : null}
+            ) : null} */}
             {confirm === true ? (
               <View style={styles.confirmation}>
                 <Text style={styles.confirmText}>Are you sure?</Text>
@@ -141,4 +156,10 @@ const Comment = props => {
   );
 };
 
-export default connect(null, { getProfileData })(withNavigation(Comment));
+const mapStateToProps = state => ({
+  admin: state.currentUserProfile.admin
+});
+
+export default connect(mapStateToProps, { getProfileData })(
+  withNavigation(Comment)
+);

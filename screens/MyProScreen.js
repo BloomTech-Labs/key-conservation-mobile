@@ -25,30 +25,18 @@ import ProfileHeader from '../components/Profile/ProfileHeader';
 import CampBlankSpace from '../components/Profile/CampBlankSpace';
 
 class MyProScreen extends React.Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      headerTransparent: true,
-      title: '',
-      headerStyle: {
-        backgroundColor: '#323338'
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        textAlign: 'center',
-        flexGrow: 1,
-        marginTop: 10,
-        alignSelf: 'center',
-        fontFamily: 'Lato-Bold'
-      },
-      headerLeft: (
-        <SettingsButton
-          navigation={navigation}
-          settingsRoute={'AccountSettings'}
-        />
-      ),
-      headerRight: <EditButton navigation={navigation} editRoute={'EditPro'} />
-    };
-  };
+	static navigationOptions = ({ navigation }) => {
+		return {
+			headerTransparent: true,
+			title            : '',
+			headerStyle      : {
+				backgroundColor : '#323338',
+			},
+			headerTintColor  : '#fff',
+			headerLeft       : () => <SettingsButton navigation={navigation} settingsRoute={'AccountSettings'} />,
+			headerRight      : () => <EditButton navigation={navigation} editRoute={'EditPro'} />,
+		};
+	};
 
   componentDidMount() {
     this.props.getProfileData(

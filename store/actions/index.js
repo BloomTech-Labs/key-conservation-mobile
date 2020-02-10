@@ -208,16 +208,14 @@ export const getProfileData = (
       .get(url)
       .then(res => {
         user = res.data.user;
-        if (noDispatch) {
-          return user;
-        }
         {
           !noDispatch &&
-            dispatch({
-              type: GET_PROFILE_SUCCESS,
-              payload: { user, myProfile }
-            });
+          dispatch({
+            type: GET_PROFILE_SUCCESS,
+            payload: { user, myProfile }
+          });
         }
+        return user;
       })
       .catch(err => {
         if (noDispatch) {
@@ -835,11 +833,11 @@ export const deactivateUser = id => dispatch => {
   });
 };
 
-export const reportUser = id => dispatch => {
+export const createReport = (postType, postId, desc) => dispatch => {
   return axiosWithAuth(dispatch, aaxios => {
     let url = `${seturl}reports`;
     return aaxios
-      .post(url, {})
+      .post(url, {postType, postId, desc})
       .then(res => {
         console.log('Report Successful');
       })
