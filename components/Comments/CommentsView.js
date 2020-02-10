@@ -2,16 +2,13 @@ import React from 'react';
 import {
   View,
   Text,
-  ActivityIndicator,
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
   Platform
 } from 'react-native';
-import moment from 'moment';
 import { Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import SvgUri from 'react-native-svg-uri';
 
 import {
@@ -23,16 +20,6 @@ import Comment from './Comment';
 
 import styles from '../../constants/Comments/Comments';
 
-// url for heroku staging vs production server
-// production
-const seturl = 'https://key-conservation.herokuapp.com/api/';
-// staging
-// const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
-
-// If you check out the actions and reducer, you'll see we have a commentOnCampaign action. Despite that, we simply could not trigger a re-render and decided to use
-// axios calls in the component itself. We presume this issue has something to do with the ansychronous nature of what's happening, but...
-// We eventually settled on using componentDidUpdate to get what we want, but it ain't pretty.
-
 class CommentsView extends React.Component {
   state = {
     comment: '',
@@ -41,6 +28,13 @@ class CommentsView extends React.Component {
     campaignComments: [],
     commentsVisible: 3,
     err: ''
+  };
+
+  addMoreComments = () => {
+    this.setState({
+      ...this.state,
+      commentsVisible: this.state.commentsVisible + 9
+    });
   };
 
   render() {
@@ -62,9 +56,6 @@ class CommentsView extends React.Component {
         {/*comment sort order needs to be fixed*/}
         <View style={{ flex: 1, flexDirection: 'column-reverse' }}>
           {this.props.selectedCampaign.comments
-            .sort((a, b) => {
-              return b.created_at - a.created_at;
-            })
             .slice(0, this.state.commentsVisible)
             .map(comment => {
               return (
@@ -74,7 +65,6 @@ class CommentsView extends React.Component {
                   currentUserProfile={this.props.currentUserProfile}
                   selectedCampaign={this.props.selectedCampaign}
                   deleteComment={this.deleteComment}
-                  token={this.props.token}
                 />
               );
             })}
@@ -139,85 +129,11 @@ class CommentsView extends React.Component {
       </KeyboardAvoidingView>
     );
   }
-
-  // makeComment = () => {
-  //   if (this.state.comment.length > 0) {
-  //     axios
-  //       .post(
-  //         `${seturl}comments/${this.props.selectedCampaign.camp_id}`,
-  //         {
-  //           users_id: this.props.currentUserProfile.id,
-  //           comment_body: this.state.comment.trim()
-  //         },
-  //         {
-  //           headers: {
-  //             Accept: 'application/json',
-  //             Authorization: `Bearer ${this.props.token}`,
-  //             'Content-Type': 'application/json'
-  //           }
-  //         }
-  //       )
-  //       .then(res => {
-  //         const comments = res.data.data.sort(function(a, b) {
-  //           return moment(a.created_at) - moment(b.created_at);
-  //         });
-  //         this.setState({
-  //           ...this.state,
-  //           campaignComments: comments,
-  //           comment: '',
-  //           posted: true
-  //         });
-  //       })
-  //       .catch(err => {
-  //         this.setState({
-  //           ...this.state,
-  //           err: err
-  //         });
-  //       });
-  //   }
-  // };
-
-  // deleteComment = id => {
-  //   axios
-  //     .delete(`${seturl}comments/com/${id}`, {
-  //       headers: {
-  //         Accept: 'application/json',
-  //         Authorization: `Bearer ${this.props.token}`,
-  //         'Content-Type': 'application/json'
-  //       }
-  //     })
-  //     .then(res => {
-  //       const filteredCampaigns = this.state.campaignComments.filter(
-  //         c => c.comment_id !== res.data.data
-  //       );
-  //       this.setState({
-  //         ...this.state,
-  //         campaignComments: filteredCampaigns
-  //       });
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //       this.setState({
-  //         ...this.state,
-  //         err: err
-  //       });
-  //     });
-  // };
-
-  // Currently deletComment won't trigger a rerender
-
-  addMoreComments = () => {
-    this.setState({
-      ...this.state,
-      commentsVisible: this.state.commentsVisible + 9
-    });
-  };
 }
 
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
-  selectedCampaign: state.selectedCampaign,
-  token: state.token
+  selectedCampaign: state.selectedCampaign
 });
 
 export default connect(mapStateToProps, {

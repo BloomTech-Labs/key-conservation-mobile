@@ -481,7 +481,7 @@ const FeedCampaign = props => {
         <View style={{ flex: 1, marginHorizontal: 16 }}>
           {data.comments.length > 0 && (
             <Comment
-              comment={data.comments[0]}
+              comment={data.comments[data.comments.length - 1]}
               selectedCampaign={data}
               navigation={props.navigation}
             />

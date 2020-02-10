@@ -210,9 +210,6 @@ const reducer = (state = initialState, action) => {
       };
     case actions.GET_CAMPAIGN_SUCCESS:
       const campaign = action.payload;
-      campaign.comments.sort(function(a, b) {
-        return moment(a.created_at) - moment(b.created_at);
-      });
       return {
         ...state,
         pending: { ...state.pending, getCampaign: false },
