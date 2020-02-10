@@ -2,7 +2,7 @@ import React from 'react';
 import { SvgXml } from 'react-native-svg';
 
 export default function PlusLightening() {
-	const plusLightening = `
+  const plusLightening = `
     <svg width="492" height="560" viewBox="0 0 492 560" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect width="492" height="560" fill="white"/>
 <g clip-path="url(#clip0)">
@@ -16,7 +16,9 @@ export default function PlusLightening() {
 </defs>
 </svg>
   `;
-	const PlusLightening = () => <SvgXml xml={plusLightening} width='25' height='25' />;
+  const PlusLightening = () => (
+    <SvgXml xml={plusLightening} width='25' height='25' />
+  );
 
-	return <PlusLightening />;
+  return <PlusLightening />;
 }

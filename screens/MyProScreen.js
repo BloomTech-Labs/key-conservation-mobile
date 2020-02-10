@@ -22,6 +22,7 @@ import EditButton from '../components/EditButton';
 import SettingsButton from '../components/SettingsButton';
 
 import ProfileHeader from '../components/Profile/ProfileHeader';
+import CampBlankSpace from '../components/Profile/CampBlankSpace';
 
 class MyProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -111,6 +112,9 @@ class MyProScreen extends React.Component {
           profile={this.props.currentUserProfile}
         />
         <View />
+        {this.props.currentUserProfile.campaigns.length === 0 ? (
+          <CampBlankSpace />
+        ) : null}
         <View>
           {this.props.currentUserProfile.campaigns &&
             this.props.currentUserProfile.campaigns.map(camp => {

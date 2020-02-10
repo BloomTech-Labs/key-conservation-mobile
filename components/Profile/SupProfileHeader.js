@@ -20,6 +20,7 @@ import Twitter from '../../assets/jsicons/socialmedia/Twitter';
 import Facebook from '../../assets/jsicons/socialmedia/Facebook';
 import { randomImage } from '../Animals/RandomImage';
 import ReportUserEllipse from '../ReportUserEllipse';
+import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
 
 const SupProfileHeader = props => {
   let profile = props.profile;
@@ -50,7 +51,10 @@ const SupProfileHeader = props => {
                 <Text style={styles.titleText}>{profile.sup_name}</Text>
                 <ReportUserEllipse />
               </View>
-              <Text style={styles.userText}>{profile.location}</Text>
+              <Text style={styles.userText}>
+                <MapMarker />
+                {profile.location}
+              </Text>
               <Text style={styles.userText}>@{profile.username}</Text>
             </View>
             <View style={styles.socialContainer}>
