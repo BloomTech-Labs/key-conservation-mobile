@@ -28,7 +28,7 @@ class MyProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerTransparent: true,
-      title: 'My Profile',
+      title: '',
       headerStyle: {
         backgroundColor: '#323338'
       },
