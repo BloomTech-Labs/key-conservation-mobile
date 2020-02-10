@@ -1,4 +1,5 @@
 import { Dimensions } from 'react-native';
+import { responsiveFontSize } from 'react-native-responsive-dimensions';
 
 export default {
   animalCard: {
@@ -20,15 +21,16 @@ export default {
     alignItems: 'flex-start'
   },
   animalInfo: {
-    bottom: '25%',
+    bottom: Dimensions.get('screen').height * 0.2,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
     padding: 10,
-    right: '105%',
-    height: '10%',
-    width: '80%',
-    borderRadius: 8,
+    right: Dimensions.get('screen').width * 1.0,
+    height: Dimensions.get('screen').height * 0.07,
+    width: Dimensions.get('screen').width * 0.8,
+    borderTopRightRadius: 8,
+    borderBottomRightRadius: 8,
     backgroundColor: '#F4F5F7'
   },
   animalInfoHidden: {
@@ -40,8 +42,7 @@ export default {
   },
   animalName: {
     color: 'black',
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: responsiveFontSize(2),
     fontFamily: 'Lato',
     alignItems: 'center',
     paddingTop: 5
@@ -56,12 +57,12 @@ export default {
     shadowOpacity: 5,
     borderRadius: 10,
     backgroundColor: '#d7ff43',
+    fontSize: responsiveFontSize(2.1),
     fontFamily: 'Lato-Bold',
-    padding: 5
+    padding: Dimensions.get('screen').height * 0.006
   },
   photoCred: {
-    fontSize: 18,
-    fontWeight: '900',
+    fontSize: responsiveFontSize(2.2),
     fontFamily: 'Lato-Bold',
     paddingBottom: 5
   },
@@ -70,7 +71,7 @@ export default {
     zIndex: 3,
     position: 'absolute',
     right: 0,
-    top: 9,
+    top: Dimensions.get('screen').height * 0.015,
     padding: 25
   },
   chevronSelected: {

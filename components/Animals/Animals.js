@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, FlatList, ScrollView } from 'react-native';
+import { View, FlatList } from 'react-native';
 
 import AnimalCard from './AnimalCard';
 import animalData from './animalData';
-const Animals = props => {
+const Animals = () => {
   return (
     <View>
       <FlatList
@@ -16,12 +16,5 @@ const Animals = props => {
     </View>
   );
 };
-
-// const styles = StyleSheet.create({
-//   animalsList: {
-//     flex: 0,
-//     width: '120%'
-//   }
-// });
 
 export default Animals;
