@@ -20,15 +20,12 @@ import Comment from './Comment';
 
 import styles from '../../constants/Comments/Comments';
 
-// delete needs to trigger a re-render
-
 class CommentsView extends React.Component {
   state = {
     comment: '',
     posted: false,
     commentsVisible: 3,
-    err: '',
-    campaignComments: []
+    err: ''
   };
 
   addMoreComments = () => {
@@ -38,22 +35,11 @@ class CommentsView extends React.Component {
     });
   };
 
-  componentDidUpdate = (prevProps, prevState) => {
-    if (
-      this.props.selectedCampaign.comments !==
-      prevProps.selectedCampaign.comments
-    ) {
-      this.setState({
-        campaignComments: this.props.selectedCampaign.comments
-      });
-    }
-  };
-
   render() {
     return (
       <KeyboardAvoidingView>
         {/* Displays latest comment unless the user is viewing all the campaign comments. */}
-        {this.props.selectedCampaign.comments?.length >
+        {this.props.campaignComments?.length >
           Math.abs(this.state.commentsVisible) && (
           <View style={styles.moreContainer}>
             <TouchableOpacity onPress={() => this.addMoreComments()}>
@@ -64,7 +50,7 @@ class CommentsView extends React.Component {
           </View>
         )}
         <View style={{ flex: 1, flexDirection: 'column-reverse' }}>
-          {this.props.selectedCampaign.comments
+          {this.props.campaignComments
             .slice(0, this.state.commentsVisible)
             .map(comment => {
               return (
@@ -96,11 +82,8 @@ class CommentsView extends React.Component {
               value={this.state.comment}
               textAlignVertical={'center'}
               onSubmitEditing={() => {
-                this.setState({ comment: '' });
-                this.props.commentOnCampaign(
-                  this.props.selectedCampaign.camp_id,
-                  this.state.comment.trim()
-                );
+                if (Platform.OS === 'android') return;
+                this.usernameInput.focus();
               }}
               blurOnSubmit={Platform.OS === 'android'}
               ref={input => {
@@ -143,7 +126,8 @@ class CommentsView extends React.Component {
 
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
-  selectedCampaign: state.selectedCampaign
+  selectedCampaign: state.selectedCampaign,
+  campaignComments: state.selectedCampaign.comments
 });
 
 export default connect(mapStateToProps, {
