@@ -23,6 +23,7 @@ import SettingsButton from '../components/SettingsButton';
 
 import ProfileHeader from '../components/Profile/ProfileHeader';
 import CampBlankSpace from '../components/Profile/CampBlankSpace';
+import style from '../constants/Profile/CampBlankSpace';
 
 class MyProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -114,7 +115,13 @@ class MyProScreen extends React.Component {
         <View>
           {this.props.currentUserProfile.campaigns === undefined ||
           this.props.currentUserProfile.campaigns.length === 0 ? (
-            <CampBlankSpace />
+            <View style={style.container}>
+              <CampBlankSpace />
+              <Text style={style.text}>
+                You don't have any posts! Go to the live feed to create your
+                first campaign.
+              </Text>
+            </View>
           ) : null}
           {this.props.currentUserProfile.campaigns &&
             this.props.currentUserProfile.campaigns.map(camp => {
