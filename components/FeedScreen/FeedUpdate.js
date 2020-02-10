@@ -30,9 +30,9 @@ import CampaignActionSheet from '../Reports/CampaignActionSheet';
 
 // url for heroku staging vs production server
 // production
-// const seturl = 'https://key-conservation.herokuapp.com/api/'
+const seturl = 'https://key-conservation.herokuapp.com/api/'
 // staging
-const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+// const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
