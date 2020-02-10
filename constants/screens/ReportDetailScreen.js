@@ -60,14 +60,18 @@ export default StyleSheet.create({
     fontSize: 11
   },
   deactivate_btn_container: {
-    padding: 6,
-    paddingTop: 10,
-    paddingLeft: 0,
-    alignSelf: 'flex-start'
+    padding: 11,
+    flex: 1,
+    borderWidth: 2,
+    marginHorizontal: 20,
+    borderRadius: 8,
+    borderColor: 'crimson',
+    alignSelf: 'stretch'
   },
   deactivate_btn: {
     color: 'crimson',
-    fontSize: 15
+    fontSize: 15,
+    textAlign: 'center'
   },
   other_reports_section: {
     flex: 1,

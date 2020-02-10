@@ -121,17 +121,17 @@ class ReportDetailScreen extends Component {
               <Text style={styles.user_detail}>
                 This user has {this.state.currentUser?.strikes || '0'} strikes
               </Text>
-              <TouchableOpacity
-                style={styles.deactivate_btn_container}
-                onPress={this.promptDeactivate}
-                disabled={!this.state.currentUser}
-              >
-                <Text style={styles.deactivate_btn}>Deactivate this user</Text>
-              </TouchableOpacity>
             </View>
             <View style={styles.arrow_icon_container}>
               <ChevronLeft fill='#000' width='20' height='20' />
             </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.deactivate_btn_container}
+            onPress={this.promptDeactivate}
+            disabled={!this.state.currentUser}
+          >
+            <Text style={styles.deactivate_btn}>Deactivate this user</Text>
           </TouchableOpacity>
           <View style={styles.reports}>
             {this.props.currentReport && !this.props.loading && (
