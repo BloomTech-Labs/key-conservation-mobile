@@ -23,9 +23,7 @@ import styles from '../../constants/Comments/Comments';
 class CommentsView extends React.Component {
   state = {
     comment: '',
-    latestComment: '',
     posted: false,
-    campaignComments: [],
     commentsVisible: 3,
     err: ''
   };
@@ -82,9 +80,7 @@ class CommentsView extends React.Component {
           <View style={styles.inputWrapper}>
             <TextInput
               placeholder='Be a part of the conversation...'
-              onChangeText={text =>
-                this.setState({ comment: text, latestComment: text })
-              }
+              onChangeText={text => this.setState({ comment: text })}
               style={styles.input}
               value={this.state.comment}
               textAlignVertical={'center'}
