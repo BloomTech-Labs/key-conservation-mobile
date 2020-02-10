@@ -40,6 +40,7 @@ import AccountSettingsScreen from '../screens/AccountSettingsScreen';
 import WideMapScreen from '../screens/maps/WideMapScreen';
 import AdminReportScreen from '../screens/AdminReportScreen';
 import ReportDetailScreen from '../screens/ReportDetailScreen';
+import CreateReportScreen from '../screens/CreateReportScreen';
 import LogoutScreen from '../screens/LogoutScreen';
 import ToExpectNextScreen from '../screens/org-onboarding-screens/ToExpectNextScreen';
 
@@ -125,7 +126,8 @@ const FeedStack = createStackNavigator(
     },
     Camp: ViewCampScreen,
     CampUpdate: ViewCampUpdateScreen,
-    SupPro: SupProScreen
+    SupPro: SupProScreen,
+    CreateReport: CreateReportScreen
   },
   {
     navigationOptions: {
@@ -168,7 +170,8 @@ const MyProStack = createStackNavigator(
     EditCamp: EditCampScreen,
     CampUpdate: ViewCampUpdateScreen,
     CreateCampUpdate: CreateCampUpdateScreen,
-    EditCampUpdate: EditCampUpdateScreen
+    EditCampUpdate: EditCampUpdateScreen,
+    CreateReport: CreateReportScreen
   },
   {
     navigationOptions: {

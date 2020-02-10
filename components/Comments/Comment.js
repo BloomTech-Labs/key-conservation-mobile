@@ -80,6 +80,7 @@ const Comment = props => {
             admin={props.admin}
             commentId={props.comment.comment_id}
             ref={actionSheetRef}
+            camp={props.selectedCampaign}
           />
           <View style={styles.commentView}>
             <View style={styles.avatar}>

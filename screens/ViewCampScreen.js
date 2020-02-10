@@ -114,7 +114,7 @@ class ViewCampScreen extends React.Component {
       <View>
         <CampaignActionSheet 
           admin={this.props.currentUserProfile.admin}
-          campId={this.props.selectedCampaign.camp_id}
+          camp={this.props.selectedCampaign}
           ref={o => this.ActionSheet = o}
           goBack
         />

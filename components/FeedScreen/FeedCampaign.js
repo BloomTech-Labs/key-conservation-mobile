@@ -343,7 +343,7 @@ const FeedCampaign = props => {
       <CampaignActionSheet
         ref={actionSheetRef}
         admin={props.currentUserProfile.admin}
-        campId={data.camp_id}
+        camp={data}
       />
       <ListItem
         onPress={goToProfile}

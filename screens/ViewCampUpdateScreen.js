@@ -74,12 +74,13 @@ class ViewCampUpdateScreen extends React.Component {
   };
 
   render() {
+
     return (
       <ScrollView>
         <CampaignActionSheet
           ref={o => this.ActionSheet = o}
           admin={this.props.currentUserProfile.admin}
-          updateId={this.props.selectedCampaign.update_id}
+          update={this.props.selectedCampaign}
           goBack
         />
         <View>

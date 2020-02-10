@@ -1,11 +1,11 @@
 import React, { forwardRef } from 'react';
 import ActionSheet from 'react-native-actionsheet';
 
-import { goBack, navigate } from '../../navigation/RootNavigator';
+import { navigate } from '../../navigation/RootNavigator';
 
 import { useDispatch } from 'react-redux';
 
-import { deleteComment } from '../../store/actions';
+import { deleteComment, setCampaign } from '../../store/actions';
 import { Alert } from 'react-native';
 
 // Usage:
@@ -17,6 +17,7 @@ import { Alert } from 'react-native';
     ref={o => this.ActionSheet = o}
     admin={boolean}
     commentId={id}
+    camp={object}                   // The campaign data
   />
 ...
 */
@@ -37,7 +38,21 @@ export default forwardRef((props, ref) => {
       console.warn('CommentActionSheet: commentId prop not found - action canceled');
       return;
     }
+
+    if(typeof props.camp?.camp_id !== 'number') {
+      console.warn(
+        'CommentActionSheet: `camp` property not found or invalid - action canceled'
+      );
+      return;
+    }
+    
+    dispatch(setCampaign(props.camp));
+
     // Take the user to a report screen
+    navigate('CreateReport', {
+      type: 'comments',
+      id: props.commentId
+    });
   }
 
   const deleteCom = () => {

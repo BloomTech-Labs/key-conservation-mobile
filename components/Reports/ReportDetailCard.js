@@ -14,6 +14,8 @@ import flag from '../../assets/icons/flag-alt-solid.svg';
 
 import { connect } from 'react-redux';
 
+import { shorten } from '../../util';
+
 import {
   getCustomById,
   getCampaign,
@@ -153,11 +155,6 @@ class ReportDetailCard extends Component {
     );
   };
 
-  shorten = (text, charLimit) => {
-    if (text.length > charLimit) return text.slice(0, charLimit).trim() + '...';
-    else return text;
-  };
-
   goToPost = () => {
     // TODO: Implement a way to view the post (comment, campaign or campaign update)
   }
@@ -202,7 +199,7 @@ class ReportDetailCard extends Component {
               </View>
               <View style={styles.text_content_container}>
                 <Text style={styles.text_content}>
-                  "{this.shorten(this.state.postText, 80)}"
+                  "{shorten(this.state.postText, 86)}"
                 </Text>
               </View>
             </TouchableWithoutFeedback>

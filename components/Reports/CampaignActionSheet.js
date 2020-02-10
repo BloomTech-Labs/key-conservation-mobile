@@ -5,7 +5,7 @@ import { goBack, navigate } from '../../navigation/RootNavigator';
 
 import { useDispatch } from 'react-redux';
 
-import { deleteCampaign, deleteCampaignUpdate } from '../../store/actions';
+import { deleteCampaign, deleteCampaignUpdate, setCampaign } from '../../store/actions';
 import { Alert } from 'react-native';
 
 // Usage:
@@ -16,8 +16,8 @@ import { Alert } from 'react-native';
   <ActionSheet
     ref={o => this.ActionSheet = o}
     admin={boolean}
-    campId={id} OR updateId={id}
-    OPTIONAL: goBack={boolean} // Do we need to navigate back?
+    camp={object}                   // The campaign data
+    OPTIONAL: goBack={boolean}      // Do we need to navigate back?
   />
 ...
 */
@@ -33,31 +33,40 @@ export default forwardRef((props, ref) => {
   const dispatch = useDispatch();
 
   const report = () => {
-    const id = props.campId || props.updateId;
-    if (typeof id === 'undefined') {
+    const id = props.camp?.camp_id || props.update?.update_id;
+
+    if(typeof id === 'undefined') {
       console.warn(
-        'CampaignActionSheet: No campId or updateId prop found - action canceled'
+        'CampaignActionSheet: `camp` or `update` property missing or invalid - action canceled'
       );
       return;
     }
+
+    dispatch(setCampaign(props.camp || props.update));
+    
+    const type = props.camp ? 'campaigns' : 'campaignUpdates';
+
     // Take the user to a report screen
+    navigate('CreateReport', {
+      type,
+      id
+    });
   };
 
   const deleteCamp = () => {
-    const id = props.campId || props.updateId;
-
-    if (typeof id === 'undefined') {
+    const id = props.camp?.camp_id || props.update?.update_id;
+    if(typeof id === 'undefined') {
       console.warn(
-        'CampaignActionSheet: No campId or updateId prop found - action canceled'
+        'CampaignActionSheet: `camp` or `update` property missing or invalid - action canceled'
       );
       return;
     }
 
     let del;
 
-    if (props.campId) {
+    if (props.camp) {
       del = deleteCampaign;
-    } else if (props.updateId) {
+    } else if (props.update) {
       del = deleteCampaignUpdate;
     }
 

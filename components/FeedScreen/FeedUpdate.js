@@ -238,7 +238,7 @@ const FeedUpdate = props => {
       <CampaignActionSheet
         ref={actionSheetRef}
         admin={props.currentUserProfile.admin}
-        updateId={data.update_id}
+        update={data}
       />
       {props.hideUsername === undefined && (
         <ListItem

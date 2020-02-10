@@ -833,11 +833,11 @@ export const deactivateUser = id => dispatch => {
   });
 };
 
-export const createReport = (table_name, id) => dispatch => {
+export const createReport = (postType, postId, desc) => dispatch => {
   return axiosWithAuth(dispatch, aaxios => {
     let url = `${seturl}reports`;
     return aaxios
-      .post(url, {table_name, id})
+      .post(url, {postType, postId, desc})
       .then(res => {
         console.log('Report Successful');
       })

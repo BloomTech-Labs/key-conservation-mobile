@@ -38,6 +38,10 @@ export default forwardRef((props, ref) => {
       return;
     }
     // Take the user to a report screen
+    navigate('CreateReport', {
+      type: 'users',
+      id: props.userId
+    })
   }
 
   const deactivate = () => {
