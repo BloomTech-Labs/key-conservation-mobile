@@ -159,16 +159,7 @@ const FeedCampaign = props => {
     props.navigation.navigate('Pro');
   };
 
-  const goToCommenterProfile = async () => {
-    let users_id = data.comments[0].users_id;
-    await dispatch(getProfileData(users_id));
-    props.navigation.navigate('SupPro', {
-      username: data.comments[0].username
-    });
-  };
-
   const goToCampaign = async () => {
-    console.log('GOTOCAMPAIGN FUNCTION FIRES');
     await dispatch(getCampaign(data.camp_id));
     AmpEvent('Select Profile from Campaign', {
       campaign: data.camp_name,
