@@ -20,12 +20,15 @@ import Comment from './Comment';
 
 import styles from '../../constants/Comments/Comments';
 
+// delete needs to trigger a re-render
+
 class CommentsView extends React.Component {
   state = {
     comment: '',
     posted: false,
     commentsVisible: 3,
-    err: ''
+    err: '',
+    campaignComments: []
   };
 
   addMoreComments = () => {
@@ -35,9 +38,18 @@ class CommentsView extends React.Component {
     });
   };
 
-  render() {
-    console.log('selectedcampaign', this.props.selectedCampaign);
+  componentDidUpdate = (prevProps, prevState) => {
+    if (
+      this.props.selectedCampaign.comments !==
+      prevProps.selectedCampaign.comments
+    ) {
+      this.setState({
+        campaignComments: this.props.selectedCampaign.comments
+      });
+    }
+  };
 
+  render() {
     return (
       <KeyboardAvoidingView>
         {/* Displays latest comment unless the user is viewing all the campaign comments. */}
@@ -51,7 +63,6 @@ class CommentsView extends React.Component {
             </TouchableOpacity>
           </View>
         )}
-        {/*comment sort order needs to be fixed*/}
         <View style={{ flex: 1, flexDirection: 'column-reverse' }}>
           {this.props.selectedCampaign.comments
             .slice(0, this.state.commentsVisible)
@@ -85,8 +96,11 @@ class CommentsView extends React.Component {
               value={this.state.comment}
               textAlignVertical={'center'}
               onSubmitEditing={() => {
-                if (Platform.OS === 'android') return;
-                this.usernameInput.focus();
+                this.setState({ comment: '' });
+                this.props.commentOnCampaign(
+                  this.props.selectedCampaign.camp_id,
+                  this.state.comment.trim()
+                );
               }}
               blurOnSubmit={Platform.OS === 'android'}
               ref={input => {
