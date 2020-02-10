@@ -27,7 +27,7 @@ export default {
   },
   userText: {
     lineHeight: 19,
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: 'Lato',
     color: 'white'
   },

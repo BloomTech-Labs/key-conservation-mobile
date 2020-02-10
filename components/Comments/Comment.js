@@ -1,12 +1,14 @@
-import React, { useState } from "react";
-import { View, Text } from "react-native";
-import { Avatar } from "react-native-elements";
-import moment from "moment";
-import { connect } from "react-redux";
-import { getProfileData } from "../../store/actions";
-import { useDispatch } from "react-redux";
-import { withNavigation } from "react-navigation";
-import styles from "../../constants/Comments/Comments";
+import React, { useState, useRef } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { Avatar } from 'react-native-elements';
+import moment from 'moment';
+import { connect } from 'react-redux';
+import { getProfileData } from '../../store/actions';
+import { useDispatch } from 'react-redux';
+import { withNavigation } from 'react-navigation';
+import styles from '../../constants/Comments/Comments';
+import Ellipse from '../../assets/jsicons/Ellipse';
+import CommentActionSheet from '../Reports/CommentActionSheet';
 
 // {
 //   navigation,
@@ -21,61 +23,72 @@ const Comment = props => {
 
   const [confirm, setConfirm] = useState(false);
   const [deleted, setDeleted] = useState(false);
+  const actionSheetRef = useRef(null);
 
   const createdAt = props.comment.created_at;
   const currentTime = moment();
   const postTime = moment(createdAt);
   let timeDiff;
-  if (currentTime.diff(postTime, "days") < 1) {
-    if (currentTime.diff(postTime, "hours") < 1) {
-      if (currentTime.diff(postTime, "minutes") < 1) {
-        timeDiff = "just now";
+  if (currentTime.diff(postTime, 'days') < 1) {
+    if (currentTime.diff(postTime, 'hours') < 1) {
+      if (currentTime.diff(postTime, 'minutes') < 1) {
+        timeDiff = 'just now';
       } else {
-        if (currentTime.diff(postTime, "minutes") === 1) {
-          timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTE AGO`;
+        if (currentTime.diff(postTime, 'minutes') === 1) {
+          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO`;
         } else {
-          timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTES AGO`;
+          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`;
         }
       }
     } else {
-      if (currentTime.diff(postTime, "hours") === 1) {
-        timeDiff = `${currentTime.diff(postTime, "hours")} HOUR AGO`;
+      if (currentTime.diff(postTime, 'hours') === 1) {
+        timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO`;
       } else {
-        timeDiff = `${currentTime.diff(postTime, "hours")} HOURS AGO`;
+        timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`;
       }
     }
   } else {
-    if (currentTime.diff(postTime, "days") === 1) {
-      timeDiff = `${currentTime.diff(postTime, "days")} DAY AGO`;
+    if (currentTime.diff(postTime, 'days') === 1) {
+      timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO`;
     } else {
-      timeDiff = `${currentTime.diff(postTime, "days")} DAYS AGO`;
+      timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
     }
   }
 
-  childDelete = id => {
-    setDeleted(true);
-    setConfirm(false);
-    props.deleteComment(id);
-  };
+  // childDelete = id => {
+  //   setDeleted(true);
+  //   setConfirm(false);
+  //   props.deleteComment(id);
+  // };
 
   const goToCommenterProfile = async () => {
     await dispatch(getProfileData(props.comment.users_id));
-    props.navigation.navigate("SupPro", {
+    props.navigation.navigate('SupPro', {
       username: props.comment.username
     });
   };
 
+  const showActionSheet = () => {
+    actionSheetRef.current?.show();
+  };
+
   return (
-    <View>
+    <View style={styles.commentWrapper}>
       {deleted === false ? (
-        <View style={styles.commentWrapper}>
+        <View>
+          <CommentActionSheet
+            admin={props.admin}
+            commentId={props.comment.comment_id}
+            ref={actionSheetRef}
+            camp={props.selectedCampaign}
+          />
           <View style={styles.commentView}>
             <View style={styles.avatar}>
               {props.comment.users_id === props.selectedCampaign.users_id ? (
                 <Avatar
                   onPress={goToCommenterProfile}
                   rounded
-                  containerStyle={{ borderWidth: 1, borderColor: "#00FF9D" }}
+                  containerStyle={{ borderWidth: 1, borderColor: '#00FF9D' }}
                   source={{
                     uri: props.comment.profile_image
                   }}
@@ -90,16 +103,20 @@ const Comment = props => {
                 />
               )}
             </View>
-            <View>
+            <View style={styles.commentBody}>
               <Text style={styles.username}>{props.comment.username}</Text>
-              <Text style={styles.commentBody}>
-                {props.comment.comment_body}
-              </Text>
+              <Text>{props.comment.comment_body}</Text>
             </View>
+            <TouchableOpacity
+              onPress={showActionSheet}
+              style={styles.commentOptions}
+            >
+              <Ellipse fill='#000' />
+            </TouchableOpacity>
           </View>
           <View style={styles.interaction}>
             <Text style={styles.timeText}>{timeDiff}</Text>
-            {props.currentUserProfile.id === props.comment.users_id ? (
+            {/* {props.currentUserProfile.id === props.comment.users_id ? (
               confirm === false && deleted === false ? (
                 <Text
                   style={styles.deleteText}
@@ -108,7 +125,7 @@ const Comment = props => {
                   Delete
                 </Text>
               ) : null
-            ) : null}
+            ) : null} */}
             {confirm === true ? (
               <View style={styles.confirmation}>
                 <Text style={styles.confirmText}>Are you sure?</Text>
@@ -139,4 +156,10 @@ const Comment = props => {
   );
 };
 
-export default connect(null, { getProfileData })(withNavigation(Comment));
+const mapStateToProps = state => ({
+  admin: state.currentUserProfile.admin
+});
+
+export default connect(mapStateToProps, { getProfileData })(
+  withNavigation(Comment)
+);
