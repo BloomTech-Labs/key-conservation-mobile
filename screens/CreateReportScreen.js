@@ -50,7 +50,8 @@ class CreateReportScreen extends Component {
     this.type = this.props.navigation.getParam('type');
 
     this.REPORT_REASONS = [
-      `It an attempt at scam`,
+      '',
+      `It's an attempt at scam`,
       `It's inappropriate/offensive`,
       `It's spam`,
       `Other`
@@ -64,7 +65,7 @@ class CreateReportScreen extends Component {
         this.setState({
           image,
           username,
-          title: 'user'
+          title: 'account'
         });
         break;
       }
@@ -159,7 +160,7 @@ class CreateReportScreen extends Component {
           </Text>
           <Text style={styles.sublabel}>SELECT A REASON</Text>
           <View style={styles.picker_container}>
-            <Collapsible title={this.state.report_desc}>
+            <Collapsible title={this.state.report_desc} collapsed={true}>
               <Picker
                 selectedValue={this.state.report_desc}
                 onValueChange={(itemValue, itemIndex) =>
