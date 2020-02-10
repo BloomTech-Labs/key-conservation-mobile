@@ -136,7 +136,7 @@ const FeedStack = createStackNavigator(
         // focused ? <HomeFill/> : <Home/>
         <Lightening />
       )
-    },
+    }
 
     // transitionConfig: () => ({
     //   transitionSpec: {
@@ -179,7 +179,7 @@ const MyProStack = createStackNavigator(
       tabBarIcon: ({ focused }) => (
         // focused ? <UserFill /> : <User />
         <Smile />
-      ),
+      )
       // transitionSpec: {
       //   duration: 0
       // }
