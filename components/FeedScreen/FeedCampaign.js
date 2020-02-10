@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Text,
   ImageBackground,
@@ -16,6 +16,8 @@ import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
 
+import ActionSheet from 'react-native-actionsheet';
+
 import {
   getProfileData,
   getCampaign,
@@ -27,6 +29,7 @@ import styles from '../../constants/FeedScreen/FeedCampaign';
 import styles2 from '../../constants/Comments/Comments';
 import Ellipse from '../../assets/jsicons/Ellipse';
 import Comment from '../Comments/Comment';
+import CampaignActionSheet from '../Reports/CampaignActionSheet';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
@@ -44,6 +47,9 @@ const FeedCampaign = props => {
   // const [userBookmarked, setUserBookmarked] = useState(false);
   const [urgTop, setUrgTop] = useState(0);
   const [loader, setLoader] = useState(true);
+
+  const actionSheetRef = useRef(null);
+
   // console.log("PROPS FROM FEEDCAMPAIGN", props);
 
   // old code for Likes + Bookmarks
@@ -328,19 +334,28 @@ const FeedCampaign = props => {
   //     });
   // };
 
+  const showActionSheet = () => {
+    actionSheetRef.current?.show();
+  }
+
   return (
     <View style={styles.container}>
+      <CampaignActionSheet
+        ref={actionSheetRef}
+        admin={props.currentUserProfile.admin}
+        campId={data.camp_id}
+      />
       <ListItem
         onPress={goToProfile}
         title={
           <View style={styles.username}>
             <Text style={styles.orgTitleView}>{data.username}</Text>
-            <View style={styles.ellipse}></View>
           </View>
         }
         leftAvatar={{ source: { uri: data.profile_image } }}
         rightElement={
           <TouchableOpacity
+            onPress={showActionSheet}
             style={{ transform: [{ rotate: '90deg' }], padding: 12 }}
           >
             <Ellipse fill='#000' />

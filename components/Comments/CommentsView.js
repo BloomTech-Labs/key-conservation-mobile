@@ -82,7 +82,7 @@ class CommentsView extends React.Component {
               0,
               this.state.commentsVisible
             )}
-            keyExtractor={comment => comment.comment_id.toString()}
+            keyExtractor={comment => comment.comment_id?.toString() || (Math.random() * 100).toString()}
             renderItem={({ item }) => {
               return (
                 <Comment

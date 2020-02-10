@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import moment from 'moment';
@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import styles from '../../constants/Comments/Comments';
 import Ellipse from '../../assets/jsicons/Ellipse';
+import CommentActionSheet from '../Reports/CommentActionSheet';
 
 // {
 //   navigation,
@@ -22,6 +23,7 @@ const Comment = props => {
 
   const [confirm, setConfirm] = useState(false);
   const [deleted, setDeleted] = useState(false);
+  const actionSheetRef = useRef(null);
 
   const createdAt = props.comment.created_at;
   const currentTime = moment();
@@ -66,10 +68,19 @@ const Comment = props => {
     });
   };
 
+  const showActionSheet = () => {
+    actionSheetRef.current?.show();
+  };
+
   return (
     <View style={styles.commentWrapper}>
       {deleted === false ? (
         <View>
+          <CommentActionSheet
+            admin={props.admin}
+            commentId={props.comment.comment_id}
+            ref={actionSheetRef}
+          />
           <View style={styles.commentView}>
             <View style={styles.avatar}>
               {props.comment.users_id === props.selectedCampaign.users_id ? (
@@ -93,11 +104,12 @@ const Comment = props => {
             </View>
             <View style={styles.commentBody}>
               <Text style={styles.username}>{props.comment.username}</Text>
-              <Text>
-                {props.comment.comment_body}
-              </Text>
+              <Text>{props.comment.comment_body}</Text>
             </View>
-            <TouchableOpacity style={styles.commentOptions}>
+            <TouchableOpacity
+              onPress={showActionSheet}
+              style={styles.commentOptions}
+            >
               <Ellipse fill='#000' />
             </TouchableOpacity>
           </View>
@@ -143,4 +155,10 @@ const Comment = props => {
   );
 };
 
-export default connect(null, { getProfileData })(withNavigation(Comment));
+const mapStateToProps = state => ({
+  admin: state.currentUserProfile.admin
+});
+
+export default connect(mapStateToProps, { getProfileData })(
+  withNavigation(Comment)
+);

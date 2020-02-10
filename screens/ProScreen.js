@@ -10,6 +10,7 @@ import BackButton from '../components/BackButton';
 import CampBlankSpace from '../components/Profile/CampBlankSpace';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Ellipse from '../assets/jsicons/Ellipse';
+import UserActionSheet from '../components/Reports/UserActionSheet';
 
 class ProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -29,8 +30,9 @@ class ProScreen extends React.Component {
           style={{
             transform: [{ rotate: '90deg' }],
             padding: 16,
-            paddingRight: 24,
+            paddingRight: 24
           }}
+          onPress={navigation.getParam('showProScreenActions')}
         >
           <Ellipse width='25' height='25' />
         </TouchableOpacity>
@@ -38,12 +40,27 @@ class ProScreen extends React.Component {
     };
   };
 
+  showActionSheet = () => {
+    this.UserActionSheet?.show();
+  };
+
+  componentDidMount() {
+    this.props.navigation.setParams({
+      showProScreenActions: this.showActionSheet
+    });
+  }
+
   render() {
     const { navigation } = this.props;
     return (
       // creates sticky header
       <Viewport.Tracker>
         <ScrollView stickyHeaderIndices={[0]} scrollEventThrottle={16}>
+          <UserActionSheet
+            admin={this.props.admin}
+            userId={this.props.selectedProfile.id}
+            ref={o => (this.UserActionSheet = o)}
+          />
           <ProfileHeader
             navigation={navigation}
             profile={this.props.selectedProfile}
@@ -80,7 +97,8 @@ class ProScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  selectedProfile: state.selectedProfile
+  selectedProfile: state.selectedProfile,
+  admin: state.currentUserProfile.admin
 });
 
 export default connect(mapStateToProps, { getProfileData, createReport })(

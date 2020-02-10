@@ -17,6 +17,8 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import { getProfileData, getCampaign } from '../store/actions';
 import BackButton from '../components/BackButton';
+import Ellipse from '../assets/jsicons/Ellipse';
+import CampaignActionSheet from '../components/Reports/CampaignActionSheet';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -24,13 +26,11 @@ const deviceWidth = Dimensions.get('window').width;
 // production
 //const seturl = 'https://key-conservation.herokuapp.com/api/'
 // staging
-const seturl = "https://key-conservation-staging.herokuapp.com/api/";
+const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
 // Redux gave us a hard time on this project. We worked on comments first and when our commentOnCampaign action failed to trigger the re-render we expected, and when we couldn't solve the
 // issue in labs_help, we settled for in-component axios calls. Not elegant. Probably not super scalable—but it worked. Hopefully a more talented team can solve what we couldn't.
 // In the meantime, ViewCampScreen, ViewCampUpdateScreen, FeedCampaign, and FeedUpdate are all interconnected, sharing props (state, functions) via React-Navigation.
-
-
 
 class ViewCampUpdateScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -41,7 +41,18 @@ class ViewCampUpdateScreen extends React.Component {
       },
       headerTintColor: '#fff',
       headerLeft: () => <BackButton navigation={navigation} />,
-      headerRight: () => <View />
+      headerRight: () => (
+        <TouchableOpacity
+          style={{
+            transform: [{ rotate: '90deg' }],
+            padding: 16,
+            paddingRight: 24
+          }}
+          onPress={navigation.getParam('showCampUpdateOptions')}
+        >
+          <Ellipse width='25' height='25' />
+        </TouchableOpacity>
+      )
     };
   };
 
@@ -51,13 +62,26 @@ class ViewCampUpdateScreen extends React.Component {
     campaign: {}
   };
 
+  showActionSheet = () => {
+    this.ActionSheet?.show();
+  };
+
   componentDidMount = () => {
+    this.props.navigation.setParams({
+      showCampUpdateOptions: this.showActionSheet
+    });
     this.getCampaign();
   };
 
   render() {
     return (
       <ScrollView>
+        <CampaignActionSheet
+          ref={o => this.ActionSheet = o}
+          admin={this.props.currentUserProfile.admin}
+          updateId={this.props.selectedCampaign.update_id}
+          goBack
+        />
         <View>
           <ListItem
             onPress={this.goToProfile}
@@ -190,16 +214,13 @@ class ViewCampUpdateScreen extends React.Component {
 
   getCampaign = () => {
     axios
-      .get(
-        `${seturl}campaigns/${this.props.selectedCampaign.camp_id}`,
-        {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${this.props.token}`,
-            'Content-Type': 'application/json'
-          }
+      .get(`${seturl}campaigns/${this.props.selectedCampaign.camp_id}`, {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${this.props.token}`,
+          'Content-Type': 'application/json'
         }
-      )
+      })
       .then(res => {
         this.setState({
           ...this.state,
