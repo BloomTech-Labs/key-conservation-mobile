@@ -77,24 +77,20 @@ class CommentsView extends React.Component {
     return (
       <KeyboardAvoidingView>
         <View>
-          <FlatList
-            data={this.props.selectedCampaign.comments.slice(
-              0,
-              this.state.commentsVisible
-            )}
-            keyExtractor={comment => comment.comment_id?.toString() || (Math.random() * 100).toString()}
-            renderItem={({ item }) => {
+          {this.props.selectedCampaign.comments
+            .slice(0, this.state.commentsVisible)
+            .map(comment => {
               return (
                 <Comment
-                  comment={item}
+                  key={comment.id}
+                  comment={comment}
                   currentUserProfile={this.props.currentUserProfile}
                   selectedCampaign={this.props.selectedCampaign}
                   deleteComment={this.deleteComment}
                   token={this.props.token}
                 />
               );
-            }}
-          />
+            })}
         </View>
         {this.state.posted === true &&
         this.props.selectedCampaign.comments.length >
