@@ -39,48 +39,37 @@ class CommentsView extends React.Component {
     latestComment: '',
     posted: false,
     campaignComments: [],
-    token: '',
     commentsVisible: 3,
-    err: '',
-    comparison: ''
-  };
-
-  componentDidUpdate = (prevProps, prevState) => {
-    if (
-      this.props.selectedCampaign.comments !==
-      prevProps.selectedCampaign.comments
-    ) {
-      this.setState({
-        campaignComments: this.props.selectedCampaign.comments,
-        comparison: this.props.selectedCampaign.comments.length
-      });
-    }
+    err: ''
   };
 
   render() {
-    if (
-      this.props.selectedCampaign.comments.length === 0 &&
-      this.state.boolean === true
-    ) {
-      return (
-        <View style={styles.indicator}>
-          <ActivityIndicator size='large' color='#00FF9D' />
-        </View>
-      );
-    }
-
-    console.log(this.props.selectedCampaign.comments);
+    console.log('selectedcampaign', this.props.selectedCampaign);
 
     return (
       <KeyboardAvoidingView>
-        <View>
+        {/* Displays latest comment unless the user is viewing all the campaign comments. */}
+        {this.props.selectedCampaign.comments?.length >
+          Math.abs(this.state.commentsVisible) && (
+          <View style={styles.moreContainer}>
+            <TouchableOpacity onPress={() => this.addMoreComments()}>
+              <View style={styles.more}>
+                <Text style={styles.moreText}>View More Comments</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        )}
+        {/*comment sort order needs to be fixed*/}
+        <View style={{ flex: 1, flexDirection: 'column-reverse' }}>
           {this.props.selectedCampaign.comments
+            .sort((a, b) => {
+              return b.created_at - a.created_at;
+            })
             .slice(0, this.state.commentsVisible)
             .map(comment => {
-              console.log('comment', comment);
               return (
                 <Comment
-                  key={comment.users_id}
+                  key={comment.comment_id}
                   comment={comment}
                   currentUserProfile={this.props.currentUserProfile}
                   selectedCampaign={this.props.selectedCampaign}
@@ -90,55 +79,6 @@ class CommentsView extends React.Component {
               );
             })}
         </View>
-        {this.state.posted === true &&
-        this.props.selectedCampaign.comments.length >
-          this.state.commentsVisible ? (
-          <View>
-            <View style={styles.commentView}>
-              <View style={styles.avatar}>
-                {this.props.currentUserProfile.users_id ===
-                this.props.selectedCampaign.users_id ? (
-                  <Avatar
-                    rounded
-                    containerStyle={{
-                      borderWidth: 1,
-                      borderColor: '#00FF9D'
-                    }}
-                    source={{
-                      uri: this.props.currentUserProfile.profile_image
-                    }}
-                  />
-                ) : (
-                  <Avatar
-                    rounded
-                    source={{
-                      uri: this.props.currentUserProfile.profile_image
-                    }}
-                  />
-                )}
-              </View>
-              <View style={styles.commentText}>
-                <Text style={styles.username}>
-                  {this.props.currentUserProfile.username}
-                </Text>
-                <Text style={styles.commentBody}>
-                  {this.state.latestComment}
-                </Text>
-              </View>
-            </View>
-          </View>
-        ) : null}
-        {/* Displays latest comment unless the user is viewing all the campaign comments. */}
-        {this.props.selectedCampaign.comments.length >
-          this.state.commentsVisible && (
-          <View style={styles.moreContainer}>
-            <TouchableOpacity onPress={() => this.addMoreComments()}>
-              <View style={styles.more}>
-                <Text style={styles.moreText}>View More Comments</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        )}
         {/* View More Comments is visible if the length of campaignComments is greater than the value of commentsVisible */}
         <View style={styles.replyView}>
           <View style={styles.replyAvatar}>
