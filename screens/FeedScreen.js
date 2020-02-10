@@ -21,13 +21,6 @@ class FeedScreen extends React.Component {
         backgroundColor: '#323338'
       },
       headerTintColor: '#fff',
-      headerTitleStyle: {
-        textAlign: 'center',
-        flexGrow: 1,
-        marginTop: 10,
-        alignSelf: 'center',
-        fontFamily: 'Lato-Bold'
-      },
       headerLeft: () => <View />,
       headerRight: () => (
         <TouchableOpacity
@@ -75,12 +68,16 @@ class FeedScreen extends React.Component {
     const { navigation } = this.props;
     return (
       <Viewport.Tracker>
-        <ScrollView scrollEventThrottle={16}>
-          <View style={styles.feedContainer}>
-            {/* <AddCampaignHeader profile={this.props.currentUserProfile} /> */}
+        <ScrollView scrollEventThrottle={16} stickyHeaderIndices={[0]}>
+          <View>
             {this.props.currentUserProfile.roles === 'conservationist' ? (
               <AddCampaignHeader profile={this.props.currentUserProfile} />
             ) : null}
+          </View>
+          <View style={styles.feedContainer}>
+            {/* {this.props.currentUserProfile.roles === 'conservationist' ? (
+              <AddCampaignHeader profile={this.props.currentUserProfile} />
+            ) : null} */}
             <NavigationEvents
               onDidFocus={this.startGettingCampaigns}
               onDidBlur={this.stopGettingCampaigns}

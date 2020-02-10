@@ -1,10 +1,13 @@
-export default {
+import { StyleSheet } from 'react-native';
+
+export default StyleSheet.create({
   commentWrapper: {
     flexDirection: 'column',
-    width: '90%'
+    flex: 1
   },
   commentView: {
-    flexDirection: 'row'
+    flex: 1,
+    flexDirection: 'row',
   },
   feedCommentWrapper: {
     flexDirection: 'column',
@@ -19,13 +22,18 @@ export default {
     marginTop: 20
   },
   username: {
-    marginLeft: 7,
     paddingBottom: 3,
     marginTop: 5,
     fontFamily: 'Lato-Bold'
   },
   commentBody: {
-    marginLeft: 7
+    marginLeft: 7,
+    flex: 1
+  },
+  commentOptions: {
+    transform: [{ rotate: '90deg' }],
+    padding: 8,
+    alignSelf: 'center',
   },
   commentText: {
     flexDirection: 'column',
@@ -120,4 +128,4 @@ export default {
     marginTop: 9,
     color: '#7B7D88'
   }
-};
+});

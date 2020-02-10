@@ -3,11 +3,14 @@ export default {
     height: 70,
     flex: 1,
     flexDirection: 'row',
-    borderBottomWidth: 6,
-    borderBottomColor: '#c4c4c4',
+    // borderBottomWidth: 1,
+    // borderBottomColor: '#c4c4c4',
     justifyContent: 'center',
     justifyContent: 'space-between',
-    marginBottom: 15
+    backgroundColor: 'white',
+    shadowOffset: { height: 5 },
+    shadowColor: '#c4c4c4',
+    shadowOpacity: 0.7
   },
   text: {
     fontFamily: 'Lato-Bold',

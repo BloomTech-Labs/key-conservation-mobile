@@ -1,13 +1,11 @@
 //import liraries
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  Alert
-} from 'react-native';
+import { View, Text, TouchableOpacity, Image, Alert } from 'react-native';
+
+import { AmpEvent } from '../withAmplitude';
+
+import styles from '../../constants/Reports/ReportDetailCard';
+
 import Collapsible from '../Collapsible';
 
 import moment from 'moment';
@@ -16,24 +14,40 @@ import flag from '../../assets/icons/flag-alt-solid.svg';
 
 import { connect } from 'react-redux';
 
-import { getCustomById, getCampaign } from '../../store/actions';
+import { shorten } from '../../util';
+
+import {
+  getCustomById,
+  getCampaign,
+  deleteComment,
+  deleteCampaign,
+  deleteCampaignUpdate,
+  clearReportError,
+  archiveReport,
+  getProfileData
+} from '../../store/actions';
 import SvgUri from 'react-native-svg-uri';
+import LoadingOverlay from '../LoadingOverlay';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 // create a component
 class ReportDetailCard extends Component {
   constructor(props) {
     super(props);
 
-    this.isUser = props.currentReport.table_name === 'users';
-
     this.state = {
       postText: '',
-      postImage: ''
+      postImage: '',
+      isUser: undefined
     };
   }
 
   componentDidMount() {
-    if (!this.isUser) {
+    const isUser = this.props.currentReport.table_name === 'users';
+
+    this.setState({ isUser });
+
+    if (!isUser) {
       this.props
         .getCustomById(
           this.props.currentReport.table_name,
@@ -77,13 +91,81 @@ class ReportDetailCard extends Component {
     } else this.type = 'User Profile';
   }
 
+  deletePost = () => {
+    // Delete this post
+    let del;
+
+    switch (this.props.currentReport.table_name) {
+      case 'comments': {
+        del = this.props.deleteComment;
+        break;
+      }
+      case 'campaigns': {
+        del = this.props.deleteCampaign;
+        break;
+      }
+      case 'campaignUpdates': {
+        del = this.props.deleteCampaignUpdate;
+        break;
+      }
+    }
+
+    del(this.props.currentReport.post_id)
+      .then(err => {
+        console.log(err);
+        if (err) throw new Error(err || '');
+      })
+      .then(() => {
+        this.props.navigation.goBack(null);
+      })
+      .catch(error => {
+        Alert.alert(
+          `Failed to delete ${this.type.toLowerCase()}`,
+          error.msg || '',
+          [{ text: 'Try Again', onPress: this.deletePost }, { text: 'Dismiss' }]
+        );
+      });
+  };
+
+  promptDeletePost = () => {
+    Alert.alert(
+      `Delete Post`,
+      `Are you sure you want to delete this post? This will add a strike on this user's record and cannot be undone`,
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Delete Post', style: 'destructive' }
+      ]
+    );
+  };
+
+  archiveReport = () => {
+    this.props.archiveReport(this.props.currentReport.id).then(() => {
+      this.props.navigation.goBack('AdminScreen');
+    });
+  };
+
+  promptArchiveReport = () => {
+    Alert.alert(
+      `Archive Report`,
+      `Are you sure you want to archive this report? It may still be viewed in the Archived reports tab`,
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Archive', style: 'default' }
+      ]
+    );
+  };
+
+  goToPost = () => {
+    // TODO: Implement a way to view the post (comment, campaign or campaign update)
+  }
+
   render() {
     const timestamp = `Reported on ${moment(
       this.props.currentReport.reported_at
     ).format('lll')}`;
 
     const loading =
-      !this.isUser && !(this.state.postText && this.state.postImage);
+      !this.state.isUser && !(this.state.postText && this.state.postImage);
 
     return (
       <Collapsible
@@ -105,22 +187,22 @@ class ReportDetailCard extends Component {
           </View>
         }
       >
-        {loading && (
-          <View style={styles.load_overlay}>
-            <Text style={styles.load_text}>Loading...</Text>
-          </View>
-        )}
+        <LoadingOverlay loading={loading} />
         <View style={styles.report_details}>
-          {this.isUser ? null : (
-            <View style={styles.post_preview}>
+          {this.state.isUser ? null : (
+            <TouchableWithoutFeedback onPress={this.goToPost} style={styles.post_preview}>
               <View style={styles.image_content_container}>
                 <Image
                   style={styles.image_content}
                   source={loading ? null : { uri: this.state.postImage }}
                 />
               </View>
-              <Text style={styles.text_content}>{this.state.postText}</Text>
-            </View>
+              <View style={styles.text_content_container}>
+                <Text style={styles.text_content}>
+                  "{shorten(this.state.postText, 86)}"
+                </Text>
+              </View>
+            </TouchableWithoutFeedback>
           )}
           <View style={styles.detail_section}>
             <Text style={styles.mini_header}>REPORT DETAILS</Text>
@@ -132,9 +214,38 @@ class ReportDetailCard extends Component {
             </View>
             <View style={styles.detail_field}>
               <Text style={styles.text_label}>Reported By</Text>
-              <TouchableOpacity style={styles.touch_op}>
-                <Text style={styles.user_link}>User</Text>
+              <TouchableOpacity
+                onPress={this.props.goToProfile.bind(
+                  this,
+                  this.props.currentReport.reported_by.id
+                )}
+                style={styles.touch_op}
+              >
+                <Text style={styles.user_link}>
+                  {this.props.currentReport.reported_by.username}
+                </Text>
               </TouchableOpacity>
+            </View>
+            <View style={styles.detail_field}>
+              <Text style={styles.text_label}>Actions</Text>
+              <View style={styles.actions}>
+                {!this.props.currentReport.is_archived && (
+                  <TouchableOpacity
+                    onPress={this.promptArchiveReport}
+                    style={styles.action_button_container}
+                  >
+                    <Text style={styles.action_button}>Archive Report</Text>
+                  </TouchableOpacity>
+                )}
+                {this.props.currentReport.table_name !== 'users' && (
+                  <TouchableOpacity
+                    onPress={this.promptDeletePost}
+                    style={styles.action_button_container}
+                  >
+                    <Text style={styles.action_button}>Delete Post</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
             </View>
             <Text style={styles.timestamp}>{timestamp || '---'}</Text>
           </View>
@@ -144,87 +255,18 @@ class ReportDetailCard extends Component {
   }
 }
 
-// define your styles
-const styles = StyleSheet.create({
-  load_overlay: {
-    position: 'absolute',
-    zIndex: 50,
-    backgroundColor: 'black',
-    opacity: 0.6,
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  load_text: {
-    fontWeight: 'bold',
-    color: 'white'
-  },
-  report_details: {},
-  post_preview: {
-    borderBottomWidth: 1,
-    marginBottom: 8,
-    padding: 8,
-    paddingTop: 0,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  detail_section: {},
-  mini_header: {
-    color: 'gray',
-    fontSize: 11
-  },
-  detail_field: {
-    flexDirection: 'row',
-    padding: 8
-  },
-  text_label: {
-    flex: 1
-  },
-  user_link: {
-    fontWeight: 'bold',
-    color: 'dodgerblue'
-  },
-  touch_op: {
-    flex: 1
-  },
-  timestamp: {
-    flex: 1,
-    color: 'gray',
-    textAlign: 'right',
-    paddingVertical: 3
-  },
-  text_content: {
-    flex: 1,
-    fontWeight: 'bold'
-  },
-  image_content_container: {
-    marginRight: 16,
-    width: 70,
-    height: 70
-  },
-  image_content: {
-    backgroundColor: 'gray',
-    width: null,
-    height: null,
-    flex: 1
-  },
-  report_count: {
-    flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  flag_icon: {
-    marginRight: 2
-  },
-  unique_reports: {
-    fontWeight: 'bold',
-    marginHorizontal: 6
-  }
+const mapStateToProps = state => ({
+  reportError: state.reports.error
 });
 
 //make this component available to the app
-export default connect(null, { getCustomById, getCampaign })(ReportDetailCard);
+export default connect(mapStateToProps, {
+  getCustomById,
+  getCampaign,
+  deleteComment,
+  deleteCampaign,
+  deleteCampaignUpdate,
+  clearReportError,
+  archiveReport,
+  getProfileData
+})(ReportDetailCard);

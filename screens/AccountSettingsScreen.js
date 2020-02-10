@@ -27,11 +27,6 @@ class AccountSettingsScreen extends React.Component {
         backgroundColor: "#323338"
       },
       headerTintColor: "#fff",
-      headerTitleStyle: {
-        textAlign: "center",
-        flexGrow: 1,
-        alignSelf: "center"
-      },
       headerRight: () => (
         <DoneButton
           pressAction={navigation.getParam("done")}
@@ -69,18 +64,18 @@ class AccountSettingsScreen extends React.Component {
     // await SecureStorage.deleteItemAsync("airtableKey", {}); // for development
     this.props.logout();
 
-    const logoutURL = "https://key-conservation.auth0.com/v2/logout?federated";
+    // const logoutURL = "https://key-conservation.auth0.com/v2/logout?federated";
 
-    if (Constants.platform.ios) {
-      await WebBrowser.openAuthSessionAsync(logoutURL).then(result => {
-        this.setState({ result });
-      });
-    } else {
-      await WebBrowser.openBrowserAsync(logoutURL).then(result => {
-        this.setState({ result });
-      });
-    }
-    this.props.navigation.navigate("Logout");
+    // if (Constants.platform.ios) {
+    //   await WebBrowser.openAuthSessionAsync(logoutURL).then(result => {
+    //     this.setState({ result });
+    //   });
+    // } else {
+    //   await WebBrowser.openBrowserAsync(logoutURL).then(result => {
+    //     this.setState({ result });
+    //   });
+    // }
+    // this.props.navigation.navigate("Logout");
   };
 
   render() {

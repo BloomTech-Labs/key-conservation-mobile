@@ -26,12 +26,6 @@ class EditCampUpdateScreen extends React.Component {
         backgroundColor: '#323338'
       },
       headerTintColor: '#fff',
-      headerTitleStyle: {
-        textAlign: 'center',
-        flexGrow: 1,
-        alignSelf: 'center',
-        fontFamily: 'Lato-Bold'
-      },
       headerLeft: () => <BackButton navigation={navigation} />,
       headerRight: () => (
         <DoneButton

@@ -22,9 +22,9 @@ import { AmpEvent } from "../components/withAmplitude";
 
 // url for heroku staging vs production server
 // production
-//const seturl = 'https://key-conservation.herokuapp.com/api/'
+const seturl = 'https://key-conservation.herokuapp.com/api/'
 // staging
-const seturl = "https://key-conservation-staging.herokuapp.com/api/";
+// const seturl = "https://key-conservation-staging.herokuapp.com/api/";
 
 class CreateCampUpdateScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -34,12 +34,6 @@ class CreateCampUpdateScreen extends React.Component {
         backgroundColor: "#323338"
       },
       headerTintColor: "#fff",
-      headerTitleStyle: {
-        textAlign: "center",
-        flexGrow: 1,
-        alignSelf: "center",
-        fontFamily: "Lato-Bold"
-      },
       headerLeft: () => <BackButton navigation={navigation} />,
       headerRight: () => (
         <PublishButton

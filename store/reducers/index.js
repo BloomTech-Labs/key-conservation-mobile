@@ -76,7 +76,10 @@ const reducer = (state = initialState, action) => {
     //Amplitude.logEventWithProperties('logged in', currentUser);
 
     case actions.LOGOUT:
-      return initialState;
+      return {
+        ...initialState,
+        error: action.payload
+      };
     case actions.AFTER_FIRST_LOGIN:
       return {
         ...state,
@@ -191,8 +194,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getCampaigns: false },
-        allCampaigns: campaigns,
-        token: action.token
+        allCampaigns: campaigns
       };
     case actions.GET_CAMPAIGNS_ERROR:
       return {
@@ -439,7 +441,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         selectedCampaign: {
-          ...selectedCampaign,
+          ...state.selectedCampaign,
           comments: action.payload
         }
       };
@@ -457,9 +459,9 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         selectedCampaign: {
-          ...selectedCampaign,
+          ...state.selectedCampaign,
           comments: [
-            state.comments.filter(c => c.comment_id !== action.payload)
+            state.comments?.filter(c => c.comment_id !== action.payload)
           ]
         }
       };
@@ -547,6 +549,32 @@ const reducer = (state = initialState, action) => {
         }
       }
     case actions.GET_REPORT_ERROR:
+      return {
+        ...state,
+        reports: {
+          ...state.reports,
+          loading: false,
+          error: action.payload
+        }
+      }
+    case actions.ARCHIVE_REPORT_START:
+      return {
+        ...state,
+        reports: {
+          ...state.reports,
+          loading: true,
+          error: ''
+        }
+      }
+    case actions.ARCHIVE_REPORT_SUCCESS:
+      return {
+        ...state,
+        reports: {
+          ...state.reports,
+          loading: false,
+        }
+      }
+    case actions.ARCHIVE_REPORT_ERROR:
       return {
         ...state,
         reports: {

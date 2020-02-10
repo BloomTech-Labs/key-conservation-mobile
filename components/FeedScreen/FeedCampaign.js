@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Text,
   ImageBackground,
   ActivityIndicator,
   TouchableOpacity,
-  FlatList,
-  Platform
+  TouchableWithoutFeedback
 } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 import { View } from 'react-native-animatable';
@@ -15,9 +14,9 @@ import { Avatar } from 'react-native-elements';
 import { ListItem } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
-import { FontAwesome } from '@expo/vector-icons';
-import axios from 'axios';
 import { Viewport } from '@skele/components';
+
+import ActionSheet from 'react-native-actionsheet';
 
 import {
   getProfileData,
@@ -28,12 +27,9 @@ import { AmpEvent } from '../withAmplitude';
 
 import styles from '../../constants/FeedScreen/FeedCampaign';
 import styles2 from '../../constants/Comments/Comments';
-
-// url for heroku staging vs production server
-// production
-// const seturl = 'https://key-conservation.herokuapp.com/api/'
-// staging
-const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+import Ellipse from '../../assets/jsicons/Ellipse';
+import Comment from '../Comments/Comment';
+import CampaignActionSheet from '../Reports/CampaignActionSheet';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
@@ -51,6 +47,9 @@ const FeedCampaign = props => {
   // const [userBookmarked, setUserBookmarked] = useState(false);
   const [urgTop, setUrgTop] = useState(0);
   const [loader, setLoader] = useState(true);
+
+  const actionSheetRef = useRef(null);
+
   // console.log("PROPS FROM FEEDCAMPAIGN", props);
 
   // old code for Likes + Bookmarks
@@ -153,7 +152,6 @@ const FeedCampaign = props => {
 
   const goToProfile = async () => {
     await dispatch(getProfileData(data.users_id));
-    console.log('GOTOPROFILE FUNCTION FIRES');
     AmpEvent('Select Profile from Campaign', {
       profile: data.username,
       campaign: data.camp_name
@@ -336,16 +334,33 @@ const FeedCampaign = props => {
   //     });
   // };
 
+  const showActionSheet = () => {
+    actionSheetRef.current?.show();
+  }
+
   return (
     <View style={styles.container}>
+      <CampaignActionSheet
+        ref={actionSheetRef}
+        admin={props.currentUserProfile.admin}
+        camp={data}
+      />
       <ListItem
         onPress={goToProfile}
         title={
-          <View>
+          <View style={styles.username}>
             <Text style={styles.orgTitleView}>{data.username}</Text>
           </View>
         }
         leftAvatar={{ source: { uri: data.profile_image } }}
+        rightElement={
+          <TouchableOpacity
+            onPress={showActionSheet}
+            style={{ transform: [{ rotate: '90deg' }], padding: 12 }}
+          >
+            <Ellipse fill='#000' />
+          </TouchableOpacity>
+        }
         subtitle={data.location}
       />
       <View>
@@ -471,33 +486,19 @@ const FeedCampaign = props => {
           </Text>
         )}
       </View>
-      <View style={{ marginLeft: 17 }}>
-        <FlatList
-          data={data.comments.slice(0, 1)}
-          keyExtractor={comment => comment.comment_id.toString()}
-          renderItem={({ item }) => {
-            return (
-              <View style={styles2.commentWrapper}>
-                <View style={styles2.commentView}>
-                  <View style={styles2.feedAvatar}>
-                    <Avatar
-                      onPress={goToCommenterProfile}
-                      rounded
-                      source={{
-                        uri: item.profile_image
-                      }}
-                    />
-                  </View>
-                  <View style={styles2.feedCommentWrapper}>
-                    <Text style={styles2.username}>{item.username}</Text>
-                    <Text style={styles2.commentBody}>{item.comment_body}</Text>
-                  </View>
-                </View>
-              </View>
-            );
-          }}
-        />
-      </View>
+      <TouchableWithoutFeedback
+        onPress={goToCampaign}
+      >
+        <View style={{ flex: 1, marginHorizontal: 16 }}>
+          {data.comments.length > 0 && (
+            <Comment
+              comment={data.comments[0]}
+              selectedCampaign={data}
+              navigation={props.navigation}
+            />
+          )}
+        </View>
+      </TouchableWithoutFeedback>
       <View>
         {data.comments.length >= 1 ? (
           data.comments.length === 1 ? (
