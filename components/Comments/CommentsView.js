@@ -3,15 +3,12 @@ import {
   View,
   Text,
   ActivityIndicator,
-  FlatList,
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
   Platform
 } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
 import moment from 'moment';
-import { ScrollView, NavigationEvents } from 'react-navigation';
 import { Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -80,9 +77,10 @@ class CommentsView extends React.Component {
           {this.props.selectedCampaign.comments
             .slice(0, this.state.commentsVisible)
             .map(comment => {
+              console.log('comment', comment);
               return (
                 <Comment
-                  key={comment.id}
+                  key={comment.users_id}
                   comment={comment}
                   currentUserProfile={this.props.currentUserProfile}
                   selectedCampaign={this.props.selectedCampaign}
@@ -181,7 +179,13 @@ class CommentsView extends React.Component {
             ) : (
               <TouchableOpacity
                 style={styles.commentButton}
-                onPress={() => this.makeComment()}
+                onPress={() => {
+                  this.setState({ comment: '' });
+                  this.props.commentOnCampaign(
+                    this.props.selectedCampaign.camp_id,
+                    this.state.comment.trim()
+                  );
+                }}
               >
                 <SvgUri
                   width='26'
@@ -196,42 +200,42 @@ class CommentsView extends React.Component {
     );
   }
 
-  makeComment = () => {
-    if (this.state.comment.length > 0) {
-      axios
-        .post(
-          `${seturl}comments/${this.props.selectedCampaign.camp_id}`,
-          {
-            users_id: this.props.currentUserProfile.id,
-            comment_body: this.state.comment.trim()
-          },
-          {
-            headers: {
-              Accept: 'application/json',
-              Authorization: `Bearer ${this.props.token}`,
-              'Content-Type': 'application/json'
-            }
-          }
-        )
-        .then(res => {
-          const comments = res.data.data.sort(function(a, b) {
-            return moment(a.created_at) - moment(b.created_at);
-          });
-          this.setState({
-            ...this.state,
-            campaignComments: comments,
-            comment: '',
-            posted: true
-          });
-        })
-        .catch(err => {
-          this.setState({
-            ...this.state,
-            err: err
-          });
-        });
-    }
-  };
+  // makeComment = () => {
+  //   if (this.state.comment.length > 0) {
+  //     axios
+  //       .post(
+  //         `${seturl}comments/${this.props.selectedCampaign.camp_id}`,
+  //         {
+  //           users_id: this.props.currentUserProfile.id,
+  //           comment_body: this.state.comment.trim()
+  //         },
+  //         {
+  //           headers: {
+  //             Accept: 'application/json',
+  //             Authorization: `Bearer ${this.props.token}`,
+  //             'Content-Type': 'application/json'
+  //           }
+  //         }
+  //       )
+  //       .then(res => {
+  //         const comments = res.data.data.sort(function(a, b) {
+  //           return moment(a.created_at) - moment(b.created_at);
+  //         });
+  //         this.setState({
+  //           ...this.state,
+  //           campaignComments: comments,
+  //           comment: '',
+  //           posted: true
+  //         });
+  //       })
+  //       .catch(err => {
+  //         this.setState({
+  //           ...this.state,
+  //           err: err
+  //         });
+  //       });
+  //   }
+  // };
 
   // deleteComment = id => {
   //   axios

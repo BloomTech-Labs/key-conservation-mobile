@@ -336,7 +336,7 @@ const FeedCampaign = props => {
 
   const showActionSheet = () => {
     actionSheetRef.current?.show();
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -486,9 +486,7 @@ const FeedCampaign = props => {
           </Text>
         )}
       </View>
-      <TouchableWithoutFeedback
-        onPress={goToCampaign}
-      >
+      <TouchableWithoutFeedback onPress={goToCampaign}>
         <View style={{ flex: 1, marginHorizontal: 16 }}>
           {data.comments.length > 0 && (
             <Comment

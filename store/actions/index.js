@@ -664,14 +664,15 @@ export const commentOnCampaign = (id, body) => dispatch => {
   return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .post(`${seturl}comments/${id}`, {
-        users_id: body.users_id,
-        comment_body: body.comment_body
+        comment_body: body
       })
       .then(res => {
+        console.log("res", res)
         dispatch({ type: POST_COMMENT_SUCCESS, payload: res.data.data });
         return aaxios.get(`${seturl}comments/${id}`);
       })
       .catch(err => {
+        console.log(err)
         dispatch({ type: POST_COMMENT_ERROR, payload: err });
       });
   });
