@@ -124,11 +124,11 @@ const FeedCampaign = props => {
   //// All styles for the urgency bar
   let urgencyColor;
   if (data.urgency === 'Critical') {
-    urgencyColor = 'rgba(227,16,89,0.7)';
+    urgencyColor = 'rgba(227,16,89,0.6)';
   } else if (data.urgency === 'Urgent') {
-    urgencyColor = 'rgba(255,199,0,0.7)';
+    urgencyColor = 'rgba(255,199,0,0.6)';
   } else if (data.urgency === 'Longterm') {
-    urgencyColor = 'rgba(0,255,157,0.7)';
+    urgencyColor = 'rgba(0,255,157,0.6)';
   } else {
     urgencyColor = '#323338BF';
   }
@@ -330,80 +330,94 @@ const FeedCampaign = props => {
   };
 
   return (
-    <View style={styles.container}>
-      <CampaignActionSheet
-        ref={actionSheetRef}
-        admin={props.currentUserProfile.admin}
-        camp={data}
-      />
-      <ListItem
-        onPress={goToProfile}
-        title={
-          <View style={styles.username}>
-            <Text style={styles.orgTitleView}>{data.username}</Text>
-          </View>
-        }
-        leftAvatar={{ source: { uri: data.profile_image } }}
-        rightElement={
-          <TouchableOpacity
-            onPress={showActionSheet}
-            style={{ transform: [{ rotate: '90deg' }], padding: 12 }}
-          >
-            <Ellipse fill='#000' />
-          </TouchableOpacity>
-        }
-        subtitle={data.location}
-      />
-      <View>
-        <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
-          {data.camp_img.includes('.mov') ||
-          data.camp_img.includes('.mp3') ||
-          data.camp_img.includes('.mp4') ? (
+    <View style={styles.mainContainer}>
+      <View style={styles.container}>
+        <CampaignActionSheet
+          ref={actionSheetRef}
+          admin={props.currentUserProfile.admin}
+          camp={data}
+        />
+        <ListItem
+          onPress={goToProfile}
+          title={
+            <View style={styles.username}>
+              <Text style={styles.orgTitleView}>{data.username}</Text>
+            </View>
+          }
+          leftAvatar={{ source: { uri: data.profile_image } }}
+          rightElement={
+            <TouchableOpacity onPress={showActionSheet} style={{ padding: 12 }}>
+              <Ellipse fill='#000' />
+            </TouchableOpacity>
+          }
+          subtitle={data.location}
+        />
+        <View style={styles.campDesc}>
+          {toggled || data.camp_desc.length < 80 ? (
             <View>
-              {data.urgency ? (
-                <View style={urgencyStyles}>
-                  <Text style={styles.urgencyBarText}>{urgencyStatus}</Text>
-                </View>
-              ) : null}
-              {loader ? (
-                <View style={styles.indicator}>
-                  <ActivityIndicator size='large' color='#00FF9D' />
-                </View>
-              ) : null}
-              {props.isFocused ? (
-                <ViewportAwareVideo
-                  source={{
-                    uri: data.camp_img
-                  }}
-                  retainOnceInViewport={false}
-                  preTriggerRatio={-0.1}
-                  rate={1.0}
-                  isMuted={false}
-                  shouldPlay={true}
-                  isLooping
-                  resizeMode='cover'
-                  onPlaybackStatusUpdate={onPlaybackStatusUpdate}
-                  style={styles.campImgContain}
-                />
-              ) : (
-                <View style={styles.campImgContain} />
-              )}
+              <Text style={styles.campDescText}>{data.camp_desc}</Text>
+              <Text style={styles.timeText}>{timeDiff}</Text>
             </View>
           ) : (
-            <ImageBackground
-              source={{ uri: data.camp_img }}
-              style={styles.campImgContain}
-            >
-              {data.urgency ? (
-                <View style={urgencyStyles}>
-                  <Text style={styles.urgencyBarText}>{urgencyStatus}</Text>
-                </View>
-              ) : null}
-            </ImageBackground>
+            <Text style={styles.campDescText}>
+              {shorten(data.camp_desc, 80)}
+              &nbsp;
+              <Text onPress={toggleText} style={styles.readMore}>
+                Read More
+              </Text>
+            </Text>
           )}
-        </TouchableOpacity>
-      </View>
-      {/* <View style={styles.iconRow}>
+        </View>
+        <View>
+          <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
+            {data.camp_img.includes('.mov') ||
+            data.camp_img.includes('.mp3') ||
+            data.camp_img.includes('.mp4') ? (
+              <View>
+                {data.urgency ? (
+                  <View style={urgencyStyles}>
+                    <Text style={styles.urgencyBarText}>{urgencyStatus}</Text>
+                  </View>
+                ) : null}
+                {loader ? (
+                  <View style={styles.indicator}>
+                    <ActivityIndicator size='large' color='#00FF9D' />
+                  </View>
+                ) : null}
+                {props.isFocused ? (
+                  <ViewportAwareVideo
+                    source={{
+                      uri: data.camp_img
+                    }}
+                    retainOnceInViewport={false}
+                    preTriggerRatio={-0.1}
+                    rate={1.0}
+                    isMuted={false}
+                    shouldPlay={true}
+                    isLooping
+                    resizeMode='cover'
+                    onPlaybackStatusUpdate={onPlaybackStatusUpdate}
+                    style={styles.campImgContain}
+                  />
+                ) : (
+                  <View style={styles.campImgContain} />
+                )}
+              </View>
+            ) : (
+              <ImageBackground
+                source={{ uri: data.camp_img }}
+                style={styles.campImgContain}
+              >
+                {data.urgency ? (
+                  <View style={urgencyStyles}>
+                    <Text style={styles.urgencyBarText}>{urgencyStatus}</Text>
+                  </View>
+                ) : null}
+              </ImageBackground>
+            )}
+          </TouchableOpacity>
+        </View>
+        {/* <View style={styles.iconRow}>
         <View style={styles.likesContainer}>
           <View style={styles.hearts}>
             <View style={!userLiked ? { zIndex: 1 } : { zIndex: -1 }}>
@@ -463,7 +477,7 @@ const FeedCampaign = props => {
           </View>
         </View>
       </View> */}
-      <View style={styles.campDesc}>
+        {/* <View style={styles.campDesc}>
         <Text style={styles.campDescName}>{data.camp_name}</Text>
         {toggled || data.camp_desc.length < 80 ? (
           <Text style={styles.campDescText}>{data.camp_desc}</Text>
@@ -476,32 +490,33 @@ const FeedCampaign = props => {
             </Text>
           </Text>
         )}
-      </View>
-      <TouchableWithoutFeedback onPress={goToCampaign}>
-        <View style={{ flex: 1, marginHorizontal: 16 }}>
-          {data.comments.length > 0 && (
-            <Comment
-              comment={data.comments[data.comments.length - 1]}
-              selectedCampaign={data}
-              navigation={props.navigation}
-            />
-          )}
+      </View> */}
+        <TouchableWithoutFeedback onPress={goToCampaign}>
+          <View style={{ flex: 1, marginHorizontal: 16 }}>
+            {data.comments.length > 0 && (
+              <Comment
+                comment={data.comments[data.comments.length - 1]}
+                selectedCampaign={data}
+                navigation={props.navigation}
+              />
+            )}
+          </View>
+        </TouchableWithoutFeedback>
+        <View>
+          {data.comments.length >= 1 ? (
+            data.comments.length === 1 ? (
+              <Text style={styles.comments} onPress={goToCampaign}>
+                View {data.comments.length} comment
+              </Text>
+            ) : (
+              <Text style={styles.comments} onPress={goToCampaign}>
+                View all {data.comments.length} comments
+              </Text>
+            )
+          ) : null}
         </View>
-      </TouchableWithoutFeedback>
-      <View>
-        {data.comments.length >= 1 ? (
-          data.comments.length === 1 ? (
-            <Text style={styles.comments} onPress={goToCampaign}>
-              View {data.comments.length} comment
-            </Text>
-          ) : (
-            <Text style={styles.comments} onPress={goToCampaign}>
-              View all {data.comments.length} comments
-            </Text>
-          )
-        ) : null}
+        {/* <Text style={styles.timeText}>{timeDiff}</Text> */}
       </View>
-      <Text style={styles.timeText}>{timeDiff}</Text>
       <View style={styles.demarcation} />
     </View>
   );

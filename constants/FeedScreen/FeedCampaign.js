@@ -16,9 +16,20 @@ export default {
   searchIcon: {
     marginRight: 20
   },
+  mainContainer: {
+    backgroundColor: '#F2F2FB',
+    paddingTop: 5
+  },
+
   container: {
+    width: '95%',
     justifyContent: 'center',
-    paddingBottom: 3
+    alignSelf: 'center',
+    // paddingBottom: 10,
+    backgroundColor: 'white',
+    paddingTop: 7,
+    paddingBottom: 20,
+    borderRadius: 10
   },
   orgTitleView: {
     fontFamily: 'Lato-Bold',
@@ -26,9 +37,9 @@ export default {
   },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
+    width: '100%',
     flex: 1,
     height: deviceWidth,
-    width: deviceWidth,
     marginTop: 3
   },
   indicator: {
@@ -90,7 +101,6 @@ export default {
   },
   campDesc: {
     marginLeft: 15,
-    paddingTop: 15,
     marginRight: 15,
     marginBottom: 15
   },
@@ -123,8 +133,7 @@ export default {
     color: '#929292',
     fontSize: 10,
     fontFamily: 'Lato',
-    marginLeft: 15,
-    marginTop: 15,
+    marginTop: 10,
     paddingBottom: 8
   },
   readMore: {
@@ -132,12 +141,11 @@ export default {
   },
   urgencyBarText: {
     fontFamily: 'Lato-Bold',
-    fontSize: 18,
-    color: 'black'
+    fontSize: 16,
+    letterSpacing: 5,
+    color: 'white'
   },
   demarcation: {
-    marginTop: 15,
-    borderTopWidth: 2,
-    borderTopColor: '#eee'
+    marginTop: 5
   }
 };
