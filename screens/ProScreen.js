@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
 import { getProfileData, createReport } from '../store/actions';
@@ -11,6 +11,7 @@ import CampBlankSpace from '../components/Profile/CampBlankSpace';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Ellipse from '../assets/jsicons/Ellipse';
 import UserActionSheet from '../components/Reports/UserActionSheet';
+import style from '../constants/Profile/CampBlankSpace';
 
 class ProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -67,7 +68,12 @@ class ProScreen extends React.Component {
             myProfile={false}
           />
           {this.props.selectedProfile.campaigns.length === 0 ? (
-            <CampBlankSpace profile={this.props.selectedProfile} />
+            <View style={style.container}>
+              <CampBlankSpace />
+              <Text style={style.text}>
+                This organization has not created a campaign yet.
+              </Text>
+            </View>
           ) : null}
           {this.props.selectedProfile.campaigns.map(camp => {
             if (camp.update_id) {
