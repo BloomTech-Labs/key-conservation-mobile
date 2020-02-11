@@ -39,15 +39,11 @@ const SupProScreen = props => {
 };
 
 SupProScreen.navigationOptions = navigationData => {
-  const username = navigationData.navigation.getParam('username');
 
   return {
     headerTransparent: true,
     title: '',
     headerLeft: () => <BackButton navigation={navigationData.navigation} />,
-    // headerStyle: {
-    //   backgroundColor: 'red'
-    // },
     headerTintColor: '#fff',
     headerRight: () => (
       <TouchableOpacity
@@ -68,10 +64,5 @@ const mapStateToProps = state => ({
   selectedProfile: state.selectedProfile,
   admin: state.currentUserProfile.admin
 });
-const optionsStyles = {
-  optionsContainer: {
-    width: 75
-  }
-};
 
 export default connect(mapStateToProps, { getProfileData })(SupProScreen);
