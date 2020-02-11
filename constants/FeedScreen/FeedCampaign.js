@@ -17,6 +17,7 @@ export default {
     marginRight: 20
   },
   mainContainer: {
+    flex: 1,
     backgroundColor: '#F2F2FB',
     paddingTop: 5
   },
@@ -115,26 +116,28 @@ export default {
     lineHeight: 19
   },
   comments: {
+    flex: 1,
+    borderRadius: 12,
+    marginTop: 10,
+    marginRight: 10,
     fontFamily: 'Lato',
     fontSize: 14,
     lineHeight: 16,
-    marginLeft: 15,
-    paddingTop: 12,
-    color: '#7B7D88'
+    justifyContent: 'center',
+    backgroundColor: '#EAEAEA',
+    alignSelf: 'flex-end',
+    paddingVertical: 4,
+    paddingHorizontal: 10
   },
   readMore: {
     color: '#929292'
-  },
-  comments: {
-    marginLeft: 15,
-    paddingTop: 15
   },
   timeText: {
     color: '#929292',
     fontSize: 10,
     fontFamily: 'Lato',
     marginTop: 10,
-    paddingBottom: 8
+    paddingBottom: 5
   },
   readMore: {
     color: '#929292'

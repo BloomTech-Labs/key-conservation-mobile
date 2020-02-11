@@ -4,7 +4,8 @@ import {
   ImageBackground,
   ActivityIndicator,
   TouchableOpacity,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  Button
 } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 import { View } from 'react-native-animatable';
@@ -28,7 +29,7 @@ import { AmpEvent } from '../withAmplitude';
 import styles from '../../constants/FeedScreen/FeedCampaign';
 import styles2 from '../../constants/Comments/Comments';
 import Ellipse from '../../assets/jsicons/Ellipse';
-import Comment from '../Comments/Comment';
+import CommentIcon from '../../assets/jsicons/CommentIcon';
 import CampaignActionSheet from '../Reports/CampaignActionSheet';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
@@ -491,7 +492,7 @@ const FeedCampaign = props => {
           </Text>
         )}
       </View> */}
-        <TouchableWithoutFeedback onPress={goToCampaign}>
+        {/* <TouchableWithoutFeedback onPress={goToCampaign}>
           <View style={{ flex: 1, marginHorizontal: 16 }}>
             {data.comments.length > 0 && (
               <Comment
@@ -501,19 +502,12 @@ const FeedCampaign = props => {
               />
             )}
           </View>
-        </TouchableWithoutFeedback>
-        <View>
-          {data.comments.length >= 1 ? (
-            data.comments.length === 1 ? (
-              <Text style={styles.comments} onPress={goToCampaign}>
-                View {data.comments.length} comment
-              </Text>
-            ) : (
-              <Text style={styles.comments} onPress={goToCampaign}>
-                View all {data.comments.length} comments
-              </Text>
-            )
-          ) : null}
+        </TouchableWithoutFeedback> */}
+        <View style={styles.commentContainer}>
+          <TouchableOpacity style={styles.comments} onPress={goToCampaign}>
+            {/* View {data.comments.length} comment */}
+            <CommentIcon />
+          </TouchableOpacity>
         </View>
         {/* <Text style={styles.timeText}>{timeDiff}</Text> */}
       </View>
