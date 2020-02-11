@@ -12,7 +12,7 @@ import { View } from 'react-native-animatable';
 import moment from 'moment';
 import { Video } from 'expo-av';
 import { Avatar } from 'react-native-elements';
-import { ListItem } from 'react-native-elements';
+import { ListItem, Badge } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
@@ -507,6 +507,22 @@ const FeedCampaign = props => {
           <TouchableOpacity style={styles.comments} onPress={goToCampaign}>
             {/* View {data.comments.length} comment */}
             <CommentIcon />
+            <Badge
+              // status='success'
+              textStyle={{
+                color: 'black',
+                fontSize: 12
+              }}
+              badgeStyle={{
+                backgroundColor: '#CAFF03'
+              }}
+              containerStyle={{
+                position: 'absolute',
+                top: -2,
+                right: 2
+              }}
+              value={data.comments.length}
+            />
           </TouchableOpacity>
         </View>
         {/* <Text style={styles.timeText}>{timeDiff}</Text> */}

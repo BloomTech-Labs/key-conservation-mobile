@@ -30,7 +30,8 @@ export default {
     backgroundColor: 'white',
     paddingTop: 7,
     paddingBottom: 20,
-    borderRadius: 10
+    borderRadius: 10,
+    marginTop: 5
   },
   orgTitleView: {
     fontFamily: 'Lato-Bold',
