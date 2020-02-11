@@ -10,19 +10,8 @@ import styles from '../../constants/Comments/Comments';
 import Ellipse from '../../assets/jsicons/Ellipse';
 import CommentActionSheet from '../Reports/CommentActionSheet';
 
-// {
-//   navigation,
-//   comment,
-//   currentUserProfile,
-//   selectedCampaign,
-//   deleteComment
-// }
-
 const Comment = props => {
   const dispatch = useDispatch();
-
-  const [confirm, setConfirm] = useState(false);
-  const [deleted, setDeleted] = useState(false);
   const actionSheetRef = useRef(null);
 
   const createdAt = props.comment.created_at;
@@ -55,12 +44,6 @@ const Comment = props => {
     }
   }
 
-  // childDelete = id => {
-  //   setDeleted(true);
-  //   setConfirm(false);
-  //   props.deleteComment(id);
-  // };
-
   const goToCommenterProfile = async () => {
     await dispatch(getProfileData(props.comment.users_id));
     props.navigation.navigate('SupPro', {
@@ -74,84 +57,44 @@ const Comment = props => {
 
   return (
     <View style={styles.commentWrapper}>
-      {deleted === false ? (
-        <View>
-          <CommentActionSheet
-            admin={props.admin}
-            commentId={props.comment.comment_id}
-            ref={actionSheetRef}
-            camp={props.selectedCampaign}
-          />
-          <View style={styles.commentView}>
-            <View style={styles.avatar}>
-              {props.comment.users_id === props.selectedCampaign.users_id ? (
-                <Avatar
-                  onPress={goToCommenterProfile}
-                  rounded
-                  containerStyle={{ borderWidth: 1, borderColor: '#00FF9D' }}
-                  source={{
-                    uri: props.comment.profile_image
-                  }}
-                />
-              ) : (
-                <Avatar
-                  onPress={goToCommenterProfile}
-                  rounded
-                  source={{
-                    uri: props.comment.profile_image
-                  }}
-                />
-              )}
-            </View>
-            <View style={styles.commentBody}>
-              <Text style={styles.username}>{props.comment.username}</Text>
-              <Text>{props.comment.comment_body}</Text>
-            </View>
-            <TouchableOpacity
-              onPress={showActionSheet}
-              style={styles.commentOptions}
-            >
-              <Ellipse fill='#000' />
-            </TouchableOpacity>
+      <View>
+        <CommentActionSheet
+          admin={props.admin}
+          commentId={props.comment.comment_id}
+          ref={actionSheetRef}
+          camp={props.selectedCampaign}
+        />
+        <View style={styles.commentView}>
+          <View style={styles.avatar}>
+            <Avatar
+              onPress={goToCommenterProfile}
+              rounded
+              containerStyle={
+                props.comment.users_id === props.selectedCampaign.users_id && {
+                  borderWidth: 1,
+                  borderColor: '#00FF9D'
+                }
+              }
+              source={{
+                uri: props.comment.profile_image
+              }}
+            />
           </View>
-          <View style={styles.interaction}>
-            <Text style={styles.timeText}>{timeDiff}</Text>
-            {/* {props.currentUserProfile.id === props.comment.users_id ? (
-              confirm === false && deleted === false ? (
-                <Text
-                  style={styles.deleteText}
-                  onPress={() => setConfirm(true)}
-                >
-                  Delete
-                </Text>
-              ) : null
-            ) : null} */}
-            {confirm === true ? (
-              <View style={styles.confirmation}>
-                <Text style={styles.confirmText}>Are you sure?</Text>
-                <Text
-                  style={styles.confirmText}
-                  onPress={() => childDelete(props.comment.comment_id)}
-                >
-                  Yes
-                </Text>
-                <Text style={styles.confirmText}>/</Text>
-                <Text
-                  style={styles.confirmNo}
-                  onPress={() => setConfirm(false)}
-                >
-                  No
-                </Text>
-              </View>
-            ) : null}
-            {deleted === true ? (
-              <View style={styles.confirmation}>
-                <Text style={styles.confirmText}>Deleted</Text>
-              </View>
-            ) : null}
+          <View style={styles.commentBody}>
+            <Text style={styles.username}>{props.comment.username}</Text>
+            <Text>{props.comment.comment_body}</Text>
           </View>
+          <TouchableOpacity
+            onPress={showActionSheet}
+            style={styles.commentOptions}
+          >
+            <Ellipse fill='#000' />
+          </TouchableOpacity>
         </View>
-      ) : null}
+        <View style={styles.interaction}>
+          <Text style={styles.timeText}>{timeDiff}</Text>
+        </View>
+      </View>
     </View>
   );
 };

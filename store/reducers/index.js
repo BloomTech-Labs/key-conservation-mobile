@@ -1,26 +1,26 @@
-import * as SecureStore from "expo-secure-store";
-import moment from "moment";
-import escapeRegExp from "escape-string-regexp";
+import * as SecureStore from 'expo-secure-store';
+import moment from 'moment';
+import escapeRegExp from 'escape-string-regexp';
 
 function filterSearch(query, key, arr) {
-  if (query === "") return arr;
-  const match = new RegExp(query, "i");
+  if (query === '') return arr;
+  const match = new RegExp(query, 'i');
   return arr.filter(obj => match.test(obj[key.toLowerCase()]));
 }
 
-import * as actions from "../actions";
+import * as actions from '../actions';
 
 const initialState = {
-  error: "",
+  error: '',
   pending: {
     updateProfile: false
   },
   currentUser: {
-    sub: "",
-    role: "",
-    email: "",
-    username: "",
-    token: ""
+    sub: '',
+    role: '',
+    email: '',
+    username: '',
+    token: ''
   },
   currentUserProfile: {
     campaigns: []
@@ -32,8 +32,8 @@ const initialState = {
   allCampaigns: [],
   firstLogin: false,
   campaignsToggled: [],
-  mediaUpload: "",
-  token: "",
+  mediaUpload: '',
+  token: '',
   profileReset: false,
   userRegistered: true,
   organizations: [], // All Organizations
@@ -43,7 +43,7 @@ const initialState = {
     currentReport: null,
     data: null,
     loading: false,
-    error: ""
+    error: ''
   }
 };
 
@@ -53,7 +53,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, login: true },
-        error: ""
+        error: ''
       };
     case actions.LOGIN_ERROR:
       return {
@@ -71,7 +71,7 @@ const reducer = (state = initialState, action) => {
           email: action.payload.email,
           token: action.payload.accessToken
         },
-        error: ""
+        error: ''
       };
     //Amplitude.logEventWithProperties('logged in', currentUser);
 
@@ -109,7 +109,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getProfile: true },
-        error: "",
+        error: '',
         profileReset: false
       };
     case actions.GET_PROFILE_SUCCESS:
@@ -145,7 +145,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, updateProfile: true },
-        error: ""
+        error: ''
       };
     case actions.EDIT_PROFILE_SUCCESS:
       return {
@@ -163,16 +163,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, postUser: true },
-        error: ""
+        error: ''
       };
     case actions.POST_USER_SUCCESS:
-      SecureStore.setItemAsync("id", `${action.payload.id}`);
+      SecureStore.setItemAsync('id', `${action.payload.id}`);
       return {
         ...state,
         pending: { ...state.pending, postUser: false },
         currentUserProfile: action.payload,
         firstLogin: true,
-        error: ""
+        error: ''
       };
     case actions.POST_USER_ERROR:
       return {
@@ -184,7 +184,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getCampaigns: true },
-        error: ""
+        error: ''
       };
     case actions.GET_CAMPAIGNS_SUCCESS:
       const campaigns = action.payload;
@@ -206,13 +206,10 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getCampaign: true },
-        error: ""
+        error: ''
       };
     case actions.GET_CAMPAIGN_SUCCESS:
       const campaign = action.payload;
-      campaign.comments.sort(function(a, b) {
-        return moment(a.created_at) - moment(b.created_at);
-      });
       return {
         ...state,
         pending: { ...state.pending, getCampaign: false },
@@ -233,7 +230,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, deleteCampaign: true },
-        error: ""
+        error: ''
       };
     case actions.DELETE_CAMPAIGN_SUCCESS:
       const deleted = Number(action.payload);
@@ -258,7 +255,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, postCampaign: true },
-        error: ""
+        error: ''
       };
     case actions.POST_CAMPAIGN_SUCCESS:
       return {
@@ -279,7 +276,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, editCampaign: true },
-        error: ""
+        error: ''
       };
     case actions.EDIT_CAMPAIGN_SUCCESS:
       let { camp_id } = action.payload;
@@ -309,7 +306,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, postCampaignUpdate: true },
-        error: ""
+        error: ''
       };
     case actions.POST_CAMPAIGN_UPDATE_SUCCESS:
       const updateInsertedinCamp = state.currentUserProfile.campaigns.map(
@@ -339,7 +336,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, editCampaignUpdate: true },
-        error: ""
+        error: ''
       };
     case actions.EDIT_CAMPAIGN_UPDATE_SUCCESS:
       const alteredCampaignsandUpdates = state.currentUserProfile.campaigns.map(
@@ -380,7 +377,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, deleteCampaignUpdate: true },
-        error: ""
+        error: ''
       };
     case actions.DELETE_CAMPAIGN_UPDATE_SUCCESS:
       let deletedFromCamp;
@@ -430,12 +427,12 @@ const reducer = (state = initialState, action) => {
     case actions.MEDIA_CLEAR:
       return {
         ...state,
-        mediaUpload: ""
+        mediaUpload: ''
       };
     case actions.POST_COMMENT_START:
       return {
         ...state,
-        error: ""
+        error: ''
       };
     case actions.POST_COMMENT_SUCCESS:
       return {
@@ -453,16 +450,16 @@ const reducer = (state = initialState, action) => {
     case actions.DELETE_COMMENT_START:
       return {
         ...state,
-        error: ""
+        error: ''
       };
     case actions.DELETE_COMMENT_SUCCESS:
       return {
         ...state,
         selectedCampaign: {
           ...state.selectedCampaign,
-          comments: [
-            state.comments?.filter(c => c.comment_id !== action.payload)
-          ]
+          comments: state.selectedCampaign.comments?.filter(
+            c => c.comment_id === action.payload
+          )
         }
       };
     case actions.DELETE_COMMENT_ERROR:
@@ -473,7 +470,7 @@ const reducer = (state = initialState, action) => {
     case actions.GET_ORGANIZATIONS_STARTED:
       return {
         ...state,
-        error: ""
+        error: ''
       };
     case actions.GET_ORGANIZATIONS_SUCCESS:
       const organizationWithCoords = action.payload.filter(
@@ -485,7 +482,7 @@ const reducer = (state = initialState, action) => {
         organizations: action.payload,
         organizationWithCoords: organizationWithCoords,
         filteredOrganization: organizationWithCoords,
-        error: ""
+        error: ''
       };
     case actions.GET_ORGANIZATIONS_ERROR:
       return {
@@ -493,8 +490,8 @@ const reducer = (state = initialState, action) => {
         error: action.payload
       };
     case actions.SET_MAP_SEARCH_QUERY:
-      const query = action.payload["query"];
-      const key = action.payload["field"];
+      const query = action.payload['query'];
+      const key = action.payload['field'];
       return {
         ...state,
         filteredOrganization: filterSearch(
@@ -509,7 +506,7 @@ const reducer = (state = initialState, action) => {
         reports: {
           ...state.reports,
           loading: true,
-          error: ""
+          error: ''
         }
       };
     case actions.GET_REPORTS_SUCCESS:
@@ -538,7 +535,7 @@ const reducer = (state = initialState, action) => {
           loading: true,
           error: ''
         }
-      }
+      };
     case actions.GET_REPORT_SUCCESS:
       return {
         ...state,
@@ -547,7 +544,7 @@ const reducer = (state = initialState, action) => {
           loading: false,
           currentReport: action.payload
         }
-      }
+      };
     case actions.GET_REPORT_ERROR:
       return {
         ...state,
@@ -556,7 +553,7 @@ const reducer = (state = initialState, action) => {
           loading: false,
           error: action.payload
         }
-      }
+      };
     case actions.ARCHIVE_REPORT_START:
       return {
         ...state,
@@ -565,15 +562,15 @@ const reducer = (state = initialState, action) => {
           loading: true,
           error: ''
         }
-      }
+      };
     case actions.ARCHIVE_REPORT_SUCCESS:
       return {
         ...state,
         reports: {
           ...state.reports,
-          loading: false,
+          loading: false
         }
-      }
+      };
     case actions.ARCHIVE_REPORT_ERROR:
       return {
         ...state,
@@ -582,7 +579,7 @@ const reducer = (state = initialState, action) => {
           loading: false,
           error: action.payload
         }
-      }
+      };
     default:
       return state;
   }
