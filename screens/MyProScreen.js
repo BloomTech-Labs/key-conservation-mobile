@@ -23,7 +23,6 @@ import SettingsButton from '../components/SettingsButton';
 
 import ProfileHeader from '../components/Profile/ProfileHeader';
 import CampBlankSpace from '../components/Profile/CampBlankSpace';
-import style from '../constants/Profile/CampBlankSpace';
 
 class MyProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -365,9 +364,15 @@ class MyProScreen extends React.Component {
                     />
                   );
                 }
+<<<<<<< HEAD
               }
             })}
         </View>
+=======
+              })}
+          </View>
+        )}
+>>>>>>> 72b78a0dc3ea6d09a596cfcf39e8fae63a4873e9
       </ScrollView>
     );
   }
