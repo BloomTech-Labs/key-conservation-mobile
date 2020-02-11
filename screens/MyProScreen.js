@@ -52,6 +52,7 @@ class MyProScreen extends React.Component {
   };
 
   componentDidMount() {
+    console.log('currentUserProfile', this.props.currentUserProfile);
     this.props.getProfileData(
       this.props.currentUserProfile.id,
       false,
@@ -112,6 +113,7 @@ class MyProScreen extends React.Component {
           myProfile={true}
           profile={this.props.currentUserProfile}
         />
+      
         <View>
           {this.props.currentUserProfile.campaigns === undefined ||
           this.props.currentUserProfile.campaigns.length === 0 ? (
@@ -167,205 +169,220 @@ class MyProScreen extends React.Component {
                               onSelect={() =>
                                 this.delete(camp.update_id, 'update')
                               }
-                            >
-                              <Text style={{ color: '#ff0a55', fontSize: 16 }}>
-                                Delete Update
-                              </Text>
-                            </MenuOption>
-                            <MenuOption
-                              onSelect={() => this.goToEditCampUpdate(camp)}
-                            >
-                              <Text style={{ color: '#000', fontSize: 16 }}>
-                                Edit Update Post
-                              </Text>
-                            </MenuOption>
-                          </MenuOptions>
-                        </Menu>
-                      }
-                    />
-                  );
+                            />
+                            <MenuOptions customStyles={optionsStyles}>
+                              <MenuOption
+                                onSelect={() =>
+                                  this.delete(camp.update_id, 'update')
+                                }
+                              >
+                                <Text
+                                  style={{ color: '#ff0a55', fontSize: 16 }}
+                                >
+                                  Delete Update
+                                </Text>
+                              </MenuOption>
+                              <MenuOption
+                                onSelect={() => this.goToEditCampUpdate(camp)}
+                              >
+                                <Text style={{ color: '#000', fontSize: 16 }}>
+                                  Edit Update Post
+                                </Text>
+                              </MenuOption>
+                            </MenuOptions>
+                          </Menu>
+                        }
+                      />
+                    );
+                  } else {
+                    return (
+                      <ListItem
+                        onPress={() => this.goToCampUpdate(camp)}
+                        key={`update${camp.update_id}`}
+                        title={`${camp.camp_name} - Update`}
+                        leftAvatar={{ source: { uri: camp.update_img } }}
+                        subtitle={camp.location}
+                        rightIcon={
+                          <Menu>
+                            <MenuTrigger
+                              customStyles={triggerStyles}
+                              children={
+                                <View
+                                  style={{
+                                    alignItems: 'flex-end',
+                                    justifyContent: 'center',
+                                    width: 50,
+                                    height: 50,
+                                    paddingRight: 5,
+                                    borderRadius: 50
+                                  }}
+                                >
+                                  <SvgUri
+                                    fill='#3b3b3b'
+                                    width='25'
+                                    height='25'
+                                    source={require('../assets/icons/ellipsis-vertical.svg')}
+                                  />
+                                </View>
+                              }
+                            />
+                            <MenuOptions customStyles={optionsStyles}>
+                              <MenuOption
+                                onSelect={() =>
+                                  this.delete(camp.update_id, 'update')
+                                }
+                              >
+                                <Text
+                                  style={{ color: '#ff0a55', fontSize: 16 }}
+                                >
+                                  Delete Update
+                                </Text>
+                              </MenuOption>
+                              <MenuOption
+                                onSelect={() => this.goToEditCampUpdate(camp)}
+                              >
+                                <Text style={{ color: '#000', fontSize: 16 }}>
+                                  Edit Update Post
+                                </Text>
+                              </MenuOption>
+                            </MenuOptions>
+                          </Menu>
+                        }
+                      />
+                    );
+                  }
                 } else {
-                  return (
-                    <ListItem
-                      onPress={() => this.goToCampUpdate(camp)}
-                      key={`update${camp.update_id}`}
-                      title={`${camp.camp_name} - Update`}
-                      leftAvatar={{ source: { uri: camp.update_img } }}
-                      subtitle={camp.location}
-                      rightIcon={
-                        <Menu>
-                          <MenuTrigger
-                            customStyles={triggerStyles}
-                            children={
-                              <View
-                                style={{
-                                  alignItems: 'flex-end',
-                                  justifyContent: 'center',
-                                  width: 50,
-                                  height: 50,
-                                  paddingRight: 5,
-                                  borderRadius: 50
-                                }}
-                              >
-                                <SvgUri
-                                  fill='#3b3b3b'
-                                  width='25'
-                                  height='25'
-                                  source={require('../assets/icons/ellipsis-vertical.svg')}
-                                />
-                              </View>
-                            }
-                          />
-                          <MenuOptions customStyles={optionsStyles}>
-                            <MenuOption
-                              onSelect={() =>
-                                this.delete(camp.update_id, 'update')
+                  if (
+                    camp.camp_img.includes('.mov') ||
+                    camp.camp_img.includes('.mp3') ||
+                    camp.camp_img.includes('.mp4')
+                  ) {
+                    return (
+                      <ListItem
+                        onPress={() => this.goToCampaign(camp)}
+                        key={camp.camp_id}
+                        title={camp.camp_name}
+                        leftAvatar={{ source: video }}
+                        subtitle={camp.location}
+                        rightIcon={
+                          <Menu>
+                            <MenuTrigger
+                              customStyles={triggerStyles}
+                              children={
+                                <View
+                                  style={{
+                                    alignItems: 'flex-end',
+                                    justifyContent: 'center',
+                                    width: 50,
+                                    height: 50,
+                                    paddingRight: 5,
+                                    borderRadius: 50
+                                  }}
+                                >
+                                  <SvgUri
+                                    fill='#3b3b3b'
+                                    width='25'
+                                    height='25'
+                                    source={require('../assets/icons/ellipsis-vertical.svg')}
+                                  />
+                                </View>
                               }
-                            >
-                              <Text style={{ color: '#ff0a55', fontSize: 16 }}>
-                                Delete Update
-                              </Text>
-                            </MenuOption>
-                            <MenuOption
-                              onSelect={() => this.goToEditCampUpdate(camp)}
-                            >
-                              <Text style={{ color: '#000', fontSize: 16 }}>
-                                Edit Update Post
-                              </Text>
-                            </MenuOption>
-                          </MenuOptions>
-                        </Menu>
-                      }
-                    />
-                  );
-                }
-              } else {
-                if (
-                  camp.camp_img.includes('.mov') ||
-                  camp.camp_img.includes('.mp3') ||
-                  camp.camp_img.includes('.mp4')
-                ) {
-                  return (
-                    <ListItem
-                      onPress={() => this.goToCampaign(camp)}
-                      key={camp.camp_id}
-                      title={camp.camp_name}
-                      leftAvatar={{ source: video }}
-                      subtitle={camp.location}
-                      rightIcon={
-                        <Menu>
-                          <MenuTrigger
-                            customStyles={triggerStyles}
-                            children={
-                              <View
-                                style={{
-                                  alignItems: 'flex-end',
-                                  justifyContent: 'center',
-                                  width: 50,
-                                  height: 50,
-                                  paddingRight: 5,
-                                  borderRadius: 50
-                                }}
+                            />
+                            <MenuOptions customStyles={optionsStyles}>
+                              <MenuOption
+                                onSelect={() =>
+                                  this.delete(camp.camp_id, 'campaign')
+                                }
                               >
-                                <SvgUri
-                                  fill='#3b3b3b'
-                                  width='25'
-                                  height='25'
-                                  source={require('../assets/icons/ellipsis-vertical.svg')}
-                                />
-                              </View>
-                            }
-                          />
-                          <MenuOptions customStyles={optionsStyles}>
-                            <MenuOption
-                              onSelect={() =>
-                                this.delete(camp.camp_id, 'campaign')
-                              }
-                            >
-                              <Text style={{ color: '#ff0a55', fontSize: 16 }}>
-                                Delete Campaign
-                              </Text>
-                            </MenuOption>
-                            <MenuOption
-                              onSelect={() => this.goToCreateCampUpdate(camp)}
-                            >
-                              <Text style={{ color: '#000', fontSize: 16 }}>
-                                Make Update Post
-                              </Text>
-                            </MenuOption>
-                            <MenuOption
-                              onSelect={() => this.goToEditCampaign(camp)}
-                            >
-                              <Text style={{ color: '#000', fontSize: 16 }}>
-                                Edit Post
-                              </Text>
-                            </MenuOption>
-                          </MenuOptions>
-                        </Menu>
-                      }
-                    />
-                  );
-                } else {
-                  return (
-                    <ListItem
-                      onPress={() => this.goToCampaign(camp)}
-                      key={camp.camp_id}
-                      title={camp.camp_name}
-                      leftAvatar={{ source: { uri: camp.camp_img } }}
-                      subtitle={camp.location}
-                      rightIcon={
-                        <Menu>
-                          <MenuTrigger
-                            customStyles={triggerStyles}
-                            children={
-                              <View
-                                style={{
-                                  alignItems: 'flex-end',
-                                  justifyContent: 'center',
-                                  width: 50,
-                                  height: 50,
-                                  paddingRight: 5,
-                                  borderRadius: 50
-                                }}
+                                <Text
+                                  style={{ color: '#ff0a55', fontSize: 16 }}
+                                >
+                                  Delete Campaign
+                                </Text>
+                              </MenuOption>
+                              <MenuOption
+                                onSelect={() => this.goToCreateCampUpdate(camp)}
                               >
-                                <SvgUri
-                                  fill='#3b3b3b'
-                                  width='25'
-                                  height='25'
-                                  source={require('../assets/icons/ellipsis-vertical.svg')}
-                                />
-                              </View>
-                            }
-                          />
-                          <MenuOptions customStyles={optionsStyles}>
-                            <MenuOption
-                              onSelect={() =>
-                                this.delete(camp.camp_id, 'campaign')
+                                <Text style={{ color: '#000', fontSize: 16 }}>
+                                  Make Update Post
+                                </Text>
+                              </MenuOption>
+                              <MenuOption
+                                onSelect={() => this.goToEditCampaign(camp)}
+                              >
+                                <Text style={{ color: '#000', fontSize: 16 }}>
+                                  Edit Post
+                                </Text>
+                              </MenuOption>
+                            </MenuOptions>
+                          </Menu>
+                        }
+                      />
+                    );
+                  } else {
+                    return (
+                      <ListItem
+                        onPress={() => this.goToCampaign(camp)}
+                        key={camp.camp_id}
+                        title={camp.camp_name}
+                        leftAvatar={{ source: { uri: camp.camp_img } }}
+                        subtitle={camp.location}
+                        rightIcon={
+                          <Menu>
+                            <MenuTrigger
+                              customStyles={triggerStyles}
+                              children={
+                                <View
+                                  style={{
+                                    alignItems: 'flex-end',
+                                    justifyContent: 'center',
+                                    width: 50,
+                                    height: 50,
+                                    paddingRight: 5,
+                                    borderRadius: 50
+                                  }}
+                                >
+                                  <SvgUri
+                                    fill='#3b3b3b'
+                                    width='25'
+                                    height='25'
+                                    source={require('../assets/icons/ellipsis-vertical.svg')}
+                                  />
+                                </View>
                               }
-                            >
-                              <Text style={{ color: '#ff0a55', fontSize: 16 }}>
-                                Delete Campaign
-                              </Text>
-                            </MenuOption>
-                            <MenuOption
-                              onSelect={() => this.goToCreateCampUpdate(camp)}
-                            >
-                              <Text style={{ color: '#000', fontSize: 16 }}>
-                                Make Update Post
-                              </Text>
-                            </MenuOption>
-                            <MenuOption
-                              onSelect={() => this.goToEditCampaign(camp)}
-                            >
-                              <Text style={{ color: '#000', fontSize: 16 }}>
-                                Edit Post
-                              </Text>
-                            </MenuOption>
-                          </MenuOptions>
-                        </Menu>
-                      }
-                    />
-                  );
+                            />
+                            <MenuOptions customStyles={optionsStyles}>
+                              <MenuOption
+                                onSelect={() =>
+                                  this.delete(camp.camp_id, 'campaign')
+                                }
+                              >
+                                <Text
+                                  style={{ color: '#ff0a55', fontSize: 16 }}
+                                >
+                                  Delete Campaign
+                                </Text>
+                              </MenuOption>
+                              <MenuOption
+                                onSelect={() => this.goToCreateCampUpdate(camp)}
+                              >
+                                <Text style={{ color: '#000', fontSize: 16 }}>
+                                  Make Update Post
+                                </Text>
+                              </MenuOption>
+                              <MenuOption
+                                onSelect={() => this.goToEditCampaign(camp)}
+                              >
+                                <Text style={{ color: '#000', fontSize: 16 }}>
+                                  Edit Post
+                                </Text>
+                              </MenuOption>
+                            </MenuOptions>
+                          </Menu>
+                        }
+                      />
+                    );
+                  }
                 }
               }
             })}

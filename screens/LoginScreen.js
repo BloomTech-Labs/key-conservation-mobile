@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { AuthSession } from 'expo';
+import jwtDecode from 'jwt-decode';
+import * as SecureStore from 'expo-secure-store';
+import Axios from 'axios';
 import {
-  StyleSheet,
   Text,
   View,
   Image,
   TouchableOpacity,
   ImageBackground
 } from 'react-native';
+
 import KeyInfoGreen from '../assets/jsicons/KeyCon/Key_Info_Green';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { AuthSession } from 'expo';
-import jwtDecode from 'jwt-decode';
+import styles from '../constants/screens/LoginScreen';
 
 import {
   loginStart,
@@ -21,14 +24,11 @@ import {
 } from '../store/actions';
 import AnimalModal from '../components/Animals/AnimalModal';
 
-import * as SecureStore from 'expo-secure-store';
-import Axios from 'axios';
-
 // url for heroku staging vs production server
 // production
-const seturl = 'https://key-conservation.herokuapp.com/api/'
+//const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
-// const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 /*
  Converts an object to a query string to be used by the request to auth0 via the dashboard application
 */
@@ -162,7 +162,7 @@ export default LoginScreen = props => {
     } else {
       console.log('getEnVar activated');
       const token = await SecureStore.getItemAsync('accessToken', {});
-      Axios.get('${seturl}airtable', {
+      Axios.get(`${seturl}airtable`, {
         headers: {
           Accept: 'application/json',
           Authorization: `Bearer ${token}`,
@@ -195,12 +195,10 @@ export default LoginScreen = props => {
       />
       <View style={styles.logoContainer}>
         <Image
-          //   style={styles.logo}
           style={isModalVisible === false ? styles.logo : styles.Hidden}
           source={require('../assets/images/keyFullWhite.png')}
         />
       </View>
-
       <View style={styles.titleContainer}>
         <Text style={styles.selectTitle}>JOIN THE COMMUNITY</Text>
         <Text style={styles.highlight}>EMPOWERING HOPE.</Text>
@@ -226,112 +224,16 @@ export default LoginScreen = props => {
           <Text style={styles.buttonText}>My organization needs help</Text>
         </TouchableOpacity>
       </View>
-      <View
-        style={
-          isModalVisible === false ? styles.aboutIconContainer : styles.Hidden
-        }
-      >
+      <View style={styles.aboutIconContainer}>
         <TouchableOpacity
           style={styles.aboutIconTouch}
           onPress={() => {
             setIsModalVisible(true);
           }}
         >
-          {/* <ChevronLeft /> */}
           <KeyInfoGreen />
         </TouchableOpacity>
       </View>
     </ImageBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: '2%',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  button: {
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  logo: {
-    height: 215,
-    width: 215
-  },
-  logoContainer: {
-    flex: 1,
-    flexShrink: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 25,
-    paddingBottom: 5
-  },
-  titleContainer: {
-    flex: 0,
-    paddingBottom: 25,
-    alignItems: 'center'
-  },
-  selectTitle: {
-    fontSize: 30,
-    fontFamily: 'Lato-Bold',
-    color: 'white'
-  },
-  highlight: {
-    flexWrap: 'wrap',
-    marginTop: 3,
-    fontSize: 30,
-    fontFamily: 'Lato-Bold',
-    color: 'black',
-    backgroundColor: '#d7ff43'
-  },
-  selectText: {
-    alignItems: 'center',
-    marginTop: 30,
-    fontSize: 20,
-    flexWrap: 'wrap',
-    fontFamily: 'Lato',
-    color: 'white'
-  },
-  buttons: {
-    flex: 1,
-    marginTop: 10,
-    alignItems: 'center',
-    width: '90%'
-  },
-  buttonContainer: {
-    width: '90%',
-    height: 50,
-    marginBottom: 18,
-    borderRadius: 5,
-    fontFamily: 'Lato',
-    backgroundColor: '#F4F5F7',
-    shadowColor: 'rgba(0, 0, 0, 0.25)',
-    shadowOffset: {
-      width: 0,
-      height: 4
-    },
-    shadowRadius: 4,
-    shadowOpacity: 10,
-    justifyContent: 'center'
-  },
-  buttonText: {
-    fontFamily: 'Lato-Bold',
-    letterSpacing: 0,
-    textAlign: 'center',
-    color: 'black',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: 20
-  },
-  aboutIconContainer: {
-    width: '90%'
-  },
-  aboutIconTouch: {
-    padding: 10
-  },
-  Hidden: {
-    display: 'none'
-  }
-});
