@@ -23,6 +23,7 @@ import SettingsButton from '../components/SettingsButton';
 
 import ProfileHeader from '../components/Profile/ProfileHeader';
 import CampBlankSpace from '../components/Profile/CampBlankSpace';
+import style from '../constants/Profile/CampBlankSpace';
 
 class MyProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
