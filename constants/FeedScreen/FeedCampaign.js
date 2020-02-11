@@ -16,9 +16,22 @@ export default {
   searchIcon: {
     marginRight: 20
   },
+  mainContainer: {
+    flex: 1,
+    backgroundColor: '#F2F2FB',
+    paddingTop: 5
+  },
+
   container: {
+    width: '95%',
     justifyContent: 'center',
-    paddingBottom: 3
+    alignSelf: 'center',
+    // paddingBottom: 10,
+    backgroundColor: 'white',
+    paddingTop: 7,
+    paddingBottom: 20,
+    borderRadius: 10,
+    marginTop: 5
   },
   orgTitleView: {
     fontFamily: 'Lato-Bold',
@@ -26,9 +39,9 @@ export default {
   },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
+    width: '100%',
     flex: 1,
     height: deviceWidth,
-    width: deviceWidth,
     marginTop: 3
   },
   indicator: {
@@ -90,7 +103,6 @@ export default {
   },
   campDesc: {
     marginLeft: 15,
-    paddingTop: 15,
     marginRight: 15,
     marginBottom: 15
   },
@@ -105,39 +117,39 @@ export default {
     lineHeight: 19
   },
   comments: {
+    flex: 1,
+    borderRadius: 12,
+    marginTop: 10,
+    marginRight: 10,
     fontFamily: 'Lato',
     fontSize: 14,
     lineHeight: 16,
-    marginLeft: 15,
-    paddingTop: 12,
-    color: '#7B7D88'
+    justifyContent: 'center',
+    backgroundColor: '#EAEAEA',
+    alignSelf: 'flex-end',
+    paddingVertical: 4,
+    paddingHorizontal: 10
   },
   readMore: {
     color: '#929292'
-  },
-  comments: {
-    marginLeft: 15,
-    paddingTop: 15
   },
   timeText: {
     color: '#929292',
     fontSize: 10,
     fontFamily: 'Lato',
-    marginLeft: 15,
-    marginTop: 15,
-    paddingBottom: 8
+    marginTop: 10,
+    paddingBottom: 5
   },
   readMore: {
     color: '#929292'
   },
   urgencyBarText: {
     fontFamily: 'Lato-Bold',
-    fontSize: 18,
-    color: 'black'
+    fontSize: 16,
+    letterSpacing: 5,
+    color: 'white'
   },
   demarcation: {
-    marginTop: 15,
-    borderTopWidth: 2,
-    borderTopColor: '#eee'
+    marginTop: 5
   }
 };
