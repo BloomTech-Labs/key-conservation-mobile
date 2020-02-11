@@ -142,7 +142,8 @@ const styles = StyleSheet.create({
     //borderWidth: 1,
     // borderColor: 'gray',
     // borderRadius: 8,
-    marginVertical: 12,
+    //marginVertical: 12,
+    backgroundColor: 'transparent',
     borderRadius: 8,
     overflow: 'hidden'
   },
