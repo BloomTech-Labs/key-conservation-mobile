@@ -208,16 +208,14 @@ export const getProfileData = (
       .get(url)
       .then(res => {
         user = res.data.user;
-        if (noDispatch) {
-          return user;
-        }
         {
           !noDispatch &&
-            dispatch({
-              type: GET_PROFILE_SUCCESS,
-              payload: { user, myProfile }
-            });
+          dispatch({
+            type: GET_PROFILE_SUCCESS,
+            payload: { user, myProfile }
+          });
         }
+        return user;
       })
       .catch(err => {
         if (noDispatch) {
@@ -669,12 +667,12 @@ export const commentOnCampaign = (id, body) => dispatch => {
         comment_body: body
       })
       .then(res => {
-        console.log('POST PAYLOAD', res.data.data);
+        console.log("res", res)
         dispatch({ type: POST_COMMENT_SUCCESS, payload: res.data.data });
         return aaxios.get(`${seturl}comments/${id}`);
       })
       .catch(err => {
-        console.log(err);
+        console.log(err)
         dispatch({ type: POST_COMMENT_ERROR, payload: err });
       });
   });
@@ -693,7 +691,6 @@ export const deleteComment = id => dispatch => {
     return aaxios
       .delete(`${seturl}comments/com/${id}`)
       .then(res => {
-        console.log('res.data.data', res.data.data);
         dispatch({ type: DELETE_COMMENT_SUCCESS, payload: res.data.data });
       })
       .catch(err => {
@@ -802,8 +799,8 @@ export const [GET_REPORT_START, GET_REPORT_SUCCESS, GET_REPORT_ERROR] = [
 export const CLEAR_REPORT_ERROR = 'CLEAR_REPORT_ERROR';
 
 export const clearReportError = () => {
-  return { type: CLEAR_REPORT_ERROR };
-};
+  return {type: CLEAR_REPORT_ERROR};
+}
 
 export const getReport = id => dispatch => {
   dispatch({ type: GET_REPORT_START });
@@ -837,11 +834,11 @@ export const deactivateUser = id => dispatch => {
   });
 };
 
-export const reportUser = id => dispatch => {
+export const createReport = (postType, postId, desc) => dispatch => {
   return axiosWithAuth(dispatch, aaxios => {
     let url = `${seturl}reports`;
     return aaxios
-      .post(url, {})
+      .post(url, {postType, postId, desc})
       .then(res => {
         console.log('Report Successful');
       })

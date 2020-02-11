@@ -23,7 +23,6 @@ import SettingsButton from '../components/SettingsButton';
 
 import ProfileHeader from '../components/Profile/ProfileHeader';
 import CampBlankSpace from '../components/Profile/CampBlankSpace';
-import style from '../constants/Profile/CampBlankSpace';
 
 class MyProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -34,20 +33,15 @@ class MyProScreen extends React.Component {
         backgroundColor: '#323338'
       },
       headerTintColor: '#fff',
-      headerTitleStyle: {
-        textAlign: 'center',
-        flexGrow: 1,
-        marginTop: 10,
-        alignSelf: 'center',
-        fontFamily: 'Lato-Bold'
-      },
-      headerLeft: (
+      headerLeft: () => (
         <SettingsButton
           navigation={navigation}
           settingsRoute={'AccountSettings'}
         />
       ),
-      headerRight: <EditButton navigation={navigation} editRoute={'EditPro'} />
+      headerRight: () => (
+        <EditButton navigation={navigation} editRoute={'EditPro'} />
+      )
     };
   };
 
@@ -113,61 +107,48 @@ class MyProScreen extends React.Component {
           myProfile={true}
           profile={this.props.currentUserProfile}
         />
-      
-        <View>
-          {this.props.currentUserProfile.campaigns === undefined ||
-          this.props.currentUserProfile.campaigns.length === 0 ? (
-            <View style={style.container}>
-              <CampBlankSpace />
-              <Text style={style.text}>
-                You don't have any posts! Go to the live feed to create your
-                first campaign.
-              </Text>
-            </View>
-          ) : null}
-          {this.props.currentUserProfile.campaigns &&
-            this.props.currentUserProfile.campaigns.map(camp => {
-              if (camp.update_id) {
-                if (
-                  camp.update_img.includes('.mov') ||
-                  camp.update_img.includes('.mp3') ||
-                  camp.update_img.includes('.mp4')
-                ) {
-                  return (
-                    <ListItem
-                      onPress={() => this.goToCampUpdate(camp)}
-                      key={`update${camp.update_id}`}
-                      title={`${camp.camp_name} - Update`}
-                      leftAvatar={{ source: video }}
-                      subtitle={camp.location}
-                      rightIcon={
-                        <Menu>
-                          <MenuTrigger
-                            customStyles={triggerStyles}
-                            children={
-                              <View
-                                style={{
-                                  alignItems: 'flex-end',
-                                  justifyContent: 'center',
-                                  width: 50,
-                                  height: 50,
-                                  paddingRight: 5,
-                                  borderRadius: 50
-                                }}
-                              >
-                                <SvgUri
-                                  fill='#3b3b3b'
-                                  width='25'
-                                  height='25'
-                                  source={require('../assets/icons/ellipsis-vertical.svg')}
-                                />
-                              </View>
-                            }
-                          />
-                          <MenuOptions customStyles={optionsStyles}>
-                            <MenuOption
-                              onSelect={() =>
-                                this.delete(camp.update_id, 'update')
+        <View />
+        {this.props.currentUserProfile.campaigns?.length === 0 ? (
+          <CampBlankSpace />
+        ) : (
+          <View>
+            {this.props.currentUserProfile.campaigns &&
+              this.props.currentUserProfile.campaigns?.map(camp => {
+                if (camp.update_id) {
+                  if (
+                    camp.update_img.includes('.mov') ||
+                    camp.update_img.includes('.mp3') ||
+                    camp.update_img.includes('.mp4')
+                  ) {
+                    return (
+                      <ListItem
+                        onPress={() => this.goToCampUpdate(camp)}
+                        key={`update${camp.update_id}`}
+                        title={`${camp.camp_name} - Update`}
+                        leftAvatar={{ source: video }}
+                        subtitle={camp.location}
+                        rightIcon={
+                          <Menu>
+                            <MenuTrigger
+                              customStyles={triggerStyles}
+                              children={
+                                <View
+                                  style={{
+                                    alignItems: 'flex-end',
+                                    justifyContent: 'center',
+                                    width: 50,
+                                    height: 50,
+                                    paddingRight: 5,
+                                    borderRadius: 50
+                                  }}
+                                >
+                                  <SvgUri
+                                    fill='#3b3b3b'
+                                    width='25'
+                                    height='25'
+                                    source={require('../assets/icons/ellipsis-vertical.svg')}
+                                  />
+                                </View>
                               }
                             />
                             <MenuOptions customStyles={optionsStyles}>
@@ -384,10 +365,9 @@ class MyProScreen extends React.Component {
                     );
                   }
                 }
-              }
-            })}
-        </View>
-        {/* {console.log(this.props.currentUserProfile.campaigns.length)} */}
+              })}
+          </View>
+        )}
       </ScrollView>
     );
   }

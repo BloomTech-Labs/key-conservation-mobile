@@ -18,10 +18,8 @@ class ProScreen extends React.Component {
     const fromMap = navigation.getParam('fromMap', 'defaultValue');
 
     return {
+      headerTransparent: true,
       title: '',
-      headerStyle: {
-        backgroundColor: '#323338'
-      },
       headerTintColor: '#fff',
       headerLeft: () => (
         <BackButton navigation={navigation} fromMap={fromMap} />
