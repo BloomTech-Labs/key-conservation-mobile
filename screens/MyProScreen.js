@@ -364,15 +364,9 @@ class MyProScreen extends React.Component {
                     />
                   );
                 }
-<<<<<<< HEAD
               }
             })}
         </View>
-=======
-              })}
-          </View>
-        )}
->>>>>>> 72b78a0dc3ea6d09a596cfcf39e8fae63a4873e9
       </ScrollView>
     );
   }
