@@ -134,7 +134,7 @@ export default LoginScreen = props => {
     dispatch(loginSuccess(credentials, role));
 
     // Make sure airtableKey exists
-    const key = await SecureStorage.getItemAsync('airtableKey', {});
+    const key = await SecureStore.getItemAsync('airtableKey', {});
 
     if(!key) {
       dispatch(getAirtableKey());
