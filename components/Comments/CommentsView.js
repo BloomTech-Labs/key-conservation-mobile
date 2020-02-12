@@ -82,8 +82,11 @@ class CommentsView extends React.Component {
               value={this.state.comment}
               textAlignVertical={'center'}
               onSubmitEditing={() => {
-                if (Platform.OS === 'android') return;
-                this.usernameInput.focus();
+                this.setState({ comment: '' });
+                this.props.commentOnCampaign(
+                  this.props.selectedCampaign.camp_id,
+                  this.state.comment.trim()
+                );
               }}
               blurOnSubmit={Platform.OS === 'android'}
               ref={input => {
