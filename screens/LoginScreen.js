@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { AuthSession } from 'expo';
-import jwtDecode from 'jwt-decode';
+import { useDispatch } from 'react-redux';
 import * as SecureStore from 'expo-secure-store';
 import Auth0 from 'react-native-auth0';
 import {
@@ -27,8 +25,7 @@ import styles from '../constants/screens/LoginScreen';
 import {
   loginStart,
   loginError,
-  loginSuccess,
-  getProfileData
+  loginSuccess
 } from '../store/actions';
 import AnimalModal from '../components/Animals/AnimalModal';
 
