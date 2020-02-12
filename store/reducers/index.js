@@ -451,8 +451,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         selectedCampaign: {
           ...state.selectedCampaign,
-          comments: state.selectedCampaign.comments?.filter(
-            c => c.comment_id === action.payload
+          comments: state.selectedCampaign.comments.filter(
+            c => c.comment_id != action.payload
           )
         }
       };

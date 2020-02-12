@@ -81,6 +81,10 @@ class ViewCampUpdateScreen extends React.Component {
           ref={o => this.ActionSheet = o}
           admin={this.props.currentUserProfile.admin}
           update={this.props.selectedCampaign}
+          isMine={
+            this.props.currentUserProfile.admin ===
+            this.props.selectedCampaign.users_id
+          }
           goBack
         />
         <View>
