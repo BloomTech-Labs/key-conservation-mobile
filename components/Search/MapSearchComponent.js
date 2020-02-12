@@ -5,7 +5,7 @@ import { withNavigationFocus } from 'react-navigation';
 import { getOrganizations, setMapSearchQuery } from '../../store/actions';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import styles from '../../constants/Search/MapSearchBarComponent';
+import styles from '../../constants/Map/MapSearchBarComponent';
 import SvgUri from 'react-native-svg-uri';
 
 const MapSearchBarComponent = props => {
