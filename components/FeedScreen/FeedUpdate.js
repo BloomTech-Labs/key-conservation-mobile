@@ -238,6 +238,7 @@ const FeedUpdate = props => {
       <CampaignActionSheet
         ref={actionSheetRef}
         admin={props.currentUserProfile.admin}
+        isMine={props.currentUserProfile.id === data.users_id}
         update={data}
       />
       {props.hideUsername === undefined && (
