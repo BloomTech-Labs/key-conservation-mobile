@@ -79,6 +79,10 @@ export default LoginScreen = props => {
       role === 'supporter'
         ? 'DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S'
         : 'elyo5qK7vYReEsKAPEADW2T8LAMpIJaf';
+    const realm =
+      role === 'supporter'
+        ? 'SupporterDB'
+        : 'Username-Password-Authentication';
 
     const auth0 = new Auth0({ domain, clientId });
 
@@ -88,7 +92,7 @@ export default LoginScreen = props => {
       .passwordRealm({
         username,
         password,
-        realm: 'Username-Password-Authentication',
+        realm,
         scope: 'openid profile email',
         audience: `${domain}/userinfo`
       })
@@ -98,7 +102,7 @@ export default LoginScreen = props => {
       })
       .catch(error => {
         dispatch(loginError(error.message));
-        Alert.alert("Error", error.message);
+        Alert.alert(error.message);
         console.log(error.message);
       });
   };
