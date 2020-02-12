@@ -123,7 +123,6 @@ Zach Christy - [GitHub](https://github.com/zchristy) | [LinkedIn](https://www.li
 
 Sam Jeffcoat - [GitHub](https://github.com/samjeffcoat) | [LinkedIn](https://www.linkedin.com/in/samjeffcoat/)
 
-
 ## Project Description
 
 Key Conservation is helping conservationists gain critical funding and global support through a mobile app that provides real-time updates on day-to-day campaigns.
@@ -152,7 +151,7 @@ Additionally, supporters of conservation organizations want more transparency as
 
 #### Expo (https://www.npmjs.com/package/expo)
 
-- Prefered Choice of Stakeholder
+- Preferred Choice of Stakeholder
 - Expo is able to produce code base for iOS and Android
 - Relatable to current React experience for Development Team
 - Expo is widely supported and used by many companies
@@ -253,4 +252,4 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 ## Documentation
 
-See [PVD - Technical Research](https://www.notion.so/Technical-Research-bcfbf8b7612842a0ab87bec772565c3e) for details on overall archiecture.
+See [PVD - Technical Research](https://www.notion.so/Technical-Research-bcfbf8b7612842a0ab87bec772565c3e) for details on overall architecture.
