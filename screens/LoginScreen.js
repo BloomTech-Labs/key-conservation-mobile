@@ -22,7 +22,7 @@ import LoginForm from '../components/Auth/LoginForm';
 
 import styles from '../constants/screens/LoginScreen';
 
-import { loginStart, loginError, loginSuccess } from '../store/actions';
+import { loginStart, loginError, loginSuccess, getAirtableKey } from '../store/actions';
 import AnimalModal from '../components/Animals/AnimalModal';
 
 const DEVICE_WIDTH = Dimensions.get('screen').width;
@@ -87,11 +87,10 @@ export default LoginScreen = props => {
         scope: 'openid profile email'
       })
       .then(credentials => {
-        dispatch(loginSuccess(credentials, role));
+        onSuccess(credentials);
       })
       .catch(error => {
-        dispatch(loginError(error.message));
-        Alert.alert(error.message);
+        onFailure(error.message);
         console.log(error.message);
       });
   };
@@ -122,14 +121,30 @@ export default LoginScreen = props => {
         connection
       })
       .then(credentials => {
-        dispatch(loginSuccess(credentials));
+        onSuccess(credentials);
         console.log(credentials);
       })
       .catch(error => {
-        dispatch(loginError(error.message));
+        onFailure(error.message);
         console.log(error.message);
       });
   };
+
+  const onSuccess = async (credentials) => {
+    dispatch(loginSuccess(credentials, role));
+
+    // Make sure airtableKey exists
+    const key = await SecureStorage.getItemAsync('airtableKey', {});
+
+    if(!key) {
+      dispatch(getAirtableKey());
+    }
+  }
+
+  const onFailure = message => {
+    dispatch(loginError(message));
+    Alert.alert(message);
+  }
 
   const formOpacity = animation.x.interpolate({
     inputRange: [0, DEVICE_WIDTH / 2, DEVICE_WIDTH],
