@@ -116,6 +116,7 @@ class LoginForm extends Component {
             placeholderTextColor='rgba(44,44,44,0.4)'
             secureTextEntry
             returnKeyType='go'
+            onSubmitEditing={this.validateLogin}
             autoCapitalize='none'
             autoCorrect={false}
             onBlur={() => {

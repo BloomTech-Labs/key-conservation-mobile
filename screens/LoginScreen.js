@@ -94,11 +94,9 @@ export default LoginScreen = props => {
         password,
         realm,
         scope: 'openid profile email',
-        audience: `${domain}/userinfo`
       })
       .then(credentials => {
-        // dispatch(loginSuccess(credentials));
-        console.log(credentials);
+        dispatch(loginSuccess(credentials, role));
       })
       .catch(error => {
         dispatch(loginError(error.message));
