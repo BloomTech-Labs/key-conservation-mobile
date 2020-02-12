@@ -22,14 +22,12 @@ import LoginForm from '../components/Auth/LoginForm';
 
 import styles from '../constants/screens/LoginScreen';
 
-import {
-  loginStart,
-  loginError,
-  loginSuccess
-} from '../store/actions';
+import { loginStart, loginError, loginSuccess } from '../store/actions';
 import AnimalModal from '../components/Animals/AnimalModal';
 
 const DEVICE_WIDTH = Dimensions.get('screen').width;
+
+const AUTH0_DOMAIN = 'https://key-conservation.auth0.com/';
 
 export default LoginScreen = props => {
   navigationOptions = () => {
@@ -71,17 +69,14 @@ export default LoginScreen = props => {
   }, [role]);
 
   const realmLogin = (username, password) => {
-    const domain = 'https://key-conservation.auth0.com/';
     const clientId =
       role === 'supporter'
         ? 'DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S'
         : 'elyo5qK7vYReEsKAPEADW2T8LAMpIJaf';
     const realm =
-      role === 'supporter'
-        ? 'SupporterDB'
-        : 'Username-Password-Authentication';
+      role === 'supporter' ? 'SupporterDB' : 'Username-Password-Authentication';
 
-    const auth0 = new Auth0({ domain, clientId });
+    const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId });
 
     dispatch(loginStart());
     auth0.auth
@@ -89,7 +84,7 @@ export default LoginScreen = props => {
         username,
         password,
         realm,
-        scope: 'openid profile email',
+        scope: 'openid profile email'
       })
       .then(credentials => {
         dispatch(loginSuccess(credentials, role));
@@ -97,6 +92,41 @@ export default LoginScreen = props => {
       .catch(error => {
         dispatch(loginError(error.message));
         Alert.alert(error.message);
+        console.log(error.message);
+      });
+  };
+
+  // This function is for social authentication integrations
+  // The function auth0.webAuth.authorize() used in this function
+  // does not work because certain NativeModules need to be linked
+  // which will need this project to be ejected from expo
+  // For a google sign-on, a Google account for Key Conservation
+  // must be set up with OAuth dev keys, and that information
+  // should be set up on the Auth0 dashboard. I'm sure there is
+  // a way to get OAuth working without needing to link those custom
+  // NativeModules, but this feature will have to wait until a
+  // Google account with OAuth dev keys is set up.
+  const webAuth = connection => {
+    const clientId =
+      role === 'supporter'
+        ? 'DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S'
+        : 'elyo5qK7vYReEsKAPEADW2T8LAMpIJaf';
+
+    const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId });
+
+    dispatch(loginStart());
+
+    auth0.webAuth
+      .authorize({
+        scope: 'openid profile email',
+        connection
+      })
+      .then(credentials => {
+        dispatch(loginSuccess(credentials));
+        console.log(credentials);
+      })
+      .catch(error => {
+        dispatch(loginError(error.message));
         console.log(error.message);
       });
   };
@@ -137,6 +167,7 @@ export default LoginScreen = props => {
                 navigation={navigation}
                 role={role}
                 realmLogin={realmLogin}
+                webAuth={webAuth}
                 goBack={() => {
                   setRole('');
                   Keyboard.dismiss();

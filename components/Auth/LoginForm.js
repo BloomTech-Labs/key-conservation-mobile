@@ -48,7 +48,7 @@ class LoginForm extends Component {
 
   validateLogin = () => {
     this.resetFocus();
-    
+
     Keyboard.dismiss();
 
     let usernameError = false;
@@ -159,11 +159,11 @@ class LoginForm extends Component {
               <Text style={styles.button}>Sign In</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.buttonContainerInset}>
-            <TouchableOpacity onPress={() => {}}>
+          {/* <View style={styles.buttonContainerInset}>
+            <TouchableOpacity onPress={() => this.props.webAuth('google-oauth2')}>
               <Text style={styles.buttonInset}>Sign In with Google</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
           <View style={styles.noAccount}>
             <Text>Don't have an account? </Text>
             <TouchableOpacity style={styles.signUpContainer}>
