@@ -3,7 +3,12 @@ export default {
     flex: 1,
     padding: '2%',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+  },
+  subContainer: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
   },
   button: {
     justifyContent: 'center',
@@ -79,6 +84,7 @@ export default {
     fontSize: 20
   },
   aboutIconContainer: {
+    alignSelf: 'flex-start',
     width: '90%'
   },
   aboutIconTouch: {
@@ -86,5 +92,19 @@ export default {
   },
   Hidden: {
     display: 'none'
+  },
+  formView: {
+    position: "absolute",
+    zIndex: 1,
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+  },
+  keyboardAvoidingView: {
+    flex: 1.5,
+    width: '100%',
+    justifyContent: 'stretch',
+    alignItems: 'stretch',
   }
 };
