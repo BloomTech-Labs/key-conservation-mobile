@@ -20,7 +20,12 @@
     "assetBundlePatterns": ["**/*"],
     "android": {
       "package": "com.kc.keyconservation",
-      "versionCode": 9
+      "versionCode": 10,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDy4Hu-hg2voDy3_99nI1evzpt4FYJRzlI"
+        }
+      }
     },
     "ios": {
       "infoPlist": {

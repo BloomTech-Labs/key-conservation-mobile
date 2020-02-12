@@ -101,3 +101,6 @@ RNTester/Pods/*
 # Expo Local Config Files
 .expo
 .expo/*.json
+
+# Auth0 credentials file
+creds.json

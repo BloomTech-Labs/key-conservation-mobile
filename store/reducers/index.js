@@ -65,12 +65,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, login: false },
-        currentUser: {
-          ...state.currentUser,
-          sub: action.payload.sub,
-          email: action.payload.email,
-          token: action.payload.accessToken
-        },
         error: ''
       };
     //Amplitude.logEventWithProperties('logged in', currentUser);
@@ -457,8 +451,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         selectedCampaign: {
           ...state.selectedCampaign,
-          comments: state.selectedCampaign.comments?.filter(
-            c => c.comment_id === action.payload
+          comments: state.selectedCampaign.comments.filter(
+            c => c.comment_id != action.payload
           )
         }
       };

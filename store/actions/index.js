@@ -4,6 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 
 import { navigate } from '../../navigation/RootNavigator';
 import { Alert } from 'react-native';
+import JwtDecode from 'jwt-decode';
 
 // // This is defined here to prevent
 // // any un
@@ -86,10 +87,27 @@ export const loginError = error => ({
   type: LOGIN_ERROR,
   payload: error
 });
-export const loginSuccess = user => ({
-  type: LOGIN_SUCCESS,
-  payload: user
-});
+export const loginSuccess = (credentials, role) => async dispatch => {
+
+  await SecureStore.setItemAsync('accessToken', credentials.idToken);
+
+  const decoded = JwtDecode(credentials.idToken);
+
+  await SecureStore.setItemAsync('sub', decoded.sub);
+  await SecureStore.setItemAsync('email', decoded.email);
+  await SecureStore.setItemAsync('roles', role);
+
+  await dispatch(getProfileData(null, decoded.sub, true)).then(() => {
+    navigate('Loading');
+    return {
+      type: LOGIN_SUCCESS
+    }
+  }).catch(() => {
+    return {
+      type: LOGIN_ERROR
+    }
+  });
+};
 
 export const LOGOUT = 'LOGOUT';
 
@@ -208,16 +226,18 @@ export const getProfileData = (
       .get(url)
       .then(res => {
         user = res.data.user;
+        console.log(user);
         {
           !noDispatch &&
-          dispatch({
-            type: GET_PROFILE_SUCCESS,
-            payload: { user, myProfile }
-          });
+            dispatch({
+              type: GET_PROFILE_SUCCESS,
+              payload: { user, myProfile }
+            });
         }
         return user;
       })
       .catch(err => {
+        console.log(err.message);
         if (noDispatch) {
           return err.message;
         } else {
@@ -667,12 +687,12 @@ export const commentOnCampaign = (id, body) => dispatch => {
         comment_body: body
       })
       .then(res => {
-        console.log("res", res)
+        console.log('res', res);
         dispatch({ type: POST_COMMENT_SUCCESS, payload: res.data.data });
         return aaxios.get(`${seturl}comments/${id}`);
       })
       .catch(err => {
-        console.log(err)
+        console.log(err);
         dispatch({ type: POST_COMMENT_ERROR, payload: err });
       });
   });
@@ -799,8 +819,8 @@ export const [GET_REPORT_START, GET_REPORT_SUCCESS, GET_REPORT_ERROR] = [
 export const CLEAR_REPORT_ERROR = 'CLEAR_REPORT_ERROR';
 
 export const clearReportError = () => {
-  return {type: CLEAR_REPORT_ERROR};
-}
+  return { type: CLEAR_REPORT_ERROR };
+};
 
 export const getReport = id => dispatch => {
   dispatch({ type: GET_REPORT_START });
@@ -838,7 +858,7 @@ export const createReport = (postType, postId, desc) => dispatch => {
   return axiosWithAuth(dispatch, aaxios => {
     let url = `${seturl}reports`;
     return aaxios
-      .post(url, {postType, postId, desc})
+      .post(url, { postType, postId, desc })
       .then(res => {
         console.log('Report Successful');
       })
