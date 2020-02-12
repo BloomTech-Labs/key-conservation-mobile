@@ -154,7 +154,7 @@ export default LoginScreen = props => {
     }
   };
 
-  getEnvVar = async () => {
+  const getEnvVar = async () => {
     const key = await SecureStore.getItemAsync('airtableKey', {});
     if (key) {
       console.log('key already exists!');
