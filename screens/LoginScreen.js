@@ -87,7 +87,6 @@ export default LoginScreen = props => {
     const auth0 = new Auth0({ domain, clientId });
 
     dispatch(loginStart());
-
     auth0.auth
       .passwordRealm({
         username,
