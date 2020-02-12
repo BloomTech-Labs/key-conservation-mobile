@@ -4,20 +4,15 @@ import {
   ImageBackground,
   ActivityIndicator,
   TouchableOpacity,
-  TouchableWithoutFeedback,
-  Button
 } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 import { View } from 'react-native-animatable';
 import moment from 'moment';
 import { Video } from 'expo-av';
-import { Avatar } from 'react-native-elements';
 import { ListItem, Badge } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
-
-import ActionSheet from 'react-native-actionsheet';
 
 import {
   getProfileData,
@@ -27,7 +22,6 @@ import {
 import { AmpEvent } from '../withAmplitude';
 
 import styles from '../../constants/FeedScreen/FeedCampaign';
-import styles2 from '../../constants/Comments/Comments';
 import Ellipse from '../../assets/jsicons/Ellipse';
 import CommentIcon from '../../assets/jsicons/CommentIcon';
 import CampaignActionSheet from '../Reports/CampaignActionSheet';
@@ -336,6 +330,7 @@ const FeedCampaign = props => {
         <CampaignActionSheet
           ref={actionSheetRef}
           admin={props.currentUserProfile.admin}
+          isMine={props.currentUserProfile.id === data.users_id}
           camp={data}
         />
         <ListItem
