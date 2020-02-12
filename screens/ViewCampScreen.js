@@ -55,8 +55,8 @@ class ViewCampScreen extends React.Component {
     };
   };
 
-  componentDidMount () {
-    this.props.navigation.setParams({showCampOptions: this.showActionSheet});
+  componentDidMount() {
+    this.props.navigation.setParams({ showCampOptions: this.showActionSheet });
   }
 
   state = {
@@ -67,7 +67,7 @@ class ViewCampScreen extends React.Component {
 
   showActionSheet = () => {
     this.ActionSheet?.show();
-  }
+  };
 
   render() {
     let sortedUpdates = false;
@@ -112,10 +112,14 @@ class ViewCampScreen extends React.Component {
 
     return (
       <View>
-        <CampaignActionSheet 
+        <CampaignActionSheet
           admin={this.props.currentUserProfile.admin}
           camp={this.props.selectedCampaign}
-          ref={o => this.ActionSheet = o}
+          ref={o => (this.ActionSheet = o)}
+          isMine={
+            this.props.currentUserProfile.admin ===
+            this.props.selectedCampaign.users_id
+          }
           goBack
         />
         {Platform.OS === 'android' ? (

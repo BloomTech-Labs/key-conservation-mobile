@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import styles from '../../constants/Auth/LoginForm';
 import ChevronLeft from '../../assets/jsicons/miscIcons/ChevronLeftSolid';
 import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
+import { throwIfAudioIsDisabled } from 'expo-av/build/Audio/AudioAvailability';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -22,7 +23,8 @@ class LoginForm extends Component {
       password: '',
       usernameError: '',
       passwordError: '',
-      loadingOpacity: new Animated.Value(0)
+      loadingOpacity: new Animated.Value(0),
+      keyboardOpen: false
     };
 
     this.animateLoadIn = Animated.timing(this.state.loadingOpacity, {
@@ -34,9 +36,19 @@ class LoginForm extends Component {
     })
   }
 
+  componentDidMount() {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => this.setState({keyboardOpen: true}));
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () =>  this.setState({keyboardOpen: false}));
+  }
+
+  componentWillUnmount () {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+
   validateLogin = () => {
-    this.passwordInput.focus();
-    this.passwordInput.blur();
+    this.resetFocus();
+
     Keyboard.dismiss();
 
     let usernameError = false;
@@ -56,6 +68,17 @@ class LoginForm extends Component {
       this.props.realmLogin(this.state.username, this.state.password);
     }
   };
+
+  // There is a bug in React Native that causes the Keyboard.dismiss()
+  // method to be unresponsive after an autocomplete event on iOS
+  // The remedy for this is to set focus on some element before calling
+  // the dismiss function
+  resetFocus = () => {
+    if(this.state.keyboardOpen) {
+      this.passwordInput.focus();
+    }
+    this.passwordInput.blur();
+  }
 
   componentDidUpdate() {
     if(this.props.loading) {
@@ -77,7 +100,7 @@ class LoginForm extends Component {
         <View style={styles.headerSection}>
           <TouchableOpacity
             onPress={() => {
-              this.passwordInput.focus()
+              this.resetFocus();
               this.props.goBack()
             }}
             style={styles.backButton}
@@ -136,11 +159,11 @@ class LoginForm extends Component {
               <Text style={styles.button}>Sign In</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.buttonContainerInset}>
-            <TouchableOpacity onPress={() => {}}>
+          {/* <View style={styles.buttonContainerInset}>
+            <TouchableOpacity onPress={() => this.props.webAuth('google-oauth2')}>
               <Text style={styles.buttonInset}>Sign In with Google</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
           <View style={styles.noAccount}>
             <Text>Don't have an account? </Text>
             <TouchableOpacity style={styles.signUpContainer}>

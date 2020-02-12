@@ -103,7 +103,7 @@ class CreateReportScreen extends Component {
           comment_body: text_data,
           username
         } = this.props.selectedCampaign.comments.find(
-          com => (com.comment_id = this.props.navigation.getParam('id'))
+          com => com.comment_id === this.props.navigation.getParam('id')
         );
         this.setState({
           image,
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
   text_data: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   username: {
     fontWeight: 'bold'
