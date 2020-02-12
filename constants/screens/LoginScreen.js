@@ -1,4 +1,6 @@
-export default {
+import { StyleSheet } from 'react-native';
+
+export default StyleSheet.create({
   container: {
     flex: 1,
     padding: '2%',
@@ -104,7 +106,5 @@ export default {
   keyboardAvoidingView: {
     flex: 1.5,
     width: '100%',
-    justifyContent: 'stretch',
-    alignItems: 'stretch',
   }
-};
+});

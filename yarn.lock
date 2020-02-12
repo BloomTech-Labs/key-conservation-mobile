@@ -7115,10 +7115,10 @@ react-native-animatable@^1.3.2:
   dependencies:
     prop-types "^15.7.2"
 
-react-native-auth0@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-auth0/-/react-native-auth0-2.2.0.tgz#ad4237be35687fa2f17d6ea58bd1fb596692472e"
-  integrity sha512-9YhrUczikGmRl/LXS1/ZgO6VeDY8GiAqqaR9bxT6dw8Z9Wdc93VefpaHfDZK4r5wsJJqDdK+XWjs3o40gKr2Rw==
+react-native-auth0@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-auth0/-/react-native-auth0-2.3.0.tgz#1803814975eca082e149f0a203bde7be517f66e4"
+  integrity sha512-zJ5NTXabynx/MPlfZOz2I7oQANDbSnaZzwG98PKFAXcifres+p4k/PfIkbTd1c5G12VrzqiHcmUvcgXWZ2vbUA==
   dependencies:
     base-64 "^0.1.0"
     crypto-js "^3.1.9-1"
