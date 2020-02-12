@@ -36,7 +36,7 @@ const axiosWithAuth = (dispatch, req) => {
         response => response,
         error => {
           if (error.response?.data?.logout) {
-            dispatch(logout(error.response.data.msg));
+            dispatch(logout(error.response.data.message));
           }
           return Promise.reject(error);
         }
@@ -97,15 +97,15 @@ export const loginSuccess = (credentials, role) => async dispatch => {
   await SecureStore.setItemAsync('email', decoded.email);
   await SecureStore.setItemAsync('roles', role);
 
-  await dispatch(getProfileData(null, decoded.sub, true)).then(() => {
+  dispatch(getProfileData(null, decoded.sub, true)).then(() => {
     navigate('Loading');
-    return {
+    dispatch({
       type: LOGIN_SUCCESS
-    }
+    })
   }).catch(() => {
-    return {
+    dispatch({
       type: LOGIN_ERROR
-    }
+    })
   });
 };
 
@@ -118,6 +118,8 @@ export const logout = (message = '') => async dispatch => {
   await SecureStore.deleteItemAsync('id', {});
   await SecureStore.deleteItemAsync('userId', {});
   await SecureStore.deleteItemAsync('accessToken', {});
+
+  console.log('logging out')
 
   navigate('Logout');
 
@@ -226,7 +228,6 @@ export const getProfileData = (
       .get(url)
       .then(res => {
         user = res.data.user;
-        console.log(user);
         {
           !noDispatch &&
             dispatch({
@@ -237,7 +238,6 @@ export const getProfileData = (
         return user;
       })
       .catch(err => {
-        console.log(err.message);
         if (noDispatch) {
           return err.message;
         } else {

@@ -47,9 +47,8 @@ class LoginForm extends Component {
   }
 
   validateLogin = () => {
-    if(this.state.keyboardOpen)
-      this.passwordInput.focus();
-    this.passwordInput.blur();
+    this.resetFocus();
+    
     Keyboard.dismiss();
 
     let usernameError = false;
@@ -75,7 +74,10 @@ class LoginForm extends Component {
   // The remedy for this is to set focus on some element before calling
   // the dismiss function
   resetFocus = () => {
-
+    if(this.state.keyboardOpen) {
+      this.passwordInput.focus();
+    }
+    this.passwordInput.blur();
   }
 
   componentDidUpdate() {
@@ -98,8 +100,7 @@ class LoginForm extends Component {
         <View style={styles.headerSection}>
           <TouchableOpacity
             onPress={() => {
-              if(this.state.keyboardOpen)
-                this.passwordInput.focus()
+              this.resetFocus();
               this.props.goBack()
             }}
             style={styles.backButton}
