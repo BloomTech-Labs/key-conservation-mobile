@@ -24,6 +24,7 @@ import { AmpEvent } from '../withAmplitude';
 import styles from '../../constants/FeedScreen/FeedCampaign';
 import Ellipse from '../../assets/jsicons/Ellipse';
 import CommentIcon from '../../assets/jsicons/CommentIcon';
+import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
 import CampaignActionSheet from '../Reports/CampaignActionSheet';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
@@ -342,11 +343,16 @@ const FeedCampaign = props => {
           }
           leftAvatar={{ source: { uri: data.profile_image } }}
           rightElement={
-            <TouchableOpacity onPress={showActionSheet} style={{ padding: 12 }}>
-              <Ellipse fill='#000' />
+            <TouchableOpacity onPress={showActionSheet}>
+              <Ellipse fill='#000' height='25' width='25' />
             </TouchableOpacity>
           }
-          subtitle={data.location}
+          subtitle={
+            <View style={{ flexDirection: 'row' }}>
+              <MapMarker fill='#505050' />
+              <Text style={{ color: '#929292' }}>{data.location}</Text>
+            </View>
+          }
         />
         <View style={styles.campDesc}>
           {toggled || data.camp_desc.length < 80 ? (

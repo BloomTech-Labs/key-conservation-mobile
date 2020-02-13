@@ -2,8 +2,6 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Image, Alert } from 'react-native';
 
-import { AmpEvent } from '../withAmplitude';
-
 import styles from '../../constants/Reports/ReportDetailCard';
 
 import Collapsible from '../Collapsible';
@@ -24,7 +22,8 @@ import {
   deleteCampaignUpdate,
   clearReportError,
   archiveReport,
-  getProfileData
+  getProfileData,
+  getReports
 } from '../../store/actions';
 import SvgUri from 'react-native-svg-uri';
 import LoadingOverlay from '../LoadingOverlay';
@@ -112,10 +111,11 @@ class ReportDetailCard extends Component {
 
     del(this.props.currentReport.post_id)
       .then(err => {
-        console.log(err);
+        console.log('delete', err);
         if (err) throw new Error(err || '');
       })
       .then(() => {
+        this.props.getReports();
         this.props.navigation.goBack(null);
       })
       .catch(error => {
@@ -133,14 +133,15 @@ class ReportDetailCard extends Component {
       `Are you sure you want to delete this post? This will add a strike on this user's record and cannot be undone`,
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'Delete Post', style: 'destructive' }
+        { text: 'Delete Post', style: 'destructive', onPress: this.deletePost }
       ]
     );
   };
 
   archiveReport = () => {
     this.props.archiveReport(this.props.currentReport.id).then(() => {
-      this.props.navigation.goBack('AdminScreen');
+      this.props.getReports();
+      this.props.navigation.goBack();
     });
   };
 
@@ -150,7 +151,7 @@ class ReportDetailCard extends Component {
       `Are you sure you want to archive this report? It may still be viewed in the Archived reports tab`,
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'Archive', style: 'default' }
+        { text: 'Archive', style: 'default', onPress: this.archiveReport }
       ]
     );
   };
@@ -268,5 +269,6 @@ export default connect(mapStateToProps, {
   deleteCampaignUpdate,
   clearReportError,
   archiveReport,
-  getProfileData
+  getProfileData,
+  getReports
 })(ReportDetailCard);
