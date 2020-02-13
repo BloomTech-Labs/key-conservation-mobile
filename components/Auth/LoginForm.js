@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   TextInput,
   Keyboard,
   TouchableOpacity
@@ -12,7 +11,6 @@ import styles from '../../constants/Auth/LoginForm';
 
 import Lock from '../../assets/jsicons/auth/Lock';
 import Envelope from '../../assets/jsicons/auth/Envelope';
-import Tooltip from '../Tooltip';
 import PasswordTooltip from './PasswordTooltip';
 
 class LoginForm extends Component {
@@ -24,8 +22,21 @@ class LoginForm extends Component {
       password: '',
       usernameError: '',
       passwordError: '',
-      showPasswordTooltip: false
+      showPasswordTooltip: false,
+      type: 0
     };
+  }
+
+  componentDidUpdate() {
+    if(this.state.type !== this.props.type) {
+      this.setState({type: this.props.type});
+      // A change has been detected, switch focus
+      // back to username field if password field
+      // is selected for best user experience
+      if(this.passwordInput?.isFocused()) {
+        this.usernameInput.focus();
+      }
+    }
   }
 
   // There is a bug in React Native that causes the Keyboard.dismiss()
@@ -79,6 +90,7 @@ class LoginForm extends Component {
             keyboardType='email-address'
             autoCapitalize='none'
             autoCorrect={false}
+            ref={input => this.usernameInput = input}
             value={this.state.username}
             onChangeText={text => this.setState({ username: text.trim() })}
           />
@@ -86,7 +98,7 @@ class LoginForm extends Component {
         <View style={styles.inputField}>
           <PasswordTooltip
             password={this.state.password}
-            show={this.state.showPasswordTooltip && this.props.type}
+            show={this.state.showPasswordTooltip && this.state.type}
           />
           <Lock />
           <TextInput
@@ -111,7 +123,7 @@ class LoginForm extends Component {
         <View style={styles.footnoteContainer}>
           <TouchableOpacity>
             <Text style={styles.footnote}>
-              {this.props.type
+              {this.state.type
                 ? `By signing up, you agree to our terms of service and privacy policy`
                 : `Don't remember your password?`}
             </Text>
@@ -122,7 +134,7 @@ class LoginForm extends Component {
           onPress={() => this.validateLogin()}
         >
           <Text style={styles.button}>
-            {this.props.type ? 'SIGN UP' : 'LOG IN'}
+            {this.state.type ? 'SIGN UP' : 'LOG IN'}
           </Text>
         </TouchableOpacity>
         {/* <View style={styles.buttonContainer}>
