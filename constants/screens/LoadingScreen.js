@@ -4,40 +4,42 @@ import { responsiveFontSize } from 'react-native-responsive-dimensions';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: Dimensions.width,
+    padding: '2%',
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'center',
-    height: Dimensions.height
+    justifyContent: 'center'
   },
   logo: {
     width: 189,
     height: 189
   },
   text: {
-    marginTop: 30,
-    fontSize: 30,
+    fontSize: responsiveFontSize(3.5),
     color: 'white',
     fontFamily: 'Lato-Bold',
-    paddingBottom: 40
+    paddingBottom: 18
   },
   indicator: {
     marginTop: 50
   },
+  logoutContainer: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   touchableContainer: {
-    width: 262,
-    height: 55,
-    borderRadius: 20,
+    width: Dimensions.get('screen').width * 0.92,
+    height: Dimensions.get('screen').height * 0.05,
+    borderRadius: 8,
     backgroundColor: '#d7ff43',
     alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column'
+    justifyContent: 'center'
+    //flexDirection: 'column'
   },
   touchableText: {
     fontFamily: 'Lato-Bold',
-    letterSpacing: 2,
+    //letterSpacing: 2,
     fontStyle: 'normal',
-    fontSize: 22,
+    fontSize: responsiveFontSize(2),
     lineHeight: 25,
     color: '#000000'
   }
