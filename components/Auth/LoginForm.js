@@ -10,7 +10,7 @@ import {
 import { connect } from 'react-redux';
 
 import styles from '../../constants/Auth/LoginForm';
-import ChevronLeft from '../../assets/jsicons/miscIcons/ChevronLeftSolid';
+import ChevronLeft from '../../assets/jsicons/miscIcons/ChevronLeftWhite';
 import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
 import { throwIfAudioIsDisabled } from 'expo-av/build/Audio/AudioAvailability';
 
@@ -29,19 +29,23 @@ class LoginForm extends Component {
 
     this.animateLoadIn = Animated.timing(this.state.loadingOpacity, {
       toValue: 1
-    })
+    });
 
     this.animateLoadOut = Animated.timing(this.state.loadingOpacity, {
       toValue: 0
-    })
+    });
   }
 
   componentDidMount() {
-    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => this.setState({keyboardOpen: true}));
-    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () =>  this.setState({keyboardOpen: false}));
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () =>
+      this.setState({ keyboardOpen: true })
+    );
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () =>
+      this.setState({ keyboardOpen: false })
+    );
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.keyboardDidShowListener.remove();
     this.keyboardDidHideListener.remove();
   }
@@ -74,14 +78,14 @@ class LoginForm extends Component {
   // The remedy for this is to set focus on some element before calling
   // the dismiss function
   resetFocus = () => {
-    if(this.state.keyboardOpen) {
+    if (this.state.keyboardOpen) {
       this.passwordInput.focus();
     }
     this.passwordInput.blur();
-  }
+  };
 
   componentDidUpdate() {
-    if(this.props.loading) {
+    if (this.props.loading) {
       this.animateLoadIn.start();
     } else {
       this.animateLoadOut.start();
@@ -101,7 +105,7 @@ class LoginForm extends Component {
           <TouchableOpacity
             onPress={() => {
               this.resetFocus();
-              this.props.goBack()
+              this.props.goBack();
             }}
             style={styles.backButton}
           >
@@ -115,7 +119,9 @@ class LoginForm extends Component {
             volunteering and lending your skills
           </Text>
         ) : (
-          <Text>Get access to supporters for your cause from all around the world</Text>
+          <Text>
+            Get access to supporters for your cause from all around the world
+          </Text>
         )}
         <View style={styles.inputContainer}>
           <TextInput

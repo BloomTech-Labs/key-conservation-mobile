@@ -1,16 +1,9 @@
-//import liraries
+//import libraries
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Animated,
-  TouchableWithoutFeedback,
-  Image
-} from 'react-native';
-import SvgUri from 'react-native-svg-uri';
+import { View, Animated, TouchableWithoutFeedback, Image } from 'react-native';
 
-import arrow from '../assets/icons/chevron-left-solid.svg';
+import ChevronLeftWhite from '../assets/jsicons/miscIcons/ChevronLeftWhite';
+import styles from '../constants/Collapsible2';
 
 // create a component
 class Collapsible2 extends Component {
@@ -106,7 +99,6 @@ class Collapsible2 extends Component {
               style={styles.image}
               resizeMode='cover'
             />
-            {/* </Image><Text style={styles.title}>{this.props.title}</Text> */}
             <View style={styles.right_content}>{this.props.right}</View>
             <Animated.View
               style={[
@@ -114,13 +106,7 @@ class Collapsible2 extends Component {
                 { transform: [{ rotate: arrowRot }] }
               ]}
             >
-              <SvgUri
-                style={styles.arrow}
-                source={arrow}
-                fill='white'
-                width='15'
-                height='100%'
-              />
+              <ChevronLeftWhite style={styles.arrow} />
             </Animated.View>
           </View>
         </TouchableWithoutFeedback>
@@ -136,57 +122,4 @@ class Collapsible2 extends Component {
   }
 }
 
-// define your styles
-const styles = StyleSheet.create({
-  container: {
-    //borderWidth: 1,
-    // borderColor: 'gray',
-    // borderRadius: 8,
-    //marginVertical: 12,
-    backgroundColor: 'transparent',
-    borderRadius: 8,
-    overflow: 'hidden'
-  },
-  title_bar: {
-    borderColor: 'red',
-    borderWidth: 2,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 8
-  },
-  right_content: {
-    flex: 0.5
-  },
-  title: {
-    flex: 2,
-    padding: 10,
-    fontWeight: 'bold',
-    fontSize: 16
-  },
-  arrow: {
-    flex: 1,
-    width: null,
-    height: null
-  },
-  arrowContainer: {
-    width: 30,
-    height: 30,
-    alignItems: 'center'
-  },
-  content: {
-    padding: 8,
-    paddingTop: 8,
-    overflow: 'hidden'
-  },
-  image: {
-    flex: 1,
-    aspectRatio: 2.87,
-    width: '200%',
-    justifyContent: 'flex-start',
-    alignSelf: 'auto'
-  }
-});
-
-//make this component available to the app
 export default Collapsible2;
