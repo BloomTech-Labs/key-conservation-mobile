@@ -85,7 +85,8 @@ export default StyleSheet.create({
   },
   aboutIconContainer: {
     alignSelf: 'flex-start',
-    width: '90%'
+    width: '90%',
+    margin: 24
   },
   aboutIconTouch: {
     padding: 10
