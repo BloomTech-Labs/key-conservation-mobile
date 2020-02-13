@@ -1,14 +1,11 @@
 import React from "react";
-import { Text, View, TextInput, Button, TouchableOpacity } from "react-native";
+import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import { ScrollView } from "react-navigation";
 import { connect } from "react-redux";
 import { AmpEvent } from "../components/withAmplitude";
 import * as SecureStore from "expo-secure-store";
 import styles from "../constants/screens/UsernameScreen";
 import { postUser, logout } from "../store/actions";
-
-import Constants from "expo-constants";
-import * as WebBrowser from "expo-web-browser";
 
 var Airtable = require("airtable");
 var base = new Airtable({ apiKey: "keybUdphipr0RgMaa" }).base(
@@ -68,6 +65,7 @@ class UsernameScreen extends React.Component {
         roles: role,
         email: email
       };
+      console.log(user);
       await this.props.postUser(user);
       AmpEvent("Account Created");
       this.state.id ? this.updateAirtable() : null; // Checks if organization with an airtable ID, if not then has to be a supporter.
@@ -85,28 +83,6 @@ class UsernameScreen extends React.Component {
     this.props.navigation.navigate(
       this.props.error ? "CreateAccount" : "Loading"
     );
-  };
-
-  logoutPress = async () => {
-    await SecureStore.deleteItemAsync("sub", {});
-    await SecureStore.deleteItemAsync("email", {});
-    await SecureStore.deleteItemAsync("roles", {});
-    await SecureStore.deleteItemAsync("id", {});
-    await SecureStore.deleteItemAsync("accessToken", {});
-    this.props.logout();
-
-    const logoutURL = "https://key-conservation.auth0.com/v2/logout?federated";
-
-    if (Constants.platform.ios) {
-      await WebBrowser.openAuthSessionAsync(logoutURL).then(result => {
-        this.setState({ result });
-      });
-    } else {
-      await WebBrowser.openBrowserAsync(logoutURL).then(result => {
-        this.setState({ result });
-      });
-    }
-    this.props.navigation.navigate("Logout");
   };
 
   render() {
@@ -153,7 +129,7 @@ class UsernameScreen extends React.Component {
           </View>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={this.logoutPress}
+          onPress={this.props.logout}
           style={styles.touchableButton}
         >
           <View style={styles.obFwdContainer}>
