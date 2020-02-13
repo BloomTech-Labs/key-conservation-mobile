@@ -1,11 +1,3 @@
-{
-  /* <SvgUri
-  width='26'
-  height='26'
-  source={require('../../assets/icons/active_comment.svg')}
-/>; */
-}
-
 import React from 'react';
 import { SvgXml } from 'react-native-svg';
 
