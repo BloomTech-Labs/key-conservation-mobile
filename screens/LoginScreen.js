@@ -18,11 +18,16 @@ import {
 
 import KeyInfoGreen from '../assets/jsicons/KeyCon/Key_Info_Green';
 
-import LoginForm from '../components/Auth/LoginForm';
+import AuthForm from '../components/Auth/AuthForm';
 
 import styles from '../constants/screens/LoginScreen';
 
-import { loginStart, loginError, loginSuccess } from '../store/actions';
+import {
+  loginStart,
+  loginError,
+  loginSuccess,
+  getAirtableKey
+} from '../store/actions';
 import AnimalModal from '../components/Animals/AnimalModal';
 
 const DEVICE_WIDTH = Dimensions.get('screen').width;
@@ -40,11 +45,35 @@ export default LoginScreen = props => {
 
   const dispatch = useDispatch();
 
-  const [role, setRole] = useState('');
+  const [SUPPORTER_CLIENT_ID, CONSERVATIONIST_CLIENT_ID] = [
+    'DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S',
+    'elyo5qK7vYReEsKAPEADW2T8LAMpIJaf'
+  ];
+
+  const [SUPPORTER_CONNECTION, CONSERVATIONIST_CONNECTION] = [
+    'SupporterDB',
+    'Username-Password-Authentication'
+  ];
+
+  const [connection, setConnection] = useState('');
+  const [clientId, setClientId] = useState('');
+  const [role, setUserRole] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [animation] = useState(
     new Animated.ValueXY({ x: DEVICE_WIDTH, y: -DEVICE_WIDTH })
   );
+
+  const setRole = role => {
+    setUserRole(role);
+
+    if (role === 'supporter') {
+      setConnection(SUPPORTER_CONNECTION);
+      setClientId(SUPPORTER_CLIENT_ID);
+    } else {
+      setConnection(CONSERVATIONIST_CONNECTION);
+      setClientId(CONSERVATIONIST_CLIENT_ID);
+    }
+  };
 
   const enterAnim = Animated.timing(animation, {
     toValue: {
@@ -68,14 +97,40 @@ export default LoginScreen = props => {
     } else enterAnim.start();
   }, [role]);
 
-  const realmLogin = (username, password) => {
-    const clientId =
-      role === 'supporter'
-        ? 'DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S'
-        : 'elyo5qK7vYReEsKAPEADW2T8LAMpIJaf';
-    const realm =
-      role === 'supporter' ? 'SupporterDB' : 'Username-Password-Authentication';
+  const createUser = (email, password) => {
+    const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId });
 
+    dispatch(loginStart());
+    auth0.auth
+      .createUser({
+        email,
+        password,
+        connection
+      })
+      .then(success => {
+        // onSuccess(success);
+        console.log(success);
+      })
+      .catch(error => {
+        console.log('failed');
+        let message =
+          error.json.error || error.json.description || error.message;
+        console.log(message);
+        if (message.rules) {
+          message =
+            'Password too weak. Please follow instructions on creating a secure password.';
+        } else if (message.includes('Invalid sign up')) {
+          message =
+            'Invalid sign up: That email is probably already in use. Please try a different one';
+        } else if (message.includes('error in email')) {
+          message =
+            'That email is invalid. Please make sure you have typed it correctly.';
+        }
+        onFailure(message);
+      });
+  };
+
+  const realmLogin = (username, password) => {
     const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId });
 
     dispatch(loginStart());
@@ -83,15 +138,14 @@ export default LoginScreen = props => {
       .passwordRealm({
         username,
         password,
-        realm,
+        realm: connection,
         scope: 'openid profile email'
       })
       .then(credentials => {
-        dispatch(loginSuccess(credentials, role));
+        onSuccess(credentials);
       })
       .catch(error => {
-        dispatch(loginError(error.message));
-        Alert.alert(error.message);
+        onFailure(error.message);
         console.log(error.message);
       });
   };
@@ -107,11 +161,6 @@ export default LoginScreen = props => {
   // NativeModules, but this feature will have to wait until a
   // Google account with OAuth dev keys is set up.
   const webAuth = connection => {
-    const clientId =
-      role === 'supporter'
-        ? 'DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S'
-        : 'elyo5qK7vYReEsKAPEADW2T8LAMpIJaf';
-
     const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId });
 
     dispatch(loginStart());
@@ -122,13 +171,29 @@ export default LoginScreen = props => {
         connection
       })
       .then(credentials => {
-        dispatch(loginSuccess(credentials));
+        onSuccess(credentials);
         console.log(credentials);
       })
       .catch(error => {
-        dispatch(loginError(error.message));
+        onFailure(error.message);
         console.log(error.message);
       });
+  };
+
+  const onSuccess = async credentials => {
+    dispatch(loginSuccess(credentials, role));
+
+    // Make sure airtableKey exists
+    const key = await SecureStore.getItemAsync('airtableKey', {});
+
+    if (!key) {
+      dispatch(getAirtableKey());
+    }
+  };
+
+  const onFailure = message => {
+    dispatch(loginError(message));
+    Alert.alert(message);
   };
 
   const formOpacity = animation.x.interpolate({
@@ -137,7 +202,7 @@ export default LoginScreen = props => {
   });
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback style={{ flex: 1 }} onPress={Keyboard.dismiss}>
       <ImageBackground
         source={require('../assets/images/loginscreen2.png')}
         style={styles.container}
@@ -147,14 +212,17 @@ export default LoginScreen = props => {
           isModalVisible={isModalVisible}
         />
         <View style={styles.logoContainer}>
-          <Image
-            style={isModalVisible === false ? styles.logo : styles.Hidden}
-            source={require('../assets/images/keyFullWhite.png')}
-          />
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <Image
+              style={isModalVisible === false ? styles.logo : styles.Hidden}
+              source={require('../assets/images/keyFullWhite.png')}
+            />
+          </TouchableWithoutFeedback>
         </View>
         <KeyboardAvoidingView
           behavior='position'
           style={styles.keyboardAvoidingView}
+          contentContainerStyle={styles.keyboardAvoidingView}
         >
           <View style={styles.subContainer}>
             <Animated.View
@@ -163,10 +231,11 @@ export default LoginScreen = props => {
                 { left: animation.x, right: animation.y, opacity: formOpacity }
               ]}
             >
-              <LoginForm
+              <AuthForm
                 navigation={navigation}
                 role={role}
                 realmLogin={realmLogin}
+                createUser={createUser}
                 webAuth={webAuth}
                 goBack={() => {
                   setRole('');
