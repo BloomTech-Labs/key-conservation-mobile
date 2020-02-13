@@ -42,6 +42,7 @@ import AdminReportScreen from '../screens/AdminReportScreen';
 import ReportDetailScreen from '../screens/ReportDetailScreen';
 import CreateReportScreen from '../screens/CreateReportScreen';
 import LogoutScreen from '../screens/LogoutScreen';
+import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 import ToExpectNextScreen from '../screens/org-onboarding-screens/ToExpectNextScreen';
 
 //icon imports
@@ -218,7 +219,7 @@ export const UsernameStack = createStackNavigator({
 });
 
 export const LoginStack = createStackNavigator(
-  { Login: LoginScreen },
+  { Login: LoginScreen, ResetPassword: ResetPasswordScreen },
   {
     headerMode: 'none'
   }
