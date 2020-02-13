@@ -108,25 +108,25 @@ export default LoginScreen = props => {
         connection
       })
       .then(success => {
-        // onSuccess(success);
-        console.log(success);
+        realmLogin(email, password);
       })
       .catch(error => {
         console.log('failed');
+        console.log('error');
         let message =
-          error.json.error || error.json.description || error.message;
+          error.json?.error || error.json?.description || error.message;
         console.log(message);
         if (message.rules) {
           message =
             'Password too weak. Please follow instructions on creating a secure password.';
-        } else if (message.includes('Invalid sign up')) {
+        } else if (typeof message === 'string' && message.includes('Invalid sign up')) {
           message =
             'Invalid sign up: That email is probably already in use. Please try a different one';
-        } else if (message.includes('error in email')) {
+        } else if (typeof message === 'String' && message.includes('error in email')) {
           message =
             'That email is invalid. Please make sure you have typed it correctly.';
         }
-        onFailure(message);
+        onFailure(message || 'An error occurred while tring to sign up');
       });
   };
 
