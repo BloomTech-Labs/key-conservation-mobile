@@ -10,6 +10,7 @@ import * as SecureStorage from 'expo-secure-store';
 import styles from '../constants/screens/AccountSettingsScreen';
 import Smile from '../assets/jsicons/bottomnavigation/Smile';
 import BackArrowHeader from '../assets/jsicons/miscIcons/BackArrowHeader';
+import LogoutSymbol from '../assets/jsicons/KeyCon/LogoutSymbol';
 
 class AccountSettingsScreen extends React.Component {
   state = {
@@ -25,7 +26,12 @@ class AccountSettingsScreen extends React.Component {
       },
       headerTintColor: '#fff',
       headerLeft: () => (
-        <BackArrowHeader pressAction={navigation.getParam('done')} />
+        <TouchableOpacity
+          style={styles.backArrow}
+          pressAction={navigation.getParam('done')}
+        >
+          <BackArrowHeader />
+        </TouchableOpacity>
       )
     };
   };
@@ -105,10 +111,11 @@ class AccountSettingsScreen extends React.Component {
               style={styles.linkWrap}
               onPress={this.logoutPress}
             >
-              <Image
+              <LogoutSymbol style={styles.logoutButton} />
+              {/* <Image
                 source={require('../assets/icons/logout.png')}
                 style={styles.logoutButton}
-              />
+              /> */}
               <Text style={styles.linkText}>Log Out</Text>
             </TouchableOpacity>
           </View>

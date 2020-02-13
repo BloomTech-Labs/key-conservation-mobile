@@ -10,7 +10,7 @@ const LogoutScreen = props => {
       style={styles.container}
     >
       <View style={styles.logoutContainer}>
-        <Text style={styles.text}>Log Out successful!</Text>
+        <Text style={styles.text}>Log Out Successful!</Text>
         <TouchableOpacity
           style={styles.touchableContainer}
           onPress={() => {
