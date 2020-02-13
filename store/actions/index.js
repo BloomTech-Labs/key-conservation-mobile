@@ -343,7 +343,7 @@ export const postUser = user => dispatch => {
         dispatch({ type: POST_USER_SUCCESS, payload: res.data.newUser });
       })
       .catch(err => {
-        console.log(err, 'err in postUser');
+        console.log(err.response, 'err in postUser');
         dispatch({ type: POST_USER_ERROR, payload: err });
       });
   });
