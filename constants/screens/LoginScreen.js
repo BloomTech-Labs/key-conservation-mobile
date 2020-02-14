@@ -9,6 +9,7 @@ export default StyleSheet.create({
   subContainer: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   button: {
     justifyContent: 'center',
@@ -32,11 +33,13 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   selectTitle: {
+    textAlign: 'center',
     fontSize: 30,
     fontFamily: 'Lato-Bold',
     color: 'white'
   },
   highlight: {
+    textAlign: 'center',
     flexWrap: 'wrap',
     marginTop: 3,
     fontSize: 30,
@@ -108,5 +111,7 @@ export default StyleSheet.create({
     flexGrow: 1,
     width: '100%',
     height: '100%',
+    minHeight: 100,
+    maxHeight: 480
   }
 });

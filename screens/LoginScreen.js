@@ -246,7 +246,6 @@ export default LoginScreen = props => {
             <View style={styles.titleContainer}>
               <Text style={styles.selectTitle}>JOIN THE COMMUNITY</Text>
               <Text style={styles.highlight}>EMPOWERING HOPE</Text>
-              <Text style={styles.selectText}>Select One:</Text>
             </View>
             <View style={styles.buttons}>
               <TouchableOpacity
