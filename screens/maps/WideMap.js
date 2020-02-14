@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Marker, Callout } from 'react-native-maps';
+//import { MapView, Marker, Callout } from 'expo';
 import { StyleSheet, View, Image, Dimensions, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { getOrganizations, getProfileData } from '../../store/actions';
@@ -18,7 +19,6 @@ const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
     <View style={styles.container}>
       <MapView
         style={styles.mapStyle}
-        // provider={PROVIDER_GOOGLE}
         initialRegion={{
           latitude: 34.01425,
           longitude: -98.491624,

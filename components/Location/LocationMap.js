@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, View, Dimensions, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { getOrganizations } from '../../store/actions';
@@ -14,7 +14,6 @@ const LocationMap = ({ getOrganizations, profile }) => {
     <View style={styles.container}>
       <MapView
         style={styles.mapStyle}
-        //provider={PROVIDER_GOOGLE}
         showsScale={true}
         initialCamera={{
           center: {
