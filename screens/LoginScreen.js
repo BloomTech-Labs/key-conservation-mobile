@@ -97,6 +97,21 @@ export default LoginScreen = props => {
     } else enterAnim.start();
   }, [role]);
 
+  const resetPassword = email => {
+    const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId });
+
+    console.log(email, connection);
+
+    return auth0.auth
+      .resetPassword({email, connection})
+      .then(() => {
+        Alert.alert('Success', 'You will recieve an email with further instructions shortly if you entered your email correctly!');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   const createUser = (email, password) => {
     const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId });
 
@@ -119,10 +134,16 @@ export default LoginScreen = props => {
         if (message.rules) {
           message =
             'Password too weak. Please follow instructions on creating a secure password.';
-        } else if (typeof message === 'string' && message.includes('Invalid sign up')) {
+        } else if (
+          typeof message === 'string' &&
+          message.includes('Invalid sign up')
+        ) {
           message =
             'Invalid sign up: That email is probably already in use. Please try a different one';
-        } else if (typeof message === 'String' && message.includes('error in email')) {
+        } else if (
+          typeof message === 'String' &&
+          message.includes('error in email')
+        ) {
           message =
             'That email is invalid. Please make sure you have typed it correctly.';
         }
@@ -234,6 +255,7 @@ export default LoginScreen = props => {
               <AuthForm
                 navigation={navigation}
                 role={role}
+                resetPassword={resetPassword}
                 realmLogin={realmLogin}
                 createUser={createUser}
                 webAuth={webAuth}
@@ -246,13 +268,11 @@ export default LoginScreen = props => {
             <View style={styles.titleContainer}>
               <Text style={styles.selectTitle}>JOIN THE COMMUNITY</Text>
               <Text style={styles.highlight}>EMPOWERING HOPE</Text>
-              <Text style={styles.selectText}>Select One:</Text>
             </View>
             <View style={styles.buttons}>
               <TouchableOpacity
                 onPress={() => {
                   setRole('supporter');
-                  // login(navigation);
                 }}
                 style={styles.buttonContainer}
               >
@@ -261,7 +281,6 @@ export default LoginScreen = props => {
               <TouchableOpacity
                 onPress={() => {
                   setRole('conservationist');
-                  // login(navigation);
                 }}
                 style={styles.buttonContainer}
               >
