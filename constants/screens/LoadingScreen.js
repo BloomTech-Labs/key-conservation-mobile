@@ -20,6 +20,8 @@ const styles = StyleSheet.create({
     paddingBottom: 18
   },
   indicator: {
+    borderColor: 'red',
+    borderWidth: 2,
     marginTop: 50
   },
   logoutContainer: {

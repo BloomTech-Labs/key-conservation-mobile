@@ -20,7 +20,7 @@ class AccountSettingsScreen extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Account Settings',
+      title: 'ACCOUNT SETTINGS',
       headerStyle: {
         backgroundColor: '#323338'
       },
@@ -89,10 +89,9 @@ class AccountSettingsScreen extends React.Component {
                 style={styles.linkWrap}
                 onPress={this.viewReports}
               >
-                <Image
-                  source={require('../assets/icons/logout.png')}
-                  style={styles.logoutButton}
-                />
+                <View style={styles.logoutButton}>
+                  <LogoutSymbol />
+                </View>
                 <Text style={styles.linkText}>Manage Reports</Text>
               </TouchableOpacity>
             </View>
@@ -109,10 +108,6 @@ class AccountSettingsScreen extends React.Component {
               <View style={styles.logoutButton}>
                 <LogoutSymbol />
               </View>
-              {/* <Image
-                source={require('../assets/icons/logout.png')}
-                style={styles.logoutButton}
-              /> */}
               <Text style={styles.linkText}>Log Out</Text>
             </TouchableOpacity>
           </View>
