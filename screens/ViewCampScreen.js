@@ -22,7 +22,7 @@ import BackButton from '../components/BackButton';
 import { AmpEvent } from '../components/withAmplitude';
 import FeedUpdate from '../components/FeedScreen/FeedUpdate';
 import CommentsView from '../components/Comments/CommentsView';
-
+import Hand from '../assets/jsicons/detailAboutUs/Hand';
 import styles from '../constants/screens/ViewCampScreen';
 import Ellipse from '../assets/jsicons/Ellipse';
 import CampaignActionSheet from '../components/Reports/CampaignActionSheet';
@@ -263,11 +263,10 @@ class ViewCampScreen extends React.Component {
                   </View>
                   <View style={styles.donateView}>
                     <View style={styles.campMission}>
-                      <SvgUri
+                      <Hand
                         fill='#3b3b3b'
                         width='25'
                         height='25'
-                        source={require('../assets/icons/hand.svg')}
                       />
                       <Text style={styles.supportMissionText}>
                         Support Our Mission
@@ -455,11 +454,10 @@ class ViewCampScreen extends React.Component {
                   </View>
                   <View style={styles.donateView}>
                     <View style={styles.campMission}>
-                      <SvgUri
+                      <Hand
                         fill='#3b3b3b'
                         width='25'
                         height='25'
-                        source={require('../assets/icons/hand.svg')}
                       />
                       <Text style={styles.supportMissionText}>
                         Support Our Mission

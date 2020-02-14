@@ -9,7 +9,7 @@ import Collapsible from '../Collapsible';
 import moment from 'moment';
 
 import flag from '../../assets/icons/flag-alt-solid.svg';
-
+import FlagIcon from '../../assets/jsicons/reports/FlagIcon';
 import { connect } from 'react-redux';
 
 import { shorten } from '../../util';
@@ -175,12 +175,8 @@ class ReportDetailCard extends Component {
         collapsed={this.props.collapsed}
         right={
           <View style={styles.report_count}>
-            <SvgUri
+            <FlagIcon
               style={styles.flag_icon}
-              source={flag}
-              fill='#000000'
-              width='15'
-              height='100%'
             />
             <Text style={styles.unique_reports}>
               {this.props.unique_reports}
