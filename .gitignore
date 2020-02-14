@@ -104,3 +104,6 @@ RNTester/Pods/*
 
 # Auth0 credentials file
 creds.json
+
+# API Keys
+.env
