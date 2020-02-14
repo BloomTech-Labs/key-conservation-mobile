@@ -9,8 +9,8 @@ import * as SecureStorage from 'expo-secure-store';
 
 import styles from '../constants/screens/AccountSettingsScreen';
 import Smile from '../assets/jsicons/bottomnavigation/Smile';
-import BackArrowHeader from '../assets/jsicons/miscIcons/BackArrowHeader';
 import LogoutSymbol from '../assets/jsicons/KeyCon/LogoutSymbol';
+import BackButtonHeader from '../components/BackButtonHeader';
 
 class AccountSettingsScreen extends React.Component {
   state = {
@@ -20,18 +20,13 @@ class AccountSettingsScreen extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'ACCOUNT SETTINGS',
+      title: 'Account Settings',
       headerStyle: {
         backgroundColor: '#323338'
       },
       headerTintColor: '#fff',
       headerLeft: () => (
-        <TouchableOpacity
-          style={styles.backArrow}
-          pressAction={navigation.getParam('done')}
-        >
-          <BackArrowHeader />
-        </TouchableOpacity>
+        <BackButtonHeader pressAction={navigation.getParam('done')} />
       )
     };
   };
@@ -83,7 +78,7 @@ class AccountSettingsScreen extends React.Component {
   render() {
     return (
       <ScrollView contentContainerStyle={styles.scrollBG}>
-        <View style={styles.container}>
+        <View>
           {this.props.currentUserProfile.admin && (
             <View style={styles.sections}>
               <View style={styles.iconWrap}>
@@ -111,7 +106,9 @@ class AccountSettingsScreen extends React.Component {
               style={styles.linkWrap}
               onPress={this.logoutPress}
             >
-              <LogoutSymbol style={styles.logoutButton} />
+              <View style={styles.logoutButton}>
+                <LogoutSymbol />
+              </View>
               {/* <Image
                 source={require('../assets/icons/logout.png')}
                 style={styles.logoutButton}
