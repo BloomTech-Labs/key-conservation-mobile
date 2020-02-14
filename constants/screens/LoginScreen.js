@@ -3,13 +3,11 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    padding: '2%',
     alignItems: 'center',
     justifyContent: 'center',
   },
   subContainer: {
-    width: '100%',
-    height: '100%',
+    flex: 1,
     alignItems: 'center',
   },
   button: {
@@ -21,7 +19,7 @@ export default StyleSheet.create({
     width: 215
   },
   logoContainer: {
-    flex: 1,
+    flex: 0.85,
     flexShrink: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -96,6 +94,7 @@ export default StyleSheet.create({
     display: 'none'
   },
   formView: {
+    flex: 1,
     position: "absolute",
     zIndex: 1,
     left: 0,
@@ -104,7 +103,9 @@ export default StyleSheet.create({
     bottom: 0,
   },
   keyboardAvoidingView: {
-    flex: 1.5,
+    flex: 1,
+    flexGrow: 1,
     width: '100%',
+    height: '100%',
   }
 });

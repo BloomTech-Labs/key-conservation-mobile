@@ -88,7 +88,6 @@ export const loginError = error => ({
   payload: error
 });
 export const loginSuccess = (credentials, role) => async dispatch => {
-
   await SecureStore.setItemAsync('accessToken', credentials.idToken);
 
   const decoded = JwtDecode(credentials.idToken);
@@ -97,16 +96,18 @@ export const loginSuccess = (credentials, role) => async dispatch => {
   await SecureStore.setItemAsync('email', decoded.email);
   await SecureStore.setItemAsync('roles', role);
 
-  dispatch(getProfileData(null, decoded.sub, true)).then(() => {
-    navigate('Loading');
-    dispatch({
-      type: LOGIN_SUCCESS
+  dispatch(getProfileData(null, decoded.sub, true))
+    .then(() => {
+      navigate('Loading');
+      dispatch({
+        type: LOGIN_SUCCESS
+      });
     })
-  }).catch(() => {
-    dispatch({
-      type: LOGIN_ERROR
-    })
-  });
+    .catch(() => {
+      dispatch({
+        type: LOGIN_ERROR
+      });
+    });
 };
 
 export const LOGOUT = 'LOGOUT';
@@ -119,7 +120,7 @@ export const logout = (message = '') => async dispatch => {
   await SecureStore.deleteItemAsync('userId', {});
   await SecureStore.deleteItemAsync('accessToken', {});
 
-  console.log('logging out')
+  console.log('logging out');
 
   navigate('Logout');
 
@@ -136,6 +137,20 @@ export const AFTER_FIRST_LOGIN = 'AFTER_FIRST_LOGIN';
 export const afterFirstLogin = () => ({
   type: AFTER_FIRST_LOGIN
 });
+
+export const getAirtableKey = () => {
+  axiosWithAuth(null, aaxios => {
+    aaxios
+      .get(`${seturl}airtable`)
+      .then(async response => {
+        await SecureStore.setItemAsync(
+          'airtableKey',
+          response.data.airtable_key
+        );
+      })
+      .catch(error => console.log(error));
+  });
+};
 
 // This is used in the admin screen, report detail section
 // Data comes in as a table name and an ID
@@ -328,7 +343,7 @@ export const postUser = user => dispatch => {
         dispatch({ type: POST_USER_SUCCESS, payload: res.data.newUser });
       })
       .catch(err => {
-        console.log(err, 'err in postUser');
+        console.log(err.response, 'err in postUser');
         dispatch({ type: POST_USER_ERROR, payload: err });
       });
   });
