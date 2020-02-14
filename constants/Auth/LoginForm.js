@@ -1,91 +1,59 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  container: {
-    flex: 1,
-    borderRadius: 8,
-    padding: 16,
-    backgroundColor: 'white',
-    marginVertical: 8,
-    paddingBottom: 24,
-    overflow: 'hidden'
-  },
-  loading: {
-    zIndex: 2,
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'white'
-  },
-  headerSection: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16
-  },
-  backButton: {
-    padding: 8,
-    paddingRight: 16
-  },
-  headerText: {
-    fontWeight: 'bold',
-    fontSize: 22
-  },
   inputContainer: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'flex-start'
   },
   inputError: {
     borderColor: '#ff0000'
   },
+  inputField: {
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
+    marginBottom: 15
+  },
   input: {
+    borderWidth: 1,
+    borderColor: '#F5F5F5',
+    flex: 1,
     height: 50,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F5F5F5',
+    fontWeight: 'bold',
     borderRadius: 7,
-    marginBottom: 15,
     color: '#333333',
-    paddingHorizontal: 10,
-    borderColor: '#eaeaea',
-    borderWidth: 1
+    marginLeft: 10,
+    paddingHorizontal: 10
   },
   buttonContainer: {
-    backgroundColor: '#00FF9D',
+    backgroundColor: '#F5F5F5',
     paddingVertical: 12,
-    marginBottom: 7,
+    marginTop: 15,
     borderRadius: 7,
-    justifyContent: 'center'
-  },
-  buttonContainerInset: {
-    borderColor: '#00FF9D',
-    borderWidth: 2,
-    paddingVertical: 12,
-    marginBottom: 7,
-    borderRadius: 7,
-    justifyContent: 'center'
-  },
-  buttonInset: {
-    textAlign: 'center',
-    color: '#00FF9D',
-    fontWeight: '400',
-    fontSize: 20
+    justifyContent: 'center',
+    shadowColor: 'gray',
+    shadowRadius: 2,
+    shadowOpacity: 0.3,
+    shadowOffset: {
+      width: 1,
+      height: 3
+    }
   },
   button: {
+    fontFamily: 'Lato-Bold',
+    fontStyle: 'normal',
     textAlign: 'center',
-    color: '#ffffff',
-    fontWeight: '400',
-    fontSize: 20
+    color: 'black',
+    fontSize: 18
   },
-  noAccount: {
-    marginTop: 12,
+  footnoteContainer: {
+    marginVertical: 4,
     flexDirection: 'row',
     justifyContent: 'center'
   },
-  signUpContainer: {},
-  signUp: {
-    color: 'dodgerblue'
+  footnote: {
+    fontFamily: 'Lato-Bold',
+    color: 'gray'
   }
 });

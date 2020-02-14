@@ -15,6 +15,7 @@ import styles from '../../constants/screens/org-onboarding-styles/VerifyOrg.js';
 import ConservationOptimismModal from '../../components/ConservationOptimismModal';
 import * as SecureStore from 'expo-secure-store';
 import SvgUri from 'react-native-svg-uri';
+import QuestionCircle from '../../assets/jsicons/OnBoarding/QuestionCircle';
 
 const VerifyOrganizationScreen = (props) => {
 	const [ airtableState, onChangeText ] = useState({
@@ -31,7 +32,6 @@ const VerifyOrganizationScreen = (props) => {
 	const airtableKey = props.navigation.getParam('airtableKey', 'defaultValue');
 	const airtableID = props.navigation.getParam('airtableID', 'defaultValue');
 	const airtableState2 = props.navigation.getParam('airtableState', 'defaultValue'); // this grabs the airtable form ID and data from previous component.
-	import QuestionCircle from '../../assets/jsicons/OnBoarding/QuestionCircle';
 
 	setAirtableID = async () => {
 		await SecureStore.setItemAsync('airtableID', airtableID);
