@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const DEVICE_HEIGHT = Dimensions.get('screen').height;
 
 export default StyleSheet.create({
   container: {
@@ -8,6 +10,7 @@ export default StyleSheet.create({
   },
   subContainer: {
     flex: 1,
+    paddingTop: 16,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -16,8 +19,8 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   logo: {
-    height: 215,
-    width: 215
+    height: DEVICE_HEIGHT < 540 ? 160 : 224,
+    width: DEVICE_HEIGHT < 540 ? 160 : 224
   },
   logoContainer: {
     flex: 0.85,
@@ -89,7 +92,9 @@ export default StyleSheet.create({
   aboutIconContainer: {
     alignSelf: 'flex-start',
     width: '90%',
-    margin: 24
+    margin: 24,
+    zIndex: -1,
+    opacity: DEVICE_HEIGHT < 540 ? 0 : 1
   },
   aboutIconTouch: {
     padding: 10
@@ -111,7 +116,7 @@ export default StyleSheet.create({
     flexGrow: 1,
     width: '100%',
     height: '100%',
-    minHeight: 100,
+    minHeight: 144,
     maxHeight: 480
   }
 });
