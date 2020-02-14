@@ -102,7 +102,7 @@ const FeedStack = createStackNavigator(
       screen: ProScreen,
       navigationOptions: {
         headerTransparent: true,
-        headerTintColor: '#fff',
+        headerTintColor: '#fff'
       }
     },
     Detail: {
@@ -219,7 +219,10 @@ export const UsernameStack = createStackNavigator({
 });
 
 export const LoginStack = createStackNavigator(
-  { Login: LoginScreen, ResetPassword: ResetPasswordScreen },
+  {
+    Login: { screen: LoginScreen },
+    ResetPassword: { screen: ResetPasswordScreen }
+  },
   {
     headerMode: 'none'
   }

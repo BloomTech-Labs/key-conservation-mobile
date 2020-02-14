@@ -91,13 +91,16 @@ class AuthForm extends Component {
         <View style={styles.headerSection}>
           <TouchableOpacity
             onPress={() => {
-              this.props.goBack()
+              this.props.goBack();
             }}
             style={styles.backButton}
           >
             <ChevronLeft fill='#000' />
           </TouchableOpacity>
-          <Text style={styles.headerText}>{this.state.currentTab ? 'Sign up' : 'Log in'} as a {this.props.role}</Text>
+          <Text style={styles.headerText}>
+            {this.state.currentTab ? 'Sign up' : 'Log in'} as a{' '}
+            {this.props.role}
+          </Text>
         </View>
         <View style={styles.formContent}>
           {this.state.currentTab && this.state.confirmPassowrd ? (
@@ -105,6 +108,7 @@ class AuthForm extends Component {
           ) : (
             <LoginForm
               type={this.state.currentTab}
+              resetPassword={this.props.resetPassword}
               realmLogin={
                 this.state.currentTab
                   ? this.props.createUser
