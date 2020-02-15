@@ -10,7 +10,6 @@ import FeedCampaign from '../components/FeedScreen/FeedCampaign';
 
 import FeedUpdate from '../components/FeedScreen/FeedUpdate';
 
-import SvgUri from 'react-native-svg-uri';
 import { Header, SearchBar } from 'react-native-elements';
 import { createFilter } from 'react-native-search-filter';
 import Constants from 'expo-constants';

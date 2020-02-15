@@ -1,6 +1,5 @@
 import React from 'react';
 import { Modal, Text, TouchableHighlight, View, StyleSheet } from 'react-native';
-import SvgUri from 'react-native-svg-uri';
 import X from '../assets/jsicons/miscIcons/X';
 
 const ConservationOptimismModal = (props) => {

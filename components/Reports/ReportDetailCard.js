@@ -8,7 +8,6 @@ import Collapsible from '../Collapsible';
 
 import moment from 'moment';
 
-import flag from '../../assets/icons/flag-alt-solid.svg';
 import FlagIcon from '../../assets/jsicons/reports/FlagIcon';
 import { connect } from 'react-redux';
 
@@ -25,7 +24,6 @@ import {
   getProfileData,
   getReports
 } from '../../store/actions';
-import SvgUri from 'react-native-svg-uri';
 import LoadingOverlay from '../LoadingOverlay';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 

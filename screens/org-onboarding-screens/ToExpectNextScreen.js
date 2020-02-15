@@ -1,9 +1,8 @@
 import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
 import styles from '../../constants/screens/org-onboarding-styles/ToExpectNext.js';
-import SvgUri from 'react-native-svg-uri';
 import CheckMark from '../../assets/jsicons/miscIcons/CheckMark';
+import CheckCircleWhite from '../../assets/jsicons/OnBoarding/CheckCircleWhite';
 
 const ToExpectNextScreen = (props) => {
 	return (
@@ -29,7 +28,7 @@ const ToExpectNextScreen = (props) => {
 					</View>
 					<View style={styles.contentWrapper}>
 						<View style={styles.iconWrapper}>
-							<AntDesign name='checkcircleo' size={24} />
+							<CheckCircleWhite />
 						</View>
 						<View style={{ width: '90%' }}>
 							<Text style={styles.obSubtitle}>Register</Text>
@@ -41,7 +40,7 @@ const ToExpectNextScreen = (props) => {
 					</View>
 					<View style={styles.contentWrapper}>
 						<View style={styles.iconWrapper}>
-							<AntDesign name='checkcircleo' size={24} />
+							<CheckCircleWhite />
 						</View>
 						<View style={{ width: '90%' }}>
 							<Text style={styles.obSubtitle}>Create Your Profile</Text>

@@ -2,7 +2,6 @@ import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-navigation';
 import * as WebBrowser from 'expo-web-browser';
-import SvgUri from 'react-native-svg-uri';
 import styles from '../../constants/DetailScreen/DetailAboutUs';
 import Clipboard from '../../assets/jsicons/detailAboutUs/Clipboard';
 import Seedling from '../../assets/jsicons/detailAboutUs/Seedling';

@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, Clipboard } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
 import Twitter from '../../assets/jsicons/socialmedia/Twitter';
 import Facebook from '../../assets/jsicons/socialmedia/Facebook';

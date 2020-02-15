@@ -8,7 +8,6 @@ import {
 } from 'react-native-popup-menu';
 import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
-import SvgUri from 'react-native-svg-uri';
 import { ListItem } from 'react-native-elements';
 import Ellipse from '../assets/jsicons/Ellipse';
 

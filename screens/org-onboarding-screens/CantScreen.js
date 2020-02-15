@@ -1,9 +1,8 @@
 import React from 'react';
 import { View, ScrollView, Text, TouchableOpacity, Button, StyleSheet } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/CantScreen.js';
-
-import { AntDesign } from '@expo/vector-icons';
-import Circle from '../../assets/jsicons/OnBoarding/Circle';
+import Circle from '../../assets/jsicons/OnBoarding/FilledCircle';
+import FilledCircle from '../../assets/jsicons/OnBoarding/FilledCircle';
 
 const CantScreen = (props) => {
 	return (
@@ -17,7 +16,7 @@ const CantScreen = (props) => {
 				<View>
 					<View style={styles.contentWrapper}>
 						<View style={styles.iconWrapper}>
-							<Circle />
+							<FilledCircle />
 							{/* <AntDesign 
 					name="closecircle" 
 					size={24}

@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import { withNavigationFocus } from 'react-navigation';
 import { getOrganizations, setMapSearchQuery } from '../../store/actions';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import styles from '../../constants/Map/MapSearchBarComponent';
-import SvgUri from 'react-native-svg-uri';
 import Search from '../../assets/jsicons/mapIcons/searchIconColor';
 import ClearIcon from '../../assets/jsicons/mapIcons/clearIcon';
 import Sliders from '../../assets/jsicons/mapIcons/Sliders';

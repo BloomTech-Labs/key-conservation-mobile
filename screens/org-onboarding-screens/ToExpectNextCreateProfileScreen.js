@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 
 import styles from '../../constants/screens/org-onboarding-styles/ToExpectNext.js';
-import SvgUri from 'react-native-svg-uri';
 import NavigateButton from './formElement/NavigateButton.js';
 import CheckMark from '../../assets/jsicons/miscIcons/CheckMark';
 

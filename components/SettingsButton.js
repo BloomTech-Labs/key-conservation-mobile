@@ -1,6 +1,5 @@
 import React from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
 import SettingsGear from '../assets/jsicons/SettingsGear';
 
 const SettingsButton = (props) => {
@@ -18,7 +17,7 @@ const SettingsButton = (props) => {
 					borderRadius   : 5,
 					height         : 35,
 				}}>
-				<SettingsGear color='#fff' />
+				<SettingsGear fill='#fff' />
 			</View>
 		</TouchableOpacity>
 	);

@@ -1,9 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { ScrollView } from 'react-navigation';
-
-import SvgUri from 'react-native-svg-uri';
-
 import styles from '../../constants/Profile/SupProfileBody';
 import Clipboard from '../../assets/jsicons/detailAboutUs/Clipboard';
 import Seedling from '../../assets/jsicons/detailAboutUs/Seedling';

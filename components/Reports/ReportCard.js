@@ -1,12 +1,6 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
-
 import styles from '../../constants/Reports/ReportCard';
-
-import flag from '../../assets/icons/flag-alt-solid.svg';
-
-import SvgUri from 'react-native-svg-uri';
-
 import ChevronLeftBlack from '../../assets/jsicons/miscIcons/ChevronLeftBlack';
 import FlagIcon from '../../assets/jsicons/reports/FlagIcon';
 

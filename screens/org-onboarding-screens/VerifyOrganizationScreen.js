@@ -14,7 +14,6 @@ import {
 import styles from '../../constants/screens/org-onboarding-styles/VerifyOrg.js';
 import ConservationOptimismModal from '../../components/ConservationOptimismModal';
 import * as SecureStore from 'expo-secure-store';
-import SvgUri from 'react-native-svg-uri';
 import QuestionCircle from '../../assets/jsicons/OnBoarding/QuestionCircle';
 
 const VerifyOrganizationScreen = (props) => {
@@ -115,7 +114,9 @@ const VerifyOrganizationScreen = (props) => {
 					<Text style={styles.obFieldName}>
 						Will you join us in Conservation Optimism?
 						<TouchableHighlight onPress={() => setIsModalVisible(true)}>
-							<QuestionCircle style={{ marginLeft: 10, marginTop: 3 }} />
+							<View style={styles.questionMark}>
+								<QuestionCircle style={{ marginLeft: 10, marginTop: 3 }} />
+							</View>
 						</TouchableHighlight>
 					</Text>
 

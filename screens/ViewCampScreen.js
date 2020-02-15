@@ -13,7 +13,6 @@ import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-navigation';
 import * as WebBrowser from 'expo-web-browser';
 import { connect } from 'react-redux';
-import SvgUri from 'react-native-svg-uri';
 import moment from 'moment';
 import { Viewport } from '@skele/components';
 
