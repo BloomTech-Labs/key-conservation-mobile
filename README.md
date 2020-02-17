@@ -1,6 +1,6 @@
 # Key Conservation
 
-Current version: 4.1.0. This app is in Beta for iOS and Android.
+Current version: 4.2.0. This app is in Beta for iOS and Android.
 
 [Key Conservation PVD](https://www.notion.so/Key-Conservation-9de81dcdeca546ba85509f2982d211cc)
 
