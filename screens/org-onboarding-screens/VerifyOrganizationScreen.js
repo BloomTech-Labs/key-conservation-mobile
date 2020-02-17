@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   Button,
   Switch,
@@ -10,34 +10,34 @@ import {
   ScrollView,
   Alert,
   TouchableHighlight
-} from "react-native";
-import styles from "../../constants/screens/org-onboarding-styles/VerifyOrg.js";
-import ConservationOptimismModal from "../../components/ConservationOptimismModal";
-import * as SecureStore from "expo-secure-store";
-import SvgUri from "react-native-svg-uri";
+} from 'react-native';
+import styles from '../../constants/screens/org-onboarding-styles/VerifyOrg.js';
+import ConservationOptimismModal from '../../components/ConservationOptimismModal';
+import * as SecureStore from 'expo-secure-store';
+import SvgUri from 'react-native-svg-uri';
 
 const VerifyOrganizationScreen = props => {
   const [airtableState, onChangeText] = useState({
-    other_countries: "",
-    multiple_projects: "",
-    affiliations_partnerships: "",
+    other_countries: '',
+    multiple_projects: '',
+    affiliations_partnerships: '',
     conservation_optimism: null,
     smartphone_access: null,
-    smartphone_type: ""
+    smartphone_type: ''
   });
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const airtableKey = props.navigation.getParam("airtableKey", "defaultValue");
-  const airtableID = props.navigation.getParam("airtableID", "defaultValue");
+  const airtableKey = props.navigation.getParam('airtableKey', 'defaultValue');
+  const airtableID = props.navigation.getParam('airtableID', 'defaultValue');
   const airtableState2 = props.navigation.getParam(
-    "airtableState",
-    "defaultValue"
+    'airtableState',
+    'defaultValue'
   ); // this grabs the airtable form ID and data from previous component.
 
   setAirtableID = async () => {
-    await SecureStore.setItemAsync("airtableID", airtableID);
-    console.log(await SecureStore.getItemAsync("airtableID", {}));
+    await SecureStore.setItemAsync('airtableID', airtableID);
+    console.log(await SecureStore.getItemAsync('airtableID', {}));
   }; // This saves the current airtable form's ID in SecureStore.
 
   useEffect(() => {
@@ -52,9 +52,9 @@ const VerifyOrganizationScreen = props => {
   const updateAirtable = () => {
     // this updates the airtable form created in the previous component
 
-    var Airtable = require("airtable");
-    var base = new Airtable({ apiKey: airtableKey }).base("appbPeeXUSNCQWwnQ");
-    base("Table 1").update(
+    var Airtable = require('airtable');
+    var base = new Airtable({ apiKey: airtableKey }).base('appbPeeXUSNCQWwnQ');
+    base('Table 1').update(
       [
         {
           id: airtableID,
@@ -83,7 +83,7 @@ const VerifyOrganizationScreen = props => {
   return (
     <KeyboardAvoidingView
       style={styles.obBody}
-      behavior="height"
+      behavior='height'
       keyboardVerticalOffset={86}
       enabled
     >
@@ -105,7 +105,7 @@ const VerifyOrganizationScreen = props => {
               onChangeText({ ...airtableState, other_countries: text })
             }
             value={airtableState.other_countries}
-            placeholder="United States, Brazil, France, etc."
+            placeholder='United States, Brazil, France, etc.'
           />
           <Text style={styles.obFieldName}>
             Projects your organization is working on:
@@ -116,7 +116,7 @@ const VerifyOrganizationScreen = props => {
               onChangeText({ ...airtableState, multiple_projects: text })
             }
             value={airtableState.multiple_projects}
-            placeholder="Project 1, Project 2, etc."
+            placeholder='Project 1, Project 2, etc.'
           />
           <Text style={styles.obFieldName}>
             Current partnerships and affiliations:
@@ -130,7 +130,7 @@ const VerifyOrganizationScreen = props => {
               })
             }
             value={airtableState.affiliations_partnerships}
-            placeholder="Partnership 1, Partnership 2, etc."
+            placeholder='Partnership 1, Partnership 2, etc.'
           />
 
           <Text style={styles.obFieldName}>
@@ -138,10 +138,10 @@ const VerifyOrganizationScreen = props => {
             <TouchableHighlight onPress={() => setIsModalVisible(true)}>
               <SvgUri
                 style={{ marginLeft: 10, marginTop: 3 }}
-                fill="#3b3b3b"
-                width="18"
-                height="18"
-                source={require("../../assets/icons/question-circle.svg")}
+                fill='#3b3b3b'
+                width='18'
+                height='18'
+                source={require('../../assets/icons/question-circle.svg')}
               />
             </TouchableHighlight>
           </Text>
@@ -151,7 +151,7 @@ const VerifyOrganizationScreen = props => {
             isModalVisible={isModalVisible}
           />
           <Switch
-            trackColor={{ true: "#00FF9D" }}
+            trackColor={{ true: '#00FF9D' }}
             style={styles.obSwitchButton}
             value={airtableState.conservation_optimism}
             onValueChange={newValue =>
@@ -166,7 +166,7 @@ const VerifyOrganizationScreen = props => {
           </Text>
           <Switch
             style={styles.obSwitchButton}
-            trackColor={{ true: "#00FF9D" }}
+            trackColor={{ true: '#00FF9D' }}
             value={airtableState.smartphone_access}
             onValueChange={newValue =>
               onChangeText({ ...airtableState, smartphone_access: newValue })
@@ -186,26 +186,27 @@ const VerifyOrganizationScreen = props => {
             style={styles.obFwdContainer}
             onPress={() => {
               if (
-                airtableState.other_countries === "" ||
-                airtableState.multiple_projects === "" ||
+                airtableState.other_countries === '' ||
+                airtableState.multiple_projects === '' ||
                 //airtableState.affiliations_partnerships === "" ||
-                airtableState.smartphone_type === ""
+                airtableState.smartphone_type === ''
               ) {
-                Alert.alert("Oops", "Please fill in all sections of form", [
-                  { text: "Got it." }
+                Alert.alert('Oops', 'Please fill in all sections of form', [
+                  { text: 'Got it.' }
                 ]);
               } else if (
                 airtableState.conservation_optimism === false ||
                 airtableState.smartphone_access === false
               ) {
                 Alert.alert(
-                  "Oops",
-                  "Agree to conservation optimism and smart phone use",
-                  [{ text: "Got it." }]
+                  'Oops',
+                  'Agree to conservation optimism and smart phone use',
+                  [{ text: 'Got it.' }]
                 );
               } else {
                 updateAirtable();
-                props.navigation.navigate("VerifyDocumentation", {
+                //TODO send this instead to AccountScreen, then have AccountScreen send this to VerifyDocumentation
+                props.navigation.navigate('AccountScreen', {
                   airtableStateAdd: airtableStateAdd,
                   airtableKey: airtableKey
                 }); // This passes the combined fields sent to airtable needed for backend to the next component.

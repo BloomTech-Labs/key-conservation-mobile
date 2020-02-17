@@ -466,6 +466,7 @@ const ReviewYourInfoScreen = props => {
                 ]);
               } else {
                 updateAirtable();
+                //TODO this should go to Vetting
                 props.navigation.navigate('ToExpectNextCreateProfile', {
                   airtableStateAdd: state,
                   airtableKey: key

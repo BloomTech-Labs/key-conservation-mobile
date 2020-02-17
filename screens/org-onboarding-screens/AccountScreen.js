@@ -1,17 +1,12 @@
 import React, { useState, useRef } from 'react';
 import {
-  Button,
   View,
   Text,
-  TouchableOpacity,
   TextInput,
-  StyleSheet,
   KeyboardAvoidingView,
   ScrollView
 } from 'react-native';
 
-import useForm from './hooks/useForm';
-import DropDownSelect from './formElement/DropDownSelect';
 import { Feather } from '@expo/vector-icons';
 import styles from '../../constants/screens/org-onboarding-styles/OrganizationSurvey';
 import NavigateButton from './formElement/NavigateButton.js';
@@ -36,17 +31,16 @@ const AccountScreen = props => {
 
   1;
   var today = new Date();
-  //var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
   var date =
     today.getMonth() + 1 + '-' + today.getDate() + '-' + today.getFullYear();
 
   handleSubmit = async () => {
     airtableStateAdd2 = Object.assign({ ...airtableStateAdd, ...values }); // Updates state for backend with new fields.
-    // console.log(airtableStateAdd2)
     stringBE = JSON.stringify(airtableStateAdd2);
     await SecureStore.setItemAsync('stateBE', stringBE); // Finally stores data object in SecureStore to be opened in 'EditPro' after user is vetted.
     await SecureStore.setItemAsync('vetting', 'true');
     // Sets variables to be checked in 'LoadingScreen' to determine whether current user is in vetting process.
+    //TODO this should go to VerifyDocumentation, and send the stuff that VerifyOrg needed to send it.
     props.navigation.navigate('Vetting', {});
   };
 

@@ -44,6 +44,7 @@ import CreateReportScreen from '../screens/CreateReportScreen';
 import LogoutScreen from '../screens/LogoutScreen';
 import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 import ToExpectNextScreen from '../screens/org-onboarding-screens/ToExpectNextScreen';
+import WelcomeScreen from '../screens/WelcomeScreen';
 
 //icon imports
 
