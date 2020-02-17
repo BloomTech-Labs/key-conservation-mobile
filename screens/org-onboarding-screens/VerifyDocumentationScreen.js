@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, Alert } from 'react-native';
+import React from 'react';
+import { Text, View, TouchableOpacity } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/VerifyDocs.js';
 
 import { Ionicons, Feather } from '@expo/vector-icons';
@@ -8,11 +8,6 @@ import * as WebBrowser from 'expo-web-browser';
 import NavigateButton from './formElement/NavigateButton.js';
 
 export default VerifyDocumentationScreen = props => {
-  // const [state, setState] = useState({
-  //   result: null,
-  //   checked: false
-  // });
-
   const key = props.navigation.getParam('airtableKey', 'defaultValue');
 
   _handlePressButtonAsync = async () => {
@@ -66,8 +61,8 @@ export default VerifyDocumentationScreen = props => {
       'airtableStateAdd',
       'defaultValue'
     );
-    props.navigation.navigate('ReviewYourInfo', {
-      airtableStateAdd: airtableState,
+    props.navigation.navigate('Vetting', {
+      airtableState: airtableState,
       airtableKey: key
     });
   };
