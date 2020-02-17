@@ -42,6 +42,7 @@ import AdminReportScreen from '../screens/AdminReportScreen';
 import ReportDetailScreen from '../screens/ReportDetailScreen';
 import CreateReportScreen from '../screens/CreateReportScreen';
 import LogoutScreen from '../screens/LogoutScreen';
+import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 import ToExpectNextScreen from '../screens/org-onboarding-screens/ToExpectNextScreen';
 
 //icon imports
@@ -101,7 +102,7 @@ const FeedStack = createStackNavigator(
       screen: ProScreen,
       navigationOptions: {
         headerTransparent: true,
-        headerTintColor: '#fff',
+        headerTintColor: '#fff'
       }
     },
     Detail: {
@@ -218,7 +219,10 @@ export const UsernameStack = createStackNavigator({
 });
 
 export const LoginStack = createStackNavigator(
-  { Login: LoginScreen },
+  {
+    Login: { screen: LoginScreen },
+    ResetPassword: { screen: ResetPasswordScreen }
+  },
   {
     headerMode: 'none'
   }

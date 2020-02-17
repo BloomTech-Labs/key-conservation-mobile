@@ -92,6 +92,7 @@ class AuthForm extends Component {
 					) : (
 						<LoginForm
 							type={this.state.currentTab}
+							resetPassword={this.props.resetPassword}
 							realmLogin={this.state.currentTab ? this.props.createUser : this.props.realmLogin}
 						/>
 					)}

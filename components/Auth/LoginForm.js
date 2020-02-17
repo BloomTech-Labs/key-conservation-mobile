@@ -7,6 +7,8 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+import { navigate } from '../../navigation/RootNavigator';
+
 import styles from '../../constants/Auth/LoginForm';
 import ChevronLeft from '../../assets/jsicons/miscIcons/ChevronLeftWhite';
 // import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
@@ -31,12 +33,12 @@ class LoginForm extends Component {
   }
 
   componentDidUpdate() {
-    if(this.state.type !== this.props.type) {
-      this.setState({type: this.props.type});
+    if (this.state.type !== this.props.type) {
+      this.setState({ type: this.props.type });
       // A change has been detected, switch focus
       // back to username field if password field
       // is selected for best user experience
-      if(this.passwordInput?.isFocused()) {
+      if (this.passwordInput?.isFocused()) {
         this.usernameInput.focus();
       }
     }
@@ -93,7 +95,7 @@ class LoginForm extends Component {
             keyboardType='email-address'
             autoCapitalize='none'
             autoCorrect={false}
-            ref={input => this.usernameInput = input}
+            ref={input => (this.usernameInput = input)}
             value={this.state.username}
             onChangeText={text => this.setState({ username: text.trim() })}
           />
@@ -124,7 +126,12 @@ class LoginForm extends Component {
           />
         </View>
         <View style={styles.footnoteContainer}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => !this.state.type && navigate('ResetPassword', { 
+              resetPassword: this.props.resetPassword,
+              email: this.state.username
+             })}
+          >
             <Text style={styles.footnote}>
               {this.state.type
                 ? `By signing up, you agree to our terms of service and privacy policy`
