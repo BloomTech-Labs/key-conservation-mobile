@@ -13,7 +13,6 @@ import { Video } from 'expo-av';
 import { ListItem } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
-import { FontAwesome } from '@expo/vector-icons';
 import axios from 'axios';
 import { Viewport } from '@skele/components';
 

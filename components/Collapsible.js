@@ -1,15 +1,9 @@
-//import liraries
+//import libraries
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Animated,
-  TouchableWithoutFeedback
-} from 'react-native';
-import SvgUri from 'react-native-svg-uri';
+import { View, Text, Animated, TouchableWithoutFeedback } from 'react-native';
 
-import arrow from '../assets/icons/chevron-left-solid.svg';
+import ChevronLeftBlack from '../assets/jsicons/miscIcons/ChevronLeftBlack';
+import styles from '../constants/Collapsible';
 
 // create a component
 class Collapsible extends Component {
@@ -107,13 +101,7 @@ class Collapsible extends Component {
                 { transform: [{ rotate: arrowRot }] }
               ]}
             >
-              <SvgUri
-                style={styles.arrow}
-                source={arrow}
-                fill='#000000'
-                width='15'
-                height='100%'
-              />
+              <ChevronLeftBlack style={styles.arrow} />
             </Animated.View>
           </View>
         </TouchableWithoutFeedback>
@@ -128,48 +116,6 @@ class Collapsible extends Component {
     );
   }
 }
-
-// define your styles
-const styles = StyleSheet.create({
-  container: {
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 8,
-    marginVertical: 12,
-    borderRadius: 8,
-    overflow: 'hidden'
-  },
-  title_bar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 8
-  },
-  right_content: {
-    flex: 0.5
-  },
-  title: {
-    flex: 2,
-    padding: 10,
-    fontWeight: 'bold',
-    fontSize: 16
-  },
-  arrow: {
-    flex: 1,
-    width: null,
-    height: null
-  },
-  arrowContainer: {
-    width: 30,
-    height: 30,
-    alignItems: 'center'
-  },
-  content: {
-    padding: 8,
-    paddingTop: 8,
-    overflow: 'hidden'
-  }
-});
 
 //make this component available to the app
 export default Collapsible;

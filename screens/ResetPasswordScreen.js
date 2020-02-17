@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import ChevronLeft from '../assets/jsicons/miscIcons/ChevronLeftSolid';
+import ChevronLeft from '../assets/jsicons/miscIcons/ChevronLeftBlack';
 import {
   TouchableOpacity,
   TextInput
