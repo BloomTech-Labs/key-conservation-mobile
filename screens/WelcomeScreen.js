@@ -1,4 +1,5 @@
 import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import styles from '../constants/screens/UsernameScreen';
 
 const WelcomeScreen = props => {
@@ -6,7 +7,7 @@ const WelcomeScreen = props => {
     <View>
       <Text>You're in! Welcome to Key Conservation.</Text>
       <TouchableOpacity
-        onPress={() => props.navigation.navigate('Loading')}
+        onPress={() => props.navigation.navigate('Home')}
         style={styles.touchableButton}
       >
         <View style={styles.touchableView}>

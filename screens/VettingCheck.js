@@ -20,6 +20,26 @@ function VettingCheck(props) {
     key: ''
   });
 
+  getBackend = async () => {
+    const state = await SecureStore.getItemAsync('stateBE', {});
+    const parseBE = JSON.parse(state);
+    parseBE
+      ? this.setState({
+          org_name: parseBE.org_name,
+          phone_number: parseBE.phone,
+          mini_bio: parseBE.mission,
+          species_and_habitats: parseBE.species,
+          issues: parseBE.issues,
+          facebook: parseBE.facebook,
+          instagram: parseBE.instagram,
+          twitter: parseBE.twitter,
+          org_link_url: parseBE.website,
+          location: parseBE.address + ', ' + parseBE.country
+        })
+      : null;
+    await SecureStore.deleteItemAsync('stateBE', {});
+  }; // Retrieves state object from SecureStore that was created in the onboarding process (ReviewYourInfoScreen).
+
   getAirtableId = async () => {
     const id = await SecureStore.getItemAsync('airtableID', {});
     const email = await SecureStore.getItemAsync('email', {});
@@ -34,7 +54,7 @@ function VettingCheck(props) {
   const checkAirtable = record => {
     console.log('checkAirtable activated');
     if (record.fields.accepted === true) {
-      props.navigation.navigate('WelcomeScreen');
+      props.navigation.navigate('Welcome');
       console.log("You're good to go!");
     } else {
       console.log('not vetted yet!');

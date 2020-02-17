@@ -68,7 +68,8 @@ export const OrgOnboardStack = createStackNavigator(
     ThankYou: ThankYouScreen,
     ReviewYourInfo: ReviewYourInfoScreen,
     AccountScreen: AccountScreen,
-    ToExpectNextCreateProfile: ToExpectNextCreateProfileScreen
+    ToExpectNextCreateProfile: ToExpectNextCreateProfileScreen,
+    Welcome: WelcomeScreen
   },
   {
     headerMode: 'none'
