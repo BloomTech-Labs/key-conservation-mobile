@@ -8,6 +8,7 @@ Current version: 4.1.0. This app is in Beta for iOS and Android.
 
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![Maintainability](https://api.codeclimate.com/v1/badges/334bb92955b642b45954/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/key-conservation-mobile/maintainability)
 
 # Contributors
 
