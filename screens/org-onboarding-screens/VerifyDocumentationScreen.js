@@ -1,51 +1,29 @@
-import React, { Component, useState, useEffect } from "react";
-import { Button, Text, View, TouchableOpacity, Alert } from "react-native";
-import styles from "../../constants/screens/org-onboarding-styles/VerifyDocs.js";
+import React, { useState } from 'react';
+import { Text, View, TouchableOpacity, Alert } from 'react-native';
+import styles from '../../constants/screens/org-onboarding-styles/VerifyDocs.js';
 
-import { Ionicons, Feather } from "@expo/vector-icons";
-import * as WebBrowser from "expo-web-browser";
-import * as SecureStore from "expo-secure-store";
+import { Ionicons, Feather } from '@expo/vector-icons';
+import * as WebBrowser from 'expo-web-browser';
 
-import NavigateButton from "./formElement/NavigateButton.js";
+import NavigateButton from './formElement/NavigateButton.js';
 
 export default VerifyDocumentationScreen = props => {
-  const [state, setState] = useState({
-    // email: null,
-    result: null,
-    airtableState: null,
-    checked: false
-  });
+  // const [state, setState] = useState({
+  //   result: null,
+  //   checked: false
+  // });
 
-  useEffect(() => {
-    getState();
-  }, []);
-
-  const key = props.navigation.getParam("airtableKey", "defaultValue");
-
-  getState = async () => {
-    // const email = await SecureStore.getItemAsync("email", {});
-    // console.log(email);
-    const airtableState = props.navigation.getParam(
-      "airtableStateAdd",
-      "defaultValue"
-    );
-    setState({
-      ...state,
-      airtableState: airtableState
-      // email: email
-    });
-  };
+  const key = props.navigation.getParam('airtableKey', 'defaultValue');
 
   _handlePressButtonAsync = async () => {
     try {
       let result = await WebBrowser.openAuthSessionAsync(
-        "https://airtable.com/shrkK93NtoOkfnMP8"
+        'https://airtable.com/shrkK93NtoOkfnMP8'
       );
       let redirectData;
       if (result.url) {
-        redirectData = "https://airtable.com/shrkK93NtoOkfnMP8";
+        redirectData = 'https://airtable.com/shrkK93NtoOkfnMP8';
       }
-      setState({ result, redirectData });
     } catch (error) {
       alert(error);
     }
@@ -53,7 +31,6 @@ export default VerifyDocumentationScreen = props => {
 
   getAirtable = () => {
     return null;
-    // // console.log(key);
     // var Airtable = require("airtable");
     // var base = new Airtable({ apiKey: key }).base("appbPeeXUSNCQWwnQ");
     // console.log("VerifyDocumentation getAirtable activated");
@@ -65,7 +42,6 @@ export default VerifyDocumentationScreen = props => {
     //   })
     //   .eachPage(
     //     function page(records) {
-    //       // console.log(records[0]);
     //       records[0] === undefined
     //         ? Alert.alert(
     //             "Oops",
@@ -86,8 +62,12 @@ export default VerifyDocumentationScreen = props => {
   }; // This checks the 'Table 2' form for correct email, then checks for document upload.
 
   navigate = () => {
-    props.navigation.navigate("ReviewYourInfo", {
-      airtableStateAdd: state.airtableState,
+    const airtableState = props.navigation.getParam(
+      'airtableStateAdd',
+      'defaultValue'
+    );
+    props.navigation.navigate('ReviewYourInfo', {
+      airtableStateAdd: airtableState,
       airtableKey: key
     });
   };
@@ -104,7 +84,7 @@ export default VerifyDocumentationScreen = props => {
           style={styles.obUploadBtn}
           onPress={() => _handlePressButtonAsync()}
         >
-          <Feather name="plus" size={30} color="white" />
+          <Feather name='plus' size={30} color='white' />
         </TouchableOpacity>
         <Text style={styles.obText}>
           By clicking the button, you’ll be taken to an Airtable link to upload
@@ -113,7 +93,7 @@ export default VerifyDocumentationScreen = props => {
       </View>
       <View style={styles.noBorderConatiner}>
         <View>
-          <Ionicons name="ios-lock" size={36} color="#00FF9D" />
+          <Ionicons name='ios-lock' size={36} color='#00FF9D' />
         </View>
         <View>
           <Text style={styles.obSubtitle}>Privacy</Text>
@@ -125,7 +105,7 @@ export default VerifyDocumentationScreen = props => {
 
       <View style={styles.spacer} />
       <NavigateButton
-        label="Next"
+        label='Next'
         onButtonPress={() => {
           navigate();
         }}

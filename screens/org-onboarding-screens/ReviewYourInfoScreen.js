@@ -1,19 +1,18 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   View,
   ScrollView,
   Text,
   Button,
   TouchableOpacity,
-  StyleSheet,
   KeyboardAvoidingView,
   Switch
-} from "react-native";
-import styles from "../../constants/screens/org-onboarding-styles/ReviewYourInfo";
-import NavigateButton from "./formElement/NavigateButton.js";
-import { MaterialIcons, Entypo, Octicons } from "@expo/vector-icons";
-import { TextInput } from "react-native-gesture-handler";
-import * as SecureStore from "expo-secure-store";
+} from 'react-native';
+import styles from '../../constants/screens/org-onboarding-styles/ReviewYourInfo';
+import NavigateButton from './formElement/NavigateButton.js';
+import { MaterialIcons, Entypo, Octicons } from '@expo/vector-icons';
+import { TextInput } from 'react-native-gesture-handler';
+import * as SecureStore from 'expo-secure-store';
 
 const ReviewYourInfoScreen = props => {
   const [isEditingAccount, setIsEditingAccount] = useState(false);
@@ -22,41 +21,41 @@ const ReviewYourInfoScreen = props => {
   const [isEditingAffiliations, setIsEditingAffiliations] = useState(false);
   const [isEditingMisc, setIsEditingMisc] = useState(false);
 
-  const [airtableId, setAirtableId] = useState("");
+  const [airtableId, setAirtableId] = useState('');
 
   const [state, setState] = useState({
-    other_countries: "",
-    multiple_projects: "",
-    affiliations_partnerships: "project 1, project 2,",
+    other_countries: '',
+    multiple_projects: '',
+    affiliations_partnerships: 'project 1, project 2,',
     conservation_optimism: null,
     smartphone_access: null,
-    smartphone_type: "",
-    org_name: "",
-    website: "",
-    address: "",
-    country: "",
-    phone: "",
-    point_of_contact: "",
-    poc_position: "",
-    email: ""
+    smartphone_type: '',
+    org_name: '',
+    website: '',
+    address: '',
+    country: '',
+    phone: '',
+    point_of_contact: '',
+    poc_position: '',
+    email: ''
   });
 
   useEffect(() => {
-    setState(props.navigation.getParam("airtableStateAdd", "defaultValue"));
+    setState(props.navigation.getParam('airtableStateAdd', 'defaultValue'));
     getAirtableID();
   }, []); // Grabs state for backend through nav params again.
 
   const getAirtableID = async () => {
-    const id = await SecureStore.getItemAsync("airtableID", {});
+    const id = await SecureStore.getItemAsync('airtableID', {});
     setAirtableId(id);
   };
 
-  const key = props.navigation.getParam("airtableKey", "defaultValue");
+  const key = props.navigation.getParam('airtableKey', 'defaultValue');
 
   const updateAirtable = () => {
-    var Airtable = require("airtable");
-    var base = new Airtable({ apiKey: key }).base("appbPeeXUSNCQWwnQ");
-    base("Table 1").update(
+    var Airtable = require('airtable');
+    var base = new Airtable({ apiKey: key }).base('appbPeeXUSNCQWwnQ');
+    base('Table 1').update(
       [
         {
           id: airtableId,
@@ -83,9 +82,7 @@ const ReviewYourInfoScreen = props => {
           console.error(err);
           return;
         }
-        records.forEach(function(record) {
-          // console.log(record.getId());
-        });
+        records.forEach(function(record) {});
       }
     );
   }; // Updates corresponding airtable form if any fields are changed.
@@ -93,7 +90,7 @@ const ReviewYourInfoScreen = props => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior="height"
+      behavior='height'
       keyboardVerticalOffset={86}
       enabled
     >
@@ -117,7 +114,7 @@ const ReviewYourInfoScreen = props => {
                 <TouchableOpacity
                   onPress={() => setIsEditingAccount(!isEditingAccount)}
                 >
-                  <MaterialIcons name="edit" size={28} color={"#9A99A2"} />
+                  <MaterialIcons name='edit' size={28} color={'#9A99A2'} />
                 </TouchableOpacity>
               </View>
               <View style={styles.row}>
@@ -138,7 +135,7 @@ const ReviewYourInfoScreen = props => {
                 <TouchableOpacity
                   onPress={() => setIsEditingAccount(!isEditingAccount)}
                 >
-                  <Entypo name="check" size={36} color={"#00FF9D"} />
+                  <Entypo name='check' size={36} color={'#00FF9D'} />
                 </TouchableOpacity>
               </View>
 
@@ -147,7 +144,7 @@ const ReviewYourInfoScreen = props => {
                 <TextInput
                   style={[styles.obText, styles.textInput]}
                   value={state.point_of_contact}
-                  placeholder={"Point of Contact Name"}
+                  placeholder={'Point of Contact Name'}
                   onChangeText={text =>
                     setState({ ...state, point_of_contact: text })
                   }
@@ -159,7 +156,7 @@ const ReviewYourInfoScreen = props => {
                 <TextInput
                   style={[styles.obText, styles.textInput]}
                   value={state.poc_position}
-                  placeholder={" Contact Position"}
+                  placeholder={' Contact Position'}
                   onChangeText={text =>
                     setState({ ...state, poc_position: text })
                   }
@@ -176,7 +173,7 @@ const ReviewYourInfoScreen = props => {
                 <TouchableOpacity
                   onPress={() => setIsEditingContact(!isEditingContact)}
                 >
-                  <MaterialIcons name="edit" size={28} color={"#9A99A2"} />
+                  <MaterialIcons name='edit' size={28} color={'#9A99A2'} />
                 </TouchableOpacity>
               </View>
 
@@ -211,7 +208,7 @@ const ReviewYourInfoScreen = props => {
                 <TouchableOpacity
                   onPress={() => setIsEditingContact(!isEditingContact)}
                 >
-                  <Entypo name="check" size={36} color={"#00FF9D"} />
+                  <Entypo name='check' size={36} color={'#00FF9D'} />
                 </TouchableOpacity>
               </View>
 
@@ -264,14 +261,14 @@ const ReviewYourInfoScreen = props => {
                     setIsEditingOrganization(!isEditingOrganization)
                   }
                 >
-                  <MaterialIcons name="edit" size={28} color={"#9A99A2"} />
+                  <MaterialIcons name='edit' size={28} color={'#9A99A2'} />
                 </TouchableOpacity>
               </View>
               <Text style={styles.obSubtitleSm}>Countries of Operation:</Text>
               <Text style={styles.obText}>{state.other_countries}</Text>
 
-              {state.multiple_projects.split(",").map((project, idx) => {
-                if (project === "") return;
+              {state.multiple_projects.split(',').map((project, idx) => {
+                if (project === '') return;
                 return (
                   <View key={idx}>
                     <Text style={styles.obSubtitleSm}>Project:{idx + 1}</Text>
@@ -291,7 +288,7 @@ const ReviewYourInfoScreen = props => {
                     setIsEditingOrganization(!isEditingOrganization)
                   }
                 >
-                  <Entypo name="check" size={36} color={"#00FF9D"} />
+                  <Entypo name='check' size={36} color={'#00FF9D'} />
                 </TouchableOpacity>
               </View>
               <Text style={styles.obSubtitleSm}>Countries of Operation:</Text>
@@ -303,8 +300,8 @@ const ReviewYourInfoScreen = props => {
                 }
               />
 
-              {state.multiple_projects.split(",").map((project, idx, arr) => {
-                if (project === "") return;
+              {state.multiple_projects.split(',').map((project, idx, arr) => {
+                if (project === '') return;
                 return (
                   <View key={idx}>
                     <Text style={styles.obSubtitleSm}>Project:{idx + 1}</Text>
@@ -336,13 +333,13 @@ const ReviewYourInfoScreen = props => {
                     setIsEditingAffiliations(!isEditingAffiliations)
                   }
                 >
-                  <MaterialIcons name="edit" size={28} color={"#9A99A2"} />
+                  <MaterialIcons name='edit' size={28} color={'#9A99A2'} />
                 </TouchableOpacity>
               </View>
               {state.affiliations_partnerships
-                .split(",")
+                .split(',')
                 .map((affilicated, idx) => {
-                  if (affilicated === "") return;
+                  if (affilicated === '') return;
                   return (
                     <Text key={idx} style={styles.obText}>
                       {affilicated}
@@ -361,13 +358,13 @@ const ReviewYourInfoScreen = props => {
                     setIsEditingAffiliations(!isEditingAffiliations)
                   }
                 >
-                  <Entypo name="check" size={36} color={"#00FF9D"} />
+                  <Entypo name='check' size={36} color={'#00FF9D'} />
                 </TouchableOpacity>
               </View>
               {state.affiliations_partnerships
-                .split(",")
+                .split(',')
                 .map((affilicated, idx, arr) => {
-                  if (affilicated === "") return;
+                  if (affilicated === '') return;
                   return (
                     <TextInput
                       key={idx}
@@ -395,7 +392,7 @@ const ReviewYourInfoScreen = props => {
                 <TouchableOpacity
                   onPress={() => setIsEditingMisc(!isEditingMisc)}
                 >
-                  <MaterialIcons name="edit" size={28} color={"#9A99A2"} />
+                  <MaterialIcons name='edit' size={28} color={'#9A99A2'} />
                 </TouchableOpacity>
               </View>
 
@@ -420,7 +417,7 @@ const ReviewYourInfoScreen = props => {
                 <TouchableOpacity
                   onPress={() => setIsEditingMisc(!isEditingMisc)}
                 >
-                  <MaterialIcons name="edit" size={28} color={"#9A99A2"} />
+                  <MaterialIcons name='edit' size={28} color={'#9A99A2'} />
                 </TouchableOpacity>
               </View>
               <View style={styles.column}>
@@ -428,7 +425,7 @@ const ReviewYourInfoScreen = props => {
                   Will you join us in Conservation Optimism?
                 </Text>
                 <Switch
-                  trackColor={{ true: "#00FF9D" }}
+                  trackColor={{ true: '#00FF9D' }}
                   style={styles.obSwitchButton}
                   value={state.conservation_optimism}
                   onValueChange={newValue =>
@@ -442,7 +439,7 @@ const ReviewYourInfoScreen = props => {
                 </Text>
                 <Switch
                   style={styles.obSwitchButton}
-                  trackColor={{ true: "#00FF9D" }}
+                  trackColor={{ true: '#00FF9D' }}
                   value={state.smartphone_access}
                   onValueChange={newValue =>
                     setState({ ...state, smartphone_access: newValue })
@@ -452,7 +449,7 @@ const ReviewYourInfoScreen = props => {
             </View>
           )}
           <NavigateButton
-            label="Next"
+            label='Next'
             onButtonPress={() => {
               if (
                 state.org_name === undefined ||
@@ -464,16 +461,15 @@ const ReviewYourInfoScreen = props => {
                 state.poc_position === undefined
                 //|| state.email === undefined
               ) {
-                Alert.alert("Oops", "Please fill in all sections of form", [
-                  { text: "Got it" }
+                Alert.alert('Oops', 'Please fill in all sections of form', [
+                  { text: 'Got it' }
                 ]);
               } else {
                 updateAirtable();
-                props.navigation.navigate("ToExpectNextCreateProfile", {
+                props.navigation.navigate('ToExpectNextCreateProfile', {
                   airtableStateAdd: state,
                   airtableKey: key
                 }); // Passes updated state down for backend.
-                // console.log(state);
               }
             }}
           />
