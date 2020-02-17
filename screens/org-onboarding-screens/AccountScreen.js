@@ -39,9 +39,15 @@ const AccountScreen = props => {
     //TODO this should be moved to ReviewYourInfo
     stringBE = JSON.stringify(airtableStateAdd);
     await SecureStore.setItemAsync('stateBE', stringBE); // Finally stores data object in SecureStore to be opened in 'EditPro' after user is vetted.
+
+    //TODO this should be moved to verifyDocumentation
     await SecureStore.setItemAsync('vetting', 'true');
     // Sets variables to be checked in 'LoadingScreen' to determine whether current user is in vetting process.
-    props.navigation.navigate('ReviewYourInfo', {airtableState: airtableStateAdd, airtableKey: key});
+
+    props.navigation.navigate('ReviewYourInfo', {
+      airtableState: airtableStateAdd,
+      airtableKey: key
+    });
   };
 
   return (
@@ -52,8 +58,8 @@ const AccountScreen = props => {
       enabled
     >
       <ScrollView style={styles.scrollView}>
-        {/* <View style={[styles.container]}>
-          <View style={[styles.buttonRow, styles.greenBg]}>
+        <View style={[styles.container]}>
+          {/* <View style={[styles.buttonRow, styles.greenBg]}>
             <View>
               <Text style={[styles.h5Text, { fontWeight: '600' }]}>
                 Application Status: Processing

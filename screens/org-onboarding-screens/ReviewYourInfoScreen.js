@@ -3,7 +3,6 @@ import {
   View,
   ScrollView,
   Text,
-  Button,
   TouchableOpacity,
   KeyboardAvoidingView,
   Switch
@@ -37,11 +36,14 @@ const ReviewYourInfoScreen = props => {
     phone: '',
     point_of_contact: '',
     poc_position: '',
-    email: ''
+    email: '',
+    about_us: '', // mission from AccountScreen
+    species: '',
+    issues: ''
   });
 
   useEffect(() => {
-    setState(props.navigation.getParam('airtableStateAdd', 'defaultValue'));
+    setState(props.navigation.getParam('airtableState', 'defaultValue'));
     getAirtableID();
   }, []); // Grabs state for backend through nav params again.
 
@@ -450,7 +452,7 @@ const ReviewYourInfoScreen = props => {
           )}
           <NavigateButton
             label='Next'
-            onButtonPress={() => {
+            onButtonPress={async () => {
               if (
                 state.org_name === undefined ||
                 state.website === undefined ||
@@ -466,8 +468,10 @@ const ReviewYourInfoScreen = props => {
                 ]);
               } else {
                 updateAirtable();
-                //TODO this should go to VerifyDocumentation
-                props.navigation.navigate('ToExpectNextCreateProfile', {
+                stringBE = JSON.stringify(state);
+                await SecureStore.setItemAsync('stateBE', stringBE); // Finally stores data object in SecureStore to be sent to backend once user is vetted
+
+                props.navigation.navigate('VerifyDocumentation', {
                   airtableStateAdd: state,
                   airtableKey: key
                 }); // Passes updated state down for backend.
