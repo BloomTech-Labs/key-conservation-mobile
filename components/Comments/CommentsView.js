@@ -9,12 +9,13 @@ import {
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
-import SvgUri from 'react-native-svg-uri';
 
 import { commentOnCampaign, getCampaign } from '../../store/actions';
 import Comment from './Comment';
 
 import styles from '../../constants/Comments/Comments';
+import ActiveComment from '../../assets/jsicons/Comments/ActiveComment';
+import InactiveComment from '../../assets/jsicons/Comments/InactiveComment';
 
 class CommentsView extends React.Component {
   state = {
@@ -91,11 +92,7 @@ class CommentsView extends React.Component {
             />
             {this.state.comment === null || this.state.comment === '' ? (
               <TouchableOpacity style={styles.commentButton}>
-                <SvgUri
-                  width='26'
-                  height='26'
-                  source={require('../../assets/icons/inactive_comment.svg')}
-                />
+                <InactiveComment />
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
@@ -108,11 +105,7 @@ class CommentsView extends React.Component {
                   );
                 }}
               >
-                <SvgUri
-                  width='26'
-                  height='26'
-                  source={require('../../assets/icons/active_comment.svg')}
-                />
+                <ActiveComment />
               </TouchableOpacity>
             )}
           </View>

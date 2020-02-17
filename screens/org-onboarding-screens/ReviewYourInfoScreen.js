@@ -3,17 +3,16 @@ import {
   View,
   ScrollView,
   Text,
-  Button,
   TouchableOpacity,
   KeyboardAvoidingView,
   Switch
 } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/ReviewYourInfo';
 import NavigateButton from './formElement/NavigateButton.js';
-import { MaterialIcons, Entypo, Octicons } from '@expo/vector-icons';
 import { TextInput } from 'react-native-gesture-handler';
 import * as SecureStore from 'expo-secure-store';
-
+import SVGCheckMark from '../../assets/jsicons/SVGCheckMark';
+import EditPencil from '../../assets/jsicons/OnBoarding/EditPencil';
 const ReviewYourInfoScreen = props => {
   const [isEditingAccount, setIsEditingAccount] = useState(false);
   const [isEditingContact, setIsEditingContact] = useState(false);
@@ -82,7 +81,9 @@ const ReviewYourInfoScreen = props => {
           console.error(err);
           return;
         }
-        records.forEach(function(record) {});
+        records.forEach(function(record) {
+          // console.log(record.getId());
+        });
       }
     );
   }; // Updates corresponding airtable form if any fields are changed.
@@ -114,7 +115,7 @@ const ReviewYourInfoScreen = props => {
                 <TouchableOpacity
                   onPress={() => setIsEditingAccount(!isEditingAccount)}
                 >
-                  <MaterialIcons name='edit' size={28} color={'#9A99A2'} />
+                  <EditPencil />
                 </TouchableOpacity>
               </View>
               <View style={styles.row}>
@@ -135,7 +136,7 @@ const ReviewYourInfoScreen = props => {
                 <TouchableOpacity
                   onPress={() => setIsEditingAccount(!isEditingAccount)}
                 >
-                  <Entypo name='check' size={36} color={'#00FF9D'} />
+                  <SVGCheckMark />
                 </TouchableOpacity>
               </View>
 
@@ -173,7 +174,7 @@ const ReviewYourInfoScreen = props => {
                 <TouchableOpacity
                   onPress={() => setIsEditingContact(!isEditingContact)}
                 >
-                  <MaterialIcons name='edit' size={28} color={'#9A99A2'} />
+                  <EditPencil />
                 </TouchableOpacity>
               </View>
 
@@ -208,7 +209,7 @@ const ReviewYourInfoScreen = props => {
                 <TouchableOpacity
                   onPress={() => setIsEditingContact(!isEditingContact)}
                 >
-                  <Entypo name='check' size={36} color={'#00FF9D'} />
+                  <SVGCheckMark />
                 </TouchableOpacity>
               </View>
 
@@ -218,7 +219,7 @@ const ReviewYourInfoScreen = props => {
                   style={[styles.obText, styles.textInput]}
                   value={state.org_name}
                   onChangeText={text => setState({ ...state, org_name: text })}
-                ></TextInput>
+                />
               </View>
 
               <View style={styles.row}>
@@ -227,7 +228,7 @@ const ReviewYourInfoScreen = props => {
                   style={[styles.obText, styles.textInput]}
                   value={state.website}
                   onChangeText={text => setState({ ...state, website: text })}
-                ></TextInput>
+                />
               </View>
 
               <View style={styles.row}>
@@ -236,7 +237,7 @@ const ReviewYourInfoScreen = props => {
                   style={[styles.obText, styles.textInput]}
                   value={state.phone}
                   onChangeText={text => setState({ ...state, phone: text })}
-                ></TextInput>
+                />
               </View>
 
               <View>
@@ -246,7 +247,7 @@ const ReviewYourInfoScreen = props => {
                   multiline
                   value={state.address}
                   onChangeText={text => setState({ ...state, address: text })}
-                ></TextInput>
+                />
               </View>
             </View>
           )}
@@ -261,7 +262,7 @@ const ReviewYourInfoScreen = props => {
                     setIsEditingOrganization(!isEditingOrganization)
                   }
                 >
-                  <MaterialIcons name='edit' size={28} color={'#9A99A2'} />
+                  <EditPencil />
                 </TouchableOpacity>
               </View>
               <Text style={styles.obSubtitleSm}>Countries of Operation:</Text>
@@ -288,7 +289,7 @@ const ReviewYourInfoScreen = props => {
                     setIsEditingOrganization(!isEditingOrganization)
                   }
                 >
-                  <Entypo name='check' size={36} color={'#00FF9D'} />
+                  <SVGCheckMark />
                 </TouchableOpacity>
               </View>
               <Text style={styles.obSubtitleSm}>Countries of Operation:</Text>
@@ -333,7 +334,7 @@ const ReviewYourInfoScreen = props => {
                     setIsEditingAffiliations(!isEditingAffiliations)
                   }
                 >
-                  <MaterialIcons name='edit' size={28} color={'#9A99A2'} />
+                  <EditPencil />
                 </TouchableOpacity>
               </View>
               {state.affiliations_partnerships
@@ -358,7 +359,7 @@ const ReviewYourInfoScreen = props => {
                     setIsEditingAffiliations(!isEditingAffiliations)
                   }
                 >
-                  <Entypo name='check' size={36} color={'#00FF9D'} />
+                  <SVGCheckMark />
                 </TouchableOpacity>
               </View>
               {state.affiliations_partnerships
@@ -392,7 +393,7 @@ const ReviewYourInfoScreen = props => {
                 <TouchableOpacity
                   onPress={() => setIsEditingMisc(!isEditingMisc)}
                 >
-                  <MaterialIcons name='edit' size={28} color={'#9A99A2'} />
+                  <EditPencil />
                 </TouchableOpacity>
               </View>
 
@@ -417,7 +418,7 @@ const ReviewYourInfoScreen = props => {
                 <TouchableOpacity
                   onPress={() => setIsEditingMisc(!isEditingMisc)}
                 >
-                  <MaterialIcons name='edit' size={28} color={'#9A99A2'} />
+                  <EditPencil />
                 </TouchableOpacity>
               </View>
               <View style={styles.column}>
@@ -470,6 +471,7 @@ const ReviewYourInfoScreen = props => {
                   airtableStateAdd: state,
                   airtableKey: key
                 }); // Passes updated state down for backend.
+                // console.log(state);
               }
             }}
           />
