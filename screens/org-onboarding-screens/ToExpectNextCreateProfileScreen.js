@@ -78,7 +78,7 @@ const ToExpectNextCreateProfileScreen = props => {
           <NavigateButton
             label='Next'
             onButtonPress={() => {
-              props.navigation.navigate('OrganizationSurvey', {
+              props.navigation.navigate('AccountScreen', {
                 airtableStateAdd: airtableStateAdd,
                 airtableKey: key
               });
