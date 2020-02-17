@@ -1,41 +1,38 @@
-import React from "react";
-import { Text, Image, View, TouchableOpacity } from "react-native";
-import SvgUri from "react-native-svg-uri";
-import { ScrollView } from "react-navigation";
-import { connect } from "react-redux";
-import { logout } from "../store/actions";
-import * as SecureStorage from "expo-secure-store";
-import DoneButton from "../components/DoneButton";
+import React from 'react';
+import { Text, Image, View, TouchableOpacity } from 'react-native';
+import { ScrollView } from 'react-navigation';
+import { connect } from 'react-redux';
+import { logout } from '../store/actions';
+import * as SecureStorage from 'expo-secure-store';
+//import * as WebBrowser from 'expo-web-browser';
+//import Constants from 'expo-constants';
 
-import styles from "../constants/screens/AccountSettingsScreen";
-import * as WebBrowser from "expo-web-browser";
-
-import Constants from "expo-constants";
-
-import Smile from "../assets/jsicons/bottomnavigation/Smile";
+import styles from '../constants/screens/AccountSettingsScreen';
+import Smile from '../assets/jsicons/bottomnavigation/Smile';
+import LogoutSymbol from '../assets/jsicons/KeyCon/LogoutSymbol';
+import BackButtonHeader from '../components/BackButtonHeader';
 
 class AccountSettingsScreen extends React.Component {
   state = {
     result: null,
-    roles: ""
+    roles: ''
   };
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: "Account Settings",
+      title: 'ACCOUNT SETTINGS',
       headerStyle: {
-        backgroundColor: "#323338"
+        backgroundColor: '#323338'
       },
-      headerTintColor: "#fff",
-      headerRight: () => (
-        <DoneButton
-          pressAction={navigation.getParam("done")}
-        />
+      headerTintColor: '#fff',
+      headerLeft: () => (
+        <BackButtonHeader pressAction={navigation.getParam('done')} />
       )
     };
   };
+
   getRole = async () => {
-    const myRoles = await SecureStorage.getItemAsync("roles", {});
+    const myRoles = await SecureStorage.getItemAsync('roles', {});
     this.setState({ roles: myRoles });
   };
 
@@ -45,22 +42,22 @@ class AccountSettingsScreen extends React.Component {
   }
 
   done = () => {
-    if (this.state.roles === "conservationist") {
-      this.props.navigation.navigate("MyPro");
+    if (this.state.roles === 'conservationist') {
+      this.props.navigation.navigate('MyPro');
     } else {
-      this.props.navigation.navigate("MySupPro");
+      this.props.navigation.navigate('MySupPro');
     }
   };
   viewReports = () => {
-    this.props.navigation.navigate("AdminScreen");
+    this.props.navigation.navigate('AdminScreen');
   };
   logoutPress = async () => {
-    await SecureStorage.deleteItemAsync("sub", {});
-    await SecureStorage.deleteItemAsync("email", {});
-    await SecureStorage.deleteItemAsync("roles", {});
-    await SecureStorage.deleteItemAsync("id", {});
-    await SecureStorage.deleteItemAsync("userId", {});
-    await SecureStorage.deleteItemAsync("accessToken", {});
+    await SecureStorage.deleteItemAsync('sub', {});
+    await SecureStorage.deleteItemAsync('email', {});
+    await SecureStorage.deleteItemAsync('roles', {});
+    await SecureStorage.deleteItemAsync('id', {});
+    await SecureStorage.deleteItemAsync('userId', {});
+    await SecureStorage.deleteItemAsync('accessToken', {});
     // await SecureStorage.deleteItemAsync("airtableKey", {}); // for development
     this.props.logout();
 
@@ -81,27 +78,20 @@ class AccountSettingsScreen extends React.Component {
   render() {
     return (
       <ScrollView contentContainerStyle={styles.scrollBG}>
-        <View style={styles.container}>
+        <View>
           {this.props.currentUserProfile.admin && (
             <View style={styles.sections}>
               <View style={styles.iconWrap}>
                 <Smile />
-                {/* <SvgUri
-                  fill="#3b3b3b"
-                  width="25"
-                  height="25"
-                  source={require("../assets/icons/user.svg")}
-                /> */}
                 <Text style={styles.title}>Admin Controls</Text>
               </View>
               <TouchableOpacity
                 style={styles.linkWrap}
                 onPress={this.viewReports}
               >
-                <Image
-                  source={require("../assets/icons/logout.png")}
-                  style={styles.logoutButton}
-                />
+                <View style={styles.logoutButton}>
+                  <LogoutSymbol />
+                </View>
                 <Text style={styles.linkText}>Manage Reports</Text>
               </TouchableOpacity>
             </View>
@@ -109,24 +99,16 @@ class AccountSettingsScreen extends React.Component {
           <View style={styles.sections}>
             <View style={styles.iconWrap}>
               <Smile />
-              {/* <SvgUri
-                fill="#3b3b3b"
-                width="25"
-                height="25"
-                source={require("../assets/icons/user.svg")}
-              /> */}
-
-              <Text style={styles.title}>Logout Of Your Profile</Text>
+              <Text style={styles.title}>Log Out Of Your Profile</Text>
             </View>
             <TouchableOpacity
               style={styles.linkWrap}
               onPress={this.logoutPress}
             >
-              <Image
-                source={require("../assets/icons/logout.png")}
-                style={styles.logoutButton}
-              />
-              <Text style={styles.linkText}>Logout</Text>
+              <View style={styles.logoutButton}>
+                <LogoutSymbol />
+              </View>
+              <Text style={styles.linkText}>Log Out</Text>
             </TouchableOpacity>
           </View>
         </View>
