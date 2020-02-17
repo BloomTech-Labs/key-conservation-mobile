@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -23,25 +23,25 @@ const AccountScreen = props => {
     twitter: ''
   });
 
-  const airtableStateAdd = props.navigation.getParam(
+  const airtableState = props.navigation.getParam(
     'airtableStateAdd',
     'defaultValue'
   );
   const key = props.navigation.getParam('airtableKey', 'defaultValue');
 
-  1;
-  var today = new Date();
-  var date =
-    today.getMonth() + 1 + '-' + today.getDate() + '-' + today.getFullYear();
+  // 1;
+  // var today = new Date();
+  // var date =
+  //   today.getMonth() + 1 + '-' + today.getDate() + '-' + today.getFullYear();
 
   handleSubmit = async () => {
-    airtableStateAdd2 = Object.assign({ ...airtableStateAdd, ...values }); // Updates state for backend with new fields.
-    stringBE = JSON.stringify(airtableStateAdd2);
+    airtableStateAdd = Object.assign({ ...airtableState, ...values }); // Updates state for backend with new fields.
+    //TODO this should be moved to ReviewYourInfo
+    stringBE = JSON.stringify(airtableStateAdd);
     await SecureStore.setItemAsync('stateBE', stringBE); // Finally stores data object in SecureStore to be opened in 'EditPro' after user is vetted.
     await SecureStore.setItemAsync('vetting', 'true');
     // Sets variables to be checked in 'LoadingScreen' to determine whether current user is in vetting process.
-    //TODO this should go to VerifyDocumentation, and send the stuff that VerifyOrg needed to send it.
-    props.navigation.navigate('Vetting', {});
+    props.navigation.navigate('ReviewYourInfo', {airtableState: airtableStateAdd, airtableKey: key});
   };
 
   return (
@@ -52,7 +52,7 @@ const AccountScreen = props => {
       enabled
     >
       <ScrollView style={styles.scrollView}>
-        <View style={[styles.container]}>
+        {/* <View style={[styles.container]}>
           <View style={[styles.buttonRow, styles.greenBg]}>
             <View>
               <Text style={[styles.h5Text, { fontWeight: '600' }]}>
@@ -63,7 +63,7 @@ const AccountScreen = props => {
             <View>
               <Feather name='info' size={20} />
             </View>
-          </View>
+          </View> */}
           <View>
             <Text style={[styles.obTitle, { marginBottom: 24 }]}>
               Let Supporters {'\n'}Know About You!
