@@ -14,7 +14,7 @@ import VerifyOrganizationScreen from '../screens/org-onboarding-screens/VerifyOr
 import AlmostDone from '../screens/org-onboarding-screens/AlmostDoneScreen';
 import ThankYouScreen from '../screens/org-onboarding-screens/ThankYouScreen';
 import ReviewYourInfoScreen from '../screens/org-onboarding-screens/ReviewYourInfoScreen';
-import OrganizationSurveyScreen from '../screens/org-onboarding-screens/OrganizationSurveyScreen';
+import AccountScreen from '../screens/org-onboarding-screens/AccountScreen';
 import ToExpectNextCreateProfileScreen from '../screens/org-onboarding-screens/ToExpectNextCreateProfileScreen';
 
 import FeedScreen from '../screens/FeedScreen';
@@ -66,7 +66,7 @@ export const OrgOnboardStack = createStackNavigator(
     AlmostDone: AlmostDone,
     ThankYou: ThankYouScreen,
     ReviewYourInfo: ReviewYourInfoScreen,
-    OrganizationSurvey: OrganizationSurveyScreen,
+    AccountScreen: AccountScreen,
     ToExpectNextCreateProfile: ToExpectNextCreateProfileScreen
   },
   {
