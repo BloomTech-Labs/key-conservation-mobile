@@ -3,16 +3,15 @@ import MapView, { Marker, Callout } from 'react-native-maps';
 //import { MapView, Marker, Callout } from 'expo';
 import { StyleSheet, View, Image, Dimensions, Text } from 'react-native';
 import { connect } from 'react-redux';
-import { getOrganizations, getProfileData } from '../../store/actions';
+import { getOrganizations } from '../../store/actions';
 
-const WideMap = ({ getProfileData, getOrganizations, coords, navigation }) => {
+const WideMap = ({ getOrganizations, coords, navigation }) => {
   useEffect(() => {
     getOrganizations();
   }, []);
 
   const goToProfile = async id => {
-    await getProfileData(id);
-    navigation.navigate('Pro', { fromMap: true }); // For BackButton.
+    navigation.navigate('Pro', { fromMap: true, selectedProfile: id }); // For BackButton.
   };
 
   return (
@@ -105,6 +104,6 @@ const mapPropsToState = state => {
     coords: coords
   };
 };
-export default connect(mapPropsToState, { getOrganizations, getProfileData })(
+export default connect(mapPropsToState, { getOrganizations })(
   WideMap
 );

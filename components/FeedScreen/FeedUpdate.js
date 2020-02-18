@@ -16,8 +16,9 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { Viewport } from '@skele/components';
 
+import { navigate } from '../../navigation/RootNavigator';
+
 import {
-  getProfileData,
   setCampaign,
   toggleCampaignText
 } from '../../store/actions';
@@ -103,18 +104,17 @@ const FeedUpdate = props => {
     }
   }
 
-  const goToProfile = async () => {
-    await dispatch(getProfileData(data.users_id));
+  const goToProfile = () => {
     AmpEvent('Select Profile from Campaign', {
       profile: data.username,
       campaign: data.camp_name
     });
-    props.navigation.navigate('Pro');
+    navigate('Pro', { selectedProfile: data.users_id });
   };
 
   const goToCampUpdate = () => {
     dispatch(setCampaign(data));
-    props.navigation.navigate('CampUpdate', {
+    navigate('CampUpdate', {
       backBehavior: 'Home',
       likes: likes,
       userLiked: userLiked,
@@ -419,7 +419,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  getProfileData,
   setCampaign,
   toggleCampaignText
 })(withNavigationFocus(FeedUpdate));

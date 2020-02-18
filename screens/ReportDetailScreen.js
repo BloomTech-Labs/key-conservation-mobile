@@ -86,7 +86,7 @@ class ReportDetailScreen extends Component {
           usr.roles === 'supporter' ? 'SupProDetails' : 'ProDetails';
 
         this.props.navigation.navigate(screen, {
-          username: usr.username
+          selectedProfile: usr
         });
       }
     });

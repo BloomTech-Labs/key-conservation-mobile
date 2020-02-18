@@ -10,6 +10,8 @@ const LocationMap = ({ getOrganizations, profile }) => {
     getOrganizations();
   }, []);
 
+
+
   return (
     <View style={styles.container}>
       <MapView
@@ -17,8 +19,8 @@ const LocationMap = ({ getOrganizations, profile }) => {
         showsScale={true}
         initialCamera={{
           center: {
-            latitude: profile.latitude - 1, // Keeps marker centered.
-            longitude: profile.longitude
+            latitude: Number(profile.latitude) - 1, // Keeps marker centered.
+            longitude: Number(profile.longitude)
           },
           pitch: 45,
           heading: 0,
@@ -42,10 +44,10 @@ const LocationMap = ({ getOrganizations, profile }) => {
               }}
               style={styles.imageMarker}
             />
-            {/* <Callout>
+            <Callout>
               <Text>{profile.org_name}</Text>
               <MapButton />
-            </Callout> */}
+            </Callout>
           </Marker>
         ) : null}
       </MapView>
