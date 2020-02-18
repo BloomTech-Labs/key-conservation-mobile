@@ -21,7 +21,6 @@ import FeedScreen from '../screens/FeedScreen';
 import CreateCampScreen from '../screens/CreateCampScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import EditProScreen from '../screens/EditProScreen';
-import LocationScreen from '../screens/LocationScreen';
 import LoginScreen from '../screens/LoginScreen';
 import UsernameScreen from '../screens/UsernameScreen';
 import SearchScreen from '../screens/SearchScreen';
@@ -98,16 +97,6 @@ const FeedStack = createStackNavigator(
       navigationOptions: {
         headerTransparent: true,
         headerTintColor: '#fff'
-      }
-    },
-    Location: {
-      screen: LocationScreen,
-      navigationOptions: {
-        title: 'Profile',
-        headerTintColor: '#fff',
-        headerStyle: {
-          backgroundColor: '#323338'
-        }
       }
     },
     Camp: ViewCampScreen,

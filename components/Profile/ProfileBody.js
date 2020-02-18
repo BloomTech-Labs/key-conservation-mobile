@@ -7,6 +7,7 @@ import styles from '../../constants/Profile/ProfileBody';
 
 import Details from './tabs/Details';
 import Campaigns from './tabs/Campaigns';
+import Location from './tabs/Location';
 
 export default class ProfileBody extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ export default class ProfileBody extends Component {
       { key: 'details', title: 'Details' }
     ] : [
       { key: 'campaigns', title: 'Campaigns' },
-      // { key: 'location', title: 'Location' },
+      { key: 'location', title: 'Location' },
       { key: 'details', title: 'Details' }
     ]
 
@@ -53,6 +54,7 @@ export default class ProfileBody extends Component {
 
   renderScene = SceneMap({
     campaigns: () => <Campaigns profile={this.props.profile} />,
+    location: () => <Location profile={this.props.profile} />,
     details: () => <Details profile={this.props.profile} />
   })
 
