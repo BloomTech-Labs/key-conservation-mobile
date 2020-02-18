@@ -10,6 +10,9 @@ import {
 import { navigate } from '../../navigation/RootNavigator';
 
 import styles from '../../constants/Auth/LoginForm';
+import ChevronLeft from '../../assets/jsicons/miscIcons/ChevronLeftWhite';
+// import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
+import { throwIfAudioIsDisabled } from 'expo-av/build/Audio/AudioAvailability';
 
 import Lock from '../../assets/jsicons/auth/Lock';
 import Envelope from '../../assets/jsicons/auth/Envelope';

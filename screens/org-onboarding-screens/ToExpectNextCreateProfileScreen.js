@@ -4,8 +4,8 @@ import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 
 import styles from '../../constants/screens/org-onboarding-styles/ToExpectNext.js';
-import SvgUri from 'react-native-svg-uri';
 import NavigateButton from './formElement/NavigateButton.js';
+import CheckMark from '../../assets/jsicons/miscIcons/CheckMark';
 
 const ToExpectNextCreateProfileScreen = props => {
   const airtableStateAdd = props.navigation.getParam(
@@ -23,10 +23,7 @@ const ToExpectNextCreateProfileScreen = props => {
         <View>
           <View style={styles.contentWrapper}>
             <View style={styles.iconWrapper}>
-              <SvgUri
-                style={styles.svg}
-                source={require('./../../assets/icons/onboarding/check_mark.svg')}
-              />
+              <CheckMark />
             </View>
             <View>
               <View style={{ width: '90%' }}>
@@ -41,10 +38,7 @@ const ToExpectNextCreateProfileScreen = props => {
           </View>
           <View style={styles.contentWrapper}>
             <View style={styles.iconWrapper}>
-              <SvgUri
-                style={styles.svg}
-                source={require('./../../assets/icons/onboarding/check_mark.svg')}
-              />
+              <CheckMark style={styles.svg} />
             </View>
             <View style={{ width: '90%' }}>
               <Text style={styles.obSubtitle}>Register</Text>
@@ -57,10 +51,7 @@ const ToExpectNextCreateProfileScreen = props => {
           </View>
           <View style={styles.contentWrapper}>
             <View style={styles.iconWrapper}>
-              <SvgUri
-                style={styles.svg}
-                source={require('./../../assets/icons/onboarding/check_mark.svg')}
-              />
+              <CheckMark style={styles.svg} />
             </View>
             <View style={{ width: '90%' }}>
               <Text style={styles.obSubtitle}>Create Your Profile</Text>
@@ -80,7 +71,7 @@ const ToExpectNextCreateProfileScreen = props => {
           <NavigateButton
             label='Next'
             onButtonPress={() => {
-              props.navigation.navigate('AccountScreen', {
+              props.navigation.navigate('OrganizationSurvey', {
                 airtableStateAdd: airtableStateAdd,
                 airtableKey: key
               });

@@ -14,7 +14,7 @@ import {
 import styles from '../../constants/screens/org-onboarding-styles/VerifyOrg.js';
 import ConservationOptimismModal from '../../components/ConservationOptimismModal';
 import * as SecureStore from 'expo-secure-store';
-import SvgUri from 'react-native-svg-uri';
+import QuestionCircle from '../../assets/jsicons/OnBoarding/QuestionCircle';
 
 const VerifyOrganizationScreen = props => {
   const [airtableState, onChangeText] = useState({
@@ -136,13 +136,9 @@ const VerifyOrganizationScreen = props => {
           <Text style={styles.obFieldName}>
             Will you join us in Conservation Optimism?
             <TouchableHighlight onPress={() => setIsModalVisible(true)}>
-              <SvgUri
-                style={{ marginLeft: 10, marginTop: 3 }}
-                fill='#3b3b3b'
-                width='18'
-                height='18'
-                source={require('../../assets/icons/question-circle.svg')}
-              />
+              <View style={styles.questionMark}>
+                <QuestionCircle style={{ marginLeft: 10, marginTop: 3 }} />
+              </View>
             </TouchableHighlight>
           </Text>
 
@@ -205,8 +201,7 @@ const VerifyOrganizationScreen = props => {
                 );
               } else {
                 updateAirtable();
-                //TODO send this instead to AccountScreen, then have AccountScreen send this to VerifyDocumentation
-                props.navigation.navigate('AccountScreen', {
+                props.navigation.navigate('VerifyDocumentation', {
                   airtableStateAdd: airtableStateAdd,
                   airtableKey: airtableKey
                 }); // This passes the combined fields sent to airtable needed for backend to the next component.

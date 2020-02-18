@@ -2,13 +2,20 @@ import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/VerifyDocs.js';
 
-import { Ionicons, Feather } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
-
+import SmallPlus from '../../assets/jsicons/OnBoarding/SmallPlusSign';
 import NavigateButton from './formElement/NavigateButton.js';
+import Lock from '../../assets/jsicons/OnBoarding/Lock';
 
 export default VerifyDocumentationScreen = props => {
   const key = props.navigation.getParam('airtableKey', 'defaultValue');
+
+  getState = async () => {
+    const airtableState = props.navigation.getParam(
+      'airtableStateAdd',
+      'defaultValue'
+    );
+  };
 
   _handlePressButtonAsync = async () => {
     try {
@@ -79,7 +86,7 @@ export default VerifyDocumentationScreen = props => {
           style={styles.obUploadBtn}
           onPress={() => _handlePressButtonAsync()}
         >
-          <Feather name='plus' size={30} color='white' />
+          <SmallPlus />
         </TouchableOpacity>
         <Text style={styles.obText}>
           By clicking the button, you’ll be taken to an Airtable link to upload
@@ -88,7 +95,7 @@ export default VerifyDocumentationScreen = props => {
       </View>
       <View style={styles.noBorderConatiner}>
         <View>
-          <Ionicons name='ios-lock' size={36} color='#00FF9D' />
+          <Lock />
         </View>
         <View>
           <Text style={styles.obSubtitle}>Privacy</Text>
