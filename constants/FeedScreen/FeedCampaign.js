@@ -130,6 +130,10 @@ export default {
     paddingVertical: 4,
     paddingHorizontal: 10
   },
+  donateButton: {
+    alignItems : 'center',
+    width      : '100%',
+  },
   readMore: {
     color: '#929292'
   },
