@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import MapView, { Marker, Callout } from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, View, Dimensions, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { getOrganizations } from '../../store/actions';
