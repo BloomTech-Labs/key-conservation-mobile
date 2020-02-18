@@ -6,7 +6,6 @@ export default {
     alignItems: 'flex-start',
     marginLeft: 15,
     marginRight: 15,
-    width: '90%',
     textAlign: 'justify'
   },
   titleText: {

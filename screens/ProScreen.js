@@ -21,7 +21,7 @@ class ProScreen extends React.Component {
     const id =
       this.props.navigation.getParam('selectedProfile') ||
       this.props.currentUserProfile.id;
-    this.props.getProfileData(id);
+    this.props.getProfileData(id, null, !this.props.navigation.getParam('selectedProfile'));
     this.props.navigation.setParams({
       showProScreenActions: this.showActionSheet,
       currentProfile: this.props.currentUserProfile
@@ -94,54 +94,63 @@ class ProScreen extends React.Component {
     return (
       // creates sticky header
       <Viewport.Tracker>
-        {this.props.loading ? (
-          <ActivityIndicator style={{ margin: 'auto', flex: 1 }} size='large' />
-        ) : (
-          <ScrollView stickyHeaderIndices={[0]} scrollEventThrottle={16}>
-            <UserActionSheet
-              admin={this.props.admin}
-              userId={profileData.id}
-              ref={o => (this.UserActionSheet = o)}
+        <ScrollView
+          contentContainerStyle={{ flex: this.props.loading ? 1 : 0 }}
+          stickyHeaderIndices={[0]}
+          scrollEventThrottle={16}
+        >
+          <UserActionSheet
+            admin={this.props.admin}
+            userId={profileData.id}
+            ref={o => (this.UserActionSheet = o)}
+          />
+          <ProfileHeader
+            loading={this.props.loading}
+            navigation={navigation}
+            profile={profileData}
+            myProfile={profileData === this.props.currentUserProfile}
+          />
+          {this.props.loading ? (
+            <ActivityIndicator
+              style={{ margin: 'auto', flex: 1 }}
+              size='large'
             />
-            <ProfileHeader
-              navigation={navigation}
-              profile={profileData}
-              myProfile={profileData === this.props.currentUserProfile}
-            />
-            {!profileData.campaigns?.length ? (
-              <View style={style.container}>
-                <CampBlankSpace />
-                <Text style={style.text}>
-                  {profileData.id === this.props.currentUserProfile.id
-                    ? `You don't have any posts! Go to the live feed to create your
-                    first campaign.`
-                    : `This organization has not created a campaign yet.`}
-                </Text>
-              </View>
-            ) : null}
-            {profileData.campaigns?.map(camp => {
-              if (camp.update_id) {
-                return (
-                  <FeedUpdate
-                    key={`update${camp.update_id}`}
-                    data={camp}
-                    toggled
-                    navigation={navigation}
-                  />
-                );
-              } else {
-                return (
-                  <FeedCampaign
-                    key={camp.camp_id}
-                    data={camp}
-                    toggled
-                    navigation={navigation}
-                  />
-                );
-              }
-            })}
-          </ScrollView>
-        )}
+          ) : (
+            <View style={{ height: '100%', borderWidth: 1 }}>
+              {!profileData.campaigns?.length ? (
+                <View style={style.container}>
+                  <CampBlankSpace />
+                  <Text style={style.text}>
+                    {profileData.id === this.props.currentUserProfile.id
+                      ? "You don't have any posts! Go to the live feed to create your first campaign."
+                      : `This organization has not created a campaign yet.`}
+                  </Text>
+                </View>
+              ) : null}
+              {profileData.campaigns?.map(camp => {
+                if (camp.update_id) {
+                  return (
+                    <FeedUpdate
+                      key={`update${camp.update_id}`}
+                      data={camp}
+                      toggled
+                      navigation={navigation}
+                    />
+                  );
+                } else {
+                  return (
+                    <FeedCampaign
+                      key={camp.camp_id}
+                      data={camp}
+                      toggled
+                      navigation={navigation}
+                    />
+                  );
+                }
+              })}
+            </View>
+          )}
+        </ScrollView>
       </Viewport.Tracker>
     );
   }

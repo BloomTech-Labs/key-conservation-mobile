@@ -11,6 +11,7 @@ import UserActionSheet from '../components/Reports/UserActionSheet';
 import EditButton from '../components/EditButton';
 import SettingsButton from '../components/SettingsButton';
 import { ScrollView } from 'react-native-gesture-handler';
+import { ActivityIndicator } from 'react-native';
 
 const SupProScreen = props => {
   const actionSheetRef = useRef(null);
@@ -20,6 +21,14 @@ const SupProScreen = props => {
   };
 
   const onMount = () => {
+    const id =
+      props.navigation.getParam('selectedProfile') ||
+      props.currentUserProfile.id;
+    props.getProfileData(
+      id,
+      null,
+      !props.navigation.getParam('selectedProfile')
+    );
     props.navigation.setParams({
       showSupProScreenActions: showActionSheet,
       currentProfile: props.currentUserProfile
@@ -27,26 +36,30 @@ const SupProScreen = props => {
 
     return () => {
       // Clear selectedProfile if any
-      console.log('clearing');
       props.navigation.setParams({ selectedProfile: null });
     };
   };
 
   useEffect(onMount, []);
 
-  const profileData =
-    props.navigation.getParam('selectedProfile') || props.currentUserProfile;
+  const profileData = props.navigation.getParam('selectedProfile')
+    ? props.selectedProfile
+    : props.currentUserProfile;
 
   return (
-    <ScrollView>
-      <View>
+    <ScrollView contentContainerStyle={{ flex: props.loading ? 1 : 0 }}>
+      <View style={{flex: 1}}>
         <UserActionSheet
           admin={props.admin}
-          userId={props.selectedProfile.id}
+          userId={profileData.id}
           ref={actionSheetRef}
         />
-        <SupProfileHeader profile={profileData} />
-        <SupProfileBody profile={profileData} />
+        <SupProfileHeader loading={props.loading} profile={profileData} />
+        {props.loading ? (
+          <ActivityIndicator size='large' style={{ flex: 1 }} />
+        ) : (
+          <SupProfileBody profile={profileData} />
+        )}
       </View>
     </ScrollView>
   );
@@ -57,9 +70,9 @@ SupProScreen.navigationOptions = ({ navigation }) => {
   const currentProfile = navigation.getParam('currentProfile');
 
   const headerRight = () => {
-    if (currentProfile && !selectedProfile) {
+    if (!selectedProfile) {
       return <EditButton navigation={navigation} editRoute={'EditSupPro'} />;
-    } else if (selectedProfile && currentProfile?.id === selectedProfile?.id)
+    } else if (selectedProfile && currentProfile?.id === selectedProfile)
       return <EditButton navigation={navigation} editRoute={'EditSupPro'} />;
     else {
       return (
@@ -102,7 +115,8 @@ SupProScreen.navigationOptions = ({ navigation }) => {
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
   selectedProfile: state.selectedProfile,
-  admin: state.currentUserProfile.admin
+  admin: state.currentUserProfile.admin,
+  loading: state.pending.getProfile
 });
 
 export default connect(mapStateToProps, { getProfileData })(SupProScreen);
