@@ -11,8 +11,7 @@
     "icon": "./assets/images/keyapplogo.png",
     "splash": {
       "image": "./assets/images/splash.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#F2F2FB"
+      "resizeMode": "cover"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

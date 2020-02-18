@@ -4,13 +4,8 @@ import { responsiveFontSize } from 'react-native-responsive-dimensions';
 const styles = StyleSheet.create({
   // in headerLeft
   backArrowTouch: {
-    borderWidth: 2,
-    backgroundColor: 'black',
-    borderColor: 'red',
     zIndex: 300,
-    //flex: 0,
-    //alignSelf: 'flex-start',
-    padding: 20
+    padding: 12
   },
   scrollBG: {
     // borderWidth: 2,
@@ -47,8 +42,6 @@ const styles = StyleSheet.create({
     color: '#323338'
   },
   linkWrap: {
-    // borderWidth: 2,
-    // borderColor: 'blue',
     flexWrap: 'wrap',
     alignItems: 'center',
     flexDirection: 'row',
@@ -56,18 +49,11 @@ const styles = StyleSheet.create({
   },
   logoutButton: {
     backgroundColor: '#F2F2FB',
-    // borderWidth: 2,
-    // borderColor: 'red',
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 5
-    // marginTop: '5%',
-    // width: 40,
-    //height: 40
   },
   linkText: {
-    // borderWidth: 2,
-    // borderColor: 'red',
     fontSize: responsiveFontSize(1.8),
     alignSelf: 'center',
     marginLeft: '4%',
@@ -76,8 +62,6 @@ const styles = StyleSheet.create({
     color: '#323338'
   },
   buttonContainer: {
-    borderWidth: 2,
-    borderColor: 'red',
     width: '30%',
     height: 30,
     marginTop: 10,
@@ -90,8 +74,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   buttonText: {
-    borderWidth: 2,
-    borderColor: 'red',
     fontFamily: 'Lato-Bold',
     letterSpacing: 0.8,
     textAlign: 'center',
