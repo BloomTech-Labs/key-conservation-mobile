@@ -20,7 +20,6 @@ import ToExpectNextCreateProfileScreen from '../screens/org-onboarding-screens/T
 import FeedScreen from '../screens/FeedScreen';
 import CreateCampScreen from '../screens/CreateCampScreen';
 import ProScreen from '../screens/ProScreen';
-import MyProScreen from '../screens/MyProScreen';
 import EditProScreen from '../screens/EditProScreen';
 import DetailScreen from '../screens/DetailScreen';
 import MyDetailScreen from '../screens/MyDetailScreen';
@@ -157,7 +156,7 @@ export const AccountSettingsStack = createStackNavigator({
 const MyProStack = createStackNavigator(
   {
     MyPro: {
-      screen: MyProScreen
+      screen: ProScreen
     },
     MyDetail: { screen: MyDetailScreen },
     EditPro: {

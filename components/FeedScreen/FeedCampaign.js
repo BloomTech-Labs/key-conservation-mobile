@@ -3,7 +3,7 @@ import {
   Text,
   ImageBackground,
   ActivityIndicator,
-  TouchableOpacity,
+  TouchableOpacity
 } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 import { View } from 'react-native-animatable';
@@ -15,7 +15,6 @@ import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
 
 import {
-  getProfileData,
   getCampaign,
   toggleCampaignText
 } from '../../store/actions';
@@ -146,13 +145,12 @@ const FeedCampaign = props => {
     zIndex: 1
   };
 
-  const goToProfile = async () => {
-    await dispatch(getProfileData(data.users_id));
+  const goToProfile = () => {
     AmpEvent('Select Profile from Campaign', {
       profile: data.username,
       campaign: data.camp_name
     });
-    props.navigation.navigate('Pro');
+    props.navigation.navigate('Pro', { selectedProfile: data.users_id });
   };
 
   const goToCampaign = async () => {
@@ -538,7 +536,6 @@ const mapStateToProps = state => ({
   token: state.token
 });
 export default connect(mapStateToProps, {
-  getProfileData,
   getCampaign,
   toggleCampaignText
 })(withNavigationFocus(FeedCampaign));

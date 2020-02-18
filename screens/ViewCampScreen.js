@@ -16,7 +16,6 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { Viewport } from '@skele/components';
 
-import { getProfileData } from '../store/actions';
 import BackButton from '../components/BackButton';
 import { AmpEvent } from '../components/withAmplitude';
 import FeedUpdate from '../components/FeedScreen/FeedUpdate';
@@ -548,8 +547,7 @@ class ViewCampScreen extends React.Component {
   };
 
   goToProfile = () => {
-    this.props.getProfileData(this.props.selectedCampaign.users_id);
-    this.props.navigation.navigate('Pro');
+    this.props.navigation.navigate('Pro', { selectedProfile: this.props.selectedCampaign.users_id });
   };
 }
 
@@ -560,4 +558,4 @@ const mapStateToProps = state => ({
   token: state.token
 });
 
-export default connect(mapStateToProps, { getProfileData })(ViewCampScreen);
+export default connect(mapStateToProps)(ViewCampScreen);

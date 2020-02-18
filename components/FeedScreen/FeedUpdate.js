@@ -17,7 +17,6 @@ import axios from 'axios';
 import { Viewport } from '@skele/components';
 
 import {
-  getProfileData,
   setCampaign,
   toggleCampaignText
 } from '../../store/actions';
@@ -103,13 +102,12 @@ const FeedUpdate = props => {
     }
   }
 
-  const goToProfile = async () => {
-    await dispatch(getProfileData(data.users_id));
+  const goToProfile = () => {
     AmpEvent('Select Profile from Campaign', {
       profile: data.username,
       campaign: data.camp_name
     });
-    props.navigation.navigate('Pro');
+    props.navigation.navigate('Pro', { selectedProfile: data.users_id });
   };
 
   const goToCampUpdate = () => {
@@ -419,7 +417,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  getProfileData,
   setCampaign,
   toggleCampaignText
 })(withNavigationFocus(FeedUpdate));
