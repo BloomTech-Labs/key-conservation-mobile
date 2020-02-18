@@ -14,15 +14,6 @@ const BackButtonHeader = props => {
         }}
       >
         <BackArrowHeader />
-        {/* <Text
-          style={{
-            color: '#fff',
-            fontSize: 17,
-            fontFamily: 'Lato'
-          }}
-        >
-          Done
-        </Text> */}
       </View>
     </TouchableOpacity>
   );
