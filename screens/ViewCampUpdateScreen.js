@@ -13,7 +13,6 @@ import { Video } from 'expo-av';
 import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
-import { FontAwesome } from '@expo/vector-icons';
 
 import { getProfileData, getCampaign } from '../store/actions';
 import BackButton from '../components/BackButton';

@@ -8,8 +8,8 @@ import {
 } from 'react-native-popup-menu';
 import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
-import SvgUri from 'react-native-svg-uri';
 import { ListItem } from 'react-native-elements';
+import Ellipse from '../assets/jsicons/Ellipse';
 
 import {
   getProfileData,
@@ -151,11 +151,11 @@ class MyProScreen extends React.Component {
                                   borderRadius: 50
                                 }}
                               >
-                                <SvgUri
+                                <Ellipse
                                   fill='#3b3b3b'
                                   width='25'
                                   height='25'
-                                  source={require('../assets/icons/ellipsis-vertical.svg')}
+                                  
                                 />
                               </View>
                             }
@@ -205,11 +205,10 @@ class MyProScreen extends React.Component {
                                   borderRadius: 50
                                 }}
                               >
-                                <SvgUri
+                                <Ellipse
                                   fill='#3b3b3b'
                                   width='25'
                                   height='25'
-                                  source={require('../assets/icons/ellipsis-vertical.svg')}
                                 />
                               </View>
                             }
@@ -265,11 +264,10 @@ class MyProScreen extends React.Component {
                                   borderRadius: 50
                                 }}
                               >
-                                <SvgUri
+                                <Ellipse
                                   fill='#3b3b3b'
                                   width='25'
                                   height='25'
-                                  source={require('../assets/icons/ellipsis-vertical.svg')}
                                 />
                               </View>
                             }
@@ -326,11 +324,10 @@ class MyProScreen extends React.Component {
                                   borderRadius: 50
                                 }}
                               >
-                                <SvgUri
+                                <Ellipse
                                   fill='#3b3b3b'
                                   width='25'
                                   height='25'
-                                  source={require('../assets/icons/ellipsis-vertical.svg')}
                                 />
                               </View>
                             }
