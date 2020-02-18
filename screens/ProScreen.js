@@ -14,6 +14,7 @@ import UserActionSheet from '../components/Reports/UserActionSheet';
 import style from '../constants/Profile/CampBlankSpace';
 import SettingsButton from '../components/SettingsButton';
 import EditButton from '../components/EditButton';
+import ProfileBody from '../components/Profile/ProfileBody';
 
 class ProScreen extends React.Component {
   constructor(props) {
@@ -116,39 +117,40 @@ class ProScreen extends React.Component {
               size='large'
             />
           ) : (
-            <View style={{ height: '100%', borderWidth: 1 }}>
-              {!profileData.campaigns?.length ? (
-                <View style={style.container}>
-                  <CampBlankSpace />
-                  <Text style={style.text}>
-                    {profileData.id === this.props.currentUserProfile.id
-                      ? "You don't have any posts! Go to the live feed to create your first campaign."
-                      : `This organization has not created a campaign yet.`}
-                  </Text>
-                </View>
-              ) : null}
-              {profileData.campaigns?.map(camp => {
-                if (camp.update_id) {
-                  return (
-                    <FeedUpdate
-                      key={`update${camp.update_id}`}
-                      data={camp}
-                      toggled
-                      navigation={navigation}
-                    />
-                  );
-                } else {
-                  return (
-                    <FeedCampaign
-                      key={camp.camp_id}
-                      data={camp}
-                      toggled
-                      navigation={navigation}
-                    />
-                  );
-                }
-              })}
-            </View>
+            <ProfileBody profile={profileData} />
+            // <View style={{ height: '100%', borderWidth: 1 }}>
+            //   {!profileData.campaigns?.length ? (
+            //     <View style={style.container}>
+            //       <CampBlankSpace />
+            //       <Text style={style.text}>
+            //         {profileData.id === this.props.currentUserProfile.id
+            //           ? "You don't have any posts! Go to the live feed to create your first campaign."
+            //           : `This organization has not created a campaign yet.`}
+            //       </Text>
+            //     </View>
+            //   ) : null}
+            //   {profileData.campaigns?.map(camp => {
+            //     if (camp.update_id) {
+            //       return (
+            //         <FeedUpdate
+            //           key={`update${camp.update_id}`}
+            //           data={camp}
+            //           toggled
+            //           navigation={navigation}
+            //         />
+            //       );
+            //     } else {
+            //       return (
+            //         <FeedCampaign
+            //           key={camp.camp_id}
+            //           data={camp}
+            //           toggled
+            //           navigation={navigation}
+            //         />
+            //       );
+            //     }
+            //   })}
+            // </View>
           )}
         </ScrollView>
       </Viewport.Tracker>

@@ -68,6 +68,7 @@
     "react-native-svg": "9.13.3",
     "react-native-svg-transformer": "^0.14.3",
     "react-native-svg-uri": "^1.2.3",
+    "react-native-tab-view": "^2.13.0",
     "react-native-vector-icons": "^6.6.0",
     "react-native-version-check-expo": "^3.4.0",
     "react-native-video": "^5.0.2",

@@ -133,41 +133,7 @@ const ProfileHeader = props => {
             </View>
           )}
         </View>
-        {/* {props.loading ? null : } */}
       </View>
-
-      {/* <View style={styles.buttons}>
-        <TouchableOpacity
-          style={[
-            styles.TouchableOpacity,
-            null ? {} : { borderBottomColor: '#00FF9D', borderBottomWidth: 2 }
-          ]}
-        >
-          <View style={styles.ButtonStyle}>
-            <Text style={styles.CampaignButton}>Campaigns</Text>
-          </View>
-        </TouchableOpacity>
-        {!props.myProfile ? (
-          <TouchableOpacity
-            style={[styles.TouchableOpacity]}
-            onPress={() => props.navigation.navigate('Location')}
-          >
-            <View style={styles.ButtonStyle}>
-              <Text style={styles.DetailButton}>Location</Text>
-            </View>
-          </TouchableOpacity>
-        ) : null}
-        <TouchableOpacity
-          style={styles.TouchableOpacity}
-          onPress={() => {
-            props.navigation.navigate(props.myProfile ? 'MyDetail' : 'Detail');
-          }}
-        >
-          <View style={styles.ButtonStyle}>
-            <Text style={styles.DetailButton}>Details</Text>
-          </View>
-        </TouchableOpacity>
-      </View> */}
     </ImageBackground>
   );
 };

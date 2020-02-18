@@ -21,8 +21,6 @@ import FeedScreen from '../screens/FeedScreen';
 import CreateCampScreen from '../screens/CreateCampScreen';
 import ProScreen from '../screens/ProScreen';
 import EditProScreen from '../screens/EditProScreen';
-import DetailScreen from '../screens/DetailScreen';
-import MyDetailScreen from '../screens/MyDetailScreen';
 import LocationScreen from '../screens/LocationScreen';
 import SupProScreen from '../screens/SupProScreen';
 import LoginScreen from '../screens/LoginScreen';
@@ -103,16 +101,6 @@ const FeedStack = createStackNavigator(
         headerTintColor: '#fff'
       }
     },
-    Detail: {
-      screen: DetailScreen,
-      navigationOptions: {
-        title: 'Profile',
-        headerTintColor: '#fff',
-        headerStyle: {
-          backgroundColor: '#323338'
-        }
-      }
-    },
     Location: {
       screen: LocationScreen,
       navigationOptions: {
@@ -158,7 +146,6 @@ const MyProStack = createStackNavigator(
     MyPro: {
       screen: ProScreen
     },
-    MyDetail: { screen: MyDetailScreen },
     EditPro: {
       screen: EditProScreen,
       navigationOptions: { title: 'Edit Profile' }

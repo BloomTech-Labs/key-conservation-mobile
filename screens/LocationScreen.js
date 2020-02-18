@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -6,8 +6,6 @@ import { connect } from 'react-redux';
 import LocationHeader from '../components/Location/LocationHeader';
 import LocationMap from '../components/Location/LocationMap';
 import BackButton from '../components/BackButton';
-
-import styles from '../constants/screens/MyDetailScreen';
 
 class LocationScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -24,7 +22,7 @@ class LocationScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView contentContainerStyle={styles.scrollBG}>
+      <ScrollView>
         <LocationHeader
           navigation={this.props.navigation}
           profile={this.props.selectedProfile}

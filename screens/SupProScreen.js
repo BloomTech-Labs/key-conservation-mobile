@@ -12,6 +12,7 @@ import SettingsButton from '../components/SettingsButton';
 import { ScrollView } from 'react-native-gesture-handler';
 import { ActivityIndicator } from 'react-native';
 import ProfileHeader from '../components/Profile/ProfileHeader';
+import ProfileBody from '../components/Profile/ProfileBody';
 
 const SupProScreen = props => {
   const actionSheetRef = useRef(null);
@@ -58,7 +59,8 @@ const SupProScreen = props => {
         {props.loading ? (
           <ActivityIndicator size='large' style={{ flex: 1 }} />
         ) : (
-          <SupProfileBody profile={profileData} />
+          // <SupProfileBody profile={profileData} />
+          <ProfileBody profile={profileData} />
         )}
       </View>
     </ScrollView>
