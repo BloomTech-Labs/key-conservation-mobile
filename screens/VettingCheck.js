@@ -51,6 +51,7 @@ function VettingCheck(props) {
     // This sets vetting variables to be checked by 'LoadingScreen'.
   };
 
+  //TODO send all data to backend here by calling setProfile function
   const checkAirtable = record => {
     console.log('checkAirtable activated');
     if (record.fields.accepted === true) {
