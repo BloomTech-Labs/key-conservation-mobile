@@ -26,7 +26,6 @@ import DetailScreen from '../screens/DetailScreen';
 import MyDetailScreen from '../screens/MyDetailScreen';
 import LocationScreen from '../screens/LocationScreen';
 import SupProScreen from '../screens/SupProScreen';
-import MySupProScreen from '../screens/MySupProScreen';
 import LoginScreen from '../screens/LoginScreen';
 import UsernameScreen from '../screens/UsernameScreen';
 import SearchScreen from '../screens/SearchScreen';
@@ -157,7 +156,6 @@ export const AccountSettingsStack = createStackNavigator({
 
 const MyProStack = createStackNavigator(
   {
-    Home: FeedScreen,
     MyPro: {
       screen: MyProScreen
     },
@@ -190,7 +188,7 @@ const MyProStack = createStackNavigator(
 
 const MySupProStack = createStackNavigator(
   {
-    MySupPro: { screen: MySupProScreen },
+    MySupPro: { screen: SupProScreen },
     EditSupPro: { screen: EditSupProScreen }
   },
   {
@@ -240,27 +238,14 @@ export const ConsNavigator = createBottomTabNavigator(
     FeedStack: {
       screen: FeedStack,
       path: '',
-      navigationOptions: {
-        tabBarOnPress: ({ navigation, defaultHandler }) => {
-          navigation.navigate('Home'), defaultHandler();
-        }
-      }
     },
     MapStack: {
       screen: MapStack,
-      tabBarOnPress: ({ navigation, defaultHandler }) => {
-        navigation.navigate('MapHome'), defaultHandler();
-      }
     },
     // CreateCampStack: { screen: CreateCampStack, path: '' },
     MyProStack: {
       screen: MyProStack,
-      path: '',
-      navigationOptions: {
-        tabBarOnPress: ({ navigation, defaultHandler }) => {
-          navigation.navigate('MyPro'), defaultHandler();
-        }
-      }
+      path: ''
     }
   },
   {
@@ -287,27 +272,14 @@ export const SupNavigator = createBottomTabNavigator(
   {
     FeedStack: {
       screen: FeedStack,
-      path: '',
-      navigationOptions: {
-        tabBarOnPress: ({ navigation, defaultHandler }) => {
-          navigation.navigate('Home'), defaultHandler();
-        }
-      }
+      path: ''
     },
     MapStack: {
-      screen: MapStack,
-      tabBarOnPress: ({ navigation, defaultHandler }) => {
-        navigation.navigate('Home'), defaultHandler();
-      }
+      screen: MapStack
     },
     MySupProStack: {
       screen: MySupProStack,
-      path: '',
-      navigationOptions: {
-        tabBarOnPress: ({ navigation, defaultHandler }) => {
-          navigation.navigate('MySupPro'), defaultHandler();
-        }
-      }
+      path: ''
     }
   },
   {

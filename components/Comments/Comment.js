@@ -45,9 +45,9 @@ const Comment = props => {
   }
 
   const goToCommenterProfile = async () => {
-    await dispatch(getProfileData(props.comment.users_id));
+    const usr = await dispatch(getProfileData(props.comment.users_id));
     props.navigation.navigate('SupPro', {
-      username: props.comment.username
+      selectedProfile: usr
     });
   };
 
@@ -103,6 +103,7 @@ const Comment = props => {
 };
 
 const mapStateToProps = state => ({
+  selectedProfile: state.selectedProfile,
   admin: state.currentUserProfile.admin
 });
 
