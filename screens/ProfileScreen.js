@@ -1,22 +1,18 @@
 import React from 'react';
-import { View, ScrollView, Text, ActivityIndicator } from 'react-native';
+import { ScrollView, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
 import { getProfileData, createReport } from '../store/actions';
-import FeedCampaign from '../components/FeedScreen/FeedCampaign';
-import FeedUpdate from '../components/FeedScreen/FeedUpdate';
 import ProfileHeader from '../components/Profile/ProfileHeader';
 import BackButton from '../components/BackButton';
-import CampBlankSpace from '../components/Profile/CampBlankSpace';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Ellipse from '../assets/jsicons/Ellipse';
 import UserActionSheet from '../components/Reports/UserActionSheet';
-import style from '../constants/Profile/CampBlankSpace';
 import SettingsButton from '../components/SettingsButton';
 import EditButton from '../components/EditButton';
 import ProfileBody from '../components/Profile/ProfileBody';
 
-class ProScreen extends React.Component {
+class ProfileScreen extends React.Component {
   constructor(props) {
     super(props);
     const id =
@@ -118,39 +114,6 @@ class ProScreen extends React.Component {
             />
           ) : (
             <ProfileBody profile={profileData} />
-            // <View style={{ height: '100%', borderWidth: 1 }}>
-            //   {!profileData.campaigns?.length ? (
-            //     <View style={style.container}>
-            //       <CampBlankSpace />
-            //       <Text style={style.text}>
-            //         {profileData.id === this.props.currentUserProfile.id
-            //           ? "You don't have any posts! Go to the live feed to create your first campaign."
-            //           : `This organization has not created a campaign yet.`}
-            //       </Text>
-            //     </View>
-            //   ) : null}
-            //   {profileData.campaigns?.map(camp => {
-            //     if (camp.update_id) {
-            //       return (
-            //         <FeedUpdate
-            //           key={`update${camp.update_id}`}
-            //           data={camp}
-            //           toggled
-            //           navigation={navigation}
-            //         />
-            //       );
-            //     } else {
-            //       return (
-            //         <FeedCampaign
-            //           key={camp.camp_id}
-            //           data={camp}
-            //           toggled
-            //           navigation={navigation}
-            //         />
-            //       );
-            //     }
-            //   })}
-            // </View>
           )}
         </ScrollView>
       </Viewport.Tracker>
@@ -166,5 +129,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, { getProfileData, createReport })(
-  ProScreen
+  ProfileScreen
 );

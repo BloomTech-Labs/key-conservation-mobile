@@ -16,6 +16,8 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { Viewport } from '@skele/components';
 
+import { navigate } from '../../navigation/RootNavigator';
+
 import {
   setCampaign,
   toggleCampaignText
@@ -107,12 +109,12 @@ const FeedUpdate = props => {
       profile: data.username,
       campaign: data.camp_name
     });
-    props.navigation.navigate('Pro', { selectedProfile: data.users_id });
+    navigate('Pro', { selectedProfile: data.users_id });
   };
 
   const goToCampUpdate = () => {
     dispatch(setCampaign(data));
-    props.navigation.navigate('CampUpdate', {
+    navigate('CampUpdate', {
       backBehavior: 'Home',
       likes: likes,
       userLiked: userLiked,

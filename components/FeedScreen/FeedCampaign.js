@@ -20,6 +20,8 @@ import {
 } from '../../store/actions';
 import { AmpEvent } from '../withAmplitude';
 
+import { navigate } from '../../navigation/RootNavigator';
+
 import styles from '../../constants/FeedScreen/FeedCampaign';
 import Ellipse from '../../assets/jsicons/Ellipse';
 import CommentIcon from '../../assets/jsicons/CommentIcon';
@@ -150,7 +152,7 @@ const FeedCampaign = props => {
       profile: data.username,
       campaign: data.camp_name
     });
-    props.navigation.navigate('Pro', { selectedProfile: data.users_id });
+    navigate('Pro', { selectedProfile: data.users_id });
   };
 
   const goToCampaign = async () => {
@@ -159,7 +161,7 @@ const FeedCampaign = props => {
       campaign: data.camp_name,
       profile: data.username
     });
-    props.navigation.navigate('Camp', {
+    navigate('Camp', {
       // likes: likes,
       // userLiked: userLiked,
       // addLike: addLike,

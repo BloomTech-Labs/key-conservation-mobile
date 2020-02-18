@@ -40,7 +40,7 @@ export default LocationHeader = props => {
         <TouchableOpacity
           style={styles.TouchableOpacity}
           onPress={() => {
-            props.navigation.navigate('ProScreen', {
+            props.navigation.navigate('Pro', {
               selectedProfile: props.selectedProfile.id
             });
           }}

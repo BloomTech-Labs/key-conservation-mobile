@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import Animated from 'react-native-reanimated';
 
 import styles from '../../constants/Profile/ProfileBody';
 
 import Details from './tabs/Details';
-
-const CampaignScene = () => (
-  <View>
-    <Text>Campaigns</Text>
-  </View>
-);
+import Campaigns from './tabs/Campaigns';
 
 export default class ProfileBody extends Component {
   constructor(props) {
@@ -34,7 +29,6 @@ export default class ProfileBody extends Component {
   handleIndexChange = index => this.setState({ index });
 
   renderTabBar = props => {
-    // console.log(props);
     return (
       <View style={styles.tabBar}>
         {props.navigationState.routes.map((route, i) => {
@@ -58,7 +52,7 @@ export default class ProfileBody extends Component {
   };
 
   renderScene = SceneMap({
-    campaigns: CampaignScene,
+    campaigns: () => <Campaigns profile={this.props.profile} />,
     details: () => <Details profile={this.props.profile} />
   })
 

@@ -19,10 +19,9 @@ import ToExpectNextCreateProfileScreen from '../screens/org-onboarding-screens/T
 
 import FeedScreen from '../screens/FeedScreen';
 import CreateCampScreen from '../screens/CreateCampScreen';
-import ProScreen from '../screens/ProScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 import EditProScreen from '../screens/EditProScreen';
 import LocationScreen from '../screens/LocationScreen';
-import SupProScreen from '../screens/SupProScreen';
 import LoginScreen from '../screens/LoginScreen';
 import UsernameScreen from '../screens/UsernameScreen';
 import SearchScreen from '../screens/SearchScreen';
@@ -95,7 +94,7 @@ const FeedStack = createStackNavigator(
       }
     },
     Pro: {
-      screen: ProScreen,
+      screen: ProfileScreen,
       navigationOptions: {
         headerTransparent: true,
         headerTintColor: '#fff'
@@ -113,7 +112,7 @@ const FeedStack = createStackNavigator(
     },
     Camp: ViewCampScreen,
     CampUpdate: ViewCampUpdateScreen,
-    SupPro: SupProScreen,
+    SupPro: ProfileScreen,
     CreateReport: CreateReportScreen
   },
   {
@@ -137,14 +136,14 @@ export const AccountSettingsStack = createStackNavigator({
   AccountSettings: AccountSettingsScreen,
   AdminScreen: AdminReportScreen,
   ReportScreen: ReportDetailScreen,
-  SupProDetails: SupProScreen,
-  ProDetails: ProScreen
+  SupProDetails: ProfileScreen,
+  ProDetails: ProfileScreen
 });
 
 const MyProStack = createStackNavigator(
   {
     MyPro: {
-      screen: ProScreen
+      screen: ProfileScreen
     },
     EditPro: {
       screen: EditProScreen,
@@ -174,7 +173,7 @@ const MyProStack = createStackNavigator(
 
 const MySupProStack = createStackNavigator(
   {
-    MySupPro: { screen: SupProScreen },
+    MySupPro: { screen: ProfileScreen },
     EditSupPro: { screen: EditSupProScreen }
   },
   {
