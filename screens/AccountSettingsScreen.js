@@ -58,19 +58,6 @@ class AccountSettingsScreen extends React.Component {
 		await SecureStorage.deleteItemAsync('accessToken', {});
 		// await SecureStorage.deleteItemAsync("airtableKey", {}); // for development
 		this.props.logout();
-
-		// const logoutURL = "https://key-conservation.auth0.com/v2/logout?federated";
-
-		// if (Constants.platform.ios) {
-		//   await WebBrowser.openAuthSessionAsync(logoutURL).then(result => {
-		//     this.setState({ result });
-		//   });
-		// } else {
-		//   await WebBrowser.openBrowserAsync(logoutURL).then(result => {
-		//     this.setState({ result });
-		//   });
-		// }
-		// this.props.navigation.navigate("Logout");
 	};
 
 	render() {
@@ -81,17 +68,10 @@ class AccountSettingsScreen extends React.Component {
 						<View style={styles.sections}>
 							<View style={styles.iconWrap}>
 								<Smile />
-								{/* <SvgUri
-                  fill="#3b3b3b"
-                  width="25"
-                  height="25"
-                  source={require("../assets/icons/user.svg")}
-                /> */}
 								<Text style={styles.title}>Admin Controls</Text>
 							</View>
 							<TouchableOpacity style={styles.linkWrap} onPress={this.viewReports}>
 								<Logout style={styles.logoutButton} />
-								{/* <Image source={require('../assets/icons/logout.png')} style={styles.logoutButton} /> */}
 								<Text style={styles.linkText}>Manage Reports</Text>
 							</TouchableOpacity>
 						</View>
@@ -99,13 +79,6 @@ class AccountSettingsScreen extends React.Component {
 					<View style={styles.sections}>
 						<View style={styles.iconWrap}>
 							<Smile />
-							{/* <SvgUri
-                fill="#3b3b3b"
-                width="25"
-                height="25"
-                source={require("../assets/icons/user.svg")}
-              /> */}
-
 							<Text style={styles.title}>Logout Of Your Profile</Text>
 						</View>
 						<TouchableOpacity style={styles.linkWrap} onPress={this.logoutPress}>

@@ -8,20 +8,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     borderColor: 'red',
     zIndex: 300,
-    //flex: 0,
-    //alignSelf: 'flex-start',
     padding: 20
   },
   scrollBG: {
-    // borderWidth: 2,
-    // borderColor: 'red',
     backgroundColor: '#F2F2FB',
     height: Dimensions.get('screen').height * 0.9,
     width: Dimensions.get('screen').width
   },
   sections: {
-    // borderWidth: 2,
-    // borderColor: 'purple',
     margin: Dimensions.get('screen').width * 0.02,
     backgroundColor: '#fff',
     padding: Dimensions.get('screen').width * 0.04,
@@ -29,17 +23,12 @@ const styles = StyleSheet.create({
     fontSize: 15
   },
   iconWrap: {
-    // borderWidth: 2,
-    // borderColor: 'purple',
     flexWrap: 'wrap',
     alignItems: 'center',
     flexDirection: 'row',
-    // marginBottom: 2,
     paddingBottom: Dimensions.get('screen').width * 0.02
   },
   title: {
-    // borderWidth: 2,
-    // borderColor: 'red',
     fontSize: responsiveFontSize(2),
     alignItems: 'center',
     marginLeft: 15,
@@ -47,8 +36,6 @@ const styles = StyleSheet.create({
     color: '#323338'
   },
   linkWrap: {
-    // borderWidth: 2,
-    // borderColor: 'blue',
     flexWrap: 'wrap',
     alignItems: 'center',
     flexDirection: 'row',
@@ -56,18 +43,11 @@ const styles = StyleSheet.create({
   },
   logoutButton: {
     backgroundColor: '#F2F2FB',
-    // borderWidth: 2,
-    // borderColor: 'red',
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 5
-    // marginTop: '5%',
-    // width: 40,
-    //height: 40
   },
   linkText: {
-    // borderWidth: 2,
-    // borderColor: 'red',
     fontSize: responsiveFontSize(1.8),
     alignSelf: 'center',
     marginLeft: '4%',
