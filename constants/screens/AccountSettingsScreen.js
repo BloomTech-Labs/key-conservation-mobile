@@ -4,11 +4,8 @@ import { responsiveFontSize } from 'react-native-responsive-dimensions';
 const styles = StyleSheet.create({
   // in headerLeft
   backArrowTouch: {
-    borderWidth: 2,
-    backgroundColor: 'black',
-    borderColor: 'red',
     zIndex: 300,
-    padding: 20
+    padding: 12
   },
   scrollBG: {
     backgroundColor: '#F2F2FB',
@@ -56,8 +53,6 @@ const styles = StyleSheet.create({
     color: '#323338'
   },
   buttonContainer: {
-    borderWidth: 2,
-    borderColor: 'red',
     width: '30%',
     height: 30,
     marginTop: 10,
@@ -70,8 +65,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   buttonText: {
-    borderWidth: 2,
-    borderColor: 'red',
     fontFamily: 'Lato-Bold',
     letterSpacing: 0.8,
     textAlign: 'center',

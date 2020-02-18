@@ -20,8 +20,6 @@ const styles = StyleSheet.create({
     paddingBottom: 18
   },
   indicator: {
-    borderColor: 'red',
-    borderWidth: 2,
     marginTop: 50
   },
   logoutContainer: {
@@ -35,11 +33,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#d7ff43',
     alignItems: 'center',
     justifyContent: 'center'
-    //flexDirection: 'column'
   },
   touchableText: {
     fontFamily: 'Lato-Bold',
-    //letterSpacing: 2,
+    letterSpacing: 2,
     fontStyle: 'normal',
     fontSize: responsiveFontSize(2),
     lineHeight: 25,
