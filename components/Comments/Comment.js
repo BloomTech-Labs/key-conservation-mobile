@@ -51,10 +51,8 @@ const Comment = props => {
 
   const showActionSheet = () => {
     actionSheetRef.current?.show();
-    console.log('opening action sheet id', props.comment.comment_id)
   };
 
-  console.log(props.comment.comment_id)
   return (
     <View style={styles.commentWrapper}>
       <View>

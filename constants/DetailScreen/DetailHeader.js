@@ -94,10 +94,10 @@ export default {
     height: 61
   },
   nameContainer: {
-    display: 'flex',
-    flexWrap: 'nowrap',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginRight: 20
+    // display: 'flex',
+    // flexWrap: 'nowrap',
+    // flexDirection: 'row',
+    // justifyContent: 'space-between',
+    // marginRight: 20
   }
 };

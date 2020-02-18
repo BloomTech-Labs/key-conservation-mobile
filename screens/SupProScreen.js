@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { getProfileData } from '../store/actions';
-import SupProfileHeader from '../components/Profile/SupProfileHeader';
 import SupProfileBody from '../components/Profile/SupProfileBody';
 import BackButton from '../components/BackButton';
 import Ellipse from '../assets/jsicons/Ellipse';
@@ -12,6 +11,7 @@ import EditButton from '../components/EditButton';
 import SettingsButton from '../components/SettingsButton';
 import { ScrollView } from 'react-native-gesture-handler';
 import { ActivityIndicator } from 'react-native';
+import ProfileHeader from '../components/Profile/ProfileHeader';
 
 const SupProScreen = props => {
   const actionSheetRef = useRef(null);
@@ -54,7 +54,7 @@ const SupProScreen = props => {
           userId={profileData.id}
           ref={actionSheetRef}
         />
-        <SupProfileHeader loading={props.loading} profile={profileData} />
+        <ProfileHeader loading={props.loading} profile={profileData} />
         {props.loading ? (
           <ActivityIndicator size='large' style={{ flex: 1 }} />
         ) : (

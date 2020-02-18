@@ -2,11 +2,10 @@ import React from 'react';
 import {
   View,
   Text,
-  TouchableOpacity,
   ImageBackground,
-  Image
+  TouchableOpacity,
+  Linking
 } from 'react-native';
-import { ScrollView } from 'react-navigation';
 import * as WebBrowser from 'expo-web-browser';
 import { Avatar } from 'react-native-elements';
 import { AmpEvent } from '../withAmplitude';
@@ -14,6 +13,12 @@ import { AmpEvent } from '../withAmplitude';
 import styles from '../../constants/Profile/ProfileHeader';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
 import { randomImage } from '../../components/Animals/RandomImage';
+
+// Social Media Icons
+import Envelope from '../../assets/jsicons/socialmedia/Envelope';
+import Instagram from '../../assets/jsicons/socialmedia/Instagram';
+import Twitter from '../../assets/jsicons/socialmedia/Twitter';
+import Facebook from '../../assets/jsicons/socialmedia/Facebook';
 
 const ProfileHeader = props => {
   let profile = props.profile || {};
@@ -33,10 +38,10 @@ const ProfileHeader = props => {
       resizeMode='cover'
       style={{
         height: 260,
-        paddingTop: 100,
+        paddingTop: 86,
         backgroundColor: '#000000'
       }}
-      imageStyle={{ opacity: 0.7 }}
+      imageStyle={{ opacity: 0.6 }}
     >
       <View style={styles.container}>
         <View style={styles.avatarContainer}>
@@ -52,11 +57,11 @@ const ProfileHeader = props => {
           <Text style={styles.org}>
             {props.loading
               ? 'Loading...'
-              : profile.username || profile.org_name}
+              : profile.sup_name || profile.username || profile.org_name}
           </Text>
           {props.loading ? null : (
             <View>
-              {profile.location === null || profile.location === '' ? null : (
+              {!profile.location ? null : (
                 <Text style={styles.locationText}>
                   <MapMarker /> {profile.location}
                 </Text>
@@ -72,12 +77,63 @@ const ProfileHeader = props => {
                   </Text>
                 )
               ) : null}
+              {props.loading || profile.roles !== 'supporter' ? null : (
+                <View>
+                  <Text style={styles.userText}>@{profile.username}</Text>
+                </View>
+              )}
+              {profile.roles === 'supporter' ? (
+                <View style={styles.socialContainer}>
+                  {!profile.email ? null : (
+                    <TouchableOpacity
+                      style={styles.socialIcon}
+                      onPress={async () => {
+                        await Linking.openURL(`mailto:${profile.email}`);
+                      }}
+                    >
+                      <Envelope />
+                    </TouchableOpacity>
+                  )}
+                  {!profile.instagram ? null : (
+                    <TouchableOpacity
+                      style={styles.socialIcon}
+                      onPress={async () =>
+                        await WebBrowser.openBrowserAsync(profile.instagram)
+                      }
+                    >
+                      <Instagram />
+                    </TouchableOpacity>
+                  )}
+                  {!profile.twitter ? null : (
+                    <TouchableOpacity
+                      style={styles.socialIcon}
+                      onPress={async () =>
+                        await WebBrowser.openBrowserAsync(profile.twitter)
+                      }
+                    >
+                      <Twitter />
+                    </TouchableOpacity>
+                  )}
+                  {!profile.facebook ? null : (
+                    <TouchableOpacity
+                      style={styles.socialIcon}
+                      onPress={async () =>
+                        (await WebBrowser.openBrowserAsync(profile.facebook))
+                      }
+                    >
+                      <Facebook />
+                    </TouchableOpacity>
+                  )}
+                </View>
+              ) : (
+                <View style={styles.bioContainer}>
+                  <Text style={styles.bio}>{profile.mini_bio}</Text>
+                </View>
+              )}
             </View>
           )}
         </View>
-        <View style={styles.bioContainer}>
-          <Text style={styles.bio}>{profile.mini_bio}</Text>
-        </View>
+        {/* {props.loading ? null : } */}
       </View>
 
       {/* <View style={styles.buttons}>

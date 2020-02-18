@@ -1,7 +1,7 @@
 export default {
   container: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: 'flex-start',
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingTop: 30,
@@ -16,9 +16,18 @@ export default {
   bioContainer: {
     marginTop: 25,
     marginBottom: 25,
-    width: '80%',
-    textAlign: 'center',
-    alignItems: 'center'
+    width:'80%',
+  },
+  socialContainer: {
+    flexDirection: 'row',
+    width: 175,
+    marginTop: 10,
+    marginLeft: 3,
+    justifyContent: 'flex-start'
+  },
+  socialIcon: {
+    paddingRight: 12,
+    marginRight: 4
   },
   bio: {
     color: 'white',
