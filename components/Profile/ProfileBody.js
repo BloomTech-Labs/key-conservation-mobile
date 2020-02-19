@@ -48,7 +48,7 @@ export default class ProfileBody extends Component {
               }}
               onPress={() => this.setState({ index: i })}
             >
-              <Animated.Text style={{ fontFamily: 'Lato', fontSize: 16 }}>
+              <Animated.Text style={{ fontFamily: 'Lato-Bold', fontSize: 16 }}>
                 {route.title}
               </Animated.Text>
             </TouchableOpacity>

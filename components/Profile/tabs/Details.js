@@ -1,47 +1,36 @@
 import React from 'react';
-import { View, Text, Linking, Platform } from 'react-native';
-
+import { View, Text } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import styles from '../../../constants/Profile/tabs/Details';
+import ConnectFurther from '../ConnectFurther';
+import ComingSoon from '../ComingSoon';
 
 import Clipboard from '../../../assets/jsicons/detailAboutUs/Clipboard';
 import Seedling from '../../../assets/jsicons/detailAboutUs/Seedling';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-// import Envelope from '../../../assets/jsicons/socialmedia/Envelope';
-// import PhoneAdd from '../../../assets/jsicons/socialmedia/PhoneAdd';
-// import Phone from '../../../assets/jsicons/socialmedia/Phone';
-// import IgAdd from '../../../assets/jsicons/socialmedia/IgAdd';
-// import Twitter from '../../../assets/jsicons/socialmedia/Twitter';
-// import TwitterAdd from '../../../assets/jsicons/socialmedia/TwitterAdd';
-// import Instagram from '../../../assets/jsicons/socialmedia/Instagram';
-// import FbAdd from '../../../assets/jsicons/socialmedia/FbAdd';
-// import Facebook from '../../../assets/jsicons/socialmedia/Facebook';
 import Lightbulb from '../../../assets/jsicons/detailAboutUs/Lightbulb';
 import Hand from '../../../assets/jsicons/detailAboutUs/Hand';
-import SocialContainer from '../SocialContainer';
 
 const Details = props => {
   const { profile } = props;
 
-  //   const makeCall = () => {
-  //     let phoneNumber = profile.phone_number;
-  //     // let phoneNumber = 123456789 -- used for testing purposes
-  //     if (Platform.OS === 'android') {
-  //       phoneNumber = `tel:${phoneNumber}`;
-  //     } else {
-  //       phoneNumber = `telprompt:${phoneNumber}`;
-  //     }
-  //     Linking.openURL(phoneNumber);
-  //   };
-
   return (
     <View style={styles.container}>
-      {profile.roles === 'supporter' && <SocialContainer profile={profile} />}
+      {profile.roles === 'supporter' && (
+        <View>
+          <View style={styles.sections}>
+            <ConnectFurther profile={profile} />
+          </View>
+          <View style={styles.sections}>
+            <ComingSoon />
+          </View>
+        </View>
+      )}
 
       {profile.roles !== 'supporter' && (
         <View>
-          <SocialContainer profile={profile} />
+          <ConnectFurther profile={profile} />
           <View style={styles.sections}>
             <View style={styles.sections}>
               <View style={styles.iconWrap}>

@@ -8,13 +8,13 @@ export default StyleSheet.create({
     flexDirection: 'row'
   },
   tabItem: {
-    fontFamily: 'Lato',
+    //fontFamily: 'Lato',
     flex: 1,
     alignItems: 'center',
     color: 'black',
-    borderBottomWidth: 2,
+    borderBottomWidth: 4,
     borderBottomColor: 'white',
-    padding: 16,
+    padding: 12,
     backgroundColor: '#FFF'
   }
 });
