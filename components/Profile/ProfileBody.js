@@ -20,6 +20,8 @@ export default class ProfileBody extends Component {
       { key: 'details', title: 'Details' }
     ]
 
+    // If the profile in questions is an organization and has a location,
+    // insert a tab in index 1 (in the middle as per designs)
     if(this.props.profile.roles === 'conservationist' && this.props.profile.location) {
       routes.splice(1, 0, { key: 'location', title: 'Location' })
     }
