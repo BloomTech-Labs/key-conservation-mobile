@@ -134,6 +134,22 @@ export default {
     alignItems : 'center',
     width      : '100%',
   },
+  buttonContainer: {
+    paddingTop    : 25,
+    paddingBottom : 25,
+    width         : 243,
+    height        : 50,
+    backgroundColor : '#00ff9d',
+    alignItems      : 'center',
+    justifyContent  : 'center',
+    borderRadius    : 5,
+    height          : 35,
+  },
+  buttonText: {
+    color         : '#323339',
+    textTransform : 'uppercase',
+    fontWeight    : 'bold',
+  },
   readMore: {
     color: '#929292'
   },

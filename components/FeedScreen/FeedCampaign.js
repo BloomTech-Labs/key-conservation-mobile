@@ -527,38 +527,15 @@ const FeedCampaign = props => {
           </TouchableOpacity>
         </View>
         <View style={styles.donateButton}>
-              <TouchableOpacity
-                onPress={async () =>
-                  profile.org_cta && profile.org_cta !== null && (await WebBrowser.openBrowserAsync(profile.org_cta))}
-                style={{
-                  paddingTop    : 25,
-                  paddingBottom : 25,
-                  width         : 243,
-                  height        : 50,
-                }}>
-                <View
-                  style={{
-                    backgroundColor : '#00ff9d',
-                    alignItems      : 'center',
-                    justifyContent  : 'center',
-                    borderRadius    : 5,
-                    height          : 35,
-                  }}>
-                  <Text
-                    style={{
-                      color         : '#323339',
-                      textTransform : 'uppercase',
-                      fontWeight    : 'bold',
-                      letterSpacing : 2,
-                    }}>
-                    Donate
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            </View>
+          <TouchableOpacity style={styles.buttonContainer}>
+            <Text style={styles.buttonText}>
+              Take Action
+            </Text>
+          </TouchableOpacity>
+        </View>
         {/* <Text style={styles.timeText}>{timeDiff}</Text> */}
       </View>
-      <View style={styles.demarcation} />
+    <View style={styles.demarcation} />
     </View>
   );
 };
