@@ -16,7 +16,6 @@ import * as SecureStore from 'expo-secure-store';
 const AccountScreen = props => {
   const [values, handleChange] = useState({
     mission: '',
-    issues: '',
     species: '',
     facebook: '',
     instagram: '',
@@ -36,11 +35,10 @@ const AccountScreen = props => {
 
   handleSubmit = async () => {
     airtableStateAdd = Object.assign({ ...airtableState, ...values }); // Updates state for backend with new fields.
-    //TODO this should be moved to ReviewYourInfo
+    //! This was moved to ReviewYourInfo
     stringBE = JSON.stringify(airtableStateAdd);
     await SecureStore.setItemAsync('stateBE', stringBE); // Finally stores data object in SecureStore to be opened in 'EditPro' after user is vetted.
 
-    //TODO this should be moved to verifyDocumentation
     await SecureStore.setItemAsync('vetting', 'true');
     // Sets variables to be checked in 'LoadingScreen' to determine whether current user is in vetting process.
 
@@ -102,21 +100,6 @@ const AccountScreen = props => {
               placeholder='Type here'
               type='species'
               name='species'
-              required
-            />
-          </View>
-          <View style={styles.inputBlock}>
-            <Text style={styles.obText}>
-              What big issues are your organization dealing with?
-            </Text>
-            <TextInput
-              style={[styles.textArea]}
-              multiline
-              onChangeText={text => handleChange({ ...values, issues: text })}
-              value={values.issues}
-              placeholder='Type here'
-              type='issues'
-              name='issues'
               required
             />
           </View>

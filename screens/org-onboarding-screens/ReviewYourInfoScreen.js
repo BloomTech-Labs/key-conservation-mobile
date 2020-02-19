@@ -38,8 +38,7 @@ const ReviewYourInfoScreen = props => {
     poc_position: '',
     email: '',
     about_us: '', // mission from AccountScreen
-    species: '',
-    issues: ''
+    species: ''
   });
 
   useEffect(() => {
@@ -472,6 +471,9 @@ const ReviewYourInfoScreen = props => {
                 updateAirtable();
                 stringBE = JSON.stringify(state);
                 await SecureStore.setItemAsync('stateBE', stringBE); // Finally stores data object in SecureStore to be sent to backend once user is vetted
+
+                await SecureStore.setItemAsync('vetting', 'true');
+                // Sets variables to be checked in 'LoadingScreen' to determine whether current user is in vetting process.
 
                 props.navigation.navigate('VerifyDocumentation', {
                   airtableStateAdd: state,

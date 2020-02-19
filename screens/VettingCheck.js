@@ -33,7 +33,6 @@ function VettingCheck(props) {
           phone_number: parseBE.phone,
           mini_bio: parseBE.mission,
           species_and_habitats: parseBE.species,
-          issues: parseBE.issues,
           facebook: parseBE.facebook,
           instagram: parseBE.instagram,
           twitter: parseBE.twitter,
@@ -55,7 +54,6 @@ function VettingCheck(props) {
     // This sets vetting variables to be checked by 'LoadingScreen'.
   };
 
-  //TODO make sure ALL data is in user object
   const checkAirtable = record => {
     console.log('checkAirtable activated');
     if (record.fields.accepted === true) {

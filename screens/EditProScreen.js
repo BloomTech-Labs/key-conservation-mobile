@@ -52,7 +52,6 @@ class EditProScreen extends React.Component {
     twitter: this.props.currentUserProfile.twitter,
     about_us: this.props.currentUserProfile.about_us,
     species_and_habitats: this.props.currentUserProfile.species_and_habitats,
-    issues: this.props.currentUserProfile.issues,
     phone_number: this.props.currentUserProfile.phone_number,
     // supportUs: this.props.currentUserProfile.support_us,
     org_cta: this.props.currentUserProfile.org_cta,
@@ -78,7 +77,6 @@ class EditProScreen extends React.Component {
           phone_number: parseBE.phone,
           mini_bio: parseBE.mission,
           species_and_habitats: parseBE.species,
-          issues: parseBE.issues,
           facebook: parseBE.facebook,
           instagram: parseBE.instagram,
           twitter: parseBE.twitter,
@@ -134,7 +132,7 @@ class EditProScreen extends React.Component {
     }
   };
 
-  //TODO MOVE THIS TO VETTING CHECK SCREEN
+  //! THIS WAS MOVED TO VETTING CHECK SCREEN
   getBackend = async () => {
     const state = await SecureStore.getItemAsync('stateBE', {});
     const parseBE = JSON.parse(state);
@@ -144,7 +142,6 @@ class EditProScreen extends React.Component {
           phone_number: parseBE.phone,
           mini_bio: parseBE.mission,
           species_and_habitats: parseBE.species,
-          issues: parseBE.issues,
           facebook: parseBE.facebook,
           instagram: parseBE.instagram,
           twitter: parseBE.twitter,
@@ -446,21 +443,6 @@ class EditProScreen extends React.Component {
                 Leatherback sea turtles,Green sea turtles,
                 the Caribbean Ocean and Atlantic Ocean, as well as the Coral Reef
                 '
-              />
-            </View>
-
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Big Issues</Text>
-              <TextInput
-                ref={input => {
-                  this.issuesInput = input;
-                }}
-                returnKeyType='next'
-                style={styles.inputContain2}
-                onChangeText={text => this.setState({ issues: text })}
-                multiline={true}
-                value={this.state.issues}
-                placeholder='We are doing our best to tackle lights on the beach at night, as well as coral reef bleaching. We are aslo highly concerned with plastic pollution and working dilligently against it.'
               />
             </View>
           </View>
