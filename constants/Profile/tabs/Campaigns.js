@@ -1,16 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
-export default StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
-    width: '70%',
-    alignSelf: 'center'
-  },
-  text: {
-    fontFamily: 'Lato-Bold',
-    fontSize: 22,
-    textAlign: 'center',
-    alignSelf: 'center',
-    paddingTop: 50,
-    color: '#505050'
+    flex: 1,
+    backgroundColor: '#F2F2FB',
+    margin: Dimensions.get('screen').width * 0.03,
+    height: Dimensions.get('screen').height * 0.45,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
+
+export default styles;

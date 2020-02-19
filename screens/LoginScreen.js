@@ -16,7 +16,7 @@ import {
   Alert
 } from 'react-native';
 
-import KeyInfoGreen from '../assets/jsicons/KeyCon/Key_Info_Green';
+import KeyInfoYellow from '../assets/jsicons/KeyCon/KeyInfoYellow';
 
 import AuthForm from '../components/Auth/AuthForm';
 
@@ -103,9 +103,12 @@ export default LoginScreen = props => {
     console.log(email, connection);
 
     return auth0.auth
-      .resetPassword({email, connection})
+      .resetPassword({ email, connection })
       .then(() => {
-        Alert.alert('Success', 'You will recieve an email with further instructions shortly if you entered your email correctly!');
+        Alert.alert(
+          'Success',
+          'You will recieve an email with further instructions shortly if you entered your email correctly!'
+        );
       })
       .catch(err => {
         console.log(err);
@@ -296,7 +299,7 @@ export default LoginScreen = props => {
                   setIsModalVisible(true);
                 }}
               >
-                <KeyInfoGreen />
+                <KeyInfoYellow />
               </TouchableOpacity>
             </View>
           </View>

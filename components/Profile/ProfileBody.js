@@ -13,13 +13,17 @@ export default class ProfileBody extends Component {
   constructor(props) {
     super(props);
 
-    const routes = this.props.profile.roles === 'supporter' ? [
-      { key: 'details', title: 'Details' }
-    ] : [
-      { key: 'campaigns', title: 'Campaigns' },
-      { key: 'location', title: 'Location' },
-      { key: 'details', title: 'Details' }
-    ]
+    const routes =
+      this.props.profile.roles === 'supporter'
+        ? [
+            { key: 'savedCamps', title: 'Profile' },
+            { key: 'details', title: 'Details' }
+          ]
+        : [
+            { key: 'campaigns', title: 'Campaigns' },
+            { key: 'location', title: 'Location' },
+            { key: 'details', title: 'Details' }
+          ];
 
     this.state = {
       index: 0,
@@ -44,7 +48,9 @@ export default class ProfileBody extends Component {
               }}
               onPress={() => this.setState({ index: i })}
             >
-              <Animated.Text style={{fontFamily: 'Lato', fontSize: 16}}>{route.title}</Animated.Text>
+              <Animated.Text style={{ fontFamily: 'Lato', fontSize: 16 }}>
+                {route.title}
+              </Animated.Text>
             </TouchableOpacity>
           );
         })}
@@ -55,8 +61,9 @@ export default class ProfileBody extends Component {
   renderScene = SceneMap({
     campaigns: () => <Campaigns profile={this.props.profile} />,
     location: () => <Location profile={this.props.profile} />,
-    details: () => <Details profile={this.props.profile} />
-  })
+    details: () => <Details profile={this.props.profile} />,
+    savedCamps: () => <Campaigns profile={this.props.profile} />
+  });
 
   render() {
     return (

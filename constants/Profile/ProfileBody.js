@@ -16,5 +16,6 @@ export default StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: 'white',
     padding: 16,
-  },
-})
+    backgroundColor: '#F2F2FB'
+  }
+});

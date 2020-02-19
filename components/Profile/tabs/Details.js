@@ -24,29 +24,28 @@ const Details = props => {
   const { profile } = props;
 
   const makeCall = () => {
-		let phoneNumber = profile.phone_number;
-		// let phoneNumber = 123456789 -- used for testing purposes
-		if (Platform.OS === 'android') {
-			phoneNumber = `tel:${phoneNumber}`;
-		} else {
-			phoneNumber = `telprompt:${phoneNumber}`;
-		}
-		Linking.openURL(phoneNumber);
-	};
+    let phoneNumber = profile.phone_number;
+    // let phoneNumber = 123456789 -- used for testing purposes
+    if (Platform.OS === 'android') {
+      phoneNumber = `tel:${phoneNumber}`;
+    } else {
+      phoneNumber = `telprompt:${phoneNumber}`;
+    }
+    Linking.openURL(phoneNumber);
+  };
 
   return (
     <View style={styles.container}>
-      {profile.roles === 'supporter' ? (
-        <View style={styles.sections}>
-          <View style={styles.iconWrap}>
-            <Clipboard />
-            <Text style={styles.title}>{'About Me'}</Text>
-          </View>
-          <View style={styles.body}>
-            <Text style={styles.bodyText}>{profile.mini_bio}</Text>
-          </View>
-        </View>
-      ) : (
+      {profile.roles === 'supporter' ? null : (
+        // <View style={styles.sections}>
+        //   <View style={styles.iconWrap}>
+        //     <Clipboard />
+        //     <Text style={styles.title}>{'About Me'}</Text>
+        //   </View>
+        //   <View style={styles.body}>
+        //     <Text style={styles.bodyText}>{profile.mini_bio}</Text>
+        //   </View>
+        // </View>
         <View style={styles.sections}>
           <View style={styles.iconWrap}>
             <Clipboard />
