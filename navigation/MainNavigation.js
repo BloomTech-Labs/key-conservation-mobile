@@ -105,6 +105,7 @@ const FeedStack = createStackNavigator(
     CreateReport: CreateReportScreen,
     EditCamp: EditCampScreen,
     EditCampUpdate: EditCampUpdateScreen,
+    CreateCampaign: CreateCampScreen,
     CreateCampUpdate: CreateCampUpdateScreen,
   },
   {
@@ -145,7 +146,6 @@ const MyProStack = createStackNavigator(
       navigationOptions: { title: 'Edit Profile' }
     },
     Camp: ViewCampScreen,
-    CreateCampaign: CreateCampScreen,
     EditCamp: EditCampScreen,
     CampUpdate: ViewCampUpdateScreen,
     CreateCampUpdate: CreateCampUpdateScreen,
