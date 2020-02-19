@@ -38,13 +38,14 @@ export default class ProfileBody extends Component {
               key={i}
               style={{
                 ...styles.tabItem,
+                backgroundColor: 'white',
                 borderBottomColor: `rgba(0, 255, 157, ${
                   this.state.index === i ? 1 : 0
                 })`
               }}
               onPress={() => this.setState({ index: i })}
             >
-              <Animated.Text style={{fontFamily: 'Lato', fontSize: 16}}>{route.title}</Animated.Text>
+              <Animated.Text style={{fontFamily: 'Lato-Bold', fontSize: 16}}>{route.title}</Animated.Text>
             </TouchableOpacity>
           );
         })}

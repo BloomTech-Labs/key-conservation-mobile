@@ -55,8 +55,6 @@ class ProfileScreen extends React.Component {
   }
 
   static navigationOptions = ({ navigation }) => {
-    const fromMap = navigation.getParam('fromMap', 'defaultValue');
-
     const selectedProfile = navigation.getParam('selectedProfile');
     const currentProfile = navigation.getParam('currentProfile');
 
@@ -88,7 +86,7 @@ class ProfileScreen extends React.Component {
 
     const headerLeft = () => {
       if (selectedProfile) {
-        return <BackButton navigation={navigation} fromMap={fromMap} />;
+        return <BackButton navigation={navigation} />;
       } else {
         return (
           <SettingsButton
@@ -158,7 +156,7 @@ class ProfileScreen extends React.Component {
 
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
-  admin: state.currentUserProfile.admin,
+  admin: state.currentUserProfile.admin
 });
 
 export default connect(mapStateToProps, { getProfileData, createReport })(

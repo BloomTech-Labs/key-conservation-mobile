@@ -6,7 +6,7 @@ export default StyleSheet.create({
   },
   tabBar: {
     flexDirection: 'row',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   tabItem: {
     fontFamily: 'Lato',

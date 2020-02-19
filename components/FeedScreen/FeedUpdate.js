@@ -45,19 +45,9 @@ const ViewportAwareVideo = Viewport.Aware(
 );
 
 const FeedUpdate = props => {
-  const [likes, setLikes] = useState(props.data.likes.length);
-  const [userLiked, setUserLiked] = useState(false);
   const [loader, setLoader] = useState(true);
   const actionSheetRef = useRef(null);
 
-  useEffect(() => {
-    const liked = data.likes.filter(
-      l => l.users_id === props.currentUserProfile.id
-    );
-    if (liked.length > 0) {
-      setUserLiked(true);
-    }
-  }, []);
 
   const dispatch = useDispatch();
   const { data, toggled } = props;
@@ -116,10 +106,6 @@ const FeedUpdate = props => {
     dispatch(setCampaign(data));
     navigate('CampUpdate', {
       backBehavior: 'Home',
-      likes: likes,
-      userLiked: userLiked,
-      addLike: addLike,
-      deleteLike: deleteLike,
       media: data.update_img
     });
   };
@@ -133,98 +119,6 @@ const FeedUpdate = props => {
       setLoader(true);
     } else {
       setLoader(false);
-    }
-  };
-
-  const addLike = (campId, updateId) => {
-    if (updateId) {
-      axios
-        .post(
-          `${seturl}social/update/${data.update_id}`,
-          {
-            users_id: props.currentUserProfile.id,
-            update_id: data.update_id
-          },
-          {
-            headers: {
-              Accept: 'application/json',
-              Authorization: `Bearer ${props.token}`,
-              'Content-Type': 'application/json'
-            }
-          }
-        )
-        .then(res => {
-          setLikes(res.data.data.length);
-          setUserLiked(true);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    } else {
-      axios
-        .post(
-          `${seturl}social/likes/${campId}`,
-          {
-            users_id: props.currentUserProfile.id,
-            camp_id: campId
-          },
-          {
-            headers: {
-              Accept: 'application/json',
-              Authorization: `Bearer ${props.token}`,
-              'Content-Type': 'application/json'
-            }
-          }
-        )
-        .then(res => {
-          setLikes(res.data.data.length);
-          setUserLiked(true);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-  };
-
-  const deleteLike = (campId, updateId) => {
-    if (updateId) {
-      axios
-        .delete(
-          `${seturl}social/update/${data.update_id}/${props.currentUserProfile.id}`,
-          {
-            headers: {
-              Accept: 'application/json',
-              Authorization: `Bearer ${props.token}`,
-              'Content-Type': 'application/json'
-            }
-          }
-        )
-        .then(res => {
-          setLikes(likes - 1);
-          setUserLiked(false);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    } else {
-      axios
-        .delete(
-          `${seturl}social/likes/${campId}/${props.currentUserProfile.id}`,
-          {
-            headers: {
-              Accept: 'application/json',
-              Authorization: `Bearer ${props.token}`,
-              'Content-Type': 'application/json'
-            }
-          }
-        )
-        .then(res => {
-          setLikes(likes - 1);
-          setUserLiked(false);
-        })
-        .catch(err => {
-          console.log(err);
-        });
     }
   };
 
@@ -356,43 +250,6 @@ const FeedUpdate = props => {
           </TouchableOpacity>
         )}
       </View>
-      {/* Above checks to see if the FeedUpdate is being displayed in the Feed or in the ViewCampScreen */}
-      {/* <View style={styles.iconRow}>
-
-        <View style={styles.likesContainer}>
-          <View style={styles.hearts}>
-            <View style={!userLiked ? { zIndex: 1 } : { zIndex: -1 }}>
-              <FontAwesome
-                onPress={() => addLike(data.camp_id, data.update_id)}
-                name="heart-o"
-                style={styles.heartOutline}
-              />
-            </View>
-            <View
-              animation={userLiked ? 'zoomIn' : 'zoomOut'}
-              style={
-                (userLiked ? { zIndex: 1 } : { zIndex: -1 },
-                Platform.OS === 'android'
-                  ? { marginTop: -29, marginLeft: -1.25 }
-                  : { marginTop: -28.75, marginLeft: -1.25 })
-              }
-              duration={300}
-            >
-              <FontAwesome
-                onPress={() => deleteLike(data.camp_id, data.update_id)}
-                name="heart"
-                style={styles.heartFill}
-              />
-            </View>
-          </View>
-          {likes === 0 ? null : likes > 1 ? (
-            <Text style={styles.likes}>{likes} likes</Text>
-          ) : (
-            <Text style={styles.likes}>{likes} like</Text>
-          )}
-        </View>
-
-      </View> */}
 
       <View style={styles.campDesc}>
         <Text style={styles.campDescName}>{data.camp_name}</Text>

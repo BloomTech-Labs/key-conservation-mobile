@@ -90,7 +90,7 @@ export default forwardRef((props, ref) => {
 
   const postUpdate = () => {
     navigate('CreateCampUpdate', {
-      selectedCampaign: props.camp
+      selectedCampaign: props.camp || props.update
     })
   }
 
