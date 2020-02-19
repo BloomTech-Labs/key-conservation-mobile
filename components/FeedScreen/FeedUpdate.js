@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Platform
 } from "react-native";
-import { NavigationEvents, withNavigationFocus } from "react-navigation";
+import { withNavigationFocus } from "react-navigation";
 import { View } from "react-native-animatable";
 import moment from "moment";
 import { Video } from "expo-av";
