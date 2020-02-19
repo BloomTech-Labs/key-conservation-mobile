@@ -7,7 +7,6 @@ import {
   ScrollView
 } from 'react-native';
 
-import { Feather } from '@expo/vector-icons';
 import styles from '../../constants/screens/org-onboarding-styles/OrganizationSurvey';
 import NavigateButton from './formElement/NavigateButton.js';
 
@@ -16,10 +15,12 @@ import * as SecureStore from 'expo-secure-store';
 const AccountScreen = props => {
   const [values, handleChange] = useState({
     mini_bio: '',
+    about_us: '',
     species: '',
     facebook: '',
     instagram: '',
-    twitter: ''
+    twitter: '',
+    org_cta: ''
   });
 
   const airtableState = props.navigation.getParam(
@@ -27,11 +28,6 @@ const AccountScreen = props => {
     'defaultValue'
   );
   const key = props.navigation.getParam('airtableKey', 'defaultValue');
-
-  // 1;
-  // var today = new Date();
-  // var date =
-  //   today.getMonth() + 1 + '-' + today.getDate() + '-' + today.getFullYear();
 
   handleSubmit = async () => {
     airtableStateAdd = Object.assign({ ...airtableState, ...values }); // Updates state for backend with new fields.
@@ -57,17 +53,6 @@ const AccountScreen = props => {
     >
       <ScrollView style={styles.scrollView}>
         <View style={[styles.container]}>
-          {/* <View style={[styles.buttonRow, styles.greenBg]}>
-            <View>
-              <Text style={[styles.h5Text, { fontWeight: '600' }]}>
-                Application Status: Processing
-              </Text>
-              <Text style={styles.h5Text}> Uploaded {date}</Text>
-            </View>
-            <View>
-              <Feather name='info' size={20} />
-            </View>
-          </View> */}
           <View>
             <Text style={[styles.obTitle, { marginBottom: 24 }]}>
               Let Supporters {'\n'}Know About You!
@@ -75,16 +60,32 @@ const AccountScreen = props => {
           </View>
           <View style={styles.inputBlock}>
             <Text style={styles.obText}>
-              In a brief statement, what is your organization’s mini_bio?
+              Write a short bio about your organization.
             </Text>
             <TextInput
               style={[styles.textArea]}
               multiline
               onChangeText={text => handleChange({ ...values, mini_bio: text })}
+              maxLength={150}
               value={values.mini_bio}
               placeholder='Type here'
               type='mini_bio'
               name='mini_bio'
+              required
+            />
+          </View>
+          <View style={styles.inputBlock}>
+            <Text style={styles.obText}>
+              Give us a more in-depth summary of your organization’s mission.
+            </Text>
+            <TextInput
+              style={[styles.textArea]}
+              multiline
+              onChangeText={text => handleChange({ ...values, about_us: text })}
+              value={values.about_us}
+              placeholder='Type here'
+              type='about_us'
+              name='about_us'
               required
             />
           </View>
@@ -141,6 +142,20 @@ const AccountScreen = props => {
               name='twitter'
             />
           </View>
+          <View style={styles.inputBlockSm}>
+            <Text style={[styles.obSubtitle, { fontSize: 18 }]}>
+              Add a link where your supporters can donate:
+            </Text>
+            <TextInput
+              style={[styles.textRounded]}
+              onChangeText={text => handleChange({ ...values, org_cta: text })}
+              placeholder='Enter url'
+              type='url'
+              name='org_cta'
+              value={values.org_cta}
+            />
+          </View>
+
           <NavigateButton label='Submit' onButtonPress={handleSubmit} />
         </View>
       </ScrollView>

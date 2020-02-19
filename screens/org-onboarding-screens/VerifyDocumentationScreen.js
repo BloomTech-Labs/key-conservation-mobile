@@ -27,41 +27,9 @@ export default VerifyDocumentationScreen = props => {
         redirectData = 'https://airtable.com/shrkK93NtoOkfnMP8';
       }
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   }; // This opens up the in-app browser for 'Table 2' submission. This is required because the Airtable API doesnt allow for non-URL image uploads.
-
-  getAirtable = () => {
-    return null;
-    // var Airtable = require("airtable");
-    // var base = new Airtable({ apiKey: key }).base("appbPeeXUSNCQWwnQ");
-    // console.log("VerifyDocumentation getAirtable activated");
-    // base("Table 2")
-    //   .select({
-    //     maxRecords: 20,
-    //     view: "Grid view",
-    //     filterByFormula: `{email} = \'${state.email}\'`
-    //   })
-    //   .eachPage(
-    //     function page(records) {
-    //       records[0] === undefined
-    //         ? Alert.alert(
-    //             "Oops",
-    //             "Please make sure the email provided in the document form matches the one you signed up with",
-    //             [{ text: "Got it" }]
-    //           )
-    //         : records.forEach(function(record) {
-    //             navigate(record); // Calls function and passes state via Navigation Parameters.
-    //           });
-    //     },
-    //     function done(err) {
-    //       if (err) {
-    //         console.error(err);
-    //         return;
-    //       }
-    //     }
-    //   );
-  }; // This checks the 'Table 2' form for correct email, then checks for document upload.
 
   navigate = () => {
     const airtableState = props.navigation.getParam(

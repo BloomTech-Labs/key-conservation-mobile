@@ -25,20 +25,26 @@ const ReviewYourInfoScreen = props => {
   const [state, setState] = useState({
     other_countries: '',
     multiple_projects: '',
-    affiliations_partnerships: 'project 1, project 2,',
+    affiliations_partnerships: '',
     conservation_optimism: null,
     smartphone_access: null,
     smartphone_type: '',
     org_name: '',
     website: '',
+    twitter: '',
+    facebook: '',
+    instagram: '',
     address: '',
     country: '',
     phone: '',
     point_of_contact: '',
     poc_position: '',
     email: '',
-    about_us: '', // mission from AccountScreen
-    species: ''
+    about_us: '',
+    species: '',
+    org_cta: '',
+    mini_bio: '',
+    about_us: ''
   });
 
   useEffect(() => {
@@ -104,8 +110,7 @@ const ReviewYourInfoScreen = props => {
         <View>
           <View>
             <Text style={styles.obText}>
-              Check that everything looks good and tap submit, or go back and
-              edit
+              Check that everything looks good and tap submit
             </Text>
           </View>
           {!isEditingAccount ? (
@@ -171,7 +176,7 @@ const ReviewYourInfoScreen = props => {
             <View style={styles.borderContainer}>
               <View style={[styles.row, styles.opaqueHeader]}>
                 <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
-                  Contact & Credentials
+                  Contact Information
                 </Text>
                 <TouchableOpacity
                   onPress={() => setIsEditingContact(!isEditingContact)}
@@ -193,6 +198,26 @@ const ReviewYourInfoScreen = props => {
               <View style={styles.row}>
                 <Text style={styles.obSubtitleSm}>Phone:</Text>
                 <Text style={styles.obText}>{state.phone}</Text>
+              </View>
+
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>Facebook:</Text>
+                <Text style={styles.obText}>{state.facebook}</Text>
+              </View>
+
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>Twitter:</Text>
+                <Text style={styles.obText}>{state.twitter}</Text>
+              </View>
+
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>Instagram:</Text>
+                <Text style={styles.obText}>{state.instagram}</Text>
+              </View>
+
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>Donation Link:</Text>
+                <Text style={styles.obText}>{state.org_cta}</Text>
               </View>
 
               <View>
@@ -242,6 +267,42 @@ const ReviewYourInfoScreen = props => {
                 />
               </View>
 
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>Facebook:</Text>
+                <TextInput
+                  style={[styles.obText, styles.textInput]}
+                  value={state.facebook}
+                  onChangeText={text => setState({ ...state, facebook: text })}
+                />
+              </View>
+
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>Twitter:</Text>
+                <TextInput
+                  style={[styles.obText, styles.textInput]}
+                  value={state.twitter}
+                  onChangeText={text => setState({ ...state, twitter: text })}
+                />
+              </View>
+
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>Instagram:</Text>
+                <TextInput
+                  style={[styles.obText, styles.textInput]}
+                  value={state.instagram}
+                  onChangeText={text => setState({ ...state, instagram: text })}
+                />
+              </View>
+
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>Donation Link:</Text>
+                <TextInput
+                  style={[styles.obText, styles.textInput]}
+                  value={state.org_cta}
+                  onChangeText={text => setState({ ...state, org_cta: text })}
+                />
+              </View>
+
               <View>
                 <Text style={styles.obSubtitleSm}>Address:</Text>
                 <TextInput
@@ -249,6 +310,61 @@ const ReviewYourInfoScreen = props => {
                   multiline
                   value={state.address}
                   onChangeText={text => setState({ ...state, address: text })}
+                />
+              </View>
+            </View>
+          )}
+          {!isEditingAccount ? (
+            <View style={styles.borderContainer}>
+              <View style={[styles.row, styles.opaqueHeader]}>
+                <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
+                  About Us
+                </Text>
+                <TouchableOpacity
+                  onPress={() => setIsEditingAccount(!isEditingAccount)}
+                >
+                  <EditPencil />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>Short Bio:</Text>
+                <Text style={styles.obText}>{state.mini_bio}</Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>About Us: </Text>
+                <Text style={styles.obText}>{state.about_us}</Text>
+              </View>
+            </View>
+          ) : (
+            <View style={styles.borderContainer}>
+              <View style={[styles.row, styles.opaqueHeader]}>
+                <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
+                  About Us
+                </Text>
+                <TouchableOpacity
+                  onPress={() => setIsEditingAccount(!isEditingAccount)}
+                >
+                  <SVGCheckMark />
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>Mini Bio:</Text>
+                <TextInput
+                  style={[styles.obText, styles.textInput]}
+                  value={state.mini_bio}
+                  placeholder={'Mini Bio'}
+                  onChangeText={text => setState({ ...state, mini_bio: text })}
+                />
+              </View>
+
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>ABout Us:</Text>
+                <TextInput
+                  style={[styles.obText, styles.textInput]}
+                  value={state.about_us}
+                  placeholder={'About us'}
+                  onChangeText={text => setState({ ...state, about_us: text })}
                 />
               </View>
             </View>
@@ -270,15 +386,10 @@ const ReviewYourInfoScreen = props => {
               <Text style={styles.obSubtitleSm}>Countries of Operation:</Text>
               <Text style={styles.obText}>{state.other_countries}</Text>
 
-              {state.multiple_projects.split(',').map((project, idx) => {
-                if (project === '') return;
-                return (
-                  <View key={idx}>
-                    <Text style={styles.obSubtitleSm}>Project:{idx + 1}</Text>
-                    <Text style={styles.obText}>{project}</Text>
-                  </View>
-                );
-              })}
+              <View>
+                <Text style={styles.obSubtitleSm}>Projects:</Text>
+                <Text style={styles.obText}>{state.multiple_projects}</Text>
+              </View>
             </View>
           ) : (
             <View style={styles.borderContainer}>
@@ -303,26 +414,19 @@ const ReviewYourInfoScreen = props => {
                 }
               />
 
-              {state.multiple_projects.split(',').map((project, idx, arr) => {
-                if (project === '') return;
-                return (
-                  <View key={idx}>
-                    <Text style={styles.obSubtitleSm}>Project:{idx + 1}</Text>
-                    <TextInput
-                      style={[styles.obText, styles.textInput]}
-                      value={project}
-                      onChangeText={text => {
-                        arr.splice(idx, 1);
-                        arr.splice(idx, 0, text);
-                        setState({
-                          ...state,
-                          multiple_projects: arr.join()
-                        });
-                      }}
-                    />
-                  </View>
-                );
-              })}
+              <View>
+                <Text style={styles.obSubtitleSm}>Projects:</Text>
+                <TextInput
+                  style={[styles.obText, styles.textInput]}
+                  value={state.multiple_projects}
+                  onChangeText={text => {
+                    setState({
+                      ...state,
+                      multiple_projects: text
+                    });
+                  }}
+                />
+              </View>
             </View>
           )}
           {!isEditingAffiliations ? (
@@ -339,16 +443,9 @@ const ReviewYourInfoScreen = props => {
                   <EditPencil />
                 </TouchableOpacity>
               </View>
-              {state.affiliations_partnerships
-                .split(',')
-                .map((affilicated, idx) => {
-                  if (affilicated === '') return;
-                  return (
-                    <Text key={idx} style={styles.obText}>
-                      {affilicated}
-                    </Text>
-                  );
-                })}
+              <Text style={styles.obText}>
+                {state.affiliations_partnerships}
+              </Text>
             </View>
           ) : (
             <View style={styles.borderContainer}>
@@ -364,26 +461,16 @@ const ReviewYourInfoScreen = props => {
                   <SVGCheckMark />
                 </TouchableOpacity>
               </View>
-              {state.affiliations_partnerships
-                .split(',')
-                .map((affilicated, idx, arr) => {
-                  if (affilicated === '') return;
-                  return (
-                    <TextInput
-                      key={idx}
-                      style={[styles.obText, styles.textInput]}
-                      value={affilicated}
-                      onChangeText={text => {
-                        arr.splice(idx, 1);
-                        arr.splice(idx, 0, text);
-                        setState({
-                          ...state,
-                          affiliations_partnerships: arr.join()
-                        });
-                      }}
-                    />
-                  );
-                })}
+              <TextInput
+                style={[styles.obText, styles.textInput]}
+                value={state.affiliations_partnerships}
+                onChangeText={text => {
+                  setState({
+                    ...state,
+                    affiliations_partnerships: text
+                  });
+                }}
+              />
             </View>
           )}
           {!isEditingMisc ? (
@@ -453,7 +540,7 @@ const ReviewYourInfoScreen = props => {
           )}
           <NavigateButton
             label='Next'
-            onButtonPress={async () => {
+            onButtonPress={() => {
               if (
                 state.org_name === undefined ||
                 state.website === undefined ||
@@ -470,16 +557,14 @@ const ReviewYourInfoScreen = props => {
               } else {
                 updateAirtable();
                 stringBE = JSON.stringify(state);
-                await SecureStore.setItemAsync('stateBE', stringBE); // Finally stores data object in SecureStore to be sent to backend once user is vetted
+                SecureStore.setItemAsync('stateBE', stringBE); // Finally stores data object in SecureStore to be sent to backend once user is vetted
 
-                await SecureStore.setItemAsync('vetting', 'true');
+                SecureStore.setItemAsync('vetting', 'true');
                 // Sets variables to be checked in 'LoadingScreen' to determine whether current user is in vetting process.
-
                 props.navigation.navigate('VerifyDocumentation', {
                   airtableStateAdd: state,
                   airtableKey: key
                 }); // Passes updated state down for backend.
-                // console.log(state);
               }
             }}
           />
