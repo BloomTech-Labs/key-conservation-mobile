@@ -23,6 +23,7 @@ const Campaigns = props => {
         if (camp.update_id) {
           return (
             <FeedUpdate
+              disableHeader
               key={`update${camp.update_id}`}
               data={camp}
               toggled
@@ -31,6 +32,7 @@ const Campaigns = props => {
         } else {
           return (
             <FeedCampaign
+              disableHeader
               key={camp.camp_id}
               data={camp}
               toggled

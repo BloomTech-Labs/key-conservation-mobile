@@ -14,10 +14,7 @@ import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
 
-import {
-  getCampaign,
-  toggleCampaignText
-} from '../../store/actions';
+import { getCampaign, toggleCampaignText } from '../../store/actions';
 import { AmpEvent } from '../withAmplitude';
 
 import { navigate } from '../../navigation/RootNavigator';
@@ -335,6 +332,7 @@ const FeedCampaign = props => {
           camp={data}
         />
         <ListItem
+          disabled={props.disableHeader}
           onPress={goToProfile}
           title={
             <View style={styles.username}>

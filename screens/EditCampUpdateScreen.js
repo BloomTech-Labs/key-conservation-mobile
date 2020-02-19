@@ -4,7 +4,6 @@ import {
   TextInput,
   Text,
   View,
-  TouchableOpacity,
   KeyboardAvoidingView,
   Platform
 } from 'react-native';
@@ -14,7 +13,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { editCampaignUpdate, getCampaigns, clearMedia } from '../store/actions';
 import BackButton from '../components/BackButton';
 import DoneButton from '../components/DoneButton';
-import { AmpEvent } from '../components/withAmplitude';
 
 import UploadMedia from '../components/UploadMedia';
 
@@ -35,9 +33,17 @@ class EditCampUpdateScreen extends React.Component {
       )
     };
   };
-  state = {
-    update_desc: this.props.selectedCampaign.update_desc
-  };
+
+  constructor(props) {
+    super(props);
+
+    this.selectedCampaign = this.props.navigation.getParam('selectedCampaign') || {};
+
+    this.state = {
+      update_desc: this.selectedCampaign.update_desc
+    };
+  }
+
   componentDidMount() {
     this.props.navigation.setParams({ edit: this.edit });
   }
@@ -51,14 +57,14 @@ class EditCampUpdateScreen extends React.Component {
       };
     }
     await this.props.editCampaignUpdate(
-      this.props.selectedCampaign.update_id,
+      this.selectedCampaign.update_id,
       changes
     );
     this.props.navigation.goBack();
   };
   clearState = () => {
     this.setState({
-      update_desc: this.props.selectedCampaign.update_desc
+      update_desc: this.selectedCampaign.update_desc
     });
   };
   render() {
@@ -89,7 +95,7 @@ class EditCampUpdateScreen extends React.Component {
                   <Text style={styles.goToCampaignText}>Update</Text>
                 </View>
                 <Text style={styles.sectionsText}>
-                  {this.props.selectedCampaign.camp_name}
+                  {this.selectedCampaign.camp_name}
                 </Text>
                 <TextInput
                   ref={input => {
@@ -112,14 +118,14 @@ class EditCampUpdateScreen extends React.Component {
 }
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
-  selectedCampaign: state.selectedCampaign,
   mediaUpload: state.mediaUpload
 });
 
-export default connect(
-  mapStateToProps,
-  { editCampaignUpdate, getCampaigns, clearMedia }
-)(EditCampUpdateScreen);
+export default connect(mapStateToProps, {
+  editCampaignUpdate,
+  getCampaigns,
+  clearMedia
+})(EditCampUpdateScreen);
 
 const styles = StyleSheet.create({
   sectionContainer: {

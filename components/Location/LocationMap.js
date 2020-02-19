@@ -10,7 +10,8 @@ const LocationMap = ({ getOrganizations, profile }) => {
     getOrganizations();
   }, []);
 
-
+  const lat = isNaN(Number(profile.latitude)) ? 0 : Number(profile.latitude) - 1;
+  const lon = isNaN(Number(profile.longitude)) ? 0 : Number(profile.longitude);
 
   return (
     <View style={styles.container}>
@@ -19,8 +20,8 @@ const LocationMap = ({ getOrganizations, profile }) => {
         showsScale={true}
         initialCamera={{
           center: {
-            latitude: Number(profile.latitude) - 1, // Keeps marker centered.
-            longitude: Number(profile.longitude)
+            latitude: lat, // Keeps marker centered.
+            longitude: lon
           },
           pitch: 45,
           heading: 0,

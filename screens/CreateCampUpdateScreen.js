@@ -18,7 +18,6 @@ import { postCampaignUpdate, getCampaigns, clearMedia } from "../store/actions";
 import BackButton from "../components/BackButton";
 import PublishButton from "../components/PublishButton";
 import UploadMedia from "../components/UploadMedia";
-import { AmpEvent } from "../components/withAmplitude";
 
 // url for heroku staging vs production server
 // production
@@ -43,6 +42,12 @@ class CreateCampUpdateScreen extends React.Component {
       )
     };
   };
+
+  constructor (props) {
+    super(props);
+
+    this.selectedCampaign = this.props.navigation.getParam('selectedCampaign') || {};
+  }
 
   state = {
     update_desc: "",
@@ -88,7 +93,7 @@ class CreateCampUpdateScreen extends React.Component {
                   <Text style={styles.goToCampaignText}>Update</Text>
                 </View>
                 <Text style={styles.sectionsText}>
-                  {this.props.selectedCampaign.camp_name}
+                  {this.selectedCampaign.camp_name}
                 </Text>
                 <TextInput
                   ref={input => {
@@ -124,7 +129,7 @@ class CreateCampUpdateScreen extends React.Component {
       const campUpdate = {
         update_desc: this.state.update_desc,
         users_id: this.props.currentUserProfile.id,
-        camp_id: this.props.selectedCampaign.camp_id,
+        camp_id: this.selectedCampaign.camp_id,
         update_img: this.props.mediaUpload
       };
       this.postCampaignUpdate(campUpdate);
@@ -184,7 +189,6 @@ class CreateCampUpdateScreen extends React.Component {
 }
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
-  selectedCampaign: state.selectedCampaign,
   mediaUpload: state.mediaUpload,
   token: state.token
 });

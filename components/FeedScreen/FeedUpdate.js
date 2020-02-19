@@ -242,6 +242,7 @@ const FeedUpdate = props => {
       />
       {props.hideUsername === undefined && (
         <ListItem
+          disabled={props.disableHeader}
           onPress={goToProfile}
           title={
             <View>

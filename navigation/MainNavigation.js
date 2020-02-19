@@ -102,7 +102,10 @@ const FeedStack = createStackNavigator(
     Camp: ViewCampScreen,
     CampUpdate: ViewCampUpdateScreen,
     SupPro: ProfileScreen,
-    CreateReport: CreateReportScreen
+    CreateReport: CreateReportScreen,
+    EditCamp: EditCampScreen,
+    EditCampUpdate: EditCampUpdateScreen,
+    CreateCampUpdate: CreateCampUpdateScreen,
   },
   {
     navigationOptions: {
@@ -131,6 +134,9 @@ export const AccountSettingsStack = createStackNavigator({
 
 const MyProStack = createStackNavigator(
   {
+    Pro: {
+      screen: ProfileScreen
+    },
     MyPro: {
       screen: ProfileScreen
     },
@@ -211,10 +217,10 @@ export const ConsNavigator = createBottomTabNavigator(
   {
     FeedStack: {
       screen: FeedStack,
-      path: '',
+      path: ''
     },
     MapStack: {
-      screen: MapStack,
+      screen: MapStack
     },
     // CreateCampStack: { screen: CreateCampStack, path: '' },
     MyProStack: {
