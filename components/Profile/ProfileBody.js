@@ -16,7 +16,7 @@ export default class ProfileBody extends Component {
     const routes =
       this.props.profile.roles === 'supporter'
         ? [
-            { key: 'savedCamps', title: 'Profile' },
+            { key: 'campaigns', title: 'Profile' },
             { key: 'details', title: 'Details' }
           ]
         : [
@@ -61,8 +61,7 @@ export default class ProfileBody extends Component {
   renderScene = SceneMap({
     campaigns: () => <Campaigns profile={this.props.profile} />,
     location: () => <Location profile={this.props.profile} />,
-    details: () => <Details profile={this.props.profile} />,
-    savedCamps: () => <Campaigns profile={this.props.profile} />
+    details: () => <Details profile={this.props.profile} />
   });
 
   render() {

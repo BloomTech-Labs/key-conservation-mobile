@@ -5,8 +5,7 @@ export default StyleSheet.create({
     flex: 1
   },
   tabBar: {
-    flexDirection: 'row',
-    backgroundColor: 'white'
+    flexDirection: 'row'
   },
   tabItem: {
     fontFamily: 'Lato',
@@ -16,6 +15,6 @@ export default StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: 'white',
     padding: 16,
-    backgroundColor: '#F2F2FB'
+    backgroundColor: '#FFF'
   }
 });
