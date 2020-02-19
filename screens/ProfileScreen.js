@@ -30,11 +30,13 @@ class ProfileScreen extends React.Component {
     const selectedProfile = navigation.getParam('selectedProfile');
     const currentProfile = navigation.getParam('currentProfile');
 
+    const editRoute = selectedProfile?.roles || currentProfile?.roles === 'supporter' ? 'EditSupPro' : 'EditPro';
+
     const headerRight = () => {
       if (!selectedProfile) {
-        return <EditButton navigation={navigation} editRoute={'EditPro'} />;
+        return <EditButton navigation={navigation} editRoute={editRoute} />;
       } else if (selectedProfile && currentProfile?.id === selectedProfile)
-        return <EditButton navigation={navigation} editRoute={'EditPro'} />;
+        return <EditButton navigation={navigation} editRoute={editRoute} />;
       else {
         return (
           <TouchableOpacity
