@@ -13,16 +13,14 @@ import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-navigation';
 import * as WebBrowser from 'expo-web-browser';
 import { connect } from 'react-redux';
-import SvgUri from 'react-native-svg-uri';
 import moment from 'moment';
 import { Viewport } from '@skele/components';
 
-import { getProfileData } from '../store/actions';
 import BackButton from '../components/BackButton';
 import { AmpEvent } from '../components/withAmplitude';
 import FeedUpdate from '../components/FeedScreen/FeedUpdate';
 import CommentsView from '../components/Comments/CommentsView';
-
+import Hand from '../assets/jsicons/detailAboutUs/Hand';
 import styles from '../constants/screens/ViewCampScreen';
 import Ellipse from '../assets/jsicons/Ellipse';
 import CampaignActionSheet from '../components/Reports/CampaignActionSheet';
@@ -55,8 +53,8 @@ class ViewCampScreen extends React.Component {
     };
   };
 
-  componentDidMount () {
-    this.props.navigation.setParams({showCampOptions: this.showActionSheet});
+  componentDidMount() {
+    this.props.navigation.setParams({ showCampOptions: this.showActionSheet });
   }
 
   state = {
@@ -67,7 +65,7 @@ class ViewCampScreen extends React.Component {
 
   showActionSheet = () => {
     this.ActionSheet?.show();
-  }
+  };
 
   render() {
     let sortedUpdates = false;
@@ -112,10 +110,14 @@ class ViewCampScreen extends React.Component {
 
     return (
       <View>
-        <CampaignActionSheet 
+        <CampaignActionSheet
           admin={this.props.currentUserProfile.admin}
           camp={this.props.selectedCampaign}
-          ref={o => this.ActionSheet = o}
+          ref={o => (this.ActionSheet = o)}
+          isMine={
+            this.props.currentUserProfile.admin ===
+            this.props.selectedCampaign.users_id
+          }
           goBack
         />
         {Platform.OS === 'android' ? (
@@ -259,11 +261,10 @@ class ViewCampScreen extends React.Component {
                   </View>
                   <View style={styles.donateView}>
                     <View style={styles.campMission}>
-                      <SvgUri
+                      <Hand
                         fill='#3b3b3b'
                         width='25'
                         height='25'
-                        source={require('../assets/icons/hand.svg')}
                       />
                       <Text style={styles.supportMissionText}>
                         Support Our Mission
@@ -451,11 +452,10 @@ class ViewCampScreen extends React.Component {
                   </View>
                   <View style={styles.donateView}>
                     <View style={styles.campMission}>
-                      <SvgUri
+                      <Hand
                         fill='#3b3b3b'
                         width='25'
                         height='25'
-                        source={require('../assets/icons/hand.svg')}
                       />
                       <Text style={styles.supportMissionText}>
                         Support Our Mission
@@ -547,8 +547,7 @@ class ViewCampScreen extends React.Component {
   };
 
   goToProfile = () => {
-    this.props.getProfileData(this.props.selectedCampaign.users_id);
-    this.props.navigation.navigate('Pro');
+    this.props.navigation.navigate('Pro', { selectedProfile: this.props.selectedCampaign.users_id });
   };
 }
 
@@ -559,4 +558,4 @@ const mapStateToProps = state => ({
   token: state.token
 });
 
-export default connect(mapStateToProps, { getProfileData })(ViewCampScreen);
+export default connect(mapStateToProps)(ViewCampScreen);

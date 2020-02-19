@@ -7,7 +7,8 @@ import {
   Image,
   ScrollView,
   Picker,
-  Alert
+  Alert,
+  Platform
 } from 'react-native';
 
 import BackButton from '../components/BackButton';
@@ -21,7 +22,8 @@ import { createReport } from '../store/actions';
 import { shorten } from '../util';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-// create a component
+import styles from '../constants/screens/CreateReportScreen';
+
 class CreateReportScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -103,7 +105,7 @@ class CreateReportScreen extends Component {
           comment_body: text_data,
           username
         } = this.props.selectedCampaign.comments.find(
-          com => (com.comment_id = this.props.navigation.getParam('id'))
+          com => com.comment_id === this.props.navigation.getParam('id')
         );
         this.setState({
           image,
@@ -139,6 +141,18 @@ class CreateReportScreen extends Component {
   };
 
   render() {
+    // This is varied between iOS and Android. iOS displays the picker
+    // without any wrapping element, so we include our Collapsible
+    // component as a wrapping element.
+    const PickerWrapper = Platform.select({
+      ios: props => (
+        <Collapsible title={this.state.report_desc} collapsed={true}>
+          {props.children}
+        </Collapsible>
+      ),
+      android: props => <View>{props.children}</View>
+    });
+
     return (
       <View style={styles.container}>
         <LoadingOverlay loading={this.state.reporting} />
@@ -160,7 +174,7 @@ class CreateReportScreen extends Component {
           </Text>
           <Text style={styles.sublabel}>SELECT A REASON</Text>
           <View style={styles.picker_container}>
-            <Collapsible title={this.state.report_desc} collapsed={true}>
+            <PickerWrapper>
               <Picker
                 selectedValue={this.state.report_desc}
                 onValueChange={(itemValue, itemIndex) =>
@@ -171,14 +185,18 @@ class CreateReportScreen extends Component {
                   <Picker.Item key={index} label={reason} value={reason} />
                 ))}
               </Picker>
-            </Collapsible>
+            </PickerWrapper>
           </View>
           <TouchableOpacity
             onPress={this.submitReport}
             disabled={!this.state.report_desc}
             style={
               !this.state.report_desc
-                ? { ...styles.report_button, backgroundColor: 'gray' }
+                ? {
+                    ...styles.report_button,
+                    backgroundColor: 'gray',
+                    shadowOpacity: 0
+                  }
                 : styles.report_button
             }
           >
@@ -189,65 +207,6 @@ class CreateReportScreen extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24
-  },
-  header: {
-    fontWeight: 'bold',
-    fontSize: 24,
-    marginBottom: 32
-  },
-  header2: {
-    fontWeight: 'bold',
-    fontSize: 22,
-    marginBottom: 28
-  },
-  image: {
-    width: 50,
-    height: 50,
-    borderRadius: 50,
-    backgroundColor: 'gray',
-    marginRight: 16
-  },
-  report_info: {
-    flex: 1,
-    flexDirection: 'row',
-    marginBottom: 32
-  },
-  text_data: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-  username: {
-    fontWeight: 'bold'
-  },
-  sublabel: {
-    color: 'gray',
-    fontWeight: 'bold',
-    fontSize: 12
-  },
-  picker_container: {
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    marginVertical: 8,
-    borderColor: 'gray'
-  },
-  report_button: {
-    backgroundColor: '#00FF9D',
-    padding: 12,
-    borderRadius: 6
-  },
-  button_label: {
-    color: 'white',
-    alignSelf: 'center',
-    fontWeight: 'bold',
-    fontSize: 16
-  }
-});
 
 const mapStateToProps = state => ({
   selectedCampaign: state.selectedCampaign,

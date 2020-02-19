@@ -2,16 +2,13 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Image, Alert } from 'react-native';
 
-import { AmpEvent } from '../withAmplitude';
-
 import styles from '../../constants/Reports/ReportDetailCard';
 
 import Collapsible from '../Collapsible';
 
 import moment from 'moment';
 
-import flag from '../../assets/icons/flag-alt-solid.svg';
-
+import FlagIcon from '../../assets/jsicons/reports/FlagIcon';
 import { connect } from 'react-redux';
 
 import { shorten } from '../../util';
@@ -24,9 +21,9 @@ import {
   deleteCampaignUpdate,
   clearReportError,
   archiveReport,
-  getProfileData
+  getProfileData,
+  getReports
 } from '../../store/actions';
-import SvgUri from 'react-native-svg-uri';
 import LoadingOverlay from '../LoadingOverlay';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
@@ -112,10 +109,11 @@ class ReportDetailCard extends Component {
 
     del(this.props.currentReport.post_id)
       .then(err => {
-        console.log(err);
+        console.log('delete', err);
         if (err) throw new Error(err || '');
       })
       .then(() => {
+        this.props.getReports();
         this.props.navigation.goBack(null);
       })
       .catch(error => {
@@ -133,14 +131,15 @@ class ReportDetailCard extends Component {
       `Are you sure you want to delete this post? This will add a strike on this user's record and cannot be undone`,
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'Delete Post', style: 'destructive' }
+        { text: 'Delete Post', style: 'destructive', onPress: this.deletePost }
       ]
     );
   };
 
   archiveReport = () => {
     this.props.archiveReport(this.props.currentReport.id).then(() => {
-      this.props.navigation.goBack('AdminScreen');
+      this.props.getReports();
+      this.props.navigation.goBack();
     });
   };
 
@@ -150,7 +149,7 @@ class ReportDetailCard extends Component {
       `Are you sure you want to archive this report? It may still be viewed in the Archived reports tab`,
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'Archive', style: 'default' }
+        { text: 'Archive', style: 'default', onPress: this.archiveReport }
       ]
     );
   };
@@ -174,12 +173,8 @@ class ReportDetailCard extends Component {
         collapsed={this.props.collapsed}
         right={
           <View style={styles.report_count}>
-            <SvgUri
+            <FlagIcon
               style={styles.flag_icon}
-              source={flag}
-              fill='#000000'
-              width='15'
-              height='100%'
             />
             <Text style={styles.unique_reports}>
               {this.props.unique_reports}
@@ -268,5 +263,6 @@ export default connect(mapStateToProps, {
   deleteCampaignUpdate,
   clearReportError,
   archiveReport,
-  getProfileData
+  getProfileData,
+  getReports
 })(ReportDetailCard);

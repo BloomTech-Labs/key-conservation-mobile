@@ -13,7 +13,7 @@ import ReportDetailCard from '../components/Reports/ReportDetailCard';
 import BackButton from '../components/BackButton';
 import LoadingOverlay from '../components/LoadingOverlay';
 
-import ChevronLeft from '../assets/jsicons/miscIcons/ChevronLeftSolid';
+import ChevronLeft from '../assets/jsicons/miscIcons/ChevronLeftWhite';
 
 class ReportDetailScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -86,7 +86,7 @@ class ReportDetailScreen extends Component {
           usr.roles === 'supporter' ? 'SupProDetails' : 'ProDetails';
 
         this.props.navigation.navigate(screen, {
-          username: usr.username
+          selectedProfile: usr
         });
       }
     });
@@ -115,7 +115,10 @@ class ReportDetailScreen extends Component {
                 {this.state.currentUser?.username || '---'}
               </Text>
               <Text style={styles.user_detail}>
-                {1 + this.props.currentReport?.other_reports?.filter(r => !r.is_archived).length || '---'}{' '}
+                {1 +
+                  this.props.currentReport?.other_reports?.filter(
+                    r => !r.is_archived
+                  ).length || '---'}{' '}
                 ACTIVE REPORTS
               </Text>
               <Text style={styles.user_detail}>

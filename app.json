@@ -11,8 +11,7 @@
     "icon": "./assets/images/keyapplogo.png",
     "splash": {
       "image": "./assets/images/splash.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -23,7 +22,7 @@
       "versionCode": 10,
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyDy4Hu-hg2voDy3_99nI1evzpt4FYJRzlI"
+          "apiKey": "process.env.REACT_APP_GOOGLE_MAPS_API_KEY"
         }
       }
     },

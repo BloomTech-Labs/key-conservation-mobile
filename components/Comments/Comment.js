@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { getProfileData } from '../../store/actions';
 import { useDispatch } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import styles from '../../constants/Comments/Comments';
@@ -44,10 +43,9 @@ const Comment = props => {
     }
   }
 
-  const goToCommenterProfile = async () => {
-    await dispatch(getProfileData(props.comment.users_id));
+  const goToCommenterProfile = () => {
     props.navigation.navigate('SupPro', {
-      username: props.comment.username
+      selectedProfile: props.comment.users_id
     });
   };
 
@@ -59,6 +57,7 @@ const Comment = props => {
     <View style={styles.commentWrapper}>
       <View>
         <CommentActionSheet
+          isMine={props.comment.users_id === props.currentUserProfile.id}
           admin={props.admin}
           commentId={props.comment.comment_id}
           ref={actionSheetRef}
@@ -100,9 +99,10 @@ const Comment = props => {
 };
 
 const mapStateToProps = state => ({
+  selectedProfile: state.selectedProfile,
   admin: state.currentUserProfile.admin
 });
 
-export default connect(mapStateToProps, { getProfileData })(
+export default connect(mapStateToProps)(
   withNavigation(Comment)
 );

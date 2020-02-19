@@ -1,6 +1,6 @@
 # Key Conservation
 
-Current version: 4.1.0. This app is in Beta for iOS and Android.
+Current version: 4.2.0. This app is in Beta for iOS and Android.
 
 [Key Conservation PVD](https://www.notion.so/Key-Conservation-9de81dcdeca546ba85509f2982d211cc)
 
@@ -8,6 +8,7 @@ Current version: 4.1.0. This app is in Beta for iOS and Android.
 
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![Maintainability](https://api.codeclimate.com/v1/badges/334bb92955b642b45954/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/key-conservation-mobile/maintainability)
 
 # Contributors
 
@@ -123,7 +124,6 @@ Zach Christy - [GitHub](https://github.com/zchristy) | [LinkedIn](https://www.li
 
 Sam Jeffcoat - [GitHub](https://github.com/samjeffcoat) | [LinkedIn](https://www.linkedin.com/in/samjeffcoat/)
 
-
 ## Project Description
 
 Key Conservation is helping conservationists gain critical funding and global support through a mobile app that provides real-time updates on day-to-day campaigns.
@@ -152,7 +152,7 @@ Additionally, supporters of conservation organizations want more transparency as
 
 #### Expo (https://www.npmjs.com/package/expo)
 
-- Prefered Choice of Stakeholder
+- Preferred Choice of Stakeholder
 - Expo is able to produce code base for iOS and Android
 - Relatable to current React experience for Development Team
 - Expo is widely supported and used by many companies
@@ -253,4 +253,4 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 ## Documentation
 
-See [PVD - Technical Research](https://www.notion.so/Technical-Research-bcfbf8b7612842a0ab87bec772565c3e) for details on overall archiecture.
+See [PVD - Technical Research](https://www.notion.so/Technical-Research-bcfbf8b7612842a0ab87bec772565c3e) for details on overall architecture.

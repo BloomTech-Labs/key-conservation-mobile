@@ -36,7 +36,7 @@ const axiosWithAuth = (dispatch, req) => {
         response => response,
         error => {
           if (error.response?.data?.logout) {
-            dispatch(logout(error.response.data.msg));
+            dispatch(logout(error.response.data.message));
           }
           return Promise.reject(error);
         }
@@ -88,7 +88,6 @@ export const loginError = error => ({
   payload: error
 });
 export const loginSuccess = (credentials, role) => async dispatch => {
-
   await SecureStore.setItemAsync('accessToken', credentials.idToken);
 
   const decoded = JwtDecode(credentials.idToken);
@@ -97,16 +96,18 @@ export const loginSuccess = (credentials, role) => async dispatch => {
   await SecureStore.setItemAsync('email', decoded.email);
   await SecureStore.setItemAsync('roles', role);
 
-  await dispatch(getProfileData(null, decoded.sub, true)).then(() => {
-    navigate('Loading');
-    return {
-      type: LOGIN_SUCCESS
-    }
-  }).catch(() => {
-    return {
-      type: LOGIN_ERROR
-    }
-  });
+  dispatch(getProfileData(null, decoded.sub, true))
+    .then(() => {
+      navigate('Loading');
+      dispatch({
+        type: LOGIN_SUCCESS
+      });
+    })
+    .catch(() => {
+      dispatch({
+        type: LOGIN_ERROR
+      });
+    });
 };
 
 export const LOGOUT = 'LOGOUT';
@@ -118,6 +119,8 @@ export const logout = (message = '') => async dispatch => {
   await SecureStore.deleteItemAsync('id', {});
   await SecureStore.deleteItemAsync('userId', {});
   await SecureStore.deleteItemAsync('accessToken', {});
+
+  console.log('logging out');
 
   navigate('Logout');
 
@@ -134,6 +137,20 @@ export const AFTER_FIRST_LOGIN = 'AFTER_FIRST_LOGIN';
 export const afterFirstLogin = () => ({
   type: AFTER_FIRST_LOGIN
 });
+
+export const getAirtableKey = () => {
+  axiosWithAuth(null, aaxios => {
+    aaxios
+      .get(`${seturl}airtable`)
+      .then(async response => {
+        await SecureStore.setItemAsync(
+          'airtableKey',
+          response.data.airtable_key
+        );
+      })
+      .catch(error => console.log(error));
+  });
+};
 
 // This is used in the admin screen, report detail section
 // Data comes in as a table name and an ID
@@ -226,7 +243,6 @@ export const getProfileData = (
       .get(url)
       .then(res => {
         user = res.data.user;
-        console.log(user);
         {
           !noDispatch &&
             dispatch({
@@ -237,7 +253,6 @@ export const getProfileData = (
         return user;
       })
       .catch(err => {
-        console.log(err.message);
         if (noDispatch) {
           return err.message;
         } else {
@@ -328,7 +343,7 @@ export const postUser = user => dispatch => {
         dispatch({ type: POST_USER_SUCCESS, payload: res.data.newUser });
       })
       .catch(err => {
-        console.log(err, 'err in postUser');
+        console.log(err.response, 'err in postUser');
         dispatch({ type: POST_USER_ERROR, payload: err });
       });
   });

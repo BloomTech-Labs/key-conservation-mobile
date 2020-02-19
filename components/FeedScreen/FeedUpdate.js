@@ -13,12 +13,12 @@ import { Video } from 'expo-av';
 import { ListItem } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
-import { FontAwesome } from '@expo/vector-icons';
 import axios from 'axios';
 import { Viewport } from '@skele/components';
 
+import { navigate } from '../../navigation/RootNavigator';
+
 import {
-  getProfileData,
   setCampaign,
   toggleCampaignText
 } from '../../store/actions';
@@ -104,18 +104,17 @@ const FeedUpdate = props => {
     }
   }
 
-  const goToProfile = async () => {
-    await dispatch(getProfileData(data.users_id));
+  const goToProfile = () => {
     AmpEvent('Select Profile from Campaign', {
       profile: data.username,
       campaign: data.camp_name
     });
-    props.navigation.navigate('Pro');
+    navigate('Pro', { selectedProfile: data.users_id });
   };
 
   const goToCampUpdate = () => {
     dispatch(setCampaign(data));
-    props.navigation.navigate('CampUpdate', {
+    navigate('CampUpdate', {
       backBehavior: 'Home',
       likes: likes,
       userLiked: userLiked,
@@ -238,6 +237,7 @@ const FeedUpdate = props => {
       <CampaignActionSheet
         ref={actionSheetRef}
         admin={props.currentUserProfile.admin}
+        isMine={props.currentUserProfile.id === data.users_id}
         update={data}
       />
       {props.hideUsername === undefined && (
@@ -419,7 +419,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  getProfileData,
   setCampaign,
   toggleCampaignText
 })(withNavigationFocus(FeedUpdate));

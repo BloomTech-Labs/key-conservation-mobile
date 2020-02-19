@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { AmpEvent } from '../../components/withAmplitude';
 
-import ChevronLeft from '../../assets/jsicons/miscIcons/ChevronLeftSolid';
+import ChevronLeftWhite from '../../assets/jsicons/miscIcons/ChevronLeftWhite';
 
 import styles from '../../constants/Animals/AnimalCard';
 
@@ -37,7 +37,7 @@ const AnimalCard = props => {
           ]}
           onPress={() => setSelected(!selected)}
         >
-          <ChevronLeft />
+          <ChevronLeftWhite />
         </TouchableOpacity>
       </View>
       <View

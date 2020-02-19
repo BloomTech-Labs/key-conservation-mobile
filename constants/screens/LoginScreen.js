@@ -1,25 +1,29 @@
-export default {
+import { StyleSheet, Dimensions } from 'react-native';
+
+const DEVICE_HEIGHT = Dimensions.get('screen').height;
+
+export default StyleSheet.create({
   container: {
     flex: 1,
-    padding: '2%',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   subContainer: {
-    width: '100%',
-    height: '100%',
+    flex: 1,
+    paddingTop: 16,
     alignItems: 'center',
+    justifyContent: 'center'
   },
   button: {
     justifyContent: 'center',
     alignItems: 'center'
   },
   logo: {
-    height: 215,
-    width: 215
+    height: DEVICE_HEIGHT < 540 ? 160 : 224,
+    width: DEVICE_HEIGHT < 540 ? 160 : 224
   },
   logoContainer: {
-    flex: 1,
+    flex: 0.85,
     flexShrink: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -32,11 +36,13 @@ export default {
     alignItems: 'center'
   },
   selectTitle: {
+    textAlign: 'center',
     fontSize: 30,
     fontFamily: 'Lato-Bold',
     color: 'white'
   },
   highlight: {
+    textAlign: 'center',
     flexWrap: 'wrap',
     marginTop: 3,
     fontSize: 30,
@@ -84,27 +90,33 @@ export default {
     fontSize: 20
   },
   aboutIconContainer: {
-    alignSelf: 'flex-start',
-    width: '90%'
+    width: '90%',
+    margin: 24,
+    zIndex: -1,
+    opacity: DEVICE_HEIGHT < 540 ? 0 : 1
   },
   aboutIconTouch: {
+    alignSelf: 'flex-start',
     padding: 10
   },
   Hidden: {
     display: 'none'
   },
   formView: {
-    position: "absolute",
+    flex: 1,
+    position: 'absolute',
     zIndex: 1,
     left: 0,
     top: 0,
     right: 0,
-    bottom: 0,
+    bottom: 0
   },
   keyboardAvoidingView: {
-    flex: 1.5,
+    flex: 1,
+    flexGrow: 1,
     width: '100%',
-    justifyContent: 'stretch',
-    alignItems: 'stretch',
+    height: '100%',
+    minHeight: 144,
+    maxHeight: 480
   }
-};
+});

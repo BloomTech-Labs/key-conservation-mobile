@@ -2,16 +2,21 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
+  TextInput,
   Keyboard,
-  ActivityIndicator,
-  Animated
+  TouchableOpacity
 } from 'react-native';
 
-import { connect } from 'react-redux';
+import { navigate } from '../../navigation/RootNavigator';
 
 import styles from '../../constants/Auth/LoginForm';
-import ChevronLeft from '../../assets/jsicons/miscIcons/ChevronLeftSolid';
-import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
+import ChevronLeft from '../../assets/jsicons/miscIcons/ChevronLeftWhite';
+// import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
+import { throwIfAudioIsDisabled } from 'expo-av/build/Audio/AudioAvailability';
+
+import Lock from '../../assets/jsicons/auth/Lock';
+import Envelope from '../../assets/jsicons/auth/Envelope';
+import PasswordTooltip from './PasswordTooltip';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -22,21 +27,37 @@ class LoginForm extends Component {
       password: '',
       usernameError: '',
       passwordError: '',
-      loadingOpacity: new Animated.Value(0)
+      showPasswordTooltip: false,
+      type: 0
     };
-
-    this.animateLoadIn = Animated.timing(this.state.loadingOpacity, {
-      toValue: 1
-    })
-
-    this.animateLoadOut = Animated.timing(this.state.loadingOpacity, {
-      toValue: 0
-    })
   }
 
-  validateLogin = () => {
-    this.passwordInput.focus();
+  componentDidUpdate() {
+    if (this.state.type !== this.props.type) {
+      this.setState({ type: this.props.type });
+      // A change has been detected, switch focus
+      // back to username field if password field
+      // is selected for best user experience
+      if (this.passwordInput?.isFocused()) {
+        this.usernameInput.focus();
+      }
+    }
+  }
+
+  // There is a bug in React Native that causes the Keyboard.dismiss()
+  // method to be unresponsive after an autocomplete event on iOS
+  // The remedy for this is to set focus on some element before calling
+  // the dismiss function
+  resetFocus = () => {
+    if (this.state.keyboardOpen) {
+      this.passwordInput.focus();
+    }
     this.passwordInput.blur();
+  };
+
+  validateLogin = () => {
+    this.resetFocus();
+
     Keyboard.dismiss();
 
     let usernameError = false;
@@ -57,46 +78,13 @@ class LoginForm extends Component {
     }
   };
 
-  componentDidUpdate() {
-    if(this.props.loading) {
-      this.animateLoadIn.start();
-    } else {
-      this.animateLoadOut.start();
-    }
-  }
-
   render() {
     return (
-      <View style={styles.container}>
-        <Animated.View
-          pointerEvents={this.props.loading ? 'auto' : 'none'}
-          style={[styles.loading, { opacity: this.state.loadingOpacity }]}
-        >
-          <ActivityIndicator size='large' />
-        </Animated.View>
-        <View style={styles.headerSection}>
-          <TouchableOpacity
-            onPress={() => {
-              this.passwordInput.focus()
-              this.props.goBack()
-            }}
-            style={styles.backButton}
-          >
-            <ChevronLeft fill='#000' />
-          </TouchableOpacity>
-          <Text style={styles.headerText}>Login as a {this.props.role}</Text>
-        </View>
-        {this.props.role === 'supporter' ? (
-          <Text>
-            Support conservation efforts around the world by donating,
-            volunteering and lending your skills
-          </Text>
-        ) : (
-          <Text>Get access to supporters for your cause from all around the world</Text>
-        )}
-        <View style={styles.inputContainer}>
+      <View style={styles.inputContainer}>
+        <View style={styles.inputField}>
+          <Envelope />
           <TextInput
-            placeholder='Email address'
+            placeholder='email@example.com'
             placeholderTextColor='rgba(44,44,44,0.4)'
             returnKeyType='next'
             onSubmitEditing={() => this.passwordInput.focus()}
@@ -107,54 +95,66 @@ class LoginForm extends Component {
             keyboardType='email-address'
             autoCapitalize='none'
             autoCorrect={false}
-            onBlur={() => this.setState({ usernameError: '' })}
+            ref={input => (this.usernameInput = input)}
             value={this.state.username}
             onChangeText={text => this.setState({ username: text.trim() })}
           />
+        </View>
+        <View style={styles.inputField}>
+          <PasswordTooltip
+            password={this.state.password}
+            show={this.state.showPasswordTooltip && this.state.type}
+          />
+          <Lock />
           <TextInput
-            placeholder='Password'
+            placeholder='password'
             placeholderTextColor='rgba(44,44,44,0.4)'
             secureTextEntry
             returnKeyType='go'
             onSubmitEditing={this.validateLogin}
             autoCapitalize='none'
             autoCorrect={false}
-            onBlur={() => {
-              Keyboard.dismiss();
-              this.setState({ passwordError: '' });
-            }}
             style={[
               styles.input,
               this.state.passwordError && styles.inputError
             ]}
+            onFocus={() => this.setState({ showPasswordTooltip: true })}
+            onBlur={() => this.setState({ showPasswordTooltip: false })}
             ref={input => (this.passwordInput = input)}
             value={this.state.password}
             onChangeText={text => this.setState({ password: text.trim() })}
           />
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={() => this.validateLogin()}>
-              <Text style={styles.button}>Sign In</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.buttonContainerInset}>
-            <TouchableOpacity onPress={() => {}}>
-              <Text style={styles.buttonInset}>Sign In with Google</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.noAccount}>
-            <Text>Don't have an account? </Text>
-            <TouchableOpacity style={styles.signUpContainer}>
-              <Text style={styles.signUp}>Sign up here</Text>
-            </TouchableOpacity>
-          </View>
         </View>
+        <View style={styles.footnoteContainer}>
+          <TouchableOpacity
+            onPress={() => !this.state.type && navigate('ResetPassword', { 
+              resetPassword: this.props.resetPassword,
+              email: this.state.username
+             })}
+          >
+            <Text style={styles.footnote}>
+              {this.state.type
+                ? `By signing up, you agree to our terms of service and privacy policy`
+                : `Don't remember your password?`}
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => this.validateLogin()}
+        >
+          <Text style={styles.button}>
+            {this.state.type ? 'SIGN UP' : 'LOG IN'}
+          </Text>
+        </TouchableOpacity>
+        {/* <View style={styles.buttonContainer}>
+      <TouchableOpacity onPress={() => this.props.webAuth('google-oauth2')}>
+        <Text style={styles.button}>Sign In with Google</Text>
+      </TouchableOpacity>
+    </View> */}
       </View>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  loading: state.pending.login
-});
-
-export default connect(mapStateToProps, {})(LoginForm);
+export default LoginForm;

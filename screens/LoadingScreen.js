@@ -8,8 +8,8 @@ import {
   afterFirstLogin,
   logout
 } from '../store/actions';
-import Constants from 'expo-constants';
-import * as WebBrowser from 'expo-web-browser';
+// import Constants from 'expo-constants';
+// import * as WebBrowser from 'expo-web-browser';
 import { AmpEvent, AmpInit } from '../components/withAmplitude';
 import styles from '../constants/screens/LoadingScreen';
 

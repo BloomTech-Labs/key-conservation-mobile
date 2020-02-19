@@ -3,7 +3,7 @@ import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { MenuProvider } from 'react-native-popup-menu';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, YellowBox } from 'react-native';
 
 import AppNavigator from './navigation/AppNavigator';
 import { AmpInit, AmpEvent } from './components/withAmplitude';
@@ -11,6 +11,12 @@ import { Provider } from 'react-redux';
 import store from './store/configureStore';
 
 import { navigationRef } from './navigation/RootNavigator';
+
+// componentWillReceiveProps and componentWillMount seem to be being used in a dependency library. The following line mutes warnings in the app
+YellowBox.ignoreWarnings([
+  'Warning: componentWillReceiveProps',
+  'Warning: componentWillMount'
+]);
 
 export default App;
 
@@ -47,7 +53,7 @@ function App(props) {
   } else {
     return (
       <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle='light-content' />}
+        {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
         {Platform.OS === 'android' && (
           <StatusBar barStyle='light-content' translucent />
         )}
