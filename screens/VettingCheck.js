@@ -4,7 +4,7 @@ import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
 import * as SecureStore from 'expo-secure-store';
 import styles from '../constants/screens/org-onboarding-styles/VettingCheck.js';
-import { logout } from '../store/actions';
+import { logout, postUser } from '../store/actions';
 
 import Constants from 'expo-constants';
 import * as WebBrowser from 'expo-web-browser';
@@ -14,17 +14,21 @@ function VettingCheck(props) {
     getAirtableId();
   }, []);
 
-  const [state, setState] = useState({
+  const [user, setUser] = useState({
     email: '',
     id: '',
     key: ''
   });
 
   getBackend = async () => {
+    //!! This returns null. stateBE gets set in ReviewYourInfo which is gone (so is account screen). Bring those back and this should work.
     const state = await SecureStore.getItemAsync('stateBE', {});
+    console.log('state from getBackend', state);
     const parseBE = JSON.parse(state);
+    console.log('parseBE from getBackend', parseBE);
     parseBE
-      ? this.setState({
+      ? setUser({
+          ...user,
           org_name: parseBE.org_name,
           phone_number: parseBE.phone,
           mini_bio: parseBE.mission,
@@ -44,17 +48,20 @@ function VettingCheck(props) {
     const id = await SecureStore.getItemAsync('airtableID', {});
     const email = await SecureStore.getItemAsync('email', {});
     const key = await SecureStore.getItemAsync('airtableKey', {});
-    setState({ email: email, id: id, key: key });
+    setUser({ email: email, id: id, key: key });
     updateAirtable();
     await SecureStore.setItemAsync('isVetting', 'true');
     await SecureStore.setItemAsync('vettingEmail', email);
     // This sets vetting variables to be checked by 'LoadingScreen'.
   };
 
-  //TODO send all data to backend here by calling setProfile function
+  //TODO make sure ALL data is in user object
   const checkAirtable = record => {
     console.log('checkAirtable activated');
     if (record.fields.accepted === true) {
+      getBackend();
+      props.postUser(user);
+      console.log('user going to backend', user);
       props.navigation.navigate('Welcome');
       console.log("You're good to go!");
     } else {
@@ -65,12 +72,12 @@ function VettingCheck(props) {
 
   getAirtable = () => {
     var Airtable = require('airtable');
-    var base = new Airtable({ apiKey: state.key }).base('appbPeeXUSNCQWwnQ');
+    var base = new Airtable({ apiKey: user.key }).base('appbPeeXUSNCQWwnQ');
     base('Table 2')
       .select({
         maxRecords: 20,
         view: 'Grid view',
-        filterByFormula: `{email} = \'${state.email}\'`
+        filterByFormula: `{email} = \'${user.email}\'`
       })
       .eachPage(
         function page(records, fetchNextPage) {
@@ -87,14 +94,15 @@ function VettingCheck(props) {
       );
   }; // Checks 'Table 2' for 'accepted' field.
 
+  //? what do we need isVetting for in Table 1?
   updateAirtable = async () => {
     console.log('update airtable activated!');
     var Airtable = require('airtable');
-    var base = new Airtable({ apiKey: state.key }).base('appbPeeXUSNCQWwnQ');
+    var base = new Airtable({ apiKey: user.key }).base('appbPeeXUSNCQWwnQ');
     await base('Table 1').update(
       [
         {
-          id: state.id,
+          id: user.id,
           fields: {
             isVetting: true
           }
@@ -106,7 +114,6 @@ function VettingCheck(props) {
           return;
         }
         records.forEach(function(record) {
-          // console.log(record.getId());
           console.log('done with update.');
         });
       }
@@ -124,13 +131,9 @@ function VettingCheck(props) {
     const logoutURL = 'https://key-conservation.auth0.com/v2/logout?federated';
 
     if (Constants.platform.ios) {
-      await WebBrowser.openAuthSessionAsync(logoutURL).then(result => {
-        // this.setState({result})
-      });
+      await WebBrowser.openAuthSessionAsync(logoutURL).then(result => {});
     } else {
-      await WebBrowser.openBrowserAsync(logoutURL).then(result => {
-        // this.setState({result})
-      });
+      await WebBrowser.openBrowserAsync(logoutURL).then(result => {});
     }
     props.navigation.navigate('Logout');
   };
@@ -162,4 +165,4 @@ function VettingCheck(props) {
   );
 }
 
-export default VettingCheck;
+export default connect(null, { postUser })(VettingCheck);

@@ -16,7 +16,7 @@ import ConservationOptimismModal from '../../components/ConservationOptimismModa
 import * as SecureStore from 'expo-secure-store';
 import QuestionCircle from '../../assets/jsicons/OnBoarding/QuestionCircle';
 
-const VerifyOrganizationScreen = props => {
+const TellMoreScreen = props => {
   const [airtableState, onChangeText] = useState({
     other_countries: '',
     multiple_projects: '',
@@ -201,7 +201,7 @@ const VerifyOrganizationScreen = props => {
                 );
               } else {
                 updateAirtable();
-                props.navigation.navigate('VerifyDocumentation', {
+                props.navigation.navigate('AccountScreen', {
                   airtableStateAdd: airtableStateAdd,
                   airtableKey: airtableKey
                 }); // This passes the combined fields sent to airtable needed for backend to the next component.
@@ -215,4 +215,4 @@ const VerifyOrganizationScreen = props => {
     </KeyboardAvoidingView>
   );
 };
-export default VerifyOrganizationScreen;
+export default TellMoreScreen;
