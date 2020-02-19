@@ -11,6 +11,7 @@ import UserActionSheet from '../components/Reports/UserActionSheet';
 import SettingsButton from '../components/SettingsButton';
 import EditButton from '../components/EditButton';
 import ProfileBody from '../components/Profile/ProfileBody';
+import { withNavigationFocus } from 'react-navigation';
 
 class ProfileScreen extends React.Component {
   constructor(props) {
@@ -50,8 +51,20 @@ class ProfileScreen extends React.Component {
     }
   };
 
-  componentDidMount() {
+  // componentDidUpdate() {
+  //   // if (this.props.isFocused) this.initProfileData();
+  // }
+  componentDidMount = () => {
     this.initProfileData();
+  
+    this._sub = this.props.navigation.addListener(
+      'didFocus',
+      this.initProfileData
+    );
+  }
+  
+  componentWillUnmount() {
+    this._sub.remove();
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -160,5 +173,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, { getProfileData, createReport })(
-  ProfileScreen
+  withNavigationFocus(ProfileScreen)
 );
