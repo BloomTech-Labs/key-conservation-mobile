@@ -75,7 +75,7 @@ class EditProScreen extends React.Component {
       ? this.setState({
           org_name: parseBE.org_name,
           phone_number: parseBE.phone,
-          mini_bio: parseBE.mission,
+          mini_bio: parseBE.mini_bio,
           species_and_habitats: parseBE.species,
           facebook: parseBE.facebook,
           instagram: parseBE.instagram,
@@ -140,7 +140,7 @@ class EditProScreen extends React.Component {
       ? this.setState({
           org_name: parseBE.org_name,
           phone_number: parseBE.phone,
-          mini_bio: parseBE.mission,
+          mini_bio: parseBE.mini_bio,
           species_and_habitats: parseBE.species,
           facebook: parseBE.facebook,
           instagram: parseBE.instagram,

@@ -15,7 +15,7 @@ import * as SecureStore from 'expo-secure-store';
 
 const AccountScreen = props => {
   const [values, handleChange] = useState({
-    mission: '',
+    mini_bio: '',
     species: '',
     facebook: '',
     instagram: '',
@@ -75,16 +75,16 @@ const AccountScreen = props => {
           </View>
           <View style={styles.inputBlock}>
             <Text style={styles.obText}>
-              In a brief statement, what is your organization’s mission?
+              In a brief statement, what is your organization’s mini_bio?
             </Text>
             <TextInput
               style={[styles.textArea]}
               multiline
-              onChangeText={text => handleChange({ ...values, mission: text })}
-              value={values.mission}
+              onChangeText={text => handleChange({ ...values, mini_bio: text })}
+              value={values.mini_bio}
               placeholder='Type here'
-              type='mission'
-              name='mission'
+              type='mini_bio'
+              name='mini_bio'
               required
             />
           </View>
