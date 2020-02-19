@@ -45,10 +45,10 @@ const LocationMap = ({ getOrganizations, profile }) => {
               }}
               style={styles.imageMarker}
             />
-            <Callout>
+            {/* <Callout>
               <Text>{profile.org_name}</Text>
               <MapButton />
-            </Callout>
+            </Callout> */}
           </Marker>
         ) : null}
       </MapView>

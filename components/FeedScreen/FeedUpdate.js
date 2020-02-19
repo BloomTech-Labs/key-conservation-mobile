@@ -1,19 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Text,
   ImageBackground,
   ActivityIndicator,
   TouchableOpacity,
-  Platform
 } from 'react-native';
-import { NavigationEvents, withNavigationFocus } from 'react-navigation';
+import { withNavigationFocus } from 'react-navigation';
 import { View } from 'react-native-animatable';
 import moment from 'moment';
 import { Video } from 'expo-av';
 import { ListItem } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import { Viewport } from '@skele/components';
 
 import { navigate } from '../../navigation/RootNavigator';
@@ -28,17 +26,7 @@ import styles from '../../constants/FeedScreen/FeedUpdate';
 import Ellipse from '../../assets/jsicons/Ellipse';
 import CampaignActionSheet from '../Reports/CampaignActionSheet';
 
-// url for heroku staging vs production server
-// production
-const seturl = 'https://key-conservation.herokuapp.com/api/'
-// staging
-// const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
-
 const Placeholder = () => <View style={styles.campImgContain} />;
-
-// Redux gave us a hard time on this project. We worked on comments first and when our commentOnCampaign action failed to trigger the re-render we expected, and when we couldn't solve the
-// issue in labs_help, we settled for in-component axios calls. Not elegant. Probably not super scalable—but it worked. Hopefully a more talented team can solve what we couldn't.
-// In the meantime, ViewCampScreen, ViewCampUpdateScreen, FeedCampaign, and FeedUpdate are all interconnected, sharing props (state, functions) via React-Navigation.
 
 const ViewportAwareVideo = Viewport.Aware(
   Viewport.WithPlaceholder(Video, Placeholder)

@@ -169,7 +169,7 @@ class ProfileScreen extends React.Component {
 
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
-  admin: state.currentUserProfile.admin
+  admin: state.currentUserProfile.admin,
 });
 
 export default connect(mapStateToProps, { getProfileData, createReport })(

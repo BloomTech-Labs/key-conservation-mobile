@@ -13,13 +13,16 @@ export default class ProfileBody extends Component {
   constructor(props) {
     super(props);
 
-    const routes = this.props.profile.roles === 'supporter' ? [
+    let routes = this.props.profile.roles === 'supporter' ? [
       { key: 'details', title: 'Details' }
     ] : [
       { key: 'campaigns', title: 'Campaigns' },
-      { key: 'location', title: 'Location' },
       { key: 'details', title: 'Details' }
     ]
+
+    if(this.props.profile.roles === 'conservationist' && this.props.profile.location) {
+      routes.splice(1, 0, { key: 'location', title: 'Location' })
+    }
 
     this.state = {
       index: 0,
