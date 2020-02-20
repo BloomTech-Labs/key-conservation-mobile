@@ -18,14 +18,8 @@ import AccountScreen from '../screens/org-onboarding-screens/AccountScreen';
 
 import FeedScreen from '../screens/FeedScreen';
 import CreateCampScreen from '../screens/CreateCampScreen';
-import ProScreen from '../screens/ProScreen';
-import MyProScreen from '../screens/MyProScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 import EditProScreen from '../screens/EditProScreen';
-import DetailScreen from '../screens/DetailScreen';
-import MyDetailScreen from '../screens/MyDetailScreen';
-import LocationScreen from '../screens/LocationScreen';
-import SupProScreen from '../screens/SupProScreen';
-import MySupProScreen from '../screens/MySupProScreen';
 import LoginScreen from '../screens/LoginScreen';
 import UsernameScreen from '../screens/UsernameScreen';
 import SearchScreen from '../screens/SearchScreen';
@@ -97,35 +91,15 @@ const FeedStack = createStackNavigator(
       }
     },
     Pro: {
-      screen: ProScreen,
+      screen: ProfileScreen,
       navigationOptions: {
         headerTransparent: true,
         headerTintColor: '#fff'
       }
     },
-    Detail: {
-      screen: DetailScreen,
-      navigationOptions: {
-        title: 'Profile',
-        headerTintColor: '#fff',
-        headerStyle: {
-          backgroundColor: '#323338'
-        }
-      }
-    },
-    Location: {
-      screen: LocationScreen,
-      navigationOptions: {
-        title: 'Profile',
-        headerTintColor: '#fff',
-        headerStyle: {
-          backgroundColor: '#323338'
-        }
-      }
-    },
     Camp: ViewCampScreen,
     CampUpdate: ViewCampUpdateScreen,
-    SupPro: SupProScreen,
+    SupPro: ProfileScreen,
     CreateReport: CreateReportScreen
   },
   {
@@ -149,17 +123,15 @@ export const AccountSettingsStack = createStackNavigator({
   AccountSettings: AccountSettingsScreen,
   AdminScreen: AdminReportScreen,
   ReportScreen: ReportDetailScreen,
-  SupProDetails: SupProScreen,
-  ProDetails: ProScreen
+  SupProDetails: ProfileScreen,
+  ProDetails: ProfileScreen
 });
 
 const MyProStack = createStackNavigator(
   {
-    Home: FeedScreen,
     MyPro: {
-      screen: MyProScreen
+      screen: ProfileScreen
     },
-    MyDetail: { screen: MyDetailScreen },
     EditPro: {
       screen: EditProScreen,
       navigationOptions: { title: 'Edit Profile' }
@@ -188,7 +160,7 @@ const MyProStack = createStackNavigator(
 
 const MySupProStack = createStackNavigator(
   {
-    MySupPro: { screen: MySupProScreen },
+    MySupPro: { screen: ProfileScreen },
     EditSupPro: { screen: EditSupProScreen }
   },
   {
@@ -238,27 +210,14 @@ export const ConsNavigator = createBottomTabNavigator(
     FeedStack: {
       screen: FeedStack,
       path: '',
-      navigationOptions: {
-        tabBarOnPress: ({ navigation, defaultHandler }) => {
-          navigation.navigate('Home'), defaultHandler();
-        }
-      }
     },
     MapStack: {
       screen: MapStack,
-      tabBarOnPress: ({ navigation, defaultHandler }) => {
-        navigation.navigate('MapHome'), defaultHandler();
-      }
     },
     // CreateCampStack: { screen: CreateCampStack, path: '' },
     MyProStack: {
       screen: MyProStack,
-      path: '',
-      navigationOptions: {
-        tabBarOnPress: ({ navigation, defaultHandler }) => {
-          navigation.navigate('MyPro'), defaultHandler();
-        }
-      }
+      path: ''
     }
   },
   {
@@ -285,27 +244,14 @@ export const SupNavigator = createBottomTabNavigator(
   {
     FeedStack: {
       screen: FeedStack,
-      path: '',
-      navigationOptions: {
-        tabBarOnPress: ({ navigation, defaultHandler }) => {
-          navigation.navigate('Home'), defaultHandler();
-        }
-      }
+      path: ''
     },
     MapStack: {
-      screen: MapStack,
-      tabBarOnPress: ({ navigation, defaultHandler }) => {
-        navigation.navigate('Home'), defaultHandler();
-      }
+      screen: MapStack
     },
     MySupProStack: {
       screen: MySupProStack,
-      path: '',
-      navigationOptions: {
-        tabBarOnPress: ({ navigation, defaultHandler }) => {
-          navigation.navigate('MySupPro'), defaultHandler();
-        }
-      }
+      path: ''
     }
   },
   {

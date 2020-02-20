@@ -3,7 +3,7 @@ import {
   Text,
   ImageBackground,
   ActivityIndicator,
-  TouchableOpacity,
+  TouchableOpacity
 } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 import { View } from 'react-native-animatable';
@@ -15,11 +15,12 @@ import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
 
 import {
-  getProfileData,
   getCampaign,
   toggleCampaignText
 } from '../../store/actions';
 import { AmpEvent } from '../withAmplitude';
+
+import { navigate } from '../../navigation/RootNavigator';
 
 import styles from '../../constants/FeedScreen/FeedCampaign';
 import Ellipse from '../../assets/jsicons/Ellipse';
@@ -146,13 +147,12 @@ const FeedCampaign = props => {
     zIndex: 1
   };
 
-  const goToProfile = async () => {
-    await dispatch(getProfileData(data.users_id));
+  const goToProfile = () => {
     AmpEvent('Select Profile from Campaign', {
       profile: data.username,
       campaign: data.camp_name
     });
-    props.navigation.navigate('Pro');
+    navigate('Pro', { selectedProfile: data.users_id });
   };
 
   const goToCampaign = async () => {
@@ -161,7 +161,7 @@ const FeedCampaign = props => {
       campaign: data.camp_name,
       profile: data.username
     });
-    props.navigation.navigate('Camp', {
+    navigate('Camp', {
       // likes: likes,
       // userLiked: userLiked,
       // addLike: addLike,
@@ -538,7 +538,6 @@ const mapStateToProps = state => ({
   token: state.token
 });
 export default connect(mapStateToProps, {
-  getProfileData,
   getCampaign,
   toggleCampaignText
 })(withNavigationFocus(FeedCampaign));

@@ -6,13 +6,13 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   subContainer: {
     flex: 1,
     paddingTop: 16,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   button: {
     justifyContent: 'center',
@@ -90,13 +90,13 @@ export default StyleSheet.create({
     fontSize: 20
   },
   aboutIconContainer: {
-    alignSelf: 'flex-start',
     width: '90%',
     margin: 24,
     zIndex: -1,
     opacity: DEVICE_HEIGHT < 540 ? 0 : 1
   },
   aboutIconTouch: {
+    alignSelf: 'flex-start',
     padding: 10
   },
   Hidden: {
@@ -104,12 +104,12 @@ export default StyleSheet.create({
   },
   formView: {
     flex: 1,
-    position: "absolute",
+    position: 'absolute',
     zIndex: 1,
     left: 0,
     top: 0,
     right: 0,
-    bottom: 0,
+    bottom: 0
   },
   keyboardAvoidingView: {
     flex: 1,

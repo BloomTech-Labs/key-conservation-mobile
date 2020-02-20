@@ -9,7 +9,7 @@ export default function ChevronLeftWhite(props) {
       xml={chevron_left_white}
       width='25'
       height='25'
-      fill='#000'
+      fill='#fff'
       {...props}
     />
   );
