@@ -1,71 +1,72 @@
-import React, { useEffect, useState } from "react";
-import {
-  Text,
-  View,
-  TextInput,
-  Button,
-  Alert,
-  TouchableOpacity
-} from "react-native";
-import { ScrollView } from "react-navigation";
-import { connect } from "react-redux";
-import * as SecureStore from "expo-secure-store";
-import styles from "../constants/screens/org-onboarding-styles/VettingCheck.js";
-import { logout } from "../store/actions";
+import React, { useEffect, useState } from 'react';
+import { Text, View, Alert, TouchableOpacity } from 'react-native';
+import { ScrollView } from 'react-navigation';
+import { connect } from 'react-redux';
+import * as SecureStore from 'expo-secure-store';
+import styles from '../constants/screens/org-onboarding-styles/VettingCheck.js';
+import { logout, postUser } from '../store/actions';
 
-import Constants from "expo-constants";
-import * as WebBrowser from "expo-web-browser";
+import Constants from 'expo-constants';
+import * as WebBrowser from 'expo-web-browser';
 
 function VettingCheck(props) {
   useEffect(() => {
     getAirtableId();
+    getBackend();
+    console.log('user going to backend fromuseEffect', user);
   }, []);
 
-  const [state, setState] = useState({
-    email: "",
-    id: "",
-    key: ""
-  });
+  const [user, setUser] = useState({});
 
-  // const key = props.navigation.getParam("airtableKey", "defaultValue");
-  // console.log(key);
+  const [state, setState] = useState({});
 
-  getAirtableId = async () => {
-    const id = await SecureStore.getItemAsync("airtableID", {});
-    const email = await SecureStore.getItemAsync("email", {});
-    const key = await SecureStore.getItemAsync("airtableKey", {});
-    setState({ email: email, id: id, key: key });
-    updateAirtable();
-    await SecureStore.setItemAsync("isVetting", "true");
-    await SecureStore.setItemAsync("vettingEmail", email);
-    // This sets vetting variables to be checked by 'LoadingScreen'.
+  // Retrieves state object from SecureStore that was created in the onboarding process (ReviewYourInfoScreen).
+  getBackend = async () => {
+    const state = await SecureStore.getItemAsync('stateBE', {});
+    const parseBE = JSON.parse(state);
+    parseBE ? setUser(parseBE) : null;
   };
 
-  const checkAirtable = record => {
-    console.log("checkAirtable activated");
+  getAirtableId = async () => {
+    const id = await SecureStore.getItemAsync('airtableID', {});
+    const email = await SecureStore.getItemAsync('email', {});
+    const key = await SecureStore.getItemAsync('airtableKey', {});
+    setState({ email: email, id: id, key: key });
+    updateAirtableVettingTrue();
+    await SecureStore.setItemAsync('isVetting', 'true');
+    await SecureStore.setItemAsync('vettingEmail', email);
+  };
+
+  // This adds a user if the airtable 'accepted' field is set to true and deletes all vetting data from SecureStore
+  const addUser = async record => {
+    console.log('checkAirtable activated');
     if (record.fields.accepted === true) {
-      props.navigation.navigate("CreateAccount"); // UsernameScreen
+      await SecureStore.deleteItemAsync('stateBE', {});
+      props.postUser(user);
+      updateAirtableVettingFalse();
+      await SecureStore.deleteItemAsync('isVetting', {});
+      await SecureStore.deleteItemAsync('vettingEmail', {});
+      props.navigation.navigate('Welcome');
       console.log("You're good to go!");
     } else {
-      console.log("not vetted yet!");
-      Alert.alert("Oops", "You're not vetted yet", [{ text: "Got it" }]);
+      console.log('not vetted yet!');
+      Alert.alert('Oops', "You're not vetted yet", [{ text: 'Got it' }]);
     }
-  }; // This Checks airtable 'Table 2' for 'accepted' field before allowig organization to access app.
+  };
 
   getAirtable = () => {
-    var Airtable = require("airtable");
-    var base = new Airtable({ apiKey: state.key }).base("appbPeeXUSNCQWwnQ");
-    base("Table 2")
+    var Airtable = require('airtable');
+    var base = new Airtable({ apiKey: state.key }).base('appbPeeXUSNCQWwnQ');
+    base('Table 2')
       .select({
         maxRecords: 20,
-        view: "Grid view",
+        view: 'Grid view',
         filterByFormula: `{email} = \'${state.email}\'`
       })
       .eachPage(
         function page(records, fetchNextPage) {
           records.forEach(function(record) {
-            // console.log('Retrieved', record.fields);
-            checkAirtable(record);
+            addUser(record);
           });
         },
         function done(err) {
@@ -77,11 +78,11 @@ function VettingCheck(props) {
       );
   }; // Checks 'Table 2' for 'accepted' field.
 
-  updateAirtable = async () => {
-    console.log("update airtable activated!");
-    var Airtable = require("airtable");
-    var base = new Airtable({ apiKey: state.key }).base("appbPeeXUSNCQWwnQ");
-    await base("Table 1").update(
+  updateAirtableVettingTrue = async () => {
+    console.log('update airtable activated!');
+    var Airtable = require('airtable');
+    var base = new Airtable({ apiKey: state.key }).base('appbPeeXUSNCQWwnQ');
+    await base('Table 1').update(
       [
         {
           id: state.id,
@@ -96,33 +97,54 @@ function VettingCheck(props) {
           return;
         }
         records.forEach(function(record) {
-          // console.log(record.getId());
-          console.log("done with update.");
+          console.log('done with update.');
         });
       }
     );
   }; // Updates 'isVetting' field in 'Table 1' based on airtable ID.
 
+  updateAirtableVettingFalse = async () => {
+    console.log('UsernameScreen updateAirtable triggered');
+    var Airtable = require('airtable');
+    var base = new Airtable({ apiKey: state.key }).base('appbPeeXUSNCQWwnQ');
+    await base('Table 1').update(
+      [
+        {
+          id: state.id,
+          fields: {
+            isVetting: false
+          }
+        }
+      ],
+      function(err, records) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        // this.navOverride();
+        records.forEach(function(record) {
+          console.log(record.getId());
+        });
+      }
+    );
+  }; // This sets the cuurent user's 'Table 1' form, field 'isVetting', to false. This will allow a new organization to sign up through the same device.
+
   logoutPress = async () => {
-    await SecureStore.deleteItemAsync("sub", {});
-    await SecureStore.deleteItemAsync("email", {});
-    await SecureStore.deleteItemAsync("roles", {});
-    await SecureStore.deleteItemAsync("id", {});
-    await SecureStore.deleteItemAsync("accessToken", {});
+    await SecureStore.deleteItemAsync('sub', {});
+    await SecureStore.deleteItemAsync('email', {});
+    await SecureStore.deleteItemAsync('roles', {});
+    await SecureStore.deleteItemAsync('id', {});
+    await SecureStore.deleteItemAsync('accessToken', {});
     logout();
 
-    const logoutURL = "https://key-conservation.auth0.com/v2/logout?federated";
+    const logoutURL = 'https://key-conservation.auth0.com/v2/logout?federated';
 
     if (Constants.platform.ios) {
-      await WebBrowser.openAuthSessionAsync(logoutURL).then(result => {
-        // this.setState({result})
-      });
+      await WebBrowser.openAuthSessionAsync(logoutURL).then(result => {});
     } else {
-      await WebBrowser.openBrowserAsync(logoutURL).then(result => {
-        // this.setState({result})
-      });
+      await WebBrowser.openBrowserAsync(logoutURL).then(result => {});
     }
-    props.navigation.navigate("Logout");
+    props.navigation.navigate('Logout');
   };
 
   return (
@@ -152,4 +174,4 @@ function VettingCheck(props) {
   );
 }
 
-export default VettingCheck;
+export default connect(null, { postUser })(VettingCheck);

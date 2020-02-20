@@ -347,7 +347,9 @@ const FeedCampaign = props => {
           }
           subtitle={
             <View style={{ flexDirection: 'row' }}>
-              <MapMarker fill='#505050' />
+              {data.location !== (undefined || null) ? (
+                <MapMarker fill='#505050' />
+              ) : null}
               <Text style={{ color: '#929292' }}>{data.location}</Text>
             </View>
           }

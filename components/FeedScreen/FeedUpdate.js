@@ -9,22 +9,21 @@ import { withNavigationFocus } from 'react-navigation';
 import { View } from 'react-native-animatable';
 import moment from 'moment';
 import { Video } from 'expo-av';
-import { ListItem } from 'react-native-elements';
+import { ListItem, Badge } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
 
 import { navigate } from '../../navigation/RootNavigator';
 
-import {
-  setCampaign,
-  toggleCampaignText
-} from '../../store/actions';
+import { setCampaign, toggleCampaignText } from '../../store/actions';
 import { AmpEvent } from '../withAmplitude';
 
-import styles from '../../constants/FeedScreen/FeedUpdate';
 import Ellipse from '../../assets/jsicons/Ellipse';
 import CampaignActionSheet from '../Reports/CampaignActionSheet';
+import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
+import CommentIcon from '../../assets/jsicons/CommentIcon';
+import styles from '../../constants/FeedScreen/FeedCampaign';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
@@ -115,146 +114,151 @@ const FeedUpdate = props => {
   };
 
   return (
-    <View style={styles.container}>
-      <CampaignActionSheet
-        ref={actionSheetRef}
-        admin={props.currentUserProfile.admin}
-        isMine={props.currentUserProfile.id === data.users_id}
-        update={data}
-      />
-      {props.hideUsername === undefined && (
-        <ListItem
-          disabled={props.disableHeader}
-          onPress={goToProfile}
-          title={
-            <View>
-              <Text style={styles.orgTitleView}>{data.username}</Text>
-            </View>
-          }
-          leftAvatar={{ source: { uri: data.profile_image } }}
-          rightElement={
-            <TouchableOpacity
-              onPress={showActionSheet}
-              style={{ transform: [{ rotate: '90deg' }], padding: 12 }}
-            >
-              <Ellipse fill='#000' />
-            </TouchableOpacity>
-          }
-          subtitle={
-            <View>
-              <Text style={styles.subtitleText}>{data.location}</Text>
-            </View>
-          }
+    <View style={styles.mainContainer}>
+      <View style={styles.container}>
+        <CampaignActionSheet
+          ref={actionSheetRef}
+          admin={props.currentUserProfile.admin}
+          isMine={props.currentUserProfile.id === data.users_id}
+          update={data}
         />
-      )}
-      <View>
-        {props.fromCampScreen ? (
-          <View>
-            {data.update_img.includes('.mov') ||
-            data.update_img.includes('.mp3') ||
-            data.update_img.includes('.mp4') ? (
+        {props.hideUsername === undefined && (
+          <ListItem
+            disabled={props.disableHeader}
+            onPress={goToProfile}
+            title={
               <View>
-                {loader ? (
-                  <View style={styles.indicator}>
-                    <ActivityIndicator size='large' color='#00FF9D' />
-                  </View>
-                ) : null}
-                <View style={styles.updateBar}>
-                  <Text style={styles.updateBarText}>UPDATE</Text>
-                </View>
-                {props.isFocused ? (
-                  <ViewportAwareVideo
-                    source={{
-                      uri: data.update_img
-                    }}
-                    retainOnceInViewport={false}
-                    preTriggerRatio={-0.1}
-                    rate={1.0}
-                    isMuted={false}
-                    shouldPlay={true}
-                    isLooping
-                    resizeMode='cover'
-                    onPlaybackStatusUpdate={onPlaybackStatusUpdate}
-                    style={styles.campImgContain}
-                  />
-                ) : (
-                  <View style={styles.campImgContain} />
-                )}
+                <Text style={styles.orgTitleView}>{data.username}</Text>
               </View>
-            ) : (
-              <ImageBackground
-                source={{ uri: data.update_img }}
-                style={styles.campImgContain}
+            }
+            leftAvatar={{ source: { uri: data.profile_image } }}
+            rightElement={
+              <TouchableOpacity
+                onPress={showActionSheet}
+                style={{ padding: 12 }}
               >
-                <View style={styles.updateBar}>
-                  <Text style={styles.updateBarText}>UPDATE</Text>
-                </View>
-              </ImageBackground>
-            )}
-          </View>
-        ) : (
-          <TouchableOpacity activeOpacity={0.5} onPress={goToCampUpdate}>
-            {data.update_img.includes('.mov') ||
-            data.update_img.includes('.mp3') ||
-            data.update_img.includes('.mp4') ? (
+                <Ellipse fill='#000' height='25' width='25' />
+              </TouchableOpacity>
+            }
+            subtitle={
               <View>
-                {loader ? (
-                  <View style={styles.indicator}>
-                    <ActivityIndicator size='large' color='#00FF9D' />
-                  </View>
-                ) : null}
-                <View style={styles.updateBar}>
-                  <Text style={styles.updateBarText}>UPDATE</Text>
-                </View>
-                {props.isFocused ? (
-                  <ViewportAwareVideo
-                    source={{
-                      uri: data.update_img
-                    }}
-                    retainOnceInViewport={false}
-                    preTriggerRatio={-0.1}
-                    rate={1.0}
-                    isMuted={false}
-                    shouldPlay={true}
-                    isLooping
-                    resizeMode='cover'
-                    onPlaybackStatusUpdate={onPlaybackStatusUpdate}
-                    style={styles.campImgContain}
-                  />
-                ) : (
-                  <View style={styles.campImgContain} />
-                )}
+                <Text style={styles.subtitleText}>
+                  {data.location !== (undefined || null) ? (
+                    <MapMarker fill='#505050' />
+                  ) : null}
+                  {data.location}
+                </Text>
               </View>
-            ) : (
-              <ImageBackground
-                source={{ uri: data.update_img }}
-                style={styles.campImgContain}
-              >
-                <View style={styles.updateBar}>
-                  <Text style={styles.updateBarText}>UPDATE</Text>
-                </View>
-              </ImageBackground>
-            )}
-          </TouchableOpacity>
+            }
+          />
         )}
-      </View>
-
-      <View style={styles.campDesc}>
-        <Text style={styles.campDescName}>{data.camp_name}</Text>
-        {toggled || data.update_desc.length < 80 ? (
-          <Text style={styles.campDescText}>{data.update_desc}</Text>
-        ) : (
-          <Text style={styles.campDescText}>
-            {shorten(data.update_desc, 80)}
-            &nbsp;
-            <Text onPress={toggleText} style={styles.readMore}>
-              Read More
+        <View style={styles.campDesc}>
+          {toggled || data.update_desc.length < 80 ? (
+            <Text style={styles.campDescText}>{data.update_desc}</Text>
+          ) : (
+            <Text style={styles.campDescText}>
+              {shorten(data.update_desc, 80)}
+              &nbsp;
+              <Text onPress={toggleText} style={styles.readMore}>
+                Read More
+              </Text>
             </Text>
-          </Text>
-        )}
+          )}
+          <Text style={styles.timeText}>{timeDiff}</Text>
+        </View>
+        <View>
+          {props.fromCampScreen ? (
+            <View>
+              {data.update_img.includes('.mov') ||
+              data.update_img.includes('.mp3') ||
+              data.update_img.includes('.mp4') ? (
+                <View>
+                  {loader ? (
+                    <View style={styles.indicator}>
+                      <ActivityIndicator size='large' color='#00FF9D' />
+                    </View>
+                  ) : null}
+                  <View style={styles.updateBar}>
+                    <Text style={styles.updateBarText}>UPDATE</Text>
+                  </View>
+                  {props.isFocused ? (
+                    <ViewportAwareVideo
+                      source={{
+                        uri: data.update_img
+                      }}
+                      retainOnceInViewport={false}
+                      preTriggerRatio={-0.1}
+                      rate={1.0}
+                      isMuted={false}
+                      shouldPlay={true}
+                      isLooping
+                      resizeMode='cover'
+                      onPlaybackStatusUpdate={onPlaybackStatusUpdate}
+                      style={styles.campImgContain}
+                    />
+                  ) : (
+                    <View style={styles.campImgContain} />
+                  )}
+                </View>
+              ) : (
+                <ImageBackground
+                  source={{ uri: data.update_img }}
+                  style={styles.campImgContain}
+                >
+                  <View style={styles.updateBar}>
+                    <Text style={styles.updateBarText}>UPDATE</Text>
+                  </View>
+                </ImageBackground>
+              )}
+            </View>
+          ) : (
+            <TouchableOpacity activeOpacity={0.5} onPress={goToCampUpdate}>
+              {data.update_img.includes('.mov') ||
+              data.update_img.includes('.mp3') ||
+              data.update_img.includes('.mp4') ? (
+                <View>
+                  {loader ? (
+                    <View style={styles.indicator}>
+                      <ActivityIndicator size='large' color='#00FF9D' />
+                    </View>
+                  ) : null}
+                  <View style={styles.updateBar}>
+                    <Text style={styles.updateBarText}>UPDATE</Text>
+                  </View>
+                  {props.isFocused ? (
+                    <ViewportAwareVideo
+                      source={{
+                        uri: data.update_img
+                      }}
+                      retainOnceInViewport={false}
+                      preTriggerRatio={-0.1}
+                      rate={1.0}
+                      isMuted={false}
+                      shouldPlay={true}
+                      isLooping
+                      resizeMode='cover'
+                      onPlaybackStatusUpdate={onPlaybackStatusUpdate}
+                      style={styles.campImgContain}
+                    />
+                  ) : (
+                    <View style={styles.campImgContain} />
+                  )}
+                </View>
+              ) : (
+                <ImageBackground
+                  source={{ uri: data.update_img }}
+                  style={styles.campImgContain}
+                >
+                  <View style={styles.updateBar}>
+                    <Text style={styles.updateBarText}>UPDATE</Text>
+                  </View>
+                </ImageBackground>
+              )}
+            </TouchableOpacity>
+          )}
+        </View>
+        <View style={styles.demarcation}></View>
       </View>
-      <Text style={styles.timeText}>{timeDiff}</Text>
-      <View style={styles.demarcation}></View>
     </View>
   );
 };
