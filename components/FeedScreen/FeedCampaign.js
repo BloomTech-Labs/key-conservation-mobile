@@ -332,6 +332,7 @@ const FeedCampaign = props => {
           camp={data}
         />
         <ListItem
+          disabled={props.disableHeader}
           onPress={goToProfile}
           title={
             <View style={styles.username}>

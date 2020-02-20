@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, ActivityIndicator } from 'react-native';
+import { ScrollView, ActivityIndicator, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
 import { getProfileData, createReport } from '../store/actions';
@@ -11,30 +11,76 @@ import UserActionSheet from '../components/Reports/UserActionSheet';
 import SettingsButton from '../components/SettingsButton';
 import EditButton from '../components/EditButton';
 import ProfileBody from '../components/Profile/ProfileBody';
+import { withNavigationFocus } from 'react-navigation';
 
 class ProfileScreen extends React.Component {
   constructor(props) {
     super(props);
-    const id =
+    this.state = {
+      error: '',
+      loading: true,
+      user: {}
+    };
+    this.profileId =
       this.props.navigation.getParam('selectedProfile') ||
       this.props.currentUserProfile.id;
-    this.props.getProfileData(id, null, !this.props.navigation.getParam('selectedProfile'));
     this.props.navigation.setParams({
       showProScreenActions: this.showActionSheet,
       currentProfile: this.props.currentUserProfile
     });
   }
-  static navigationOptions = ({ navigation }) => {
-    const fromMap = navigation.getParam('fromMap', 'defaultValue');
 
+  initProfileData = async () => {
+    try {
+      const user = await this.props.getProfileData(
+        this.profileId,
+        null,
+        !this.props.navigation.getParam('selectedProfile')
+      );
+      this.setState({
+        user,
+        loading: false
+      });
+    } catch (err) {
+      console.log(err);
+      Alert.alert('Error', 'Failed to retrieve user profile');
+      this.setState({
+        loading: false,
+        error: 'Failed to retrieve user profile'
+      });
+    }
+  };
+
+  // componentDidUpdate() {
+  //   // if (this.props.isFocused) this.initProfileData();
+  // }
+  componentDidMount = () => {
+    this.initProfileData();
+  
+    this._sub = this.props.navigation.addListener(
+      'didFocus',
+      this.initProfileData
+    );
+  }
+  
+  componentWillUnmount() {
+    this._sub.remove();
+  }
+
+  static navigationOptions = ({ navigation }) => {
     const selectedProfile = navigation.getParam('selectedProfile');
     const currentProfile = navigation.getParam('currentProfile');
 
+    const editRoute =
+      selectedProfile?.roles || currentProfile?.roles === 'supporter'
+        ? 'EditSupPro'
+        : 'EditPro';
+
     const headerRight = () => {
       if (!selectedProfile) {
-        return <EditButton navigation={navigation} editRoute={'EditPro'} />;
+        return <EditButton navigation={navigation} editRoute={editRoute} />;
       } else if (selectedProfile && currentProfile?.id === selectedProfile)
-        return <EditButton navigation={navigation} editRoute={'EditPro'} />;
+        return <EditButton navigation={navigation} editRoute={editRoute} />;
       else {
         return (
           <TouchableOpacity
@@ -53,7 +99,7 @@ class ProfileScreen extends React.Component {
 
     const headerLeft = () => {
       if (selectedProfile) {
-        return <BackButton navigation={navigation} fromMap={fromMap} />;
+        return <BackButton navigation={navigation} />;
       } else {
         return (
           <SettingsButton
@@ -85,14 +131,14 @@ class ProfileScreen extends React.Component {
     const { navigation } = this.props;
 
     const profileData = this.props.navigation.getParam('selectedProfile')
-      ? this.props.selectedProfile
+      ? this.state.user
       : this.props.currentUserProfile;
 
     return (
       // creates sticky header
       <Viewport.Tracker>
         <ScrollView
-          contentContainerStyle={{ flex: this.props.loading ? 1 : 0 }}
+          contentContainerStyle={{ flex: this.state.loading ? 1 : 0 }}
           stickyHeaderIndices={[0]}
           scrollEventThrottle={16}
         >
@@ -102,12 +148,12 @@ class ProfileScreen extends React.Component {
             ref={o => (this.UserActionSheet = o)}
           />
           <ProfileHeader
-            loading={this.props.loading}
+            loading={this.state.loading}
             navigation={navigation}
             profile={profileData}
             myProfile={profileData === this.props.currentUserProfile}
           />
-          {this.props.loading ? (
+          {this.state.loading ? (
             <ActivityIndicator
               style={{ margin: 'auto', flex: 1 }}
               size='large'
@@ -122,12 +168,10 @@ class ProfileScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  selectedProfile: state.selectedProfile,
   currentUserProfile: state.currentUserProfile,
   admin: state.currentUserProfile.admin,
-  loading: state.pending.getProfile
 });
 
 export default connect(mapStateToProps, { getProfileData, createReport })(
-  ProfileScreen
+  withNavigationFocus(ProfileScreen)
 );
