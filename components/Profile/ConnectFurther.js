@@ -21,11 +21,9 @@ import styles from '../../constants/Profile/ConnectFurther';
 
 const ConnectFurther = props => {
   const profile = props.profile;
-  const myProfile = props.currentUserProfile.id === profile.id;
+  const myProfile = props.currentUserProfile;
 
-  console.log(props.profile.id, props.profile.roles);
-
-  const role = profile.roles;
+  const editRoute = profile.roles === 'supporter' ? 'EditSupPro' : 'EditPro';
 
   return (
     <View>
@@ -50,7 +48,7 @@ const ConnectFurther = props => {
             <TouchableOpacity
               style={styles.iconWrap}
               //   style={{ padding: 0, padding: 0 }}
-              onPress={() => navigate('EditPro')}
+              onPress={() => navigate(editRoute)}
             >
               <LinkedInAdd fill='#323338' width='35' height='35' />
             </TouchableOpacity>
@@ -70,7 +68,7 @@ const ConnectFurther = props => {
             <TouchableOpacity
               style={styles.iconWrap}
               //   style={{ padding: 0, padding: 0 }}
-              onPress={() => navigate('EditPro')}
+              onPress={() => navigate(editRoute)}
             >
               <IgAdd fill='#323338' width='35' height='35' />
             </TouchableOpacity>
@@ -90,9 +88,9 @@ const ConnectFurther = props => {
             <TouchableOpacity
               style={styles.iconWrap}
               //   style={{ padding: 0, padding: 0 }}
-              onPress={() => navigate('EditPro')}
+              onPress={() => navigate(editRoute)}
             >
-              <FbAdd width='35' height='35' />
+              <FbAdd fill='#323338' width='35' height='35' />
             </TouchableOpacity>
           ) : null
         ) : (
@@ -109,7 +107,7 @@ const ConnectFurther = props => {
             <TouchableOpacity
               style={styles.iconWrap}
               //   style={{ padding: 0, padding: 0 }}
-              onPress={() => navigate('EditPro')}
+              onPress={() => navigate(editRoute)}
             >
               <TwitterAdd fill='#323338' width='35' height='35' />
             </TouchableOpacity>
@@ -128,7 +126,7 @@ const ConnectFurther = props => {
             <TouchableOpacity
               style={styles.iconWrap}
               //   style={{ padding: 0, padding: 0 }}
-              onPress={() => navigate('EditPro')}
+              onPress={() => navigate(editRoute)}
             >
               <GitHubAdd fill='#323338' width='35' height='35' />
             </TouchableOpacity>
