@@ -15,22 +15,20 @@ export default StyleSheet.create({
     // borderColor: 'red',
     // borderWidth: 2,
     flexDirection: 'row',
-    //width: '80%',
-    //marginTop: 15,
-    //marginLeft: 35,
     padding: 10,
-    justifyContent: 'center'
-    //bottom: 0
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   iconWrap: {
-    borderColor: 'red',
-    borderWidth: 2,
-    flexWrap: 'wrap',
-    alignItems: 'center',
+    // borderColor: 'red',
+    // borderWidth: 2,
     flexDirection: 'row',
-    borderBottomColor: '#eee',
-    borderBottomWidth: 1,
-    marginBottom: 2,
-    paddingBottom: 20
+    paddingHorizontal: 15,
+    paddingVertical: 15
+  },
+  envelope: {
+    // borderColor: 'red',
+    // borderWidth: 2,
+    padding: 20
   }
 });

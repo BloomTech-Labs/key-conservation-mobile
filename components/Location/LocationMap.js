@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import MapView, { Marker } from 'react-native-maps';
-import { StyleSheet, View, Dimensions, Image } from 'react-native';
+import MapView, { Marker, Callout } from 'react-native-maps';
+import { StyleSheet, View, Dimensions, Image, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { getOrganizations } from '../../store/actions';
 
@@ -9,8 +9,6 @@ const LocationMap = ({ getOrganizations, profile }) => {
     // console.log(profile.latitude + " " + profile.longitude);
     getOrganizations();
   }, []);
-
-
 
   return (
     <View style={styles.container}>

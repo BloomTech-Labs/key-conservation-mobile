@@ -119,10 +119,7 @@ class ProfileScreen extends React.Component {
           ) : (
             <ProfileBody
               profile={profileData}
-              myProfile={
-                this.props.selectedProfile.id ===
-                this.props.currentUserProfile.id
-              }
+              myProfile={profileData === this.props.currentUserProfile}
             />
           )}
         </ScrollView>

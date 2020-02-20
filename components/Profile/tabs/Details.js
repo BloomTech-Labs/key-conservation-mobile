@@ -14,13 +14,14 @@ import Hand from '../../../assets/jsicons/detailAboutUs/Hand';
 
 const Details = props => {
   const { profile } = props;
+  const { myProfile } = props;
 
   return (
     <View style={styles.container}>
       {profile.roles === 'supporter' && (
         <View>
           <View style={styles.sections}>
-            <ConnectFurther profile={profile} />
+            <ConnectFurther profile={profile} myProfile={myProfile} />
           </View>
           <View style={styles.sections}>
             <ComingSoon />

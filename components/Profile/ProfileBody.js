@@ -60,8 +60,11 @@ export default class ProfileBody extends Component {
 
   renderScene = SceneMap({
     campaigns: () => <Campaigns profile={this.props.profile} />,
-    location: () => <Location profile={this.props.profile} />,
-    details: () => <Details profile={this.props.profile} />
+    //    location: () => <Location profile={this.props.profile} />,
+    location: () => <Details profile={this.props.profile} />,
+    details: () => (
+      <Details profile={this.props.profile} myProfile={this.props.myProfile} />
+    )
   });
 
   render() {
