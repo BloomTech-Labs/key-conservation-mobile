@@ -5,7 +5,8 @@ import {
   Text,
   TouchableOpacity,
   KeyboardAvoidingView,
-  Switch
+  Switch,
+  Alert
 } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/ReviewYourInfo';
 import NavigateButton from './formElement/NavigateButton.js';
@@ -23,6 +24,7 @@ const ReviewYourInfoScreen = props => {
   const [airtableId, setAirtableId] = useState('');
 
   const [state, setState] = useState({
+    username: '',
     other_countries: '',
     multiple_projects: '',
     affiliations_partnerships: '',
@@ -30,18 +32,18 @@ const ReviewYourInfoScreen = props => {
     smartphone_access: null,
     smartphone_type: '',
     org_name: '',
-    website: '',
+    org_link_url: '',
     twitter: '',
     facebook: '',
     instagram: '',
-    address: '',
+    location: '',
     country: '',
-    phone: '',
-    point_of_contact: '',
-    poc_position: '',
+    phone_number: '',
+    point_of_contact_name: '',
+    point_of_contact_position: '',
     email: '',
     about_us: '',
-    species: '',
+    species_and_habitats: '',
     org_cta: '',
     mini_bio: '',
     about_us: ''
@@ -74,12 +76,12 @@ const ReviewYourInfoScreen = props => {
             smartphone_access: state.smartphone_access,
             smartphone_type: state.smartphone_type,
             org_name: state.org_name,
-            website: state.website,
-            phone: state.phone,
-            address: state.address,
+            website: state.org_link_url,
+            phone: state.phone_number,
+            address: state.location,
             country: state.country,
-            point_of_contact: state.point_of_contact,
-            poc_position: state.poc_position,
+            point_of_contact: state.point_of_contact_name,
+            poc_position: state.point_of_contact_position,
             email: state.email
           }
         }
@@ -127,11 +129,17 @@ const ReviewYourInfoScreen = props => {
               </View>
               <View style={styles.row}>
                 <Text style={styles.obSubtitleSm}>Contact Name: </Text>
-                <Text style={styles.obText}>{state.point_of_contact}</Text>
+                <Text style={styles.obText}>{state.point_of_contact_name}</Text>
               </View>
               <View style={styles.row}>
                 <Text style={styles.obSubtitleSm}>Contact Position: </Text>
-                <Text style={styles.obText}>{state.poc_position}</Text>
+                <Text style={styles.obText}>
+                  {state.point_of_contact_position}
+                </Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>username: </Text>
+                <Text style={styles.obText}>{state.username}</Text>
               </View>
             </View>
           ) : (
@@ -151,10 +159,10 @@ const ReviewYourInfoScreen = props => {
                 <Text style={styles.obSubtitleSm}>Contact Name: </Text>
                 <TextInput
                   style={[styles.obText, styles.textInput]}
-                  value={state.point_of_contact}
+                  value={state.point_of_contact_name}
                   placeholder={'Point of Contact Name'}
                   onChangeText={text =>
-                    setState({ ...state, point_of_contact: text })
+                    setState({ ...state, point_of_contact_name: text })
                   }
                 />
               </View>
@@ -163,11 +171,20 @@ const ReviewYourInfoScreen = props => {
                 <Text style={styles.obSubtitleSm}>Contact Position: </Text>
                 <TextInput
                   style={[styles.obText, styles.textInput]}
-                  value={state.poc_position}
+                  value={state.point_of_contact_position}
                   placeholder={' Contact Position'}
                   onChangeText={text =>
-                    setState({ ...state, poc_position: text })
+                    setState({ ...state, point_of_contact_position: text })
                   }
+                />
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>Username: </Text>
+                <TextInput
+                  style={[styles.obText, styles.textInput]}
+                  value={state.username}
+                  placeholder={' Username'}
+                  onChangeText={text => setState({ ...state, username: text })}
                 />
               </View>
             </View>
@@ -192,12 +209,12 @@ const ReviewYourInfoScreen = props => {
 
               <View style={styles.row}>
                 <Text style={styles.obSubtitleSm}>Website:</Text>
-                <Text style={styles.obText}>{state.website}</Text>
+                <Text style={styles.obText}>{state.org_link_url}</Text>
               </View>
 
               <View style={styles.row}>
                 <Text style={styles.obSubtitleSm}>Phone:</Text>
-                <Text style={styles.obText}>{state.phone}</Text>
+                <Text style={styles.obText}>{state.phone_number}</Text>
               </View>
 
               <View style={styles.row}>
@@ -223,7 +240,7 @@ const ReviewYourInfoScreen = props => {
               <View>
                 <Text style={styles.obSubtitleSm}>Address:</Text>
                 <Text style={styles.obText}>
-                  {state.address} {/*state.country*/}
+                  {state.location} {/*state.country*/}
                 </Text>
               </View>
             </View>
@@ -253,8 +270,10 @@ const ReviewYourInfoScreen = props => {
                 <Text style={styles.obSubtitleSm}>Website:</Text>
                 <TextInput
                   style={[styles.obText, styles.textInput]}
-                  value={state.website}
-                  onChangeText={text => setState({ ...state, website: text })}
+                  value={state.org_link_url}
+                  onChangeText={text =>
+                    setState({ ...state, org_link_url: text })
+                  }
                 />
               </View>
 
@@ -262,8 +281,10 @@ const ReviewYourInfoScreen = props => {
                 <Text style={styles.obSubtitleSm}>Phone:</Text>
                 <TextInput
                   style={[styles.obText, styles.textInput]}
-                  value={state.phone}
-                  onChangeText={text => setState({ ...state, phone: text })}
+                  value={state.phone_number}
+                  onChangeText={text =>
+                    setState({ ...state, phone_number: text })
+                  }
                 />
               </View>
 
@@ -308,8 +329,8 @@ const ReviewYourInfoScreen = props => {
                 <TextInput
                   style={[styles.obText, styles.textInput]}
                   multiline
-                  value={state.address}
-                  onChangeText={text => setState({ ...state, address: text })}
+                  value={state.location}
+                  onChangeText={text => setState({ ...state, location: text })}
                 />
               </View>
             </View>
@@ -543,12 +564,12 @@ const ReviewYourInfoScreen = props => {
             onButtonPress={() => {
               if (
                 state.org_name === undefined ||
-                state.website === undefined ||
-                state.phone === undefined ||
-                state.address === undefined ||
+                state.org_link_url === undefined ||
+                state.phone_number === undefined ||
+                state.location === undefined ||
                 state.country === undefined ||
-                state.point_of_contact === undefined ||
-                state.poc_position === undefined
+                state.point_of_contact_name === undefined ||
+                state.point_of_contact_position === undefined
                 //|| state.email === undefined
               ) {
                 Alert.alert('Oops', 'Please fill in all sections of form', [
@@ -556,7 +577,24 @@ const ReviewYourInfoScreen = props => {
                 ]);
               } else {
                 updateAirtable();
-                stringBE = JSON.stringify(state);
+                const stringBE = JSON.stringify({
+                  username: state.username,
+                  org_name: state.org_name,
+                  org_link_url: state.org_link_url,
+                  twitter: state.twitter,
+                  facebook: state.facebook,
+                  instagram: state.instagram,
+                  location: state.location,
+                  country: state.country,
+                  phone_number: state.phone_number,
+                  point_of_contact_name: state.point_of_contact_name,
+                  email: state.email,
+                  about_us: state.about_us,
+                  species_and_habitats: state.species_and_habitats,
+                  org_cta: state.org_cta,
+                  mini_bio: state.mini_bio,
+                  about_us: state.about_us
+                });
                 SecureStore.setItemAsync('stateBE', stringBE); // Finally stores data object in SecureStore to be sent to backend once user is vetted
 
                 SecureStore.setItemAsync('vetting', 'true');

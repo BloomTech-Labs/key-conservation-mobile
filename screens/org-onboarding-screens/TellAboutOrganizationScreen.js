@@ -18,13 +18,14 @@ const TellAboutOrganizationScreen = props => {
     key: ''
   });
   const [airtableState, onChangeText] = useState({
+    username: '',
     org_name: '',
-    website: '',
-    address: '',
+    org_url_link: '',
+    location: '',
     country: '',
-    phone: '',
-    point_of_contact: '',
-    poc_position: '',
+    phone_number: '',
+    point_of_contact_name: '',
+    point_of_contact_position: '',
     email: ''
   }); // This state holds field data for airtable create(), and backend for later use.
 
@@ -50,12 +51,12 @@ const TellAboutOrganizationScreen = props => {
         {
           fields: {
             org_name: airtableState.org_name,
-            website: airtableState.website,
-            phone: airtableState.phone,
-            address: airtableState.address,
+            website: airtableState.org_link_url,
+            phone: airtableState.phone_number,
+            address: airtableState.location,
             country: airtableState.country,
-            point_of_contact: airtableState.point_of_contact,
-            poc_position: airtableState.poc_position,
+            point_of_contact: airtableState.point_of_contact_name,
+            poc_position: airtableState.point_of_contact_position,
             email: airtableState.email
           }
         }
@@ -103,12 +104,19 @@ const TellAboutOrganizationScreen = props => {
             }
           />
           <TextInput
+            placeholder='Username'
+            style={styles.obTextInput}
+            onChangeText={text =>
+              onChangeText({ ...airtableState, username: text })
+            }
+          />
+          <TextInput
             placeholder='Main Address'
             style={styles.obTextInput}
             onChangeText={text =>
-              onChangeText({ ...airtableState, address: text })
+              onChangeText({ ...airtableState, location: text })
             }
-            value={airtableState.address}
+            value={airtableState.location}
           />
 
           <TextInput
@@ -124,36 +132,39 @@ const TellAboutOrganizationScreen = props => {
             placeholder='Point Of Contact Name'
             style={styles.obTextInput}
             onChangeText={text =>
-              onChangeText({ ...airtableState, point_of_contact: text })
+              onChangeText({ ...airtableState, point_of_contact_name: text })
             }
-            value={airtableState.point_of_contact}
+            value={airtableState.point_of_contact_name}
           />
 
           <TextInput
             placeholder='Point Of Contact Position'
             style={styles.obTextInput}
             onChangeText={text =>
-              onChangeText({ ...airtableState, poc_position: text })
+              onChangeText({
+                ...airtableState,
+                point_of_contact_position: text
+              })
             }
-            value={airtableState.poc_position}
+            value={airtableState.point_of_contact_position}
           />
 
           <TextInput
             placeholder='Org Phone'
             style={styles.obTextInput}
             onChangeText={text =>
-              onChangeText({ ...airtableState, phone: text })
+              onChangeText({ ...airtableState, phone_number: text })
             }
-            value={airtableState.phone}
+            value={airtableState.phone_number}
           />
 
           <TextInput
             placeholder='Website Url'
             style={styles.obTextInputBottom}
             onChangeText={text =>
-              onChangeText({ ...airtableState, website: text })
+              onChangeText({ ...airtableState, org_link_url: text })
             }
-            value={airtableState.website}
+            value={airtableState.org_link_url}
           />
 
           <TouchableOpacity
@@ -161,12 +172,12 @@ const TellAboutOrganizationScreen = props => {
             onPress={() => {
               if (
                 airtableState.org_name === undefined ||
-                airtableState.website === undefined ||
-                airtableState.phone === undefined ||
-                airtableState.address === undefined ||
+                airtableState.org_link_url === undefined ||
+                airtableState.phone_number === undefined ||
+                airtableState.location === undefined ||
                 airtableState.country === undefined ||
-                airtableState.point_of_contact === undefined ||
-                airtableState.poc_position === undefined ||
+                airtableState.point_of_contact_name === undefined ||
+                airtableState.point_of_contact_position === undefined ||
                 airtableState.email === undefined
               ) {
                 Alert.alert('Oops', 'Please fill in all sections of form', [

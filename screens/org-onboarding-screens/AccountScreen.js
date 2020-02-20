@@ -16,7 +16,7 @@ const AccountScreen = props => {
   const [values, handleChange] = useState({
     mini_bio: '',
     about_us: '',
-    species: '',
+    species_and_habitats: '',
     facebook: '',
     instagram: '',
     twitter: '',
@@ -31,13 +31,6 @@ const AccountScreen = props => {
 
   handleSubmit = async () => {
     airtableStateAdd = Object.assign({ ...airtableState, ...values }); // Updates state for backend with new fields.
-    //! This was moved to ReviewYourInfo
-    stringBE = JSON.stringify(airtableStateAdd);
-    await SecureStore.setItemAsync('stateBE', stringBE); // Finally stores data object in SecureStore to be opened in 'EditPro' after user is vetted.
-
-    await SecureStore.setItemAsync('vetting', 'true');
-    // Sets variables to be checked in 'LoadingScreen' to determine whether current user is in vetting process.
-
     props.navigation.navigate('ReviewYourInfo', {
       airtableState: airtableStateAdd,
       airtableKey: key
@@ -96,11 +89,13 @@ const AccountScreen = props => {
             <TextInput
               style={[styles.textArea]}
               multiline
-              onChangeText={text => handleChange({ ...values, species: text })}
+              onChangeText={text =>
+                handleChange({ ...values, species_and_habitats: text })
+              }
               value={values.species}
               placeholder='Type here'
-              type='species'
-              name='species'
+              type='species_and_habitats'
+              name='species_and_habitats'
               required
             />
           </View>

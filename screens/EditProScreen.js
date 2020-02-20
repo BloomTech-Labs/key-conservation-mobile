@@ -132,26 +132,6 @@ class EditProScreen extends React.Component {
     }
   };
 
-  //! THIS WAS MOVED TO VETTING CHECK SCREEN
-  getBackend = async () => {
-    const state = await SecureStore.getItemAsync('stateBE', {});
-    const parseBE = JSON.parse(state);
-    parseBE
-      ? this.setState({
-          org_name: parseBE.org_name,
-          phone_number: parseBE.phone,
-          mini_bio: parseBE.mini_bio,
-          species_and_habitats: parseBE.species,
-          facebook: parseBE.facebook,
-          instagram: parseBE.instagram,
-          twitter: parseBE.twitter,
-          org_link_url: parseBE.website,
-          location: parseBE.address + ', ' + parseBE.country
-        })
-      : null;
-    await SecureStore.deleteItemAsync('stateBE', {});
-  }; // Retrieves state object from SecureStore that was created in the onboarding process. Repopulates fields in this component.
-
   render() {
     return (
       <KeyboardAvoidingView
