@@ -53,7 +53,6 @@ class LoadingScreen extends React.Component {
         .eachPage(
           function page(records, fetchNextPage) {
             records.forEach(function(record) {
-              // console.log("Retrieved", record.fields);
               this.checkAirtable(record);
             });
           },

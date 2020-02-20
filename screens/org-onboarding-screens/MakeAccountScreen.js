@@ -18,7 +18,7 @@ const MakeAccountScreen = props => {
       <View style={styles.obBody}>
         <View style={styles.spacer} />
         <View style={styles.obBorderView}>
-          <Text style={styles.obTitle}>Let's get acquainted!</Text>
+          <Text style={styles.obTitle}>Let's begin!</Text>
         </View>
         <View style={styles.buttons}>
           <TouchableOpacity
