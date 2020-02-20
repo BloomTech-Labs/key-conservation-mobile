@@ -124,13 +124,13 @@ const FeedCampaign = props => {
   } else if (data.urgency === 'Longterm') {
     urgencyColor = 'rgba(0,255,157,0.6)';
   } else {
-    urgencyColor = '#323338BF';
+    urgencyColor = 'none';
   }
   let urgencyStatus;
-  if (data.urgency) {
-    urgencyStatus = data.urgency.toUpperCase();
+  if (!data.urgency || data.urgency == 'null') {
+    urgencyStatus = '';
   } else {
-    urgencyStatus = 'Standard';
+    urgencyStatus = data.urgency.toUpperCase();
   }
 
   const urgencyStyles = {
@@ -410,7 +410,7 @@ const FeedCampaign = props => {
                 source={{ uri: data.camp_img }}
                 style={styles.campImgContain}
               >
-                {data.urgency ? (
+                {urgencyStatus ? (
                   <View style={urgencyStyles}>
                     <Text style={styles.urgencyBarText}>{urgencyStatus}</Text>
                   </View>
