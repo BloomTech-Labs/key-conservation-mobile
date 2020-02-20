@@ -504,7 +504,7 @@ const FeedCampaign = props => {
             )}
           </View>
         </TouchableWithoutFeedback> */}
-        <View style={styles.commentContainer}>
+        <View>
           <TouchableOpacity style={styles.comments} onPress={goToCampaign}>
             {/* View {data.comments.length} comment */}
             <CommentIcon />
@@ -525,8 +525,6 @@ const FeedCampaign = props => {
               value={data.comments.length}
             />
           </TouchableOpacity>
-        </View>
-        <View style={styles.donateButton}>
           <TouchableOpacity style={styles.buttonContainer}>
             <Text style={styles.buttonText}>
               Take Action

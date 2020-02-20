@@ -130,18 +130,14 @@ export default {
     paddingVertical: 4,
     paddingHorizontal: 10
   },
-  donateButton: {
-    alignItems : 'center',
-    width      : '100%',
-  },
   buttonContainer: {
-    paddingTop    : 25,
-    paddingBottom : 25,
-    width         : 243,
-    height        : 50,
-    backgroundColor : '#00ff9d',
     alignItems      : 'center',
     justifyContent  : 'center',
+    paddingTop    : 25,
+    paddingBottom : 25,
+    width         : 300,
+    height        : 50,
+    backgroundColor : '#00ff9d',
     borderRadius    : 5,
     height          : 35,
   },
