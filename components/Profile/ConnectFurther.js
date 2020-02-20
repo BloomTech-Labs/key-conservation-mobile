@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { View, TouchableOpacity, Linking, Text } from 'react-native';
 
 import { navigate } from '../../navigation/RootNavigator';
@@ -11,28 +12,20 @@ import Instagram from '../../assets/jsicons/socialmedia/Instagram';
 import IgAdd from '../../assets/jsicons/socialmedia/IgAdd';
 import Facebook from '../../assets/jsicons/socialmedia/Facebook';
 import FbAdd from '../../assets/jsicons/socialmedia/FbAdd';
-// import LinkedIn from '../../assets/jsicons/socialmedia/LinkedIn';
-// import LinkedInAdd from '../../assets/jsicons/socialmedia/LinkedInAdd';
+import LinkedIn from '../../assets/jsicons/socialmedia/LinkedIn';
+import LinkedInAdd from '../../assets/jsicons/socialmedia/LinkedInAdd';
+import GitHub from '../../assets/jsicons/socialmedia/GitHub';
+import GitHubAdd from '../../assets/jsicons/socialmedia/GitHubAdd';
 
 import styles from '../../constants/Profile/ConnectFurther';
 
 const ConnectFurther = props => {
   const profile = props.profile;
+  const myProfile = props.currentUserProfile.id === profile.id;
 
   console.log(props.profile.id, props.profile.roles);
 
   const role = profile.roles;
-
-  //   const makeCall = () => {
-  //     let phoneNumber = profile.phone_number;
-  //     // let phoneNumber = 123456789 -- used for testing purposes
-  //     if (Platform.OS === 'android') {
-  //       phoneNumber = `tel:${phoneNumber}`;
-  //     } else {
-  //       phoneNumber = `telprompt:${phoneNumber}`;
-  //     }
-  //     Linking.openURL(phoneNumber);
-  //   };
 
   return (
     <View>
@@ -51,8 +44,9 @@ const ConnectFurther = props => {
         >
           <Envelope fill='#323338' width='35' height='35' />
         </TouchableOpacity>
-        {/* {profile.linkedin === null ? (
-          props.myProfile === true ? (
+
+        {!profile.linkedin ? (
+          myProfile ? (
             <TouchableOpacity
               style={styles.iconWrap}
               //   style={{ padding: 0, padding: 0 }}
@@ -67,12 +61,12 @@ const ConnectFurther = props => {
             //   style={{ padding: 0, padding: 0 }}
             onPress={() => WebBrowser.openBrowserAsync(profile.linkedin)}
           >
-            <LinkedIn fill='#323338' width='35' height='35'/>
+            <LinkedIn fill='#323338' width='35' height='35' />
           </TouchableOpacity>
-        )} */}
+        )}
 
-        {profile.instagram === null ? (
-          props.myProfile === true ? (
+        {!profile.instagram ? (
+          myProfile ? (
             <TouchableOpacity
               style={styles.iconWrap}
               //   style={{ padding: 0, padding: 0 }}
@@ -91,8 +85,8 @@ const ConnectFurther = props => {
           </TouchableOpacity>
         )}
 
-        {profile.facebook === null ? (
-          props.myProfile === true ? (
+        {!profile.facebook ? (
+          myProfile ? (
             <TouchableOpacity
               style={styles.iconWrap}
               //   style={{ padding: 0, padding: 0 }}
@@ -110,8 +104,8 @@ const ConnectFurther = props => {
           </TouchableOpacity>
         )}
 
-        {profile.twitter === null ? (
-          props.myProfile === true ? (
+        {!profile.twitter ? (
+          myProfile ? (
             <TouchableOpacity
               style={styles.iconWrap}
               //   style={{ padding: 0, padding: 0 }}
@@ -128,9 +122,32 @@ const ConnectFurther = props => {
             <Twitter fill='#323338' width='35' height='35' />
           </TouchableOpacity>
         )}
+
+        {!profile.github ? (
+          myProfile ? (
+            <TouchableOpacity
+              style={styles.iconWrap}
+              //   style={{ padding: 0, padding: 0 }}
+              onPress={() => navigate('EditPro')}
+            >
+              <GitHubAdd fill='#323338' width='35' height='35' />
+            </TouchableOpacity>
+          ) : null
+        ) : (
+          <TouchableOpacity
+            style={styles.iconWrap}
+            onPress={() => WebBrowser.openBrowserAsync(profile.github)}
+          >
+            <GitHub fill='#323338' width='35' height='35' />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
 };
 
-export default ConnectFurther;
+const mapStateToProps = state => ({
+  currentUserProfile: state.currentUserProfile
+});
+
+export default connect(mapStateToProps)(ConnectFurther);

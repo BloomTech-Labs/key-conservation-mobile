@@ -20,8 +20,8 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   iconWrap: {
-    // borderColor: 'red',
-    // borderWidth: 2,
+    borderColor: 'red',
+    borderWidth: 2,
     flexDirection: 'row',
     paddingHorizontal: 15,
     paddingVertical: 15

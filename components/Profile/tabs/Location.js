@@ -6,9 +6,7 @@ import LocationMap from '../../Location/LocationMap';
 const Location = props => {
   return (
     <ScrollView>
-      {/* <LocationMap */}
-      profile={props.profile}
-      />
+      <LocationMap profile={props.profile} />
     </ScrollView>
   );
 };

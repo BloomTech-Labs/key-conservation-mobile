@@ -14,15 +14,14 @@ import Hand from '../../../assets/jsicons/detailAboutUs/Hand';
 
 const Details = props => {
   const { profile } = props;
-  const { myProfile } = props;
 
   return (
     <View style={styles.container}>
+      <View style={styles.sections}>
+        <ConnectFurther profile={profile} />
+      </View>
       {profile.roles === 'supporter' && (
         <View>
-          <View style={styles.sections}>
-            <ConnectFurther profile={profile} myProfile={myProfile} />
-          </View>
           <View style={styles.sections}>
             <ComingSoon />
           </View>
@@ -31,26 +30,23 @@ const Details = props => {
 
       {profile.roles !== 'supporter' && (
         <View>
-          <ConnectFurther profile={profile} />
           <View style={styles.sections}>
-            <View style={styles.sections}>
-              <View style={styles.iconWrap}>
-                <Clipboard />
-                <Text style={styles.title}>{'About Us'}</Text>
-              </View>
-              <Text style={styles.body}>{profile.about_us}</Text>
+            <View style={styles.iconWrap}>
+              <Clipboard />
+              <Text style={styles.title}>{'About Us'}</Text>
             </View>
+            <Text style={styles.body}>{profile.about_us}</Text>
+          </View>
 
-            <View style={styles.sections}>
-              <View style={styles.iconWrap}>
-                <Seedling />
-                <Text style={styles.title}>{'Species & Habitats'}</Text>
-              </View>
-              <View style={styles.body}>
-                <Text style={styles.bodyText}>
-                  {profile.species_and_habitats}
-                </Text>
-              </View>
+          <View style={styles.sections}>
+            <View style={styles.iconWrap}>
+              <Seedling />
+              <Text style={styles.title}>{'Species & Habitats'}</Text>
+            </View>
+            <View style={styles.body}>
+              <Text style={styles.bodyText}>
+                {profile.species_and_habitats}
+              </Text>
             </View>
           </View>
 

@@ -24,11 +24,6 @@ class ProfileScreen extends React.Component {
     this.profileId =
       this.props.navigation.getParam('selectedProfile') ||
       this.props.currentUserProfile.id;
-    this.props.getProfileData(
-      id,
-      null,
-      !this.props.navigation.getParam('selectedProfile')
-    );
     this.props.navigation.setParams({
       showProScreenActions: this.showActionSheet,
       currentProfile: this.props.currentUserProfile
@@ -56,9 +51,6 @@ class ProfileScreen extends React.Component {
     }
   };
 
-  // componentDidUpdate() {
-  //   // if (this.props.isFocused) this.initProfileData();
-  // }
   componentDidMount = () => {
     this.initProfileData();
 
@@ -164,10 +156,7 @@ class ProfileScreen extends React.Component {
               size='large'
             />
           ) : (
-            <ProfileBody
-              profile={profileData}
-              myProfile={profileData === this.props.currentUserProfile}
-            />
+            <ProfileBody profile={profileData} />
           )}
         </ScrollView>
       </Viewport.Tracker>
