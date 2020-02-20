@@ -1,29 +1,29 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef } from 'react';
 import {
   Text,
   ImageBackground,
   ActivityIndicator,
   TouchableOpacity
-} from "react-native";
-import { withNavigationFocus } from "react-navigation";
-import { View } from "react-native-animatable";
-import moment from "moment";
-import { Video } from "expo-av";
-import { ListItem, Badge } from "react-native-elements";
-import { useDispatch } from "react-redux";
-import { connect } from "react-redux";
-import { Viewport } from "@skele/components";
+} from 'react-native';
+import { withNavigationFocus } from 'react-navigation';
+import { View } from 'react-native-animatable';
+import moment from 'moment';
+import { Video } from 'expo-av';
+import { ListItem, Badge } from 'react-native-elements';
+import { useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
+import { Viewport } from '@skele/components';
 
-import { getCampaign, toggleCampaignText } from "../../store/actions";
-import { AmpEvent } from "../withAmplitude";
+import { getCampaign, toggleCampaignText } from '../../store/actions';
+import { AmpEvent } from '../withAmplitude';
 
-import { navigate } from "../../navigation/RootNavigator";
+import { navigate } from '../../navigation/RootNavigator';
 
-import styles from "../../constants/FeedScreen/FeedCampaign";
-import Ellipse from "../../assets/jsicons/Ellipse";
-import CommentIcon from "../../assets/jsicons/CommentIcon";
-import MapMarker from "../../assets/jsicons/headerIcons/map-marker";
-import CampaignActionSheet from "../Reports/CampaignActionSheet";
+import styles from '../../constants/FeedScreen/FeedCampaign';
+import Ellipse from '../../assets/jsicons/Ellipse';
+import CommentIcon from '../../assets/jsicons/CommentIcon';
+import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
+import CampaignActionSheet from '../Reports/CampaignActionSheet';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
@@ -77,7 +77,7 @@ const FeedCampaign = props => {
       return string;
     } else {
       let end = cutoff;
-      const avoidChars = [" ", ",", ".", "!"];
+      const avoidChars = [' ', ',', '.', '!'];
       while (avoidChars.includes(string.charAt(end)) && end >= cutoff - 10) {
         end--;
       }
@@ -89,76 +89,76 @@ const FeedCampaign = props => {
   const currentTime = moment();
   const postTime = moment(createdAt);
   let timeDiff;
-  if (currentTime.diff(postTime, "days") < 1) {
-    if (currentTime.diff(postTime, "hours") < 1) {
-      if (currentTime.diff(postTime, "minutes") < 1) {
-        timeDiff = "just now";
+  if (currentTime.diff(postTime, 'days') < 1) {
+    if (currentTime.diff(postTime, 'hours') < 1) {
+      if (currentTime.diff(postTime, 'minutes') < 1) {
+        timeDiff = 'just now';
       } else {
-        if (currentTime.diff(postTime, "minutes") === 1) {
-          timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTE AGO`;
+        if (currentTime.diff(postTime, 'minutes') === 1) {
+          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO`;
         } else {
-          timeDiff = `${currentTime.diff(postTime, "minutes")} MINUTES AGO`;
+          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`;
         }
       }
     } else {
-      if (currentTime.diff(postTime, "hours") === 1) {
-        timeDiff = `${currentTime.diff(postTime, "hours")} HOUR AGO`;
+      if (currentTime.diff(postTime, 'hours') === 1) {
+        timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO`;
       } else {
-        timeDiff = `${currentTime.diff(postTime, "hours")} HOURS AGO`;
+        timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`;
       }
     }
   } else {
-    if (currentTime.diff(postTime, "days") === 1) {
-      timeDiff = `${currentTime.diff(postTime, "days")} DAY AGO`;
+    if (currentTime.diff(postTime, 'days') === 1) {
+      timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO`;
     } else {
-      timeDiff = `${currentTime.diff(postTime, "days")} DAYS AGO`;
+      timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
     }
   }
 
   //// All styles for the urgency bar
   let urgencyColor;
-  if (data.urgency === "Critical") {
-    urgencyColor = "rgba(227,16,89,0.6)";
-  } else if (data.urgency === "Urgent") {
-    urgencyColor = "rgba(255,199,0,0.6)";
-  } else if (data.urgency === "Longterm") {
-    urgencyColor = "rgba(0,255,157,0.6)";
+  if (data.urgency === 'Critical') {
+    urgencyColor = 'rgba(227,16,89,0.6)';
+  } else if (data.urgency === 'Urgent') {
+    urgencyColor = 'rgba(255,199,0,0.6)';
+  } else if (data.urgency === 'Longterm') {
+    urgencyColor = 'rgba(0,255,157,0.6)';
   } else {
-    urgencyColor = "#323338BF";
+    urgencyColor = '#323338BF';
   }
   let urgencyStatus;
   if (data.urgency) {
     urgencyStatus = data.urgency.toUpperCase();
   } else {
-    urgencyStatus = "Standard";
+    urgencyStatus = 'Standard';
   }
 
   const urgencyStyles = {
     backgroundColor: urgencyColor,
     height: 37,
-    width: "100%",
-    position: "absolute",
+    width: '100%',
+    position: 'absolute',
     top: urgTop,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     zIndex: 1
   };
 
   const goToProfile = () => {
-    AmpEvent("Select Profile from Campaign", {
+    AmpEvent('Select Profile from Campaign', {
       profile: data.username,
       campaign: data.camp_name
     });
-    navigate("Pro", { selectedProfile: data.users_id });
+    navigate('Pro', { selectedProfile: data.users_id });
   };
 
   const goToCampaign = async () => {
     await dispatch(getCampaign(data.camp_id));
-    AmpEvent("Select Profile from Campaign", {
+    AmpEvent('Select Profile from Campaign', {
       campaign: data.camp_name,
       profile: data.username
     });
-    navigate("Camp", {
+    navigate('Camp', {
       // likes: likes,
       // userLiked: userLiked,
       // addLike: addLike,
@@ -341,15 +341,15 @@ const FeedCampaign = props => {
           leftAvatar={{ source: { uri: data.profile_image } }}
           rightElement={
             <TouchableOpacity onPress={showActionSheet}>
-              <Ellipse fill="#000" height="25" width="25" />
+              <Ellipse fill='#000' height='25' width='25' />
             </TouchableOpacity>
           }
           subtitle={
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: 'row' }}>
               {data.location !== (undefined || null) ? (
-                <MapMarker fill="#505050" />
+                <MapMarker fill='#505050' />
               ) : null}
-              <Text style={{ color: "#929292" }}>{data.location}</Text>
+              <Text style={{ color: '#929292' }}>{data.location}</Text>
             </View>
           }
         />
@@ -371,9 +371,9 @@ const FeedCampaign = props => {
         </View>
         <View>
           <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
-            {data.camp_img.includes(".mov") ||
-            data.camp_img.includes(".mp3") ||
-            data.camp_img.includes(".mp4") ? (
+            {data.camp_img.includes('.mov') ||
+            data.camp_img.includes('.mp3') ||
+            data.camp_img.includes('.mp4') ? (
               <View>
                 {data.urgency ? (
                   <View style={urgencyStyles}>
@@ -382,7 +382,7 @@ const FeedCampaign = props => {
                 ) : null}
                 {loader ? (
                   <View style={styles.indicator}>
-                    <ActivityIndicator size="large" color="#00FF9D" />
+                    <ActivityIndicator size='large' color='#00FF9D' />
                   </View>
                 ) : null}
                 {props.isFocused ? (
@@ -396,7 +396,7 @@ const FeedCampaign = props => {
                     isMuted={false}
                     shouldPlay={true}
                     isLooping
-                    resizeMode="cover"
+                    resizeMode='cover'
                     onPlaybackStatusUpdate={onPlaybackStatusUpdate}
                     style={styles.campImgContain}
                   />
@@ -510,14 +510,14 @@ const FeedCampaign = props => {
             <Badge
               // status='success'
               textStyle={{
-                color: "black",
+                color: 'black',
                 fontSize: 12
               }}
               badgeStyle={{
-                backgroundColor: "#CAFF03"
+                backgroundColor: '#CAFF03'
               }}
               containerStyle={{
-                position: "absolute",
+                position: 'absolute',
                 top: -2,
                 right: 2
               }}

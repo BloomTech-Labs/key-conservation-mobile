@@ -1,25 +1,25 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   View,
   Text,
   Keyboard,
   ActivityIndicator,
   Animated
-} from "react-native";
+} from 'react-native';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import ChevronLeft from "../../assets/jsicons/miscIcons/ChevronLeftBlack";
+import ChevronLeft from '../../assets/jsicons/miscIcons/ChevronLeftBlack';
 
-import styles from "../../constants/Auth/AuthForm";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import LoginForm from "./LoginForm";
+import styles from '../../constants/Auth/AuthForm';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import LoginForm from './LoginForm';
 
 class AuthForm extends Component {
   constructor(props) {
     super(props);
 
-    this.TABS = ["Log In", "Sign Up"];
+    this.TABS = ['Log In', 'Sign Up'];
 
     this.state = {
       loadingOpacity: new Animated.Value(0),
@@ -37,10 +37,10 @@ class AuthForm extends Component {
   }
 
   componentDidMount() {
-    this.keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", () =>
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () =>
       this.setState({ keyboardOpen: true })
     );
-    this.keyboardDidHideListener = Keyboard.addListener("keyboardDidHide", () =>
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () =>
       this.setState({ keyboardOpen: false })
     );
   }
@@ -66,10 +66,10 @@ class AuthForm extends Component {
     return (
       <View style={styles.container}>
         <Animated.View
-          pointerEvents={this.props.loading ? "auto" : "none"}
+          pointerEvents={this.props.loading ? 'auto' : 'none'}
           style={[styles.loading, { opacity: this.state.loadingOpacity }]}
         >
-          <ActivityIndicator size="large" />
+          <ActivityIndicator size='large' />
         </Animated.View>
         <View style={styles.tabSelector}>
           {this.TABS.map((tab, index) => {
@@ -95,10 +95,10 @@ class AuthForm extends Component {
             }}
             style={styles.backButton}
           >
-            <ChevronLeft fill="#000" />
+            <ChevronLeft fill='#000' />
           </TouchableOpacity>
           <Text style={styles.headerText}>
-            {this.state.currentTab ? "Sign up" : "Log in"} as a{" "}
+            {this.state.currentTab ? 'Sign up' : 'Log in'} as a{' '}
             {this.props.role}
           </Text>
         </View>
