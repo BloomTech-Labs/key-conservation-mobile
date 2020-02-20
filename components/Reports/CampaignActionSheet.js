@@ -76,19 +76,49 @@ export default forwardRef((props, ref) => {
     });
   };
 
+  const editCamp = () => {
+    navigate('EditCamp', {
+      selectedCampaign: props.camp
+    })
+  }
+
+  const editUpdate = () => {
+    navigate('EditCampUpdate', {
+      selectedCampaign: props.update
+    })
+  }
+
+  const postUpdate = () => {
+    navigate('CreateCampUpdate', {
+      selectedCampaign: props.camp || props.update
+    })
+  }
+
   // Options for actions to take on a campaign differ
   // for admins and regular users, so we use this
   // constant to initialize those options
   const ACTIONSHEET_OPTIONS = props.isMine
     ? {
         title: 'Actions',
-        options: ['Delete', 'Cancel'],
-        cancelIndex: 1,
+        options: ['Delete', 'Edit', 'Post Update', 'Cancel'],
+        cancelIndex: 3,
         destructiveIndex: 0,
         onPress: index => {
           switch(index) {
             case 0: {
               deleteCamp();
+              break;
+            }
+            case 1: {
+              if(props.camp) {
+                editCamp();
+              } else if (props.update) {
+                editUpdate();
+              }
+              break;
+            }
+            case 2: {
+              postUpdate();
               break;
             }
           }

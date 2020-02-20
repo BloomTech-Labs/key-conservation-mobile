@@ -20,7 +20,7 @@ import UploadMedia from "../components/UploadMedia";
 import styles from "../constants/screens/EditCampScreen";
 import CheckMark from "../assets/icons/checkmark-24.png";
 
-class CreateCampScreen extends React.Component {
+class EditCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: "Edit Campaign",
@@ -38,13 +38,19 @@ class CreateCampScreen extends React.Component {
     };
   };
 
-  state = {
-    camp_img: this.props.selectedCampaign.camp_img,
-    camp_name: this.props.selectedCampaign.camp_name,
-    camp_desc: this.props.selectedCampaign.camp_desc,
-    camp_cta: this.props.selectedCampaign.camp_cta,
-    urgency: this.props.selectedCampaign.urgency
-  };
+  constructor(props) {
+    super(props);
+
+    this.selectedCampaign = this.props.navigation.getParam('selectedCampaign') || {};
+
+    this.state = {
+      camp_img: this.selectedCampaign.camp_img,
+      camp_name: this.selectedCampaign.camp_name,
+      camp_desc: this.selectedCampaign.camp_desc,
+      camp_cta: this.selectedCampaign.camp_cta,
+      urgency: this.selectedCampaign.urgency
+    }
+  }
 
   componentDidMount() {
     this.props.navigation.setParams({ edit: this.edit });
@@ -67,7 +73,7 @@ class CreateCampScreen extends React.Component {
         };
       }
       await this.props.editCampaign(
-        this.props.selectedCampaign.camp_id,
+        this.selectedCampaign.camp_id,
         changes
       );
       this.props.navigation.goBack();
@@ -76,11 +82,11 @@ class CreateCampScreen extends React.Component {
 
   clearState = () => {
     this.setState({
-      camp_img: this.props.selectedCampaign.camp_img,
-      camp_name: this.props.selectedCampaign.camp_name,
-      camp_desc: this.props.selectedCampaign.camp_desc,
-      camp_cta: this.props.selectedCampaign.camp_cta,
-      urgency: this.props.selectedCampaign.urgency
+      camp_img: this.selectedCampaign.camp_img,
+      camp_name: this.selectedCampaign.camp_name,
+      camp_desc: this.selectedCampaign.camp_desc,
+      camp_cta: this.selectedCampaign.camp_cta,
+      urgency: this.selectedCampaign.urgency
     });
   };
 
@@ -212,7 +218,6 @@ class CreateCampScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  selectedCampaign: state.selectedCampaign,
   mediaUpload: state.mediaUpload
 });
 
@@ -220,4 +225,4 @@ export default connect(mapStateToProps, {
   editCampaign,
   getCampaigns,
   clearMedia
-})(CreateCampScreen);
+})(EditCampScreen);

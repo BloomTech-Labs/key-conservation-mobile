@@ -14,10 +14,7 @@ import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
 
-import {
-  getCampaign,
-  toggleCampaignText
-} from '../../store/actions';
+import { getCampaign, toggleCampaignText } from '../../store/actions';
 import { AmpEvent } from '../withAmplitude';
 
 import { navigate } from '../../navigation/RootNavigator';
@@ -335,6 +332,7 @@ const FeedCampaign = props => {
           camp={data}
         />
         <ListItem
+          disabled={props.disableHeader}
           onPress={goToProfile}
           title={
             <View style={styles.username}>
@@ -349,7 +347,9 @@ const FeedCampaign = props => {
           }
           subtitle={
             <View style={{ flexDirection: 'row' }}>
-              <MapMarker fill='#505050' />
+              {data.location !== (undefined || null) ? (
+                <MapMarker fill='#505050' />
+              ) : null}
               <Text style={{ color: '#929292' }}>{data.location}</Text>
             </View>
           }

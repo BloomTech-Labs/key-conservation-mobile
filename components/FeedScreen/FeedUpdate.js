@@ -1,63 +1,40 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Text,
   ImageBackground,
   ActivityIndicator,
   TouchableOpacity,
-  Platform
 } from 'react-native';
-import { NavigationEvents, withNavigationFocus } from 'react-navigation';
+import { withNavigationFocus } from 'react-navigation';
 import { View } from 'react-native-animatable';
 import moment from 'moment';
 import { Video } from 'expo-av';
-import { ListItem } from 'react-native-elements';
+import { ListItem, Badge } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import { Viewport } from '@skele/components';
 
 import { navigate } from '../../navigation/RootNavigator';
 
-import {
-  setCampaign,
-  toggleCampaignText
-} from '../../store/actions';
+import { setCampaign, toggleCampaignText } from '../../store/actions';
 import { AmpEvent } from '../withAmplitude';
 
-import styles from '../../constants/FeedScreen/FeedUpdate';
 import Ellipse from '../../assets/jsicons/Ellipse';
 import CampaignActionSheet from '../Reports/CampaignActionSheet';
-
-// url for heroku staging vs production server
-// production
-const seturl = 'https://key-conservation.herokuapp.com/api/'
-// staging
-// const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
+import CommentIcon from '../../assets/jsicons/CommentIcon';
+import styles from '../../constants/FeedScreen/FeedCampaign';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
-
-// Redux gave us a hard time on this project. We worked on comments first and when our commentOnCampaign action failed to trigger the re-render we expected, and when we couldn't solve the
-// issue in labs_help, we settled for in-component axios calls. Not elegant. Probably not super scalable—but it worked. Hopefully a more talented team can solve what we couldn't.
-// In the meantime, ViewCampScreen, ViewCampUpdateScreen, FeedCampaign, and FeedUpdate are all interconnected, sharing props (state, functions) via React-Navigation.
 
 const ViewportAwareVideo = Viewport.Aware(
   Viewport.WithPlaceholder(Video, Placeholder)
 );
 
 const FeedUpdate = props => {
-  const [likes, setLikes] = useState(props.data.likes.length);
-  const [userLiked, setUserLiked] = useState(false);
   const [loader, setLoader] = useState(true);
   const actionSheetRef = useRef(null);
 
-  useEffect(() => {
-    const liked = data.likes.filter(
-      l => l.users_id === props.currentUserProfile.id
-    );
-    if (liked.length > 0) {
-      setUserLiked(true);
-    }
-  }, []);
 
   const dispatch = useDispatch();
   const { data, toggled } = props;
@@ -116,10 +93,6 @@ const FeedUpdate = props => {
     dispatch(setCampaign(data));
     navigate('CampUpdate', {
       backBehavior: 'Home',
-      likes: likes,
-      userLiked: userLiked,
-      addLike: addLike,
-      deleteLike: deleteLike,
       media: data.update_img
     });
   };
@@ -136,279 +109,156 @@ const FeedUpdate = props => {
     }
   };
 
-  const addLike = (campId, updateId) => {
-    if (updateId) {
-      axios
-        .post(
-          `${seturl}social/update/${data.update_id}`,
-          {
-            users_id: props.currentUserProfile.id,
-            update_id: data.update_id
-          },
-          {
-            headers: {
-              Accept: 'application/json',
-              Authorization: `Bearer ${props.token}`,
-              'Content-Type': 'application/json'
-            }
-          }
-        )
-        .then(res => {
-          setLikes(res.data.data.length);
-          setUserLiked(true);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    } else {
-      axios
-        .post(
-          `${seturl}social/likes/${campId}`,
-          {
-            users_id: props.currentUserProfile.id,
-            camp_id: campId
-          },
-          {
-            headers: {
-              Accept: 'application/json',
-              Authorization: `Bearer ${props.token}`,
-              'Content-Type': 'application/json'
-            }
-          }
-        )
-        .then(res => {
-          setLikes(res.data.data.length);
-          setUserLiked(true);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-  };
-
-  const deleteLike = (campId, updateId) => {
-    if (updateId) {
-      axios
-        .delete(
-          `${seturl}social/update/${data.update_id}/${props.currentUserProfile.id}`,
-          {
-            headers: {
-              Accept: 'application/json',
-              Authorization: `Bearer ${props.token}`,
-              'Content-Type': 'application/json'
-            }
-          }
-        )
-        .then(res => {
-          setLikes(likes - 1);
-          setUserLiked(false);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    } else {
-      axios
-        .delete(
-          `${seturl}social/likes/${campId}/${props.currentUserProfile.id}`,
-          {
-            headers: {
-              Accept: 'application/json',
-              Authorization: `Bearer ${props.token}`,
-              'Content-Type': 'application/json'
-            }
-          }
-        )
-        .then(res => {
-          setLikes(likes - 1);
-          setUserLiked(false);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-  };
-
   const showActionSheet = () => {
     actionSheetRef.current?.show();
   };
 
   return (
-    <View style={styles.container}>
-      <CampaignActionSheet
-        ref={actionSheetRef}
-        admin={props.currentUserProfile.admin}
-        isMine={props.currentUserProfile.id === data.users_id}
-        update={data}
-      />
-      {props.hideUsername === undefined && (
-        <ListItem
-          onPress={goToProfile}
-          title={
-            <View>
-              <Text style={styles.orgTitleView}>{data.username}</Text>
-            </View>
-          }
-          leftAvatar={{ source: { uri: data.profile_image } }}
-          rightElement={
-            <TouchableOpacity
-              onPress={showActionSheet}
-              style={{ transform: [{ rotate: '90deg' }], padding: 12 }}
-            >
-              <Ellipse fill='#000' />
-            </TouchableOpacity>
-          }
-          subtitle={
-            <View>
-              <Text style={styles.subtitleText}>{data.location}</Text>
-            </View>
-          }
+    <View style={styles.mainContainer}>
+      <View style={styles.container}>
+        <CampaignActionSheet
+          ref={actionSheetRef}
+          admin={props.currentUserProfile.admin}
+          isMine={props.currentUserProfile.id === data.users_id}
+          update={data}
         />
-      )}
-      <View>
-        {props.fromCampScreen ? (
-          <View>
-            {data.update_img.includes('.mov') ||
-            data.update_img.includes('.mp3') ||
-            data.update_img.includes('.mp4') ? (
+        {props.hideUsername === undefined && (
+          <ListItem
+            disabled={props.disableHeader}
+            onPress={goToProfile}
+            title={
               <View>
-                {loader ? (
-                  <View style={styles.indicator}>
-                    <ActivityIndicator size='large' color='#00FF9D' />
-                  </View>
-                ) : null}
-                <View style={styles.updateBar}>
-                  <Text style={styles.updateBarText}>UPDATE</Text>
-                </View>
-                {props.isFocused ? (
-                  <ViewportAwareVideo
-                    source={{
-                      uri: data.update_img
-                    }}
-                    retainOnceInViewport={false}
-                    preTriggerRatio={-0.1}
-                    rate={1.0}
-                    isMuted={false}
-                    shouldPlay={true}
-                    isLooping
-                    resizeMode='cover'
-                    onPlaybackStatusUpdate={onPlaybackStatusUpdate}
-                    style={styles.campImgContain}
-                  />
-                ) : (
-                  <View style={styles.campImgContain} />
-                )}
+                <Text style={styles.orgTitleView}>{data.username}</Text>
               </View>
-            ) : (
-              <ImageBackground
-                source={{ uri: data.update_img }}
-                style={styles.campImgContain}
+            }
+            leftAvatar={{ source: { uri: data.profile_image } }}
+            rightElement={
+              <TouchableOpacity
+                onPress={showActionSheet}
+                style={{ padding: 12 }}
               >
-                <View style={styles.updateBar}>
-                  <Text style={styles.updateBarText}>UPDATE</Text>
-                </View>
-              </ImageBackground>
-            )}
-          </View>
-        ) : (
-          <TouchableOpacity activeOpacity={0.5} onPress={goToCampUpdate}>
-            {data.update_img.includes('.mov') ||
-            data.update_img.includes('.mp3') ||
-            data.update_img.includes('.mp4') ? (
+                <Ellipse fill='#000' height='25' width='25' />
+              </TouchableOpacity>
+            }
+            subtitle={
               <View>
-                {loader ? (
-                  <View style={styles.indicator}>
-                    <ActivityIndicator size='large' color='#00FF9D' />
-                  </View>
-                ) : null}
-                <View style={styles.updateBar}>
-                  <Text style={styles.updateBarText}>UPDATE</Text>
-                </View>
-                {props.isFocused ? (
-                  <ViewportAwareVideo
-                    source={{
-                      uri: data.update_img
-                    }}
-                    retainOnceInViewport={false}
-                    preTriggerRatio={-0.1}
-                    rate={1.0}
-                    isMuted={false}
-                    shouldPlay={true}
-                    isLooping
-                    resizeMode='cover'
-                    onPlaybackStatusUpdate={onPlaybackStatusUpdate}
-                    style={styles.campImgContain}
-                  />
-                ) : (
-                  <View style={styles.campImgContain} />
-                )}
+                <Text style={styles.subtitleText}>
+                  {data.location !== (undefined || null) ? (
+                    <MapMarker fill='#505050' />
+                  ) : null}
+                  {data.location}
+                </Text>
               </View>
-            ) : (
-              <ImageBackground
-                source={{ uri: data.update_img }}
-                style={styles.campImgContain}
-              >
-                <View style={styles.updateBar}>
-                  <Text style={styles.updateBarText}>UPDATE</Text>
-                </View>
-              </ImageBackground>
-            )}
-          </TouchableOpacity>
+            }
+          />
         )}
-      </View>
-      {/* Above checks to see if the FeedUpdate is being displayed in the Feed or in the ViewCampScreen */}
-      {/* <View style={styles.iconRow}>
-
-        <View style={styles.likesContainer}>
-          <View style={styles.hearts}>
-            <View style={!userLiked ? { zIndex: 1 } : { zIndex: -1 }}>
-              <FontAwesome
-                onPress={() => addLike(data.camp_id, data.update_id)}
-                name="heart-o"
-                style={styles.heartOutline}
-              />
-            </View>
-            <View
-              animation={userLiked ? 'zoomIn' : 'zoomOut'}
-              style={
-                (userLiked ? { zIndex: 1 } : { zIndex: -1 },
-                Platform.OS === 'android'
-                  ? { marginTop: -29, marginLeft: -1.25 }
-                  : { marginTop: -28.75, marginLeft: -1.25 })
-              }
-              duration={300}
-            >
-              <FontAwesome
-                onPress={() => deleteLike(data.camp_id, data.update_id)}
-                name="heart"
-                style={styles.heartFill}
-              />
-            </View>
-          </View>
-          {likes === 0 ? null : likes > 1 ? (
-            <Text style={styles.likes}>{likes} likes</Text>
+        <View style={styles.campDesc}>
+          {toggled || data.update_desc.length < 80 ? (
+            <Text style={styles.campDescText}>{data.update_desc}</Text>
           ) : (
-            <Text style={styles.likes}>{likes} like</Text>
+            <Text style={styles.campDescText}>
+              {shorten(data.update_desc, 80)}
+              &nbsp;
+              <Text onPress={toggleText} style={styles.readMore}>
+                Read More
+              </Text>
+            </Text>
+          )}
+          <Text style={styles.timeText}>{timeDiff}</Text>
+        </View>
+        <View>
+          {props.fromCampScreen ? (
+            <View>
+              {data.update_img.includes('.mov') ||
+              data.update_img.includes('.mp3') ||
+              data.update_img.includes('.mp4') ? (
+                <View>
+                  {loader ? (
+                    <View style={styles.indicator}>
+                      <ActivityIndicator size='large' color='#00FF9D' />
+                    </View>
+                  ) : null}
+                  <View style={styles.updateBar}>
+                    <Text style={styles.updateBarText}>UPDATE</Text>
+                  </View>
+                  {props.isFocused ? (
+                    <ViewportAwareVideo
+                      source={{
+                        uri: data.update_img
+                      }}
+                      retainOnceInViewport={false}
+                      preTriggerRatio={-0.1}
+                      rate={1.0}
+                      isMuted={false}
+                      shouldPlay={true}
+                      isLooping
+                      resizeMode='cover'
+                      onPlaybackStatusUpdate={onPlaybackStatusUpdate}
+                      style={styles.campImgContain}
+                    />
+                  ) : (
+                    <View style={styles.campImgContain} />
+                  )}
+                </View>
+              ) : (
+                <ImageBackground
+                  source={{ uri: data.update_img }}
+                  style={styles.campImgContain}
+                >
+                  <View style={styles.updateBar}>
+                    <Text style={styles.updateBarText}>UPDATE</Text>
+                  </View>
+                </ImageBackground>
+              )}
+            </View>
+          ) : (
+            <TouchableOpacity activeOpacity={0.5} onPress={goToCampUpdate}>
+              {data.update_img.includes('.mov') ||
+              data.update_img.includes('.mp3') ||
+              data.update_img.includes('.mp4') ? (
+                <View>
+                  {loader ? (
+                    <View style={styles.indicator}>
+                      <ActivityIndicator size='large' color='#00FF9D' />
+                    </View>
+                  ) : null}
+                  <View style={styles.updateBar}>
+                    <Text style={styles.updateBarText}>UPDATE</Text>
+                  </View>
+                  {props.isFocused ? (
+                    <ViewportAwareVideo
+                      source={{
+                        uri: data.update_img
+                      }}
+                      retainOnceInViewport={false}
+                      preTriggerRatio={-0.1}
+                      rate={1.0}
+                      isMuted={false}
+                      shouldPlay={true}
+                      isLooping
+                      resizeMode='cover'
+                      onPlaybackStatusUpdate={onPlaybackStatusUpdate}
+                      style={styles.campImgContain}
+                    />
+                  ) : (
+                    <View style={styles.campImgContain} />
+                  )}
+                </View>
+              ) : (
+                <ImageBackground
+                  source={{ uri: data.update_img }}
+                  style={styles.campImgContain}
+                >
+                  <View style={styles.updateBar}>
+                    <Text style={styles.updateBarText}>UPDATE</Text>
+                  </View>
+                </ImageBackground>
+              )}
+            </TouchableOpacity>
           )}
         </View>
-
-      </View> */}
-
-      <View style={styles.campDesc}>
-        <Text style={styles.campDescName}>{data.camp_name}</Text>
-        {toggled || data.update_desc.length < 80 ? (
-          <Text style={styles.campDescText}>{data.update_desc}</Text>
-        ) : (
-          <Text style={styles.campDescText}>
-            {shorten(data.update_desc, 80)}
-            &nbsp;
-            <Text onPress={toggleText} style={styles.readMore}>
-              Read More
-            </Text>
-          </Text>
-        )}
+        <View style={styles.demarcation}></View>
       </View>
-      <Text style={styles.timeText}>{timeDiff}</Text>
-      <View style={styles.demarcation}></View>
     </View>
   );
 };

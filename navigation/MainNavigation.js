@@ -10,12 +10,11 @@ import MakeAccountScreen from '../screens/org-onboarding-screens/MakeAccountScre
 import TellAboutOrganizationScreen from '../screens/org-onboarding-screens/TellAboutOrganizationScreen';
 import ToExpectScreen from '../screens/org-onboarding-screens/ToExpectScreen';
 import VerifyDocumentationScreen from '../screens/org-onboarding-screens/VerifyDocumentationScreen';
-import VerifyOrganizationScreen from '../screens/org-onboarding-screens/VerifyOrganizationScreen';
+import TellMoreScreen from '../screens/org-onboarding-screens/TellMoreScreen';
 import AlmostDone from '../screens/org-onboarding-screens/AlmostDoneScreen';
 import ThankYouScreen from '../screens/org-onboarding-screens/ThankYouScreen';
 import ReviewYourInfoScreen from '../screens/org-onboarding-screens/ReviewYourInfoScreen';
-import OrganizationSurveyScreen from '../screens/org-onboarding-screens/OrganizationSurveyScreen';
-import ToExpectNextCreateProfileScreen from '../screens/org-onboarding-screens/ToExpectNextCreateProfileScreen';
+import AccountScreen from '../screens/org-onboarding-screens/AccountScreen';
 
 import FeedScreen from '../screens/FeedScreen';
 import CreateCampScreen from '../screens/CreateCampScreen';
@@ -37,7 +36,7 @@ import ReportDetailScreen from '../screens/ReportDetailScreen';
 import CreateReportScreen from '../screens/CreateReportScreen';
 import LogoutScreen from '../screens/LogoutScreen';
 import ResetPasswordScreen from '../screens/ResetPasswordScreen';
-import ToExpectNextScreen from '../screens/org-onboarding-screens/ToExpectNextScreen';
+import WelcomeScreen from '../screens/WelcomeScreen';
 
 //icon imports
 
@@ -52,16 +51,15 @@ export const OrgOnboardStack = createStackNavigator(
     KeyConservation: KeyConservationScreen,
     Can: CanScreen,
     Cant: CantScreen,
-    ToExpectNext: ToExpectNextScreen,
     MakeAccount: MakeAccountScreen,
     TellAboutOrganization: TellAboutOrganizationScreen,
     VerifyDocumentation: VerifyDocumentationScreen,
-    VerifyOrganization: VerifyOrganizationScreen,
+    TellMore: TellMoreScreen,
     AlmostDone: AlmostDone,
     ThankYou: ThankYouScreen,
     ReviewYourInfo: ReviewYourInfoScreen,
-    OrganizationSurvey: OrganizationSurveyScreen,
-    ToExpectNextCreateProfile: ToExpectNextCreateProfileScreen
+    AccountScreen: AccountScreen,
+    Welcome: WelcomeScreen
   },
   {
     headerMode: 'none'
@@ -102,7 +100,11 @@ const FeedStack = createStackNavigator(
     Camp: ViewCampScreen,
     CampUpdate: ViewCampUpdateScreen,
     SupPro: ProfileScreen,
-    CreateReport: CreateReportScreen
+    CreateReport: CreateReportScreen,
+    EditCamp: EditCampScreen,
+    EditCampUpdate: EditCampUpdateScreen,
+    CreateCampaign: CreateCampScreen,
+    CreateCampUpdate: CreateCampUpdateScreen,
   },
   {
     navigationOptions: {
@@ -131,6 +133,9 @@ export const AccountSettingsStack = createStackNavigator({
 
 const MyProStack = createStackNavigator(
   {
+    Pro: {
+      screen: ProfileScreen
+    },
     MyPro: {
       screen: ProfileScreen
     },
@@ -139,7 +144,6 @@ const MyProStack = createStackNavigator(
       navigationOptions: { title: 'Edit Profile' }
     },
     Camp: ViewCampScreen,
-    CreateCampaign: CreateCampScreen,
     EditCamp: EditCampScreen,
     CampUpdate: ViewCampUpdateScreen,
     CreateCampUpdate: CreateCampUpdateScreen,
@@ -211,10 +215,10 @@ export const ConsNavigator = createBottomTabNavigator(
   {
     FeedStack: {
       screen: FeedStack,
-      path: '',
+      path: ''
     },
     MapStack: {
-      screen: MapStack,
+      screen: MapStack
     },
     // CreateCampStack: { screen: CreateCampStack, path: '' },
     MyProStack: {

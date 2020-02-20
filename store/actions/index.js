@@ -577,6 +577,7 @@ export const postCampaignUpdate = campUpdate => dispatch => {
       })
       .catch(err => {
         dispatch({ type: POST_CAMPAIGN_UPDATE_ERROR, payload: err });
+        return err;
       });
   });
 };

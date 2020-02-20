@@ -25,6 +25,15 @@ export default class ProfileBody extends Component {
             { key: 'details', title: 'Details' }
           ];
 
+    // If the profile in questions is an organization and has a location,
+    // insert a tab in index 1 (in the middle as per designs)
+    if (
+      this.props.profile.roles === 'conservationist' &&
+      this.props.profile.location
+    ) {
+      routes.splice(1, 0, { key: 'location', title: 'Location' });
+    }
+
     this.state = {
       index: 0,
       routes
@@ -42,6 +51,7 @@ export default class ProfileBody extends Component {
               key={i}
               style={{
                 ...styles.tabItem,
+                backgroundColor: 'white',
                 borderBottomColor: `rgba(0, 255, 157, ${
                   this.state.index === i ? 1 : 0
                 })`

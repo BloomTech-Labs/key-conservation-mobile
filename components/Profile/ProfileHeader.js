@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   View,
   Text,
@@ -23,14 +23,14 @@ import Facebook from '../../assets/jsicons/socialmedia/Facebook';
 const ProfileHeader = props => {
   let profile = props.profile || {};
 
+  let randomHeaderImage = useMemo(() => randomImage(), []);
+
   const WebsiteClick = async () => {
     if (profile.org_link_url && profile.org_link_url !== null) {
       (await WebBrowser.openBrowserAsync(profile.org_link_url)) &&
         AmpEvent('Website Link Clicked', { orgName: profile.org_name });
     }
   };
-
-  const randomHeaderImage = randomImage();
 
   return (
     <ImageBackground
