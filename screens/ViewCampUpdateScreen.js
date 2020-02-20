@@ -14,7 +14,7 @@ import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
 
-import { getProfileData, getCampaign } from '../store/actions';
+import { getCampaign } from '../store/actions';
 import BackButton from '../components/BackButton';
 import Ellipse from '../assets/jsicons/Ellipse';
 import CampaignActionSheet from '../components/Reports/CampaignActionSheet';
@@ -211,9 +211,8 @@ class ViewCampUpdateScreen extends React.Component {
     this.props.navigation.state.params.deleteLike(campId, updateId);
   };
 
-  goToProfile = async () => {
-    await this.props.getProfileData(this.props.selectedCampaign.users_id);
-    this.props.navigation.navigate('Pro');
+  goToProfile = () => {
+    this.props.navigation.navigate('Pro', { selectedProfile: this.props.selectedCampaign.users_id });
   };
 
   getCampaign = () => {
@@ -355,6 +354,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps, { getProfileData, getCampaign })(
+export default connect(mapStateToProps, { getCampaign })(
   ViewCampUpdateScreen
 );

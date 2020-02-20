@@ -16,8 +16,7 @@ class WideMapScreen extends React.Component {
       headerStyle: {
         backgroundColor: '#323338'
       },
-      headerTintColor: '#fff',
-      headerLeft: () => <BackButton navigation={navigation} />
+      headerTintColor: '#fff'
     };
   };
 

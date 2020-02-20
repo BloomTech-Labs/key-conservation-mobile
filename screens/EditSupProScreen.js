@@ -271,15 +271,6 @@ class EditSupProScreen extends React.Component {
                 value={this.state.species_and_habitats}
               />
             </View>
-
-            {/* <View style={styles.logoutSection}>
-              <TouchableOpacity
-                onPress={this.logoutPress}
-                style={styles.buttonContainer}
-              >
-                <Text style={styles.buttonText}>Logout</Text>
-              </TouchableOpacity>
-            </View> */}
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
