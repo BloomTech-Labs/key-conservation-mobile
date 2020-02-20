@@ -20,13 +20,12 @@ function VettingCheck(props) {
 
   const [state, setState] = useState({});
 
+  // Retrieves state object from SecureStore that was created in the onboarding process (ReviewYourInfoScreen).
   getBackend = async () => {
     const state = await SecureStore.getItemAsync('stateBE', {});
-    console.log('state from getBackend', state);
     const parseBE = JSON.parse(state);
-    console.log('parseBE from getBackend', parseBE);
     parseBE ? setUser(parseBE) : null;
-  }; // Retrieves state object from SecureStore that was created in the onboarding process (ReviewYourInfoScreen).
+  };
 
   getAirtableId = async () => {
     const id = await SecureStore.getItemAsync('airtableID', {});
@@ -36,10 +35,10 @@ function VettingCheck(props) {
     updateAirtableVettingTrue();
     await SecureStore.setItemAsync('isVetting', 'true');
     await SecureStore.setItemAsync('vettingEmail', email);
-    // This sets vetting variables to be checked by 'LoadingScreen'.
   };
 
-  const checkAirtable = async record => {
+  // This adds a user if the airtable 'accepted' field is set to true and deletes all vetting data from SecureStore
+  const addUser = async record => {
     console.log('checkAirtable activated');
     if (record.fields.accepted === true) {
       await SecureStore.deleteItemAsync('stateBE', {});
@@ -47,14 +46,13 @@ function VettingCheck(props) {
       updateAirtableVettingFalse();
       await SecureStore.deleteItemAsync('isVetting', {});
       await SecureStore.deleteItemAsync('vettingEmail', {});
-      console.log('user going to backend', user);
       props.navigation.navigate('Welcome');
       console.log("You're good to go!");
     } else {
       console.log('not vetted yet!');
       Alert.alert('Oops', "You're not vetted yet", [{ text: 'Got it' }]);
     }
-  }; // This Checks airtable 'Table 2' for 'accepted' field before allowing organization to access app.
+  };
 
   getAirtable = () => {
     var Airtable = require('airtable');
@@ -68,7 +66,7 @@ function VettingCheck(props) {
       .eachPage(
         function page(records, fetchNextPage) {
           records.forEach(function(record) {
-            checkAirtable(record);
+            addUser(record);
           });
         },
         function done(err) {

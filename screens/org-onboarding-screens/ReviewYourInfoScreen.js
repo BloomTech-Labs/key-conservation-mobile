@@ -50,9 +50,10 @@ const ReviewYourInfoScreen = props => {
   });
 
   useEffect(() => {
+    // Grabs state for backend through nav params again.
     setState(props.navigation.getParam('airtableState', 'defaultValue'));
     getAirtableID();
-  }, []); // Grabs state for backend through nav params again.
+  }, []);
 
   const getAirtableID = async () => {
     const id = await SecureStore.getItemAsync('airtableID', {});
@@ -61,6 +62,7 @@ const ReviewYourInfoScreen = props => {
 
   const key = props.navigation.getParam('airtableKey', 'defaultValue');
 
+  // Updates corresponding airtable form if any fields are changed.
   const updateAirtable = () => {
     var Airtable = require('airtable');
     var base = new Airtable({ apiKey: key }).base('appbPeeXUSNCQWwnQ');
@@ -96,7 +98,7 @@ const ReviewYourInfoScreen = props => {
         });
       }
     );
-  }; // Updates corresponding airtable form if any fields are changed.
+  };
 
   return (
     <KeyboardAvoidingView
@@ -561,7 +563,7 @@ const ReviewYourInfoScreen = props => {
           )}
           <NavigateButton
             label='Next'
-            onButtonPress={() => {
+            onButtonPress={async () => {
               if (
                 state.org_name === undefined ||
                 state.org_link_url === undefined ||
@@ -569,14 +571,16 @@ const ReviewYourInfoScreen = props => {
                 state.location === undefined ||
                 state.country === undefined ||
                 state.point_of_contact_name === undefined ||
-                state.point_of_contact_position === undefined
-                //|| state.email === undefined
+                state.point_of_contact_position === undefined ||
+                state.email === undefined
               ) {
                 Alert.alert('Oops', 'Please fill in all sections of form', [
                   { text: 'Got it' }
                 ]);
               } else {
                 updateAirtable();
+                const sub = await SecureStore.getItemAsync('sub', {});
+                const role = await SecureStore.getItemAsync('roles', {});
                 const stringBE = JSON.stringify({
                   username: state.username,
                   org_name: state.org_name,
@@ -593,16 +597,22 @@ const ReviewYourInfoScreen = props => {
                   species_and_habitats: state.species_and_habitats,
                   org_cta: state.org_cta,
                   mini_bio: state.mini_bio,
-                  about_us: state.about_us
+                  about_us: state.about_us,
+                  roles: role,
+                  sub: sub
                 });
-                SecureStore.setItemAsync('stateBE', stringBE); // Finally stores data object in SecureStore to be sent to backend once user is vetted
 
-                SecureStore.setItemAsync('vetting', 'true');
+                // Stores data object in SecureStore to be sent to backend once user is vetted
+                SecureStore.setItemAsync('stateBE', stringBE);
+
                 // Sets variables to be checked in 'LoadingScreen' to determine whether current user is in vetting process.
+                SecureStore.setItemAsync('vetting', 'true');
+
+                // Passes updated state down for backend.
                 props.navigation.navigate('VerifyDocumentation', {
                   airtableStateAdd: state,
                   airtableKey: key
-                }); // Passes updated state down for backend.
+                });
               }
             }}
           />
