@@ -317,7 +317,6 @@ const FeedCampaign = props => {
           </TouchableOpacity>
         </View>
 
-
         {/* <View style={styles.bookmarks}>
           <View style={!userBookmarked ? { zIndex: 1 } : { zIndex: -1 }}>
             <FontAwesome
@@ -343,7 +342,6 @@ const FeedCampaign = props => {
         </View>
       </View>  */}
 
-     
         <View style={styles.commentContainer}>
           <TouchableOpacity style={styles.comments} onPress={goToCampaign}>
             <CommentIcon />
@@ -364,10 +362,6 @@ const FeedCampaign = props => {
             />
           </TouchableOpacity>
         </View>
-<<<<<<< HEAD
-=======
- 
->>>>>>> 47ebb2ce9a7d2acae5ad838d0c81552c77f5e6c5
         <TakeActionCta profile={props.currentUserProfile} />
       </View>
       <View style={styles.demarcation} />
