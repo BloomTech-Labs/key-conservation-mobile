@@ -44,7 +44,7 @@ const ConnectFurther = props => {
           <Envelope fill='#323338' width='35' height='35' />
         </TouchableOpacity>
 
-        {!profile.linkedin ? (
+        {/* {!profile.linkedin ? (
           myProfile ? (
             <TouchableOpacity
               style={styles.iconWrap}
@@ -62,7 +62,7 @@ const ConnectFurther = props => {
           >
             <LinkedIn fill='#323338' width='35' height='35' />
           </TouchableOpacity>
-        )}
+        )} */}
 
         {!profile.instagram ? (
           myProfile ? (
@@ -121,8 +121,8 @@ const ConnectFurther = props => {
             <Twitter fill='#323338' width='35' height='35' />
           </TouchableOpacity>
         )}
-
-        {!profile.github ? (
+        {/* the following is ready to go for when gihub added to backend */}
+        {/* {!profile.github ? (
           myProfile ? (
             <TouchableOpacity
               style={styles.iconWrap}
@@ -139,7 +139,7 @@ const ConnectFurther = props => {
           >
             <GitHub fill='#323338' width='35' height='35' />
           </TouchableOpacity>
-        )}
+        )} */}
       </View>
     </View>
   );
