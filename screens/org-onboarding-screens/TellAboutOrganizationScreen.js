@@ -45,6 +45,9 @@ const TellAboutOrganizationScreen = props => {
   }, []);
 
   const sendAirtable = () => {
+    if (props.mediaUpload) {
+      onChangeText({ profile_image: props.mediaUpload });
+    }
     // this creates a new Airtable form.
     var Airtable = require('airtable');
     var base = new Airtable({ apiKey: airtableKey.key }).base(
@@ -76,7 +79,8 @@ const TellAboutOrganizationScreen = props => {
             airtableID: airtableID,
             airtableState: airtableState,
             airtableKey: airtableKey.key
-          }); // This passes the returned form ID and the needed fields for backend and airtable update() to the next component.
+          });
+          // This passes the returned form ID and the needed fields for backend and airtable update() to the next component.
         });
       }
     );
