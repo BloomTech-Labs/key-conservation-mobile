@@ -25,14 +25,12 @@ class UploadMedia extends Component {
   };
 
   _pickImage = async () => {
-    // let result = await DocumentPicker.getDocumentAsync({});
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [1, 1],
       quality: 1
     });
-    // console.log(result, 'Pick Image ----------------------------------');
     if (!result.cancelled) {
       this.setState(
         {
@@ -45,6 +43,7 @@ class UploadMedia extends Component {
 
   componentDidMount() {
     this.getPermissionAsync();
+    console.log('this.props.title', this.props.title);
   }
 
   clearState = () => {
@@ -61,7 +60,7 @@ class UploadMedia extends Component {
         <View style={styles.imageButton}>
           <TouchableOpacity onPress={this._pickImage}>
             <View style={styles.touchableView}>
-              <Text style={styles.touchableText}>Upload media</Text>
+              <Text style={styles.touchableText}>{this.props.title}</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -110,7 +109,4 @@ class UploadMedia extends Component {
   }
 }
 
-export default connect(
-  null,
-  { setMedia }
-)(UploadMedia);
+export default connect(null, { setMedia })(UploadMedia);

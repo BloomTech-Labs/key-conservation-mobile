@@ -11,6 +11,9 @@ import {
   View
 } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/TellAboutOrg.js';
+import { connect } from 'react-redux';
+import { clearMedia } from '../../store/actions';
+import UploadMedia from '../../components/UploadMedia';
 import * as SecureStore from 'expo-secure-store';
 
 const TellAboutOrganizationScreen = props => {
@@ -21,6 +24,7 @@ const TellAboutOrganizationScreen = props => {
     username: '',
     org_name: '',
     org_url_link: '',
+    profile_image: '',
     location: '',
     country: '',
     phone_number: '',
@@ -29,7 +33,7 @@ const TellAboutOrganizationScreen = props => {
     email: ''
   }); // This state holds field data for airtable create(), and backend for later use.
 
-  getEmail = async () => {
+  const getEmail = async () => {
     const email2 = await SecureStore.getItemAsync('email', {});
     const key = await SecureStore.getItemAsync('airtableKey', {});
     onChangeText({ email: email2 });
@@ -103,6 +107,11 @@ const TellAboutOrganizationScreen = props => {
               onChangeText({ ...airtableState, org_name: text })
             }
           />
+
+          <View style={styles.sections}>
+            <UploadMedia circular title='Upload your logo' />
+          </View>
+
           <TextInput
             placeholder='Username'
             style={styles.obTextInput}
@@ -184,7 +193,7 @@ const TellAboutOrganizationScreen = props => {
                   { text: 'Got it' }
                 ]);
               } else {
-                sendAirtable(); // This sendss the airtable form and navigates. Also sends variables through navigation props.
+                sendAirtable(); // This sends the airtable form and navigates. Also sends variables through navigation props.
               }
             }}
           >
@@ -196,4 +205,12 @@ const TellAboutOrganizationScreen = props => {
   );
 };
 
-export default TellAboutOrganizationScreen;
+const mapStateToProps = state => ({
+  mediaUpload: state.mediaUpload
+});
+
+export default connect(mapStateToProps, { clearMedia })(
+  TellAboutOrganizationScreen
+);
+
+// profile_image: this.props.mediaUpload;
