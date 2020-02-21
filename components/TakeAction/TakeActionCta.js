@@ -7,20 +7,16 @@ import styles from '../../constants/TakeAction/TakeActionCta';
 const TakeActionCta = props => {
   const { profile } = props;
 
-  return (
+  return profile.org_cta && profile.org_cta !== null ? (
     <View style={styles.buttonContainer}>
       <TouchableOpacity
         style={styles.buttonTouch}
-        onPress={async () =>
-          profile.org_cta &&
-          profile.org_cta !== null &&
-          (await WebBrowser.openBrowserAsync(profile.org_cta))
-        }
+        onPress={async () => await WebBrowser.openBrowserAsync(profile.org_cta)}
       >
-        <Text style={styles.text}>Take Action</Text>
+        <Text style={styles.text}>Donate</Text>
       </TouchableOpacity>
     </View>
-  );
+  ) : null;
 };
 
 export default TakeActionCta;
