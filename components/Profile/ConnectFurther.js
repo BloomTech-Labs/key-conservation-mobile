@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, TouchableOpacity, Linking, Text } from 'react-native';
+import * as WebBrowser from 'expo-web-browser';
 
 import { navigate } from '../../navigation/RootNavigator';
 
@@ -21,7 +22,7 @@ import styles from '../../constants/Profile/ConnectFurther';
 
 const ConnectFurther = props => {
   const profile = props.profile;
-  const myProfile = props.currentUserProfile;
+  const myProfile = props.currentUserProfile.id === profile.id ? true : false;
 
   const editRoute = profile.roles === 'supporter' ? 'EditSupPro' : 'EditPro';
 

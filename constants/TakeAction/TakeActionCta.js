@@ -2,8 +2,6 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   buttonContainer: {
-    // borderColor: 'red',
-    // borderWidth: 2,
     flex: 1,
     padding: 15,
     width: '100%',
@@ -22,13 +20,12 @@ export default StyleSheet.create({
     borderRadius: 5,
     fontSize: 18,
     textAlign: 'center',
-    shadowColor: '#3b3b3b',
+    shadowColor: 'rgba(0, 0, 0, 0.25)',
     shadowOffset: {
-      width: 0,
-      height: 12
+      height: 4
     },
-    shadowOpacity: 0.4,
-    shadowRadius: 16.0
+    shadowRadius: 4,
+    shadowOpacity: 10
   },
   text: {
     color: '#323339',

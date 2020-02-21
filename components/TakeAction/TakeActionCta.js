@@ -18,7 +18,7 @@ const TakeActionCta = props => {
           (await WebBrowser.openBrowserAsync(profile.org_cta))
         }
       >
-        <Text style={styles.text}>Donate</Text>
+        <Text style={styles.text}>Take Action</Text>
       </TouchableOpacity>
     </View>
   );
