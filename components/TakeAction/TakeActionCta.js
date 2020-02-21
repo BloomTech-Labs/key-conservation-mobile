@@ -6,7 +6,6 @@ import styles from '../../constants/TakeAction/TakeActionCta';
 
 const TakeActionCta = props => {
   const { profile } = props;
-  console.log(profile.org_cta);
 
   return (
     <View style={styles.buttonContainer}>
