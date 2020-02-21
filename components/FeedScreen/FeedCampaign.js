@@ -25,7 +25,6 @@ import CommentIcon from '../../assets/jsicons/CommentIcon';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
 import CampaignActionSheet from '../Reports/CampaignActionSheet';
 import TakeActionCta from '../TakeAction/TakeActionCta';
-// components/TakeAction/TakeActionCta.js
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
@@ -38,8 +37,6 @@ const ViewportAwareVideo = Viewport.Aware(
 );
 
 const FeedCampaign = props => {
-  // const [likes, setLikes] = useState(props.data.likes.length);
-  // const [userLiked, setUserLiked] = useState(false);
   // const [userBookmarked, setUserBookmarked] = useState(false);
   const [urgTop, setUrgTop] = useState(0);
   const [loader, setLoader] = useState(true);
@@ -48,17 +45,11 @@ const FeedCampaign = props => {
 
   // console.log("PROPS FROM FEEDCAMPAIGN", props);
 
-  // old code for Likes + Bookmarks
+  // old code for Bookmarks
   // useEffect(() => {
-  //   const liked = data.likes.filter(
-  //     l => l.users_id === props.currentUserProfile.id
-  //   );
   //   const bookmarked = props.currentUserProfile.bookmarks.filter(
   //     b => b.camp_id === data.camp_id
   //   );
-  //   if (liked.length > 0) {
-  //     setUserLiked(true);
-  //   }
   //   if (bookmarked.length > 0) {
   //     setUserBookmarked(true);
   //   }
@@ -161,10 +152,6 @@ const FeedCampaign = props => {
       profile: data.username
     });
     navigate('Camp', {
-      // likes: likes,
-      // userLiked: userLiked,
-      // addLike: addLike,
-      // deleteLike: deleteLike,
       // userBookmarked: userBookmarked,
       // addBookmark: addBookmark,
       // deleteBookmark: deleteBookmark,
@@ -183,98 +170,6 @@ const FeedCampaign = props => {
       setLoader(false);
     }
   };
-
-  // const addLike = (campId, updateId) => {
-  //   if (updateId) {
-  //     axios
-  //       .post(
-  //         `${seturl}social/update/${data.update_id}`,
-  //         {
-  //           users_id: props.currentUserProfile.id,
-  //           update_id: data.update_id
-  //         },
-  //         {
-  //           headers: {
-  //             Accept: 'application/json',
-  //             Authorization: `Bearer ${props.token}`,
-  //             'Content-Type': 'application/json'
-  //           }
-  //         }
-  //       )
-  //       .then(res => {
-  //         setLikes(res.data.data.length);
-  //         setUserLiked(true);
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //       });
-  //   } else {
-  //     axios
-  //       .post(
-  //         `${seturl}social/likes/${campId}`,
-  //         {
-  //           users_id: props.currentUserProfile.id,
-  //           camp_id: campId
-  //         },
-  //         {
-  //           headers: {
-  //             Accept: 'application/json',
-  //             Authorization: `Bearer ${props.token}`,
-  //             'Content-Type': 'application/json'
-  //           }
-  //         }
-  //       )
-  //       .then(res => {
-  //         setLikes(res.data.data.length);
-  //         setUserLiked(true);
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //       });
-  //   }
-  // };
-
-  // const deleteLike = (campId, updateId) => {
-  //   if (updateId) {
-  //     axios
-  //       .delete(
-  //         `${seturl}social/update/${data.update_id}/${props.currentUserProfile.id}`,
-  //         {
-  //           headers: {
-  //             Accept: 'application/json',
-  //             Authorization: `Bearer ${props.token}`,
-  //             'Content-Type': 'application/json'
-  //           }
-  //         }
-  //       )
-  //       .then(res => {
-  //         setLikes(likes - 1);
-  //         setUserLiked(false);
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //       });
-  //   } else {
-  //     axios
-  //       .delete(
-  //         `${seturl}social/likes/${campId}/${props.currentUserProfile.id}`,
-  //         {
-  //           headers: {
-  //             Accept: 'application/json',
-  //             Authorization: `Bearer ${props.token}`,
-  //             'Content-Type': 'application/json'
-  //           }
-  //         }
-  //       )
-  //       .then(res => {
-  //         setLikes(likes - 1);
-  //         setUserLiked(false);
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //       });
-  //   }
-  // };
 
   // const addBookmark = () => {
   //   axios
@@ -421,43 +316,9 @@ const FeedCampaign = props => {
             )}
           </TouchableOpacity>
         </View>
-        {/* <View style={styles.iconRow}>
-        <View style={styles.likesContainer}>
-          <View style={styles.hearts}>
-            <View style={!userLiked ? { zIndex: 1 } : { zIndex: -1 }}>
-              <FontAwesome
-                onPress={() => addLike(data.camp_id)}
-                name="heart-o"
-                style={styles.heartOutline}
-              />
-            </View>
-
-            <View
-              animation={userLiked ? 'zoomIn' : 'zoomOut'}
-              style={
-                (userLiked ? { zIndex: 1 } : { zIndex: -1 },
-                Platform.OS === 'android'
-                  ? { marginTop: -29, marginLeft: -1.25 }
-                  : { marginTop: -28.75, marginLeft: -1.25 })
-              }
-              duration={300}
-            >
-              <FontAwesome
-                onPress={() => deleteLike(data.camp_id)}
-                name="heart"
-                style={styles.heartFill}
-              />
-            </View>
-          </View>
-          {likes === 0 ? null : likes > 1 ? (
-            <Text style={styles.likes}>{likes} likes</Text>
-          ) : (
-            <Text style={styles.likes}>{likes} like</Text>
-          )}
-        </View>
 
 
-        <View style={styles.bookmarks}>
+        {/* <View style={styles.bookmarks}>
           <View style={!userBookmarked ? { zIndex: 1 } : { zIndex: -1 }}>
             <FontAwesome
               onPress={() => addBookmark()}
@@ -480,38 +341,13 @@ const FeedCampaign = props => {
             />
           </View>
         </View>
-      </View> */}
-        {/* <View style={styles.campDesc}>
-        <Text style={styles.campDescName}>{data.camp_name}</Text>
-        {toggled || data.camp_desc.length < 80 ? (
-          <Text style={styles.campDescText}>{data.camp_desc}</Text>
-        ) : (
-          <Text style={styles.campDescText}>
-            {shorten(data.camp_desc, 80)}
-            &nbsp;
-            <Text onPress={toggleText} style={styles.readMore}>
-              Read More
-            </Text>
-          </Text>
-        )}
-      </View> */}
-        {/* <TouchableWithoutFeedback onPress={goToCampaign}>
-          <View style={{ flex: 1, marginHorizontal: 16 }}>
-            {data.comments.length > 0 && (
-              <Comment
-                comment={data.comments[data.comments.length - 1]}
-                selectedCampaign={data}
-                navigation={props.navigation}
-              />
-            )}
-          </View>
-        </TouchableWithoutFeedback> */}
+      </View>  */}
+
+     
         <View style={styles.commentContainer}>
           <TouchableOpacity style={styles.comments} onPress={goToCampaign}>
-            {/* View {data.comments.length} comment */}
             <CommentIcon />
             <Badge
-              // status='success'
               textStyle={{
                 color: 'black',
                 fontSize: 12
@@ -528,7 +364,7 @@ const FeedCampaign = props => {
             />
           </TouchableOpacity>
         </View>
-        {/* HERE !! */}
+ 
         <TakeActionCta profile={props.currentUserProfile} />
         {/* <View style={styles.campMission}>
           <View style={styles.donateButton}>
