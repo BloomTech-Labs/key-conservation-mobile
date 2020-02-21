@@ -123,7 +123,7 @@ class CreateCampScreen extends React.Component {
                 />
               </View>
               <View style={styles.mediaSection}>
-                <UploadMedia />
+                <UploadMedia title='Upload campaign image' />
               </View>
               <View style={styles.sections}>
                 <Text style={styles.sectionsText}>Campaign Details</Text>
