@@ -18,28 +18,33 @@ const Campaigns = props => {
         <View style={styles.container}>
           <ComingSoon />
         </View>
-      ) : null}
-      {profileData.campaigns?.map(camp => {
-        if (camp.update_id) {
-          return (
-            <FeedUpdate
-              disableHeader
-              key={`update${camp.update_id}`}
-              data={camp}
-              toggled
-            />
-          );
-        } else {
-          return (
-            <FeedCampaign
-              disableHeader
-              key={camp.camp_id}
-              data={camp}
-              toggled
-            />
-          );
-        }
-      })}
+      ) : profileData.campaigns?.length ? (
+        profileData.campaigns?.map(camp => {
+          if (camp.update_id) {
+            return (
+              <FeedUpdate
+                disableHeader
+                key={`update${camp.update_id}`}
+                data={camp}
+                toggled
+              />
+            );
+          } else {
+            return (
+              <FeedCampaign
+                disableHeader
+                key={camp.camp_id}
+                data={camp}
+                toggled
+              />
+            );
+          }
+        })
+      ) : (
+        <View style={styles.container}>
+          <CampBlankSpace />
+        </View>
+      )}
     </View>
   );
 };
