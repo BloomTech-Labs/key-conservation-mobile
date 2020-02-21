@@ -8,7 +8,8 @@ export default StyleSheet.create({
   },
   title: {
     fontFamily: 'Lato-Bold',
-    fontSize: 16,
+    alignSelf: 'center',
+    fontSize: 18,
     paddingLeft: 10
   },
   iconSection: {
