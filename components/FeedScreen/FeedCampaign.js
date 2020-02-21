@@ -24,6 +24,8 @@ import Ellipse from '../../assets/jsicons/Ellipse';
 import CommentIcon from '../../assets/jsicons/CommentIcon';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
 import CampaignActionSheet from '../Reports/CampaignActionSheet';
+import TakeActionCta from '../TakeAction/TakeActionCta';
+// components/TakeAction/TakeActionCta.js
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
@@ -124,13 +126,13 @@ const FeedCampaign = props => {
   } else if (data.urgency === 'Longterm') {
     urgencyColor = 'rgba(0,255,157,0.6)';
   } else {
-    urgencyColor = '#323338BF';
+    urgencyColor = 'none';
   }
   let urgencyStatus;
-  if (data.urgency) {
-    urgencyStatus = data.urgency.toUpperCase();
+  if (!data.urgency || data.urgency == 'null') {
+    urgencyStatus = '';
   } else {
-    urgencyStatus = 'Standard';
+    urgencyStatus = data.urgency.toUpperCase();
   }
 
   const urgencyStyles = {
@@ -410,7 +412,7 @@ const FeedCampaign = props => {
                 source={{ uri: data.camp_img }}
                 style={styles.campImgContain}
               >
-                {data.urgency ? (
+                {urgencyStatus ? (
                   <View style={urgencyStyles}>
                     <Text style={styles.urgencyBarText}>{urgencyStatus}</Text>
                   </View>
@@ -526,7 +528,38 @@ const FeedCampaign = props => {
             />
           </TouchableOpacity>
         </View>
-        {/* <Text style={styles.timeText}>{timeDiff}</Text> */}
+        {/* HERE !! */}
+        <TakeActionCta profile={props.currentUserProfile} />
+        {/* <View style={styles.campMission}>
+          <View style={styles.donateButton}>
+            <TouchableOpacity
+              onPress={async () =>
+                profile.org_cta &&
+                profile.org_cta !== null &&
+                (await WebBrowser.openBrowserAsync(profile.org_cta))
+              }
+              style={{
+                width: 240,
+                height: 48,
+                backgroundColor: '#00ff9d',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 5
+              }}
+            >
+              <Text
+                style={{
+                  color: '#323339',
+                  textTransform: 'uppercase',
+                  fontWeight: 'bold',
+                  letterSpacing: 2
+                }}
+              >
+                Donate
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View> */}
       </View>
       <View style={styles.demarcation} />
     </View>

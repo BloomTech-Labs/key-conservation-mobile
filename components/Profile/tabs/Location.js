@@ -4,13 +4,11 @@ import { ScrollView } from 'react-navigation';
 import LocationMap from '../../Location/LocationMap';
 
 const Location = props => {
-    return (
-      <ScrollView>
-        <LocationMap
-          profile={props.profile}
-        />
-      </ScrollView>
-    );
-}
+  return (
+    <ScrollView>
+      <LocationMap profile={props.profile} />
+    </ScrollView>
+  );
+};
 
 export default Location;
