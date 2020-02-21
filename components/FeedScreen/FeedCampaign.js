@@ -24,6 +24,8 @@ import Ellipse from '../../assets/jsicons/Ellipse';
 import CommentIcon from '../../assets/jsicons/CommentIcon';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
 import CampaignActionSheet from '../Reports/CampaignActionSheet';
+import TakeActionCta from '../TakeAction/TakeActionCta';
+// components/TakeAction/TakeActionCta.js
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
@@ -526,7 +528,38 @@ const FeedCampaign = props => {
             />
           </TouchableOpacity>
         </View>
-        {/* <Text style={styles.timeText}>{timeDiff}</Text> */}
+        {/* HERE !! */}
+        <TakeActionCta profile={props.currentUserProfile} />
+        {/* <View style={styles.campMission}>
+          <View style={styles.donateButton}>
+            <TouchableOpacity
+              onPress={async () =>
+                profile.org_cta &&
+                profile.org_cta !== null &&
+                (await WebBrowser.openBrowserAsync(profile.org_cta))
+              }
+              style={{
+                width: 240,
+                height: 48,
+                backgroundColor: '#00ff9d',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 5
+              }}
+            >
+              <Text
+                style={{
+                  color: '#323339',
+                  textTransform: 'uppercase',
+                  fontWeight: 'bold',
+                  letterSpacing: 2
+                }}
+              >
+                Donate
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View> */}
       </View>
       <View style={styles.demarcation} />
     </View>
