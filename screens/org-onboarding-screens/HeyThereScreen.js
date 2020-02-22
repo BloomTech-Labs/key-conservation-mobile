@@ -10,8 +10,11 @@ import styles from '../../constants/screens/org-onboarding-styles/HeyThere.js';
 import { logout } from '../../store/actions';
 import { useDispatch } from 'react-redux';
 
-const HeyThereScreen = props => {
+import NavigateButton from './formElement/NavigateButton';
+import BackArrowHeader from '../../assets/jsicons/miscIcons/BackArrowHeader.js';
+import NavigateBack from './formElement/NavigateBack.js';
 
+const HeyThereScreen = props => {
   const dispatch = useDispatch();
 
   const logoutPressed = () => {
@@ -22,9 +25,12 @@ const HeyThereScreen = props => {
       source={require('../../assets/images/onboarding/sg2.png')}
       style={{ width: '100%', height: '100%' }}
     >
-      <TouchableOpacity onPress={logoutPressed} style={styles.arrowView}>
-        <Image source={require('../../assets/images/onboarding/w_arrow.png')} />
-      </TouchableOpacity>
+      <NavigateBack
+        onArrowPress={() => {
+          dispatch(logout());
+        }}
+        logoutPressed={logoutPressed}
+      />
       <View style={styles.obBody}>
         <View style={styles.spacer} />
         <View style={styles.obBorderView}>
@@ -38,14 +44,13 @@ const HeyThereScreen = props => {
           </Text>
         </View>
         <View style={styles.buttons}>
-          <TouchableOpacity
-            style={styles.obFwdContainer}
-            onPress={() => {
+          <NavigateButton
+            onButtonPress={() => {
               props.navigation.navigate('ToExpect');
             }}
-          >
-            <Text style={styles.obFwdBtnText}>Next</Text>
-          </TouchableOpacity>
+            color='white'
+            label='Next'
+          />
         </View>
       </View>
     </ImageBackground>

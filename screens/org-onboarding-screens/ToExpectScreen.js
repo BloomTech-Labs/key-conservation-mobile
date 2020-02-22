@@ -1,7 +1,16 @@
 import React from 'react';
-import { View, ScrollView, Text, Button, TouchableOpacity } from 'react-native';
+import {
+  View,
+  ScrollView,
+  Text,
+  Button,
+  TouchableOpacity,
+  Dimensions
+} from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/ToExpect.js';
 import CheckCircleWhite from '../../assets/jsicons/OnBoarding/CheckCircleWhite';
+
+import NavigateButton from './formElement/NavigateButton';
 
 const ToExpectScreen = props => {
   return (
@@ -48,6 +57,15 @@ const ToExpectScreen = props => {
             </Text>
           </View>
         </View>
+        {/* <NavigateButton
+          onButtonPress={() => {
+            props.navigation.navigate('ToExpect');
+          }}
+          //   color='black'
+          label='Next'
+          top={400}
+          right={40}
+        /> */}
         <TouchableOpacity
           style={styles.obFwdContainer}
           onPress={() => {

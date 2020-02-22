@@ -54,17 +54,18 @@ export default {
     alignItems: 'center',
     marginRight: '5%'
   },
-  obFwdBtnText: {
-    fontFamily: 'Lato-Bold',
-    fontStyle: 'normal',
-    fontSize: 18,
-    lineHeight: 25,
-    color: '#000'
-  },
+  //   obFwdBtnText: {
+  //     fontFamily: 'Lato-Bold',
+  //     fontStyle: 'normal',
+  //     fontSize: 18,
+  //     lineHeight: 25,
+  //     color: '#000'
+  //   },
   arrowView: {
-    flexDirection: 'column',
-    paddingTop: '15%',
-    paddingLeft: '10%'
+    zIndex: 3,
+    position: 'absolute',
+    padding: '15%',
+    top: '2.5%'
   },
   obRectangle1: {
     position: 'absolute',
