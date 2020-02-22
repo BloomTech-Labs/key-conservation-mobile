@@ -1,13 +1,9 @@
 import React from 'react';
-import {
-  Button,
-  View,
-  Text,
-  TouchableOpacity,
-  ImageBackground,
-  Image
-} from 'react-native';
+import { View, Text, ImageBackground } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/KeyConservation.js';
+
+import NavigateButton from './formElement/NavigateButton';
+import NavigateBack from './formElement/NavigateBack.js';
 
 const KeyConservationScreen = props => {
   return (
@@ -16,6 +12,14 @@ const KeyConservationScreen = props => {
       style={{ width: '100%', height: '100%' }}
     >
       <View style={styles.obBody}>
+        <View style={styles.arrowView}>
+          <NavigateBack
+            color='white'
+            onButtonPress={() => {
+              props.navigation.navigate('ToExpect');
+            }}
+          />
+        </View>
         <View style={styles.spacer} />
         <View style={styles.obBorderView}>
           <Text style={styles.obTitle}>
@@ -23,14 +27,13 @@ const KeyConservationScreen = props => {
           </Text>
         </View>
         <View style={styles.buttons}>
-          <TouchableOpacity
-            style={styles.obFwdContainer}
-            onPress={() => {
+          <NavigateButton
+            onButtonPress={() => {
               props.navigation.navigate('Can');
             }}
-          >
-            <Text style={styles.obFwdBtnText}>Next</Text>
-          </TouchableOpacity>
+            color='white'
+            label='Next'
+          />
         </View>
       </View>
     </ImageBackground>

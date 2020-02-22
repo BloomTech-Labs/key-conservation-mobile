@@ -1,37 +1,29 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ImageBackground,
-  Image
-} from 'react-native';
+import { View, Text, ImageBackground } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/HeyThere.js';
 import { logout } from '../../store/actions';
 import { useDispatch } from 'react-redux';
 
 import NavigateButton from './formElement/NavigateButton';
-import BackArrowHeader from '../../assets/jsicons/miscIcons/BackArrowHeader.js';
 import NavigateBack from './formElement/NavigateBack.js';
 
 const HeyThereScreen = props => {
   const dispatch = useDispatch();
 
-  const logoutPressed = () => {
-    dispatch(logout());
-  };
   return (
     <ImageBackground
       source={require('../../assets/images/onboarding/sg2.png')}
       style={{ width: '100%', height: '100%' }}
     >
-      <NavigateBack
-        onArrowPress={() => {
-          dispatch(logout());
-        }}
-        logoutPressed={logoutPressed}
-      />
       <View style={styles.obBody}>
+        <View style={styles.arrowView}>
+          <NavigateBack
+            onButtonPress={() => {
+              dispatch(logout());
+            }}
+            color='#FFF'
+          />
+        </View>
         <View style={styles.spacer} />
         <View style={styles.obBorderView}>
           <Text style={styles.obTitle}>Hey There!</Text>

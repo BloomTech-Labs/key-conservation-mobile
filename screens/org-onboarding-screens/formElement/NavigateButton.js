@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, Text, Dimensions } from 'react-native';
+import { responsiveFontSize } from 'react-native-responsive-dimensions';
 
 //NavigationButton props:
 // onButtonPress -> button function
@@ -9,7 +10,7 @@ const NavigateButton = props => {
   return (
     <TouchableOpacity
       style={
-        !props.color
+        !props.color || props.color === 'black'
           ? [styles.obFwdContainer, { ...props }]
           : [styles.obFwdContainer, styles.white, { ...props }]
       }
@@ -39,19 +40,15 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#000',
     borderRadius: 5,
-    alignSelf: 'flex-end',
-    justifyContent: 'center',
     alignItems: 'center',
-    margin: 25,
-    top: Dimensions.get('screen').height * 0.1,
-    right: Dimensions.get('screen').width * 0.01
+    margin: '10%'
   },
   obFwdBtnText: {
     fontFamily: 'Lato-Bold',
     fontStyle: 'normal',
-    fontSize: 18,
-    lineHeight: 25,
-    color: '#000000'
+    fontSize: responsiveFontSize(2.3),
+    color: '#000000',
+    margin: '5%'
   },
   white: {
     borderColor: '#fff',
