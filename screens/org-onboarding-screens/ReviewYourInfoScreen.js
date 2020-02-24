@@ -99,9 +99,7 @@ const ReviewYourInfoScreen = props => {
           console.error(err);
           return;
         }
-        records.forEach(function(record) {
-          // console.log(record.getId());
-        });
+        records.forEach(function(record) {});
       }
     );
   };
@@ -595,7 +593,6 @@ const ReviewYourInfoScreen = props => {
               } else {
                 updateAirtable();
                 const sub = await SecureStore.getItemAsync('sub', {});
-                const role = await SecureStore.getItemAsync('roles', {});
                 if (props.mediaUpload) {
                   setState({ ...state, profile_image: props.mediaUpload });
                 }
@@ -616,7 +613,7 @@ const ReviewYourInfoScreen = props => {
                   org_cta: state.org_cta,
                   mini_bio: state.mini_bio,
                   about_us: state.about_us,
-                  roles: role,
+                  roles: 'conservationist',
                   sub: sub,
                   profile_image: state.profile_image
                 });
