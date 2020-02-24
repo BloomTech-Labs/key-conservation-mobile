@@ -148,6 +148,7 @@ class ProfileScreen extends React.Component {
             loading={this.state.loading}
             navigation={navigation}
             profile={profileData}
+            profileId={this.profileId}
             myProfile={profileData === this.props.currentUserProfile}
           />
           {this.state.loading ? (

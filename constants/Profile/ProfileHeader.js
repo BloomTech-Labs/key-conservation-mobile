@@ -1,6 +1,4 @@
-import { StyleSheet } from 'react-native';
-
-const styles = StyleSheet.create({
+export default {
   container: {
     flex: 1,
     alignItems: 'flex-start',
@@ -94,12 +92,50 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     flex: 1
   },
-
   CampaignButton: {
     fontSize: 18,
     color: '#000',
     fontWeight: 'bold',
     fontFamily: 'Lato-Bold'
+  },
+  buttonContainer: {
+    paddingHorizontal: 15,
+    borderLeftWidth: 1,
+    borderColor: 'white',
+    width: '35%'
+  },
+  connectButton: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    fontFamily: 'Lato-Bold',
+    marginVertical: 15,
+    alignSelf: 'flex-end',
+    width: '100%'
+  },
+  connectContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: '100%',
+    alignItems: 'center'
+  },
+  connectText: {
+    color: 'white',
+    paddingHorizontal: 25
+    // borderRightWidth: 1,
+    // borderRightColor: 'white'
+  },
+  textNumber: {
+    color: 'white',
+    fontSize: 20,
+    textAlign: 'center'
+  },
+  textWord: {
+    color: 'white',
+    textAlign: 'center',
+    color: '#fff',
+    fontWeight: 'bold',
+    fontFamily: 'Lato-Bold',
+    fontSize: 18
   },
   DetailButton: {
     fontSize: 18,
@@ -107,6 +143,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'Lato-Bold'
   }
-});
-
-export default styles;
+};
