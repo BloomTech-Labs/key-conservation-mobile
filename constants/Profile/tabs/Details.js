@@ -3,14 +3,14 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E5E5E5',
+    backgroundColor: '#F2F2FB',
     paddingHorizontal: 8
   },
   sections: {
     marginTop: 8,
     backgroundColor: '#fff',
     width: '100%',
-    padding: 25,
+    padding: 16,
     borderRadius: 5,
     fontSize: 15
   },
@@ -36,8 +36,8 @@ export default StyleSheet.create({
   title: {
     fontSize: 18,
     alignSelf: 'center',
-    marginLeft: 10,
-    fontFamily: 'Lato'
+    paddingLeft: 10,
+    fontFamily: 'Lato-Bold'
   },
   body: {
     marginTop: 10,
@@ -69,7 +69,7 @@ export default StyleSheet.create({
   donateButton: {
     alignItems: 'center',
     width: '100%',
-    marginTop: 24,
+    marginTop: 24
   },
   donateText: {
     marginTop: 10,

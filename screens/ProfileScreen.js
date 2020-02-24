@@ -51,18 +51,15 @@ class ProfileScreen extends React.Component {
     }
   };
 
-  // componentDidUpdate() {
-  //   // if (this.props.isFocused) this.initProfileData();
-  // }
   componentDidMount = () => {
     this.initProfileData();
-  
+
     this._sub = this.props.navigation.addListener(
       'didFocus',
       this.initProfileData
     );
-  }
-  
+  };
+
   componentWillUnmount() {
     this._sub.remove();
   }
@@ -169,7 +166,7 @@ class ProfileScreen extends React.Component {
 
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
-  admin: state.currentUserProfile.admin,
+  admin: state.currentUserProfile.admin
 });
 
 export default connect(mapStateToProps, { getProfileData, createReport })(

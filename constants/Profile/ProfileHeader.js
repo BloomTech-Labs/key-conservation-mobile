@@ -1,4 +1,6 @@
-export default {
+import { StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'flex-start',
@@ -16,7 +18,7 @@ export default {
   bioContainer: {
     marginTop: 25,
     marginBottom: 25,
-    width:'80%',
+    width: '80%'
   },
   socialContainer: {
     flexDirection: 'row',
@@ -105,4 +107,6 @@ export default {
     fontWeight: 'bold',
     fontFamily: 'Lato-Bold'
   }
-};
+});
+
+export default styles;

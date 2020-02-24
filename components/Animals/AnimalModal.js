@@ -3,7 +3,7 @@ import { Modal, View, TouchableOpacity, Text } from 'react-native';
 
 //import icons
 import BackArrow from '../../assets/jsicons/miscIcons/BackArrow';
-import KeyInfoGreen from '../../assets/jsicons/KeyCon/Key_Info_Green';
+import KeyInfoYellow from '../../assets/jsicons/KeyCon/KeyInfoYellow';
 
 //import components
 import Animals from '../Animals/Animals';
@@ -30,7 +30,7 @@ const AnimalModal = props => {
           <View style={styles.headerInfo}>
             <View style={styles.headerTitle}>
               <View style={styles.keyIcon}>
-                <KeyInfoGreen />
+                <KeyInfoYellow />
               </View>
               <Text style={styles.title}>Species Patterns</Text>
             </View>
