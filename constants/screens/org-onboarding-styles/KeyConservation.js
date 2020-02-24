@@ -1,10 +1,13 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 
 export default StyleSheet.create({
   obBody: {
+    borderColor: 'purple',
+    borderWidth: 2,
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'flex-start',
+    height: Dimensions.get('window').height * 0.9
   },
   arrowView: {
     zIndex: 3,
@@ -31,17 +34,13 @@ export default StyleSheet.create({
     // fontSize: 28,
     lineHeight: 38,
     marginLeft: '15%',
-    marginTop: '45%',
+    marginTop: '65%',
     marginBottom: '3%',
     marginRight: '15%',
     height: '40%'
   },
-  spacer: {
-    flexGrow: 2
-  },
   buttons: {
-    flexGrow: 1,
-    justifyContent: 'flex-end',
+    flex: 0,
     alignItems: 'flex-end'
   }
 });

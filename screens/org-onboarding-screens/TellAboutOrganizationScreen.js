@@ -15,6 +15,8 @@ import { connect } from 'react-redux';
 import { clearMedia } from '../../store/actions';
 import UploadMedia from '../../components/UploadMedia';
 import * as SecureStore from 'expo-secure-store';
+import NavigateButton from './formElement/NavigateButton';
+import NavigateBack from './formElement/NavigateBack.js';
 
 const TellAboutOrganizationScreen = props => {
   const [airtableKey, setAirtableKey] = useState({
@@ -95,6 +97,14 @@ const TellAboutOrganizationScreen = props => {
     >
       <ScrollView>
         <View style={styles.obBody}>
+          <View style={styles.arrowView}>
+            <NavigateBack
+              onButtonPress={() => {
+                props.navigation.navigate('MakeAccount');
+              }}
+              color='#000'
+            />
+          </View>
           <Text style={styles.obTitle}>Tell us about your organization.</Text>
 
           <Text style={styles.obText}>
@@ -203,6 +213,15 @@ const TellAboutOrganizationScreen = props => {
           >
             <Text style={styles.obFwdBtnText}>Next</Text>
           </TouchableOpacity>
+          <View style={styles.buttons}>
+            <NavigateButton
+              onButtonPress={() => {
+                props.navigation.navigate('MakeAccount');
+              }}
+              //   color='white'
+              label='Next'
+            />
+          </View>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

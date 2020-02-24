@@ -1,15 +1,18 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 
 export default StyleSheet.create({
   obBody: {
+    borderColor: 'purple',
+    borderWidth: 2,
     flex: 1,
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
+    height: Dimensions.get('window').height * 0.9
   },
   obBorderView: {
     alignSelf: 'center',
     borderRadius: 360,
-    marginTop: '15%',
+    marginTop: '35%',
     marginHorizontal: '10%',
     height: '55%'
   },
@@ -52,11 +55,7 @@ export default StyleSheet.create({
   },
 
   buttons: {
-    flexGrow: 2,
-    justifyContent: 'flex-end',
+    flex: 0,
     alignItems: 'flex-end'
-  },
-  spacer: {
-    flexGrow: 2
   }
 });

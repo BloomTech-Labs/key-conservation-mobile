@@ -11,30 +11,29 @@ const KeyConservationScreen = props => {
       source={require('../../assets/images/onboarding/sg3.png')}
       style={{ width: '100%', height: '100%' }}
     >
+      <View style={styles.arrowView}>
+        <NavigateBack
+          color='white'
+          onButtonPress={() => {
+            props.navigation.navigate('ToExpect');
+          }}
+        />
+      </View>
       <View style={styles.obBody}>
-        <View style={styles.arrowView}>
-          <NavigateBack
-            color='white'
-            onButtonPress={() => {
-              props.navigation.navigate('ToExpect');
-            }}
-          />
-        </View>
-        <View style={styles.spacer} />
         <View style={styles.obBorderView}>
           <Text style={styles.obTitle}>
             Let's go over how Key Conservation works
           </Text>
         </View>
-        <View style={styles.buttons}>
-          <NavigateButton
-            onButtonPress={() => {
-              props.navigation.navigate('Can');
-            }}
-            color='white'
-            label='Next'
-          />
-        </View>
+      </View>
+      <View style={styles.buttons}>
+        <NavigateButton
+          onButtonPress={() => {
+            props.navigation.navigate('Can');
+          }}
+          color='white'
+          label='Next'
+        />
       </View>
     </ImageBackground>
   );

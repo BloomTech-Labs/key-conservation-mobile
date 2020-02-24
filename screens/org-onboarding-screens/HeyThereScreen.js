@@ -15,16 +15,15 @@ const HeyThereScreen = props => {
       source={require('../../assets/images/onboarding/sg2.png')}
       style={{ width: '100%', height: '100%' }}
     >
+      <View style={styles.arrowView}>
+        <NavigateBack
+          onButtonPress={() => {
+            dispatch(logout());
+          }}
+          color='#FFF'
+        />
+      </View>
       <View style={styles.obBody}>
-        <View style={styles.arrowView}>
-          <NavigateBack
-            onButtonPress={() => {
-              dispatch(logout());
-            }}
-            color='#FFF'
-          />
-        </View>
-        <View style={styles.spacer} />
         <View style={styles.obBorderView}>
           <Text style={styles.obTitle}>Hey There!</Text>
           <Text style={styles.obSubtitle}>
@@ -35,15 +34,15 @@ const HeyThereScreen = props => {
             creating a custom page for your organization.
           </Text>
         </View>
-        <View style={styles.buttons}>
-          <NavigateButton
-            onButtonPress={() => {
-              props.navigation.navigate('ToExpect');
-            }}
-            color='white'
-            label='Next'
-          />
-        </View>
+      </View>
+      <View style={styles.buttons}>
+        <NavigateButton
+          onButtonPress={() => {
+            props.navigation.navigate('ToExpect');
+          }}
+          color='white'
+          label='Next'
+        />
       </View>
     </ImageBackground>
   );
