@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, Button, TouchableOpacity } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import styles from '../../constants/Connections/Cards';
@@ -19,21 +19,16 @@ const People = props => {
     getConnections();
   }, []);
 
-  let currentUserConnections =
-    props.connections === undefined
-      ? null
-      : props.connections.filter(
-          connection =>
-            ((props.currentUserProfile.id === connection.connector_id ||
-              props.currentUserProfile.id === connection.connected_id) &&
-              connection.status === 'approved') ||
-            'accepted'
-        );
+  let currentUserConnections = props.connections?.filter(
+    connection =>
+      (props.currentUserProfile.id === connection.connector_id ||
+        props.currentUserProfile.id === connection.connected_id) &&
+      connection.status === 'Connected'
+  );
 
-  let type;
   return (
     <View style={styles.mainContainer}>
-      {currentUserConnections.map(connection => (
+      {currentUserConnections?.map(connection => (
         <View style={styles.card} key={connection.connection_id}>
           <View
             style={styles.peopleCardContainer}

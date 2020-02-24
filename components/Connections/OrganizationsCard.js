@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { getConnections } from '../../store/actions';
 import { Avatar } from 'react-native-elements';
@@ -18,19 +18,18 @@ const OrganizationsCard = props => {
     getConnections();
   }, []);
 
-  let currentUserConnections =
-    props.connections === undefined
-      ? null
-      : props.connections.filter(
-          connection =>
-            (props.currentUserProfile.id === connection.connector_id ||
-              props.currentUserProfile.id === connection.connected_id) &&
-            (connection.status === 'approved' || 'accepted')
-        );
+  let currentUserConnections = props.connections?.filter(
+    connection =>
+      (props.currentUserProfile.id === connection.connector_id ||
+        props.currentUserProfile.id === connection.connected_id) &&
+      connection.status === 'Connected'
+  );
+
+  console.log('CURRENT USER CONNECTIONS', currentUserConnections);
 
   return (
     <View style={styles.mainContainer}>
-      {currentUserConnections.map(connection => (
+      {currentUserConnections?.map(connection => (
         <View style={styles.card} key={connection.connection_id}>
           <View style={styles.cardContainer} key={connection.connection_id}>
             <View style={styles.imageContainer} key={connection.connection_id}>

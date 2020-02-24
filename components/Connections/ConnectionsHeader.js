@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, View, Button, Text, Alert } from 'react-native';
 import { connect } from 'react-redux';
+import { withNavigation } from 'react-navigation';
 import {
   getConnections,
   connectRequest,
@@ -14,8 +15,6 @@ const Connect = props => {
   const getConnections = async () => {
     try {
       const connection = await props.getConnections(props.profileId);
-      console.log('CONNECTIONS', connection);
-      console.log('CONNECTIONS ERROR', connection);
       if (connection.length !== undefined) setConnections(connection);
       else throw new Error(connection);
     } catch (error) {
@@ -44,7 +43,6 @@ const Connect = props => {
   };
 
   const disconnect = () => {
-    console.log('MY CONNECTION', myConnection);
     setConnections(
       connections.filter(c => c.connection_id !== myConnection.connection_id)
     );
@@ -95,7 +93,10 @@ const Connect = props => {
 
   return (
     <View style={styles.connectContainer}>
-      <TouchableOpacity style={styles.connectText}>
+      <TouchableOpacity
+        style={styles.connectText}
+        onPress={() => props.navigation.navigate('Connections')}
+      >
         <Text style={styles.textNumber}>{selectedUserConnections.length}</Text>
         <View>
           <Text style={styles.textWord}>Connections</Text>
@@ -135,4 +136,4 @@ export default connect(mapStateToProps, {
   connectRequest,
   deleteConnection,
   getConnections
-})(Connect);
+})(withNavigation(Connect));

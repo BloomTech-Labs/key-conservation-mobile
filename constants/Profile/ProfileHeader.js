@@ -99,16 +99,16 @@ export default {
     fontFamily: 'Lato-Bold'
   },
   buttonContainer: {
-    paddingHorizontal: 15,
+    paddingHorizontal: 30,
     borderLeftWidth: 1,
     borderColor: 'white',
-    width: '35%'
+    width: '45%'
   },
   connectButton: {
     backgroundColor: '#fff',
     borderRadius: 10,
     fontFamily: 'Lato-Bold',
-    marginVertical: 15,
+    marginVertical: 5,
     alignSelf: 'flex-end',
     width: '100%'
   },
@@ -120,7 +120,7 @@ export default {
   },
   connectText: {
     color: 'white',
-    paddingHorizontal: 25
+    paddingHorizontal: 45
     // borderRightWidth: 1,
     // borderRightColor: 'white'
   },

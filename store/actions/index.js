@@ -886,16 +886,13 @@ export const createReport = (postType, postId, desc) => dispatch => {
 };
 
 export const getConnections = id => dispatch => {
-  // console.log('i am id', id)
   return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .get(`${seturl}users/connect/${id}`)
       .then(res => {
-        // console.log('hello', res)
         return res.data;
       })
       .catch(err => {
-        // console.log('get connections error', err)
         return err.message;
       });
   });
@@ -908,7 +905,6 @@ export const connectRequest = connected_id => dispatch => {
       .post(url)
       .then(res => {})
       .catch(err => {
-        console.log('POST ERROR', err);
         return err.message;
       });
   });
@@ -926,7 +922,6 @@ export const editConnectStatus = connection_id => dispatch => {
 
 export const deleteConnection = (connection_id, userId) => dispatch => {
   return axiosWithAuth(dispatch, aaxios => {
-    console.log('CONNECTION ID', connection_id);
     return aaxios
       .delete(`${seturl}users/connect/${connection_id}`)
       .then(res => {})
