@@ -10,8 +10,6 @@ import {
 import styles from '../../constants/screens/org-onboarding-styles/OrganizationSurvey';
 import NavigateButton from './formElement/NavigateButton.js';
 
-import * as SecureStore from 'expo-secure-store';
-
 const AccountScreen = props => {
   const [values, handleChange] = useState({
     mini_bio: '',
@@ -29,7 +27,7 @@ const AccountScreen = props => {
   );
   const key = props.navigation.getParam('airtableKey', 'defaultValue');
 
-  handleSubmit = async () => {
+  const handleSubmit = async () => {
     airtableStateAdd = Object.assign({ ...airtableState, ...values }); // Updates state for backend with new fields.
     props.navigation.navigate('ReviewYourInfo', {
       airtableState: airtableStateAdd,

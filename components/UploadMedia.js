@@ -43,7 +43,6 @@ class UploadMedia extends Component {
 
   componentDidMount() {
     this.getPermissionAsync();
-    console.log('this.props.title', this.props.title);
   }
 
   clearState = () => {

@@ -27,8 +27,6 @@ const TellMoreScreen = props => {
     smartphone_type: ''
   });
 
-  const [thing, setThing] = useState('');
-
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const airtableKey = props.navigation.getParam('airtableKey', 'defaultValue');
@@ -45,6 +43,7 @@ const TellMoreScreen = props => {
 
   useEffect(() => {
     setAirtableID();
+    console.log('airtableState2', airtableState2);
   });
 
   const airtableStateAdd = Object.assign({

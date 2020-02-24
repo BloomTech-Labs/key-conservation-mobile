@@ -185,7 +185,7 @@ export const getCustomById = (table_name, id) => dispatch => {
   });
 };
 
-//// These actions are for the loading page to determine if:
+// These actions are for the loading page to determine if:
 // A) The user is logged in
 // B) The account exists and user is not logged in
 // C) The user has a sub and needs to register
