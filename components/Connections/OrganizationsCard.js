@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text } from 'react-native';
 import { getConnections } from '../../store/actions';
 import { Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -24,8 +24,6 @@ const OrganizationsCard = props => {
         props.currentUserProfile.id === connection.connected_id) &&
       connection.status === 'Connected'
   );
-
-  console.log('CURRENT USER CONNECTIONS', currentUserConnections);
 
   return (
     <View style={styles.mainContainer}>

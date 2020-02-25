@@ -70,9 +70,7 @@ const Connect = props => {
   };
 
   let selectedUserConnections =
-    connections?.filter(
-      connect => connect.status === 'accepted' || connect.status === 'Connected'
-    ) || [];
+    connections?.filter(connect => connect.status === 'Connected') || [];
 
   const myConnection = connections?.find(
     connection =>
