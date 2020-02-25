@@ -81,12 +81,15 @@ const Connect = props => {
   );
 
   const isConnected = myConnection && myConnection.status !== 'Pending';
+  const isPending = myConnection && myConnection.status === 'Pending';
 
   const buttonTitle =
     props.profileData?.roles === 'conservationist'
       ? isConnected
         ? 'Following'
         : 'Follow'
+      : isPending
+      ? 'Pending'
       : isConnected
       ? 'Connected'
       : 'Connect';
