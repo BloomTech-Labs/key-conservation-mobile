@@ -15,7 +15,7 @@ const Connect = props => {
   const getConnections = async () => {
     try {
       const connection = await props.getConnections(props.profileId);
-      if (connection.length !== undefined) setConnections(connection);
+      if (Array.isArray(connection)) setConnections(connection);
       else throw new Error(connection);
     } catch (error) {
       Alert.alert('Failed to get connections');
@@ -69,8 +69,12 @@ const Connect = props => {
     );
   };
 
-  let selectedUserConnections =
-    connections?.filter(connect => connect.status === 'Connected') || [];
+  let selectedUserConnections = connections?.filter
+    ? connections.filter(
+        connect =>
+          connect.status === 'accepted' || connect.status === 'Connected'
+      )
+    : [];
 
   const myConnection = connections?.find(
     connection =>
@@ -96,7 +100,9 @@ const Connect = props => {
     <View style={styles.connectContainer}>
       <TouchableOpacity
         style={styles.connectText}
-        onPress={() => props.navigation.navigate('Connections')}
+        onPress={() =>
+          props.navigation.navigate('Connections', (props = { props }))
+        }
       >
         <Text style={styles.textNumber}>{selectedUserConnections.length}</Text>
         <View>

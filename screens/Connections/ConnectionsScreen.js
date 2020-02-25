@@ -22,7 +22,6 @@ export default class ConnectionsScreen extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log('PROPS', props.profileData);
 
     const routes = [
       { key: 'organizations', title: 'Organizations' },

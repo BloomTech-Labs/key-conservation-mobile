@@ -1,34 +1,71 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, Button, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import styles from '../../constants/Connections/Cards';
 import X from '../../assets/jsicons/miscIcons/X';
-import { getConnections } from '../../store/actions';
+import { getConnections, deleteConnection } from '../../store/actions';
 import { connect } from 'react-redux';
 
 const People = props => {
+  const [connections, setConnections] = useState([]);
+
   const getConnections = async () => {
     try {
-      await props.getConnections(props.currentUserProfile.id);
+      const connection = await props.getConnections(
+        props.currentUserProfile.id
+      );
+      if (Array.isArray(connection)) setConnections(connection);
+      else throw new Error(connection);
     } catch (error) {
-      Alert.alert(error);
+      Alert.alert('Failed to get connections');
     }
+  };
+
+  const disconnect = () => {
+    setConnections(
+      connections.filter(
+        c => c.connection_id !== myPendingConnection.connection_id
+      )
+    );
+    props.deleteConnection(myPendingConnection.connection_id).then(error => {
+      if (error) Alert.alert('Failed to decline connection');
+      getConnections();
+    });
+  };
+
+  const promptDelete = () => {
+    Alert.alert(
+      'Decline Connection',
+      `Are you sure you want to decline this connection?`,
+      [
+        {
+          text: 'Decline',
+          style: 'destructive',
+          onPress: disconnect
+        },
+        { text: 'Cancel', style: 'cancel' }
+      ]
+    );
   };
 
   useEffect(() => {
     getConnections();
   }, []);
 
-  let currentUserConnections = props.connections?.filter(
-    connection =>
-      (props.currentUserProfile.id === connection.connector_id ||
-        props.currentUserProfile.id === connection.connected_id) &&
-      connection.status === 'Connected'
+  const myPendingConnection = connections?.find(
+    connection => connection.connected_id === props.currentUserProfile.id
   );
+
+  let currentUserPendingConnections = connections?.filter
+    ? connections.filter(
+        connect =>
+          connect.status === 'Pending' && connect.connector_role === 'supporter'
+      )
+    : [];
 
   return (
     <View style={styles.mainContainer}>
-      {currentUserConnections?.map(connection => (
+      {currentUserPendingConnections?.map(connection => (
         <View style={styles.card} key={connection.connection_id}>
           <View
             style={styles.peopleCardContainer}
@@ -44,14 +81,16 @@ const People = props => {
                   rounded
                   key={connection.connection_id}
                   source={{
-                    uri: connection.avatar
+                    uri: connection.connector_avatar
                   }}
                 />
               </View>
               <View>
                 <Text key={connection.connection_id} style={styles.name}>
-                  {connection.name === null ? '---' : connection.name} wants to
-                  connect
+                  {connection.connector_name === null
+                    ? '---'
+                    : connection.connector_name}{' '}
+                  wants to connect
                 </Text>
               </View>
             </View>
@@ -59,7 +98,9 @@ const People = props => {
               <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}>Connect</Text>
               </TouchableOpacity>
-              <X />
+              <TouchableOpacity onPress={() => promptDelete()}>
+                <X />
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -71,4 +112,6 @@ const mapStateToProps = state => ({
   connections: state.connections,
   currentUserProfile: state.currentUserProfile
 });
-export default connect(mapStateToProps, { getConnections })(People);
+export default connect(mapStateToProps, { getConnections, deleteConnection })(
+  People
+);

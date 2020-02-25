@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import { getConnections } from '../../store/actions';
 import { Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
 import styles from '../../constants/Connections/Cards';
 
 const OrganizationsCard = props => {
+  const [connections, setConnections] = useState([]);
+
   const getConnections = async () => {
     try {
-      await props.getConnections(props.currentUserProfile.id);
+      const connection = await props.getConnections(
+        props.currentUserProfile.id
+      );
+      if (Array.isArray(connection)) setConnections(connection);
+      else throw new Error(connection);
     } catch (error) {
-      Alert.alert(error);
+      Alert.alert('Failed to get connections');
     }
   };
 
@@ -18,12 +24,13 @@ const OrganizationsCard = props => {
     getConnections();
   }, []);
 
-  let currentUserConnections = props.connections?.filter(
-    connection =>
-      (props.currentUserProfile.id === connection.connector_id ||
-        props.currentUserProfile.id === connection.connected_id) &&
-      connection.status === 'Connected'
-  );
+  let currentUserConnections = connections?.filter
+    ? connections.filter(
+        connect =>
+          connect.status === 'Connected' &&
+          connect.connected_role === 'conservationist'
+      )
+    : [];
 
   return (
     <View style={styles.mainContainer}>
@@ -36,13 +43,15 @@ const OrganizationsCard = props => {
                 rounded
                 key={connection.connection_id}
                 source={{
-                  uri: connection.avatar
+                  uri: connection.connected_avatar
                 }}
               />
             </View>
             <View>
               <Text key={connection.connection_id} style={styles.name}>
-                {connection.name === null ? '---' : connection.name}
+                {connection.connected_name === null
+                  ? '---'
+                  : connection.connected_name}
               </Text>
             </View>
           </View>
@@ -51,6 +60,7 @@ const OrganizationsCard = props => {
     </View>
   );
 };
+
 const mapStateToProps = state => ({
   connections: state.connections,
   currentUserProfile: state.currentUserProfile

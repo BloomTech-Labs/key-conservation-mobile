@@ -116,7 +116,8 @@ export default {
     flexDirection: 'row',
     justifyContent: 'center',
     width: '100%',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 20
   },
   connectText: {
     color: 'white',

@@ -920,7 +920,7 @@ export const editConnectStatus = connection_id => dispatch => {
   });
 };
 
-export const deleteConnection = (connection_id, userId) => dispatch => {
+export const deleteConnection = connection_id => dispatch => {
   return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .delete(`${seturl}users/connect/${connection_id}`)
