@@ -51,6 +51,9 @@ class ReportDetailCard extends Component {
           this.props.currentReport.post_id
         )
         .then(res => {
+          if(!res)
+            return;
+
           switch (this.props.currentReport.table_name) {
             case 'campaigns':
               this.type = 'Campaign';
