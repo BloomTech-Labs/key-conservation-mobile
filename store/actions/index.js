@@ -846,7 +846,7 @@ export const getReport = id => dispatch => {
     return aaxios
       .get(url)
       .then(res => {
-        dispatch({ type: GET_REPORT_SUCCESS, payload: res.data });
+        dispatch({ type: GET_REPORT_SUCCESS, payload: res?.data });
       })
       .catch(err => {
         dispatch({ type: GET_REPORT_ERROR, payload: err.message });

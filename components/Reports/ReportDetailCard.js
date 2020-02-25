@@ -82,7 +82,7 @@ class ReportDetailCard extends Component {
         .catch(err => {
           console.log(err.message);
           Alert.alert(
-            err.message || 'An error ocurred when we tried to get some data'
+            'An error ocurred when we tried to get some data'
           );
         });
     } else this.type = 'User Profile';

@@ -127,7 +127,6 @@ export const AccountSettingsStack = createStackNavigator({
   AccountSettings: AccountSettingsScreen,
   AdminScreen: AdminReportScreen,
   ReportScreen: ReportDetailScreen,
-  SupProDetails: ProfileScreen,
   ProDetails: ProfileScreen
 });
 
