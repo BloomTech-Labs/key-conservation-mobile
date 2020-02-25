@@ -10,8 +10,6 @@ export default StyleSheet.create({
     left: '1.5%'
   },
   obBody: {
-    borderColor: 'purple',
-    borderWidth: 2,
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',

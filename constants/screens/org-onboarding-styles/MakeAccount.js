@@ -3,8 +3,6 @@ import { responsiveFontSize } from 'react-native-responsive-dimensions';
 
 export default StyleSheet.create({
   obBody: {
-    borderColor: 'purple',
-    borderWidth: 2,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

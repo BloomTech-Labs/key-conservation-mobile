@@ -3,8 +3,6 @@ import { responsiveFontSize } from 'react-native-responsive-dimensions';
 
 export default StyleSheet.create({
   obBody: {
-    borderColor: 'purple',
-    borderWidth: 2,
     flex: 1,
     justifyContent: 'flex-start',
     height: Dimensions.get('window').height * 0.9
@@ -12,7 +10,7 @@ export default StyleSheet.create({
   obBorderView: {
     alignSelf: 'center',
     borderRadius: 360,
-    marginTop: '35%',
+    marginTop: '45%',
     marginHorizontal: '10%',
     height: '55%'
   },

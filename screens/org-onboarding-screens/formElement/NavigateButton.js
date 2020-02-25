@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, TouchableOpacity, Text, Dimensions } from 'react-native';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 
@@ -22,7 +22,7 @@ const NavigateButton = props => {
         style={
           !props.color || props.color === 'black'
             ? styles.obFwdBtnText
-            : [styles.obFwdBtnText, styles.white]
+            : [styles.obFwdBtnText, styles.white, { ...props }]
         }
       >
         {props.label}

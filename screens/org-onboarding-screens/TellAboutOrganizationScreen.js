@@ -5,8 +5,6 @@ import {
   Alert,
   Text,
   TextInput,
-  TouchableOpacity,
-  ImageBackground,
   Image,
   View
 } from 'react-native';
@@ -17,13 +15,14 @@ import UploadMedia from '../../components/UploadMedia';
 import * as SecureStore from 'expo-secure-store';
 import NavigateButton from './formElement/NavigateButton';
 import NavigateBack from './formElement/NavigateBack.js';
+import CheckMark from '../../assets/jsicons/miscIcons/CheckMark';
 
 const TellAboutOrganizationScreen = props => {
   const [airtableKey, setAirtableKey] = useState({
     key: ''
   });
   const [airtableState, onChangeText] = useState({
-    username: '',
+    // username: '',
     org_name: '',
     org_url_link: '',
     profile_image: '',
@@ -34,6 +33,23 @@ const TellAboutOrganizationScreen = props => {
     point_of_contact_position: '',
     email: ''
   }); // This state holds field data for airtable create(), and backend for later use.
+
+  const formComplete = () => {
+    if (
+      airtableState.org_name === undefined ||
+      airtableState.org_link_url === undefined ||
+      airtableState.phone_number === undefined ||
+      airtableState.location === undefined ||
+      airtableState.country === undefined ||
+      airtableState.point_of_contact_name === undefined ||
+      airtableState.point_of_contact_position === undefined ||
+      airtableState.email === undefined
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  };
 
   const getEmail = async () => {
     const email2 = await SecureStore.getItemAsync('email', {});
@@ -89,142 +105,133 @@ const TellAboutOrganizationScreen = props => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.obBody}
-      behavior='height'
-      keyboardVerticalOffset={86}
-      enabled
-    >
-      <ScrollView>
-        <View style={styles.obBody}>
-          <View style={styles.arrowView}>
-            <NavigateBack
-              onButtonPress={() => {
-                props.navigation.navigate('MakeAccount');
-              }}
-              color='#000'
-            />
-          </View>
-          <Text style={styles.obTitle}>Tell us about your organization.</Text>
-
-          <Text style={styles.obText}>
-            Fill in where your main headquarters are located. You'll have a
-            chance to give more details about where you work in the field on the
-            next screen.
-          </Text>
-          <Text style={styles.obSubtitle}>Basic Information</Text>
-
-          <TextInput
-            placeholder='Organization Name'
-            style={styles.obTextInput}
-            onChangeText={text =>
-              onChangeText({ ...airtableState, org_name: text })
-            }
+    <View style={styles.container}>
+      <View style={styles.arrowView}>
+        <NavigateBack
+          onButtonPress={() => {
+            props.navigation.navigate('MakeAccount');
+          }}
+          color='#000'
+        />
+      </View>
+      <KeyboardAvoidingView
+        style={styles.keyboardView}
+        behavior='height'
+        keyboardVerticalOffset={86}
+        enabled
+      >
+        <ScrollView>
+          <Image
+            source={require('../../assets/images/onboarding/tellus.png')}
+            style={styles.tellUsImage}
           />
-
-          <View style={styles.sections}>
-            <UploadMedia circular title='Upload your logo' />
-          </View>
-
-          <TextInput
+          <View style={styles.obBody}>
+            <Text style={styles.obText}>
+              Fill in where your main headquarters are located. You'll have a
+              chance to give more details about where you work in the field on
+              the next screen.
+            </Text>
+            <Text style={styles.obSubtitle}>Basic Information</Text>
+            {/* { airtableState.org_name.length = 0 ? () : ( */}
+            <TextInput
+              placeholder='Name'
+              style={styles.obTextInput}
+              onChangeText={text =>
+                onChangeText({ ...airtableState, org_name: text })
+              }
+            />
+            {/* }) */}
+            {/* <TextInput
             placeholder='Username'
             style={styles.obTextInput}
             onChangeText={text =>
-              onChangeText({ ...airtableState, username: text })
+                onChangeText({ ...airtableState, username: text })
             }
-          />
-          <TextInput
-            placeholder='Main Address'
-            style={styles.obTextInput}
-            onChangeText={text =>
-              onChangeText({ ...airtableState, location: text })
-            }
-            value={airtableState.location}
-          />
-
-          <TextInput
-            placeholder='Country'
-            style={styles.obTextInput}
-            onChangeText={text =>
-              onChangeText({ ...airtableState, country: text })
-            }
-            value={airtableState.country}
-          />
-
-          <TextInput
-            placeholder='Point Of Contact Name'
-            style={styles.obTextInput}
-            onChangeText={text =>
-              onChangeText({ ...airtableState, point_of_contact_name: text })
-            }
-            value={airtableState.point_of_contact_name}
-          />
-
-          <TextInput
-            placeholder='Point Of Contact Position'
-            style={styles.obTextInput}
-            onChangeText={text =>
-              onChangeText({
-                ...airtableState,
-                point_of_contact_position: text
-              })
-            }
-            value={airtableState.point_of_contact_position}
-          />
-
-          <TextInput
-            placeholder='Org Phone'
-            style={styles.obTextInput}
-            onChangeText={text =>
-              onChangeText({ ...airtableState, phone_number: text })
-            }
-            value={airtableState.phone_number}
-          />
-
-          <TextInput
-            placeholder='Website Url'
-            style={styles.obTextInputBottom}
-            onChangeText={text =>
-              onChangeText({ ...airtableState, org_link_url: text })
-            }
-            value={airtableState.org_link_url}
-          />
-
-          <TouchableOpacity
-            style={styles.obFwdContainer}
-            onPress={() => {
-              if (
-                airtableState.org_name === undefined ||
-                airtableState.org_link_url === undefined ||
-                airtableState.phone_number === undefined ||
-                airtableState.location === undefined ||
-                airtableState.country === undefined ||
-                airtableState.point_of_contact_name === undefined ||
-                airtableState.point_of_contact_position === undefined ||
-                airtableState.email === undefined
-              ) {
-                Alert.alert('Oops', 'Please fill in all sections of form', [
-                  { text: 'Got it' }
-                ]);
-              } else {
-                sendAirtable(); // This sends the airtable form and navigates. Also sends variables through navigation props.
+        /> */}
+            <TextInput
+              placeholder='Address'
+              style={styles.obTextInput}
+              onChangeText={text =>
+                onChangeText({ ...airtableState, location: text })
               }
-            }}
-          >
-            <Text style={styles.obFwdBtnText}>Next</Text>
-          </TouchableOpacity>
-          <View style={styles.buttons}>
-            <NavigateButton
-              onButtonPress={() => {
-                props.navigation.navigate('MakeAccount');
-              }}
-              //   color='white'
-              label='Next'
+              value={airtableState.location}
             />
+            <TextInput
+              placeholder='Country'
+              style={styles.obTextInput}
+              onChangeText={text =>
+                onChangeText({ ...airtableState, country: text })
+              }
+              value={airtableState.country}
+            />
+            <TextInput
+              placeholder='Point Of Contact Name'
+              style={styles.obTextInput}
+              onChangeText={text =>
+                onChangeText({ ...airtableState, point_of_contact_name: text })
+              }
+              value={airtableState.point_of_contact_name}
+            />
+            <TextInput
+              placeholder='Point Of Contact Position'
+              style={styles.obTextInput}
+              onChangeText={text =>
+                onChangeText({
+                  ...airtableState,
+                  point_of_contact_position: text
+                })
+              }
+              value={airtableState.point_of_contact_position}
+            />
+            <TextInput
+              placeholder='Org Phone'
+              style={styles.obTextInput}
+              onChangeText={text =>
+                onChangeText({ ...airtableState, phone_number: text })
+              }
+              value={airtableState.phone_number}
+            />
+            <TextInput
+              placeholder='Website Url'
+              style={[styles.obTextInput, styles.obTextInputBottom]}
+              onChangeText={text =>
+                onChangeText({ ...airtableState, org_link_url: text })
+              }
+              value={airtableState.org_link_url}
+            />
+            <View style={styles.uploadButton}>
+              <UploadMedia circular title='Upload your logo' />
+            </View>
           </View>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+
+          <View style={styles.buttons}>
+            {formComplete ? (
+              <NavigateButton
+                style={{
+                  borderColor: '#fff',
+                  color: '#fff'
+                }}
+                label='Next'
+                onButtonPress={() => {
+                  Alert.alert('Oops', 'Please fill in all sections of form', [
+                    { text: 'Got it' }
+                  ]);
+                }}
+              />
+            ) : (
+              <NavigateButton
+                // disabled={formComplete}
+                label='Next'
+                onButtonPress={() => {
+                  sendAirtable();
+                }}
+                color='white'
+              />
+            )}
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </View>
   );
 };
 
