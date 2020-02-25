@@ -4,7 +4,8 @@ import {
   Text,
   ImageBackground,
   TouchableOpacity,
-  Linking
+  Linking,
+  Animated
 } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { Avatar } from 'react-native-elements';
