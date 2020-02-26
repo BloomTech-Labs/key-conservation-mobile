@@ -130,7 +130,7 @@ const ProfileHeader = forwardRef((props, ref) => {
             size={61}
             rounded
             source={{
-              uri: profile.profile_image
+              uri: profile.profile_image || undefined
             }}
           />
         </View>
