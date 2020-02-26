@@ -1,4 +1,9 @@
-import React, { useMemo } from 'react';
+import React, {
+  useMemo,
+  useState,
+  useImperativeHandle,
+  forwardRef
+} from 'react';
 import {
   View,
   Text,
@@ -21,8 +26,16 @@ import Instagram from '../../assets/jsicons/socialmedia/Instagram';
 import Twitter from '../../assets/jsicons/socialmedia/Twitter';
 import Facebook from '../../assets/jsicons/socialmedia/Facebook';
 
-const ProfileHeader = props => {
+import { useHeaderHeight } from 'react-navigation-stack';
+
+const ProfileHeader = forwardRef((props, ref) => {
   let profile = props.profile || {};
+
+  const appHeaderHeight = useHeaderHeight();
+
+  const [state, setState] = useState({
+    scrollY: new Animated.Value(0)
+  });
 
   let randomHeaderImage = useMemo(() => randomImage(), []);
 
@@ -33,18 +46,85 @@ const ProfileHeader = props => {
     }
   };
 
+  const handleLayout = ({ nativeEvent }) => {
+    const { height } = nativeEvent.layout;
+
+    props.onLayout(height);
+
+    setState({
+      ...state,
+      MAX_HEADER_HEIGHT: height
+    });
+  };
+
+  useImperativeHandle(ref, () =>
+    Animated.event([{ nativeEvent: { contentOffset: { y: state.scrollY } } }])
+  );
+
+  // const scrollY = new Animated.Value(props.parentScrollY);
+
+  const inputMax =
+    state.MAX_HEADER_HEIGHT && state.MAX_HEADER_HEIGHT - appHeaderHeight;
+
+  const headerHeight = state.MAX_HEADER_HEIGHT
+    ? state.scrollY.interpolate({
+        inputRange: [0, inputMax],
+        outputRange: [state.MAX_HEADER_HEIGHT, appHeaderHeight],
+        extrapolate: 'clamp'
+      })
+    : null;
+
+  const headerBlur = state.MAX_HEADER_HEIGHT
+    ? state.scrollY.interpolate({
+        inputRange: [0, inputMax / 2, inputMax],
+        outputRange: [0, 2, 10],
+        extrapolate: 'clamp'
+      })
+    : null;
+
+  const contentOpacity = state.MAX_HEADER_HEIGHT
+    ? state.scrollY.interpolate({
+        inputRange: [0, inputMax / 2, inputMax],
+        outputRange: [1, 0.2, 0],
+        extrapolate: 'clamp'
+      })
+    : null;
+
+  const profileName = props.loading
+    ? 'Loading...'
+    : profile.sup_name || profile.username || profile.org_name;
   return (
-    <ImageBackground
-      source={randomHeaderImage}
-      resizeMode='cover'
-      style={{
-        height: 260,
-        paddingTop: 86,
-        backgroundColor: '#000000'
-      }}
-      imageStyle={{ opacity: 0.6 }}
-    >
-      <View style={styles.container}>
+    <Animated.View style={[styles.container, { height: headerHeight }]}>
+      <Animated.Image
+        source={randomHeaderImage}
+        resizeMode='cover'
+        style={{
+          opacity: 0.6,
+          height: 260,
+          width: '100%',
+          paddingTop: 86
+        }}
+        blurRadius={headerBlur}
+        imageStyle={{ opacity: 0.6 }}
+        onLayout={handleLayout}
+      />
+      <Animated.View
+        style={[
+          styles.headerTitleContainer,
+          {
+            opacity:
+              contentOpacity?.interpolate({
+                inputRange: [0, 0.2, 1],
+                outputRange: [1, 0, 0]
+              }) || 0
+          }
+        ]}
+      >
+        <Text style={styles.headerTitle}>{profileName}</Text>
+      </Animated.View>
+      <Animated.View
+        style={[styles.contentContainer, { opacity: contentOpacity }]}
+      >
         <View style={styles.avatarContainer}>
           <Avatar
             size={61}
@@ -55,11 +135,7 @@ const ProfileHeader = props => {
           />
         </View>
         <View style={styles.textContainer}>
-          <Text style={styles.org}>
-            {props.loading
-              ? 'Loading...'
-              : profile.sup_name || profile.username || profile.org_name}
-          </Text>
+          <Text style={styles.org}>{profileName}</Text>
           {props.loading ? null : (
             <View>
               {!profile.location ? null : (
@@ -119,7 +195,7 @@ const ProfileHeader = props => {
                     <TouchableOpacity
                       style={styles.socialIcon}
                       onPress={async () =>
-                        (await WebBrowser.openBrowserAsync(profile.facebook))
+                        await WebBrowser.openBrowserAsync(profile.facebook)
                       }
                     >
                       <Facebook />
@@ -134,9 +210,9 @@ const ProfileHeader = props => {
             </View>
           )}
         </View>
-      </View>
-    </ImageBackground>
+      </Animated.View>
+    </Animated.View>
   );
-};
+});
 
 export default ProfileHeader;
