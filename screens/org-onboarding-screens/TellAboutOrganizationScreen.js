@@ -6,21 +6,22 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  ImageBackground,
-  Image,
   View
 } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/TellAboutOrg.js';
+import { connect } from 'react-redux';
+import UploadMedia from '../../components/UploadMedia';
 import * as SecureStore from 'expo-secure-store';
 
 const TellAboutOrganizationScreen = props => {
   const [airtableKey, setAirtableKey] = useState({
     key: ''
   });
-  const [airtableState, onChangeText] = useState({
+  const [state, setState] = useState({
     username: '',
     org_name: '',
     org_url_link: '',
+    profile_image: '',
     location: '',
     country: '',
     phone_number: '',
@@ -29,16 +30,21 @@ const TellAboutOrganizationScreen = props => {
     email: ''
   }); // This state holds field data for airtable create(), and backend for later use.
 
-  getEmail = async () => {
+  const getEmail = async () => {
     const email2 = await SecureStore.getItemAsync('email', {});
     const key = await SecureStore.getItemAsync('airtableKey', {});
-    onChangeText({ email: email2 });
+    setState({ email: email2 });
     setAirtableKey({ key: key });
   }; // This assigns the current account's email to the new airtable form.
 
   useEffect(() => {
     getEmail();
   }, []);
+
+  useEffect(() => {
+    setState({ ...state, profile_image: props.mediaUpload });
+    console.log('changed');
+  }, [props.mediaUpload]);
 
   const sendAirtable = () => {
     // this creates a new Airtable form.
@@ -50,14 +56,14 @@ const TellAboutOrganizationScreen = props => {
       [
         {
           fields: {
-            org_name: airtableState.org_name,
-            website: airtableState.org_link_url,
-            phone: airtableState.phone_number,
-            address: airtableState.location,
-            country: airtableState.country,
-            point_of_contact: airtableState.point_of_contact_name,
-            poc_position: airtableState.point_of_contact_position,
-            email: airtableState.email
+            org_name: state.org_name,
+            website: state.org_link_url,
+            phone: state.phone_number,
+            address: state.location,
+            country: state.country,
+            point_of_contact: state.point_of_contact_name,
+            poc_position: state.point_of_contact_position,
+            email: state.email
           }
         }
       ],
@@ -70,9 +76,10 @@ const TellAboutOrganizationScreen = props => {
           let airtableID = record.getId();
           props.navigation.navigate('TellMore', {
             airtableID: airtableID,
-            airtableState: airtableState,
+            airtableState: state,
             airtableKey: airtableKey.key
-          }); // This passes the returned form ID and the needed fields for backend and airtable update() to the next component.
+          });
+          // This passes the returned form ID and the needed fields for backend and airtable update() to the next component.
         });
       }
     );
@@ -99,92 +106,87 @@ const TellAboutOrganizationScreen = props => {
           <TextInput
             placeholder='Organization Name'
             style={styles.obTextInput}
-            onChangeText={text =>
-              onChangeText({ ...airtableState, org_name: text })
-            }
+            onChangeText={text => setState({ ...state, org_name: text })}
+            value={state.org_name}
           />
+
+          <View style={styles.sections}>
+            <UploadMedia circular title='Upload your logo' />
+          </View>
+
           <TextInput
             placeholder='Username'
             style={styles.obTextInput}
-            onChangeText={text =>
-              onChangeText({ ...airtableState, username: text })
-            }
+            onChangeText={text => setState({ ...state, username: text })}
+            value={state.username}
           />
           <TextInput
             placeholder='Main Address'
             style={styles.obTextInput}
-            onChangeText={text =>
-              onChangeText({ ...airtableState, location: text })
-            }
-            value={airtableState.location}
+            onChangeText={text => setState({ ...state, location: text })}
+            value={state.location}
           />
 
           <TextInput
             placeholder='Country'
             style={styles.obTextInput}
-            onChangeText={text =>
-              onChangeText({ ...airtableState, country: text })
-            }
-            value={airtableState.country}
+            onChangeText={text => setState({ ...state, country: text })}
+            value={state.country}
           />
 
           <TextInput
             placeholder='Point Of Contact Name'
             style={styles.obTextInput}
             onChangeText={text =>
-              onChangeText({ ...airtableState, point_of_contact_name: text })
+              setState({ ...state, point_of_contact_name: text })
             }
-            value={airtableState.point_of_contact_name}
+            value={state.point_of_contact_name}
           />
 
           <TextInput
             placeholder='Point Of Contact Position'
             style={styles.obTextInput}
             onChangeText={text =>
-              onChangeText({
-                ...airtableState,
+              setState({
+                ...state,
                 point_of_contact_position: text
               })
             }
-            value={airtableState.point_of_contact_position}
+            value={state.point_of_contact_position}
           />
 
           <TextInput
             placeholder='Org Phone'
             style={styles.obTextInput}
-            onChangeText={text =>
-              onChangeText({ ...airtableState, phone_number: text })
-            }
-            value={airtableState.phone_number}
+            onChangeText={text => setState({ ...state, phone_number: text })}
+            value={state.phone_number}
           />
 
           <TextInput
             placeholder='Website Url'
             style={styles.obTextInputBottom}
-            onChangeText={text =>
-              onChangeText({ ...airtableState, org_link_url: text })
-            }
-            value={airtableState.org_link_url}
+            onChangeText={text => setState({ ...state, org_link_url: text })}
+            value={state.org_link_url}
           />
 
           <TouchableOpacity
             style={styles.obFwdContainer}
             onPress={() => {
+              sendAirtable();
               if (
-                airtableState.org_name === undefined ||
-                airtableState.org_link_url === undefined ||
-                airtableState.phone_number === undefined ||
-                airtableState.location === undefined ||
-                airtableState.country === undefined ||
-                airtableState.point_of_contact_name === undefined ||
-                airtableState.point_of_contact_position === undefined ||
-                airtableState.email === undefined
+                state.org_name === undefined ||
+                state.org_link_url === undefined ||
+                state.phone_number === undefined ||
+                state.location === undefined ||
+                state.country === undefined ||
+                state.point_of_contact_name === undefined ||
+                state.point_of_contact_position === undefined
               ) {
                 Alert.alert('Oops', 'Please fill in all sections of form', [
                   { text: 'Got it' }
                 ]);
               } else {
-                sendAirtable(); // This sendss the airtable form and navigates. Also sends variables through navigation props.
+                sendAirtable(); // This sends the airtable form and navigates. Also sends variables through navigation props.
               }
             }}
           >
@@ -196,4 +198,8 @@ const TellAboutOrganizationScreen = props => {
   );
 };
 
-export default TellAboutOrganizationScreen;
+const mapStateToProps = state => ({
+  mediaUpload: state.mediaUpload
+});
+
+export default connect(mapStateToProps, {})(TellAboutOrganizationScreen);

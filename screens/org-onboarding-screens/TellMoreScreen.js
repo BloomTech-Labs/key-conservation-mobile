@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Button,
+  Picker,
   Switch,
   Text,
   TextInput,
@@ -9,7 +9,8 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Alert,
-  TouchableHighlight
+  TouchableHighlight,
+  StyleSheet
 } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/VerifyOrg.js';
 import ConservationOptimismModal from '../../components/ConservationOptimismModal';
@@ -35,13 +36,14 @@ const TellMoreScreen = props => {
     'defaultValue'
   ); // this grabs the airtable form ID and data from previous component.
 
-  setAirtableID = async () => {
+  const setAirtableID = async () => {
     await SecureStore.setItemAsync('airtableID', airtableID);
     console.log(await SecureStore.getItemAsync('airtableID', {}));
   }; // This saves the current airtable form's ID in SecureStore.
 
   useEffect(() => {
     setAirtableID();
+    console.log('airtableState2', airtableState2);
   });
 
   const airtableStateAdd = Object.assign({
@@ -52,6 +54,9 @@ const TellMoreScreen = props => {
   const updateAirtable = () => {
     // this updates the airtable form created in the previous component
 
+    if (airtableState.smartphone_type) {
+      onChangeText({ ...airtableState, smartphone_access: 'Yes' });
+    }
     var Airtable = require('airtable');
     var base = new Airtable({ apiKey: airtableKey }).base('appbPeeXUSNCQWwnQ');
     base('Table 1').update(
@@ -73,9 +78,7 @@ const TellMoreScreen = props => {
           console.error(err);
           return;
         }
-        records.forEach(function(record) {
-          // console.log(record.getId());
-        });
+        records.forEach(function(record) {});
       }
     );
   };
@@ -160,31 +163,26 @@ const TellMoreScreen = props => {
           <Text style={styles.obFieldName}>
             Does your organization have access to a smartphone?
           </Text>
-          <Switch
-            style={styles.obSwitchButton}
-            trackColor={{ true: '#00FF9D' }}
-            value={airtableState.smartphone_access}
-            onValueChange={newValue =>
-              onChangeText({ ...airtableState, smartphone_access: newValue })
-            }
-          />
-          <Text style={styles.obFieldName}>
-            If so what kind of smartphone? (Apple or Android)
-          </Text>
-          <TextInput
-            style={styles.obTextInputBottom}
-            onChangeText={text =>
-              onChangeText({ ...airtableState, smartphone_type: text })
-            }
-            value={airtableState.smartphone_type}
-          />
+          <View style={pickerStyle.pickerContainer}>
+            <Picker
+              selectedValue={airtableState.smartphone_type}
+              style={pickerStyle.picker}
+              itemStyle={pickerStyle.pickerItem}
+              onValueChange={itemValue =>
+                onChangeText({ ...airtableState, smartphone_type: itemValue })
+              }
+            >
+              <Picker.Item label='No' value='none' />
+              <Picker.Item label='Apple' value='apple' />
+              <Picker.Item label='Android' value='android' />
+            </Picker>
+          </View>
           <TouchableOpacity
             style={styles.obFwdContainer}
             onPress={() => {
               if (
                 airtableState.other_countries === '' ||
                 airtableState.multiple_projects === '' ||
-                //airtableState.affiliations_partnerships === "" ||
                 airtableState.smartphone_type === ''
               ) {
                 Alert.alert('Oops', 'Please fill in all sections of form', [
@@ -215,4 +213,21 @@ const TellMoreScreen = props => {
     </KeyboardAvoidingView>
   );
 };
+
+const pickerStyle = StyleSheet.create({
+  pickerContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 8,
+    marginBottom: 20
+  },
+
+  picker: {
+    width: 100,
+    height: 100
+  },
+  pickerItem: {
+    height: 100
+  }
+});
 export default TellMoreScreen;

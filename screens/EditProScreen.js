@@ -182,7 +182,7 @@ class EditProScreen extends React.Component {
             </View>
 
             <View style={styles.sections}>
-              <UploadMedia circular />
+              <UploadMedia title='Upload new logo' />
             </View>
 
             <View style={styles.sections}>
