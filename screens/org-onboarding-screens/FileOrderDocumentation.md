@@ -9,14 +9,12 @@ Because there are so many onboarding screens, we have provided you with this lis
 3. KeyConservationScreen
 4. CanScreen
 5. CantScreen
-6. ToExpectNextScreen
-7. MakeAccountScreen
-8. TellAboutOrganizationScreen
-9. VerifyOrganizationScreen
-10. VerifyDocumentationScreen
-11. ReviewYourInfoScreen
-12. ToExpectNextCreateProfile
-13. AccountScreen
+6. MakeAccountScreen
+7. TellAboutOrganizationScreen
+8. TellMoreScreen
+9. AccountScreen
+10. ReviewYourInfoScreen
+11. VerifyDocumentationScreen
 
 **These are completed and hooked up but not currently in use**
 

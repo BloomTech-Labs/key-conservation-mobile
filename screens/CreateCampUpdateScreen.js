@@ -83,7 +83,7 @@ class CreateCampUpdateScreen extends React.Component {
             />
             <View style={styles.sectionContainer}>
               <View style={styles.sections}>
-                <UploadMedia />
+                <UploadMedia title='Upload update image' />
               </View>
 
               <View style={styles.sections}>

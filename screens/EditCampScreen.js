@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   TextInput,
   Text,
@@ -7,32 +7,32 @@ import {
   Platform,
   TouchableOpacity,
   Image
-} from "react-native";
-import { ScrollView, NavigationEvents } from "react-navigation";
-import { connect } from "react-redux";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { editCampaign, getCampaigns, clearMedia } from "../store/actions";
-import BackButton from "../components/BackButton";
+} from 'react-native';
+import { ScrollView, NavigationEvents } from 'react-navigation';
+import { connect } from 'react-redux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { editCampaign, getCampaigns, clearMedia } from '../store/actions';
+import BackButton from '../components/BackButton';
 
-import DoneButton from "../components/DoneButton";
-import UploadMedia from "../components/UploadMedia";
+import DoneButton from '../components/DoneButton';
+import UploadMedia from '../components/UploadMedia';
 
-import styles from "../constants/screens/EditCampScreen";
-import CheckMark from "../assets/icons/checkmark-24.png";
+import styles from '../constants/screens/EditCampScreen';
+import CheckMark from '../assets/icons/checkmark-24.png';
 
 class EditCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: "Edit Campaign",
+      title: 'Edit Campaign',
       headerStyle: {
-        backgroundColor: "#323338"
+        backgroundColor: '#323338'
       },
-      headerTintColor: "#fff",
+      headerTintColor: '#fff',
       headerLeft: () => <BackButton navigation={navigation} />,
       headerRight: () => (
         <DoneButton
           navigation={navigation}
-          pressAction={navigation.getParam("edit")}
+          pressAction={navigation.getParam('edit')}
         />
       )
     };
@@ -41,7 +41,8 @@ class EditCampScreen extends React.Component {
   constructor(props) {
     super(props);
 
-    this.selectedCampaign = this.props.navigation.getParam('selectedCampaign') || {};
+    this.selectedCampaign =
+      this.props.navigation.getParam('selectedCampaign') || {};
 
     this.state = {
       camp_img: this.selectedCampaign.camp_img,
@@ -49,7 +50,7 @@ class EditCampScreen extends React.Component {
       camp_desc: this.selectedCampaign.camp_desc,
       camp_cta: this.selectedCampaign.camp_cta,
       urgency: this.selectedCampaign.urgency
-    }
+    };
   }
 
   componentDidMount() {
@@ -72,10 +73,7 @@ class EditCampScreen extends React.Component {
           camp_img: this.props.mediaUpload
         };
       }
-      await this.props.editCampaign(
-        this.selectedCampaign.camp_id,
-        changes
-      );
+      await this.props.editCampaign(this.selectedCampaign.camp_id, changes);
       this.props.navigation.goBack();
     }
   };
@@ -105,15 +103,15 @@ class EditCampScreen extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView
-        behavior="height"
+        behavior='height'
         keyboardVerticalOffset={90}
-        enabled={Platform.OS === "android" ? true : false}
+        enabled={Platform.OS === 'android' ? true : false}
       >
         <KeyboardAwareScrollView>
           <ScrollView
             contentContainerStyle={{
-              backgroundColor: "#fff",
-              minHeight: "100%"
+              backgroundColor: '#fff',
+              minHeight: '100%'
             }}
           >
             <NavigationEvents
@@ -127,20 +125,20 @@ class EditCampScreen extends React.Component {
                   ref={input => {
                     this.campNameInput = input;
                   }}
-                  returnKeyType="next"
-                  placeholder="Koala In Need!"
+                  returnKeyType='next'
+                  placeholder='Koala In Need!'
                   style={styles.inputContain}
                   onChangeText={text => this.setState({ camp_name: text })}
                   onSubmitEditing={() => {
-                    if (Platform.OS === "android") return;
+                    if (Platform.OS === 'android') return;
                     this.campImgUrlInput.focus();
                   }}
-                  blurOnSubmit={Platform.OS === "android"}
+                  blurOnSubmit={Platform.OS === 'android'}
                   value={this.state.camp_name}
                 />
               </View>
               <View style={styles.sections}>
-                <UploadMedia />
+                <UploadMedia title='Upload new campaign image' />
               </View>
 
               <View style={styles.sections}>
@@ -149,8 +147,8 @@ class EditCampScreen extends React.Component {
                   ref={input => {
                     this.campDetailsInput = input;
                   }}
-                  returnKeyType="next"
-                  placeholder="Add campaign details and list of monetary needs."
+                  returnKeyType='next'
+                  placeholder='Add campaign details and list of monetary needs.'
                   style={styles.inputContain2}
                   onChangeText={text => this.setState({ camp_desc: text })}
                   multiline={true}
@@ -164,10 +162,10 @@ class EditCampScreen extends React.Component {
                   ref={input => {
                     this.donationLinkInput = input;
                   }}
-                  returnKeyType="next"
-                  keyboardType="default"
-                  placeholder="Please include full URL"
-                  autoCapitalize="none"
+                  returnKeyType='next'
+                  keyboardType='default'
+                  placeholder='Please include full URL'
+                  autoCapitalize='none'
                   style={styles.inputContain}
                   onChangeText={text => this.setState({ camp_cta: text })}
                   value={this.state.camp_cta}
@@ -176,34 +174,34 @@ class EditCampScreen extends React.Component {
 
               <View>
                 <Text style={styles.sectionsText}>Urgency Level</Text>
-                <Text style={{ color: "#C4C4C4" }}>
+                <Text style={{ color: '#C4C4C4' }}>
                   Select one. This can be changed at a future date.
                 </Text>
                 <View style={styles.urgencyMenu}>
                   <TouchableOpacity
                     style={styles.urgencyOption}
-                    onPress={() => this.setUrgency("Critical")}
+                    onPress={() => this.setUrgency('Critical')}
                   >
-                    <Text style={{ color: "#FF6C7C" }}>Critical</Text>
-                    {this.state.urgency === "Critical" ? (
+                    <Text style={{ color: '#FF6C7C' }}>Critical</Text>
+                    {this.state.urgency === 'Critical' ? (
                       <Image style={styles.checkMark} source={CheckMark} />
                     ) : null}
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={styles.urgencyOption}
-                    onPress={() => this.setUrgency("Urgent")}
+                    onPress={() => this.setUrgency('Urgent')}
                   >
-                    <Text style={{ color: "#FFDB11" }}>Urgent</Text>
-                    {this.state.urgency === "Urgent" ? (
+                    <Text style={{ color: '#FFDB11' }}>Urgent</Text>
+                    {this.state.urgency === 'Urgent' ? (
                       <Image style={styles.checkMark} source={CheckMark} />
                     ) : null}
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={styles.urgencyOption}
-                    onPress={() => this.setUrgency("Longterm")}
+                    onPress={() => this.setUrgency('Longterm')}
                   >
-                    <Text style={{ color: "#00FF9D" }}>Longterm</Text>
-                    {this.state.urgency === "Longterm" ? (
+                    <Text style={{ color: '#00FF9D' }}>Longterm</Text>
+                    {this.state.urgency === 'Longterm' ? (
                       <Image style={styles.checkMark} source={CheckMark} />
                     ) : null}
                   </TouchableOpacity>

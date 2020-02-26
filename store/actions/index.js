@@ -185,7 +185,7 @@ export const getCustomById = (table_name, id) => dispatch => {
   });
 };
 
-//// These actions are for the loading page to determine if:
+// These actions are for the loading page to determine if:
 // A) The user is logged in
 // B) The account exists and user is not logged in
 // C) The user has a sub and needs to register
@@ -336,9 +336,44 @@ export const [POST_USER_START, POST_USER_ERROR, POST_USER_SUCCESS] = [
 export const postUser = user => dispatch => {
   dispatch({ type: POST_USER_START });
 
+  const filteredPost = filterUrls(
+    ['facebook', 'twitter', 'instagram', 'org_link_url', 'org_cta'],
+    user
+  );
+
+  let formData = {};
+
+  let keys = Object.keys(filteredPost).filter(key => {
+    return key !== 'profile_image';
+  });
+
+  if (filteredPost.profile_image) {
+    const uri = filteredPost.profile_image;
+    const uriParts = uri.split('.');
+    let fileType = uriParts[uriParts.length - 1];
+    formData.photo = {
+      uri,
+      name: `photo.${fileType}`,
+      type: `image/${fileType}`
+    };
+  }
+
+  keys.forEach(key => {
+    if (filteredPost[key] !== null) {
+      formData = {
+        ...formData,
+        [key]: filteredPost[key]
+      };
+      console.log('formData from foreach', formData);
+      return formData;
+    }
+  });
+
+  console.log('formData', formData);
+
   return axiosWithAuth(dispatch, aaxios => {
     return aaxios
-      .post(`${seturl}users`, user)
+      .post(`${seturl}users`, formData)
       .then(res => {
         dispatch({ type: POST_USER_SUCCESS, payload: res.data.newUser });
       })
