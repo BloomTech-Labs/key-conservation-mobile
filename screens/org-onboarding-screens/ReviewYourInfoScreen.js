@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Switch,
-  Alert
+  Alert,
+  Image
 } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/ReviewYourInfo';
 import NavigateButton from './formElement/NavigateButton.js';
@@ -14,6 +15,9 @@ import { TextInput } from 'react-native-gesture-handler';
 import * as SecureStore from 'expo-secure-store';
 import SVGCheckMark from '../../assets/jsicons/SVGCheckMark';
 import EditPencil from '../../assets/jsicons/OnBoarding/EditPencil';
+import UploadMedia from '../../components/UploadMedia';
+import { connect } from 'react-redux';
+
 const ReviewYourInfoScreen = props => {
   const [isEditingAccount, setIsEditingAccount] = useState(false);
   const [isEditingContact, setIsEditingContact] = useState(false);
@@ -46,13 +50,15 @@ const ReviewYourInfoScreen = props => {
     species_and_habitats: '',
     org_cta: '',
     mini_bio: '',
-    about_us: ''
+    about_us: '',
+    profile_image: ''
   });
 
   useEffect(() => {
     // Grabs state for backend through nav params again.
     setState(props.navigation.getParam('airtableState', 'defaultValue'));
     getAirtableID();
+    console.log('profile_image from Review', state.profile_image);
   }, []);
 
   const getAirtableID = async () => {
@@ -93,9 +99,7 @@ const ReviewYourInfoScreen = props => {
           console.error(err);
           return;
         }
-        records.forEach(function(record) {
-          // console.log(record.getId());
-        });
+        records.forEach(function(record) {});
       }
     );
   };
@@ -163,19 +167,18 @@ const ReviewYourInfoScreen = props => {
                   style={[styles.obText, styles.textInput]}
                   value={state.point_of_contact_name}
                   placeholder={'Point of Contact Name'}
-                  onChangeText={text =>
+                  setState={text =>
                     setState({ ...state, point_of_contact_name: text })
                   }
                 />
               </View>
-
               <View style={styles.row}>
                 <Text style={styles.obSubtitleSm}>Contact Position: </Text>
                 <TextInput
                   style={[styles.obText, styles.textInput]}
                   value={state.point_of_contact_position}
                   placeholder={' Contact Position'}
-                  onChangeText={text =>
+                  setState={text =>
                     setState({ ...state, point_of_contact_position: text })
                   }
                 />
@@ -186,11 +189,27 @@ const ReviewYourInfoScreen = props => {
                   style={[styles.obText, styles.textInput]}
                   value={state.username}
                   placeholder={' Username'}
-                  onChangeText={text => setState({ ...state, username: text })}
+                  setState={text => setState({ ...state, username: text })}
                 />
               </View>
             </View>
           )}
+          <View style={styles.borderContainer}>
+            <View style={[styles.row, styles.opaqueHeader]}>
+              <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
+                Organization Logo
+              </Text>
+            </View>
+            <UploadMedia circular title='Change logo' />
+            <Image
+              source={{ uri: state.profile_image }}
+              style={{
+                height: 300,
+                width: 300
+              }}
+            />
+          </View>
+
           {!isEditingContact ? (
             <View style={styles.borderContainer}>
               <View style={[styles.row, styles.opaqueHeader]}>
@@ -264,7 +283,7 @@ const ReviewYourInfoScreen = props => {
                 <TextInput
                   style={[styles.obText, styles.textInput]}
                   value={state.org_name}
-                  onChangeText={text => setState({ ...state, org_name: text })}
+                  setState={text => setState({ ...state, org_name: text })}
                 />
               </View>
 
@@ -273,9 +292,7 @@ const ReviewYourInfoScreen = props => {
                 <TextInput
                   style={[styles.obText, styles.textInput]}
                   value={state.org_link_url}
-                  onChangeText={text =>
-                    setState({ ...state, org_link_url: text })
-                  }
+                  setState={text => setState({ ...state, org_link_url: text })}
                 />
               </View>
 
@@ -284,9 +301,7 @@ const ReviewYourInfoScreen = props => {
                 <TextInput
                   style={[styles.obText, styles.textInput]}
                   value={state.phone_number}
-                  onChangeText={text =>
-                    setState({ ...state, phone_number: text })
-                  }
+                  setState={text => setState({ ...state, phone_number: text })}
                 />
               </View>
 
@@ -295,7 +310,7 @@ const ReviewYourInfoScreen = props => {
                 <TextInput
                   style={[styles.obText, styles.textInput]}
                   value={state.facebook}
-                  onChangeText={text => setState({ ...state, facebook: text })}
+                  setState={text => setState({ ...state, facebook: text })}
                 />
               </View>
 
@@ -304,7 +319,7 @@ const ReviewYourInfoScreen = props => {
                 <TextInput
                   style={[styles.obText, styles.textInput]}
                   value={state.twitter}
-                  onChangeText={text => setState({ ...state, twitter: text })}
+                  setState={text => setState({ ...state, twitter: text })}
                 />
               </View>
 
@@ -313,7 +328,7 @@ const ReviewYourInfoScreen = props => {
                 <TextInput
                   style={[styles.obText, styles.textInput]}
                   value={state.instagram}
-                  onChangeText={text => setState({ ...state, instagram: text })}
+                  setState={text => setState({ ...state, instagram: text })}
                 />
               </View>
 
@@ -322,7 +337,7 @@ const ReviewYourInfoScreen = props => {
                 <TextInput
                   style={[styles.obText, styles.textInput]}
                   value={state.org_cta}
-                  onChangeText={text => setState({ ...state, org_cta: text })}
+                  setState={text => setState({ ...state, org_cta: text })}
                 />
               </View>
 
@@ -332,7 +347,7 @@ const ReviewYourInfoScreen = props => {
                   style={[styles.obText, styles.textInput]}
                   multiline
                   value={state.location}
-                  onChangeText={text => setState({ ...state, location: text })}
+                  setState={text => setState({ ...state, location: text })}
                 />
               </View>
             </View>
@@ -377,7 +392,7 @@ const ReviewYourInfoScreen = props => {
                   style={[styles.obText, styles.textInput]}
                   value={state.mini_bio}
                   placeholder={'Mini Bio'}
-                  onChangeText={text => setState({ ...state, mini_bio: text })}
+                  setState={text => setState({ ...state, mini_bio: text })}
                 />
               </View>
 
@@ -387,7 +402,7 @@ const ReviewYourInfoScreen = props => {
                   style={[styles.obText, styles.textInput]}
                   value={state.about_us}
                   placeholder={'About us'}
-                  onChangeText={text => setState({ ...state, about_us: text })}
+                  setState={text => setState({ ...state, about_us: text })}
                 />
               </View>
             </View>
@@ -432,9 +447,7 @@ const ReviewYourInfoScreen = props => {
               <TextInput
                 style={[styles.obText, styles.textInput]}
                 value={state.other_countries}
-                onChangeText={text =>
-                  setState({ ...state, other_countries: text })
-                }
+                setState={text => setState({ ...state, other_countries: text })}
               />
 
               <View>
@@ -442,7 +455,7 @@ const ReviewYourInfoScreen = props => {
                 <TextInput
                   style={[styles.obText, styles.textInput]}
                   value={state.multiple_projects}
-                  onChangeText={text => {
+                  setState={text => {
                     setState({
                       ...state,
                       multiple_projects: text
@@ -487,7 +500,7 @@ const ReviewYourInfoScreen = props => {
               <TextInput
                 style={[styles.obText, styles.textInput]}
                 value={state.affiliations_partnerships}
-                onChangeText={text => {
+                setState={text => {
                   setState({
                     ...state,
                     affiliations_partnerships: text
@@ -580,7 +593,9 @@ const ReviewYourInfoScreen = props => {
               } else {
                 updateAirtable();
                 const sub = await SecureStore.getItemAsync('sub', {});
-                const role = await SecureStore.getItemAsync('roles', {});
+                if (props.mediaUpload) {
+                  setState({ ...state, profile_image: props.mediaUpload });
+                }
                 const stringBE = JSON.stringify({
                   username: state.username,
                   org_name: state.org_name,
@@ -598,8 +613,9 @@ const ReviewYourInfoScreen = props => {
                   org_cta: state.org_cta,
                   mini_bio: state.mini_bio,
                   about_us: state.about_us,
-                  roles: role,
-                  sub: sub
+                  roles: 'conservationist',
+                  sub: sub,
+                  profile_image: state.profile_image
                 });
 
                 // Stores data object in SecureStore to be sent to backend once user is vetted
@@ -622,4 +638,8 @@ const ReviewYourInfoScreen = props => {
   );
 };
 
-export default ReviewYourInfoScreen;
+const mapStateToProps = state => ({
+  mediaUpload: state.mediaUpload
+});
+
+export default connect(mapStateToProps, {})(ReviewYourInfoScreen);

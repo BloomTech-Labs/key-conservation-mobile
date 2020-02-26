@@ -70,6 +70,7 @@ const TellMoreScreen = props => {
 
   useEffect(() => {
     setAirtableID();
+    console.log('airtableState2', airtableState2);
   });
 
   const airtableStateAdd = Object.assign({

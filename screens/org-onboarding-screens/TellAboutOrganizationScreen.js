@@ -6,11 +6,11 @@ import {
   Text,
   TextInput,
   Image,
+  TouchableOpacity,
   View
 } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/TellAboutOrg.js';
 import { connect } from 'react-redux';
-import { clearMedia } from '../../store/actions';
 import UploadMedia from '../../components/UploadMedia';
 import * as SecureStore from 'expo-secure-store';
 
@@ -22,7 +22,7 @@ const TellAboutOrganizationScreen = props => {
   const [airtableKey, setAirtableKey] = useState({
     key: ''
   });
-  const [airtableState, onChangeText] = useState({
+  const [state, setState] = useState({
     username: '',
     org_name: '',
     org_url_link: '',
@@ -38,7 +38,7 @@ const TellAboutOrganizationScreen = props => {
   const getEmail = async () => {
     const email2 = await SecureStore.getItemAsync('email', {});
     const key = await SecureStore.getItemAsync('airtableKey', {});
-    onChangeText({ email: email2 });
+    setState({ email: email2 });
     setAirtableKey({ key: key });
   }; // This assigns the current account's email to the new airtable form.
 
@@ -46,10 +46,12 @@ const TellAboutOrganizationScreen = props => {
     getEmail();
   }, []);
 
+  useEffect(() => {
+    setState({ ...state, profile_image: props.mediaUpload });
+    console.log('changed');
+  }, [props.mediaUpload]);
+
   const sendAirtable = () => {
-    if (props.mediaUpload) {
-      onChangeText({ profile_image: props.mediaUpload });
-    }
     // this creates a new Airtable form.
     var Airtable = require('airtable');
     var base = new Airtable({ apiKey: airtableKey.key }).base(
@@ -59,14 +61,14 @@ const TellAboutOrganizationScreen = props => {
       [
         {
           fields: {
-            org_name: airtableState.org_name,
-            website: airtableState.org_link_url,
-            phone: airtableState.phone_number,
-            address: airtableState.location,
-            country: airtableState.country,
-            point_of_contact: airtableState.point_of_contact_name,
-            poc_position: airtableState.point_of_contact_position,
-            email: airtableState.email
+            org_name: state.org_name,
+            website: state.org_link_url,
+            phone: state.phone_number,
+            address: state.location,
+            country: state.country,
+            point_of_contact: state.point_of_contact_name,
+            poc_position: state.point_of_contact_position,
+            email: state.email
           }
         }
       ],
@@ -79,7 +81,7 @@ const TellAboutOrganizationScreen = props => {
           let airtableID = record.getId();
           props.navigation.navigate('TellMore', {
             airtableID: airtableID,
-            airtableState: airtableState,
+            airtableState: state,
             airtableKey: airtableKey.key
           });
           // This passes the returned form ID and the needed fields for backend and airtable update() to the next component.
@@ -272,8 +274,4 @@ const mapStateToProps = state => ({
   mediaUpload: state.mediaUpload
 });
 
-export default connect(mapStateToProps, { clearMedia })(
-  TellAboutOrganizationScreen
-);
-
-// profile_image: this.props.mediaUpload;
+export default connect(mapStateToProps, {})(TellAboutOrganizationScreen);

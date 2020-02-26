@@ -1,11 +1,24 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+
 import PlusSignCircle from '../../assets/jsicons/PlusSignCircle';
-import style from '../../constants/Profile/CampBlankSpace';
-const CampBlankSpace = () => {
+import styles from '../../constants/Profile/CampBlankSpace';
+const CampBlankSpace = props => {
   return (
-    <View style={style.plusIcon}>
-      <PlusSignCircle />
+    <View style={styles.container}>
+      <View style={styles.plusIcon}>
+        <PlusSignCircle />
+        {props.role === 'supporter' ? (
+          <Text style={styles.text}>
+            {' '}
+            This user has not saved any campaigns yet.
+          </Text>
+        ) : (
+          <Text style={styles.text}>
+            This organization has not posted any campaigns yet.
+          </Text>
+        )}
+      </View>
     </View>
   );
 };
