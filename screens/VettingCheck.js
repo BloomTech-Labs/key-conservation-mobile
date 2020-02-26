@@ -13,7 +13,6 @@ function VettingCheck(props) {
   useEffect(() => {
     getAirtableId();
     getBackend();
-    console.log('user going to backend fromuseEffect', user);
   }, []);
 
   const [user, setUser] = useState({});

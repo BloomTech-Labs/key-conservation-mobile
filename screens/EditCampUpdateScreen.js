@@ -37,7 +37,8 @@ class EditCampUpdateScreen extends React.Component {
   constructor(props) {
     super(props);
 
-    this.selectedCampaign = this.props.navigation.getParam('selectedCampaign') || {};
+    this.selectedCampaign =
+      this.props.navigation.getParam('selectedCampaign') || {};
 
     this.state = {
       update_desc: this.selectedCampaign.update_desc
@@ -87,7 +88,7 @@ class EditCampUpdateScreen extends React.Component {
             />
             <View style={styles.sectionContainer}>
               <View style={styles.sections}>
-                <UploadMedia />
+                <UploadMedia title='Upload new update image' />
               </View>
 
               <View style={styles.sections}>
