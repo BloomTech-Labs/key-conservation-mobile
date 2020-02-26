@@ -104,7 +104,7 @@ const FeedStack = createStackNavigator(
     EditCamp: EditCampScreen,
     EditCampUpdate: EditCampUpdateScreen,
     CreateCampaign: CreateCampScreen,
-    CreateCampUpdate: CreateCampUpdateScreen,
+    CreateCampUpdate: CreateCampUpdateScreen
   },
   {
     navigationOptions: {

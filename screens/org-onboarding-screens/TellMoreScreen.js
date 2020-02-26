@@ -16,6 +16,13 @@ import styles from '../../constants/screens/org-onboarding-styles/VerifyOrg.js';
 import ConservationOptimismModal from '../../components/ConservationOptimismModal';
 import * as SecureStore from 'expo-secure-store';
 import QuestionCircle from '../../assets/jsicons/OnBoarding/QuestionCircle';
+import NavigateButton from './formElement/NavigateButton';
+import NavigateBack from './formElement/NavigateBack.js';
+import CustomFilterComponent from './formElement/CustomFilterComponent';
+import CountryPicker, {
+  getAllCountries
+} from 'react-native-country-picker-modal';
+import OrgOnboardCountries from '../../components/OrgOnboardCountries';
 
 const TellMoreScreen = props => {
   const [airtableState, onChangeText] = useState({
@@ -27,9 +34,27 @@ const TellMoreScreen = props => {
     smartphone_type: ''
   });
 
-  const [thing, setThing] = useState('');
+  const [selectedCountries, setSelectedCountries] = useState([]);
+
+  console.log('airtableState.other_countries', airtableState.other_countries);
+
+  //   const renderFilter = ({ value, onChange, onClose }) => (
+  //     <CustomFilterComponent
+  //       value={value}
+  //       onChange={onChange}
+  //       onClose={onClose}
+  //     />
+  //   );
+  // console.log(await SecureStore.getItemAsync('airtableID', {}));
+
+  const AvailableCountries = async () =>
+    await getAllCountries().filter(country => country.cca2 === 'US');
 
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  //   useEffect(() => {
+  //     printList();
+  //   }, [selectedCountries.length]);
 
   const airtableKey = props.navigation.getParam('airtableKey', 'defaultValue');
   const airtableID = props.navigation.getParam('airtableID', 'defaultValue');
@@ -40,7 +65,7 @@ const TellMoreScreen = props => {
 
   const setAirtableID = async () => {
     await SecureStore.setItemAsync('airtableID', airtableID);
-    console.log(await SecureStore.getItemAsync('airtableID', {}));
+    // console.log(await SecureStore.getItemAsync('airtableID', {}));
   }; // This saves the current airtable form's ID in SecureStore.
 
   useEffect(() => {
@@ -84,6 +109,21 @@ const TellMoreScreen = props => {
     );
   };
 
+  //   const printList = () => {
+  //     // console.log('selectedCountries before ->', selectedCountries);
+  //     // console.log('value.name', value.name);
+  //     // console.log('selectedCountries after ->', selectedCountries);
+  //     return (
+  //       <View>
+  //         {!selectedCountries ? (
+  //           <Text>No Countries Selected.</Text>
+  //         ) : (
+  //           selectedCountries.map(name => <Text key={Date.now()}>{name}</Text>)
+  //         )}
+  //       </View>
+  //     );
+  //   };
+
   return (
     <KeyboardAvoidingView
       style={styles.obBody}
@@ -93,14 +133,45 @@ const TellMoreScreen = props => {
     >
       <ScrollView>
         <View style={styles.obBody}>
-          <Text style={styles.obTitle}>
-            Tell us more about your organization
-          </Text>
+          <Text style={styles.obTitle}>Organization Details</Text>
           <Text style={styles.obText}>
-            We'll take a deeper dive into your activities. You can separate
-            lists of items with a comma.
+            In which countries does you organization work?{' '}
+            <Text style={styles.italic}>Select All that apply.</Text>
           </Text>
-          <Text style={styles.obFieldName}>
+          <View style={styles.aroundPicker}>
+            <CountryPicker
+              //   renderFilter={renderFilter({ name: 'Afghanistan' })}
+              filterable={true}
+              onSelect={value => {
+                setSelectedCountries([...selectedCountries, value.name]);
+                onChangeText({
+                  ...airtableState,
+                  other_countries: selectedCountries
+                });
+              }}
+              cca2='US'
+              translation='eng'
+              //   renderFilter={renderFilter({ name: 'Afghanistan' })}
+            />
+          </View>
+          {selectedCountries.map((name, index) => (
+            <View style={styles.listContainer}>
+              <OrgOnboardCountries
+                key={index}
+                name={name}
+                index={index}
+                setSelectedCountries={setSelectedCountries}
+                selectedCountries={selectedCountries}
+              />
+            </View>
+          ))}
+          {/* <Text style={styles.instructions}>{selectedCountries}</Text> */}
+          {/* {this.state.country && (
+            <Text style={styles.data}>
+              {JSON.stringify(this.state.country, null, 2)}
+            </Text>
+          )} */}
+          {/* <Text style={styles.obFieldName}>
             In what countries does your organization work?
           </Text>
           <TextInput
@@ -110,7 +181,7 @@ const TellMoreScreen = props => {
             }
             value={airtableState.other_countries}
             placeholder='United States, Brazil, France, etc.'
-          />
+          /> */}
           <Text style={styles.obFieldName}>
             Projects your organization is working on:
           </Text>

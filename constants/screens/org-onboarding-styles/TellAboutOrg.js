@@ -44,9 +44,6 @@ export default StyleSheet.create({
     fontSize: responsiveFontSize(2.5),
     lineHeight: 29,
     margin: '5%'
-    // marginTop: '2%',
-    // marginBottom: '2%',
-    // marginRight: '7%'
   },
   aroundInput: {
     flex: 1,
