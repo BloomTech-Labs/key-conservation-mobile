@@ -70,10 +70,7 @@ const Connect = props => {
   };
 
   let selectedUserConnections = connections?.filter
-    ? connections.filter(
-        connect =>
-          connect.status === 'accepted' || connect.status === 'Connected'
-      )
+    ? connections.filter(connect => connect.status === 'Connected')
     : [];
 
   const myConnection = connections?.find(
@@ -86,7 +83,8 @@ const Connect = props => {
   const isPending = myConnection && myConnection.status === 'Pending';
 
   const buttonTitle =
-    props.profileData?.roles === 'conservationist'
+    props.profileData?.roles === 'conservationist' &&
+    props.currentUserProfile.roles === 'supporter'
       ? isConnected
         ? 'Following'
         : 'Follow'
@@ -114,6 +112,7 @@ const Connect = props => {
           <View
             style={{
               ...styles.connectButton,
+              fontFamily: 'Lato-Bold',
               backgroundColor: isConnected ? '#00FD9B' : '#fff'
             }}
           >

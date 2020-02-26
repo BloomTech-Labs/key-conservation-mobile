@@ -4,12 +4,13 @@ export default {
     alignItems: 'flex-start',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingTop: 30,
+    paddingTop: 20,
     paddingBottom: 30,
     flexWrap: 'wrap'
   },
   avatarContainer: {
-    width: '30%',
+    width: '20%',
+    marginLeft: 30,
     flex: 0,
     alignItems: 'center'
   },
@@ -122,8 +123,6 @@ export default {
   connectText: {
     color: 'white',
     paddingHorizontal: 45
-    // borderRightWidth: 1,
-    // borderRightColor: 'white'
   },
   textNumber: {
     color: 'white',

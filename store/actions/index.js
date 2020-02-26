@@ -909,10 +909,10 @@ export const connectRequest = connected_id => dispatch => {
       });
   });
 };
-export const editConnectStatus = connection_id => dispatch => {
+export const editConnectStatus = (connection_id, status) => dispatch => {
   return axiosWithAuth(dispatch, aaxios => {
     return aaxios
-      .put(`${seturl}/users/connect/${connection_id}`)
+      .put(`${seturl}users/connect/${connection_id}`, status)
       .then(res => {})
       .catch(err => {
         return err.message;

@@ -26,6 +26,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between'
   },
+  noConnections: {
+    fontFamily: 'Lato-Bold',
+    fontSize: 18,
+    color: '#3b3b3b',
+    alignSelf: 'center'
+  },
   name: {
     paddingLeft: 20,
     fontFamily: 'Lato-Bold',

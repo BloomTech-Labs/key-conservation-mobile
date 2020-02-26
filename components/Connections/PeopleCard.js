@@ -3,7 +3,11 @@ import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import styles from '../../constants/Connections/Cards';
 import X from '../../assets/jsicons/miscIcons/X';
-import { getConnections, deleteConnection } from '../../store/actions';
+import {
+  getConnections,
+  deleteConnection,
+  editConnectStatus
+} from '../../store/actions';
 import { connect } from 'react-redux';
 
 const People = props => {
@@ -28,7 +32,7 @@ const People = props => {
       )
     );
     props.deleteConnection(myPendingConnection.connection_id).then(error => {
-      if (error) Alert.alert('Failed to decline connection');
+      if (error) Alert.alert('Failed to Decline Connection');
       getConnections();
     });
   };
@@ -46,6 +50,22 @@ const People = props => {
         { text: 'Cancel', style: 'cancel' }
       ]
     );
+  };
+
+  const approveRequest = () => {
+    setConnections(
+      connections.filter(
+        c => c.connection_id !== myPendingConnection.connection_id
+      )
+    );
+    props
+      .editConnectStatus(myPendingConnection.connection_id, {
+        status: 'Connected'
+      })
+      .then(error => {
+        if (error) Alert.alert('Failed to Approve Connection');
+        getConnections();
+      });
   };
 
   useEffect(() => {
@@ -82,47 +102,64 @@ const People = props => {
   return (
     <View>
       {props.currentUserProfile.roles === 'supporter' ? (
-        <View style={styles.mainContainer}>
-          {currentUserPendingConnections?.map(connection => (
-            <View style={styles.card} key={connection.connection_id}>
-              <View
-                style={styles.peopleCardContainer}
-                key={connection.connection_id}
-              >
-                <View style={styles.userInfo} key={connection.connection_id}>
-                  <View
-                    style={styles.imageContainer}
-                    key={connection.connection_id}
-                  >
-                    <Avatar
-                      size={48}
-                      rounded
+        <View>
+          <View style={styles.mainContainer}>
+            {currentUserPendingConnections?.length === 0 ? (
+              <Text style={styles.noConnections}>No Pending Connections</Text>
+            ) : (
+              <View>
+                {currentUserPendingConnections?.map(connection => (
+                  <View style={styles.card} key={connection.connection_id}>
+                    <View
+                      style={styles.peopleCardContainer}
                       key={connection.connection_id}
-                      source={{
-                        uri: connection.connector_avatar
-                      }}
-                    />
+                    >
+                      <View
+                        style={styles.userInfo}
+                        key={connection.connection_id}
+                      >
+                        <View
+                          style={styles.imageContainer}
+                          key={connection.connection_id}
+                        >
+                          <Avatar
+                            size={48}
+                            rounded
+                            key={connection.connection_id}
+                            source={{
+                              uri: connection.connector_avatar
+                            }}
+                          />
+                        </View>
+                        <View>
+                          <Text
+                            key={connection.connection_id}
+                            style={styles.name}
+                          >
+                            {connection.connector_name === null
+                              ? '---'
+                              : connection.connector_name}{' '}
+                            wants to connect
+                          </Text>
+                        </View>
+                      </View>
+                      <View style={styles.statusButtons}>
+                        <TouchableOpacity
+                          style={styles.button}
+                          onPress={() => approveRequest()}
+                        >
+                          <Text style={styles.buttonText}>Connect</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => promptDelete()}>
+                          <X />
+                        </TouchableOpacity>
+                      </View>
+                    </View>
                   </View>
-                  <View>
-                    <Text key={connection.connection_id} style={styles.name}>
-                      {connection.connector_name === null
-                        ? '---'
-                        : connection.connector_name}{' '}
-                      wants to connect
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.statusButtons}>
-                  <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>Connect</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => promptDelete()}>
-                    <X />
-                  </TouchableOpacity>
-                </View>
+                ))}
               </View>
-            </View>
-          ))}
+            )}
+          </View>
           <View style={styles.mainContainer}>
             {supCurrentUserConnections?.map(connection => (
               <View style={styles.card} key={connection.connection_id}>
@@ -140,7 +177,11 @@ const People = props => {
                         rounded
                         key={connection.connection_id}
                         source={{
-                          uri: connection.connector_avatar
+                          uri:
+                            props.currentUserProfile.id ===
+                            connection.connected_id
+                              ? connection.connector_avatar
+                              : connection.connected_avatar
                         }}
                       />
                     </View>
@@ -148,18 +189,12 @@ const People = props => {
                       <Text key={connection.connection_id} style={styles.name}>
                         {connection.connector_name === null
                           ? '---'
-                          : connection.connector_name}{' '}
-                        wants to connect
+                          : props.currentUserProfile.id ===
+                            connection.connected_id
+                          ? connection.connector_name
+                          : connection.connected_name}
                       </Text>
                     </View>
-                  </View>
-                  <View style={styles.statusButtons}>
-                    <TouchableOpacity style={styles.button}>
-                      <Text style={styles.buttonText}>Connect</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => promptDelete()}>
-                      <X />
-                    </TouchableOpacity>
                   </View>
                 </View>
               </View>
@@ -203,6 +238,8 @@ const mapStateToProps = state => ({
   connections: state.connections,
   currentUserProfile: state.currentUserProfile
 });
-export default connect(mapStateToProps, { getConnections, deleteConnection })(
-  People
-);
+export default connect(mapStateToProps, {
+  getConnections,
+  deleteConnection,
+  editConnectStatus
+})(People);

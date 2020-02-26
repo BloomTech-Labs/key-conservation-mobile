@@ -46,7 +46,7 @@ const ProfileHeader = props => {
       <View style={styles.container}>
         <View style={styles.avatarContainer}>
           <Avatar
-            size={61}
+            size={70}
             rounded
             source={{
               uri: profile.profile_image
