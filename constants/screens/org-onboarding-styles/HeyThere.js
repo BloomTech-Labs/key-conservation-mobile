@@ -10,14 +10,14 @@ export default StyleSheet.create({
   obBorderView: {
     alignSelf: 'center',
     borderRadius: 360,
-    marginTop: '45%',
+    marginTop: '35%',
     marginHorizontal: '10%',
     height: '55%'
   },
   obTitle: {
     color: '#000000',
     fontFamily: 'Lato-Bold',
-    fontSize: responsiveFontSize(4),
+    fontSize: responsiveFontSize(3.8),
     lineHeight: 38,
     marginLeft: '15%',
     marginBottom: '12%',
@@ -27,7 +27,7 @@ export default StyleSheet.create({
   obSubtitle: {
     color: '#000000',
     fontFamily: 'Lato-Bold',
-    fontSize: responsiveFontSize(3.3),
+    fontSize: responsiveFontSize(3.1),
     lineHeight: 30,
     marginBottom: '9%',
     marginLeft: '15%',
@@ -37,7 +37,7 @@ export default StyleSheet.create({
   obText: {
     color: '#000000',
     fontFamily: 'Lato-Bold',
-    fontSize: responsiveFontSize(2.3),
+    fontSize: responsiveFontSize(2),
     lineHeight: 27,
     marginBottom: '9%',
     marginLeft: '15%',

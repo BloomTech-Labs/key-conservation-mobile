@@ -13,7 +13,7 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    height: Dimensions.get('window').height * 0.9
+    height: Dimensions.get('window').height * 0.97
   },
   obTitle: {
     color: '#000000',
@@ -59,12 +59,8 @@ export default StyleSheet.create({
     marginBottom: '2%',
     marginRight: '7%'
   },
-  obTextBottom: {
-    marginBottom: '7%'
-  },
 
   buttons: {
-    flex: 0,
     alignItems: 'flex-end'
   }
 });

@@ -4,7 +4,7 @@ import { responsiveFontSize } from 'react-native-responsive-dimensions';
 export default StyleSheet.create({
   obBody: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     height: Dimensions.get('window').height * 0.9
   },
   arrowView: {
@@ -15,27 +15,19 @@ export default StyleSheet.create({
     left: '1.5%'
   },
   obBorderView: {
-    flexGrow: 1,
-    alignSelf: 'center',
-    borderRadius: 30,
-    marginTop: '5%',
-    marginBottom: '20%',
-    paddingBottom: '5%',
-    marginLeft: '3%',
-    marginRight: '2%'
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   obTitle: {
     color: '#000000',
     fontFamily: 'Lato-Bold',
     textAlign: 'center',
-    fontSize: responsiveFontSize(3.8),
-    // fontSize: 28,
+    fontSize: responsiveFontSize(3.6),
     lineHeight: 38,
-    marginLeft: '15%',
-    marginTop: '65%',
-    marginBottom: '3%',
-    marginRight: '15%',
-    height: '40%'
+    paddingTop: '30%',
+    height: Dimensions.get('window').height * 0.5,
+    width: Dimensions.get('window').width * 0.6,
+    borderRadius: 180
   },
   buttons: {
     flex: 0,

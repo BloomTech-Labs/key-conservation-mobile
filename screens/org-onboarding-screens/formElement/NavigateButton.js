@@ -6,13 +6,16 @@ import { responsiveFontSize } from 'react-native-responsive-dimensions';
 // onButtonPress -> button function
 // label -> text on button
 // color to indicate black or white outline/text
+// inactive bool
 const NavigateButton = props => {
   return (
     <TouchableOpacity
       style={
-        !props.color || props.color === 'black'
-          ? [styles.obFwdContainer, { ...props }]
-          : [styles.obFwdContainer, styles.white, { ...props }]
+        props.inactive === true
+          ? [styles.obFwdContainer, styles.inactive]
+          : !props.color || props.color === 'black'
+          ? [styles.obFwdContainer]
+          : [styles.obFwdContainer, styles.white]
       }
       onPress={() => {
         props.onButtonPress();
@@ -20,9 +23,11 @@ const NavigateButton = props => {
     >
       <Text
         style={
-          !props.color || props.color === 'black'
+          props.inactive === true
+            ? [styles.obFwdBtnText, styles.inactive]
+            : !props.color || props.color === 'black'
             ? styles.obFwdBtnText
-            : [styles.obFwdBtnText, styles.white, { ...props }]
+            : [styles.obFwdBtnText, styles.white]
         }
       >
         {props.label}
@@ -41,7 +46,9 @@ const styles = StyleSheet.create({
     borderColor: '#000',
     borderRadius: 5,
     alignItems: 'center',
-    margin: '10%'
+    marginBottom: '10%',
+    marginRight: '10%',
+    marginTop: '3%'
   },
   obFwdBtnText: {
     fontFamily: 'Lato-Bold',
@@ -53,5 +60,9 @@ const styles = StyleSheet.create({
   white: {
     borderColor: '#fff',
     color: '#fff'
+  },
+  inactive: {
+    borderColor: '#E0E0E0',
+    color: '#E0E0E0'
   }
 });
