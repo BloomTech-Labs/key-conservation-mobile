@@ -23,10 +23,12 @@ const initialState = {
     token: ''
   },
   currentUserProfile: {
-    campaigns: []
+    campaigns: [],
+    connections: []
   },
   selectedProfile: {
-    campaigns: []
+    campaigns: [],
+    connections: []
   },
   selectedCampaign: {},
   allCampaigns: [],

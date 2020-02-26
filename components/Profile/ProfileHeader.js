@@ -12,7 +12,8 @@ import { AmpEvent } from '../withAmplitude';
 
 import styles from '../../constants/Profile/ProfileHeader';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
-import { randomImage } from '../../components/Animals/RandomImage';
+import { randomImage } from '../Animals/RandomImage';
+import ConnectionsHeader from '../Connections/ConnectionsHeader';
 
 // Social Media Icons
 import Envelope from '../../assets/jsicons/socialmedia/Envelope';
@@ -37,7 +38,6 @@ const ProfileHeader = props => {
       source={randomHeaderImage}
       resizeMode='cover'
       style={{
-        height: 260,
         paddingTop: 86,
         backgroundColor: '#000000'
       }}
@@ -46,7 +46,7 @@ const ProfileHeader = props => {
       <View style={styles.container}>
         <View style={styles.avatarContainer}>
           <Avatar
-            size={61}
+            size={70}
             rounded
             source={{
               uri: profile.profile_image
@@ -118,7 +118,7 @@ const ProfileHeader = props => {
                     <TouchableOpacity
                       style={styles.socialIcon}
                       onPress={async () =>
-                        (await WebBrowser.openBrowserAsync(profile.facebook))
+                        await WebBrowser.openBrowserAsync(profile.facebook)
                       }
                     >
                       <Facebook />
@@ -133,6 +133,10 @@ const ProfileHeader = props => {
             </View>
           )}
         </View>
+        <ConnectionsHeader
+          profileId={props.profileId}
+          profileData={props.profile}
+        />
       </View>
     </ImageBackground>
   );

@@ -1,17 +1,16 @@
-import { StyleSheet } from 'react-native';
-
-const styles = StyleSheet.create({
+export default {
   container: {
     flex: 1,
     alignItems: 'flex-start',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingTop: 30,
+    paddingTop: 20,
     paddingBottom: 30,
     flexWrap: 'wrap'
   },
   avatarContainer: {
-    width: '30%',
+    width: '20%',
+    marginLeft: 30,
     flex: 0,
     alignItems: 'center'
   },
@@ -94,12 +93,49 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     flex: 1
   },
-
   CampaignButton: {
     fontSize: 18,
     color: '#000',
     fontWeight: 'bold',
     fontFamily: 'Lato-Bold'
+  },
+  buttonContainer: {
+    paddingHorizontal: 30,
+    borderLeftWidth: 1,
+    borderColor: 'white',
+    width: '45%'
+  },
+  connectButton: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    fontFamily: 'Lato-Bold',
+    marginVertical: 5,
+    alignSelf: 'flex-end',
+    width: '100%'
+  },
+  connectContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: '100%',
+    alignItems: 'center',
+    marginTop: 20
+  },
+  connectText: {
+    color: 'white',
+    paddingHorizontal: 45
+  },
+  textNumber: {
+    color: 'white',
+    fontSize: 20,
+    textAlign: 'center'
+  },
+  textWord: {
+    color: 'white',
+    textAlign: 'center',
+    color: '#fff',
+    fontWeight: 'bold',
+    fontFamily: 'Lato-Bold',
+    fontSize: 18
   },
   DetailButton: {
     fontSize: 18,
@@ -107,6 +143,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'Lato-Bold'
   }
-});
-
-export default styles;
+};
