@@ -143,7 +143,6 @@ class ProfileScreen extends React.Component {
   };
 
   scrollToMaximizeContent = (animate = false) => {
-    console.log(animate);
 
     this.scrollView.current
       ?.getNode()

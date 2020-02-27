@@ -80,9 +80,7 @@ const ProfileHeader = forwardRef((props, ref) => {
         outputRange: [0, 2, 10],
         extrapolate: 'clamp',
       })
-    : null;
-
-  console.log(headerBlur);
+    : 0;
 
   const contentOpacity = state.MAX_HEADER_HEIGHT
     ? props.parentScrollY.interpolate({
