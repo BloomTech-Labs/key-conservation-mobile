@@ -1,13 +1,11 @@
 import React, {
   useMemo,
   useState,
-  useImperativeHandle,
   forwardRef
 } from 'react';
 import {
   View,
   Text,
-  ImageBackground,
   TouchableOpacity,
   Linking,
   Animated
@@ -34,9 +32,7 @@ const ProfileHeader = forwardRef((props, ref) => {
 
   const appHeaderHeight = useHeaderHeight();
 
-  const [state, setState] = useState({
-    scrollY: new Animated.Value(0)
-  });
+  const [state, setState] = useState({});
 
   let randomHeaderImage = useMemo(() => randomImage(), []);
 
@@ -57,12 +53,6 @@ const ProfileHeader = forwardRef((props, ref) => {
       MAX_HEADER_HEIGHT: height
     });
   };
-
-  useImperativeHandle(ref, () =>
-    Animated.event([{ nativeEvent: { contentOffset: { y: state.scrollY } } }])
-  );
-
-  // const scrollY = new Animated.Value(props.parentScrollY);
 
   const inputMax =
     state.MAX_HEADER_HEIGHT && state.MAX_HEADER_HEIGHT - appHeaderHeight;
