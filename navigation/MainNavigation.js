@@ -96,6 +96,7 @@ const FeedStack = createStackNavigator(
         headerTintColor: '#fff'
       }
     },
+    SelectedConnections: SelectedConnectionsScreen,
     Camp: ViewCampScreen,
     CampUpdate: ViewCampUpdateScreen,
     SupPro: ProfileScreen,
@@ -110,12 +111,6 @@ const FeedStack = createStackNavigator(
       tabBarLabel: 'Feed',
       tabBarIcon: ({ focused }) => <Lightening />
     }
-
-    // transitionConfig: () => ({
-    //   transitionSpec: {
-    //     duration: 0
-    //   }
-    // })
   }
 );
 
@@ -146,16 +141,12 @@ const MyProStack = createStackNavigator(
     CampUpdate: ViewCampUpdateScreen,
     CreateCampUpdate: CreateCampUpdateScreen,
     EditCampUpdate: EditCampUpdateScreen,
-    CreateReport: CreateReportScreen,
-    Connections: ConnectionsScreen
+    CreateReport: CreateReportScreen
   },
   {
     navigationOptions: {
       tabBarLabel: 'My Profile',
       tabBarIcon: ({ focused }) => <Smile />
-      // transitionSpec: {
-      //   duration: 0
-      // }
     }
   }
 );
@@ -164,8 +155,7 @@ const MySupProStack = createStackNavigator(
   {
     MySupPro: { screen: ProfileScreen },
     EditSupPro: { screen: EditSupProScreen },
-    Connections: { screen: ConnectionsScreen },
-    SelectedConnections: { screen: SelectedConnectionsScreen }
+    Connections: { screen: ConnectionsScreen }
   },
   {
     navigationOptions: {

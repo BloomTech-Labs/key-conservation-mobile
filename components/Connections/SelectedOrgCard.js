@@ -79,7 +79,6 @@ const OrganizationsCard = props => {
 };
 
 const mapStateToProps = state => ({
-  connections: state.connections,
   currentUserProfile: state.currentUserProfile,
   selectedProfile: state.selectedProfile
 });
