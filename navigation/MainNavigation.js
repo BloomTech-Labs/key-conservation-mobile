@@ -38,6 +38,7 @@ import LogoutScreen from '../screens/LogoutScreen';
 import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import ConnectionsScreen from '../screens/Connections/ConnectionsScreen';
+import SelectedConnectionsScreen from '../screens/Connections/SelectedConnectionsScreen';
 
 //icon imports
 
@@ -124,7 +125,8 @@ export const AccountSettingsStack = createStackNavigator({
   ReportScreen: ReportDetailScreen,
   SupProDetails: ProfileScreen,
   ProDetails: ProfileScreen,
-  Connections: ConnectionsScreen
+  Connections: ConnectionsScreen,
+  SelectedConnections: SelectedConnectionsScreen
 });
 
 const MyProStack = createStackNavigator(
@@ -162,7 +164,8 @@ const MySupProStack = createStackNavigator(
   {
     MySupPro: { screen: ProfileScreen },
     EditSupPro: { screen: EditSupProScreen },
-    Connections: { screen: ConnectionsScreen }
+    Connections: { screen: ConnectionsScreen },
+    SelectedConnections: { screen: SelectedConnectionsScreen }
   },
   {
     navigationOptions: {

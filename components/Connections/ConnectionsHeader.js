@@ -97,9 +97,14 @@ const Connect = props => {
     <View style={styles.connectContainer}>
       <TouchableOpacity
         style={styles.connectText}
-        onPress={() =>
-          props.navigation.navigate('Connections', (props = { props }))
-        }
+        onPress={() => {
+          props.profileId !== props.currentUserProfile.id
+            ? props.navigation.navigate(
+                'SelectedConnections',
+                (props = { props })
+              )
+            : props.navigation.navigate('Connections', (props = { props }));
+        }}
       >
         <Text style={styles.textNumber}>{selectedUserConnections.length}</Text>
         <View>
