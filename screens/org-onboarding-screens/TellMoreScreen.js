@@ -136,12 +136,13 @@ const TellMoreScreen = props => {
     }
   };
 
-  const whichCountries = () => {};
-
   useEffect(() => {
     whichPhones(applePhone, androidPhone, otherPhone);
-    whichCountries(selectedCountries);
-  }, [applePhone, androidPhone, otherPhone, selectedCountries]);
+  }, [applePhone, androidPhone, otherPhone]);
+
+  useEffect(() => {
+    onChangeText({ other_countries: selectedCountries.toString() });
+  }, [selectedCountries]);
 
   const setAirtableID = async () => {
     await SecureStore.setItemAsync('airtableID', airtableID);
@@ -171,7 +172,7 @@ const TellMoreScreen = props => {
         {
           id: airtableID,
           fields: {
-            other_countries: airtableState.other_countries,
+            other_countries: airtableState.other_countries.toString(),
             affiliations_partnerships: airtableState.affiliations_partnerships,
             conservation_optimism: airtableState.conservation_optimism,
             multiple_projects: airtableState.multiple_projects,
@@ -246,10 +247,10 @@ const TellMoreScreen = props => {
                           value.name
                         ]);
                       }
-                      onChangeText({
-                        ...airtableState,
-                        other_countries: selectedCountries
-                      });
+                      // onChangeText({
+                      //   ...airtableState,
+                      //   other_countries: selectedCountries.toString()
+                      // });
                     }}
                     cca2='US'
                     translation='eng'
@@ -401,7 +402,6 @@ const TellMoreScreen = props => {
             ) : null}
             <View style={styles.buttons}>
               {airtableState.other_countries === '' ||
-              airtableState.multiple_projects === '' ||
               airtableState.smartphone_type === '' ? (
                 <NavigateButton
                   label='Next'
@@ -435,7 +435,7 @@ const TellMoreScreen = props => {
                       airtableKey: airtableKey
                     });
                     console.log(
-                      'airtableState',
+                      'airtableState from tellmore',
                       airtableState,
                       'applePhone',
                       applePhone
