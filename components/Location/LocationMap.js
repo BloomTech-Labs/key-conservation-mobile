@@ -30,19 +30,19 @@ const LocationMap = ({ getOrganizations, profile }) => {
           zoom: 5
         }}
       >
-        {profile.latitude && profile.longitude ? (
+        {lat && lon ? (
           <Marker
             key={Math.random()}
             pinColor='#00FF9D'
             // image={image1}
             coordinate={{
-              latitude: profile.latitude,
-              longitude: profile.longitude
+              latitude: lat,
+              longitude: lon
             }}
           >
             <Image
               source={{
-                uri: profile.profile_image
+                uri: profile.profile_image || undefined
               }}
               style={styles.imageMarker}
             />

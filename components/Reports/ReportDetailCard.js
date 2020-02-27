@@ -51,6 +51,9 @@ class ReportDetailCard extends Component {
           this.props.currentReport.post_id
         )
         .then(res => {
+          if(!res)
+            return;
+
           switch (this.props.currentReport.table_name) {
             case 'campaigns':
               this.type = 'Campaign';
@@ -82,7 +85,7 @@ class ReportDetailCard extends Component {
         .catch(err => {
           console.log(err.message);
           Alert.alert(
-            err.message || 'An error ocurred when we tried to get some data'
+            'An error ocurred when we tried to get some data'
           );
         });
     } else this.type = 'User Profile';

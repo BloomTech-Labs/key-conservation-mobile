@@ -38,7 +38,7 @@ const WideMap = ({ getOrganizations, coords, navigation }) => {
             >
               <Image
                 source={{
-                  uri: coordinate.profile_image
+                  uri: coordinate.profile_image || undefined
                 }}
                 style={styles.markerImg}
               />

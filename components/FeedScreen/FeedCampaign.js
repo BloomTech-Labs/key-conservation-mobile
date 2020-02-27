@@ -236,7 +236,7 @@ const FeedCampaign = props => {
               <Text style={styles.orgTitleView}>{data.username}</Text>
             </View>
           }
-          leftAvatar={{ source: { uri: data.profile_image } }}
+          leftAvatar={{ source: { uri: data.profile_image || undefined } }}
           rightElement={
             <TouchableOpacity onPress={showActionSheet}>
               <Ellipse fill='#000' height='25' width='25' />

@@ -114,7 +114,8 @@ class LoadingScreen extends React.Component {
       await this.props.getLoadingData(sub);
 
       if (this.props.userRegistered === true) {
-        this.props.getProfileData(null, sub, true);
+
+        await this.props.getProfileData(null, sub, true);
 
         if (this.props.userId /* && isVetting !== "true"*/) {
           await SecureStore.setItemAsync('id', `${this.props.userId}`);

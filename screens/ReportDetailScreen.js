@@ -76,20 +76,10 @@ class ReportDetailScreen extends Component {
 
   goToProfile = id => {
     if (!id) return;
-    this.props.getProfileData(id).then(usr => {
-      if (usr) {
-        if (!usr.roles) {
-          console.log('profile data: ', usr);
-          return;
-        }
-        const screen =
-          usr.roles === 'supporter' ? 'SupProDetails' : 'ProDetails';
 
-        this.props.navigation.navigate(screen, {
-          selectedProfile: usr
-        });
-      }
-    });
+    this.props.navigation.navigate('ProDetails', {
+      selectedProfile: id
+    })
   };
 
   render() {

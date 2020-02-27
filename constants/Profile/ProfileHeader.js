@@ -1,12 +1,42 @@
-export default {
+import { StyleSheet, Platform } from 'react-native';
+
+export default StyleSheet.create({
   container: {
+    backgroundColor: 'black',
+    position:'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    overflow: 'hidden',
+    zIndex: 100
+  },
+  contentContainer: {
+    position: 'absolute',
+    // Hardcoding for android because there is a React Native bug preventing
+    // string values for transforms to work
+    // transform: [{ translateY: Platform.OS === 'android' ? -50 : '-50%' }],
+    left: 0,
+    right: 0,
     flex: 1,
     alignItems: 'flex-start',
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingTop: 20,
+    justifyContent: 'center',
+    paddingTop: 30,
     paddingBottom: 30,
     flexWrap: 'wrap'
+  },
+  headerTitleContainer: {
+    position: 'absolute',
+    bottom: 16,
+    width: '100%',
+  },
+  headerTitle: {
+    flex: 1,
+    textAlign: 'center',
+    zIndex: -1,
+    fontSize: 18,
+    fontFamily: 'Lato-Bold',
+    color: 'white'
   },
   avatarContainer: {
     width: '20%',
@@ -143,4 +173,4 @@ export default {
     fontWeight: 'bold',
     fontFamily: 'Lato-Bold'
   }
-};
+});

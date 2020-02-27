@@ -41,7 +41,7 @@ const ReportCard = (props) => {
 					<Text style={styles.unique_reports}>{props.unique_reports}</Text>
 				</View>
 				<View style={styles.arrowContainer}>
-					<ChevronLeftBlack style={styles.arrowIcon} />
+					<ChevronLeftBlack style={styles.arrowIcon} width='12' height='12' />
 				</View>
 			</View>
 		</View>

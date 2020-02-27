@@ -1,5 +1,11 @@
 import React from 'react';
-import { ScrollView, ActivityIndicator, Alert } from 'react-native';
+import {
+  ScrollView,
+  ActivityIndicator,
+  Alert,
+  View,
+  Animated
+} from 'react-native';
 import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
 import { getProfileData, createReport } from '../store/actions';
@@ -19,7 +25,8 @@ class ProfileScreen extends React.Component {
     this.state = {
       error: '',
       loading: true,
-      user: {}
+      user: {},
+      scrollY: 0
     };
     this.profileId =
       this.props.navigation.getParam('selectedProfile') ||
@@ -28,6 +35,14 @@ class ProfileScreen extends React.Component {
       showProScreenActions: this.showActionSheet,
       currentProfile: this.props.currentUserProfile
     });
+
+    this.headerOnScroll = React.createRef();
+    this.bodyOnScroll = React.createRef();
+    // this.scrollY = new Animated.Value(0);
+
+    this.scrollView = React.createRef();
+
+    this.scrollY = new Animated.Value(0);
   }
 
   initProfileData = async () => {
@@ -110,7 +125,6 @@ class ProfileScreen extends React.Component {
     return {
       headerTransparent: true,
       title: '',
-      headerTintColor: '#fff',
       headerLeft,
       headerRight
     };
@@ -124,8 +138,25 @@ class ProfileScreen extends React.Component {
     this.props.navigation.setParams({ selectedProfile: null });
   }
 
+  handleHeaderScale = (height, headerHeight) => {
+    this.setState({ contentPaddingTop: height, headerHeight });
+  };
+
+  scrollToMaximizeContent = (animate = false) => {
+
+    this.scrollView.current
+      ?.getNode()
+      .scrollTo({
+        x: 0,
+        y: this.state.contentPaddingTop - this.state.headerHeight,
+        animate: animate
+      });
+  };
+
   render() {
     const { navigation } = this.props;
+
+    // console.log(this.props);
 
     const profileData = this.props.navigation.getParam('selectedProfile')
       ? this.state.user
@@ -134,32 +165,59 @@ class ProfileScreen extends React.Component {
     return (
       // creates sticky header
       <Viewport.Tracker>
-        <ScrollView
-          contentContainerStyle={{ flex: this.state.loading ? 1 : 0 }}
-          stickyHeaderIndices={[0]}
-          scrollEventThrottle={16}
-        >
-          <UserActionSheet
-            admin={this.props.admin}
-            userId={profileData.id}
-            ref={o => (this.UserActionSheet = o)}
-          />
+        <View>
           <ProfileHeader
+            parentScrollY={this.scrollY}
             loading={this.state.loading}
             navigation={navigation}
             profile={profileData}
             profileId={this.profileId}
             myProfile={profileData === this.props.currentUserProfile}
+            onLayout={this.handleHeaderScale}
+            ref={this.headerOnScroll}
           />
-          {this.state.loading ? (
-            <ActivityIndicator
-              style={{ margin: 'auto', flex: 1 }}
-              size='large'
+          <Animated.ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{
+              height: '100%'
+            }}
+            contentContainerStyle={{
+              flex: this.state.loading ? 1 : 0,
+              paddingTop: this.state.contentPaddingTop
+            }}
+            stickyHeaderIndices={[0]}
+            scrollEventThrottle={12}
+            ref={this.scrollView}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { y: this.scrollY } } }],
+              {
+                useNativeDriver: true,
+                listener: event => this.headerOnScroll.current?.(event)
+              }
+            )}
+          >
+            <UserActionSheet
+              admin={this.props.admin}
+              userId={profileData.id}
+              ref={o => (this.UserActionSheet = o)}
             />
-          ) : (
-            <ProfileBody profile={profileData} />
-          )}
-        </ScrollView>
+            {this.state.loading ? (
+              <ActivityIndicator
+                style={{ margin: 'auto', flex: 1 }}
+                size='large'
+              />
+            ) : (
+              <ProfileBody
+                profile={profileData}
+                contentPaddingTop={this.state.contentPaddingTop}
+                headerHeight={this.state.headerHeight}
+                scrollY={this.scrollY}
+                ref={this.bodyOnScroll}
+                scrollToMaximizeContent={this.scrollToMaximizeContent}
+              />
+            )}
+          </Animated.ScrollView>
+        </View>
       </Viewport.Tracker>
     );
   }

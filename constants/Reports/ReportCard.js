@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     width: '10%',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100%'
+    marginLeft: 4,
   },
   flagIcon: {
     marginRight: 2
@@ -48,7 +48,9 @@ const styles = StyleSheet.create({
   },
   arrowIcon: {
     transform: [{ rotateZ: '180deg' }],
-    paddingVertical: 18
+    paddingVertical: 18,
+    paddingHorizontal: 4,
+    alignSelf: 'center'
   },
   left: {
     flex: 1,
