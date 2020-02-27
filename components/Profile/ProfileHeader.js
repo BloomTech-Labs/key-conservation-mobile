@@ -66,24 +66,26 @@ const ProfileHeader = forwardRef((props, ref) => {
   const inputMax =
     state.MAX_HEADER_HEIGHT && state.MAX_HEADER_HEIGHT - appHeaderHeight;
 
-  const headerHeight = state.MAX_HEADER_HEIGHT
-    ? state.scrollY.interpolate({
+  const translateY = state.MAX_HEADER_HEIGHT
+    ? props.parentScrollY.interpolate({
         inputRange: [0, inputMax],
-        outputRange: [state.MAX_HEADER_HEIGHT, appHeaderHeight],
-        extrapolate: 'clamp'
+        outputRange: [0, -inputMax],
+        extrapolate: 'clamp',
       })
-    : null;
+    : 0;
 
   const headerBlur = state.MAX_HEADER_HEIGHT
     ? state.scrollY.interpolate({
         inputRange: [0, inputMax / 2, inputMax],
         outputRange: [0, 2, 10],
-        extrapolate: 'clamp'
+        extrapolate: 'clamp',
       })
     : null;
 
+  console.log(headerBlur);
+
   const contentOpacity = state.MAX_HEADER_HEIGHT
-    ? state.scrollY.interpolate({
+    ? props.parentScrollY.interpolate({
         inputRange: [0, inputMax / 2, inputMax],
         outputRange: [1, 0.2, 0],
         extrapolate: 'clamp'
@@ -94,7 +96,7 @@ const ProfileHeader = forwardRef((props, ref) => {
     ? 'Loading...'
     : profile.sup_name || profile.username || profile.org_name;
   return (
-    <Animated.View style={[styles.container, { height: headerHeight }]}>
+    <Animated.View style={[styles.container, { transform: [{translateY: translateY}] }]}>
       <Animated.Image
         source={randomHeaderImage}
         resizeMode='cover'
@@ -115,7 +117,7 @@ const ProfileHeader = forwardRef((props, ref) => {
             opacity:
               contentOpacity?.interpolate({
                 inputRange: [0, 0.2, 1],
-                outputRange: [1, 0, 0]
+                outputRange: [1, .6, 0]
               }) || 0
           }
         ]}

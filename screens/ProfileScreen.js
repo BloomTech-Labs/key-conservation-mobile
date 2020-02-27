@@ -168,7 +168,7 @@ class ProfileScreen extends React.Component {
       <Viewport.Tracker>
         <View>
           <ProfileHeader
-            parentScrollY={this.state.scrollY}
+            parentScrollY={this.scrollY}
             loading={this.state.loading}
             navigation={navigation}
             profile={profileData}
@@ -186,7 +186,7 @@ class ProfileScreen extends React.Component {
               paddingTop: this.state.contentPaddingTop
             }}
             stickyHeaderIndices={[0]}
-            scrollEventThrottle={8}
+            scrollEventThrottle={12}
             ref={this.scrollView}
             onScroll={Animated.event(
               [{ nativeEvent: { contentOffset: { y: this.scrollY } } }],
