@@ -75,7 +75,7 @@ const ProfileHeader = forwardRef((props, ref) => {
     : 0;
 
   const headerBlur = state.MAX_HEADER_HEIGHT
-    ? state.scrollY.interpolate({
+    ? props.parentScrollY.interpolate({
         inputRange: [0, inputMax / 2, inputMax],
         outputRange: [0, 2, 10],
         extrapolate: 'clamp',

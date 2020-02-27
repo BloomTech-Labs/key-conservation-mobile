@@ -84,6 +84,7 @@ export default React.forwardRef((props, ref) => {
   return (
     <TabView
     sceneContainerStyle={{
+      flex: 1,
       paddingTop: 48
     }}
       navigationState={state}

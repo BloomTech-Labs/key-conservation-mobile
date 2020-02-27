@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,7 +13,9 @@ const styles = StyleSheet.create({
   contentContainer: {
     position: 'absolute',
     top: '50%',
-    transform: [{ translateY: '-50%' }],
+    // Hardcoding for android because there is a React Native bug preventing
+    // string values for transforms to work
+    transform: [{ translateY: Platform.OS === 'android' ? -50 : '-50%' }],
     left: 0,
     right: 0,
     flex: 1,
