@@ -237,7 +237,15 @@ const TellMoreScreen = props => {
                     placeholder='                                                                                           '
                     // ***************
                     onSelect={value => {
-                      setSelectedCountries([...selectedCountries, value.name]);
+                      const countryCheck = selectedCountries.includes(
+                        value.name
+                      );
+                      if (!countryCheck) {
+                        setSelectedCountries([
+                          ...selectedCountries,
+                          value.name
+                        ]);
+                      }
                       onChangeText({
                         ...airtableState,
                         other_countries: selectedCountries
