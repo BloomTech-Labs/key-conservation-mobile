@@ -142,21 +142,17 @@ class ProfileScreen extends React.Component {
     this.setState({ contentPaddingTop: height, headerHeight });
   };
 
-  onScroll = e => {
-    // this.headerOnScroll.current?.(e);
-    return this.headerOnScroll.current?.(e) && this.bodyOnScroll?.current;
-  };
+  scrollToMaximizeContent = (animate = false) => {
+    console.log(animate);
 
-  // onScroll = Animated.event(
-  //   [{ nativeEvent: { contentOffset: { y: this.bodyOnScroll?.current } } }],
-  //   {
-  //     useNativeDriver: true,
-  //     listener: event => {
-  //       this.headerOnScroll.current?.(event);
-  //       // this.bodyOnScroll(event);
-  //     }
-  //   }
-  // );
+    this.scrollView.current
+      ?.getNode()
+      .scrollTo({
+        x: 0,
+        y: this.state.contentPaddingTop - this.state.headerHeight,
+        animate: animate
+      });
+  };
 
   render() {
     const { navigation } = this.props;
@@ -182,12 +178,16 @@ class ProfileScreen extends React.Component {
           />
           <Animated.ScrollView
             showsVerticalScrollIndicator={false}
+            style={{
+              height: '100%'
+            }}
             contentContainerStyle={{
               flex: this.state.loading ? 1 : 0,
               paddingTop: this.state.contentPaddingTop
             }}
             stickyHeaderIndices={[0]}
             scrollEventThrottle={8}
+            ref={this.scrollView}
             onScroll={Animated.event(
               [{ nativeEvent: { contentOffset: { y: this.scrollY } } }],
               {
@@ -213,6 +213,7 @@ class ProfileScreen extends React.Component {
                 headerHeight={this.state.headerHeight}
                 scrollY={this.scrollY}
                 ref={this.bodyOnScroll}
+                scrollToMaximizeContent={this.scrollToMaximizeContent}
               />
             )}
           </Animated.ScrollView>

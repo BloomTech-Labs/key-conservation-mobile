@@ -9,7 +9,8 @@ export default StyleSheet.create({
     right: 0,
     zIndex: 100,
     flexDirection: 'row',
-    position: 'absolute'
+    position: 'absolute',
+    backgroundColor: 'white'
   },
   tabItem: {
     flex: 1,
