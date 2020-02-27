@@ -1,16 +1,49 @@
-export default {
+import { StyleSheet, Dimensions } from 'react-native';
+import { responsiveFontSize } from 'react-native-responsive-dimensions';
+
+export default StyleSheet.create({
   container: {
-    fontFamily: 'Lato',
-    fontStyle: 'normal',
-    fontSize: 16,
-    lineHeight: 1.5,
     flex: 1,
-    padding: 16,
-    marginTop: 40,
-    display: 'flex',
-    alignItems: 'center',
+    backgroundColor: 'white',
+    justifyContent: 'center'
+  },
+  header: {
+    flex: 0,
+    padding: '2.5%',
+    top: '2.5%',
+    flexDirection: 'row'
+  },
+  arrowView: {
+    padding: '2.5%',
+    top: '2.5%',
+    alignSelf: 'flex-start',
+    left: '1.5%'
+  },
+  progressBar: {
+    width: '75%',
+    alignSelf: 'center',
+    padding: '7%',
+    top: '5%',
+    right: '20%'
+  },
+  progressBarText: {
+    textAlign: 'center',
+    fontFamily: 'Lato',
+    fontSize: responsiveFontSize(1.8),
+    paddingTop: 4
+  },
+  keyboardView: {
+    marginVertical: '3%',
+    flex: 1,
+    backgroundColor: 'white',
     justifyContent: 'center',
-    marginBottom: '5%'
+    alignItems: 'center'
+  },
+
+  obBody: {
+    flex: 1,
+    backgroundColor: 'white',
+    padding: '4%'
   },
   borderContainer: {
     paddingTop: 40,
@@ -19,8 +52,8 @@ export default {
     marginBottom: 30,
     marginLeft: '5%',
     marginRight: '5%',
-    borderRadius: 30,
-    borderColor: '#00FF9D',
+    borderRadius: 40,
+    borderColor: '#000',
     borderWidth: 1,
     position: 'relative'
   },
@@ -35,13 +68,13 @@ export default {
     lineHeight: 38
   },
 
-  noBorderConatiner: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    marginLeft: '5%',
-    marginRight: '5%'
-  },
+  //   noBorderContainer: {
+  //     display: 'flex',
+  //     flexDirection: 'row',
+  //     justifyContent: 'flex-start',
+  //     marginLeft: '5%',
+  //     marginRight: '5%'
+  //   },
 
   row: {
     display: 'flex',
@@ -52,13 +85,13 @@ export default {
 
   column: {
     display: 'flex',
-    flexDirection: 'column',
-    justifyItems: 'center'
+    flexDirection: 'column'
+    // justifyItems: 'center'
   },
 
-  textInput: {
-    backgroundColor: '#F3F2F5'
-  },
+  //   textInput: {
+  //     backgroundColor: '#F3F2F5'
+  //   },
 
   textArea: {
     height: 120,
@@ -73,16 +106,21 @@ export default {
     marginBottom: '1%',
     marginTop: '2%'
   },
-  obBody: {
-    flex: 1,
-    backgroundColor: 'white',
-    justifyContent: 'center'
-  },
   obText: {
     color: '#000000',
     fontFamily: 'Lato',
     fontSize: 18,
     lineHeight: 25,
+    marginLeft: '5%',
+    marginTop: '2%',
+    marginBottom: '2%',
+    marginRight: '7%'
+  },
+  obFieldName: {
+    fontFamily: 'Lato-Bold',
+    fontSize: 14,
+    lineHeight: 19,
+    color: '#000000',
     marginLeft: '5%',
     marginTop: '2%',
     marginBottom: '2%',
@@ -116,7 +154,7 @@ export default {
     marginLeft: '5%',
     marginTop: '2%',
     marginBottom: '2%',
-    marginRight: '%'
+    marginRight: 20
   },
   obSubtitleSm: {
     color: '#000000',
@@ -128,66 +166,20 @@ export default {
     marginBottom: '2%',
     marginRight: '5%'
   },
-  obFwdContainer: {
-    width: 112,
-    height: 46,
-    backgroundColor: '#C4C4C4',
-    borderRadius: 5,
-    alignSelf: 'flex-end',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: '5%'
-  },
-  obFwdBtnText: {
-    fontFamily: 'Lato-Bold',
-    fontStyle: 'normal',
-    fontSize: 18,
-    lineHeight: 25,
-    color: '#000000'
-  },
-  obRectangle1: {
-    position: 'absolute',
-    width: 241,
-    height: 241,
-    left: 16,
-    top: 433,
-    backgroundColor: '#C4C4C4',
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#C4C4C4'
-  },
-  obRectangle2: {
-    position: 'absolute',
-    width: 241,
-    height: 241,
-    left: 94,
-    top: 411,
-    backgroundColor: '#C4C4C4',
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#00FF9D'
-  },
-  obFieldName: {
-    fontFamily: 'Lato',
-    fontWeight: 300,
-    fontSize: 14,
-    lineHeight: 19,
-    color: '#000000'
-  },
-  obTextInput: {
+
+  textInput: {
     marginLeft: 20,
     marginBottom: 20,
     backgroundColor: 'rgba(196, 196, 196, 0.5)',
-    borderRadius: 8,
-    keyboardType: 'default'
+    borderRadius: 8
+    // keyboardType: 'default'
   },
   obNumInput: {
     marginLeft: 20,
     marginBottom: 20,
     backgroundColor: 'rgba(196, 196, 196, 0.5)',
-    borderRadius: 8,
-    keyboardType: 'phone-pad'
+    borderRadius: 8
+    // keyboardType: 'phone-pad'
   },
   obUploadBtn: {
     backgroundColor: '#00FF9D',
@@ -199,4 +191,4 @@ export default {
     width: 214,
     height: 68
   }
-};
+});

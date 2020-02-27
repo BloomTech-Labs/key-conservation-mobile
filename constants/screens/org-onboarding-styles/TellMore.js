@@ -129,36 +129,39 @@ export default StyleSheet.create({
 
   // ******* CountryPicker Styles below  ********
   countryPickerContainer: {
+    flex: 0,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'flex-start',
     backgroundColor: '#F5F5F5',
     borderRadius: 5,
-    margin: '3%',
     height: 50
   },
   countryTitleContainer: {
-    padding: '2%'
+    // borderWidth: 2
+    // padding: '2%'
   },
   countryPickerTitle: {
     fontFamily: 'Lato-Bold',
     fontSize: responsiveFontSize(2.2),
     flex: 1,
-    padding: '1.5%'
+    padding: '3%'
   },
   countryComponentSpacer: {
     height: 46,
     width: '64%'
   },
   countryComponentContainer: {
+    flex: 0,
     width: '180%',
     alignSelf: 'center',
     top: 10
   },
   countryChevronContainer: {
     zIndex: -5,
+    alignSelf: 'flex-start',
     paddingVertical: '3.3%',
-    paddingHorizontal: '2%'
+    paddingLeft: '3.3%'
   },
   chevron: {
     transform: [{ rotateZ: '180deg' }]
