@@ -49,7 +49,7 @@ const ProfileHeader = forwardRef((props, ref) => {
   const handleLayout = ({ nativeEvent }) => {
     const { height } = nativeEvent.layout;
 
-    props.onLayout(height);
+    props.onLayout(height, appHeaderHeight);
 
     setState({
       ...state,

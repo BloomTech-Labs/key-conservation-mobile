@@ -36,9 +36,13 @@ class ProfileScreen extends React.Component {
       currentProfile: this.props.currentUserProfile
     });
 
-    this.onScroll = React.createRef();
-
+    this.headerOnScroll = React.createRef();
+    this.bodyOnScroll = React.createRef();
     // this.scrollY = new Animated.Value(0);
+
+    this.scrollView = React.createRef();
+
+    this.scrollY = new Animated.Value(0);
   }
 
   initProfileData = async () => {
@@ -134,9 +138,25 @@ class ProfileScreen extends React.Component {
     this.props.navigation.setParams({ selectedProfile: null });
   }
 
-  handleHeaderScale = height => {
-    this.setState({ contentPaddingTop: height });
+  handleHeaderScale = (height, headerHeight) => {
+    this.setState({ contentPaddingTop: height, headerHeight });
   };
+
+  onScroll = e => {
+    // this.headerOnScroll.current?.(e);
+    return this.headerOnScroll.current?.(e) && this.bodyOnScroll?.current;
+  };
+
+  // onScroll = Animated.event(
+  //   [{ nativeEvent: { contentOffset: { y: this.bodyOnScroll?.current } } }],
+  //   {
+  //     useNativeDriver: true,
+  //     listener: event => {
+  //       this.headerOnScroll.current?.(event);
+  //       // this.bodyOnScroll(event);
+  //     }
+  //   }
+  // );
 
   render() {
     const { navigation } = this.props;
@@ -158,7 +178,7 @@ class ProfileScreen extends React.Component {
             profile={profileData}
             myProfile={profileData === this.props.currentUserProfile}
             onLayout={this.handleHeaderScale}
-            ref={this.onScroll}
+            ref={this.headerOnScroll}
           />
           <Animated.ScrollView
             showsVerticalScrollIndicator={false}
@@ -167,8 +187,14 @@ class ProfileScreen extends React.Component {
               paddingTop: this.state.contentPaddingTop
             }}
             stickyHeaderIndices={[0]}
-            scrollEventThrottle={16}
-            onScroll={this.onScroll ? this.onScroll.current : null}
+            scrollEventThrottle={8}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { y: this.scrollY } } }],
+              {
+                useNativeDriver: true,
+                listener: event => this.headerOnScroll.current?.(event)
+              }
+            )}
           >
             <UserActionSheet
               admin={this.props.admin}
@@ -181,7 +207,13 @@ class ProfileScreen extends React.Component {
                 size='large'
               />
             ) : (
-              <ProfileBody profile={profileData} />
+              <ProfileBody
+                profile={profileData}
+                contentPaddingTop={this.state.contentPaddingTop}
+                headerHeight={this.state.headerHeight}
+                scrollY={this.scrollY}
+                ref={this.bodyOnScroll}
+              />
             )}
           </Animated.ScrollView>
         </View>

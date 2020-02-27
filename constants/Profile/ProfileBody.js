@@ -5,7 +5,11 @@ export default StyleSheet.create({
     flex: 1
   },
   tabBar: {
-    flexDirection: 'row'
+    left: 0,
+    right: 0,
+    zIndex: 100,
+    flexDirection: 'row',
+    position: 'absolute'
   },
   tabItem: {
     flex: 1,
