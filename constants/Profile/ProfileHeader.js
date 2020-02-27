@@ -1,17 +1,46 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
-const styles = StyleSheet.create({
+export default StyleSheet.create({
   container: {
+    backgroundColor: 'black',
+    position:'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    overflow: 'hidden',
+    zIndex: 100
+  },
+  contentContainer: {
+    position: 'absolute',
+    // Hardcoding for android because there is a React Native bug preventing
+    // string values for transforms to work
+    // transform: [{ translateY: Platform.OS === 'android' ? -50 : '-50%' }],
+    left: 0,
+    right: 0,
     flex: 1,
     alignItems: 'flex-start',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     paddingTop: 30,
     paddingBottom: 30,
     flexWrap: 'wrap'
   },
+  headerTitleContainer: {
+    position: 'absolute',
+    bottom: 16,
+    width: '100%',
+  },
+  headerTitle: {
+    flex: 1,
+    textAlign: 'center',
+    zIndex: -1,
+    fontSize: 18,
+    fontFamily: 'Lato-Bold',
+    color: 'white'
+  },
   avatarContainer: {
-    width: '30%',
+    width: '20%',
+    marginLeft: 30,
     flex: 0,
     alignItems: 'center'
   },
@@ -94,12 +123,49 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     flex: 1
   },
-
   CampaignButton: {
     fontSize: 18,
     color: '#000',
     fontWeight: 'bold',
     fontFamily: 'Lato-Bold'
+  },
+  buttonContainer: {
+    paddingHorizontal: 30,
+    borderLeftWidth: 1,
+    borderColor: 'white',
+    width: '45%'
+  },
+  connectButton: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    fontFamily: 'Lato-Bold',
+    marginVertical: 5,
+    alignSelf: 'flex-end',
+    width: '100%'
+  },
+  connectContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: '100%',
+    alignItems: 'center',
+    marginTop: 20
+  },
+  connectText: {
+    color: 'white',
+    paddingHorizontal: 45
+  },
+  textNumber: {
+    color: 'white',
+    fontSize: 20,
+    textAlign: 'center'
+  },
+  textWord: {
+    color: 'white',
+    textAlign: 'center',
+    color: '#fff',
+    fontWeight: 'bold',
+    fontFamily: 'Lato-Bold',
+    fontSize: 18
   },
   DetailButton: {
     fontSize: 18,
@@ -108,5 +174,3 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato-Bold'
   }
 });
-
-export default styles;

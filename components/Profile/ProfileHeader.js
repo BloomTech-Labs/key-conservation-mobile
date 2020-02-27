@@ -1,10 +1,14 @@
-import React, { useMemo } from 'react';
+import React, {
+  useMemo,
+  useState,
+  forwardRef
+} from 'react';
 import {
   View,
   Text,
-  ImageBackground,
   TouchableOpacity,
-  Linking
+  Linking,
+  Animated
 } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { Avatar } from 'react-native-elements';
@@ -12,7 +16,8 @@ import { AmpEvent } from '../withAmplitude';
 
 import styles from '../../constants/Profile/ProfileHeader';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
-import { randomImage } from '../../components/Animals/RandomImage';
+import { randomImage } from '../Animals/RandomImage';
+import ConnectionsHeader from '../Connections/ConnectionsHeader';
 
 // Social Media Icons
 import Envelope from '../../assets/jsicons/socialmedia/Envelope';
@@ -20,8 +25,14 @@ import Instagram from '../../assets/jsicons/socialmedia/Instagram';
 import Twitter from '../../assets/jsicons/socialmedia/Twitter';
 import Facebook from '../../assets/jsicons/socialmedia/Facebook';
 
-const ProfileHeader = props => {
+import { useHeaderHeight } from 'react-navigation-stack';
+
+const ProfileHeader = forwardRef((props, ref) => {
   let profile = props.profile || {};
+
+  const appHeaderHeight = useHeaderHeight();
+
+  const [state, setState] = useState({});
 
   let randomHeaderImage = useMemo(() => randomImage(), []);
 
@@ -32,33 +43,89 @@ const ProfileHeader = props => {
     }
   };
 
+  const handleLayout = ({ nativeEvent }) => {
+    const { height } = nativeEvent.layout;
+
+    props.onLayout(height, appHeaderHeight);
+
+    setState({
+      ...state,
+      MAX_HEADER_HEIGHT: height
+    });
+  };
+
+  const inputMax =
+    state.MAX_HEADER_HEIGHT && state.MAX_HEADER_HEIGHT - appHeaderHeight;
+
+  const translateY = state.MAX_HEADER_HEIGHT
+    ? props.parentScrollY.interpolate({
+        inputRange: [0, inputMax],
+        outputRange: [0, -inputMax],
+        extrapolate: 'clamp',
+      })
+    : 0;
+
+  const headerBlur = state.MAX_HEADER_HEIGHT
+    ? props.parentScrollY.interpolate({
+        inputRange: [0, inputMax / 2, inputMax],
+        outputRange: [0, 2, 10],
+        extrapolate: 'clamp',
+      })
+    : 0;
+
+  const contentOpacity = state.MAX_HEADER_HEIGHT
+    ? props.parentScrollY.interpolate({
+        inputRange: [0, inputMax / 2, inputMax],
+        outputRange: [1, 0.2, 0],
+        extrapolate: 'clamp'
+      })
+    : null;
+
+  const profileName = props.loading
+    ? 'Loading...'
+    : profile.sup_name || profile.username || profile.org_name;
   return (
-    <ImageBackground
-      source={randomHeaderImage}
-      resizeMode='cover'
-      style={{
-        height: 260,
-        paddingTop: 86,
-        backgroundColor: '#000000'
-      }}
-      imageStyle={{ opacity: 0.6 }}
-    >
-      <View style={styles.container}>
+    <Animated.View style={[styles.container, { transform: [{translateY: translateY}] }]}>
+      <Animated.Image
+        source={randomHeaderImage}
+        resizeMode='cover'
+        style={{
+          opacity: 0.6,
+          height: 360,
+          width: '100%',
+        }}
+        blurRadius={headerBlur}
+        imageStyle={{ opacity: 0.6 }}
+        onLayout={handleLayout}
+      />
+      <Animated.View
+        style={[
+          styles.headerTitleContainer,
+          {
+            opacity:
+              contentOpacity?.interpolate({
+                inputRange: [0, 0.2, 1],
+                outputRange: [1, .6, 0]
+              }) || 0
+          }
+        ]}
+      >
+        <Text style={styles.headerTitle}>{profileName}</Text>
+      </Animated.View>
+      <Animated.View
+        style={[styles.contentContainer, { marginTop: appHeaderHeight,opacity: contentOpacity }]}
+      >
         <View style={styles.avatarContainer}>
           <Avatar
-            size={61}
+            size={70}
             rounded
             source={{
-              uri: profile.profile_image
+              uri: profile.profile_image || undefined
             }}
           />
         </View>
         <View style={styles.textContainer}>
-          <Text style={styles.org}>
-            {props.loading
-              ? 'Loading...'
-              : profile.sup_name || profile.username || profile.org_name}
-          </Text>
+          <Text style={styles.org}>{profileName}</Text>
           {props.loading ? null : (
             <View>
               {!profile.location ? null : (
@@ -118,7 +185,7 @@ const ProfileHeader = props => {
                     <TouchableOpacity
                       style={styles.socialIcon}
                       onPress={async () =>
-                        (await WebBrowser.openBrowserAsync(profile.facebook))
+                        await WebBrowser.openBrowserAsync(profile.facebook)
                       }
                     >
                       <Facebook />
@@ -133,9 +200,13 @@ const ProfileHeader = props => {
             </View>
           )}
         </View>
-      </View>
-    </ImageBackground>
+        <ConnectionsHeader
+          profileId={props.profileId}
+          profileData={props.profile}
+        />
+      </Animated.View>
+    </Animated.View>
   );
-};
+});
 
 export default ProfileHeader;

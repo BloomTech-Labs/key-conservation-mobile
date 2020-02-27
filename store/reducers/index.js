@@ -23,10 +23,12 @@ const initialState = {
     token: ''
   },
   currentUserProfile: {
-    campaigns: []
+    campaigns: [],
+    connections: []
   },
   selectedProfile: {
-    campaigns: []
+    campaigns: [],
+    connections: []
   },
   selectedCampaign: {},
   allCampaigns: [],
@@ -451,7 +453,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         selectedCampaign: {
           ...state.selectedCampaign,
-          comments: state.selectedCampaign.comments.filter(
+          comments: state.selectedCampaign?.comments.filter(
             c => c.comment_id != action.payload
           )
         }

@@ -5,19 +5,16 @@ export default StyleSheet.create({
     flex: 1
   },
   tabBar: {
-    left: 0,
-    right: 0,
-    zIndex: 100,
     flexDirection: 'row',
-    position: 'absolute',
     backgroundColor: 'white'
   },
   tabItem: {
+    fontFamily: 'Lato-Bold',
     flex: 1,
     alignItems: 'center',
     color: 'black',
-    borderBottomWidth: 3,
+    borderBottomWidth: 2,
     borderBottomColor: 'white',
-    padding: 12,
+    padding: 16
   }
 });
