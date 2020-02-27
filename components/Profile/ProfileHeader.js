@@ -18,7 +18,8 @@ import { AmpEvent } from '../withAmplitude';
 
 import styles from '../../constants/Profile/ProfileHeader';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
-import { randomImage } from '../../components/Animals/RandomImage';
+import { randomImage } from '../Animals/RandomImage';
+import ConnectionsHeader from '../Connections/ConnectionsHeader';
 
 // Social Media Icons
 import Envelope from '../../assets/jsicons/socialmedia/Envelope';
@@ -100,9 +101,8 @@ const ProfileHeader = forwardRef((props, ref) => {
         resizeMode='cover'
         style={{
           opacity: 0.6,
-          height: 260,
+          height: 360,
           width: '100%',
-          paddingTop: 86
         }}
         blurRadius={headerBlur}
         imageStyle={{ opacity: 0.6 }}
@@ -123,11 +123,11 @@ const ProfileHeader = forwardRef((props, ref) => {
         <Text style={styles.headerTitle}>{profileName}</Text>
       </Animated.View>
       <Animated.View
-        style={[styles.contentContainer, { opacity: contentOpacity }]}
+        style={[styles.contentContainer, { marginTop: appHeaderHeight,opacity: contentOpacity }]}
       >
         <View style={styles.avatarContainer}>
           <Avatar
-            size={61}
+            size={70}
             rounded
             source={{
               uri: profile.profile_image || undefined
@@ -210,6 +210,10 @@ const ProfileHeader = forwardRef((props, ref) => {
             </View>
           )}
         </View>
+        <ConnectionsHeader
+          profileId={props.profileId}
+          profileData={props.profile}
+        />
       </Animated.View>
     </Animated.View>
   );

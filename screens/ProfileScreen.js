@@ -171,6 +171,7 @@ class ProfileScreen extends React.Component {
             loading={this.state.loading}
             navigation={navigation}
             profile={profileData}
+            profileId={this.profileId}
             myProfile={profileData === this.props.currentUserProfile}
             onLayout={this.handleHeaderScale}
             ref={this.headerOnScroll}

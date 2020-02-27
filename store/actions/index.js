@@ -919,3 +919,50 @@ export const createReport = (postType, postId, desc) => dispatch => {
       });
   });
 };
+
+export const getConnections = id => dispatch => {
+  return axiosWithAuth(dispatch, aaxios => {
+    return aaxios
+      .get(`${seturl}users/connect/${id}`)
+      .then(res => {
+        return res.data;
+      })
+      .catch(err => {
+        return err.message;
+      });
+  });
+};
+
+export const connectRequest = connected_id => dispatch => {
+  return axiosWithAuth(dispatch, aaxios => {
+    let url = `${seturl}users/connect/${connected_id}`;
+    return aaxios
+      .post(url)
+      .then(res => {})
+      .catch(err => {
+        return err.message;
+      });
+  });
+};
+export const editConnectStatus = (connection_id, status) => dispatch => {
+  return axiosWithAuth(dispatch, aaxios => {
+    return aaxios
+      .put(`${seturl}users/connect/${connection_id}`, status)
+      .then(res => {})
+      .catch(err => {
+        return err.message;
+      });
+  });
+};
+
+export const deleteConnection = connection_id => dispatch => {
+  return axiosWithAuth(dispatch, aaxios => {
+    return aaxios
+      .delete(`${seturl}users/connect/${connection_id}`)
+      .then(res => {})
+      .catch(err => {
+        console.log(err);
+        return err.message;
+      });
+  });
+};

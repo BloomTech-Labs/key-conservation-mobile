@@ -37,6 +37,7 @@ import CreateReportScreen from '../screens/CreateReportScreen';
 import LogoutScreen from '../screens/LogoutScreen';
 import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
+import ConnectionsScreen from '../screens/Connections/ConnectionsScreen';
 
 //icon imports
 
@@ -73,10 +74,7 @@ const MapStack = createStackNavigator(
   {
     navigationOptions: {
       tabBarLabel: 'Map',
-      tabBarIcon: ({ focused }) => (
-        // focused ? <GlobeFill /> : <Globe />
-        <Globe />
-      )
+      tabBarIcon: ({ focused }) => <Globe />
     }
   }
 );
@@ -104,15 +102,12 @@ const FeedStack = createStackNavigator(
     EditCamp: EditCampScreen,
     EditCampUpdate: EditCampUpdateScreen,
     CreateCampaign: CreateCampScreen,
-    CreateCampUpdate: CreateCampUpdateScreen,
+    CreateCampUpdate: CreateCampUpdateScreen
   },
   {
     navigationOptions: {
       tabBarLabel: 'Feed',
-      tabBarIcon: ({ focused }) => (
-        // focused ? <HomeFill/> : <Home/>
-        <Lightening />
-      )
+      tabBarIcon: ({ focused }) => <Lightening />
     }
 
     // transitionConfig: () => ({
@@ -127,7 +122,9 @@ export const AccountSettingsStack = createStackNavigator({
   AccountSettings: AccountSettingsScreen,
   AdminScreen: AdminReportScreen,
   ReportScreen: ReportDetailScreen,
-  ProDetails: ProfileScreen
+  SupProDetails: ProfileScreen,
+  ProDetails: ProfileScreen,
+  Connections: ConnectionsScreen
 });
 
 const MyProStack = createStackNavigator(
@@ -147,15 +144,13 @@ const MyProStack = createStackNavigator(
     CampUpdate: ViewCampUpdateScreen,
     CreateCampUpdate: CreateCampUpdateScreen,
     EditCampUpdate: EditCampUpdateScreen,
-    CreateReport: CreateReportScreen
+    CreateReport: CreateReportScreen,
+    Connections: ConnectionsScreen
   },
   {
     navigationOptions: {
       tabBarLabel: 'My Profile',
-      tabBarIcon: ({ focused }) => (
-        // focused ? <UserFill /> : <User />
-        <Smile />
-      )
+      tabBarIcon: ({ focused }) => <Smile />
       // transitionSpec: {
       //   duration: 0
       // }
@@ -166,7 +161,8 @@ const MyProStack = createStackNavigator(
 const MySupProStack = createStackNavigator(
   {
     MySupPro: { screen: ProfileScreen },
-    EditSupPro: { screen: EditSupProScreen }
+    EditSupPro: { screen: EditSupProScreen },
+    Connections: { screen: ConnectionsScreen }
   },
   {
     navigationOptions: {
@@ -219,7 +215,6 @@ export const ConsNavigator = createBottomTabNavigator(
     MapStack: {
       screen: MapStack
     },
-    // CreateCampStack: { screen: CreateCampStack, path: '' },
     MyProStack: {
       screen: MyProStack,
       path: ''
