@@ -19,7 +19,7 @@
     "assetBundlePatterns": ["**/*"],
     "android": {
       "package": "com.kc.keyconservation",
-      "versionCode": 10,
+      "versionCode": 11,
       "config": {
         "googleMaps": {
           "apiKey": "process.env.REACT_APP_GOOGLE_MAPS_API_KEY"
@@ -40,7 +40,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.kc.keyconservation"
     },
-    "description": "The Key Conservation App\n\nVersion 4.1.1",
+    "description": "The Key Conservation App\n\nVersion 4.2.0",
     "githubUrl": "https://github.com/Lambda-School-Labs/key-conservation-mobile"
   }
 }
