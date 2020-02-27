@@ -15,6 +15,7 @@ import { Avatar } from 'react-native-elements';
 import { AmpEvent } from '../withAmplitude';
 
 import styles from '../../constants/Profile/ProfileHeader';
+// import MapMarker from '../../assets/images/map-marker-alt-solid.png';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
 import { randomImage } from '../Animals/RandomImage';
 import ConnectionsHeader from '../Connections/ConnectionsHeader';
