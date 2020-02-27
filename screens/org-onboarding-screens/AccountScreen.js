@@ -75,6 +75,10 @@ const AccountScreen = props => {
                 Tell us about the work{'\n'}your organization does
               </Text>
             </View>
+            <Text style={styles.obText}>
+              We'll take a deeper dive into your activities. You can separate
+              lists of items with a comma.
+            </Text>
             <Text style={styles.obSubtitle}>Activity Questionnaire</Text>
             <View style={styles.inputBlock}>
               <Text style={styles.obText}>
@@ -89,7 +93,7 @@ const AccountScreen = props => {
                 }
                 maxLength={150}
                 value={values.mini_bio}
-                placeholder='Type here'
+                placeholder='Brief Statement'
                 type='mini_bio'
                 name='mini_bio'
                 required
@@ -97,7 +101,7 @@ const AccountScreen = props => {
             </View>
             <View style={styles.inputBlock}>
               <Text style={styles.obText}>
-                Give us a more in-depth summary of your organization’s mission.
+                Im more depth, tell us about your organizations's mission.
               </Text>
               <TextInput
                 style={[styles.textArea]}
@@ -106,7 +110,7 @@ const AccountScreen = props => {
                   handleChange({ ...values, about_us: text })
                 }
                 value={values.about_us}
-                placeholder='Type here'
+                placeholder='Your Mission'
                 type='about_us'
                 name='about_us'
                 required
@@ -114,8 +118,9 @@ const AccountScreen = props => {
             </View>
             <View style={styles.inputBlock}>
               <Text style={styles.obText}>
-                Which species and habitats does your organization’s work focus
-                on?
+                Which species and habitats does your organization directly work
+                in or with?{' '}
+                <Text style={styles.italic}>Add a comma after each item</Text>
               </Text>
               <TextInput
                 style={[styles.textArea]}
@@ -124,7 +129,7 @@ const AccountScreen = props => {
                   handleChange({ ...values, species_and_habitats: text })
                 }
                 value={values.species}
-                placeholder='Type here'
+                placeholder='Add Species and Habitats'
                 type='species_and_habitats'
                 name='species_and_habitats'
                 required
@@ -187,8 +192,15 @@ const AccountScreen = props => {
                 value={values.org_cta}
               />
             </View>
-
-            <NavigateButton label='Submit' onButtonPress={handleSubmit} />
+            <View style={styles.buttons}>
+              <NavigateButton
+                label='Next'
+                onButtonPress={() => {
+                  handleSubmit();
+                }}
+              />
+            </View>
+            {/* <NavigateButton label='Next' onButtonPress={} /> */}
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

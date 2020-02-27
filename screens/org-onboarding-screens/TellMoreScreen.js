@@ -268,7 +268,8 @@ const TellMoreScreen = props => {
               (Optional) If you have multiple projects under your organization,
               enter the name of each one to add them to your profile. If they
               are signed up to the Key App they will auto-populate so you can
-              add them. If they have not signed up, you can add them later.
+              add them. If they have not signed up, you can add them later. You
+              can separate lists of items with a comma.
             </Text>
 
             <View style={styles.aroundInput}>
