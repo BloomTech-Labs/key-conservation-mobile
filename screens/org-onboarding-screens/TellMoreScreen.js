@@ -12,16 +12,16 @@ import {
   TouchableHighlight,
   StyleSheet
 } from 'react-native';
-import styles from '../../constants/screens/org-onboarding-styles/VerifyOrg.js';
+import styles from '../../constants/screens/org-onboarding-styles/TellMore';
 import ConservationOptimismModal from '../../components/ConservationOptimismModal';
 import * as SecureStore from 'expo-secure-store';
+import ProgressBar from './formElement/ProgressBar';
+
 import QuestionCircle from '../../assets/jsicons/OnBoarding/QuestionCircle';
 import NavigateButton from './formElement/NavigateButton';
 import NavigateBack from './formElement/NavigateBack.js';
-import CustomFilterComponent from './formElement/CustomFilterComponent';
-import CountryPicker, {
-  getAllCountries
-} from 'react-native-country-picker-modal';
+import ChevronLeftBlack from '../../assets/jsicons/miscIcons/ChevronLeftBlack.js';
+import CountryPicker from 'react-native-country-picker-modal';
 import OrgOnboardCountries from '../../components/OrgOnboardCountries';
 
 const TellMoreScreen = props => {
@@ -36,25 +36,7 @@ const TellMoreScreen = props => {
 
   const [selectedCountries, setSelectedCountries] = useState([]);
 
-  console.log('airtableState.other_countries', airtableState.other_countries);
-
-  //   const renderFilter = ({ value, onChange, onClose }) => (
-  //     <CustomFilterComponent
-  //       value={value}
-  //       onChange={onChange}
-  //       onClose={onClose}
-  //     />
-  //   );
-  // console.log(await SecureStore.getItemAsync('airtableID', {}));
-
-  const AvailableCountries = async () =>
-    await getAllCountries().filter(country => country.cca2 === 'US');
-
   const [isModalVisible, setIsModalVisible] = useState(false);
-
-  //   useEffect(() => {
-  //     printList();
-  //   }, [selectedCountries.length]);
 
   const airtableKey = props.navigation.getParam('airtableKey', 'defaultValue');
   const airtableID = props.navigation.getParam('airtableID', 'defaultValue');
@@ -63,6 +45,104 @@ const TellMoreScreen = props => {
     'defaultValue'
   ); // this grabs the airtable form ID and data from previous component.
 
+  const [applePhone, setApplePhone] = useState(false);
+  const [androidPhone, setAndroidPhone] = useState(false);
+  const [otherPhone, setOtherPhone] = useState(false);
+
+  const toggled = type => {
+    switch (type) {
+      case 'apple': {
+        setApplePhone(!applePhone);
+        console.log(
+          'apple',
+          applePhone,
+          'android',
+          androidPhone,
+          'other',
+          otherPhone
+        );
+        break;
+      }
+      case 'android': {
+        setAndroidPhone(!androidPhone);
+        console.log(
+          'apple',
+          applePhone,
+          'android',
+          androidPhone,
+          'other',
+          otherPhone
+        );
+        break;
+      }
+      case 'other': {
+        setOtherPhone(!otherPhone);
+        console.log(
+          'apple',
+          applePhone,
+          'android',
+          androidPhone,
+          'other',
+          otherPhone
+        );
+        break;
+      }
+      default: {
+        return null;
+      }
+    }
+  };
+
+  const whichPhones = (apple, android, other) => {
+    switch ((apple, android, other)) {
+      case (true, true, true): {
+        onChangeText({
+          ...airtableState,
+          smartphone_type: 'All'
+        });
+        break;
+      }
+      case (true, true, false): {
+        onChangeText({
+          ...airtableState,
+          smartphone_type: 'Apple, Android'
+        });
+        break;
+      }
+      case (false, true, false): {
+        onChangeText({
+          ...airtableState,
+          smartphone_type: 'Android'
+        });
+        break;
+      }
+      case (true, false, false): {
+        onChangeText({
+          ...airtableState,
+          smartphone_type: 'Apple'
+        });
+        break;
+      }
+      case (false, true, true): {
+        onChangeText({
+          ...airtableState,
+          smartphone_type: 'Android, Other'
+        });
+        break;
+      }
+      default: {
+        return null;
+      }
+    }
+  };
+
+  const whichCountries = () => {};
+
+  useEffect(() => {
+    whichPhones(applePhone, androidPhone, otherPhone);
+    whichCountries(selectedCountries);
+  }, [applePhone, androidPhone, otherPhone, selectedCountries]);
+
   const setAirtableID = async () => {
     await SecureStore.setItemAsync('airtableID', airtableID);
     // console.log(await SecureStore.getItemAsync('airtableID', {}));
@@ -70,7 +150,7 @@ const TellMoreScreen = props => {
 
   useEffect(() => {
     setAirtableID();
-    console.log('airtableState2', airtableState2);
+    // console.log('airtableState2', airtableState2);
   });
 
   const airtableStateAdd = Object.assign({
@@ -110,197 +190,256 @@ const TellMoreScreen = props => {
     );
   };
 
-  //   const printList = () => {
-  //     // console.log('selectedCountries before ->', selectedCountries);
-  //     // console.log('value.name', value.name);
-  //     // console.log('selectedCountries after ->', selectedCountries);
-  //     return (
-  //       <View>
-  //         {!selectedCountries ? (
-  //           <Text>No Countries Selected.</Text>
-  //         ) : (
-  //           selectedCountries.map(name => <Text key={Date.now()}>{name}</Text>)
-  //         )}
-  //       </View>
-  //     );
-  //   };
-
   return (
-    <KeyboardAvoidingView
-      style={styles.obBody}
-      behavior='height'
-      keyboardVerticalOffset={86}
-      enabled
-    >
-      <ScrollView>
-        <View style={styles.obBody}>
-          <Text style={styles.obTitle}>Organization Details</Text>
-          <Text style={styles.obText}>
-            In which countries does you organization work?{' '}
-            <Text style={styles.italic}>Select All that apply.</Text>
-          </Text>
-          <View style={styles.aroundPicker}>
-            <CountryPicker
-              //   renderFilter={renderFilter({ name: 'Afghanistan' })}
-              filterable={true}
-              onSelect={value => {
-                setSelectedCountries([...selectedCountries, value.name]);
-                onChangeText({
-                  ...airtableState,
-                  other_countries: selectedCountries
-                });
-              }}
-              cca2='US'
-              translation='eng'
-              //   renderFilter={renderFilter({ name: 'Afghanistan' })}
-            />
-          </View>
-          {selectedCountries.map((name, index) => (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <View style={styles.arrowView}>
+          <NavigateBack
+            onButtonPress={() => {
+              props.navigation.navigate('TellAboutOrganization');
+            }}
+            color='#000'
+          />
+        </View>
+        <View style={styles.progressBar}>
+          <ProgressBar
+            progress={50}
+            height={9}
+            backgroundColor='#D7FF44'
+            animated={false}
+          />
+          <Text style={styles.progressBarText}>50% Complete</Text>
+        </View>
+      </View>
+      <KeyboardAvoidingView
+        style={styles.keyboardView}
+        behavior='height'
+        keyboardVerticalOffset={86}
+        enabled
+      >
+        <ScrollView>
+          <View style={styles.obBody}>
+            <Text style={styles.obTitle}>Organization Details</Text>
+            <Text style={styles.obText}>
+              In which countries does you organization work?{' '}
+              <Text style={[styles.obText, styles.italic]}>
+                Select All that apply.
+              </Text>
+            </Text>
+            <View style={styles.countryPickerContainer}>
+              <View style={styles.countryTitleContainer}>
+                <Text style={styles.countryPickerTitle}>Country</Text>
+              </View>
+              <View style={styles.countryComponentSpacer}>
+                <View style={styles.countryComponentContainer}>
+                  <CountryPicker
+                    //   the following line has a long string of spaces to accommodate Megan's design since the style of the placeholder does not seem to be editable *************
+                    placeholder='                                                                                           '
+                    // ***************
+                    onSelect={value => {
+                      setSelectedCountries([...selectedCountries, value.name]);
+                      onChangeText({
+                        ...airtableState,
+                        other_countries: selectedCountries
+                      });
+                    }}
+                    cca2='US'
+                    translation='eng'
+                  />
+                </View>
+              </View>
+              <View style={styles.countryChevronContainer}>
+                <ChevronLeftBlack style={styles.chevron} />
+              </View>
+            </View>
             <View style={styles.listContainer}>
-              <OrgOnboardCountries
-                key={index}
-                name={name}
-                index={index}
-                setSelectedCountries={setSelectedCountries}
-                selectedCountries={selectedCountries}
+              {selectedCountries.map((name, index) => (
+                <OrgOnboardCountries
+                  key={index}
+                  name={name}
+                  index={index}
+                  setSelectedCountries={setSelectedCountries}
+                  selectedCountries={selectedCountries}
+                />
+              ))}
+            </View>
+
+            <Text style={styles.obText}>
+              (Optional) If you have multiple projects under your organization,
+              enter the name of each one to add them to your profile. If they
+              are signed up to the Key App they will auto-populate so you can
+              add them. If they have not signed up, you can add them later.
+            </Text>
+
+            <View style={styles.aroundInput}>
+              <Text style={styles.placeholderText}>Add Project</Text>
+              <TextInput
+                style={styles.obTextInput}
+                onChangeText={text =>
+                  onChangeText({ ...airtableState, multiple_projects: text })
+                }
+                value={airtableState.multiple_projects}
               />
             </View>
-          ))}
-          {/* <Text style={styles.instructions}>{selectedCountries}</Text> */}
-          {/* {this.state.country && (
-            <Text style={styles.data}>
-              {JSON.stringify(this.state.country, null, 2)}
+            <Text style={styles.obText}>
+              Please list your current partnerships and affiliations:
             </Text>
-          )} */}
-          {/* <Text style={styles.obFieldName}>
-            In what countries does your organization work?
-          </Text>
-          <TextInput
-            style={styles.obTextInput}
-            onChangeText={text =>
-              onChangeText({ ...airtableState, other_countries: text })
-            }
-            value={airtableState.other_countries}
-            placeholder='United States, Brazil, France, etc.'
-          /> */}
-          <Text style={styles.obFieldName}>
-            Projects your organization is working on:
-          </Text>
-          <TextInput
-            style={styles.obTextInput}
-            onChangeText={text =>
-              onChangeText({ ...airtableState, multiple_projects: text })
-            }
-            value={airtableState.multiple_projects}
-            placeholder='Project 1, Project 2, etc.'
-          />
-          <Text style={styles.obFieldName}>
-            Current partnerships and affiliations:
-          </Text>
-          <TextInput
-            style={styles.obTextInput}
-            onChangeText={text =>
-              onChangeText({
-                ...airtableState,
-                affiliations_partnerships: text
-              })
-            }
-            value={airtableState.affiliations_partnerships}
-            placeholder='Partnership 1, Partnership 2, etc.'
-          />
-
-          <Text style={styles.obFieldName}>
-            Will you join us in Conservation Optimism?
-            <TouchableHighlight onPress={() => setIsModalVisible(true)}>
-              <View style={styles.questionMark}>
-                <QuestionCircle style={{ marginLeft: 10, marginTop: 3 }} />
-              </View>
-            </TouchableHighlight>
-          </Text>
-
-          <ConservationOptimismModal
-            setIsModalVisible={setIsModalVisible}
-            isModalVisible={isModalVisible}
-          />
-          <Switch
-            trackColor={{ true: '#00FF9D' }}
-            style={styles.obSwitchButton}
-            value={airtableState.conservation_optimism}
-            onValueChange={newValue =>
-              onChangeText({
-                ...airtableState,
-                conservation_optimism: newValue
-              })
-            }
-          />
-          <Text style={styles.obFieldName}>
-            Does your organization have access to a smartphone?
-          </Text>
-          <View style={pickerStyle.pickerContainer}>
-            <Picker
-              selectedValue={airtableState.smartphone_type}
-              style={pickerStyle.picker}
-              itemStyle={pickerStyle.pickerItem}
-              onValueChange={itemValue =>
-                onChangeText({ ...airtableState, smartphone_type: itemValue })
+            <View style={styles.aroundInput}>
+              <Text style={styles.placeholderText}>Add Partnerships</Text>
+              <TextInput
+                style={styles.obTextInput}
+                onChangeText={text =>
+                  onChangeText({
+                    ...airtableState,
+                    affiliations_partnerships: text
+                  })
+                }
+                value={airtableState.affiliations_partnerships}
+              />
+            </View>
+            <View>
+              <Text style={styles.obText}>
+                Will you join us in Conservation Optimism?
+                <TouchableHighlight onPress={() => setIsModalVisible(true)}>
+                  <View style={styles.questionMark}>
+                    <QuestionCircle width='22' height='22' />
+                  </View>
+                </TouchableHighlight>
+              </Text>
+            </View>
+            <ConservationOptimismModal
+              setIsModalVisible={setIsModalVisible}
+              isModalVisible={isModalVisible}
+            />
+            <Switch
+              trackColor={{ true: '#00FF9D' }}
+              style={styles.obSwitchButton}
+              value={airtableState.conservation_optimism}
+              onValueChange={newValue =>
+                onChangeText({
+                  ...airtableState,
+                  conservation_optimism: newValue
+                })
               }
-            >
-              <Picker.Item label='No' value='none' />
-              <Picker.Item label='Apple' value='apple' />
-              <Picker.Item label='Android' value='android' />
-            </Picker>
+            />
+            <Text style={styles.obText}>
+              Does your organization have access to a smartphone?
+            </Text>
+            <Switch
+              trackColor={{ true: '#00FF9D' }}
+              style={styles.obSwitchButton}
+              value={airtableState.smartphone_access}
+              onValueChange={newValue =>
+                onChangeText({
+                  ...airtableState,
+                  smartphone_access: newValue
+                })
+              }
+            />
+
+            {airtableState.smartphone_access === true ? (
+              <React.Fragment>
+                <Text style={styles.obText}>
+                  What type of smartphones do you use?
+                  <Text style={[styles.obText, styles.italic]}>
+                    {' '}
+                    Select All that apply.
+                  </Text>
+                </Text>
+
+                <View style={styles.switchContainer}>
+                  <Switch
+                    trackColor={{ true: '#00FF9D' }}
+                    style={styles.obSwitchButton}
+                    value={applePhone}
+                    onChange={() => toggled('apple')}
+                  />
+                  <Text style={styles.obSwitchLabel}>Apple</Text>
+                </View>
+
+                <View style={styles.switchContainer}>
+                  <Switch
+                    trackColor={{ true: '#00FF9D' }}
+                    style={styles.obSwitchButton}
+                    value={androidPhone}
+                    onValueChange={() => toggled('android')}
+                  />
+                  <Text style={styles.obSwitchLabel}>Android</Text>
+                </View>
+                <View style={styles.switchContainer}>
+                  <Switch
+                    trackColor={{ true: '#00FF9D' }}
+                    style={styles.obSwitchButton}
+                    value={otherPhone}
+                    onChange={() => toggled('other')}
+                  />
+                  <Text style={styles.obSwitchLabel}>Other</Text>
+                </View>
+                {/* <View style={styles.switchContainer}>
+                  <Switch
+                    trackColor={{ true: '#00FF9D' }}
+                    style={styles.obSwitchButton}
+                    selectedValue={airtableState.smartphone_type}
+                    onValueChange={newValue =>
+                      onChangeText({
+                        ...airtableState,
+                        smartphone_type: 'All'
+                      })
+                    }
+                  />
+                  <Text style={styles.obSwitchLabel}>All</Text>
+                </View> */}
+              </React.Fragment>
+            ) : null}
+            <View style={styles.buttons}>
+              {airtableState.other_countries === '' ||
+              airtableState.multiple_projects === '' ||
+              airtableState.smartphone_type === '' ? (
+                <NavigateButton
+                  label='Next'
+                  inactive={true}
+                  onButtonPress={() => {
+                    Alert.alert('Oops', 'Please fill in all sections of form', [
+                      { text: 'Got it.' }
+                    ]);
+                  }}
+                />
+              ) : airtableState.conservation_optimism === false ||
+                airtableState.smartphone_access === false ? (
+                <NavigateButton
+                  label='Next'
+                  inactive={true}
+                  onButtonPress={() => {
+                    Alert.alert(
+                      'Oops',
+                      'Agree to conservation optimism and smart phone use',
+                      [{ text: 'Got it.' }]
+                    );
+                  }}
+                />
+              ) : (
+                <NavigateButton
+                  label='Next'
+                  onButtonPress={() => {
+                    updateAirtable();
+                    props.navigation.navigate('AccountScreen', {
+                      airtableStateAdd: airtableStateAdd,
+                      airtableKey: airtableKey
+                    });
+                    console.log(
+                      'airtableState',
+                      airtableState,
+                      'applePhone',
+                      applePhone
+                    ); // This passes the combined fields sent to airtable needed for backend to the next component.
+                  }}
+                />
+              )}
+            </View>
           </View>
-          <TouchableOpacity
-            style={styles.obFwdContainer}
-            onPress={() => {
-              if (
-                airtableState.other_countries === '' ||
-                airtableState.multiple_projects === '' ||
-                airtableState.smartphone_type === ''
-              ) {
-                Alert.alert('Oops', 'Please fill in all sections of form', [
-                  { text: 'Got it.' }
-                ]);
-              } else if (
-                airtableState.conservation_optimism === false ||
-                airtableState.smartphone_access === false
-              ) {
-                Alert.alert(
-                  'Oops',
-                  'Agree to conservation optimism and smart phone use',
-                  [{ text: 'Got it.' }]
-                );
-              } else {
-                updateAirtable();
-                props.navigation.navigate('AccountScreen', {
-                  airtableStateAdd: airtableStateAdd,
-                  airtableKey: airtableKey
-                }); // This passes the combined fields sent to airtable needed for backend to the next component.
-              }
-            }}
-          >
-            <Text style={styles.obFwdBtnText}>Next</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </View>
   );
 };
-
-const pickerStyle = StyleSheet.create({
-  pickerContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 8,
-    marginBottom: 20
-  },
-
-  picker: {
-    width: 100,
-    height: 100
-  },
-  pickerItem: {
-    height: 100
-  }
-});
 export default TellMoreScreen;

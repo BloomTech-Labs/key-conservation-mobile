@@ -6,7 +6,6 @@ import {
   Text,
   TextInput,
   Image,
-  TouchableOpacity,
   View
 } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/TellAboutOrg.js';
@@ -17,6 +16,7 @@ import * as SecureStore from 'expo-secure-store';
 import NavigateButton from './formElement/NavigateButton';
 import NavigateBack from './formElement/NavigateBack.js';
 import CheckMark from '../../assets/jsicons/miscIcons/CheckMark';
+import ProgressBar from './formElement/ProgressBar';
 
 const TellAboutOrganizationScreen = props => {
   const [airtableKey, setAirtableKey] = useState({
@@ -81,7 +81,7 @@ const TellAboutOrganizationScreen = props => {
           let airtableID = record.getId();
           props.navigation.navigate('TellMore', {
             airtableID: airtableID,
-            airtableState: state,
+            state: state,
             airtableKey: airtableKey.key
           });
           // This passes the returned form ID and the needed fields for backend and airtable update() to the next component.
@@ -92,13 +92,24 @@ const TellAboutOrganizationScreen = props => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.arrowView}>
-        <NavigateBack
-          onButtonPress={() => {
-            props.navigation.navigate('MakeAccount');
-          }}
-          color='#000'
-        />
+      <View style={styles.header}>
+        <View style={styles.arrowView}>
+          <NavigateBack
+            onButtonPress={() => {
+              props.navigation.navigate('MakeAccount');
+            }}
+            color='#000'
+          />
+        </View>
+        <View style={styles.progressBar}>
+          <ProgressBar
+            progress={30}
+            height={9}
+            backgroundColor='#D7FF44'
+            animated={false}
+          />
+          <Text style={styles.progressBarText}>15% Complete</Text>
+        </View>
       </View>
       <KeyboardAvoidingView
         style={styles.keyboardView}
@@ -123,12 +134,10 @@ const TellAboutOrganizationScreen = props => {
               <Text style={styles.placeholderText}>Name</Text>
               <TextInput
                 style={styles.obTextInput}
-                onChangeText={text =>
-                  onChangeText({ ...airtableState, org_name: text })
-                }
-                value={airtableState.org_name}
+                onChangeText={text => setState({ ...state, org_name: text })}
+                value={state.org_name}
               />
-              {airtableState.org_name ? (
+              {state.org_name ? (
                 <View style={styles.aroundIcon}>
                   <CheckMark />
                 </View>
@@ -139,12 +148,10 @@ const TellAboutOrganizationScreen = props => {
               <Text style={styles.placeholderText}>Address</Text>
               <TextInput
                 style={styles.obTextInput}
-                onChangeText={text =>
-                  onChangeText({ ...airtableState, location: text })
-                }
-                value={airtableState.location}
+                onChangeText={text => setState({ ...state, location: text })}
+                value={state.location}
               />
-              {airtableState.location ? (
+              {state.location ? (
                 <View style={styles.aroundIcon}>
                   <CheckMark />
                 </View>
@@ -154,12 +161,10 @@ const TellAboutOrganizationScreen = props => {
               <Text style={styles.placeholderText}>Country</Text>
               <TextInput
                 style={styles.obTextInput}
-                onChangeText={text =>
-                  onChangeText({ ...airtableState, country: text })
-                }
-                value={airtableState.country}
+                onChangeText={text => setState({ ...state, country: text })}
+                value={state.country}
               />
-              {airtableState.country ? (
+              {state.country ? (
                 <View style={styles.aroundIcon}>
                   <CheckMark />
                 </View>
@@ -170,14 +175,14 @@ const TellAboutOrganizationScreen = props => {
               <TextInput
                 style={styles.obTextInput}
                 onChangeText={text =>
-                  onChangeText({
-                    ...airtableState,
+                  setState({
+                    ...state,
                     point_of_contact_name: text
                   })
                 }
-                value={airtableState.point_of_contact_name}
+                value={state.point_of_contact_name}
               />
-              {airtableState.point_of_contact_name ? (
+              {state.point_of_contact_name ? (
                 <View style={styles.aroundIcon}>
                   <CheckMark />
                 </View>
@@ -188,14 +193,14 @@ const TellAboutOrganizationScreen = props => {
               <TextInput
                 style={styles.obTextInput}
                 onChangeText={text =>
-                  onChangeText({
-                    ...airtableState,
+                  setState({
+                    ...state,
                     point_of_contact_position: text
                   })
                 }
-                value={airtableState.point_of_contact_position}
+                value={state.point_of_contact_position}
               />
-              {airtableState.point_of_contact_position ? (
+              {state.point_of_contact_position ? (
                 <View style={styles.aroundIcon}>
                   <CheckMark />
                 </View>
@@ -206,11 +211,11 @@ const TellAboutOrganizationScreen = props => {
               <TextInput
                 style={styles.obTextInput}
                 onChangeText={text =>
-                  onChangeText({ ...airtableState, phone_number: text })
+                  setState({ ...state, phone_number: text })
                 }
-                value={airtableState.phone_number}
+                value={state.phone_number}
               />
-              {airtableState.phone_number ? (
+              {state.phone_number ? (
                 <View style={styles.aroundIcon}>
                   <CheckMark />
                 </View>
@@ -221,11 +226,11 @@ const TellAboutOrganizationScreen = props => {
               <TextInput
                 style={[styles.obTextInputBottom, styles.obTextInput]}
                 onChangeText={text =>
-                  onChangeText({ ...airtableState, org_link_url: text })
+                  setState({ ...state, org_link_url: text })
                 }
-                value={airtableState.org_link_url}
+                value={state.org_link_url}
               />
-              {airtableState.org_link_url ? (
+              {state.org_link_url ? (
                 <View style={styles.aroundIcon}>
                   <CheckMark />
                 </View>
@@ -237,14 +242,14 @@ const TellAboutOrganizationScreen = props => {
             </View>
 
             <View style={styles.buttons}>
-              {airtableState.org_name === undefined ||
-              airtableState.org_link_url === undefined ||
-              airtableState.phone_number === undefined ||
-              airtableState.location === undefined ||
-              airtableState.country === undefined ||
-              airtableState.point_of_contact_name === undefined ||
-              airtableState.point_of_contact_position === undefined ||
-              airtableState.email === undefined ? (
+              {state.org_name === undefined ||
+              state.org_link_url === undefined ||
+              state.phone_number === undefined ||
+              state.location === undefined ||
+              state.country === undefined ||
+              state.point_of_contact_name === undefined ||
+              state.point_of_contact_position === undefined ||
+              state.email === undefined ? (
                 <NavigateButton
                   label='Next'
                   inactive={true}

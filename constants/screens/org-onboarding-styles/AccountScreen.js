@@ -1,14 +1,59 @@
-export default {
+import { StyleSheet, Dimensions } from 'react-native';
+import { responsiveFontSize } from 'react-native-responsive-dimensions';
+
+export default StyleSheet.create({
   container: {
-    fontFamily: 'Lato',
-    fontStyle: 'normal',
-    fontSize: 16,
-    lineHeight: 1.5,
     flex: 1,
-    padding: 16,
-    marginTop: 40,
-    marginBottom: '5%'
+    backgroundColor: 'white',
+    justifyContent: 'center'
   },
+  header: {
+    flex: 0,
+    padding: '2.5%',
+    top: '2.5%',
+    flexDirection: 'row'
+  },
+  keyboardView: {
+    marginVertical: '3%',
+    flex: 1,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  arrowView: {
+    padding: '2.5%',
+    top: '2.5%',
+    alignSelf: 'flex-start',
+    left: '1.5%'
+  },
+  progressBar: {
+    width: '75%',
+    alignSelf: 'center',
+    padding: '7%',
+    top: '5%',
+    right: '20%'
+  },
+  progressBarText: {
+    textAlign: 'center',
+    fontFamily: 'Lato',
+    fontSize: responsiveFontSize(1.8),
+    paddingTop: 4
+  },
+  obBody: {
+    flex: 1,
+    backgroundColor: 'white',
+    padding: '4%'
+  },
+  //   container: {
+  //     fontFamily: 'Lato',
+  //     fontStyle: 'normal',
+  //     fontSize: 16,
+  //     lineHeight: 1.5,
+  //     flex: 1,
+  //     padding: 16,
+  //     marginTop: 40,
+  //     marginBottom: '5%'
+  //   },
   greenBg: {
     backgroundColor: 'rgba(0, 255, 157, 0.15)',
     borderRadius: 16,
@@ -78,18 +123,19 @@ export default {
   },
   textArea: {
     height: 120,
-    backgroundColor: '#F3F2F5',
+    backgroundColor: '#F5F5F5',
     borderRadius: 15,
     paddingLeft: 20,
     paddingRight: 20,
-    paddingTop: 20
+    paddingTop: 20,
+    color: '#293C34'
   },
 
-  obBody: {
-    flex: 1,
-    backgroundColor: '#E5E5E5',
-    justifyContent: 'center'
-  },
+  //   obBody: {
+  //     flex: 1,
+  //     backgroundColor: '#E5E5E5',
+  //     justifyContent: 'center'
+  //   },
   obText: {
     color: '#000000',
     fontFamily: 'Lato',
@@ -108,7 +154,9 @@ export default {
     marginLeft: '5%',
     marginTop: '2%',
     marginBottom: '2%',
-    marginRight: '7%'
+    marginRight: '7%',
+    bottom: 140,
+    left: 26
   },
   obSubtitle: {
     color: '#000000',
@@ -225,4 +273,4 @@ export default {
   spacer: {
     height: '5%'
   }
-};
+});

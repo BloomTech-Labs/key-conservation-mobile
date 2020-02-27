@@ -7,6 +7,12 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     justifyContent: 'center'
   },
+  header: {
+    flex: 0,
+    padding: '2.5%',
+    top: '2.5%',
+    flexDirection: 'row'
+  },
   keyboardView: {
     marginVertical: '3%',
     flex: 1,
@@ -19,6 +25,19 @@ export default StyleSheet.create({
     top: '2.5%',
     alignSelf: 'flex-start',
     left: '1.5%'
+  },
+  progressBar: {
+    width: '75%',
+    alignSelf: 'center',
+    padding: '7%',
+    top: '5%',
+    right: '20%'
+  },
+  progressBarText: {
+    textAlign: 'center',
+    fontFamily: 'Lato',
+    fontSize: responsiveFontSize(1.8),
+    paddingTop: 4
   },
   tellUsImage: {
     alignSelf: 'center'

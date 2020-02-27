@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+
 import X from '../assets/jsicons/miscIcons/X';
 
 const OrgOnboardCountries = props => {
@@ -28,7 +29,6 @@ const OrgOnboardCountries = props => {
 
 const styles = StyleSheet.create({
   aroundName: {
-    flex: 1,
     backgroundColor: '#3FFFB3',
     margin: 15,
     borderRadius: 5,
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
   aroundX: {
     alignSelf: 'flex-end',
-    left: '3%',
+    left: 10,
     bottom: '120%'
   }
 });
