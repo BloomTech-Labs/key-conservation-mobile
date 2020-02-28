@@ -110,6 +110,69 @@ const People = props => {
               <View>
                 {currentUserPendingConnections?.map(connection => (
                   <View style={styles.card} key={connection.connection_id}>
+                    {props.currentUserProfile.id === connection.connector_id ? (
+                      <Text style={styles.noConnections}>
+                        No Pending Connections
+                      </Text>
+                    ) : (
+                      <View
+                        style={styles.peopleCardContainer}
+                        key={connection.connection_id}
+                      >
+                        <View
+                          style={styles.userInfo}
+                          key={connection.connection_id}
+                        >
+                          <View
+                            style={styles.imageContainer}
+                            key={connection.connection_id}
+                          >
+                            <Avatar
+                              size={48}
+                              rounded
+                              key={connection.connection_id}
+                              source={{
+                                uri: connection.connector_avatar
+                              }}
+                            />
+                          </View>
+                          <View>
+                            <Text
+                              key={connection.connection_id}
+                              style={styles.name}
+                            >
+                              {connection.connector_name === null
+                                ? '---'
+                                : connection.connector_name}{' '}
+                              wants to connect
+                            </Text>
+                          </View>
+                        </View>
+                        <View style={styles.statusButtons}>
+                          <TouchableOpacity
+                            style={styles.button}
+                            onPress={() => approveRequest()}
+                          >
+                            <Text style={styles.buttonText}>Connect</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity onPress={() => promptDelete()}>
+                            <X />
+                          </TouchableOpacity>
+                        </View>
+                      </View>
+                    )}
+                  </View>
+                ))}
+              </View>
+            )}
+          </View>
+          <View style={styles.mainContainer}>
+            {supCurrentUserConnections?.length === 0 ? (
+              <Text style={styles.noConnections}>No Current Connections</Text>
+            ) : (
+              <View>
+                {supCurrentUserConnections?.map(connection => (
+                  <View style={styles.card} key={connection.connection_id}>
                     <View
                       style={styles.peopleCardContainer}
                       key={connection.connection_id}
@@ -127,7 +190,11 @@ const People = props => {
                             rounded
                             key={connection.connection_id}
                             source={{
-                              uri: connection.connector_avatar
+                              uri:
+                                props.currentUserProfile.id ===
+                                connection.connected_id
+                                  ? connection.connector_avatar
+                                  : connection.connected_avatar
                             }}
                           />
                         </View>
@@ -138,21 +205,12 @@ const People = props => {
                           >
                             {connection.connector_name === null
                               ? '---'
-                              : connection.connector_name}{' '}
-                            wants to connect
+                              : props.currentUserProfile.id ===
+                                connection.connected_id
+                              ? connection.connector_name
+                              : connection.connected_name}
                           </Text>
                         </View>
-                      </View>
-                      <View style={styles.statusButtons}>
-                        <TouchableOpacity
-                          style={styles.button}
-                          onPress={() => approveRequest()}
-                        >
-                          <Text style={styles.buttonText}>Connect</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => promptDelete()}>
-                          <X />
-                        </TouchableOpacity>
                       </View>
                     </View>
                   </View>
@@ -160,14 +218,19 @@ const People = props => {
               </View>
             )}
           </View>
-          <View style={styles.mainContainer}>
-            {supCurrentUserConnections?.map(connection => (
-              <View style={styles.card} key={connection.connection_id}>
-                <View
-                  style={styles.peopleCardContainer}
-                  key={connection.connection_id}
-                >
-                  <View style={styles.userInfo} key={connection.connection_id}>
+        </View>
+      ) : (
+        <View style={styles.mainContainer}>
+          {orgCurrentUserConnections?.length === 0 ? (
+            <Text style={styles.noConnections}>No Current Connections</Text>
+          ) : (
+            <View>
+              {orgCurrentUserConnections?.map(connection => (
+                <View style={styles.card} key={connection.connection_id}>
+                  <View
+                    style={styles.cardContainer}
+                    key={connection.connection_id}
+                  >
                     <View
                       style={styles.imageContainer}
                       key={connection.connection_id}
@@ -177,11 +240,7 @@ const People = props => {
                         rounded
                         key={connection.connection_id}
                         source={{
-                          uri:
-                            props.currentUserProfile.id ===
-                            connection.connected_id
-                              ? connection.connector_avatar
-                              : connection.connected_avatar
+                          uri: connection.connector_avatar
                         }}
                       />
                     </View>
@@ -189,46 +248,14 @@ const People = props => {
                       <Text key={connection.connection_id} style={styles.name}>
                         {connection.connector_name === null
                           ? '---'
-                          : props.currentUserProfile.id ===
-                            connection.connected_id
-                          ? connection.connector_name
-                          : connection.connected_name}
+                          : connection.connector_name}
                       </Text>
                     </View>
                   </View>
                 </View>
-              </View>
-            ))}
-          </View>
-        </View>
-      ) : (
-        <View style={styles.mainContainer}>
-          {orgCurrentUserConnections?.map(connection => (
-            <View style={styles.card} key={connection.connection_id}>
-              <View style={styles.cardContainer} key={connection.connection_id}>
-                <View
-                  style={styles.imageContainer}
-                  key={connection.connection_id}
-                >
-                  <Avatar
-                    size={48}
-                    rounded
-                    key={connection.connection_id}
-                    source={{
-                      uri: connection.connector_avatar
-                    }}
-                  />
-                </View>
-                <View>
-                  <Text key={connection.connection_id} style={styles.name}>
-                    {connection.connector_name === null
-                      ? '---'
-                      : connection.connector_name}
-                  </Text>
-                </View>
-              </View>
+              ))}
             </View>
-          ))}
+          )}
         </View>
       )}
     </View>
