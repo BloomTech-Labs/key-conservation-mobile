@@ -133,8 +133,8 @@ class ViewCampScreen extends React.Component {
                     onPress={this.goToProfile}
                     title={
                       <View>
-                        <Text style={styles.listUsername}>
-                          {this.props.selectedCampaign.username}
+                        <Text style={styles.listName}>
+                          {this.props.selectedCampaign.name}
                         </Text>
                       </View>
                     }
@@ -261,11 +261,7 @@ class ViewCampScreen extends React.Component {
                   </View>
                   <View style={styles.donateView}>
                     <View style={styles.campMission}>
-                      <Hand
-                        fill='#3b3b3b'
-                        width='25'
-                        height='25'
-                      />
+                      <Hand fill='#3b3b3b' width='25' height='25' />
                       <Text style={styles.supportMissionText}>
                         Support Our Mission
                       </Text>
@@ -284,7 +280,7 @@ class ViewCampScreen extends React.Component {
                             this.props.selectedCampaign.camp_cta
                           )) &&
                           AmpEvent('Campaign Donation Button Clicked', {
-                            username: this.props.username,
+                            name: this.props.name,
                             campId: this.props.selectedCampaign.camp_id
                           })
                         }
@@ -303,7 +299,7 @@ class ViewCampScreen extends React.Component {
                             key={`update${update.update_id}`}
                             data={update}
                             toggled
-                            hideUsername
+                            hideName
                             navigation={this.props.navigation}
                             fromCampScreen={true}
                           />
@@ -323,8 +319,8 @@ class ViewCampScreen extends React.Component {
                     onPress={this.goToProfile}
                     title={
                       <View>
-                        <Text style={styles.listUsername}>
-                          {this.props.selectedCampaign.username}
+                        <Text style={styles.listName}>
+                          {this.props.selectedCampaign.name}
                         </Text>
                       </View>
                     }
@@ -452,11 +448,7 @@ class ViewCampScreen extends React.Component {
                   </View>
                   <View style={styles.donateView}>
                     <View style={styles.campMission}>
-                      <Hand
-                        fill='#3b3b3b'
-                        width='25'
-                        height='25'
-                      />
+                      <Hand fill='#3b3b3b' width='25' height='25' />
                       <Text style={styles.supportMissionText}>
                         Support Our Mission
                       </Text>
@@ -476,7 +468,7 @@ class ViewCampScreen extends React.Component {
                             this.props.selectedCampaign.camp_cta
                           )) &&
                           AmpEvent('Campaign Donation Button Clicked', {
-                            username: this.props.username,
+                            name: this.props.name,
                             campId: this.props.selectedCampaign.camp_id
                           })
                         }
@@ -495,7 +487,7 @@ class ViewCampScreen extends React.Component {
                             key={`update${update.update_id}`}
                             data={update}
                             toggled
-                            hideUsername
+                            hideName
                             navigation={this.props.navigation}
                             fromCampScreen={true}
                           />
@@ -547,7 +539,9 @@ class ViewCampScreen extends React.Component {
   };
 
   goToProfile = () => {
-    this.props.navigation.navigate('Pro', { selectedProfile: this.props.selectedCampaign.users_id });
+    this.props.navigation.navigate('Pro', {
+      selectedProfile: this.props.selectedCampaign.users_id
+    });
   };
 }
 

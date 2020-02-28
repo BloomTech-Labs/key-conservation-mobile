@@ -79,7 +79,7 @@ class ReportDetailScreen extends Component {
 
     this.props.navigation.navigate('ProDetails', {
       selectedProfile: id
-    })
+    });
   };
 
   render() {
@@ -102,7 +102,7 @@ class ReportDetailScreen extends Component {
             </View>
             <View style={styles.user_details}>
               <Text style={styles.user_name}>
-                {this.state.currentUser?.username || '---'}
+                {this.state.currentUser?.name || '---'}
               </Text>
               <Text style={styles.user_detail}>
                 {1 +

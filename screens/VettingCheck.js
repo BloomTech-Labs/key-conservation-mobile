@@ -103,7 +103,7 @@ function VettingCheck(props) {
   }; // Updates 'isVetting' field in 'Table 1' based on airtable ID.
 
   updateAirtableVettingFalse = async () => {
-    console.log('UsernameScreen updateAirtable triggered');
+    console.log('NameScreen updateAirtable triggered');
     var Airtable = require('airtable');
     var base = new Airtable({ apiKey: state.key }).base('appbPeeXUSNCQWwnQ');
     await base('Table 1').update(

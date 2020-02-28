@@ -43,7 +43,7 @@ class CreateReportScreen extends Component {
       title: 'User',
       image: null,
       text_data: null,
-      username: null,
+      name: null,
       report_desc: null,
       reporting: false
     };
@@ -63,10 +63,10 @@ class CreateReportScreen extends Component {
   componentDidMount() {
     switch (this.type) {
       case 'users': {
-        const { profile_image: image, username } = this.props.selectedProfile;
+        const { profile_image: image, name } = this.props.selectedProfile;
         this.setState({
           image,
-          username,
+          name,
           title: 'account'
         });
         break;
@@ -74,26 +74,26 @@ class CreateReportScreen extends Component {
       case 'campaigns': {
         const {
           profile_image: image,
-          username,
+          name,
           camp_desc: text_data
         } = this.props.selectedCampaign;
         this.setState({
           image,
-          username,
+          name,
           text_data,
           title: 'campaign'
         });
         break;
       }
-      case 'campaignUpdates': {
+      case 'campaign_updates': {
         const {
           profile_image: image,
-          username,
+          name,
           update_desc: text_data
         } = this.props.selectedCampaign;
         this.setState({
           image,
-          username,
+          name,
           text_data,
           title: 'campaign'
         });
@@ -103,13 +103,13 @@ class CreateReportScreen extends Component {
         const {
           profile_image: image,
           comment_body: text_data,
-          username
+          name
         } = this.props.selectedCampaign.comments.find(
           com => com.comment_id === this.props.navigation.getParam('id')
         );
         this.setState({
           image,
-          username,
+          name,
           text_data,
           title: 'comment'
         });
@@ -163,7 +163,7 @@ class CreateReportScreen extends Component {
               <Image style={styles.image} source={{ uri: this.state.image }} />
             )}
             <View style={styles.text_data}>
-              <Text style={styles.username}>{this.state.username}</Text>
+              <Text style={styles.name}>{this.state.name}</Text>
               {this.state.text_data && (
                 <Text>"{shorten(this.state.text_data, 104)}"</Text>
               )}

@@ -28,14 +28,14 @@ const ReviewYourInfoScreen = props => {
   const [airtableId, setAirtableId] = useState('');
 
   const [state, setState] = useState({
-    username: '',
+    name: '',
     other_countries: '',
     multiple_projects: '',
     affiliations_partnerships: '',
     conservation_optimism: null,
     smartphone_access: null,
     smartphone_type: '',
-    org_name: '',
+    name: '',
     org_link_url: '',
     twitter: '',
     facebook: '',
@@ -83,7 +83,7 @@ const ReviewYourInfoScreen = props => {
             multiple_projects: state.multiple_projects,
             smartphone_access: state.smartphone_access,
             smartphone_type: state.smartphone_type,
-            org_name: state.org_name,
+            org_name: state.name,
             website: state.org_link_url,
             phone: state.phone_number,
             address: state.location,
@@ -144,8 +144,8 @@ const ReviewYourInfoScreen = props => {
                 </Text>
               </View>
               <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>username: </Text>
-                <Text style={styles.obText}>{state.username}</Text>
+                <Text style={styles.obSubtitleSm}>name: </Text>
+                <Text style={styles.obText}>{state.name}</Text>
               </View>
             </View>
           ) : (
@@ -183,15 +183,15 @@ const ReviewYourInfoScreen = props => {
                   }
                 />
               </View>
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Username: </Text>
+              {/* <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>Name: </Text>
                 <TextInput
                   style={[styles.obText, styles.textInput]}
-                  value={state.username}
-                  placeholder={' Username'}
-                  setState={text => setState({ ...state, username: text })}
+                  value={state.name}
+                  placeholder={' Name'}
+                  setState={text => setState({ ...state, name: text })}
                 />
-              </View>
+              </View> */}
             </View>
           )}
           <View style={styles.borderContainer}>
@@ -225,7 +225,7 @@ const ReviewYourInfoScreen = props => {
 
               <View style={styles.row}>
                 <Text style={styles.obSubtitleSm}>Organization Name:</Text>
-                <Text style={styles.obText}>{state.org_name}</Text>
+                <Text style={styles.obText}>{state.name}</Text>
               </View>
 
               <View style={styles.row}>
@@ -282,8 +282,8 @@ const ReviewYourInfoScreen = props => {
                 <Text style={styles.obSubtitleSm}>Organization Name:</Text>
                 <TextInput
                   style={[styles.obText, styles.textInput]}
-                  value={state.org_name}
-                  setState={text => setState({ ...state, org_name: text })}
+                  value={state.name}
+                  setState={text => setState({ ...state, name: text })}
                 />
               </View>
 
@@ -578,7 +578,7 @@ const ReviewYourInfoScreen = props => {
             label='Next'
             onButtonPress={async () => {
               if (
-                state.org_name === undefined ||
+                state.name === undefined ||
                 state.org_link_url === undefined ||
                 state.phone_number === undefined ||
                 state.location === undefined ||
@@ -597,8 +597,8 @@ const ReviewYourInfoScreen = props => {
                   setState({ ...state, profile_image: props.mediaUpload });
                 }
                 const stringBE = JSON.stringify({
-                  username: state.username,
-                  org_name: state.org_name,
+                  name: state.name,
+                  name: state.name,
                   org_link_url: state.org_link_url,
                   twitter: state.twitter,
                   facebook: state.facebook,

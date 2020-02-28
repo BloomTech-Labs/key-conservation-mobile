@@ -80,7 +80,7 @@ const Comment = props => {
             />
           </View>
           <View style={styles.commentBody}>
-            <Text style={styles.username}>{props.comment.username}</Text>
+            <Text style={styles.name}>{props.comment.name}</Text>
             <Text>{props.comment.comment_body}</Text>
           </View>
           <TouchableOpacity

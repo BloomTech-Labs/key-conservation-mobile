@@ -50,8 +50,8 @@ class AuthForm extends Component {
     this.keyboardDidHideListener.remove();
   }
 
-  realmLogin = (username, password) => {
-    this.props.realmLogin(username, password);
+  realmLogin = (email, password) => {
+    this.props.realmLogin(email, password);
   };
 
   componentDidUpdate() {

@@ -55,7 +55,9 @@ const axiosWithAuth = (dispatch, req) => {
 const PRODUCTION = 'https://key-conservation.herokuapp.com/api/';
 // staging
 const STAGING = 'https://key-conservation-staging.herokuapp.com/api/';
-const seturl = __DEV__ ? STAGING : PRODUCTION;
+// const seturl = __DEV__ ? STAGING : PRODUCTION;
+
+const seturl ='http://192.168.1.13:8000/api/';
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
@@ -160,7 +162,7 @@ export const getCustomById = (table_name, id) => dispatch => {
   let url = `${seturl}`;
 
   switch (table_name) {
-    case 'campaignUpdates': {
+    case 'campaign_updates': {
       url += 'updates';
       break;
     }
@@ -393,14 +395,17 @@ export const [
 export const getCampaigns = () => dispatch => {
   dispatch({ type: GET_CAMPAIGNS_START });
   let campaigns;
+  console.log('getting campaigns');
   return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .get(`${seturl}campaigns`)
       .then(res => {
+        // console.log('got data', res.data.camp);
         campaigns = res.data.camp;
-        aaxios
+        return aaxios
           .get(`${seturl}updates`)
           .then(res => {
+            console.log('got updates', console.log(res.data.campUpdate))
             campaigns = campaigns.concat(res.data.campUpdate);
             dispatch({
               type: GET_CAMPAIGNS_SUCCESS,
@@ -408,10 +413,12 @@ export const getCampaigns = () => dispatch => {
             });
           })
           .catch(err => {
+            console.log(err);
             dispatch({ type: GET_CAMPAIGNS_ERROR, payload: err });
           });
       })
       .catch(err => {
+        console.log(err.response);
         dispatch({ type: GET_CAMPAIGNS_ERROR, payload: err });
       });
   });

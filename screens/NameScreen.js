@@ -4,7 +4,7 @@ import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
 import { AmpEvent } from '../components/withAmplitude';
 import * as SecureStore from 'expo-secure-store';
-import styles from '../constants/screens/UsernameScreen';
+import styles from '../constants/screens/NameScreen';
 import { postUser, logout } from '../store/actions';
 
 var Airtable = require('airtable');
@@ -12,9 +12,9 @@ var base = new Airtable({ apiKey: 'keybUdphipr0RgMaa' }).base(
   'appbPeeXUSNCQWwnQ'
 );
 
-class UsernameScreen extends React.Component {
+class NameScreen extends React.Component {
   state = {
-    usernameInput: '',
+    nameInput: '',
     error: '',
     result: null,
     id: ''
@@ -26,7 +26,7 @@ class UsernameScreen extends React.Component {
   }
 
   updateAirtable = () => {
-    console.log('UsernameScreen updateAirtable triggered');
+    console.log('NameScreen updateAirtable triggered');
     base('Table 1').update(
       [
         {
@@ -53,15 +53,17 @@ class UsernameScreen extends React.Component {
     const sub = await SecureStore.getItemAsync('sub', {});
     const email = await SecureStore.getItemAsync('email', {});
     const role = await SecureStore.getItemAsync('roles', {});
-    const username = this.state.usernameInput;
+    const name = this.state.nameInput;
 
-    if (username.length > 4) {
+    console.log(name);
+
+    if (name.length > 4) {
       console.log('sub', sub);
       this.setState({
         error: ''
       });
       let user = {
-        username: username,
+        name: name,
         sub: sub,
         roles: role,
         email: email
@@ -75,7 +77,7 @@ class UsernameScreen extends React.Component {
       }, 3000);
     } else {
       this.setState({
-        error: 'Username is required to be at least 5 characters'
+        error: 'Name is required to be at least 5 characters'
       });
     }
   };
@@ -93,15 +95,15 @@ class UsernameScreen extends React.Component {
           <View style={styles.Card} />
           <View style={styles.textContainer}>
             <Text style={styles.obTitle}>
-              You're in! Next step: please choose a username.
+              You're in! Tell us your name to get started
             </Text>
           </View>
           <TextInput
             returnKeyType='go'
             placeholder='BirdRescueTN'
             style={styles.inputContain}
-            onChangeText={text => this.setState({ usernameInput: text })}
-            value={this.state.usernameInput}
+            onChangeText={text => this.setState({ nameInput: text })}
+            value={this.state.nameInput}
             required
           />
         </View>
@@ -113,11 +115,11 @@ class UsernameScreen extends React.Component {
           ) : this.props.error.config &&
             this.props.error.config.method === 'get' ? (
             <Text style={{ textAlign: 'center', color: 'green' }}>
-              Please choose a username and enter it above
+              Please choose a name and enter it above
             </Text>
           ) : this.props.error.message ? (
             <Text style={{ textAlign: 'center', color: 'red' }}>
-              Failed to create user. Please try another username
+              Failed to submit data
             </Text>
           ) : null}
         </View>
@@ -142,7 +144,7 @@ class UsernameScreen extends React.Component {
   }
 }
 
-UsernameScreen.navigationOptions = {
+NameScreen.navigationOptions = {
   title: 'Sign Up'
 };
 
@@ -150,4 +152,4 @@ const mapStateToProps = state => ({
   error: state.error
 });
 
-export default connect(mapStateToProps, { postUser, logout })(UsernameScreen);
+export default connect(mapStateToProps, { postUser, logout })(NameScreen);

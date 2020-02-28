@@ -44,7 +44,7 @@ export default forwardRef((props, ref) => {
 
     dispatch(setCampaign(props.camp || props.update));
     
-    const type = props.camp ? 'campaigns' : 'campaignUpdates';
+    const type = props.camp ? 'campaigns' : 'campaign_updates';
 
     // Take the user to a report screen
     navigate('CreateReport', {

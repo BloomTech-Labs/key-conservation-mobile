@@ -7,7 +7,7 @@ export default StyleSheet.create({
   },
   commentView: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   feedCommentWrapper: {
     flexDirection: 'column',
@@ -21,7 +21,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     marginTop: 20
   },
-  username: {
+  name: {
     paddingBottom: 3,
     marginTop: 5,
     fontFamily: 'Lato-Bold'
@@ -33,7 +33,7 @@ export default StyleSheet.create({
   commentOptions: {
     transform: [{ rotate: '90deg' }],
     padding: 8,
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
   commentText: {
     flexDirection: 'column',

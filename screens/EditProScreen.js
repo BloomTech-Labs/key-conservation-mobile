@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Platform,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  KeyboardAvoidingView
-} from 'react-native';
+import { Platform, Text, View, TextInput } from 'react-native';
 import { ScrollView, NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import BackButton from '../components/BackButton';
@@ -19,6 +12,8 @@ import { AmpEvent } from '../components/withAmplitude';
 import LocationIQ from 'react-native-locationiq';
 
 import styles from '../constants/screens/EditProScreen';
+
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 class EditProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -39,9 +34,8 @@ class EditProScreen extends React.Component {
   };
 
   state = {
-    org_name: this.props.currentUserProfile.org_name,
+    name: this.props.currentUserProfile.name,
     profile_image: this.props.currentUserProfile.profile_image,
-    username: this.props.currentUserProfile.username,
     location: this.props.currentUserProfile.location,
     mini_bio: this.props.currentUserProfile.mini_bio,
     email: this.props.currentUserProfile.email,
@@ -73,10 +67,9 @@ class EditProScreen extends React.Component {
     const parseBE = JSON.parse(state);
     parseBE
       ? this.setState({
-          org_name: parseBE.org_name,
+          name: parseBE.name,
           phone_number: parseBE.phone,
           mini_bio: parseBE.mini_bio,
-          species_and_habitats: parseBE.species,
           facebook: parseBE.facebook,
           instagram: parseBE.instagram,
           twitter: parseBE.twitter,
@@ -92,7 +85,7 @@ class EditProScreen extends React.Component {
     await SecureStore.deleteItemAsync('vettingEmail', {});
     await SecureStore.deleteItemAsync('isVetting', {});
     console.log('resetting vetting variables!');
-  }; // Also deletes vetting variables in case UsernameScreen isn't executed before starting a new organization onboarding process.
+  }; // Also deletes vetting variables in case NameScreen isn't executed before starting a new organization onboarding process.
 
   isProfileComplete = profile => {
     for (let p in profile) {
@@ -134,57 +127,30 @@ class EditProScreen extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView
-        behavior='height'
-        keyboardVerticalOffset={86}
-        enabled
-      >
+      <KeyboardAwareScrollView>
         <ScrollView>
           <NavigationEvents onWillFocus={this.props.clearMedia} />
           <View style={styles.sectionContainer}>
+            <Text style={styles.sectionHeader}>Details</Text>
             <View style={styles.Card} />
             <View style={styles.sections}>
               <Text style={styles.sectionsText}>Organization Name</Text>
               <TextInput
                 ref={input => {
-                  this.org_nameInput = input;
+                  this.nameInput = input;
                 }}
                 returnKeyType='next'
                 style={styles.inputContain}
-                onChangeText={text => this.setState({ org_name: text })}
+                onChangeText={text => this.setState({ name: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
-                  this.usernameInput.focus();
+                  this.locationInput.focus();
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.org_name}
+                value={this.state.name}
                 placeholder='Carribbean Sea Turtle Project'
               />
             </View>
-
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Username</Text>
-              <TextInput
-                ref={input => {
-                  this.usernameInput = input;
-                }}
-                returnKeyType='next'
-                style={styles.inputContain}
-                onChangeText={text => this.setState({ username: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.profileImageInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.username}
-                placeholder='@CarribbeanSTP'
-              />
-            </View>
-
-            <View style={styles.sections}>
-              <UploadMedia title='Upload new logo' />
-            </View>
-
             <View style={styles.sections}>
               <Text style={styles.sectionsText}>Location</Text>
               <TextInput
@@ -240,6 +206,12 @@ class EditProScreen extends React.Component {
               />
             </View>
 
+            <View style={styles.sections}>
+              <UploadMedia title='Upload new logo' />
+            </View>
+          </View>
+          <View style={styles.sectionContainer}>
+            <Text style={styles.sectionHeader}>Contact Information</Text>
             <View style={styles.sections}>
               <Text style={styles.sectionsText}>Website Link URL</Text>
               <TextInput
@@ -324,7 +296,9 @@ class EditProScreen extends React.Component {
                 placeholder='9998884747'
               />
             </View>
-
+          </View>
+          <View style={styles.sectionContainer}>
+            <Text style={styles.sectionHeader}>Linked Accounts</Text>
             <View style={styles.sections}>
               <Text style={styles.sectionsText}>Facebook</Text>
               <TextInput
@@ -375,59 +349,20 @@ class EditProScreen extends React.Component {
                 ref={input => {
                   this.twitterInput = input;
                 }}
-                returnKeyType='next'
+                returnKeyType='done'
                 keyboardType='default'
                 style={styles.inputContain}
                 autoCapitalize='none'
                 placeholder='Please include full URL'
                 onChangeText={text => this.setState({ twitter: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.aboutUsInput.focus();
-                }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.twitter}
                 placeholder='www.twitter.com/CSTP'
               />
             </View>
-
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>About Us</Text>
-              <TextInput
-                ref={input => {
-                  this.about_usInput = input;
-                }}
-                returnKeyType='next'
-                style={styles.inputContain2}
-                onChangeText={text => this.setState({ about_us: text })}
-                multiline={true}
-                value={this.state.about_us}
-                placeholder='We have been working to conserve the sea turtles that visit our shores and surrounding ocean for the past 30 years.'
-              />
-            </View>
-
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Species & Habitats</Text>
-              <TextInput
-                ref={input => {
-                  this.species_habitatsInput = input;
-                }}
-                returnKeyType='next'
-                style={styles.inputContain2}
-                onChangeText={text =>
-                  this.setState({ species_and_habitats: text })
-                }
-                multiline={true}
-                value={this.state.species_and_habitats}
-                placeholder='We work with Hawksbill sea turtles,
-                Leatherback sea turtles,Green sea turtles,
-                the Caribbean Ocean and Atlantic Ocean, as well as the Coral Reef
-                '
-              />
-            </View>
           </View>
         </ScrollView>
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
     );
   }
 }
