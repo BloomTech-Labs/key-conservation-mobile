@@ -13,6 +13,8 @@ import { ScrollView, NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
+import styles from '../constants/screens/CreateCampScreen';
+
 import {
   postCampaignUpdate,
   clearMedia,
@@ -65,50 +67,32 @@ class CreateCampUpdateScreen extends React.Component {
       );
     }
     return (
-      <KeyboardAvoidingView
-        behavior='padding'
-        keyboardVerticalOffset={90}
-        enabled={Platform.OS === 'android' ? true : false}
-      >
-        <KeyboardAwareScrollView>
-          <ScrollView
-            contentContainerStyle={{
-              backgroundColor: '#fff',
-              minHeight: '100%'
+      <KeyboardAwareScrollView style={styles.container}>
+        <NavigationEvents
+          onWillFocus={this.props.clearMedia}
+          onDidBlur={this.clearState}
+        />
+        <View style={styles.sectionContainer}>
+          <View style={styles.goToCampaignButton}>
+            <Text style={styles.goToCampaignText}>Post an update about</Text>
+          </View>
+          <Text style={styles.sectionsText}>
+            "{this.selectedCampaign.camp_name}"
+          </Text>
+          <UploadMedia title='Upload update image' />
+          <TextInput
+            ref={input => {
+              this.campDetailsInput = input;
             }}
-          >
-            <NavigationEvents
-              onWillFocus={this.props.clearMedia}
-              onDidBlur={this.clearState}
-            />
-            <View style={styles.sectionContainer}>
-              <View style={styles.sections}>
-                <UploadMedia title='Upload update image' />
-              </View>
-
-              <View style={styles.sections}>
-                <View style={styles.goToCampaignButton}>
-                  <Text style={styles.goToCampaignText}>Update</Text>
-                </View>
-                <Text style={styles.sectionsText}>
-                  {this.selectedCampaign.camp_name}
-                </Text>
-                <TextInput
-                  ref={input => {
-                    this.campDetailsInput = input;
-                  }}
-                  returnKeyType='next'
-                  placeholder='Write an update here to tell people what has happened since their donation.'
-                  style={styles.inputContain2}
-                  onChangeText={text => this.setState({ update_desc: text })}
-                  multiline={true}
-                  value={this.state.update_desc}
-                />
-              </View>
-            </View>
-          </ScrollView>
-        </KeyboardAwareScrollView>
-      </KeyboardAvoidingView>
+            returnKeyType='next'
+            placeholder='Write an update here to tell people what has happened since their donation.'
+            style={styles.inputContain2}
+            onChangeText={text => this.setState({ update_desc: text })}
+            multiline={true}
+            value={this.state.update_desc}
+          />
+        </View>
+      </KeyboardAwareScrollView>
     );
   }
 
@@ -177,101 +161,3 @@ export default connect(mapStateToProps, {
   getProfileData,
   clearMedia
 })(CreateCampUpdateScreen);
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    flexDirection: 'column',
-    flexWrap: 'wrap',
-    margin: 15
-  },
-  buttons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: '#fff',
-    borderBottomColor: '#f5f5f5',
-    paddingLeft: 10,
-    paddingRight: 10,
-    height: 75
-  },
-  TouchableOpacity: {},
-  ButtonStyle: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: '#eee',
-    marginTop: 12,
-    marginBottom: 12,
-    flex: 1
-  },
-  CancelButton: {
-    fontSize: 16,
-    color: 'black'
-  },
-  PublishButton: {
-    fontSize: 16,
-    color: 'black',
-    fontWeight: 'bold'
-  },
-  camera: {
-    backgroundColor: '#C4C4C4',
-    width: '100%',
-    height: 150,
-    flexDirection: 'row'
-  },
-  CameraContainerButton: {
-    marginTop: 120,
-    marginRight: 10,
-    marginLeft: 10
-  },
-  inputContain2: {
-    height: 146,
-    borderWidth: 2,
-    borderColor: '#C4C4C4',
-    padding: 5,
-    borderRadius: 5,
-    fontSize: 20,
-    marginBottom: 25,
-    textAlignVertical: 'top'
-  },
-  Card: {
-    marginTop: 20,
-    backgroundColor: '#fff',
-    width: '100%',
-    padding: 25
-  },
-  cardText: {
-    textAlign: 'center',
-    marginBottom: 10,
-    fontSize: 25
-  },
-  cardPara: {
-    marginTop: 10,
-    textAlign: 'center',
-    fontSize: 13
-  },
-  sectionsText: {
-    fontFamily: 'Lato-Bold',
-    fontSize: 20,
-    marginBottom: 5,
-    textAlign: 'center'
-  },
-  goToCampaignButton: {
-    backgroundColor: '#00FF9D',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 37,
-    width: '100%'
-  },
-  goToCampaignText: {
-    fontFamily: 'Lato-Bold',
-    fontSize: 18
-  },
-  indicator: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-});

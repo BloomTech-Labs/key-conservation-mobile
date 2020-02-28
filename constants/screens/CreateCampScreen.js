@@ -1,19 +1,13 @@
 export default {
+  container: {
+    flex: 1,
+    padding: 8,
+  },
   sectionContainer: {
     flexDirection: 'column',
-    flexWrap: 'wrap',
-    margin: 5,
-    paddingBottom: 10
-  },
-  sections: {
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    marginTop: 10,
-    marginLeft: 8,
-    marginRight: 8,
-    paddingTop: 13,
-    paddingLeft: 10,
-    paddingRight: 10
+    padding: 16,
+    backgroundColor: 'white',
+    borderRadius: 8
   },
   mediaSection: {
     backgroundColor: '#fff',
@@ -72,9 +66,8 @@ export default {
   },
   inputContain2: {
     height: 140,
-    borderWidth: 2,
-    borderColor: '#C4C4C4',
-    padding: 5,
+    backgroundColor: '#F5F5F5',
+    padding: 12,
     borderRadius: 5,
     fontSize: 16,
     marginBottom: 25,
