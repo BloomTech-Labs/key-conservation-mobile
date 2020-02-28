@@ -44,7 +44,7 @@ const AccountScreen = props => {
         <View style={styles.arrowView}>
           <NavigateBack
             onButtonPress={() => {
-              props.navigation.navigate('MakeAccount');
+              props.navigation.navigate('TellMore');
             }}
             color='#000'
           />

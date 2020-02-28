@@ -61,7 +61,8 @@ const ReviewYourInfoScreen = props => {
     // Grabs state for backend through nav params again.
     setState(props.navigation.getParam('airtableState', 'defaultValue'));
     getAirtableID();
-    console.log('profile_image from Review', state.profile_image);
+    // console.log('profile_image from Review', state.profile_image);
+    console.log('ReviewInfoScreen', state);
   }, []);
 
   const getAirtableID = async () => {
@@ -113,7 +114,7 @@ const ReviewYourInfoScreen = props => {
         <View style={styles.arrowView}>
           <NavigateBack
             onButtonPress={() => {
-              props.navigation.navigate('MakeAccount');
+              props.navigation.navigate('AccountScreen');
             }}
             color='#000'
           />
@@ -162,42 +163,42 @@ const ReviewYourInfoScreen = props => {
 
                 <View style={styles.row}>
                   <Text style={styles.obSubtitleSm}>Address</Text>
-                  <Text style={styles.obText}>{state.location}</Text>
+                  <Text style={styles.obFieldName}>{state.location}</Text>
                 </View>
 
                 <View style={styles.row}>
                   <Text style={styles.obSubtitleSm}>Country</Text>
-                  <Text style={styles.obText}>{state.country}</Text>
+                  <Text style={styles.obFieldName}>{state.country}</Text>
                 </View>
 
                 <View style={styles.row}>
                   <Text style={styles.obSubtitleSm}>Website</Text>
-                  <Text style={styles.obText}>{state.org_link_url}</Text>
+                  <Text style={styles.obFieldName}>{state.org_link_url}</Text>
                 </View>
 
                 <View style={styles.row}>
                   <Text style={styles.obSubtitleSm}>Phone</Text>
-                  <Text style={styles.obText}>{state.phone_number}</Text>
+                  <Text style={styles.obFieldName}>{state.phone_number}</Text>
                 </View>
 
                 <View style={styles.row}>
                   <Text style={styles.obSubtitleSm}>Facebook</Text>
-                  <Text style={styles.obText}>{state.facebook}</Text>
+                  <Text style={styles.obFieldName}>{state.facebook}</Text>
                 </View>
 
                 <View style={styles.row}>
                   <Text style={styles.obSubtitleSm}>Twitter</Text>
-                  <Text style={styles.obText}>{state.twitter}</Text>
+                  <Text style={styles.obFieldName}>{state.twitter}</Text>
                 </View>
 
                 <View style={styles.row}>
                   <Text style={styles.obSubtitleSm}>Instagram</Text>
-                  <Text style={styles.obText}>{state.instagram}</Text>
+                  <Text style={styles.obFieldName}>{state.instagram}</Text>
                 </View>
 
                 <View style={styles.row}>
                   <Text style={styles.obSubtitleSm}>Donation Link</Text>
-                  <Text style={styles.obText}>{state.org_cta}</Text>
+                  <Text style={styles.obFieldName}>{state.org_cta}</Text>
                 </View>
               </View>
             ) : (
@@ -214,7 +215,7 @@ const ReviewYourInfoScreen = props => {
                 <View style={styles.row}>
                   <Text style={styles.obSubtitleSm}>Name</Text>
                   <TextInput
-                    style={[styles.obText, styles.textInput]}
+                    style={[styles.obFieldName, styles.textInput]}
                     value={state.org_name}
                     setState={text => setState({ ...state, org_name: text })}
                   />
@@ -222,7 +223,7 @@ const ReviewYourInfoScreen = props => {
                 <View style={styles.row}>
                   <Text style={styles.obSubtitleSm}>Address</Text>
                   <TextInput
-                    style={[styles.obText, styles.textInput]}
+                    style={[styles.obFieldName, styles.textInput]}
                     // multiline
                     value={state.location}
                     setState={text => setState({ ...state, location: text })}
@@ -231,7 +232,7 @@ const ReviewYourInfoScreen = props => {
                 <View style={styles.row}>
                   <Text style={styles.obSubtitleSm}>Country</Text>
                   <TextInput
-                    style={[styles.obText, styles.textInput]}
+                    style={[styles.obFieldName, styles.textInput]}
                     // multiline
                     value={state.country}
                     setState={text => setState({ ...state, country: text })}
@@ -241,7 +242,7 @@ const ReviewYourInfoScreen = props => {
                 <View style={styles.row}>
                   <Text style={styles.obSubtitleSm}>Website</Text>
                   <TextInput
-                    style={[styles.obText, styles.textInput]}
+                    style={[styles.obFieldName, styles.textInput]}
                     value={state.org_link_url}
                     setState={text =>
                       setState({ ...state, org_link_url: text })
@@ -252,7 +253,7 @@ const ReviewYourInfoScreen = props => {
                 <View style={styles.row}>
                   <Text style={styles.obSubtitleSm}>Phone</Text>
                   <TextInput
-                    style={[styles.obText, styles.textInput]}
+                    style={styles.textInput}
                     value={state.phone_number}
                     setState={text =>
                       setState({ ...state, phone_number: text })
@@ -263,7 +264,7 @@ const ReviewYourInfoScreen = props => {
                 <View style={styles.row}>
                   <Text style={styles.obSubtitleSm}>Facebook</Text>
                   <TextInput
-                    style={[styles.obText, styles.textInput]}
+                    style={styles.textInput}
                     value={state.facebook}
                     setState={text => setState({ ...state, facebook: text })}
                   />
@@ -272,7 +273,7 @@ const ReviewYourInfoScreen = props => {
                 <View style={styles.row}>
                   <Text style={styles.obSubtitleSm}>Twitter</Text>
                   <TextInput
-                    style={[styles.obText, styles.textInput]}
+                    style={styles.textInput}
                     value={state.twitter}
                     setState={text => setState({ ...state, twitter: text })}
                   />
@@ -281,7 +282,7 @@ const ReviewYourInfoScreen = props => {
                 <View style={styles.row}>
                   <Text style={styles.obSubtitleSm}>Instagram</Text>
                   <TextInput
-                    style={[styles.obText, styles.textInput]}
+                    style={styles.textInput}
                     value={state.instagram}
                     setState={text => setState({ ...state, instagram: text })}
                   />
@@ -290,7 +291,7 @@ const ReviewYourInfoScreen = props => {
                 <View style={styles.row}>
                   <Text style={styles.obSubtitleSm}>Donation Link</Text>
                   <TextInput
-                    style={[styles.obText, styles.textInput]}
+                    style={styles.textInput}
                     value={state.org_cta}
                     setState={text => setState({ ...state, org_cta: text })}
                   />
@@ -339,7 +340,7 @@ const ReviewYourInfoScreen = props => {
                 <View style={styles.row}>
                   <Text style={styles.obSubtitleSm}>Contact Name: </Text>
                   <TextInput
-                    style={[styles.obText, styles.textInput]}
+                    style={styles.textInput}
                     value={state.point_of_contact_name}
                     placeholder={'Point of Contact Name'}
                     setState={text =>
@@ -350,7 +351,7 @@ const ReviewYourInfoScreen = props => {
                 <View style={styles.row}>
                   <Text style={styles.obSubtitleSm}>Contact Position: </Text>
                   <TextInput
-                    style={[styles.obText, styles.textInput]}
+                    style={styles.textInput}
                     value={state.point_of_contact_position}
                     placeholder={' Contact Position'}
                     setState={text =>
@@ -416,7 +417,7 @@ const ReviewYourInfoScreen = props => {
                 <View style={styles.row}>
                   <Text style={styles.obSubtitleSm}>Mini Bio</Text>
                   <TextInput
-                    style={[styles.obText, styles.textInput]}
+                    style={styles.textInput}
                     value={state.mini_bio}
                     placeholder={'Mini Bio'}
                     setState={text => setState({ ...state, mini_bio: text })}
@@ -426,7 +427,7 @@ const ReviewYourInfoScreen = props => {
                 <View style={styles.row}>
                   <Text style={styles.obSubtitleSm}>ABout Us</Text>
                   <TextInput
-                    style={[styles.obText, styles.textInput]}
+                    style={styles.textInput}
                     value={state.about_us}
                     placeholder={'About us'}
                     setState={text => setState({ ...state, about_us: text })}
@@ -479,7 +480,7 @@ const ReviewYourInfoScreen = props => {
                   Countries your organization works in:
                 </Text>
                 <TextInput
-                  style={[styles.obText, styles.textInput]}
+                  style={styles.textInput}
                   value={state.other_countries}
                   setState={text =>
                     setState({ ...state, other_countries: text })
@@ -489,7 +490,7 @@ const ReviewYourInfoScreen = props => {
                 <View>
                   <Text style={styles.obSubtitleSm}>Projects</Text>
                   <TextInput
-                    style={[styles.obText, styles.textInput]}
+                    style={styles.textInput}
                     value={state.multiple_projects}
                     setState={text => {
                       setState({
@@ -534,7 +535,7 @@ const ReviewYourInfoScreen = props => {
                   </TouchableOpacity>
                 </View>
                 <TextInput
-                  style={[styles.obText, styles.textInput]}
+                  style={styles.textInput}
                   value={state.affiliations_partnerships}
                   setState={text => {
                     setState({
@@ -633,7 +634,6 @@ const ReviewYourInfoScreen = props => {
                     setState({ ...state, profile_image: props.mediaUpload });
                   }
                   const stringBE = JSON.stringify({
-                    // username: state.username,
                     org_name: state.org_name,
                     org_link_url: state.org_link_url,
                     twitter: state.twitter,

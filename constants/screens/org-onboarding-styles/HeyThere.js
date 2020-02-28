@@ -37,7 +37,7 @@ export default StyleSheet.create({
   obText: {
     color: '#000000',
     fontFamily: 'Lato-Bold',
-    fontSize: responsiveFontSize(2),
+    fontSize: responsiveFontSize(2.3),
     lineHeight: 27,
     marginBottom: '9%',
     marginLeft: '15%',

@@ -197,7 +197,7 @@ const TellMoreScreen = props => {
         <View style={styles.arrowView}>
           <NavigateBack
             onButtonPress={() => {
-              props.navigation.navigate('TellAboutOrganization');
+              props.navigation.navigate('TellAboutOrganization', {});
             }}
             color='#000'
           />
@@ -434,13 +434,7 @@ const TellMoreScreen = props => {
                     props.navigation.navigate('AccountScreen', {
                       airtableStateAdd: airtableStateAdd,
                       airtableKey: airtableKey
-                    });
-                    console.log(
-                      'airtableState from tellmore',
-                      airtableState,
-                      'applePhone',
-                      applePhone
-                    ); // This passes the combined fields sent to airtable needed for backend to the next component.
+                    }); // This passes the combined fields sent to airtable needed for backend to the next component.
                   }}
                 />
               )}

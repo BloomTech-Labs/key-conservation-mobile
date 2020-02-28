@@ -46,6 +46,13 @@ const TellAboutOrganizationScreen = props => {
     getEmail();
   }, []);
 
+  //   useEffect(() => {
+  //     console.log('***************************************');
+  //     console.log('TellAbout props', props.mediaUpload);
+  //     console.log('TellAbout state', state);
+  //     console.log('TellAbout airTableKey', airtableKey);
+  //   }, [props, state, airtableKey]);
+
   useEffect(() => {
     setState({ ...state, profile_image: props.mediaUpload });
     console.log('changed');
@@ -81,7 +88,7 @@ const TellAboutOrganizationScreen = props => {
           let airtableID = record.getId();
           props.navigation.navigate('TellMore', {
             airtableID: airtableID,
-            state: state,
+            airtableState: state,
             airtableKey: airtableKey.key
           });
           // This passes the returned form ID and the needed fields for backend and airtable update() to the next component.
