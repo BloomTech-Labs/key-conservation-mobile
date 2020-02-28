@@ -34,7 +34,7 @@ class EditSupProScreen extends React.Component {
   };
 
   state = {
-    name: this.props.currentUserProfile.name,
+    sup_name: this.props.currentUserProfile.name,
     profile_image: this.props.currentUserProfile.profile_image,
     location: this.props.currentUserProfile.location,
     mini_bio: this.props.currentUserProfile.mini_bio,
@@ -90,13 +90,13 @@ class EditSupProScreen extends React.Component {
               returnKeyType='next'
               placeholder='John Doe'
               style={styles.inputContain}
-              onChangeText={text => this.setState({ name: text })}
+              onChangeText={text => this.setState({ sup_name: text })}
               onSubmitEditing={() => {
                 if (Platform.OS === 'android') return;
                 this.locationInput.focus();
               }}
               // blurOnSubmit={Platform.OS === 'android'}
-              value={this.state.name}
+              value={this.state.sup_name}
             />
           </View>
 
