@@ -34,7 +34,7 @@ class EditSupProScreen extends React.Component {
   };
 
   state = {
-    sup_name: this.props.currentUserProfile.sup_name,
+    name: this.props.currentUserProfile.name,
     profile_image: this.props.currentUserProfile.profile_image,
     location: this.props.currentUserProfile.location,
     mini_bio: this.props.currentUserProfile.mini_bio,
@@ -76,7 +76,6 @@ class EditSupProScreen extends React.Component {
   };
 
   render() {
-
     return (
       <KeyboardAwareScrollView enableOnAndroid={true} extraScrollHeight={32}>
         <NavigationEvents onWillFocus={this.props.clearMedia} />
@@ -86,18 +85,18 @@ class EditSupProScreen extends React.Component {
             <Text style={styles.sectionsText}>Name</Text>
             <TextInput
               ref={input => {
-                this.sup_nameInput = input;
+                this.nameInput = input;
               }}
               returnKeyType='next'
               placeholder='John Doe'
               style={styles.inputContain}
-              onChangeText={text => this.setState({ sup_name: text })}
+              onChangeText={text => this.setState({ name: text })}
               onSubmitEditing={() => {
                 if (Platform.OS === 'android') return;
                 this.locationInput.focus();
               }}
               // blurOnSubmit={Platform.OS === 'android'}
-              value={this.state.sup_name}
+              value={this.state.name}
             />
           </View>
 

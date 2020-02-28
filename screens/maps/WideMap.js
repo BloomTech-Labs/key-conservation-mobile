@@ -46,7 +46,7 @@ const WideMap = ({ getOrganizations, coords, navigation }) => {
                 onPress={() => goToProfile(coordinate.users_id)}
                 style={styles.markerCallout}
               >
-                <Text style={styles.calloutOrgName}>{coordinate.org_name}</Text>
+                <Text style={styles.calloutOrgName}>{coordinate.name}</Text>
               </Callout>
             </Marker>
           );
@@ -93,7 +93,7 @@ const mapPropsToState = state => {
         users_id: org.users_id,
         latitude: org.latitude,
         longitude: org.longitude,
-        org_name: org.org_name,
+        name: org.name,
         location: org.location,
         profile_image: org.profile_image
       };
@@ -104,6 +104,4 @@ const mapPropsToState = state => {
     coords: coords
   };
 };
-export default connect(mapPropsToState, { getOrganizations })(
-  WideMap
-);
+export default connect(mapPropsToState, { getOrganizations })(WideMap);
