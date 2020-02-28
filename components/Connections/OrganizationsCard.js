@@ -5,6 +5,7 @@ import { Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
 import X from '../../assets/jsicons/miscIcons/X';
 import styles from '../../constants/Connections/Cards';
+import { withNavigation } from 'react-navigation';
 
 const OrganizationsCard = props => {
   const [connections, setConnections] = useState([]);
@@ -169,7 +170,18 @@ const OrganizationsCard = props => {
                             }}
                           />
                         </View>
-                        <TouchableOpacity>
+                        <TouchableOpacity
+                          onPress={() => {
+                            props.currentUserProfile.id ===
+                            connection.connector_id
+                              ? props.navigation.navigate('Pro', {
+                                  selectedProfile: connection.connected_id
+                                })
+                              : props.navigation.navigate('Pro', {
+                                  selectedProfile: connection.connector_id
+                                });
+                          }}
+                        >
                           <Text
                             key={connection.connection_id}
                             style={styles.name}
@@ -216,7 +228,11 @@ const OrganizationsCard = props => {
                       />
                     </View>
                     <TouchableOpacity
-                      onPress={() => console.log('You pressed on an org :)')}
+                      onPress={() =>
+                        props.navigation.navigate('Pro', {
+                          selectedProfile: connection.connected_id
+                        })
+                      }
                     >
                       <Text key={connection.connection_id} style={styles.name}>
                         {connection.connected_name === null
@@ -240,4 +256,6 @@ const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
   selectedProfile: state.selectedProfile
 });
-export default connect(mapStateToProps, { getConnections })(OrganizationsCard);
+export default connect(mapStateToProps, { getConnections })(
+  withNavigation(OrganizationsCard)
+);

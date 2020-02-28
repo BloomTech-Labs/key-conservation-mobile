@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Alert } from 'react-native';
+import { View, Text, Alert, TouchableOpacity } from 'react-native';
 import { getConnections } from '../../store/actions';
 import { Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
 import styles from '../../constants/Connections/Cards';
+import { withNavigation } from 'react-navigation';
 
-const OrganizationsCard = props => {
+const PeopleCard = props => {
   const [connections, setConnections] = useState([]);
 
   const getConnections = async () => {
@@ -62,7 +63,13 @@ const OrganizationsCard = props => {
                       }}
                     />
                   </View>
-                  <View>
+                  <TouchableOpacity
+                    onPress={() => {
+                      props.navigation.navigate('Pro', {
+                        selectedProfile: connection.connector_id
+                      });
+                    }}
+                  >
                     <Text key={connection.connection_id} style={styles.name}>
                       {connection.connected_name === null
                         ? '---'
@@ -70,7 +77,7 @@ const OrganizationsCard = props => {
                         ? connection.connected_name
                         : connection.connector_name}
                     </Text>
-                  </View>
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>
@@ -86,4 +93,6 @@ const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
   selectedProfile: state.selectedProfile
 });
-export default connect(mapStateToProps, { getConnections })(OrganizationsCard);
+export default connect(mapStateToProps, { getConnections })(
+  withNavigation(PeopleCard)
+);
