@@ -52,7 +52,7 @@ const OrganizationsCard = props => {
     );
   };
 
-  let supCurrentUserConnections = connections?.filter
+  let supCurrentUserConnections = typeof connections?.filter === 'function'
     ? connections.filter(
         connect =>
           connect.status === 'Connected' &&
@@ -60,7 +60,7 @@ const OrganizationsCard = props => {
       )
     : [];
 
-  let orgCurrentUserConnections = connections?.filter
+  let orgCurrentUserConnections = typeof connections?.filter === 'function'
     ? connections.filter(
         connect =>
           connect.status === 'Connected' &&
@@ -68,7 +68,7 @@ const OrganizationsCard = props => {
       )
     : [];
 
-  let currentUserPendingConnections = connections?.filter
+  let currentUserPendingConnections = typeof connections?.filter === 'function'
     ? connections.filter(
         connect =>
           connect.status === 'Pending' &&
