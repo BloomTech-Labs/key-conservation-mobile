@@ -12,6 +12,8 @@ Current version: 4.2.0. This app is in Beta for iOS and Android.
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Maintainability](https://api.codeclimate.com/v1/badges/334bb92955b642b45954/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/key-conservation-mobile/maintainability)
 
+[![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/codeclimate/codeclimate/test_coverage)
+
 # Contributors
 
 ## Labs 20 - (Current) Fourth Product Cycle
