@@ -44,7 +44,7 @@ const Connect = props => {
 
   const disconnect = () => {
     setConnections(
-      connections.filter(c => c.connection_id !== myConnection.connection_id)
+      connections.filter?.(c => c.connection_id !== myConnection.connection_id)
     );
     props
       .deleteConnection(myConnection.connection_id, props.profileId)
@@ -70,7 +70,7 @@ const Connect = props => {
   };
 
   let selectedUserConnections =
-    connections?.filter(connect => connect.status === 'Connected') || [];
+    connections?.filter?.(connect => connect.status === 'Connected') || [];
 
   const myConnection = connections?.find(
     connection =>

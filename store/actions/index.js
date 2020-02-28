@@ -57,8 +57,6 @@ const PRODUCTION = 'https://key-conservation.herokuapp.com/api/';
 const STAGING = 'https://key-conservation-staging.herokuapp.com/api/';
 const seturl = __DEV__ ? STAGING : PRODUCTION;
 
-// const seturl ='http://192.168.1.13:8000/api/';
-
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
   // If they already include it it will be ignored. and if it is capital "Https || Http" it will become lowercase.
@@ -395,17 +393,14 @@ export const [
 export const getCampaigns = () => dispatch => {
   dispatch({ type: GET_CAMPAIGNS_START });
   let campaigns;
-  console.log('getting campaigns');
   return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .get(`${seturl}campaigns`)
       .then(res => {
-        // console.log('got data', res.data.camp);
         campaigns = res.data.camp;
         return aaxios
           .get(`${seturl}updates`)
           .then(res => {
-            console.log('got updates', console.log(res.data.campUpdate))
             campaigns = campaigns.concat(res.data.campUpdate);
             dispatch({
               type: GET_CAMPAIGNS_SUCCESS,
