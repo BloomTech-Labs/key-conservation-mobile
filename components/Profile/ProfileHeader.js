@@ -84,7 +84,7 @@ const ProfileHeader = forwardRef((props, ref) => {
 
   const profileName = props.loading
     ? 'Loading...'
-    : profile.sup_name || profile.username || profile.org_name;
+    : profile.name;
   return (
     <Animated.View style={[styles.container, { transform: [{translateY: translateY}] }]}>
       <Animated.Image
@@ -145,11 +145,6 @@ const ProfileHeader = forwardRef((props, ref) => {
                   </Text>
                 )
               ) : null}
-              {props.loading || profile.roles !== 'supporter' ? null : (
-                <View>
-                  <Text style={styles.userText}>@{profile.username}</Text>
-                </View>
-              )}
               {profile.roles === 'supporter' ? (
                 <View style={styles.socialContainer}>
                   {!profile.email ? null : (

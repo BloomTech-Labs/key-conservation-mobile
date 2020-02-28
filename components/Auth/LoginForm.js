@@ -23,9 +23,9 @@ class LoginForm extends Component {
     super(props);
 
     this.state = {
-      username: '',
+      email: '',
       password: '',
-      usernameError: '',
+      emailError: '',
       passwordError: '',
       showPasswordTooltip: false,
       type: 0
@@ -36,10 +36,10 @@ class LoginForm extends Component {
     if (this.state.type !== this.props.type) {
       this.setState({ type: this.props.type });
       // A change has been detected, switch focus
-      // back to username field if password field
+      // back to email field if password field
       // is selected for best user experience
       if (this.passwordInput?.isFocused()) {
-        this.usernameInput.focus();
+        this.emailInput.focus();
       }
     }
   }
@@ -60,21 +60,21 @@ class LoginForm extends Component {
 
     Keyboard.dismiss();
 
-    let usernameError = false;
+    let emailError = false;
     let passwordError = false;
 
-    if (!this.state.username.length) {
-      usernameError = true;
+    if (!this.state.email.length) {
+      emailError = true;
     }
     if (!this.state.password.length) {
       passwordError = true;
     }
     this.setState({
-      usernameError: usernameError,
+      emailError: emailError,
       passwordError: passwordError
     });
-    if (usernameError === false && passwordError === false) {
-      this.props.realmLogin(this.state.username, this.state.password);
+    if (emailError === false && passwordError === false) {
+      this.props.realmLogin(this.state.email, this.state.password);
     }
   };
 
@@ -90,14 +90,14 @@ class LoginForm extends Component {
             onSubmitEditing={() => this.passwordInput.focus()}
             style={[
               styles.input,
-              this.state.usernameError && styles.inputError
+              this.state.emailError && styles.inputError
             ]}
             keyboardType='email-address'
             autoCapitalize='none'
             autoCorrect={false}
-            ref={input => (this.usernameInput = input)}
-            value={this.state.username}
-            onChangeText={text => this.setState({ username: text.trim() })}
+            ref={input => (this.emailInput = input)}
+            value={this.state.email}
+            onChangeText={text => this.setState({ email: text.trim() })}
           />
         </View>
         <View style={styles.inputField}>
@@ -129,7 +129,7 @@ class LoginForm extends Component {
           <TouchableOpacity
             onPress={() => !this.state.type && navigate('ResetPassword', { 
               resetPassword: this.props.resetPassword,
-              email: this.state.username
+              email: this.state.email
              })}
           >
             <Text style={styles.footnote}>
