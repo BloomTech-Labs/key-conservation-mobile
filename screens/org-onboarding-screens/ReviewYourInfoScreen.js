@@ -28,7 +28,7 @@ const ReviewYourInfoScreen = props => {
   const [airtableId, setAirtableId] = useState('');
 
   const [state, setState] = useState({
-    username: '',
+    name: '',
     other_countries: '',
     multiple_projects: '',
     affiliations_partnerships: '',
@@ -144,8 +144,8 @@ const ReviewYourInfoScreen = props => {
                 </Text>
               </View>
               <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>username: </Text>
-                <Text style={styles.obText}>{state.username}</Text>
+                <Text style={styles.obSubtitleSm}>name: </Text>
+                <Text style={styles.obText}>{state.name}</Text>
               </View>
             </View>
           ) : (
@@ -183,15 +183,15 @@ const ReviewYourInfoScreen = props => {
                   }
                 />
               </View>
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Username: </Text>
+              {/* <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>Name: </Text>
                 <TextInput
                   style={[styles.obText, styles.textInput]}
-                  value={state.username}
-                  placeholder={' Username'}
-                  setState={text => setState({ ...state, username: text })}
+                  value={state.name}
+                  placeholder={' Name'}
+                  setState={text => setState({ ...state, name: text })}
                 />
-              </View>
+              </View> */}
             </View>
           )}
           <View style={styles.borderContainer}>
@@ -597,7 +597,7 @@ const ReviewYourInfoScreen = props => {
                   setState({ ...state, profile_image: props.mediaUpload });
                 }
                 const stringBE = JSON.stringify({
-                  username: state.username,
+                  name: state.name,
                   org_name: state.org_name,
                   org_link_url: state.org_link_url,
                   twitter: state.twitter,

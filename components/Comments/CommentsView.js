@@ -48,7 +48,7 @@ class CommentsView extends React.Component {
         )}
         <View style={{ flex: 1, flexDirection: 'column-reverse' }}>
           {this.props.campaignComments
-            .slice(0, this.state.commentsVisible)
+            ?.slice(0, this.state.commentsVisible)
             .map(comment => {
               return (
                 <Comment

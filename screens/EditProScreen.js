@@ -85,7 +85,7 @@ class EditProScreen extends React.Component {
     await SecureStore.deleteItemAsync('vettingEmail', {});
     await SecureStore.deleteItemAsync('isVetting', {});
     console.log('resetting vetting variables!');
-  }; // Also deletes vetting variables in case UsernameScreen isn't executed before starting a new organization onboarding process.
+  }; // Also deletes vetting variables in case NameScreen isn't executed before starting a new organization onboarding process.
 
   isProfileComplete = profile => {
     for (let p in profile) {

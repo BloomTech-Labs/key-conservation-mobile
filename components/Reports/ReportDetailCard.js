@@ -51,8 +51,7 @@ class ReportDetailCard extends Component {
           this.props.currentReport.post_id
         )
         .then(res => {
-          if(!res)
-            return;
+          if (!res) return;
 
           switch (this.props.currentReport.table_name) {
             case 'campaigns':
@@ -84,9 +83,7 @@ class ReportDetailCard extends Component {
         })
         .catch(err => {
           console.log(err.message);
-          Alert.alert(
-            'An error ocurred when we tried to get some data'
-          );
+          Alert.alert('An error ocurred when we tried to get some data');
         });
     } else this.type = 'User Profile';
   }
@@ -159,7 +156,7 @@ class ReportDetailCard extends Component {
 
   goToPost = () => {
     // TODO: Implement a way to view the post (comment, campaign or campaign update)
-  }
+  };
 
   render() {
     const timestamp = `Reported on ${moment(
@@ -176,9 +173,7 @@ class ReportDetailCard extends Component {
         collapsed={this.props.collapsed}
         right={
           <View style={styles.report_count}>
-            <FlagIcon
-              style={styles.flag_icon}
-            />
+            <FlagIcon style={styles.flag_icon} />
             <Text style={styles.unique_reports}>
               {this.props.unique_reports}
             </Text>
@@ -188,7 +183,10 @@ class ReportDetailCard extends Component {
         <LoadingOverlay loading={loading} />
         <View style={styles.report_details}>
           {this.state.isUser ? null : (
-            <TouchableWithoutFeedback onPress={this.goToPost} style={styles.post_preview}>
+            <TouchableWithoutFeedback
+              onPress={this.goToPost}
+              style={styles.post_preview}
+            >
               <View style={styles.image_content_container}>
                 <Image
                   style={styles.image_content}
@@ -220,7 +218,7 @@ class ReportDetailCard extends Component {
                 style={styles.touch_op}
               >
                 <Text style={styles.user_link}>
-                  {this.props.currentReport.reported_by.username}
+                  {this.props.currentReport.reported_by.name}
                 </Text>
               </TouchableOpacity>
             </View>

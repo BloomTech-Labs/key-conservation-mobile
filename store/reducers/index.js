@@ -19,7 +19,7 @@ const initialState = {
     sub: '',
     role: '',
     email: '',
-    username: '',
+    name: '',
     token: ''
   },
   currentUserProfile: {

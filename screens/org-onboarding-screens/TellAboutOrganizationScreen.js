@@ -18,7 +18,7 @@ const TellAboutOrganizationScreen = props => {
     key: ''
   });
   const [state, setState] = useState({
-    username: '',
+    name: '',
     org_name: '',
     org_url_link: '',
     profile_image: '',
@@ -115,10 +115,10 @@ const TellAboutOrganizationScreen = props => {
           </View>
 
           <TextInput
-            placeholder='Username'
+            placeholder='Name'
             style={styles.obTextInput}
-            onChangeText={text => setState({ ...state, username: text })}
-            value={state.username}
+            onChangeText={text => setState({ ...state, name: text })}
+            value={state.name}
           />
           <TextInput
             placeholder='Main Address'

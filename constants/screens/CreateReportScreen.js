@@ -4,7 +4,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    overflow: 'visible',
+    overflow: 'visible'
   },
   header: {
     alignSelf: 'flex-start',
@@ -36,7 +36,7 @@ export default StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center'
   },
-  username: {
+  name: {
     fontWeight: 'bold'
   },
   sublabel: {
@@ -80,5 +80,5 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     fontSize: 20
-  },
+  }
 });

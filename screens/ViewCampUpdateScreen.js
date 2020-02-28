@@ -23,7 +23,7 @@ const deviceWidth = Dimensions.get('window').width;
 
 // url for heroku staging vs production server
 // production
-const seturl = 'https://key-conservation.herokuapp.com/api/'
+const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
 // const seturl = "https://key-conservation-staging.herokuapp.com/api/";
 
@@ -73,11 +73,10 @@ class ViewCampUpdateScreen extends React.Component {
   };
 
   render() {
-
     return (
       <ScrollView>
         <CampaignActionSheet
-          ref={o => this.ActionSheet = o}
+          ref={o => (this.ActionSheet = o)}
           admin={this.props.currentUserProfile.admin}
           update={this.props.selectedCampaign}
           isMine={
@@ -91,8 +90,8 @@ class ViewCampUpdateScreen extends React.Component {
             onPress={this.goToProfile}
             title={
               <View>
-                <Text style={styles.listUsername}>
-                  {this.props.selectedCampaign.username}
+                <Text style={styles.listName}>
+                  {this.props.selectedCampaign.name}
                 </Text>
               </View>
             }
@@ -212,7 +211,9 @@ class ViewCampUpdateScreen extends React.Component {
   };
 
   goToProfile = () => {
-    this.props.navigation.navigate('Pro', { selectedProfile: this.props.selectedCampaign.users_id });
+    this.props.navigation.navigate('Pro', {
+      selectedProfile: this.props.selectedCampaign.users_id
+    });
   };
 
   getCampaign = () => {
@@ -333,7 +334,7 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     paddingBottom: 15
   },
-  listUsername: {
+  listName: {
     fontFamily: 'Lato-Bold',
     fontSize: 18,
     lineHeight: 22
@@ -354,6 +355,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps, { getCampaign })(
-  ViewCampUpdateScreen
-);
+export default connect(mapStateToProps, { getCampaign })(ViewCampUpdateScreen);

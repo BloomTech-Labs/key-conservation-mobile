@@ -21,7 +21,7 @@ import CreateCampScreen from '../screens/CreateCampScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import EditProScreen from '../screens/EditProScreen';
 import LoginScreen from '../screens/LoginScreen';
-import UsernameScreen from '../screens/UsernameScreen';
+import NameScreen from '../screens/NameScreen';
 import SearchScreen from '../screens/SearchScreen';
 import ViewCampScreen from '../screens/ViewCampScreen';
 import EditCampScreen from '../screens/EditCampScreen';
@@ -168,9 +168,9 @@ const MySupProStack = createStackNavigator(
   }
 );
 
-export const UsernameStack = createStackNavigator({
-  Username: {
-    screen: UsernameScreen,
+export const NameStack = createStackNavigator({
+  Name: {
+    screen: NameScreen,
 
     navigationOptions: {
       title: 'Sign Up',
