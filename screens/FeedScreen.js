@@ -68,15 +68,15 @@ class FeedScreen extends React.Component {
     return (
       <Viewport.Tracker>
         <ScrollView scrollEventThrottle={16} stickyHeaderIndices={[0]}>
-          {/* <View>
+          <View>
             {this.props.currentUserProfile.roles === 'conservationist' ? (
               <AddCampaignHeader profile={this.props.currentUserProfile} />
             ) : null}
-          </View> */}
+          </View>
           <View style={styles.feedContainer}>
-            {this.props.currentUserProfile.roles === 'conservationist' ? (
+            {/* {this.props.currentUserProfile.roles === 'conservationist' ? (
               <AddCampaignHeader profile={this.props.currentUserProfile} />
-            ) : null}
+            ) : null} */}
             <NavigationEvents
               onDidFocus={this.startGettingCampaigns}
               onDidBlur={this.stopGettingCampaigns}
