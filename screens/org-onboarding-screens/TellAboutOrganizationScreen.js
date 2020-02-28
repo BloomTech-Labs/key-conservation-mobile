@@ -18,7 +18,7 @@ const TellAboutOrganizationScreen = props => {
     key: ''
   });
   const [state, setState] = useState({
-    name: '',
+    org_name: '',
     name: '',
     org_url_link: '',
     profile_image: '',
@@ -56,7 +56,7 @@ const TellAboutOrganizationScreen = props => {
       [
         {
           fields: {
-            name: state.name,
+            org_name: state.name,
             website: state.org_link_url,
             phone: state.phone_number,
             address: state.location,

@@ -83,7 +83,7 @@ const ReviewYourInfoScreen = props => {
             multiple_projects: state.multiple_projects,
             smartphone_access: state.smartphone_access,
             smartphone_type: state.smartphone_type,
-            name: state.name,
+            org_name: state.name,
             website: state.org_link_url,
             phone: state.phone_number,
             address: state.location,

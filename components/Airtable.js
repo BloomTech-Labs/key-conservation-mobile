@@ -11,12 +11,17 @@ const Airtable = props => {
     'appbPeeXUSNCQWwnQ'
   );
 
-  if (props.name && props.website && props.address && props.country !== null) {
+  if (
+    props.org_name &&
+    props.website &&
+    props.address &&
+    props.country !== null
+  ) {
     base('Table 1').create(
       [
         {
           fields: {
-            name: props.name,
+            org_name: props.org_name,
             website: props.website,
             address: props.address,
             country: props.country,
