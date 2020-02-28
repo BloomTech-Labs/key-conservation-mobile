@@ -7,7 +7,7 @@ import FlagIcon from '../../assets/jsicons/reports/FlagIcon';
 const ReportCard = (props) => {
 	let type;
 	switch (props.table_name) {
-		case 'campaignUpdates':
+		case 'campaign_updates':
 			type = 'Campaign Reported';
 			break;
 		case 'campaigns':

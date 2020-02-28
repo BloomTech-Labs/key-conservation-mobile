@@ -59,7 +59,7 @@ class ReportDetailCard extends Component {
               this.setState({ postText: res.data.camp.camp_desc });
               this.setState({ postImage: res.data.camp.camp_img });
               break;
-            case 'campaignUpdates':
+            case 'campaign_updates':
               this.type = 'Campaign';
               this.setState({ postText: res.data.campUpdate.update_desc });
               this.setState({ postImage: res.data.campUpdate.update_img });
@@ -101,7 +101,7 @@ class ReportDetailCard extends Component {
         del = this.props.deleteCampaign;
         break;
       }
-      case 'campaignUpdates': {
+      case 'campaign_updates': {
         del = this.props.deleteCampaignUpdate;
         break;
       }

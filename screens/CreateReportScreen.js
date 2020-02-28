@@ -85,7 +85,7 @@ class CreateReportScreen extends Component {
         });
         break;
       }
-      case 'campaignUpdates': {
+      case 'campaign_updates': {
         const {
           profile_image: image,
           name,
