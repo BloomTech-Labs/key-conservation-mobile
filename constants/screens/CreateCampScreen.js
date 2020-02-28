@@ -1,21 +1,25 @@
 export default {
   container: {
-    flex: 1,
+    // flex: 1,
     padding: 8,
   },
   sectionContainer: {
     flexDirection: 'column',
-    padding: 16,
+    padding: 12,
     backgroundColor: 'white',
-    borderRadius: 8
+    borderRadius: 8,
+    marginBottom: 8,
+  },
+  horizontalContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  iconContainer: {
+    marginRight: 8
   },
   mediaSection: {
     backgroundColor: '#fff',
-    borderRadius: 5,
-    marginLeft: 8,
-    marginRight: 8,
-    marginTop: 8,
-    paddingTop: 18,
     alignItems: 'center'
   },
   buttons: {
@@ -56,21 +60,20 @@ export default {
     marginLeft: 10
   },
   inputContain: {
+    flex: 1,
     height: 48,
-    borderWidth: 2,
-    borderColor: '#C4C4C4',
-    padding: 5,
+    backgroundColor: '#F5F5F5',
+    padding: 12,
     borderRadius: 5,
     fontSize: 16,
-    marginBottom: 25
   },
   inputContain2: {
+    flex: 1,
     height: 140,
     backgroundColor: '#F5F5F5',
     padding: 12,
     borderRadius: 5,
     fontSize: 16,
-    marginBottom: 25,
     textAlignVertical: 'top'
   },
   sectionsText: {
@@ -83,21 +86,22 @@ export default {
     lineHeight: 19,
     fontSize: 14,
     fontFamily: 'Lato',
-    color: '#323339',
+    color: 'gray',
     textAlign: 'left'
   },
-  urgencyText: {
+  urgencyDescription: {
     lineHeight: 19,
     fontSize: 14,
     fontFamily: 'Lato',
-    color: '#323339',
+    color: 'gray',
     textAlign: 'left',
-    paddingLeft: 15
+  },
+  urgencyText: {
+    flex: 1,
+    flexGrow: 20
   },
   urgencyMenu: {
-    marginTop: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
+    marginTop: 16,
     paddingBottom: 10
   },
   checkMark: {
@@ -107,47 +111,23 @@ export default {
     marginLeft: 4
   },
   urgencyOption: {
+    borderTopWidth: 1,
+    borderTopColor: 'gray',
     flexDirection: 'row',
-    width: '100%',
+    alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 13,
-    paddingHorizontal: 10,
     margin: 'auto'
   },
-  criticalUrgency: {
-    color: '#000',
-    backgroundColor: '#E31059',
-    fontSize: 16,
-    fontFamily: 'Lato-Bold',
-    textTransform: 'uppercase',
-    height: 35,
-    width: '100%',
-    justifyContent: 'center',
-    textAlign: 'center',
-    paddingTop: 5
+  urgencyCheckmarkContainer: {
+    flex: 1,
+    paddingHorizontal: 16,
   },
-  urgentUrgency: {
-    color: '#000',
-    backgroundColor: '#FFC700',
-    fontSize: 16,
+  urgencyLevelTitle: {
+    fontSize: 18,
     fontFamily: 'Lato-Bold',
-    textTransform: 'uppercase',
     height: 35,
-    width: '100%',
     justifyContent: 'center',
-    textAlign: 'center',
-    paddingTop: 5
-  },
-  longtermUrgency: {
-    color: '#000',
-    backgroundColor: '#00FF9D',
-    fontSize: 16,
-    fontFamily: 'Lato-Bold',
-    textTransform: 'uppercase',
-    height: 35,
-    width: '100%',
-    justifyContent: 'center',
-    textAlign: 'center',
     paddingTop: 5
   },
   indicator: {

@@ -3,15 +3,13 @@ import {
   TextInput,
   Text,
   View,
-  KeyboardAvoidingView,
   Platform,
   Alert,
   TouchableOpacity,
   Image,
   ActivityIndicator
 } from 'react-native';
-import axios from 'axios';
-import { ScrollView, NavigationEvents } from 'react-navigation';
+import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -24,33 +22,12 @@ import UploadMedia from '../components/UploadMedia';
 import styles from '../constants/screens/CreateCampScreen';
 import CheckMark from '../assets/icons/checkmark-24.png';
 
-// url for heroku staging vs production server
-// production
-const seturl = 'https://key-conservation.herokuapp.com/api/';
-// staging
-// const seturl = "https://key-conservation-staging.herokuapp.com/api/";
-
-const filterUrls = (keys, object) => {
-  // If a user doesn't include http or https in there URL this function will add it.
-  // If they already include it it will be ignored. and if its capital "Https || Http" it will become lowercase.
-  keys.forEach(key => {
-    if (
-      object[key] &&
-      object[key] !== null &&
-      object[key].indexOf('http://') !== 0 &&
-      object[key].indexOf('https://') !== 0
-    ) {
-      object[key] = object[key].toLowerCase();
-      object[key] = 'https://' + object[key];
-    }
-  });
-  return object;
-};
+import Lightening from '../assets/jsicons/bottomnavigation/Lightening';
 
 class CreateCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'New Campaign',
+      title: 'CREATE A CAMPAIGN',
       headerStyle: {
         backgroundColor: '#323338'
       },
@@ -64,6 +41,30 @@ class CreateCampScreen extends React.Component {
       )
     };
   };
+
+  constructor(props) {
+    super(props);
+
+    this.URGENCY_LEVELS = [
+      {
+        title: 'Critical',
+        description:
+          'Dire consequences may occur of no immediate support is made available',
+        color: '#E31059'
+      },
+      {
+        title: 'Urgent',
+        description:
+          'Immediate support needed, although situation is not critical',
+        color: '#FFC700'
+      },
+      {
+        title: 'Longterm',
+        description: 'Support is needed over a longer period of time',
+        color: '#00FF9D'
+      }
+    ];
+  }
 
   state = {
     users_id: this.props.currentUserProfile.id,
@@ -87,130 +88,99 @@ class CreateCampScreen extends React.Component {
       );
     }
     return (
-      <KeyboardAvoidingView
-        behavior='height'
-        keyboardVerticalOffset={90}
-        enabled={Platform.OS === 'android' ? true : false}
-      >
-        <KeyboardAwareScrollView>
-          <ScrollView
-            contentContainerStyle={{
-              backgroundColor: '#DCDCDC',
-              minHeight: '100%'
-            }}
-          >
-            <NavigationEvents
-              onWillFocus={this.props.clearMedia}
-              onDidBlur={this.clearState}
-            />
-            <View style={styles.sectionContainer}>
-              <View style={styles.sections}>
-                <Text style={styles.sectionsText}>Campaign Name</Text>
-                <TextInput
-                  ref={input => {
-                    this.campNameInput = input;
-                  }}
-                  returnKeyType='next'
-                  placeholder='Add Campaign Name'
-                  style={styles.inputContain}
-                  onChangeText={text => this.setState({ camp_name: text })}
-                  onSubmitEditing={() => {
-                    if (Platform.OS === 'android') return;
-                    this.campImgUrlInput.focus();
-                  }}
-                  blurOnSubmit={Platform.OS === 'android'}
-                  value={this.state.camp_name}
-                />
-              </View>
-              <View style={styles.mediaSection}>
-                <UploadMedia title='Upload campaign image' />
-              </View>
-              <View style={styles.sections}>
-                <Text style={styles.sectionsText}>Campaign Details</Text>
-                <TextInput
-                  ref={input => {
-                    this.campDetailsInput = input;
-                  }}
-                  returnKeyType='next'
-                  placeholder='Add campaign details and list of monetary needs.'
-                  style={styles.inputContain2}
-                  onChangeText={text => this.setState({ camp_desc: text })}
-                  multiline={true}
-                  value={this.state.camp_desc}
-                />
-              </View>
-              <View style={styles.sections}>
-                <Text style={styles.sectionsText}>Donation Link</Text>
-                <TextInput
-                  ref={input => {
-                    this.donationLinkInput = input;
-                  }}
-                  returnKeyType='next'
-                  placeholder='https://www.carribbeanseaturtle.com/donate'
-                  keyboardType='default'
-                  placeholder='Please include full URL'
-                  autoCapitalize='none'
-                  style={styles.inputContain}
-                  onChangeText={text => this.setState({ camp_cta: text })}
-                  value={this.state.camp_cta}
-                />
-              </View>
-              <View style={styles.sections}>
-                <Text style={styles.sectionsText}>Urgency Level</Text>
-                <Text style={styles.bodyText}>
-                  Select one. This can be changed at a future date.
-                </Text>
-                <View style={styles.urgencyMenu}>
-                  <TouchableOpacity
-                    style={styles.urgencyOption}
-                    onPress={() => this.setUrgency('Critical')}
-                  >
-                    <Text style={styles.criticalUrgency}>Critical</Text>
-                    {this.state.urgency === 'Critical' ? (
-                      <Image style={styles.checkMark} source={CheckMark} />
-                    ) : null}
-                  </TouchableOpacity>
-                  <View>
-                    <Text style={styles.urgencyText}>
-                      Dire consequences may occur if no immediate support made
-                      available.
-                    </Text>
-                  </View>
-                  <TouchableOpacity
-                    style={styles.urgencyOption}
-                    onPress={() => this.setUrgency('Urgent')}
-                  >
-                    <Text style={styles.urgentUrgency}>Urgent</Text>
-                    {this.state.urgency === 'Urgent' ? (
-                      <Image style={styles.checkMark} source={CheckMark} />
-                    ) : null}
-                  </TouchableOpacity>
-                  <View>
-                    <Text style={styles.urgencyText}>
-                      Immediate support needed but it's not critical.
-                    </Text>
-                  </View>
-                  <TouchableOpacity
-                    style={styles.urgencyOption}
-                    onPress={() => this.setUrgency('Longterm')}
-                  >
-                    <Text style={styles.longtermUrgency}>Longterm</Text>
-                    {this.state.urgency === 'Longterm' ? (
-                      <Image style={styles.checkMark} source={CheckMark} />
-                    ) : null}
-                  </TouchableOpacity>
-                  <View>
-                    <Text style={styles.urgencyText}>
-                      Support is needed but can be raised over a longer period
-                      of time.
-                    </Text>
-                  </View>
-                </View>
-              </View>
+      <KeyboardAwareScrollView contentContainerStyle={styles.container}>
+        <NavigationEvents
+          onWillFocus={this.props.clearMedia}
+          onDidBlur={this.clearState}
+        />
+        <View style={styles.sectionContainer}>
+          <View style={styles.horizontalContainer}>
+            <View style={styles.iconContainer}>
+              <Lightening fill='#00FF9D' />
             </View>
-          </ScrollView>
-        </KeyboardAwareScrollView>
-      </KeyboardAvoidingView>
+            <TextInput
+              ref={input => {
+                this.campNameInput = input;
+              }}
+              returnKeyType='next'
+              placeholder='Name Campaign'
+              style={styles.inputContain}
+              onChangeText={text => this.setState({ camp_name: text })}
+              onSubmitEditing={() => {
+                if (Platform.OS === 'android') return;
+                this.campImgUrlInput.focus();
+              }}
+              blurOnSubmit={Platform.OS === 'android'}
+              value={this.state.camp_name}
+            />
+          </View>
+        </View>
+
+        <View style={styles.sectionContainer}>
+          <View stlye={styles.horizontalContainer}>
+            <UploadMedia title='Upload campaign image' />
+            <TextInput
+              ref={input => {
+                this.campDetailsInput = input;
+              }}
+              returnKeyType='next'
+              placeholder='Add campaign details and list of monetary needs.'
+              style={styles.inputContain2}
+              onChangeText={text => this.setState({ camp_desc: text })}
+              multiline={true}
+              value={this.state.camp_desc}
+            />
+          </View>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionsText}>Donation Link</Text>
+          <TextInput
+            ref={input => {
+              this.donationLinkInput = input;
+            }}
+            returnKeyType='next'
+            placeholder='https://www.carribbeanseaturtle.com/donate'
+            keyboardType='default'
+            placeholder='Please include full URL'
+            autoCapitalize='none'
+            style={styles.inputContain}
+            onChangeText={text => this.setState({ camp_cta: text })}
+            value={this.state.camp_cta}
+          />
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionsText}>Urgency Level</Text>
+          <Text style={styles.bodyText}>
+            Select one. This can be changed at a future date.
+          </Text>
+          <View style={styles.urgencyMenu}>
+            {this.URGENCY_LEVELS.map((urgency, index) => (
+              <TouchableOpacity
+                key={index}
+                style={styles.urgencyOption}
+                onPress={() => this.setUrgency(urgency.title)}
+              >
+                <View style={styles.urgencyText}>
+                  <Text
+                    style={{
+                      ...styles.urgencyLevelTitle,
+                      color: urgency.color
+                    }}
+                  >
+                    {urgency.title}
+                  </Text>
+                  <Text style={styles.urgencyDescription}>{urgency.description}</Text>
+                </View>
+                <View style={styles.urgencyCheckmarkContainer}>
+                  {this.state.urgency === urgency.title ? (
+                    <Image style={styles.checkMark} source={CheckMark} />
+                  ) : null}
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+      </KeyboardAwareScrollView>
     );
   }
 
