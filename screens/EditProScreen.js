@@ -47,7 +47,6 @@ class EditProScreen extends React.Component {
     about_us: this.props.currentUserProfile.about_us,
     species_and_habitats: this.props.currentUserProfile.species_and_habitats,
     phone_number: this.props.currentUserProfile.phone_number,
-    // supportUs: this.props.currentUserProfile.support_us,
     org_cta: this.props.currentUserProfile.org_cta,
     longitude: this.props.currentUserProfile.longitude,
     latitude: this.props.currentUserProfile.latitude
