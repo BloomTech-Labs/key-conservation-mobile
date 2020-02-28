@@ -166,7 +166,7 @@ class EditSupProScreen extends React.Component {
                 alignSelf: 'center',
                 marginTop: 24
               }}
-              source={{ uri: this.state.profile_image }}
+              source={{ uri: this.state.profile_image || undefined }}
               rounded
               size={128}
             />
