@@ -21,7 +21,7 @@ import CreateCampScreen from '../screens/CreateCampScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import EditProScreen from '../screens/EditProScreen';
 import LoginScreen from '../screens/LoginScreen';
-import UsernameScreen from '../screens/UsernameScreen';
+import NameScreen from '../screens/NameScreen';
 import SearchScreen from '../screens/SearchScreen';
 import ViewCampScreen from '../screens/ViewCampScreen';
 import EditCampScreen from '../screens/EditCampScreen';
@@ -38,6 +38,7 @@ import LogoutScreen from '../screens/LogoutScreen';
 import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import ConnectionsScreen from '../screens/Connections/ConnectionsScreen';
+import SelectedConnectionsScreen from '../screens/Connections/SelectedConnectionsScreen';
 
 //icon imports
 
@@ -95,6 +96,7 @@ const FeedStack = createStackNavigator(
         headerTintColor: '#fff'
       }
     },
+    SelectedConnections: SelectedConnectionsScreen,
     Camp: ViewCampScreen,
     CampUpdate: ViewCampUpdateScreen,
     SupPro: ProfileScreen,
@@ -109,12 +111,6 @@ const FeedStack = createStackNavigator(
       tabBarLabel: 'Feed',
       tabBarIcon: ({ focused }) => <Lightening />
     }
-
-    // transitionConfig: () => ({
-    //   transitionSpec: {
-    //     duration: 0
-    //   }
-    // })
   }
 );
 
@@ -124,7 +120,8 @@ export const AccountSettingsStack = createStackNavigator({
   ReportScreen: ReportDetailScreen,
   SupProDetails: ProfileScreen,
   ProDetails: ProfileScreen,
-  Connections: ConnectionsScreen
+  Connections: ConnectionsScreen,
+  SelectedConnections: SelectedConnectionsScreen
 });
 
 const MyProStack = createStackNavigator(
@@ -144,16 +141,12 @@ const MyProStack = createStackNavigator(
     CampUpdate: ViewCampUpdateScreen,
     CreateCampUpdate: CreateCampUpdateScreen,
     EditCampUpdate: EditCampUpdateScreen,
-    CreateReport: CreateReportScreen,
-    Connections: ConnectionsScreen
+    CreateReport: CreateReportScreen
   },
   {
     navigationOptions: {
       tabBarLabel: 'My Profile',
       tabBarIcon: ({ focused }) => <Smile />
-      // transitionSpec: {
-      //   duration: 0
-      // }
     }
   }
 );
@@ -175,9 +168,9 @@ const MySupProStack = createStackNavigator(
   }
 );
 
-export const UsernameStack = createStackNavigator({
-  Username: {
-    screen: UsernameScreen,
+export const NameStack = createStackNavigator({
+  Name: {
+    screen: NameScreen,
 
     navigationOptions: {
       title: 'Sign Up',

@@ -83,7 +83,7 @@ const FeedUpdate = props => {
 
   const goToProfile = () => {
     AmpEvent('Select Profile from Campaign', {
-      profile: data.username,
+      profile: data.name,
       campaign: data.camp_name
     });
     navigate('Pro', { selectedProfile: data.users_id });
@@ -122,13 +122,13 @@ const FeedUpdate = props => {
           isMine={props.currentUserProfile.id === data.users_id}
           update={data}
         />
-        {props.hideUsername === undefined && (
+        {props.hideName === undefined && (
           <ListItem
             disabled={props.disableHeader}
             onPress={goToProfile}
             title={
               <View>
-                <Text style={styles.orgTitleView}>{data.username}</Text>
+                <Text style={styles.orgTitleView}>{data.name}</Text>
               </View>
             }
             leftAvatar={{ source: { uri: data.profile_image } }}

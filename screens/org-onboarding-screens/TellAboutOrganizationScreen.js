@@ -23,10 +23,11 @@ const TellAboutOrganizationScreen = props => {
     key: ''
   });
   const [state, setState] = useState({
-    username: '',
     org_name: '',
+    name: '',
     org_url_link: '',
-    profile_image: '',
+    profile_image:
+      'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
     location: '',
     country: '',
     phone_number: '',
@@ -54,8 +55,9 @@ const TellAboutOrganizationScreen = props => {
   //   }, [props, state, airtableKey]);
 
   useEffect(() => {
-    setState({ ...state, profile_image: props.mediaUpload });
-    console.log('changed');
+    if (props.mediaUpload) {
+      setState({ ...state, profile_image: props.mediaUpload });
+    }
   }, [props.mediaUpload]);
 
   const sendAirtable = () => {
@@ -68,7 +70,7 @@ const TellAboutOrganizationScreen = props => {
       [
         {
           fields: {
-            org_name: state.org_name,
+            org_name: state.name,
             website: state.org_link_url,
             phone: state.phone_number,
             address: state.location,

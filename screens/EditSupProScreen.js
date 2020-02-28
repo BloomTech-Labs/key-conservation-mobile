@@ -1,18 +1,8 @@
 import React from 'react';
-import {
-  Platform,
-  Linking,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  KeyboardAvoidingView
-} from 'react-native';
-import { ScrollView, NavigationEvents } from 'react-navigation';
+import { Platform, Text, View, TextInput } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import BackButton from '../components/BackButton';
-
-import * as SecureStorage from 'expo-secure-store';
 
 import DoneButton from '../components/DoneButton';
 import UploadMedia from '../components/UploadMedia';
@@ -21,13 +11,14 @@ import { editProfileData, logout, clearMedia } from '../store/actions';
 import { AmpEvent } from '../components/withAmplitude';
 
 import styles from '../constants/screens/EditSupProScreen';
-import Axios from 'axios';
-import AuthSession from 'expo';
+import { Avatar } from 'react-native-elements';
+
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 class EditSupProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Edit Details',
+      title: 'Edit Profile',
       headerStyle: {
         backgroundColor: '#323338'
       },
@@ -43,8 +34,7 @@ class EditSupProScreen extends React.Component {
   };
 
   state = {
-    sup_name: this.props.currentUserProfile.sup_name,
-    username: this.props.currentUserProfile.username,
+    sup_name: this.props.currentUserProfile.name,
     profile_image: this.props.currentUserProfile.profile_image,
     location: this.props.currentUserProfile.location,
     mini_bio: this.props.currentUserProfile.mini_bio,
@@ -87,191 +77,164 @@ class EditSupProScreen extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView
-        behavior='height'
-        keyboardVerticalOffset={86}
-        enabled
-      >
-        <ScrollView>
-          <NavigationEvents onWillFocus={this.props.clearMedia} />
-          <View style={styles.sectionContainer}>
-            <View style={styles.Card} />
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Name</Text>
-              <TextInput
-                ref={input => {
-                  this.sup_nameInput = input;
-                }}
-                returnKeyType='next'
-                placeholder='John Doe'
-                style={styles.inputContain}
-                onChangeText={text => this.setState({ sup_name: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.usernameInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.sup_name}
-              />
-            </View>
-
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Username</Text>
-              <TextInput
-                ref={input => {
-                  this.usernameInput = input;
-                }}
-                returnKeyType='next'
-                placeholder='@johndoe'
-                style={styles.inputContain}
-                onChangeText={text => this.setState({ username: text })}
-                value={this.state.username}
-              />
-            </View>
-
-            <View style={styles.sections}>
-              <UploadMedia circular title='Upload avatar' />
-            </View>
-
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Location</Text>
-              <TextInput
-                ref={input => {
-                  this.locationInput = input;
-                }}
-                returnKeyType='next'
-                placeholder='Miami, Flordia'
-                style={styles.inputContain}
-                onChangeText={text => this.setState({ location: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.mini_bioInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.location}
-              />
-            </View>
-
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>About Me</Text>
-              <TextInput
-                ref={input => {
-                  this.mini_bioInput = input;
-                }}
-                returnKeyType='next'
-                placeholder='Tell us about yourself!'
-                style={styles.inputContain}
-                onChangeText={text => this.setState({ mini_bio: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.emailInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.mini_bio}
-              />
-            </View>
-
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Email</Text>
-              <TextInput
-                ref={input => {
-                  this.emailInput = input;
-                }}
-                returnKeyType='next'
-                placeholder='youremail@gmail.com'
-                keyboardType='email-address'
-                style={styles.inputContain}
-                onChangeText={text => this.setState({ email: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.facebookInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.email}
-              />
-            </View>
-
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Facebook</Text>
-              <TextInput
-                ref={input => {
-                  this.facebookInput = input;
-                }}
-                returnKeyType='next'
-                placeholder='https://www.facebook.com/orgname'
-                keyboardType='default'
-                style={styles.inputContain}
-                autoCapitalize='none'
-                onChangeText={text => this.setState({ facebook: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.instagramInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.facebook}
-              />
-            </View>
-
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Instagram</Text>
-              <TextInput
-                ref={input => {
-                  this.instagramInput = input;
-                }}
-                returnKeyType='next'
-                keyboardType='default'
-                style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='https://www.instagram.com/orgname'
-                onChangeText={text => this.setState({ instagram: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.twitterInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.instagram}
-              />
-            </View>
-
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Twitter</Text>
-              <TextInput
-                ref={input => {
-                  this.twitterInput = input;
-                }}
-                returnKeyType='next'
-                keyboardType='default'
-                style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='https://www.twitter.com/orgname'
-                onChangeText={text => this.setState({ twitter: text })}
-                onSubmitEditing={() => {
-                  if (Platform.OS === 'android') return;
-                  this.species_habitatsInput.focus();
-                }}
-                blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.twitter}
-              />
-            </View>
-
-            <View style={styles.sections}>
-              <Text style={styles.sectionsText}>Species & Habitats</Text>
-              <TextInput
-                ref={input => {
-                  this.species_habitatsInput = input;
-                }}
-                returnKeyType='next'
-                style={styles.inputContain2}
-                onChangeText={text =>
-                  this.setState({ species_and_habitats: text })
-                }
-                multiline={true}
-                value={this.state.species_and_habitats}
-              />
-            </View>
+      <KeyboardAwareScrollView enableOnAndroid={true} extraScrollHeight={32}>
+        <NavigationEvents onWillFocus={this.props.clearMedia} />
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionHeader}>Details</Text>
+          <View style={styles.sections}>
+            <Text style={styles.sectionsText}>Name</Text>
+            <TextInput
+              ref={input => {
+                this.nameInput = input;
+              }}
+              returnKeyType='next'
+              placeholder='John Doe'
+              style={styles.inputContain}
+              onChangeText={text => this.setState({ sup_name: text })}
+              onSubmitEditing={() => {
+                if (Platform.OS === 'android') return;
+                this.locationInput.focus();
+              }}
+              // blurOnSubmit={Platform.OS === 'android'}
+              value={this.state.sup_name}
+            />
           </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+
+          <View style={styles.sections}>
+            <Text style={styles.sectionsText}>Location</Text>
+            <TextInput
+              ref={input => {
+                this.locationInput = input;
+              }}
+              returnKeyType='next'
+              placeholder='Miami, Flordia'
+              style={styles.inputContain}
+              onChangeText={text => this.setState({ location: text })}
+              onSubmitEditing={() => {
+                if (Platform.OS === 'android') return;
+                this.mini_bioInput.focus();
+              }}
+              // blurOnSubmit={Platform.OS === 'android'}
+              value={this.state.location}
+            />
+          </View>
+
+          <View style={styles.sections}>
+            <Text style={styles.sectionsText}>Bio (150 characters max)</Text>
+            <TextInput
+              ref={input => {
+                this.mini_bioInput = input;
+              }}
+              maxLength={150}
+              returnKeyType='next'
+              placeholder='Tell us about yourself!'
+              style={styles.inputContain}
+              onChangeText={text => this.setState({ mini_bio: text })}
+              onSubmitEditing={() => {
+                if (Platform.OS === 'android') return;
+                this.emailInput.focus();
+              }}
+              // blurOnSubmit={Platform.OS === 'android'}
+              value={this.state.mini_bio}
+            />
+          </View>
+
+          <View style={styles.sections}>
+            <Text style={styles.sectionsText}>Email</Text>
+            <TextInput
+              ref={input => {
+                this.emailInput = input;
+              }}
+              returnKeyType='next'
+              placeholder='youremail@gmail.com'
+              keyboardType='email-address'
+              style={styles.inputContain}
+              onChangeText={text => this.setState({ email: text })}
+              onSubmitEditing={() => {
+                if (Platform.OS === 'android') return;
+                this.facebookInput.focus();
+              }}
+              // blurOnSubmit={Platform.OS === 'android'}
+              value={this.state.email}
+            />
+          </View>
+
+          <View style={styles.sections}>
+            <Text style={styles.sectionsText}>Profile Photo</Text>
+            <Avatar
+              containerStyle={{
+                alignSelf: 'center',
+                marginTop: 24
+              }}
+              source={{ uri: this.state.profile_image || undefined }}
+              rounded
+              size={128}
+            />
+            <UploadMedia circular title='Change' />
+          </View>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionHeader}>Linked Accounts</Text>
+          <View style={styles.sections}>
+            <Text style={styles.sectionsText}>Facebook</Text>
+            <TextInput
+              ref={input => {
+                this.facebookInput = input;
+              }}
+              returnKeyType='next'
+              placeholder='https://www.facebook.com/orgname'
+              keyboardType='default'
+              style={styles.inputContain}
+              autoCapitalize='none'
+              onChangeText={text => this.setState({ facebook: text })}
+              onSubmitEditing={() => {
+                if (Platform.OS === 'android') return;
+                this.instagramInput.focus();
+              }}
+              // blurOnSubmit={Platform.OS === 'android'}
+              value={this.state.facebook}
+            />
+          </View>
+
+          <View style={styles.sections}>
+            <Text style={styles.sectionsText}>Instagram</Text>
+            <TextInput
+              ref={input => {
+                this.instagramInput = input;
+              }}
+              returnKeyType='next'
+              keyboardType='default'
+              style={styles.inputContain}
+              autoCapitalize='none'
+              placeholder='https://www.instagram.com/orgname'
+              onChangeText={text => this.setState({ instagram: text })}
+              onSubmitEditing={() => {
+                if (Platform.OS === 'android') return;
+                this.twitterInput.focus();
+              }}
+              // blurOnSubmit={Platform.OS === 'android'}
+              value={this.state.instagram}
+            />
+          </View>
+
+          <View style={styles.sections}>
+            <Text style={styles.sectionsText}>Twitter</Text>
+            <TextInput
+              ref={input => {
+                this.twitterInput = input;
+              }}
+              returnKeyType='done'
+              keyboardType='default'
+              style={styles.inputContain}
+              autoCapitalize='none'
+              placeholder='https://www.twitter.com/orgname'
+              onChangeText={text => this.setState({ twitter: text })}
+              // blurOnSubmit={true}
+              value={this.state.twitter}
+            />
+          </View>
+        </View>
+      </KeyboardAwareScrollView>
     );
   }
 }

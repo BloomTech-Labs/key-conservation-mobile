@@ -139,7 +139,7 @@ const FeedCampaign = props => {
 
   const goToProfile = () => {
     AmpEvent('Select Profile from Campaign', {
-      profile: data.username,
+      profile: data.name,
       campaign: data.camp_name
     });
     navigate('Pro', { selectedProfile: data.users_id });
@@ -149,7 +149,7 @@ const FeedCampaign = props => {
     await dispatch(getCampaign(data.camp_id));
     AmpEvent('Select Profile from Campaign', {
       campaign: data.camp_name,
-      profile: data.username
+      profile: data.name
     });
     navigate('Camp', {
       // userBookmarked: userBookmarked,
@@ -232,8 +232,8 @@ const FeedCampaign = props => {
           disabled={props.disableHeader}
           onPress={goToProfile}
           title={
-            <View style={styles.username}>
-              <Text style={styles.orgTitleView}>{data.username}</Text>
+            <View style={styles.name}>
+              <Text style={styles.orgTitleView}>{data.name}</Text>
             </View>
           }
           leftAvatar={{ source: { uri: data.profile_image || undefined } }}

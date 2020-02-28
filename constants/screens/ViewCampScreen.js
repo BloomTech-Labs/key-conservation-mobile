@@ -93,7 +93,7 @@ export default {
     fontSize: 16,
     lineHeight: 19
   },
-  listUsername: {
+  listName: {
     fontFamily: 'Lato-Bold',
     fontSize: 18,
     lineHeight: 22,

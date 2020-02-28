@@ -2,29 +2,28 @@ export default {
   sectionContainer: {
     flexDirection: 'column',
     flexWrap: 'wrap',
-    marginLeft: 15,
-    marginRight: 15
+    margin: 8,
+    padding: 16,
+    borderRadius: 8,
+    backgroundColor: '#fff'
   },
-  Card: {
-    marginTop: 10,
-    backgroundColor: '#fff',
-    width: '100%',
-    height: 20
+  sectionHeader: {
+    fontFamily: 'Lato-Bold',
+    fontSize: 22,
+    paddingBottom: 16,
   },
   inputContain: {
     height: 48,
-    borderWidth: 2,
-    borderColor: '#C4C4C4',
-    padding: 5,
+    backgroundColor: '#F5F5F5',
+    padding: 12,
     borderRadius: 5,
     fontSize: 20,
     marginBottom: 25
   },
   inputContain2: {
     height: 140,
-    borderWidth: 2,
-    borderColor: '#C4C4C4',
-    padding: 5,
+    backgroundColor: '#F5F5F5',
+    padding: 12,
     borderRadius: 5,
     fontSize: 20,
     marginBottom: 25,
@@ -50,7 +49,7 @@ export default {
     width: '100%'
   },
   sectionsText: {
-    fontFamily: 'Lato',
+    fontFamily: 'Lato-Bold',
     fontSize: 20,
     marginBottom: 5
   },

@@ -31,14 +31,13 @@ const ReviewYourInfoScreen = props => {
   const [airtableId, setAirtableId] = useState('');
 
   const [state, setState] = useState({
-    // username: '',
+    name: '',
     other_countries: '',
     multiple_projects: '',
     affiliations_partnerships: '',
     conservation_optimism: null,
     smartphone_access: null,
     smartphone_type: '',
-    org_name: '',
     org_link_url: '',
     twitter: '',
     facebook: '',
@@ -87,7 +86,7 @@ const ReviewYourInfoScreen = props => {
             multiple_projects: state.multiple_projects,
             smartphone_access: state.smartphone_access,
             smartphone_type: state.smartphone_type,
-            org_name: state.org_name,
+            org_name: state.name,
             website: state.org_link_url,
             phone: state.phone_number,
             address: state.location,

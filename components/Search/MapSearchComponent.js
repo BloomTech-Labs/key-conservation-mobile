@@ -11,193 +11,199 @@ import Sliders from '../../assets/jsicons/mapIcons/Sliders';
 import CheckActive from '../../assets/jsicons/mapIcons/check-active';
 import CheckInactive from '../../assets/jsicons/mapIcons/check-inactive';
 
-const MapSearchBarComponent = (props) => {
-	const [ selectionOptions, setSelectedOptions ] = useState([
-		{
-			label   : 'Location',
-			field   : 'location',
-			checked : true,
-		},
-		{
-			label   : 'Organization',
-			field   : 'org_name',
-			query   : '',
-			checked : false,
-		},
-		// species and habitats to be used in future product cycle
-		// {
-		// 	label:'Species and Habitats',
-		// 	field:'species_and_habitats',
-		// 	checked:false
-		// },
-	]);
+const MapSearchBarComponent = props => {
+  const [selectionOptions, setSelectedOptions] = useState([
+    {
+      label: 'Location',
+      field: 'location',
+      checked: true
+    },
+    {
+      label: 'Organization',
+      field: 'name',
+      query: '',
+      checked: false
+    }
+    // species and habitats to be used in future product cycle
+    // {
+    // 	label:'Species and Habitats',
+    // 	field:'species_and_habitats',
+    // 	checked:false
+    // },
+  ]);
 
-	const [ state, setState ] = useState({
-		query            : '',
-		field            : 'location',
-		locationQuery    : '',
-		shouldOpenFilter : false,
-		shouldShowSearch : true,
-		message          : 'Please enter to search',
-	});
+  const [state, setState] = useState({
+    query: '',
+    field: 'location',
+    locationQuery: '',
+    shouldOpenFilter: false,
+    shouldShowSearch: true,
+    message: 'Please enter to search'
+  });
 
-	// Clean up when navigate to a different screen
-	useEffect(
-		() => {
-			setState({
-				...state,
-				query            : '',
-				shouldOpenFilter : false,
-				shouldShowSearch : true,
-			});
-		},
-		[ !props.isFocused ],
-	);
+  // Clean up when navigate to a different screen
+  useEffect(() => {
+    setState({
+      ...state,
+      query: '',
+      shouldOpenFilter: false,
+      shouldShowSearch: true
+    });
+  }, [!props.isFocused]);
 
-	const handleClearText = () => {
-		setState({ ...state, query: '', shouldShowSearch: true });
-		handleQueryChange('');
-	};
+  const handleClearText = () => {
+    setState({ ...state, query: '', shouldShowSearch: true });
+    handleQueryChange('');
+  };
 
-	// Handler for option section changes
-	const handleFieldChange = (field) => {
-		selectionOptions.forEach((option) => {
-			option.checked = false;
-		});
+  // Handler for option section changes
+  const handleFieldChange = field => {
+    selectionOptions.forEach(option => {
+      option.checked = false;
+    });
 
-		const oldIndex = selectionOptions.findIndex((option) => {
-			return option.field === field;
-		});
+    const oldIndex = selectionOptions.findIndex(option => {
+      return option.field === field;
+    });
 
-		const updatedItem = selectionOptions[oldIndex];
-		updatedItem.checked = !updatedItem.checked;
+    const updatedItem = selectionOptions[oldIndex];
+    updatedItem.checked = !updatedItem.checked;
 
-		const newArr = [
-			...selectionOptions.slice(0, oldIndex),
-			updatedItem,
-			...selectionOptions.slice(oldIndex + 1, selectionOptions.length),
-		];
+    const newArr = [
+      ...selectionOptions.slice(0, oldIndex),
+      updatedItem,
+      ...selectionOptions.slice(oldIndex + 1, selectionOptions.length)
+    ];
 
-		setSelectedOptions([ ...newArr ]);
-		if (updatedItem.checked) {
-			setState({ ...state, field });
-			doSearch(field);
-		}
-	};
+    setSelectedOptions([...newArr]);
+    if (updatedItem.checked) {
+      setState({ ...state, field });
+      doSearch(field);
+    }
+  };
 
-	// Handler for text field value changes
-	const handleQueryChange = (query = state.query) => {
-		// console.log('query', query);
-		setState({ ...state, query: query });
-		props.setMapSearchQuery(query, state.field);
-	};
+  // Handler for text field value changes
+  const handleQueryChange = (query = state.query) => {
+    // console.log('query', query);
+    setState({ ...state, query: query });
+    props.setMapSearchQuery(query, state.field);
+  };
 
-	const handleInputBlur = () => {
-		// console.log('handleInputBlur');
-		// show search icon
-		if (state.query === '') {
-			// console.log("state.query===''");
-			setState({ ...state, shouldShowSearch: true });
-		}
-	};
+  const handleInputBlur = () => {
+    // console.log('handleInputBlur');
+    // show search icon
+    if (state.query === '') {
+      // console.log("state.query===''");
+      setState({ ...state, shouldShowSearch: true });
+    }
+  };
 
-	const handleInputFocus = () => {
-		// console.log('handleInputFocus');
-		setState({ ...state, shouldShowSearch: false });
-	};
+  const handleInputFocus = () => {
+    // console.log('handleInputFocus');
+    setState({ ...state, shouldShowSearch: false });
+  };
 
-	const doSearch = (field) => {
-		props.setMapSearchQuery(state.query, field);
-	};
+  const doSearch = field => {
+    props.setMapSearchQuery(state.query, field);
+  };
 
-	const openFilter = (e) => {
-		setState({ ...state, shouldOpenFilter: !state.shouldOpenFilter });
-	};
+  const openFilter = e => {
+    setState({ ...state, shouldOpenFilter: !state.shouldOpenFilter });
+  };
 
-	const renderSearchIcon = (stateProps) => {
-		if (stateProps) {
-			return (
-				<TouchableOpacity style={[ styles.searchButton ]}>
-					<Search />
-				</TouchableOpacity>
-			);
-		}
-	};
+  const renderSearchIcon = stateProps => {
+    if (stateProps) {
+      return (
+        <TouchableOpacity style={[styles.searchButton]}>
+          <Search />
+        </TouchableOpacity>
+      );
+    }
+  };
 
-	const renderClearIcon = (stateProps) => {
-		if (stateProps) {
-			return (
-				<TouchableOpacity style={styles.clearButton} onPress={handleClearText}>
-					<ClearIcon />
-				</TouchableOpacity>
-			);
-		}
-	};
+  const renderClearIcon = stateProps => {
+    if (stateProps) {
+      return (
+        <TouchableOpacity style={styles.clearButton} onPress={handleClearText}>
+          <ClearIcon />
+        </TouchableOpacity>
+      );
+    }
+  };
 
-	return (
-		<View style={styles.container}>
-			<View style={styles.outterContainer}>
-				<View style={styles.searchContainer}>
-					<View style={styles.searchInputContainer}>
-						<TextInput
-							style={[ styles.searchInput, { paddingLeft: state.shouldShowSearch ? 50 : 16 } ]}
-							value={state.query}
-							placeholder='See dropdown for options'
-							onFocus={() => handleInputFocus()}
-							onBlur={() => handleInputBlur()}
-							onChangeText={(query) => handleQueryChange(query)}
-						/>
-						{renderSearchIcon(state.shouldShowSearch)}
-						{renderClearIcon(state.query)}
-						<TouchableOpacity style={styles.dropDownArrowButton} onPress={openFilter}>
-							<Sliders style={styles.icon} />
-						</TouchableOpacity>
-					</View>
-				</View>
-				<View style={[ styles.selectionRow, state.shouldOpenFilter && styles.show ]}>
-					{selectionOptions.map((option) => {
-						return (
-							<TouchableOpacity
-								key={option.field}
-								style={styles.filterSelectOption}
-								onPress={() => handleFieldChange(option.field)}>
-								{option.checked === true ? (
-									<CheckActive style={{ marginRight: 16 }} />
-								) : (
-									<CheckInactive style={{ marginRight: 16 }} />
-								)}
-								<Text style={styles.filterOption}>{option.label}</Text>
-							</TouchableOpacity>
-						);
-					})}
-					<View style={[ styles.messageContainer ]}>
-						<Text style={styles.messageText}>{props.message}</Text>
-					</View>
-				</View>
-			</View>
-		</View>
-	);
+  return (
+    <View style={styles.container}>
+      <View style={styles.outterContainer}>
+        <View style={styles.searchContainer}>
+          <View style={styles.searchInputContainer}>
+            <TextInput
+              style={[
+                styles.searchInput,
+                { paddingLeft: state.shouldShowSearch ? 50 : 16 }
+              ]}
+              value={state.query}
+              placeholder='See dropdown for options'
+              onFocus={() => handleInputFocus()}
+              onBlur={() => handleInputBlur()}
+              onChangeText={query => handleQueryChange(query)}
+            />
+            {renderSearchIcon(state.shouldShowSearch)}
+            {renderClearIcon(state.query)}
+            <TouchableOpacity
+              style={styles.dropDownArrowButton}
+              onPress={openFilter}
+            >
+              <Sliders style={styles.icon} />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View
+          style={[styles.selectionRow, state.shouldOpenFilter && styles.show]}
+        >
+          {selectionOptions.map(option => {
+            return (
+              <TouchableOpacity
+                key={option.field}
+                style={styles.filterSelectOption}
+                onPress={() => handleFieldChange(option.field)}
+              >
+                {option.checked === true ? (
+                  <CheckActive style={{ marginRight: 16 }} />
+                ) : (
+                  <CheckInactive style={{ marginRight: 16 }} />
+                )}
+                <Text style={styles.filterOption}>{option.label}</Text>
+              </TouchableOpacity>
+            );
+          })}
+          <View style={[styles.messageContainer]}>
+            <Text style={styles.messageText}>{props.message}</Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  );
 };
 
-const mapPropsToState = (state) => {
-	let message = '';
-	// Get filtered organization records
-	const filteredOrganization = state.filteredOrganization;
-	// Filter out orgs with null coords
-	const len = filteredOrganization.length;
-	if (len <= 0) {
-		message = 'No organization found!';
-	} else {
-		message = `${len} organization${len > 1 ? 's' : ''} found`;
-	}
+const mapPropsToState = state => {
+  let message = '';
+  // Get filtered organization records
+  const filteredOrganization = state.filteredOrganization;
+  // Filter out orgs with null coords
+  const len = filteredOrganization.length;
+  if (len <= 0) {
+    message = 'No organization found!';
+  } else {
+    message = `${len} organization${len > 1 ? 's' : ''} found`;
+  }
 
-	return {
-		organizations : state.filteredOrganization,
-		message       : message,
-	};
+  return {
+    organizations: state.filteredOrganization,
+    message: message
+  };
 };
 
 export default connect(mapPropsToState, {
-	getOrganizations,
-	setMapSearchQuery,
+  getOrganizations,
+  setMapSearchQuery
 })(withNavigationFocus(MapSearchBarComponent));

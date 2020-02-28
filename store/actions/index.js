@@ -160,7 +160,7 @@ export const getCustomById = (table_name, id) => dispatch => {
   let url = `${seturl}`;
 
   switch (table_name) {
-    case 'campaignUpdates': {
+    case 'campaign_updates': {
       url += 'updates';
       break;
     }
@@ -398,7 +398,7 @@ export const getCampaigns = () => dispatch => {
       .get(`${seturl}campaigns`)
       .then(res => {
         campaigns = res.data.camp;
-        aaxios
+        return aaxios
           .get(`${seturl}updates`)
           .then(res => {
             campaigns = campaigns.concat(res.data.campUpdate);
@@ -408,10 +408,12 @@ export const getCampaigns = () => dispatch => {
             });
           })
           .catch(err => {
+            console.log(err);
             dispatch({ type: GET_CAMPAIGNS_ERROR, payload: err });
           });
       })
       .catch(err => {
+        console.log(err.response);
         dispatch({ type: GET_CAMPAIGNS_ERROR, payload: err });
       });
   });

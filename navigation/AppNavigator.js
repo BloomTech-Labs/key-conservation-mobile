@@ -4,7 +4,7 @@ import {
   ConsNavigator,
   SupNavigator,
   LoginStack,
-  UsernameStack,
+  NameStack,
   LogoutStack,
   OrgOnboardStack,
   AccountSettingsStack
@@ -23,7 +23,7 @@ export default createAppContainer(
       OrgOnboard: OrgOnboardStack,
       Login: LoginStack,
       Vetting: VettingCheck,
-      CreateAccount: UsernameStack,
+      CreateAccount: NameStack,
       Conservationist: ConsNavigator,
       Supporter: SupNavigator,
       Logout: LogoutStack,

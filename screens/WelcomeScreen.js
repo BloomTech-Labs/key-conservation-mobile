@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import styles from '../constants/screens/UsernameScreen';
+import styles from '../constants/screens/NameScreen';
 
 const WelcomeScreen = props => {
   return (
