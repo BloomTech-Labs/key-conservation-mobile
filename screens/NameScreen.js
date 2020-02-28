@@ -55,6 +55,8 @@ class NameScreen extends React.Component {
     const role = await SecureStore.getItemAsync('roles', {});
     const name = this.state.nameInput;
 
+    console.log(name);
+
     if (name.length > 4) {
       console.log('sub', sub);
       this.setState({
@@ -93,7 +95,7 @@ class NameScreen extends React.Component {
           <View style={styles.Card} />
           <View style={styles.textContainer}>
             <Text style={styles.obTitle}>
-              You're in! Next step: please choose a name.
+              You're in! Tell us your name to get started
             </Text>
           </View>
           <TextInput
@@ -117,7 +119,7 @@ class NameScreen extends React.Component {
             </Text>
           ) : this.props.error.message ? (
             <Text style={{ textAlign: 'center', color: 'red' }}>
-              Failed to create user. Please try another name
+              Failed to submit data
             </Text>
           ) : null}
         </View>
