@@ -64,11 +64,11 @@ const PeopleCard = props => {
                     />
                   </View>
                   <TouchableOpacity
-                    onPress={() => {
+                    onPress={() =>
                       props.navigation.navigate('Pro', {
                         selectedProfile: connection.connector_id
-                      });
-                    }}
+                      })
+                    }
                   >
                     <Text key={connection.connection_id} style={styles.name}>
                       {connection.connected_name === null
