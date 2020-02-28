@@ -96,6 +96,7 @@ const FeedStack = createStackNavigator(
         headerTintColor: '#fff'
       }
     },
+    Connections: { screen: ConnectionsScreen },
     SelectedConnections: SelectedConnectionsScreen,
     Camp: ViewCampScreen,
     CampUpdate: ViewCampUpdateScreen,
@@ -154,8 +155,7 @@ const MyProStack = createStackNavigator(
 const MySupProStack = createStackNavigator(
   {
     MySupPro: { screen: ProfileScreen },
-    EditSupPro: { screen: EditSupProScreen },
-    Connections: { screen: ConnectionsScreen }
+    EditSupPro: { screen: EditSupProScreen }
   },
   {
     navigationOptions: {

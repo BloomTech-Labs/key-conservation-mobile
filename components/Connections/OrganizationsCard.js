@@ -52,29 +52,32 @@ const OrganizationsCard = props => {
     );
   };
 
-  let supCurrentUserConnections = typeof connections?.filter === 'function'
-    ? connections.filter(
-        connect =>
-          connect.status === 'Connected' &&
-          connect.connected_role === 'conservationist'
-      )
-    : [];
+  let supCurrentUserConnections =
+    typeof connections?.filter === 'function'
+      ? connections.filter(
+          connect =>
+            connect.status === 'Connected' &&
+            connect.connected_role === 'conservationist'
+        )
+      : [];
 
-  let orgCurrentUserConnections = typeof connections?.filter === 'function'
-    ? connections.filter(
-        connect =>
-          connect.status === 'Connected' &&
-          connect.connector_role === 'conservationist'
-      )
-    : [];
+  let orgCurrentUserConnections =
+    typeof connections?.filter === 'function'
+      ? connections.filter(
+          connect =>
+            connect.status === 'Connected' &&
+            connect.connector_role === 'conservationist'
+        )
+      : [];
 
-  let currentUserPendingConnections = typeof connections?.filter === 'function'
-    ? connections.filter(
-        connect =>
-          connect.status === 'Pending' &&
-          connect.connector_role === 'conservationist'
-      )
-    : [];
+  let currentUserPendingConnections =
+    typeof connections?.filter === 'function'
+      ? connections.filter(
+          connect =>
+            connect.status === 'Pending' &&
+            connect.connector_role === 'conservationist'
+        )
+      : [];
 
   return (
     <View>
@@ -166,7 +169,7 @@ const OrganizationsCard = props => {
                             }}
                           />
                         </View>
-                        <View>
+                        <TouchableOpacity>
                           <Text
                             key={connection.connection_id}
                             style={styles.name}
@@ -178,7 +181,7 @@ const OrganizationsCard = props => {
                               ? connection.connected_name
                               : connection.connector_name}
                           </Text>
-                        </View>
+                        </TouchableOpacity>
                       </View>
                     </View>
                   </View>
@@ -212,13 +215,15 @@ const OrganizationsCard = props => {
                         }}
                       />
                     </View>
-                    <View>
+                    <TouchableOpacity
+                      onPress={() => console.log('You pressed on an org :)')}
+                    >
                       <Text key={connection.connection_id} style={styles.name}>
                         {connection.connected_name === null
                           ? '---'
                           : connection.connected_name}
                       </Text>
-                    </View>
+                    </TouchableOpacity>
                   </View>
                 </View>
               ))}
