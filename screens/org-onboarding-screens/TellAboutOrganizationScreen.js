@@ -115,12 +115,6 @@ const TellAboutOrganizationScreen = props => {
           </View>
 
           <TextInput
-            placeholder='Name'
-            style={styles.obTextInput}
-            onChangeText={text => setState({ ...state, name: text })}
-            value={state.name}
-          />
-          <TextInput
             placeholder='Main Address'
             style={styles.obTextInput}
             onChangeText={text => setState({ ...state, location: text })}

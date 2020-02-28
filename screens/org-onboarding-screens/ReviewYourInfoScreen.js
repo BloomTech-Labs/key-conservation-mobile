@@ -35,7 +35,6 @@ const ReviewYourInfoScreen = props => {
     conservation_optimism: null,
     smartphone_access: null,
     smartphone_type: '',
-    name: '',
     org_link_url: '',
     twitter: '',
     facebook: '',
