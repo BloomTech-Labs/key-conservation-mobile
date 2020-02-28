@@ -19,7 +19,7 @@ const TellAboutOrganizationScreen = props => {
   });
   const [state, setState] = useState({
     name: '',
-    org_name: '',
+    name: '',
     org_url_link: '',
     profile_image: '',
     location: '',
@@ -56,7 +56,7 @@ const TellAboutOrganizationScreen = props => {
       [
         {
           fields: {
-            org_name: state.org_name,
+            name: state.name,
             website: state.org_link_url,
             phone: state.phone_number,
             address: state.location,
@@ -106,8 +106,8 @@ const TellAboutOrganizationScreen = props => {
           <TextInput
             placeholder='Organization Name'
             style={styles.obTextInput}
-            onChangeText={text => setState({ ...state, org_name: text })}
-            value={state.org_name}
+            onChangeText={text => setState({ ...state, name: text })}
+            value={state.name}
           />
 
           <View style={styles.sections}>
@@ -174,7 +174,7 @@ const TellAboutOrganizationScreen = props => {
             onPress={() => {
               sendAirtable();
               if (
-                state.org_name === undefined ||
+                state.name === undefined ||
                 state.org_link_url === undefined ||
                 state.phone_number === undefined ||
                 state.location === undefined ||

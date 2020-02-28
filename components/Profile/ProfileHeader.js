@@ -1,15 +1,5 @@
-import React, {
-  useMemo,
-  useState,
-  forwardRef
-} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Linking,
-  Animated
-} from 'react-native';
+import React, { useMemo, useState, forwardRef } from 'react';
+import { View, Text, TouchableOpacity, Linking, Animated } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { Avatar } from 'react-native-elements';
 import { AmpEvent } from '../withAmplitude';
@@ -40,7 +30,7 @@ const ProfileHeader = forwardRef((props, ref) => {
   const WebsiteClick = async () => {
     if (profile.org_link_url && profile.org_link_url !== null) {
       (await WebBrowser.openBrowserAsync(profile.org_link_url)) &&
-        AmpEvent('Website Link Clicked', { orgName: profile.org_name });
+        AmpEvent('Website Link Clicked', { orgName: profile.name });
     }
   };
 
@@ -62,7 +52,7 @@ const ProfileHeader = forwardRef((props, ref) => {
     ? props.parentScrollY.interpolate({
         inputRange: [0, inputMax],
         outputRange: [0, -inputMax],
-        extrapolate: 'clamp',
+        extrapolate: 'clamp'
       })
     : 0;
 
@@ -70,7 +60,7 @@ const ProfileHeader = forwardRef((props, ref) => {
     ? props.parentScrollY.interpolate({
         inputRange: [0, inputMax / 2, inputMax],
         outputRange: [0, 2, 10],
-        extrapolate: 'clamp',
+        extrapolate: 'clamp'
       })
     : 0;
 
@@ -82,18 +72,18 @@ const ProfileHeader = forwardRef((props, ref) => {
       })
     : null;
 
-  const profileName = props.loading
-    ? 'Loading...'
-    : profile.name;
+  const profileName = props.loading ? 'Loading...' : profile.name;
   return (
-    <Animated.View style={[styles.container, { transform: [{translateY: translateY}] }]}>
+    <Animated.View
+      style={[styles.container, { transform: [{ translateY: translateY }] }]}
+    >
       <Animated.Image
         source={randomHeaderImage}
         resizeMode='cover'
         style={{
           opacity: 0.6,
           height: 360,
-          width: '100%',
+          width: '100%'
         }}
         blurRadius={headerBlur}
         imageStyle={{ opacity: 0.6 }}
@@ -106,7 +96,7 @@ const ProfileHeader = forwardRef((props, ref) => {
             opacity:
               contentOpacity?.interpolate({
                 inputRange: [0, 0.2, 1],
-                outputRange: [1, .6, 0]
+                outputRange: [1, 0.6, 0]
               }) || 0
           }
         ]}
@@ -114,7 +104,10 @@ const ProfileHeader = forwardRef((props, ref) => {
         <Text style={styles.headerTitle}>{profileName}</Text>
       </Animated.View>
       <Animated.View
-        style={[styles.contentContainer, { marginTop: appHeaderHeight,opacity: contentOpacity }]}
+        style={[
+          styles.contentContainer,
+          { marginTop: appHeaderHeight, opacity: contentOpacity }
+        ]}
       >
         <View style={styles.avatarContainer}>
           <Avatar

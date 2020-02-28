@@ -34,7 +34,7 @@ class EditProScreen extends React.Component {
   };
 
   state = {
-    org_name: this.props.currentUserProfile.org_name,
+    name: this.props.currentUserProfile.name,
     profile_image: this.props.currentUserProfile.profile_image,
     location: this.props.currentUserProfile.location,
     mini_bio: this.props.currentUserProfile.mini_bio,
@@ -67,7 +67,7 @@ class EditProScreen extends React.Component {
     const parseBE = JSON.parse(state);
     parseBE
       ? this.setState({
-          org_name: parseBE.org_name,
+          name: parseBE.name,
           phone_number: parseBE.phone,
           mini_bio: parseBE.mini_bio,
           facebook: parseBE.facebook,
@@ -137,17 +137,17 @@ class EditProScreen extends React.Component {
               <Text style={styles.sectionsText}>Organization Name</Text>
               <TextInput
                 ref={input => {
-                  this.org_nameInput = input;
+                  this.nameInput = input;
                 }}
                 returnKeyType='next'
                 style={styles.inputContain}
-                onChangeText={text => this.setState({ org_name: text })}
+                onChangeText={text => this.setState({ name: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
                   this.locationInput.focus();
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.org_name}
+                value={this.state.name}
                 placeholder='Carribbean Sea Turtle Project'
               />
             </View>

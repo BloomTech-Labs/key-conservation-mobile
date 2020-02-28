@@ -47,7 +47,7 @@ const LocationMap = ({ getOrganizations, profile }) => {
               style={styles.imageMarker}
             />
             {/* <Callout>
-              <Text>{profile.org_name}</Text>
+              <Text>{profile.name}</Text>
               <MapButton />
             </Callout> */}
           </Marker>
@@ -77,7 +77,7 @@ const mapPropsToState = state => {
       return {
         latitude: org.latitude,
         longitude: org.longitude,
-        org_name: org.org_name,
+        name: org.name,
         location: org.location
       };
     })

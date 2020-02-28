@@ -35,7 +35,7 @@ const ReviewYourInfoScreen = props => {
     conservation_optimism: null,
     smartphone_access: null,
     smartphone_type: '',
-    org_name: '',
+    name: '',
     org_link_url: '',
     twitter: '',
     facebook: '',
@@ -83,7 +83,7 @@ const ReviewYourInfoScreen = props => {
             multiple_projects: state.multiple_projects,
             smartphone_access: state.smartphone_access,
             smartphone_type: state.smartphone_type,
-            org_name: state.org_name,
+            name: state.name,
             website: state.org_link_url,
             phone: state.phone_number,
             address: state.location,
@@ -225,7 +225,7 @@ const ReviewYourInfoScreen = props => {
 
               <View style={styles.row}>
                 <Text style={styles.obSubtitleSm}>Organization Name:</Text>
-                <Text style={styles.obText}>{state.org_name}</Text>
+                <Text style={styles.obText}>{state.name}</Text>
               </View>
 
               <View style={styles.row}>
@@ -282,8 +282,8 @@ const ReviewYourInfoScreen = props => {
                 <Text style={styles.obSubtitleSm}>Organization Name:</Text>
                 <TextInput
                   style={[styles.obText, styles.textInput]}
-                  value={state.org_name}
-                  setState={text => setState({ ...state, org_name: text })}
+                  value={state.name}
+                  setState={text => setState({ ...state, name: text })}
                 />
               </View>
 
@@ -578,7 +578,7 @@ const ReviewYourInfoScreen = props => {
             label='Next'
             onButtonPress={async () => {
               if (
-                state.org_name === undefined ||
+                state.name === undefined ||
                 state.org_link_url === undefined ||
                 state.phone_number === undefined ||
                 state.location === undefined ||
@@ -598,7 +598,7 @@ const ReviewYourInfoScreen = props => {
                 }
                 const stringBE = JSON.stringify({
                   name: state.name,
-                  org_name: state.org_name,
+                  name: state.name,
                   org_link_url: state.org_link_url,
                   twitter: state.twitter,
                   facebook: state.facebook,

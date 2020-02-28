@@ -89,7 +89,7 @@ export async function AmpInit() {
         email: data.email,
         id: data.id,
         location: data.location,
-        org_name: data.org_name,
+        name: data.name,
         roles: data.roles,
         species_and_habitats: data.species_and_habitats,
         sub: data.sub,
