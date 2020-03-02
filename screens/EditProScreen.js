@@ -205,11 +205,6 @@ class EditProScreen extends React.Component {
                 placeholder='hello@carribbeanseaturtle.org'
               />
             </View>
-
-            <View style={styles.sections}>
-              <UploadMedia title='Upload new logo' />
-            </View>
-
             <View style={styles.sections}>
               <Text style={styles.sectionsText}>About Us</Text>
               <TextInput
@@ -223,6 +218,17 @@ class EditProScreen extends React.Component {
                 value={this.state.about_us}
                 placeholder='The Caribbean Sea Turtle Project is based in St. George, Grenada but we work all over the island. We have been working to conserve sea turtles that visit our shores... '
               />
+            </View>
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>Organization Logo</Text>
+              <View style={styles.logoSelectContainer}>
+                <UploadMedia
+                  media={this.state.profile_image}
+                  size={128}
+                  circular
+                  title='Upload a logo'
+                />
+              </View>
             </View>
           </View>
 
