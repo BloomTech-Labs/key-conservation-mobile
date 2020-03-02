@@ -69,6 +69,7 @@ class EditProScreen extends React.Component {
           org_name: parseBE.org_name,
           phone_number: parseBE.phone,
           mini_bio: parseBE.mini_bio,
+          about_us: parseBE.about_us,
           facebook: parseBE.facebook,
           instagram: parseBE.instagram,
           twitter: parseBE.twitter,
@@ -215,7 +216,23 @@ class EditProScreen extends React.Component {
                 />
               </View>
             </View>
+
+            <View style={styles.sections}>
+              <Text style={styles.sectionsText}>About Us</Text>
+              <TextInput
+                ref={input => {
+                  this.about_usInput = input;
+                }}
+                returnKeyType='next'
+                style={styles.inputContain2}
+                onChangeText={text => this.setState({ about_us: text })}
+                multiline={true}
+                value={this.state.about_us}
+                placeholder='The Caribbean Sea Turtle Project is based in St. George, Grenada but we work all over the island. We have been working to conserve sea turtles that visit our shores... '
+              />
+            </View>
           </View>
+
           <View style={styles.sectionContainer}>
             <Text style={styles.sectionHeader}>Contact Information</Text>
             <View style={styles.sections}>

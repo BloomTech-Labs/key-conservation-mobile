@@ -65,7 +65,7 @@ export default React.forwardRef((props, ref) => {
                 handleIndexChange(i)
               }
             >
-              <Animated.Text style={{ fontFamily: 'Lato-Bold', fontSize: 16 }}>
+              <Animated.Text style={{ fontFamily: 'Lato-Bold', fontSize: 18 }}>
                 {route.title}
               </Animated.Text>
             </TouchableOpacity>
