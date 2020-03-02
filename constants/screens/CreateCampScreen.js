@@ -69,7 +69,7 @@ export default {
   },
   inputContain2: {
     flex: 1,
-    height: 140,
+    height: 100,
     backgroundColor: '#F5F5F5',
     padding: 12,
     borderRadius: 5,

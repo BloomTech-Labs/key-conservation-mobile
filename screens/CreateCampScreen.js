@@ -117,8 +117,10 @@ class CreateCampScreen extends React.Component {
         </View>
 
         <View style={styles.sectionContainer}>
-          <View stlye={styles.horizontalContainer}>
-            <UploadMedia title='Upload campaign image' />
+          <View style={styles.horizontalContainer}>
+            <View style={styles.iconContainer}>
+              <UploadMedia title='Upload campaign image' />
+            </View>
             <TextInput
               ref={input => {
                 this.campDetailsInput = input;
