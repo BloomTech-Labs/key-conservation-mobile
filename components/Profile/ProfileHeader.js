@@ -118,6 +118,7 @@ const ProfileHeader = forwardRef((props, ref) => {
             }}
           />
         </View>
+
         <View style={styles.textContainer}>
           <Text style={styles.org}>{profileName}</Text>
           {props.loading ? null : (
@@ -138,57 +139,14 @@ const ProfileHeader = forwardRef((props, ref) => {
                   </Text>
                 )
               ) : null}
-              {profile.roles === 'supporter' ? (
-                <View style={styles.socialContainer}>
-                  {!profile.email ? null : (
-                    <TouchableOpacity
-                      style={styles.socialIcon}
-                      onPress={async () => {
-                        await Linking.openURL(`mailto:${profile.email}`);
-                      }}
-                    >
-                      <Envelope fill='white' />
-                    </TouchableOpacity>
-                  )}
-                  {!profile.instagram ? null : (
-                    <TouchableOpacity
-                      style={styles.socialIcon}
-                      onPress={async () =>
-                        await WebBrowser.openBrowserAsync(profile.instagram)
-                      }
-                    >
-                      <Instagram fill='white' />
-                    </TouchableOpacity>
-                  )}
-                  {!profile.twitter ? null : (
-                    <TouchableOpacity
-                      style={styles.socialIcon}
-                      onPress={async () =>
-                        await WebBrowser.openBrowserAsync(profile.twitter)
-                      }
-                    >
-                      <Twitter />
-                    </TouchableOpacity>
-                  )}
-                  {!profile.facebook ? null : (
-                    <TouchableOpacity
-                      style={styles.socialIcon}
-                      onPress={async () =>
-                        await WebBrowser.openBrowserAsync(profile.facebook)
-                      }
-                    >
-                      <Facebook fill='white' />
-                    </TouchableOpacity>
-                  )}
-                </View>
-              ) : (
-                <View style={styles.bioContainer}>
-                  <Text style={styles.bio}>{profile.mini_bio}</Text>
-                </View>
-              )}
             </View>
           )}
         </View>
+
+        <View style={styles.bioContainer}>
+          <Text style={styles.bioText}>{profile.mini_bio}</Text>
+        </View>
+
         <ConnectionsHeader
           profileId={props.profileId}
           profileData={props.profile}

@@ -18,6 +18,6 @@ export default StyleSheet.create({
     color: 'black',
     borderBottomWidth: 3,
     borderBottomColor: 'white',
-    padding: 12,
+    padding: 12
   }
 });

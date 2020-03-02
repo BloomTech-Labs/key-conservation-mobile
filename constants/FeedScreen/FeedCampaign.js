@@ -26,7 +26,6 @@ export default {
     width: '95%',
     justifyContent: 'center',
     alignSelf: 'center',
-    // paddingBottom: 10,
     backgroundColor: 'white',
     paddingTop: 7,
     paddingBottom: 20,
@@ -68,21 +67,6 @@ export default {
     marginTop: 15,
     height: 30
   },
-  likesContainer: {
-    flexDirection: 'row'
-  },
-  hearts: {
-    marginHorizontal: 15
-  },
-  heartOutline: {
-    fontSize: 28,
-    color: 'black'
-  },
-  heartFill: {
-    fontSize: 30,
-    color: '#e60024',
-    zIndex: 1
-  },
   bookmarks: {
     marginHorizontal: 20
   },
@@ -93,9 +77,6 @@ export default {
   bookmarkFill: {
     fontSize: 30,
     color: '#00FF9D'
-  },
-  likes: {
-    marginTop: 5
   },
   goToCampaignText: {
     fontFamily: 'Lato-Bold',
@@ -159,9 +140,6 @@ export default {
     marginTop: 10,
     paddingBottom: 5
   },
-  readMore: {
-    color: '#929292'
-  },
   urgencyBarText: {
     fontFamily: 'Lato-Bold',
     fontSize: 16,
@@ -170,5 +148,8 @@ export default {
   },
   demarcation: {
     marginTop: 5
+  },
+  subtitleText: {
+    color: '#929292',
   }
 };
