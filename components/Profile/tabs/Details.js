@@ -33,8 +33,9 @@ const Details = props => {
             </View>
             <Text style={styles.body}>{profile.about_us}</Text>
           </View>
-
-          <View style={styles.sections}>
+          
+// Species and Habitats is a feature not yet in place
+          {/* <View style={styles.sections}>
             <View style={styles.iconWrap}>
               <Seedling />
               <Text style={styles.title}>{'Species & Habitats'}</Text>
@@ -44,7 +45,8 @@ const Details = props => {
                 {profile.species_and_habitats}
               </Text>
             </View>
-          </View>
+          </View> */}
+
         </View>
       )}
     </View>
