@@ -25,6 +25,10 @@ export default StyleSheet.create({
     paddingBottom: 30,
     flexWrap: 'wrap'
   },
+  textContainer: {
+    flex: 1,
+    color: 'white'
+  },
   headerTitleContainer: {
     position: 'absolute',
     bottom: 16,
@@ -47,22 +51,15 @@ export default StyleSheet.create({
   bioContainer: {
     marginTop: 25,
     marginBottom: 25,
-    width: '80%'
+    width: '100%',
+    paddingLeft: 40,
+    paddingRight: 40,
   },
-  socialContainer: {
-    flexDirection: 'row',
-    width: 175,
-    marginTop: 10,
-    marginLeft: 3,
-    justifyContent: 'flex-start'
-  },
-  socialIcon: {
-    paddingRight: 12,
-    marginRight: 4
-  },
-  bio: {
+  bioText: {
     color: 'white',
-    fontFamily: 'Lato'
+    textAlign: 'center',
+    fontFamily: 'Lato',
+    fontSize: 17,
   },
   org: {
     lineHeight: 22,
@@ -92,10 +89,6 @@ export default StyleSheet.create({
     lineHeight: 19,
     fontSize: 16,
     fontFamily: 'Lato-Bold',
-    color: 'white'
-  },
-  textContainer: {
-    flex: 1,
     color: 'white'
   },
   buttons: {
