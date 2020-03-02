@@ -5,9 +5,9 @@ import {
   View,
   Platform,
   Alert,
-  TouchableOpacity,
   Image,
-  ActivityIndicator
+  ActivityIndicator,
+  TouchableWithoutFeedback
 } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -155,28 +155,31 @@ class CreateCampScreen extends React.Component {
           </Text>
           <View style={styles.urgencyMenu}>
             {this.URGENCY_LEVELS.map((urgency, index) => (
-              <TouchableOpacity
+              <TouchableWithoutFeedback
                 key={index}
-                style={styles.urgencyOption}
                 onPress={() => this.setUrgency(urgency.title)}
               >
-                <View style={styles.urgencyText}>
-                  <Text
-                    style={{
-                      ...styles.urgencyLevelTitle,
-                      color: urgency.color
-                    }}
-                  >
-                    {urgency.title}
-                  </Text>
-                  <Text style={styles.urgencyDescription}>{urgency.description}</Text>
+                <View style={styles.urgencyOption}>
+                  <View style={styles.urgencyText}>
+                    <Text
+                      style={{
+                        ...styles.urgencyLevelTitle,
+                        color: urgency.color
+                      }}
+                    >
+                      {urgency.title}
+                    </Text>
+                    <Text style={styles.urgencyDescription}>
+                      {urgency.description}
+                    </Text>
+                  </View>
+                  <View style={styles.urgencyCheckmarkContainer}>
+                    {this.state.urgency === urgency.title ? (
+                      <Image style={styles.checkMark} source={CheckMark} />
+                    ) : null}
+                  </View>
                 </View>
-                <View style={styles.urgencyCheckmarkContainer}>
-                  {this.state.urgency === urgency.title ? (
-                    <Image style={styles.checkMark} source={CheckMark} />
-                  ) : null}
-                </View>
-              </TouchableOpacity>
+              </TouchableWithoutFeedback>
             ))}
           </View>
         </View>
