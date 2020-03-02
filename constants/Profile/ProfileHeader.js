@@ -23,7 +23,9 @@ export default StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 30,
     paddingBottom: 30,
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    borderColor: 'green',
+    borderWidth: 2,
   },
   headerTitleContainer: {
     position: 'absolute',
@@ -42,27 +44,21 @@ export default StyleSheet.create({
     width: '20%',
     marginLeft: 30,
     flex: 0,
-    alignItems: 'center'
+    alignItems: 'center',
+    borderColor: 'grey',
+    borderWidth: 2,
   },
   bioContainer: {
     marginTop: 25,
     marginBottom: 25,
-    width: '80%'
-  },
-  socialContainer: {
-    flexDirection: 'row',
-    width: 175,
-    marginTop: 10,
-    marginLeft: 3,
-    justifyContent: 'flex-start'
-  },
-  socialIcon: {
-    paddingRight: 12,
-    marginRight: 4
+    width: '100%',
+    borderColor: 'red',
+    borderWidth: 2,
   },
   bio: {
     color: 'white',
-    fontFamily: 'Lato'
+    fontFamily: 'Lato',
+    fontSize: 17,
   },
   org: {
     lineHeight: 22,
@@ -96,7 +92,9 @@ export default StyleSheet.create({
   },
   textContainer: {
     flex: 1,
-    color: 'white'
+    color: 'white',
+    borderColor: 'blue',
+    borderWidth: 2,
   },
   buttons: {
     flexDirection: 'row',

@@ -138,54 +138,11 @@ const ProfileHeader = forwardRef((props, ref) => {
                   </Text>
                 )
               ) : null}
-              {profile.roles === 'supporter' ? (
-                <View style={styles.socialContainer}>
-                  {!profile.email ? null : (
-                    <TouchableOpacity
-                      style={styles.socialIcon}
-                      onPress={async () => {
-                        await Linking.openURL(`mailto:${profile.email}`);
-                      }}
-                    >
-                      <Envelope />
-                    </TouchableOpacity>
-                  )}
-                  {!profile.instagram ? null : (
-                    <TouchableOpacity
-                      style={styles.socialIcon}
-                      onPress={async () =>
-                        await WebBrowser.openBrowserAsync(profile.instagram)
-                      }
-                    >
-                      <Instagram />
-                    </TouchableOpacity>
-                  )}
-                  {!profile.twitter ? null : (
-                    <TouchableOpacity
-                      style={styles.socialIcon}
-                      onPress={async () =>
-                        await WebBrowser.openBrowserAsync(profile.twitter)
-                      }
-                    >
-                      <Twitter />
-                    </TouchableOpacity>
-                  )}
-                  {!profile.facebook ? null : (
-                    <TouchableOpacity
-                      style={styles.socialIcon}
-                      onPress={async () =>
-                        await WebBrowser.openBrowserAsync(profile.facebook)
-                      }
-                    >
-                      <Facebook />
-                    </TouchableOpacity>
-                  )}
-                </View>
-              ) : (
+        
                 <View style={styles.bioContainer}>
                   <Text style={styles.bio}>{profile.mini_bio}</Text>
                 </View>
-              )}
+
             </View>
           )}
         </View>
