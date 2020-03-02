@@ -96,7 +96,8 @@ const FeedStack = createStackNavigator(
         headerTintColor: '#fff'
       }
     },
-    SelectedConnections: SelectedConnectionsScreen,
+    Connections: { screen: ConnectionsScreen },
+    SelectedConnections: { screen: SelectedConnectionsScreen },
     Camp: ViewCampScreen,
     CampUpdate: ViewCampUpdateScreen,
     SupPro: ProfileScreen,

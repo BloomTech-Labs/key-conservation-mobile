@@ -5,6 +5,7 @@ import { Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
 import X from '../../assets/jsicons/miscIcons/X';
 import styles from '../../constants/Connections/Cards';
+import { withNavigation } from 'react-navigation';
 
 const OrganizationsCard = props => {
   const [connections, setConnections] = useState([]);
@@ -52,29 +53,32 @@ const OrganizationsCard = props => {
     );
   };
 
-  let supCurrentUserConnections = typeof connections?.filter === 'function'
-    ? connections.filter(
-        connect =>
-          connect.status === 'Connected' &&
-          connect.connected_role === 'conservationist'
-      )
-    : [];
+  let supCurrentUserConnections =
+    typeof connections?.filter === 'function'
+      ? connections.filter(
+          connect =>
+            connect.status === 'Connected' &&
+            connect.connected_role === 'conservationist'
+        )
+      : [];
 
-  let orgCurrentUserConnections = typeof connections?.filter === 'function'
-    ? connections.filter(
-        connect =>
-          connect.status === 'Connected' &&
-          connect.connector_role === 'conservationist'
-      )
-    : [];
+  let orgCurrentUserConnections =
+    typeof connections?.filter === 'function'
+      ? connections.filter(
+          connect =>
+            connect.status === 'Connected' &&
+            connect.connector_role === 'conservationist'
+        )
+      : [];
 
-  let currentUserPendingConnections = typeof connections?.filter === 'function'
-    ? connections.filter(
-        connect =>
-          connect.status === 'Pending' &&
-          connect.connector_role === 'conservationist'
-      )
-    : [];
+  let currentUserPendingConnections =
+    typeof connections?.filter === 'function'
+      ? connections.filter(
+          connect =>
+            connect.status === 'Pending' &&
+            connect.connector_role === 'conservationist'
+        )
+      : [];
 
   return (
     <View>
@@ -104,7 +108,11 @@ const OrganizationsCard = props => {
                             rounded
                             key={connection.connection_id}
                             source={{
-                              uri: connection.connector_avatar
+                              uri:
+                                props.currentUserProfile.id ===
+                                connections.connector_id
+                                  ? connection.connected_avatar
+                                  : connection.connector_avatar
                             }}
                           />
                         </View>
@@ -160,13 +168,24 @@ const OrganizationsCard = props => {
                             source={{
                               uri:
                                 props.currentUserProfile.id ===
-                                connections.connector_id
+                                connection.connector_id
                                   ? connection.connected_avatar
                                   : connection.connector_avatar
                             }}
                           />
                         </View>
-                        <View>
+                        <TouchableOpacity
+                          onPress={() => {
+                            props.currentUserProfile.id ===
+                            connection.connector_id
+                              ? props.navigation.navigate('Pro', {
+                                  selectedProfile: connection.connected_id
+                                })
+                              : props.navigation.navigate('Pro', {
+                                  selectedProfile: connection.connector_id
+                                });
+                          }}
+                        >
                           <Text
                             key={connection.connection_id}
                             style={styles.name}
@@ -178,7 +197,7 @@ const OrganizationsCard = props => {
                               ? connection.connected_name
                               : connection.connector_name}
                           </Text>
-                        </View>
+                        </TouchableOpacity>
                       </View>
                     </View>
                   </View>
@@ -208,17 +227,27 @@ const OrganizationsCard = props => {
                         rounded
                         key={connection.connection_id}
                         source={{
-                          uri: connection.connected_avatar
+                          uri:
+                            props.currentUserProfile.id ===
+                            connection.connector_id
+                              ? connection.connected_avatar
+                              : connection.connector_avatar
                         }}
                       />
                     </View>
-                    <View>
+                    <TouchableOpacity
+                      onPress={() =>
+                        props.navigation.navigate('Pro', {
+                          selectedProfile: connection.connected_id
+                        })
+                      }
+                    >
                       <Text key={connection.connection_id} style={styles.name}>
                         {connection.connected_name === null
                           ? '---'
                           : connection.connected_name}
                       </Text>
-                    </View>
+                    </TouchableOpacity>
                   </View>
                 </View>
               ))}
@@ -235,4 +264,6 @@ const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
   selectedProfile: state.selectedProfile
 });
-export default connect(mapStateToProps, { getConnections })(OrganizationsCard);
+export default connect(mapStateToProps, { getConnections })(
+  withNavigation(OrganizationsCard)
+);
