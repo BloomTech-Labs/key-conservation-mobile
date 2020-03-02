@@ -15,7 +15,7 @@ const PeopleCard = props => {
       if (Array.isArray(connection)) setConnections(connection);
       else throw new Error(connection);
     } catch (error) {
-      Alert.alert('Failed to get your connections');
+      Alert.alert('Failed to get users connections');
     }
   };
 

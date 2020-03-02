@@ -83,7 +83,9 @@ const People = props => {
   let currentUserPendingConnections = connections?.filter
     ? connections.filter(
         connect =>
-          connect.status === 'Pending' && connect.connector_role === 'supporter'
+          connect.status === 'Pending' &&
+          connect.connector_role === 'supporter' &&
+          connect.connector_id !== props.currentUserProfile.id
       )
     : [];
 
@@ -114,57 +116,51 @@ const People = props => {
               <View>
                 {currentUserPendingConnections?.map(connection => (
                   <View style={styles.card} key={connection.connection_id}>
-                    {props.currentUserProfile.id === connection.connector_id ? (
-                      <Text style={styles.noConnections}>
-                        No Pending Connections
-                      </Text>
-                    ) : (
+                    <View
+                      style={styles.peopleCardContainer}
+                      key={connection.connection_id}
+                    >
                       <View
-                        style={styles.peopleCardContainer}
+                        style={styles.userInfo}
                         key={connection.connection_id}
                       >
                         <View
-                          style={styles.userInfo}
+                          style={styles.imageContainer}
                           key={connection.connection_id}
                         >
-                          <View
-                            style={styles.imageContainer}
+                          <Avatar
+                            size={48}
+                            rounded
                             key={connection.connection_id}
-                          >
-                            <Avatar
-                              size={48}
-                              rounded
-                              key={connection.connection_id}
-                              source={{
-                                uri: connection.connector_avatar
-                              }}
-                            />
-                          </View>
-                          <View>
-                            <Text
-                              key={connection.connection_id}
-                              style={styles.name}
-                            >
-                              {connection.connector_name === null
-                                ? '---'
-                                : connection.connector_name}{' '}
-                              wants to connect
-                            </Text>
-                          </View>
+                            source={{
+                              uri: connection.connector_avatar
+                            }}
+                          />
                         </View>
-                        <View style={styles.statusButtons}>
-                          <TouchableOpacity
-                            style={styles.button}
-                            onPress={() => approveRequest()}
+                        <View>
+                          <Text
+                            key={connection.connection_id}
+                            style={styles.name}
                           >
-                            <Text style={styles.buttonText}>Connect</Text>
-                          </TouchableOpacity>
-                          <TouchableOpacity onPress={() => promptDelete()}>
-                            <X />
-                          </TouchableOpacity>
+                            {connection.connector_name === null
+                              ? '---'
+                              : connection.connector_name}{' '}
+                            wants to connect
+                          </Text>
                         </View>
                       </View>
-                    )}
+                      <View style={styles.statusButtons}>
+                        <TouchableOpacity
+                          style={styles.button}
+                          onPress={() => approveRequest()}
+                        >
+                          <Text style={styles.buttonText}>Connect</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => promptDelete()}>
+                          <X />
+                        </TouchableOpacity>
+                      </View>
+                    </View>
                   </View>
                 ))}
               </View>
