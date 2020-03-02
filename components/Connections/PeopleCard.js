@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { AmpEvent } from '../withAmplitude';
 import { Avatar } from 'react-native-elements';
 import styles from '../../constants/Connections/Cards';
 import X from '../../assets/jsicons/miscIcons/X';
+import { withNavigation } from 'react-navigation';
+
 import {
   getConnections,
   deleteConnection,
-  editConnectStatus
+  editConnectStatus,
+  goToProfile
 } from '../../store/actions';
 import { connect } from 'react-redux';
 
@@ -198,7 +202,18 @@ const People = props => {
                             }}
                           />
                         </View>
-                        <View>
+                        <TouchableOpacity
+                          onPress={() => {
+                            props.currentUserProfile.id ===
+                            connection.connected_id
+                              ? props.navigation.navigate('Pro', {
+                                  selectedProfile: connection.connector_id
+                                })
+                              : props.navigation.navigate('Pro', {
+                                  selectedProfile: connection.connected_id
+                                });
+                          }}
+                        >
                           <Text
                             key={connection.connection_id}
                             style={styles.name}
@@ -210,7 +225,7 @@ const People = props => {
                               ? connection.connector_name
                               : connection.connected_name}
                           </Text>
-                        </View>
+                        </TouchableOpacity>
                       </View>
                     </View>
                   </View>
@@ -244,13 +259,19 @@ const People = props => {
                         }}
                       />
                     </View>
-                    <View>
+                    <TouchableOpacity
+                      onPress={() =>
+                        props.navigation.navigate('Pro', {
+                          selectedProfile: connection.connector_id
+                        })
+                      }
+                    >
                       <Text key={connection.connection_id} style={styles.name}>
                         {connection.connector_name === null
                           ? '---'
                           : connection.connector_name}
                       </Text>
-                    </View>
+                    </TouchableOpacity>
                   </View>
                 </View>
               ))}
@@ -263,10 +284,12 @@ const People = props => {
 };
 const mapStateToProps = state => ({
   connections: state.connections,
+  selectedProfile: state.selectedProfile,
   currentUserProfile: state.currentUserProfile
 });
 export default connect(mapStateToProps, {
   getConnections,
   deleteConnection,
-  editConnectStatus
-})(People);
+  editConnectStatus,
+  goToProfile
+})(withNavigation(People));
