@@ -43,7 +43,7 @@ export default StyleSheet.create({
     marginTop: 10,
     flexDirection: 'column',
     flexWrap: 'nowrap',
-    fontSize: 15,
+    fontSize: 17,
     fontFamily: 'Lato'
   },
   campMission: {
