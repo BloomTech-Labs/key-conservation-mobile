@@ -23,9 +23,11 @@ export default StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 30,
     paddingBottom: 30,
-    flexWrap: 'wrap',
-    borderColor: 'green',
-    borderWidth: 2,
+    flexWrap: 'wrap'
+  },
+  textContainer: {
+    flex: 1,
+    color: 'white'
   },
   headerTitleContainer: {
     position: 'absolute',
@@ -44,19 +46,18 @@ export default StyleSheet.create({
     width: '20%',
     marginLeft: 30,
     flex: 0,
-    alignItems: 'center',
-    borderColor: 'grey',
-    borderWidth: 2,
+    alignItems: 'center'
   },
   bioContainer: {
     marginTop: 25,
     marginBottom: 25,
     width: '100%',
-    borderColor: 'red',
-    borderWidth: 2,
+    paddingLeft: 40,
+    paddingRight: 40,
   },
-  bio: {
+  bioText: {
     color: 'white',
+    textAlign: 'center',
     fontFamily: 'Lato',
     fontSize: 17,
   },
@@ -89,12 +90,6 @@ export default StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Lato-Bold',
     color: 'white'
-  },
-  textContainer: {
-    flex: 1,
-    color: 'white',
-    borderColor: 'blue',
-    borderWidth: 2,
   },
   buttons: {
     flexDirection: 'row',

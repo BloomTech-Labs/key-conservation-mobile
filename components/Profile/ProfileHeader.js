@@ -118,6 +118,7 @@ const ProfileHeader = forwardRef((props, ref) => {
             }}
           />
         </View>
+
         <View style={styles.textContainer}>
           <Text style={styles.org}>{profileName}</Text>
           {props.loading ? null : (
@@ -137,15 +138,15 @@ const ProfileHeader = forwardRef((props, ref) => {
                     {profile.org_link_url}
                   </Text>
                 )
-              ) : null}
-        
-                <View style={styles.bioContainer}>
-                  <Text style={styles.bio}>{profile.mini_bio}</Text>
-                </View>
-
+              ) : null} 
             </View>
-          )}
-        </View>
+            )}
+            </View>
+
+        <View style={styles.bioContainer}>
+        <Text style={styles.bioText}>{profile.mini_bio}</Text>
+      </View>
+
         <ConnectionsHeader
           profileId={props.profileId}
           profileData={props.profile}
