@@ -97,7 +97,7 @@ const FeedStack = createStackNavigator(
       }
     },
     Connections: { screen: ConnectionsScreen },
-    SelectedConnections: SelectedConnectionsScreen,
+    SelectedConnections: { screen: SelectedConnectionsScreen },
     Camp: ViewCampScreen,
     CampUpdate: ViewCampUpdateScreen,
     SupPro: ProfileScreen,
@@ -155,7 +155,8 @@ const MyProStack = createStackNavigator(
 const MySupProStack = createStackNavigator(
   {
     MySupPro: { screen: ProfileScreen },
-    EditSupPro: { screen: EditSupProScreen }
+    EditSupPro: { screen: EditSupProScreen },
+    Connections: { screen: ConnectionsScreen }
   },
   {
     navigationOptions: {

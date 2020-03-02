@@ -108,7 +108,11 @@ const OrganizationsCard = props => {
                             rounded
                             key={connection.connection_id}
                             source={{
-                              uri: connection.connector_avatar
+                              uri:
+                                props.currentUserProfile.id ===
+                                connections.connector_id
+                                  ? connection.connected_avatar
+                                  : connection.connector_avatar
                             }}
                           />
                         </View>
@@ -164,7 +168,7 @@ const OrganizationsCard = props => {
                             source={{
                               uri:
                                 props.currentUserProfile.id ===
-                                connections.connector_id
+                                connection.connector_id
                                   ? connection.connected_avatar
                                   : connection.connector_avatar
                             }}
@@ -223,7 +227,11 @@ const OrganizationsCard = props => {
                         rounded
                         key={connection.connection_id}
                         source={{
-                          uri: connection.connected_avatar
+                          uri:
+                            props.currentUserProfile.id ===
+                            connection.connector_id
+                              ? connection.connected_avatar
+                              : connection.connector_avatar
                         }}
                       />
                     </View>

@@ -32,8 +32,6 @@ const PeopleCard = props => {
       )
     : [];
 
-  console.log(connections);
-
   return (
     <View style={styles.mainContainer}>
       {orgCurrentUserConnections?.length === 0 ? (
@@ -57,18 +55,22 @@ const PeopleCard = props => {
                       key={connection.connection_id}
                       source={{
                         uri:
-                          props.selectedProfile.id === connections.connector_id
+                          props.selectedProfile.id === connection.connector_id
                             ? connection.connected_avatar
                             : connection.connector_avatar
                       }}
                     />
                   </View>
                   <TouchableOpacity
-                    onPress={() =>
-                      props.navigation.navigate('Pro', {
-                        selectedProfile: connection.connector_id
-                      })
-                    }
+                    onPress={() => {
+                      props.selectedProfile.id === connection.connected_id
+                        ? props.navigation.navigate('Pro', {
+                            selectedProfile: connection.connector_id
+                          })
+                        : props.navigation.navigate('Pro', {
+                            selectedProfile: connection.connected_id
+                          });
+                    }}
                   >
                     <Text key={connection.connection_id} style={styles.name}>
                       {connection.connected_name === null
