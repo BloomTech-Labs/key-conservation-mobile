@@ -22,11 +22,17 @@ import styles from '../constants/UploadMedia';
 // style
 // fontSize (default is 10)
 // circular
+// size (default is 100)
+// media
 
 class UploadMedia extends Component {
-  state = {
-    media: ''
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      media: this.props.media || ''
+    }
+  }
 
   getPermissionAsync = async () => {
     if (Constants.platform.ios || Constants.platform.android) {
@@ -72,6 +78,7 @@ class UploadMedia extends Component {
   };
 
   render() {
+
     const { media } = this.state;
 
     const textStyle = {
@@ -85,7 +92,9 @@ class UploadMedia extends Component {
           style={{
             ...styles.container,
             borderRadius: this.props.circular ? 100 : 8,
-            ...this.props.style
+            ...this.props.style,
+            width: this.props.size || 100,
+            height: this.props.size || 100
           }}
         >
           <NavigationEvents onDidBlur={this.clearState} />

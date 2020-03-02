@@ -30,7 +30,11 @@ export default {
     marginBottom: 25,
     textAlignVertical: 'top'
   },
-
+  imageSelectContainer: {
+    width: '100%',
+    alignItems: 'center',
+    marginVertical: 16
+  },
   touchableView: {
     backgroundColor: 'black',
     alignItems: 'center',

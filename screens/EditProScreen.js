@@ -204,9 +204,16 @@ class EditProScreen extends React.Component {
                 placeholder='hello@carribbeanseaturtle.org'
               />
             </View>
-
             <View style={styles.sections}>
-              <UploadMedia title='Upload new logo' />
+              <Text style={styles.sectionsText}>Organization Logo</Text>
+              <View style={styles.logoSelectContainer}>
+                <UploadMedia
+                  media={this.state.profile_image}
+                  size={128}
+                  circular
+                  title='Upload a logo'
+                />
+              </View>
             </View>
           </View>
           <View style={styles.sectionContainer}>
