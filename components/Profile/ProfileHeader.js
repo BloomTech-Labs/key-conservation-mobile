@@ -147,7 +147,7 @@ const ProfileHeader = forwardRef((props, ref) => {
                         await Linking.openURL(`mailto:${profile.email}`);
                       }}
                     >
-                      <Envelope />
+                      <Envelope fill='white' />
                     </TouchableOpacity>
                   )}
                   {!profile.instagram ? null : (
@@ -157,7 +157,7 @@ const ProfileHeader = forwardRef((props, ref) => {
                         await WebBrowser.openBrowserAsync(profile.instagram)
                       }
                     >
-                      <Instagram />
+                      <Instagram fill='white' />
                     </TouchableOpacity>
                   )}
                   {!profile.twitter ? null : (
@@ -177,7 +177,7 @@ const ProfileHeader = forwardRef((props, ref) => {
                         await WebBrowser.openBrowserAsync(profile.facebook)
                       }
                     >
-                      <Facebook />
+                      <Facebook fill='white' />
                     </TouchableOpacity>
                   )}
                 </View>

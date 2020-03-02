@@ -133,7 +133,11 @@ const People = props => {
                             rounded
                             key={connection.connection_id}
                             source={{
-                              uri: connection.connector_avatar
+                              uri:
+                                props.currentUserProfile.id ===
+                                connection.connected_id
+                                  ? connection.connector_avatar
+                                  : connection.connected_avatar
                             }}
                           />
                         </View>

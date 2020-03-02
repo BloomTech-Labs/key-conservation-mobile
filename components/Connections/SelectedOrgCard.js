@@ -22,21 +22,27 @@ const OrganizationsCard = props => {
     getConnections();
   }, []);
 
-  let orgCurrentUserConnections = connections?.filter
-    ? connections.filter(
-        connect =>
-          connect.status === 'Connected' &&
-          connect.connector_role === 'conservationist'
-      )
+  let selectedUserConnections = connections?.filter
+    ? props.selectedProfile.roles === 'supporter'
+      ? connections.filter(
+          connect =>
+            connect.status === 'Connected' &&
+            connect.connected_role === 'conservationist'
+        )
+      : connections.filter(
+          connect =>
+            connect.status === 'Connected' &&
+            connect.connector_role === 'conservationist'
+        )
     : [];
 
   return (
     <View style={styles.mainContainer}>
-      {orgCurrentUserConnections?.length === 0 ? (
+      {selectedUserConnections?.length === 0 ? (
         <Text style={styles.noConnections}>No Current Connections</Text>
       ) : (
         <View>
-          {orgCurrentUserConnections?.map(connection => (
+          {selectedUserConnections?.map(connection => (
             <View style={styles.card} key={connection.connection_id}>
               <View
                 style={styles.peopleCardContainer}
@@ -53,7 +59,7 @@ const OrganizationsCard = props => {
                       key={connection.connection_id}
                       source={{
                         uri:
-                          props.selectedProfile.id === connections.connector_id
+                          props.selectedProfile.id === connection.connector_id
                             ? connection.connected_avatar
                             : connection.connector_avatar
                       }}
