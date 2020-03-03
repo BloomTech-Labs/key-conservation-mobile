@@ -1,32 +1,29 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ImageBackground,
-  Image
-} from 'react-native';
+import { View, Text, ImageBackground } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/HeyThere.js';
 import { logout } from '../../store/actions';
 import { useDispatch } from 'react-redux';
 
-const HeyThereScreen = props => {
+import NavigateButton from './formElement/NavigateButton';
+import NavigateBack from './formElement/NavigateBack.js';
 
+const HeyThereScreen = props => {
   const dispatch = useDispatch();
 
-  const logoutPressed = () => {
-    dispatch(logout());
-  };
   return (
     <ImageBackground
       source={require('../../assets/images/onboarding/sg2.png')}
       style={{ width: '100%', height: '100%' }}
     >
-      <TouchableOpacity onPress={logoutPressed} style={styles.arrowView}>
-        <Image source={require('../../assets/images/onboarding/w_arrow.png')} />
-      </TouchableOpacity>
+      <View style={styles.arrowView}>
+        <NavigateBack
+          onButtonPress={() => {
+            dispatch(logout());
+          }}
+          color='#FFF'
+        />
+      </View>
       <View style={styles.obBody}>
-        <View style={styles.spacer} />
         <View style={styles.obBorderView}>
           <Text style={styles.obTitle}>Hey There!</Text>
           <Text style={styles.obSubtitle}>
@@ -37,16 +34,15 @@ const HeyThereScreen = props => {
             creating a custom page for your organization.
           </Text>
         </View>
-        <View style={styles.buttons}>
-          <TouchableOpacity
-            style={styles.obFwdContainer}
-            onPress={() => {
-              props.navigation.navigate('ToExpect');
-            }}
-          >
-            <Text style={styles.obFwdBtnText}>Next</Text>
-          </TouchableOpacity>
-        </View>
+      </View>
+      <View style={styles.buttons}>
+        <NavigateButton
+          onButtonPress={() => {
+            props.navigation.navigate('ToExpect');
+          }}
+          color='white'
+          label='Next'
+        />
       </View>
     </ImageBackground>
   );

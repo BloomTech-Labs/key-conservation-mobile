@@ -7,11 +7,14 @@ import {
   KeyboardAvoidingView,
   Switch,
   Alert,
-  Image
+  Image,
+  TextInput
 } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/ReviewYourInfo';
 import NavigateButton from './formElement/NavigateButton.js';
-import { TextInput } from 'react-native-gesture-handler';
+import NavigateBack from './formElement/NavigateBack.js';
+import ProgressBar from './formElement/ProgressBar';
+import ItemCard from '../../components/Onboarding/ItemCard';
 import * as SecureStore from 'expo-secure-store';
 import SVGCheckMark from '../../assets/jsicons/SVGCheckMark';
 import EditPencil from '../../assets/jsicons/OnBoarding/EditPencil';
@@ -19,11 +22,10 @@ import UploadMedia from '../../components/UploadMedia';
 import { connect } from 'react-redux';
 
 const ReviewYourInfoScreen = props => {
-  const [isEditingAccount, setIsEditingAccount] = useState(false);
-  const [isEditingContact, setIsEditingContact] = useState(false);
-  const [isEditingOrganization, setIsEditingOrganization] = useState(false);
-  const [isEditingAffiliations, setIsEditingAffiliations] = useState(false);
-  const [isEditingMisc, setIsEditingMisc] = useState(false);
+  const [isEditingBasicInfo, setIsEditingBasicInfo] = useState(false);
+  const [isEditingOrgDetails, setIsEditingOrgDetails] = useState(false);
+  const [isEditingActivityQuest, setIsEditingActivityQuest] = useState(false);
+  const [isEditingDocs, setIsEditingDocs] = useState(false);
 
   const [airtableId, setAirtableId] = useState('');
 
@@ -57,7 +59,6 @@ const ReviewYourInfoScreen = props => {
     // Grabs state for backend through nav params again.
     setState(props.navigation.getParam('airtableState', 'defaultValue'));
     getAirtableID();
-    console.log('profile_image from Review', state.profile_image);
   }, []);
 
   const getAirtableID = async () => {
@@ -104,355 +105,267 @@ const ReviewYourInfoScreen = props => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior='height'
-      keyboardVerticalOffset={86}
-      enabled
-    >
-      <ScrollView style={styles.scrollView}>
-        <View style={styles.obBody}>
-          <Text style={styles.obTitle}>Review your info</Text>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <View style={styles.arrowView}>
+          <NavigateBack
+            onButtonPress={() => {
+              props.navigation.navigate('AccountScreen');
+            }}
+            color='#000'
+          />
         </View>
-        <View>
-          <View>
-            <Text style={styles.obText}>
-              Check that everything looks good and tap submit
-            </Text>
-          </View>
-          {!isEditingAccount ? (
-            <View style={styles.borderContainer}>
-              <View style={[styles.row, styles.opaqueHeader]}>
-                <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
-                  Account Administrator
+        <View style={styles.progressBar}>
+          <ProgressBar
+            progress={85}
+            height={9}
+            backgroundColor='#D7FF44'
+            animated={false}
+          />
+          <Text style={styles.progressBarText}>85% Complete</Text>
+        </View>
+      </View>
+      <KeyboardAvoidingView
+        style={styles.keyboardView}
+        behavior='padding'
+        // keyboardVerticalOffset={86}
+        enabled
+      >
+        <ScrollView style={styles.obBody}>
+          <Text style={styles.obTitle}>Review your Information</Text>
+
+          <Text style={styles.obSubtitle}>
+            Check that everything looks good and tap submit, or click the pencil
+            icon to edit.
+          </Text>
+
+          {!isEditingBasicInfo ? (
+            <View style={styles.sectionContainer}>
+              <View style={styles.obSectionHeader}>
+                <Text style={styles.obSectionHeaderTitle}>
+                  Basic Information
                 </Text>
                 <TouchableOpacity
-                  onPress={() => setIsEditingAccount(!isEditingAccount)}
+                  style={styles.editIcons}
+                  onPress={() => setIsEditingBasicInfo(!isEditingBasicInfo)}
                 >
-                  <EditPencil />
+                  <EditPencil width='23' height='23' />
                 </TouchableOpacity>
               </View>
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Contact Name: </Text>
-                <Text style={styles.obText}>{state.point_of_contact_name}</Text>
+
+              <View style={styles.basicInfoRow}>
+                <Text style={styles.basicInfoRowTitle}>Name</Text>
+                <Text style={styles.obFieldName}>{state.org_name}</Text>
               </View>
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Contact Position: </Text>
-                <Text style={styles.obText}>
-                  {state.point_of_contact_position}
-                </Text>
+
+              <View style={styles.basicInfoRow}>
+                <Text style={styles.basicInfoRowTitle}>Address</Text>
+                <Text style={styles.obFieldName}>{state.location}</Text>
               </View>
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>name: </Text>
-                <Text style={styles.obText}>{state.name}</Text>
+
+              <View style={styles.basicInfoRow}>
+                <Text style={styles.basicInfoRowTitle}>Country</Text>
+                <Text style={styles.obFieldName}>{state.country}</Text>
+              </View>
+
+              <View style={styles.basicInfoRow}>
+                <Text style={styles.basicInfoRowTitle}>Website</Text>
+                <Text style={styles.obFieldName}>{state.org_link_url}</Text>
+              </View>
+
+              <View style={styles.basicInfoRow}>
+                <Text style={styles.basicInfoRowTitle}>Phone</Text>
+                <Text style={styles.obFieldName}>{state.phone_number}</Text>
+              </View>
+
+              <View style={styles.basicInfoRow}>
+                <Text style={styles.basicInfoRowTitle}>Facebook</Text>
+                <Text style={styles.obFieldName}>{state.facebook}</Text>
+              </View>
+
+              <View style={styles.basicInfoRow}>
+                <Text style={styles.basicInfoRowTitle}>Twitter</Text>
+                <Text style={styles.obFieldName}>{state.twitter}</Text>
+              </View>
+
+              <View style={styles.basicInfoRow}>
+                <Text style={styles.basicInfoRowTitle}>Instagram</Text>
+                <Text style={styles.obFieldName}>{state.instagram}</Text>
+              </View>
+
+              <View style={styles.basicInfoRow}>
+                <Text style={styles.basicInfoRowTitle}>Donation Link</Text>
+                <Text style={styles.obFieldName}>{state.org_cta}</Text>
               </View>
             </View>
           ) : (
-            <View style={styles.borderContainer}>
-              <View style={[styles.row, styles.opaqueHeader]}>
-                <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
-                  Account Administrator
+            <View style={styles.sectionContainer}>
+              <View style={styles.obSectionHeader}>
+                <Text style={styles.obSectionHeaderTitle}>
+                  Basic Information
                 </Text>
                 <TouchableOpacity
-                  onPress={() => setIsEditingAccount(!isEditingAccount)}
+                  style={styles.editIcons}
+                  onPress={() => setIsEditingBasicInfo(!isEditingBasicInfo)}
                 >
                   <SVGCheckMark />
                 </TouchableOpacity>
               </View>
 
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Contact Name: </Text>
+              <View style={styles.basicInfoRow}>
+                <Text style={styles.basicInfoRowTitle}>Name</Text>
                 <TextInput
-                  style={[styles.obText, styles.textInput]}
-                  value={state.point_of_contact_name}
-                  placeholder={'Point of Contact Name'}
-                  setState={text =>
-                    setState({ ...state, point_of_contact_name: text })
-                  }
+                  style={[styles.obFieldName, styles.grayBackground]}
+                  value={state.org_name}
+                  onChangeText={text => setState({ ...state, org_name: text })}
                 />
               </View>
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Contact Position: </Text>
+              <View style={styles.basicInfoRow}>
+                <Text style={styles.basicInfoRowTitle}>Address</Text>
                 <TextInput
-                  style={[styles.obText, styles.textInput]}
-                  value={state.point_of_contact_position}
-                  placeholder={' Contact Position'}
-                  setState={text =>
-                    setState({ ...state, point_of_contact_position: text })
-                  }
-                />
-              </View>
-              {/* <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Name: </Text>
-                <TextInput
-                  style={[styles.obText, styles.textInput]}
-                  value={state.name}
-                  placeholder={' Name'}
-                  setState={text => setState({ ...state, name: text })}
-                />
-              </View> */}
-            </View>
-          )}
-          <View style={styles.borderContainer}>
-            <View style={[styles.row, styles.opaqueHeader]}>
-              <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
-                Organization Logo
-              </Text>
-            </View>
-            <UploadMedia circular title='Change logo' />
-            <Image
-              source={{ uri: state.profile_image }}
-              style={{
-                height: 300,
-                width: 300
-              }}
-            />
-          </View>
-
-          {!isEditingContact ? (
-            <View style={styles.borderContainer}>
-              <View style={[styles.row, styles.opaqueHeader]}>
-                <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
-                  Contact Information
-                </Text>
-                <TouchableOpacity
-                  onPress={() => setIsEditingContact(!isEditingContact)}
-                >
-                  <EditPencil />
-                </TouchableOpacity>
-              </View>
-
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Organization Name:</Text>
-                <Text style={styles.obText}>{state.name}</Text>
-              </View>
-
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Website:</Text>
-                <Text style={styles.obText}>{state.org_link_url}</Text>
-              </View>
-
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Phone:</Text>
-                <Text style={styles.obText}>{state.phone_number}</Text>
-              </View>
-
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Facebook:</Text>
-                <Text style={styles.obText}>{state.facebook}</Text>
-              </View>
-
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Twitter:</Text>
-                <Text style={styles.obText}>{state.twitter}</Text>
-              </View>
-
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Instagram:</Text>
-                <Text style={styles.obText}>{state.instagram}</Text>
-              </View>
-
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Donation Link:</Text>
-                <Text style={styles.obText}>{state.org_cta}</Text>
-              </View>
-
-              <View>
-                <Text style={styles.obSubtitleSm}>Address:</Text>
-                <Text style={styles.obText}>
-                  {state.location} {/*state.country*/}
-                </Text>
-              </View>
-            </View>
-          ) : (
-            <View style={styles.borderContainer}>
-              <View style={[styles.row, styles.opaqueHeader]}>
-                <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
-                  Contact & Credentials
-                </Text>
-                <TouchableOpacity
-                  onPress={() => setIsEditingContact(!isEditingContact)}
-                >
-                  <SVGCheckMark />
-                </TouchableOpacity>
-              </View>
-
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Organization Name:</Text>
-                <TextInput
-                  style={[styles.obText, styles.textInput]}
-                  value={state.name}
-                  setState={text => setState({ ...state, name: text })}
-                />
-              </View>
-
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Website:</Text>
-                <TextInput
-                  style={[styles.obText, styles.textInput]}
-                  value={state.org_link_url}
-                  setState={text => setState({ ...state, org_link_url: text })}
-                />
-              </View>
-
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Phone:</Text>
-                <TextInput
-                  style={[styles.obText, styles.textInput]}
-                  value={state.phone_number}
-                  setState={text => setState({ ...state, phone_number: text })}
-                />
-              </View>
-
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Facebook:</Text>
-                <TextInput
-                  style={[styles.obText, styles.textInput]}
-                  value={state.facebook}
-                  setState={text => setState({ ...state, facebook: text })}
-                />
-              </View>
-
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Twitter:</Text>
-                <TextInput
-                  style={[styles.obText, styles.textInput]}
-                  value={state.twitter}
-                  setState={text => setState({ ...state, twitter: text })}
-                />
-              </View>
-
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Instagram:</Text>
-                <TextInput
-                  style={[styles.obText, styles.textInput]}
-                  value={state.instagram}
-                  setState={text => setState({ ...state, instagram: text })}
-                />
-              </View>
-
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Donation Link:</Text>
-                <TextInput
-                  style={[styles.obText, styles.textInput]}
-                  value={state.org_cta}
-                  setState={text => setState({ ...state, org_cta: text })}
-                />
-              </View>
-
-              <View>
-                <Text style={styles.obSubtitleSm}>Address:</Text>
-                <TextInput
-                  style={[styles.obText, styles.textInput]}
-                  multiline
+                  style={[styles.obFieldName, styles.grayBackground]}
                   value={state.location}
-                  setState={text => setState({ ...state, location: text })}
+                  onChangeText={text => setState({ ...state, location: text })}
                 />
               </View>
-            </View>
-          )}
-          {!isEditingAccount ? (
-            <View style={styles.borderContainer}>
-              <View style={[styles.row, styles.opaqueHeader]}>
-                <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
-                  About Us
-                </Text>
-                <TouchableOpacity
-                  onPress={() => setIsEditingAccount(!isEditingAccount)}
-                >
-                  <EditPencil />
-                </TouchableOpacity>
-              </View>
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Short Bio:</Text>
-                <Text style={styles.obText}>{state.mini_bio}</Text>
-              </View>
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>About Us: </Text>
-                <Text style={styles.obText}>{state.about_us}</Text>
-              </View>
-            </View>
-          ) : (
-            <View style={styles.borderContainer}>
-              <View style={[styles.row, styles.opaqueHeader]}>
-                <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
-                  About Us
-                </Text>
-                <TouchableOpacity
-                  onPress={() => setIsEditingAccount(!isEditingAccount)}
-                >
-                  <SVGCheckMark />
-                </TouchableOpacity>
-              </View>
-
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>Mini Bio:</Text>
+              <View style={styles.basicInfoRow}>
+                <Text style={styles.basicInfoRowTitle}>Country</Text>
                 <TextInput
-                  style={[styles.obText, styles.textInput]}
-                  value={state.mini_bio}
-                  placeholder={'Mini Bio'}
-                  setState={text => setState({ ...state, mini_bio: text })}
+                  style={[styles.obFieldName, styles.grayBackground]}
+                  value={state.country}
+                  onChangeText={text => setState({ ...state, country: text })}
                 />
               </View>
 
-              <View style={styles.row}>
-                <Text style={styles.obSubtitleSm}>ABout Us:</Text>
+              <View style={styles.basicInfoRow}>
+                <Text style={styles.basicInfoRowTitle}>Website</Text>
                 <TextInput
-                  style={[styles.obText, styles.textInput]}
-                  value={state.about_us}
-                  placeholder={'About us'}
-                  setState={text => setState({ ...state, about_us: text })}
-                />
-              </View>
-            </View>
-          )}
-          {!isEditingOrganization ? (
-            <View style={styles.borderContainer}>
-              <View style={[styles.row, styles.opaqueHeader]}>
-                <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
-                  Organization Activity
-                </Text>
-                <TouchableOpacity
-                  onPress={() =>
-                    setIsEditingOrganization(!isEditingOrganization)
+                  style={[styles.obFieldName, styles.grayBackground]}
+                  value={state.org_link_url}
+                  onChangeText={text =>
+                    setState({ ...state, org_link_url: text })
                   }
+                />
+              </View>
+              <View style={styles.basicInfoRow}>
+                <Text style={styles.basicInfoRowTitle}>Phone</Text>
+                <TextInput
+                  style={[styles.obFieldName, styles.grayBackground]}
+                  value={state.phone_number}
+                  onChangeText={text =>
+                    setState({ ...state, phone_number: text })
+                  }
+                />
+              </View>
+
+              <View style={styles.basicInfoRow}>
+                <Text style={styles.basicInfoRowTitle}>Facebook</Text>
+                <TextInput
+                  style={[styles.obFieldName, styles.grayBackground]}
+                  value={state.facebook}
+                  onChangeText={text => setState({ ...state, facebook: text })}
+                />
+              </View>
+
+              <View style={styles.basicInfoRow}>
+                <Text style={styles.basicInfoRowTitle}>Twitter</Text>
+                <TextInput
+                  style={[styles.obFieldName, styles.grayBackground]}
+                  value={state.twitter}
+                  onChangeText={text => setState({ ...state, twitter: text })}
+                />
+              </View>
+
+              <View style={styles.basicInfoRow}>
+                <Text style={styles.basicInfoRowTitle}>Instagram</Text>
+                <TextInput
+                  style={[styles.obFieldName, styles.grayBackground]}
+                  value={state.instagram}
+                  onChangeText={text => setState({ ...state, instagram: text })}
+                />
+              </View>
+
+              <View style={styles.basicInfoRow}>
+                <Text style={styles.basicInfoRowTitle}>Donation Link</Text>
+                <TextInput
+                  style={[styles.obFieldName, styles.grayBackground]}
+                  value={state.org_cta}
+                  onChangeText={text => setState({ ...state, org_cta: text })}
+                />
+              </View>
+            </View>
+          )}
+
+          {!isEditingOrgDetails ? (
+            <View style={styles.sectionContainer}>
+              <View style={styles.obSectionHeader}>
+                <Text style={styles.obSectionHeaderTitle}>
+                  Organization Details
+                </Text>
+                <TouchableOpacity
+                  style={styles.editIcons}
+                  onPress={() => setIsEditingOrgDetails(!isEditingOrgDetails)}
                 >
-                  <EditPencil />
+                  <EditPencil width='23' height='23' />
                 </TouchableOpacity>
               </View>
-              <Text style={styles.obSubtitleSm}>Countries of Operation:</Text>
-              <Text style={styles.obText}>{state.other_countries}</Text>
 
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>
+                  Countries your organization works in:
+                </Text>
+              </View>
+              <View style={styles.listContainer}>
+                <ItemCard item={state.other_countries} />
+              </View>
               <View>
-                <Text style={styles.obSubtitleSm}>Projects:</Text>
-                <Text style={styles.obText}>{state.multiple_projects}</Text>
+                <Text style={styles.obSubtitleSm}>
+                  Projects within your organization:
+                </Text>
+                <View style={styles.listContainer}>
+                  <ItemCard item={state.multiple_projects} />
+                </View>
+              </View>
+              <View>
+                <Text style={styles.obSubtitleSm}>
+                  Current partnerships and affiliations:
+                </Text>
+                <View style={styles.listContainer}>
+                  <ItemCard
+                    item={state.affiliations_partnerships}
+                    list={true}
+                  />
+                </View>
               </View>
             </View>
           ) : (
-            <View style={styles.borderContainer}>
-              <View style={[styles.row, styles.opaqueHeader]}>
-                <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
-                  Organization Activity
+            <View style={styles.sectionContainer}>
+              <View style={styles.editIcons}>
+                <Text style={styles.obSectionHeaderTitle}>
+                  Organization Details
                 </Text>
                 <TouchableOpacity
-                  onPress={() =>
-                    setIsEditingOrganization(!isEditingOrganization)
-                  }
+                  style={styles.editIcons}
+                  onPress={() => setIsEditingOrgDetails(!isEditingOrgDetails)}
                 >
                   <SVGCheckMark />
                 </TouchableOpacity>
               </View>
-              <Text style={styles.obSubtitleSm}>Countries of Operation:</Text>
+              <Text style={styles.obSubtitleSm}>
+                Countries your organization works in:
+              </Text>
               <TextInput
-                style={[styles.obText, styles.textInput]}
+                style={styles.textInput}
                 value={state.other_countries}
                 setState={text => setState({ ...state, other_countries: text })}
               />
 
               <View>
-                <Text style={styles.obSubtitleSm}>Projects:</Text>
+                <Text style={styles.obSubtitleSm}>
+                  Projects within your organization:
+                </Text>
                 <TextInput
-                  style={[styles.obText, styles.textInput]}
+                  style={styles.textInput}
                   value={state.multiple_projects}
                   setState={text => {
                     setState({
@@ -462,90 +375,51 @@ const ReviewYourInfoScreen = props => {
                   }}
                 />
               </View>
+              <View>
+                <Text style={styles.obSubtitleSm}>
+                  Current partnerships and affiliations:
+                </Text>
+                <TextInput
+                  style={styles.textInput}
+                  value={state.affiliations_partnerships}
+                  onChangeText={text => {
+                    setState({
+                      ...state,
+                      affiliations_partnerships: text
+                    });
+                  }}
+                />
+              </View>
             </View>
           )}
-          {!isEditingAffiliations ? (
-            <View style={styles.borderContainer}>
-              <View style={[styles.row, styles.opaqueHeader]}>
-                <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
-                  Partnerships & Affiliations
-                </Text>
-                <TouchableOpacity
-                  onPress={() =>
-                    setIsEditingAffiliations(!isEditingAffiliations)
-                  }
-                >
-                  <EditPencil />
-                </TouchableOpacity>
-              </View>
-              <Text style={styles.obText}>
-                {state.affiliations_partnerships}
-              </Text>
-            </View>
-          ) : (
-            <View style={styles.borderContainer}>
-              <View style={[styles.row, styles.opaqueHeader]}>
-                <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
-                  Partnerships & Affiliations
-                </Text>
-                <TouchableOpacity
-                  onPress={() =>
-                    setIsEditingAffiliations(!isEditingAffiliations)
-                  }
-                >
-                  <SVGCheckMark />
-                </TouchableOpacity>
-              </View>
-              <TextInput
-                style={[styles.obText, styles.textInput]}
-                value={state.affiliations_partnerships}
-                setState={text => {
-                  setState({
-                    ...state,
-                    affiliations_partnerships: text
-                  });
-                }}
-              />
-            </View>
-          )}
-          {!isEditingMisc ? (
-            <View style={styles.borderContainer}>
-              <View style={[styles.row, styles.opaqueHeader]}>
-                <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
-                  Miscellaneous Items
-                </Text>
-                <TouchableOpacity
-                  onPress={() => setIsEditingMisc(!isEditingMisc)}
-                >
-                  <EditPencil />
-                </TouchableOpacity>
-              </View>
 
-              {state.conservation_optimism && (
-                <Text style={styles.obText}>
-                  We will join Key Conservation in practicing Conservation
-                  Optimism.
-                </Text>
-              )}
-              {state.smartphone_access && (
-                <Text style={styles.obText}>
-                  Our Organization does use smartphones.
-                </Text>
-              )}
-            </View>
-          ) : (
-            <View style={styles.borderContainer}>
-              <View style={[styles.row, styles.opaqueHeader]}>
-                <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
-                  Miscellaneous Items
+          {!isEditingActivityQuest ? (
+            <View style={styles.sectionContainer}>
+              <View style={styles.editIcons}>
+                <Text style={styles.obSectionHeaderTitle}>
+                  Activity Questionnaire
                 </Text>
                 <TouchableOpacity
-                  onPress={() => setIsEditingMisc(!isEditingMisc)}
+                  style={styles.editIcons}
+                  onPress={() =>
+                    setIsEditingActivityQuest(!isEditingActivityQuest)
+                  }
                 >
-                  <EditPencil />
+                  <EditPencil width='23' height='23' />
                 </TouchableOpacity>
               </View>
-              <View style={styles.column}>
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>
+                  In a brief statement, only 150 characters, tell us about your
+                  organization.
+                </Text>
+                <Text style={styles.obText}>{state.mini_bio}</Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>
+                  In more depth, tell us about your organization's mission.
+                </Text>
+                <Text style={styles.obText}>{state.about_us}</Text>
                 <Text style={styles.obText}>
                   Will you join us in Conservation Optimism?
                 </Text>
@@ -558,82 +432,253 @@ const ReviewYourInfoScreen = props => {
                   }
                 />
               </View>
-              <View style={styles.column}>
-                <Text style={styles.obText}>
-                  Does your organization have access to a smartphone?
+            </View>
+          ) : (
+            <View style={styles.sectionContainer}>
+              <View style={styles.editIcons}>
+                <Text style={styles.obSectionHeaderTitle}>
+                  Activity Questionnaire
                 </Text>
-                <Switch
-                  style={styles.obSwitchButton}
-                  trackColor={{ true: '#00FF9D' }}
-                  value={state.smartphone_access}
-                  onValueChange={newValue =>
-                    setState({ ...state, smartphone_access: newValue })
+                <TouchableOpacity
+                  style={styles.editIcons}
+                  onPress={() =>
+                    setIsEditingActivityQuest(!isEditingActivityQuest)
                   }
+                >
+                  <SVGCheckMark />
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>
+                  In a brief statement, only 150 characters, tell us about your
+                  organization.
+                </Text>
+                <TextInput
+                  style={styles.textInput}
+                  value={state.mini_bio}
+                  placeholder={'Mini Bio'}
+                  setState={text => setState({ ...state, mini_bio: text })}
                 />
               </View>
+
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>
+                  In more depth, tell us about your organization's mission.
+                </Text>
+                <TextInput
+                  style={styles.textInput}
+                  value={state.about_us}
+                  placeholder={'About us'}
+                  setState={text => setState({ ...state, about_us: text })}
+                />
+              </View>
+              <Text style={styles.obText}>
+                Will you join us in Conservation Optimism?
+              </Text>
+              <Switch
+                trackColor={{ true: '#00FF9D' }}
+                style={styles.obSwitchButton}
+                value={state.conservation_optimism}
+                onValueChange={newValue =>
+                  setState({ ...state, conservation_optimism: newValue })
+                }
+              />
             </View>
           )}
-          <NavigateButton
-            label='Next'
-            onButtonPress={async () => {
-              if (
-                state.name === undefined ||
-                state.org_link_url === undefined ||
-                state.phone_number === undefined ||
-                state.location === undefined ||
-                state.country === undefined ||
-                state.point_of_contact_name === undefined ||
-                state.point_of_contact_position === undefined ||
-                state.email === undefined
-              ) {
-                Alert.alert('Oops', 'Please fill in all sections of form', [
-                  { text: 'Got it' }
-                ]);
-              } else {
-                updateAirtable();
-                const sub = await SecureStore.getItemAsync('sub', {});
-                if (props.mediaUpload) {
-                  setState({ ...state, profile_image: props.mediaUpload });
+
+          <View style={styles.sectionContainer}>
+            <View style={styles.obSectionHeader}>
+              <Text style={styles.obSectionHeaderTitle}>Organization Logo</Text>
+            </View>
+            <UploadMedia circular title='Change logo' />
+            {state.profile_image ? (
+              <Image
+                source={{ uri: state.profile_image }}
+                style={{
+                  height: 300,
+                  width: 300
+                }}
+              />
+            ) : null}
+          </View>
+
+          {/* {!isEditingOrgDetails ? (
+              <View style={styles.sectionContainer}>
+                <View style={[styles.row, styles.opaqueHeader]}>
+                  <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
+                    Partnerships & Affiliations
+                  </Text>
+                  <TouchableOpacity
+                  style={styles.editIcons}
+                    onPress={() =>
+                      setIsEditingAffiliations(!isEditingAffiliations)
+                    }
+                  >
+                    <EditPencil />
+                  </TouchableOpacity>
+                </View>
+                <Text style={styles.obText}>
+                  {state.affiliations_partnerships}
+                </Text>
+              </View>
+            ) : (
+              <View style={styles.sectionContainer}>
+                <View style={[styles.row, styles.opaqueHeader]}>
+                  <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
+                    Partnerships & Affiliations
+                  </Text>
+                  <TouchableOpacity
+                  style={styles.editIcons}
+                    onPress={() =>
+                      setIsEditingAffiliations(!isEditingAffiliations)
+                    }
+                  >
+                    <SVGCheckMark />
+                  </TouchableOpacity>
+                </View>
+                <TextInput
+                  style={styles.textInput}
+                  value={state.affiliations_partnerships}
+                  setState={text => {
+                    setState({
+                      ...state,
+                      affiliations_partnerships: text
+                    });
+                  }}
+                />
+              </View>
+            )} */}
+
+          {/* {!isEditingMisc ? (
+              <View style={styles.sectionContainer}>
+                <View style={[styles.row, styles.opaqueHeader]}>
+                  <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
+                    Miscellaneous Items
+                  </Text>
+                  <TouchableOpacity
+                  style={styles.editIcons}
+                    onPress={() => setIsEditingMisc(!isEditingMisc)}
+                  >
+                    <EditPencil />
+                  </TouchableOpacity>
+                </View> */}
+
+          {/* {state.conservation_optimism && (
+                  <Text style={styles.obText}>
+                    We will join Key Conservation in practicing Conservation
+                    Optimism.
+                  </Text>
+                )}
+                {state.smartphone_access && (
+                  <Text style={styles.obText}>
+                    Our Organization does use smartphones.
+                  </Text>
+                )}
+              </View>
+            ) : (
+              <View style={styles.sectionContainer}>
+                <View style={[styles.row, styles.opaqueHeader]}>
+                  <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
+                    Miscellaneous Items
+                  </Text>
+                  <TouchableOpacity
+                  style={styles.editIcons}
+                    onPress={() => setIsEditingMisc(!isEditingMisc)}
+                  >
+                    <EditPencil />
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.column}>
+                  <Text style={styles.obText}>
+                    Will you join us in Conservation Optimism?
+                  </Text>
+                  <Switch
+                    trackColor={{ true: '#00FF9D' }}
+                    style={styles.obSwitchButton}
+                    value={state.conservation_optimism}
+                    onValueChange={newValue =>
+                      setState({ ...state, conservation_optimism: newValue })
+                    }
+                  />
+                </View>
+                <View style={styles.column}>
+                  <Text style={styles.obText}>
+                    Does your organization have access to a smartphone?
+                  </Text>
+                  <Switch
+                    style={styles.obSwitchButton}
+                    trackColor={{ true: '#00FF9D' }}
+                    value={state.smartphone_access}
+                    onValueChange={newValue =>
+                      setState({ ...state, smartphone_access: newValue })
+                    }
+                  />
+                </View>
+              </View>
+            )} */}
+          <View style={styles.buttons}>
+            <NavigateButton
+              label='Submit'
+              onButtonPress={async () => {
+                if (
+                  state.org_name === undefined ||
+                  state.org_link_url === undefined ||
+                  state.phone_number === undefined ||
+                  state.location === undefined ||
+                  state.country === undefined ||
+                  //   state.point_of_contact_name === undefined ||
+                  //   state.point_of_contact_position === undefined ||
+                  state.email === undefined
+                ) {
+                  Alert.alert('Oops', 'Please fill in all sections of form', [
+                    { text: 'Got it' }
+                  ]);
+                } else {
+                  updateAirtable();
+                  const sub = await SecureStore.getItemAsync('sub', {});
+                  if (props.mediaUpload) {
+                    setState({ ...state, profile_image: props.mediaUpload });
+                  }
+                  const stringBE = JSON.stringify({
+                    org_name: state.org_name,
+                    org_link_url: state.org_link_url,
+                    twitter: state.twitter,
+                    facebook: state.facebook,
+                    instagram: state.instagram,
+                    location: state.location,
+                    country: state.country,
+                    phone_number: state.phone_number,
+                    point_of_contact_name: state.point_of_contact_name,
+                    email: state.email,
+                    about_us: state.about_us,
+                    species_and_habitats: state.species_and_habitats,
+                    org_cta: state.org_cta,
+                    mini_bio: state.mini_bio,
+                    about_us: state.about_us,
+                    roles: 'conservationist',
+                    sub: sub,
+                    profile_image: state.profile_image
+                  });
+
+                  // Stores data object in SecureStore to be sent to backend once user is vetted
+                  SecureStore.setItemAsync('stateBE', stringBE);
+
+                  // Sets variables to be checked in 'LoadingScreen' to determine whether current user is in vetting process.
+                  SecureStore.setItemAsync('vetting', 'true');
+
+                  // Passes updated state down for backend.
+                  props.navigation.navigate('VerifyDocumentation', {
+                    airtableStateAdd: state,
+                    airtableKey: key
+                  });
                 }
-                const stringBE = JSON.stringify({
-                  name: state.name,
-                  name: state.name,
-                  org_link_url: state.org_link_url,
-                  twitter: state.twitter,
-                  facebook: state.facebook,
-                  instagram: state.instagram,
-                  location: state.location,
-                  country: state.country,
-                  phone_number: state.phone_number,
-                  point_of_contact_name: state.point_of_contact_name,
-                  email: state.email,
-                  about_us: state.about_us,
-                  species_and_habitats: state.species_and_habitats,
-                  org_cta: state.org_cta,
-                  mini_bio: state.mini_bio,
-                  about_us: state.about_us,
-                  roles: 'conservationist',
-                  sub: sub,
-                  profile_image: state.profile_image
-                });
-
-                // Stores data object in SecureStore to be sent to backend once user is vetted
-                SecureStore.setItemAsync('stateBE', stringBE);
-
-                // Sets variables to be checked in 'LoadingScreen' to determine whether current user is in vetting process.
-                SecureStore.setItemAsync('vetting', 'true');
-
-                // Passes updated state down for backend.
-                props.navigation.navigate('VerifyDocumentation', {
-                  airtableStateAdd: state,
-                  airtableKey: key
-                });
-              }
-            }}
-          />
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+              }}
+            />
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </View>
   );
 };
 

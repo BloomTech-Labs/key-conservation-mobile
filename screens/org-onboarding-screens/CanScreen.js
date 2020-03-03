@@ -1,64 +1,68 @@
 import React from 'react';
-import { View, ScrollView, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text } from 'react-native';
+
 import styles from '../../constants/screens/org-onboarding-styles/CanScreen.js';
+
 import CheckMark from '../../assets/jsicons/miscIcons/CheckMark';
 
-const CanScreen = (props) => {
-	return (
-		<View style={styles.obBody}>
-			<ScrollView>
-				<View>
-					<Text style={styles.obTitle}>
-						What we <Text style={styles.highlight}> can </Text> do to help your organization...
-					</Text>
-				</View>
-				<View>
-					<View style={styles.contentWrapper}>
-						<View style={styles.iconWrapper}>
-							<CheckMark style={styles.svg} />
-						</View>
-						<View style={styles.textBox}>
-							<Text style={styles.obText}>
-								Help you tackle projects that need specialized skills by connecting your organization with professionals
-								who want to make a difference.
-							</Text>
-						</View>
-					</View>
-					<View style={styles.contentWrapper}>
-						<View style={styles.iconWrapper}>
-							<CheckMark style={styles.svg} />
-						</View>
-						<View style={styles.textBox}>
-							<Text style={styles.obText}>
-								Gain global funding support for unplanned expenses and for your short and long term goals to help you
-								achieve your overall mission.
-							</Text>
-						</View>
-					</View>
-					<View style={styles.contentWrapper}>
-						<View style={styles.iconWrapper}>
-							<CheckMark style={styles.svg} />
-						</View>
-						<View style={styles.textBox}>
-							<Text style={styles.obText}>
-								Provide a way to connect with your local community and visitors about real-time events and ways to get
-								involved.
-							</Text>
-						</View>
-					</View>
-				</View>
-				<View>
-					<TouchableOpacity
-						style={styles.obFwdContainer}
-						onPress={() => {
-							props.navigation.navigate('Cant');
-						}}>
-						<Text style={styles.obFwdBtnText}>Next</Text>
-					</TouchableOpacity>
-				</View>
-			</ScrollView>
-		</View>
-	);
+import NavigateButton from './formElement/NavigateButton';
+import NavigateBack from './formElement/NavigateBack.js';
+
+const CanScreen = props => {
+  return (
+    <React.Fragment>
+      <View style={styles.arrowView}>
+        <NavigateBack
+          onButtonPress={() => {
+            props.navigation.navigate('KeyConservation');
+          }}
+          color='#000'
+        />
+      </View>
+      <View style={styles.obBody}>
+        <Text style={styles.obTitle}>
+          What we <Text style={styles.highlight}> can </Text> do to help your
+          organization...
+        </Text>
+        <View style={styles.contentWrapper}>
+          <View style={styles.iconWrapper}>
+            <CheckMark height='27' width='27' />
+          </View>
+
+          <Text style={styles.obText}>
+            Help you tackle projects that need specialized skills by connecting
+            your organization with professionals who want to make a difference.
+          </Text>
+        </View>
+        <View style={styles.contentWrapper}>
+          <View style={styles.iconWrapper}>
+            <CheckMark height='27' width='27' />
+          </View>
+          <Text style={styles.obText}>
+            Gain global funding support for unplanned expenses and for your
+            short and long term goals to help you achieve your overall mission.
+          </Text>
+        </View>
+        <View style={styles.contentWrapper}>
+          <View style={styles.iconWrapper}>
+            <CheckMark height='27' width='27' />
+          </View>
+          <Text style={[styles.obText, styles.obTextBottom]}>
+            Provide a way to connect with your local community and visitors
+            about real-time events and ways to get involved.
+          </Text>
+        </View>
+      </View>
+      <View style={styles.buttons}>
+        <NavigateButton
+          onButtonPress={() => {
+            props.navigation.navigate('Cant');
+          }}
+          label='Next'
+        />
+      </View>
+    </React.Fragment>
+  );
 };
 
 export default CanScreen;

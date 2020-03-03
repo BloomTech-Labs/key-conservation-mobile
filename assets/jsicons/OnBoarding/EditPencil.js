@@ -1,8 +1,8 @@
 import React from 'react';
 import { SvgXml } from 'react-native-svg';
 
-export default function EditPencil() {
-	const edit = `
+export default function EditPencil(props) {
+  const edit = `
     <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect width="21" height="21" fill="#ffff"/>
     <path d="M12.5 4L0 16.5V20.5H4.5L16.5 8L12.5 4Z" fill="#9A99A1"/>
@@ -11,7 +11,9 @@ export default function EditPencil() {
     </svg>
    `;
 
-	const EditPencil = () => <SvgXml xml={edit} width='21' height='21' />;
+  const EditPencil = () => (
+    <SvgXml xml={edit} width='21' height='21' {...props} />
+  );
 
-	return <EditPencil />;
+  return <EditPencil />;
 }

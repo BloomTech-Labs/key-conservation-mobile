@@ -1,77 +1,69 @@
 import React from 'react';
-import {
-  View,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  Button,
-  StyleSheet
-} from 'react-native';
+import { View, Text } from 'react-native';
+
 import styles from '../../constants/screens/org-onboarding-styles/CantScreen.js';
+
 import Circle from '../../assets/jsicons/OnBoarding/FilledCircle';
-import FilledCircle from '../../assets/jsicons/OnBoarding/FilledCircle';
+
+import NavigateButton from './formElement/NavigateButton';
+import NavigateBack from './formElement/NavigateBack.js';
 
 const CantScreen = props => {
   return (
-    <View style={styles.obBody}>
-      <ScrollView>
-        <View>
-          <Text style={styles.obTitle}>
-            What we <Text style={styles.highlight}> cannot </Text> do...
+    <React.Fragment>
+      <View style={styles.arrowView}>
+        <NavigateBack
+          onButtonPress={() => {
+            props.navigation.navigate('Can');
+          }}
+          color='#000'
+        />
+      </View>
+      <View style={styles.obBody}>
+        <Text style={styles.obTitle}>
+          What we <Text style={styles.highlight}> cannot </Text> do...
+        </Text>
+
+        <View style={styles.contentWrapper}>
+          <View style={styles.iconWrapper}>
+            <Circle height='27' width='27' />
+          </View>
+          {/* <View style={styles.textBox}> */}
+          <Text style={styles.obText}>
+            Guarantee that all of your requests will get support and funding.
           </Text>
+          {/* </View> */}
         </View>
-        <View>
-          <View style={styles.contentWrapper}>
-            <View style={styles.iconWrapper}>
-              <FilledCircle />
-              {/* <AntDesign 
-					name="closecircle" 
-					size={24}
-					color="#f66767"
-					/> */}
-            </View>
-            <View>
-              <View style={{ width: '90%' }}>
-                <Text style={styles.obText}>
-                  Guarantee that all of your requests will get support and
-                  funding.
-                </Text>
-              </View>
-            </View>
+        <View style={styles.contentWrapper}>
+          <View style={styles.iconWrapper}>
+            <Circle height='27' width='27' />
           </View>
-          <View style={styles.contentWrapper}>
-            <View style={styles.iconWrapper}>
-              <Circle />
-            </View>
-            <View style={{ width: '90%' }}>
-              <Text style={styles.obText}>
-                Provide your organization with internet access.
-              </Text>
-            </View>
-          </View>
-          <View style={styles.contentWrapper}>
-            <View style={styles.iconWrapper}>
-              <Circle />
-            </View>
-            <View style={{ width: '90%' }}>
-              <Text style={styles.obTextBottom}>
-                Oversee work completed by skilled professionals.
-              </Text>
-            </View>
-          </View>
+          {/* <View style={styles.textBox}> */}
+          <Text style={styles.obText}>
+            Provide your organization with internet access.
+          </Text>
+          {/* </View> */}
         </View>
-        <View>
-          <TouchableOpacity
-            style={styles.obFwdContainer}
-            onPress={() => {
-              props.navigation.navigate('MakeAccount');
-            }}
-          >
-            <Text style={styles.obFwdBtnText}>Next</Text>
-          </TouchableOpacity>
+        <View style={styles.contentWrapper}>
+          <View style={styles.iconWrapper}>
+            <Circle height='27' width='27' />
+          </View>
+          {/* <View style={styles.textBox}> */}
+          <Text style={[styles.obText, styles.obTextBottom]}>
+            Oversee work completed by skilled professionals.
+          </Text>
+          {/* </View> */}
         </View>
-      </ScrollView>
-    </View>
+      </View>
+      <View style={styles.buttons}>
+        <NavigateButton
+          onButtonPress={() => {
+            props.navigation.navigate('MakeAccount');
+          }}
+          label='Next'
+        />
+      </View>
+    </React.Fragment>
   );
 };
 

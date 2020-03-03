@@ -5,13 +5,18 @@ import {
   Alert,
   Text,
   TextInput,
-  TouchableOpacity,
+  Image,
   View
 } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/TellAboutOrg.js';
 import { connect } from 'react-redux';
 import UploadMedia from '../../components/UploadMedia';
 import * as SecureStore from 'expo-secure-store';
+
+import NavigateButton from './formElement/NavigateButton';
+import NavigateBack from './formElement/NavigateBack.js';
+import CheckMark from '../../assets/jsicons/miscIcons/CheckMark';
+import ProgressBar from './formElement/ProgressBar';
 
 const TellAboutOrganizationScreen = props => {
   const [airtableKey, setAirtableKey] = useState({
@@ -41,6 +46,13 @@ const TellAboutOrganizationScreen = props => {
   useEffect(() => {
     getEmail();
   }, []);
+
+  //   useEffect(() => {
+  //     console.log('***************************************');
+  //     console.log('TellAbout props', props.mediaUpload);
+  //     console.log('TellAbout state', state);
+  //     console.log('TellAbout airTableKey', airtableKey);
+  //   }, [props, state, airtableKey]);
 
   useEffect(() => {
     if (props.mediaUpload) {
@@ -88,109 +100,187 @@ const TellAboutOrganizationScreen = props => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.obBody}
-      behavior='height'
-      keyboardVerticalOffset={86}
-      enabled
-    >
-      <ScrollView>
-        <View style={styles.obBody}>
-          <Text style={styles.obTitle}>Tell us about your organization.</Text>
-
-          <Text style={styles.obText}>
-            Fill in where your main headquarters are located. You'll have a
-            chance to give more details about where you work in the field on the
-            next screen.
-          </Text>
-          <Text style={styles.obSubtitle}>Basic Information</Text>
-
-          <TextInput
-            placeholder='Organization Name'
-            style={styles.obTextInput}
-            onChangeText={text => setState({ ...state, name: text })}
-            value={state.name}
-          />
-
-          <View style={styles.sections}>
-            <UploadMedia circular title='Upload your logo' />
-          </View>
-
-          <TextInput
-            placeholder='Main Address'
-            style={styles.obTextInput}
-            onChangeText={text => setState({ ...state, location: text })}
-            value={state.location}
-          />
-
-          <TextInput
-            placeholder='Country'
-            style={styles.obTextInput}
-            onChangeText={text => setState({ ...state, country: text })}
-            value={state.country}
-          />
-
-          <TextInput
-            placeholder='Point Of Contact Name'
-            style={styles.obTextInput}
-            onChangeText={text =>
-              setState({ ...state, point_of_contact_name: text })
-            }
-            value={state.point_of_contact_name}
-          />
-
-          <TextInput
-            placeholder='Point Of Contact Position'
-            style={styles.obTextInput}
-            onChangeText={text =>
-              setState({
-                ...state,
-                point_of_contact_position: text
-              })
-            }
-            value={state.point_of_contact_position}
-          />
-
-          <TextInput
-            placeholder='Org Phone'
-            style={styles.obTextInput}
-            onChangeText={text => setState({ ...state, phone_number: text })}
-            value={state.phone_number}
-          />
-
-          <TextInput
-            placeholder='Website Url'
-            style={styles.obTextInputBottom}
-            onChangeText={text => setState({ ...state, org_link_url: text })}
-            value={state.org_link_url}
-          />
-
-          <TouchableOpacity
-            style={styles.obFwdContainer}
-            onPress={() => {
-              sendAirtable();
-              if (
-                state.name === undefined ||
-                state.org_link_url === undefined ||
-                state.phone_number === undefined ||
-                state.location === undefined ||
-                state.country === undefined ||
-                state.point_of_contact_name === undefined ||
-                state.point_of_contact_position === undefined
-              ) {
-                Alert.alert('Oops', 'Please fill in all sections of form', [
-                  { text: 'Got it' }
-                ]);
-              } else {
-                sendAirtable(); // This sends the airtable form and navigates. Also sends variables through navigation props.
-              }
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <View style={styles.arrowView}>
+          <NavigateBack
+            onButtonPress={() => {
+              props.navigation.navigate('MakeAccount');
             }}
-          >
-            <Text style={styles.obFwdBtnText}>Next</Text>
-          </TouchableOpacity>
+            color='#000'
+          />
         </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        <View style={styles.progressBar}>
+          <ProgressBar
+            progress={30}
+            height={9}
+            backgroundColor='#D7FF44'
+            animated={false}
+          />
+          <Text style={styles.progressBarText}>15% Complete</Text>
+        </View>
+      </View>
+      <KeyboardAvoidingView
+        style={styles.keyboardView}
+        behavior='padding'
+        // keyboardVerticalOffset={6}
+        enabled
+      >
+        <ScrollView>
+          <Image
+            source={require('../../assets/images/onboarding/tellus.png')}
+            style={styles.tellUsImage}
+          />
+          <View style={styles.obBody}>
+            <Text style={styles.obText}>
+              Fill in where your main headquarters are located. You'll have a
+              chance to give more details about where you work in the field on
+              the next screen.
+            </Text>
+            <Text style={styles.obSubtitle}>Basic Information</Text>
+
+            <View style={styles.aroundInput}>
+              <Text style={styles.placeholderText}>Name</Text>
+              <TextInput
+                style={styles.obTextInput}
+                onChangeText={text => setState({ ...state, org_name: text })}
+                value={state.org_name}
+              />
+              {state.org_name ? (
+                <View style={styles.aroundIcon}>
+                  <CheckMark />
+                </View>
+              ) : null}
+            </View>
+
+            <View style={styles.aroundInput}>
+              <Text style={styles.placeholderText}>Address</Text>
+              <TextInput
+                style={styles.obTextInput}
+                onChangeText={text => setState({ ...state, location: text })}
+                value={state.location}
+              />
+              {state.location ? (
+                <View style={styles.aroundIcon}>
+                  <CheckMark />
+                </View>
+              ) : null}
+            </View>
+            <View style={styles.aroundInput}>
+              <Text style={styles.placeholderText}>Country</Text>
+              <TextInput
+                style={styles.obTextInput}
+                onChangeText={text => setState({ ...state, country: text })}
+                value={state.country}
+              />
+              {state.country ? (
+                <View style={styles.aroundIcon}>
+                  <CheckMark />
+                </View>
+              ) : null}
+            </View>
+            <View style={styles.aroundInput}>
+              <Text style={styles.placeholderText}>Contact</Text>
+              <TextInput
+                style={styles.obTextInput}
+                onChangeText={text =>
+                  setState({
+                    ...state,
+                    point_of_contact_name: text
+                  })
+                }
+                value={state.point_of_contact_name}
+              />
+              {state.point_of_contact_name ? (
+                <View style={styles.aroundIcon}>
+                  <CheckMark />
+                </View>
+              ) : null}
+            </View>
+            <View style={styles.aroundInput}>
+              <Text style={styles.placeholderText}>Position</Text>
+              <TextInput
+                style={styles.obTextInput}
+                onChangeText={text =>
+                  setState({
+                    ...state,
+                    point_of_contact_position: text
+                  })
+                }
+                value={state.point_of_contact_position}
+              />
+              {state.point_of_contact_position ? (
+                <View style={styles.aroundIcon}>
+                  <CheckMark />
+                </View>
+              ) : null}
+            </View>
+            <View style={styles.aroundInput}>
+              <Text style={styles.placeholderText}>Phone</Text>
+              <TextInput
+                style={styles.obTextInput}
+                onChangeText={text =>
+                  setState({ ...state, phone_number: text })
+                }
+                value={state.phone_number}
+              />
+              {state.phone_number ? (
+                <View style={styles.aroundIcon}>
+                  <CheckMark />
+                </View>
+              ) : null}
+            </View>
+            <View style={styles.aroundInput}>
+              <Text style={styles.placeholderText}>Website</Text>
+              <TextInput
+                style={[styles.obTextInputBottom, styles.obTextInput]}
+                onChangeText={text =>
+                  setState({ ...state, org_link_url: text })
+                }
+                value={state.org_link_url}
+              />
+              {state.org_link_url ? (
+                <View style={styles.aroundIcon}>
+                  <CheckMark />
+                </View>
+              ) : null}
+            </View>
+
+            <View style={styles.uploadButton}>
+              <UploadMedia circular title='Upload your logo' />
+            </View>
+
+            <View style={styles.buttons}>
+              {state.org_name === undefined ||
+              state.org_link_url === undefined ||
+              state.phone_number === undefined ||
+              state.location === undefined ||
+              state.country === undefined ||
+              state.point_of_contact_name === undefined ||
+              state.point_of_contact_position === undefined ||
+              state.email === undefined ? (
+                <NavigateButton
+                  label='Next'
+                  inactive={true}
+                  onButtonPress={() => {
+                    Alert.alert('Oops', 'Please fill in all sections of form', [
+                      { text: 'Got it' }
+                    ]);
+                  }}
+                />
+              ) : (
+                <NavigateButton
+                  label='Next'
+                  onButtonPress={() => {
+                    sendAirtable();
+                  }}
+                />
+              )}
+            </View>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </View>
   );
 };
 
