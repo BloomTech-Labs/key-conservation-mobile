@@ -1,25 +1,34 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
-import styles from '../constants/screens/NameScreen';
+import styles from '../constants/screens/org-onboarding-styles/WelcomeScreen';
+import { responsiveFontSize } from 'react-native-responsive-dimensions';
 
 const WelcomeScreen = props => {
   return (
     <>
       <ImageBackground
         source={require('../assets/images/splash.png')}
-        // style={styles.container}
-      ></ImageBackground>
-      <View>
-        <Text>You're in! Welcome to Key Conservation.</Text>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('Home')}
-          style={styles.touchableButton}
-        >
-          <View style={styles.touchableView}>
-            <Text style={styles.touchableText}>LET'S GO!</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+        style={styles.background}
+      >
+        <View style={{ alignItems: 'center' }}>
+          <Text style={styles.welcomeText}>Welcome to</Text>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate('Home')}
+            style={styles.touchableButton}
+          >
+            <View style={styles.button}>
+              <Text
+                style={{
+                  ...styles.buttonText,
+                  fontSize: responsiveFontSize(2.3)
+                }}
+              >
+                LET'S GO!
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     </>
   );
 };
