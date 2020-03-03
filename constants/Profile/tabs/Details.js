@@ -35,6 +35,7 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: 18,
+    color: '#3B3B3B',
     alignSelf: 'center',
     paddingLeft: 10,
     fontFamily: 'Lato-Bold'
@@ -43,8 +44,9 @@ export default StyleSheet.create({
     marginTop: 10,
     flexDirection: 'column',
     flexWrap: 'nowrap',
-    fontSize: 15,
-    fontFamily: 'Lato'
+    fontSize: 17,
+    fontFamily: 'Lato',
+    color: '#3B3B3B',
   },
   campMission: {
     backgroundColor: '#fff',

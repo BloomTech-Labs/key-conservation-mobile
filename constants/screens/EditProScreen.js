@@ -46,7 +46,12 @@ export default {
   sections: {
     // marginTop: 20,
     backgroundColor: '#fff',
-    width: '100%'
+    width: '100%',
+  },
+  logoSelectContainer: {
+    width: '100%',
+    alignItems: 'center',
+    marginVertical: 16
   },
   sectionsText: {
     fontFamily: 'Lato-Bold',

@@ -161,16 +161,14 @@ class EditSupProScreen extends React.Component {
 
           <View style={styles.sections}>
             <Text style={styles.sectionsText}>Profile Photo</Text>
-            <Avatar
-              containerStyle={{
-                alignSelf: 'center',
-                marginTop: 24
-              }}
-              source={{ uri: this.state.profile_image || undefined }}
-              rounded
-              size={128}
-            />
-            <UploadMedia circular title='Change' />
+            <View style={styles.imageSelectContainer}>
+              <UploadMedia
+                media={this.state.profile_image}
+                size={128}
+                circular
+                title='Upload photo'
+              />
+            </View>
           </View>
         </View>
         <View style={styles.sectionContainer}>
