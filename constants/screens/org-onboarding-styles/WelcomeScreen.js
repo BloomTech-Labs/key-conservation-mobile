@@ -13,7 +13,7 @@ export default {
     fontFamily: 'Lato-Bold'
   },
 
-  button: {
+  bigButton: {
     width: 350,
     height: 50,
     backgroundColor: '#d8fe54',

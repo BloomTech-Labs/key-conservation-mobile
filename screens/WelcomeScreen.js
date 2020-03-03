@@ -16,7 +16,7 @@ const WelcomeScreen = props => {
             onPress={() => props.navigation.navigate('Home')}
             style={styles.touchableButton}
           >
-            <View style={styles.button}>
+            <View style={styles.bigButton}>
               <Text
                 style={{
                   ...styles.buttonText,
