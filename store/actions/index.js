@@ -54,8 +54,9 @@ const axiosWithAuth = (dispatch, req) => {
 // production
 const PRODUCTION = 'https://key-conservation.herokuapp.com/api/';
 // staging
-const STAGING = 'https://key-conservation-staging.herokuapp.com/api/';
-const seturl = __DEV__ ? STAGING : PRODUCTION;
+// const STAGING = 'https://key-conservation-staging.herokuapp.com/api/';
+// const seturl = STAGING = 'https://key-conservation-staging.herokuapp.com/api/';
+
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.

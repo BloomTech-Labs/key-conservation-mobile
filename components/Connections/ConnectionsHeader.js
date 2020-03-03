@@ -9,6 +9,7 @@ import {
 } from '../../store/actions';
 import styles from '../../constants/Profile/ProfileHeader';
 
+
 const Connect = props => {
   const [connections, setConnections] = useState([]);
 
@@ -23,8 +24,9 @@ const Connect = props => {
   };
 
   useEffect(() => {
+    if (props.profileId)
     getConnections();
-  }, []);
+  }, [props.profileId]);
 
   const connectRequest = () => {
     setConnections([
@@ -99,11 +101,11 @@ const Connect = props => {
         style={styles.connectText}
         onPress={() => {
           props.profileId !== props.currentUserProfile.id
-            ? props.navigation.navigate(
+            ? props.navigation.push(
                 'SelectedConnections',
                 (props = { props })
               )
-            : props.navigation.navigate('Connections', (props = { props }));
+            : props.navigation.push('Connections', (props = { props }));
         }}
       >
         <Text style={styles.textNumber}>{selectedUserConnections.length}</Text>
