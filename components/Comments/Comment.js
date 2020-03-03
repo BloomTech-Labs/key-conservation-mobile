@@ -44,7 +44,7 @@ const Comment = props => {
   }
 
   const goToCommenterProfile = () => {
-    props.navigation.navigate('SupPro', {
+    props.navigation.push('Pro', {
       selectedProfile: props.comment.users_id
     });
   };
