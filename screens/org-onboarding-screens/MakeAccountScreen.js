@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ImageBackground,
-  Image
-} from 'react-native';
+import { View, Text, ImageBackground } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/MakeAccount.js';
+import NavigateButton from './formElement/NavigateButton';
+import NavigateBack from './formElement/NavigateBack.js';
 
 const MakeAccountScreen = props => {
   return (
@@ -15,21 +11,31 @@ const MakeAccountScreen = props => {
       source={require('../../assets/images/onboarding/sg4.png')}
       style={{ width: '100%', height: '100%' }}
     >
+      <View style={styles.arrowView}>
+        <NavigateBack
+          onButtonPress={() => {
+            props.navigation.navigate('Cant');
+          }}
+          color='#FFF'
+        />
+      </View>
       <View style={styles.obBody}>
         <View style={styles.spacer} />
         <View style={styles.obBorderView}>
           <Text style={styles.obTitle}>Let's begin!</Text>
         </View>
-        <View style={styles.buttons}>
-          <TouchableOpacity
-            style={styles.obFwdContainer}
-            onPress={() => {
-              props.navigation.navigate('TellAboutOrganization');
-            }}
-          >
-            <Text style={styles.obFwdBtnText}>Next</Text>
-          </TouchableOpacity>
-        </View>
+      </View>
+      <View style={styles.buttons}>
+        <NavigateButton
+          onButtonPress={() => {
+            props.navigation.navigate('TellAboutOrganization');
+          }}
+          //   onButtonPress={() => {
+          //     props.navigation.navigate('Welcome');
+          //   }}
+          color='white'
+          label='Next'
+        />
       </View>
     </ImageBackground>
   );

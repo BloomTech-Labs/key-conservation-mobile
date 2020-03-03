@@ -159,13 +159,13 @@ function VettingCheck(props) {
 
         <TouchableOpacity onPress={getAirtable} style={styles.greenButton}>
           <View style={styles.buttons}>
-            <Text style={styles.greenText}>CHECK VETTING STATUS</Text>
+            <Text style={styles.greenText}>Check vetting status</Text>
           </View>
         </TouchableOpacity>
         <View style={styles.spacer}></View>
         <TouchableOpacity onPress={logoutPress} style={styles.obFwdContainer}>
           <View style={styles.buttons}>
-            <Text style={styles.obFwdBtnText}>LOGOUT</Text>
+            <Text style={styles.obFwdBtnText}>Log Out</Text>
           </View>
         </TouchableOpacity>
       </View>
