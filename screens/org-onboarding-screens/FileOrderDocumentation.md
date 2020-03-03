@@ -15,8 +15,8 @@ Because there are so many onboarding screens, we have provided you with this lis
 9. AccountScreen
 10. VerifyDocumentationScreen
 11. ReviewYourInfoScreen
+12. ThankYouScreen
 
 **These are completed and hooked up but not currently in use**
 
 11. AlmostDoneScreen
-12. ThankYouScreen
