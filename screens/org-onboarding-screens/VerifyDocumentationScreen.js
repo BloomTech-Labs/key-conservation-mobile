@@ -1,10 +1,12 @@
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/VerifyDocs.js';
 
 import * as WebBrowser from 'expo-web-browser';
 import SmallPlus from '../../assets/jsicons/OnBoarding/SmallPlusSign';
 import NavigateButton from './formElement/NavigateButton.js';
+import NavigateBack from './formElement/NavigateBack.js';
+import ProgressBar from './formElement/ProgressBar';
 import Lock from '../../assets/jsicons/OnBoarding/Lock';
 
 export default VerifyDocumentationScreen = props => {
@@ -43,43 +45,74 @@ export default VerifyDocumentationScreen = props => {
   };
 
   return (
-    <View style={styles.obBody}>
-      <Text style={styles.obTitle}>Verify your organization </Text>
-      <Text style={styles.obText}>
-        To prevent fraud, we need to properly vet organization credentials.
-      </Text>
-
-      <View style={styles.borderContainer}>
-        <TouchableOpacity
-          style={styles.obUploadBtn}
-          onPress={() => _handlePressButtonAsync()}
-        >
-          <SmallPlus />
-        </TouchableOpacity>
-        <Text style={styles.obText}>
-          By clicking the button, you’ll be taken to an Airtable link to upload
-          your official documentation.
-        </Text>
-      </View>
-      <View style={styles.noBorderConatiner}>
-        <View>
-          <Lock />
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <View style={styles.arrowView}>
+          <NavigateBack
+            onButtonPress={() => {
+              props.navigation.navigate('AccountScreen');
+            }}
+            color='#000'
+          />
         </View>
-        <View>
-          <Text style={styles.obSubtitle}>Privacy</Text>
-          <Text style={[styles.obText, { marginTop: 0 }]}>
-            Airtable is a secure platform
+        <View style={styles.progressBar}>
+          <ProgressBar
+            progress={75}
+            height={9}
+            backgroundColor='#D7FF44'
+            animated={false}
+          />
+          <Text style={styles.progressBarText}>75% Complete</Text>
+        </View>
+      </View>
+      <ScrollView>
+        <View style={styles.obBody}>
+          <View style={styles.imageContainer}>
+            <Image
+              source={require('../../assets/images/onboarding/pinkcircle.png')}
+            />
+            <Text style={styles.obTitle}>Verify your {'\n'}organization </Text>
+          </View>
+
+          <Text style={styles.obText}>
+            To prevent fraud in our community, we need to verify all
+            organizations' credentials.
           </Text>
-        </View>
-      </View>
 
-      <View style={styles.spacer} />
-      <NavigateButton
-        label='Next'
-        onButtonPress={() => {
-          navigate();
-        }}
-      />
+          <View style={styles.borderContainer}>
+            <TouchableOpacity
+              style={styles.obUploadBtn}
+              onPress={() => _handlePressButtonAsync()}
+            >
+              <SmallPlus fill='#CBCBCB' />
+            </TouchableOpacity>
+            <Text style={styles.obText}>
+              By clicking the button, you’ll be taken to an external link to
+              upload your current official documentation for your NGO,
+              non-profit or charity.
+            </Text>
+          </View>
+          <View style={styles.noBorderContainer}>
+            <View>
+              <Lock fill='#CBCBCB' />
+            </View>
+            <View>
+              <Text style={styles.obSubtitle}>Privacy</Text>
+              <Text style={[styles.obText, { marginTop: 0 }]}>
+                All documentation is stored off of the KeyApp in a secure
+                location.
+              </Text>
+            </View>
+          </View>
+
+          {/* <NavigateButton
+            label='Next'
+            onButtonPress={() => {
+              navigate();
+            }}
+          /> */}
+        </View>
+      </ScrollView>
     </View>
   );
 };

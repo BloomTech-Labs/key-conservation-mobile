@@ -1,15 +1,37 @@
-import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, Text } from 'react-native';
+import React from 'react';
+import { StyleSheet, TouchableOpacity, Text, Dimensions } from 'react-native';
+import { responsiveFontSize } from 'react-native-responsive-dimensions';
 
+//NavigationButton props:
+// onButtonPress -> button function
+// label -> text on button
+// color to indicate black or white outline/text
+// inactive bool
 const NavigateButton = props => {
   return (
     <TouchableOpacity
-      style={styles.obFwdContainer}
+      style={
+        props.inactive === true
+          ? [styles.obFwdContainer, styles.inactive]
+          : !props.color || props.color === 'black'
+          ? [styles.obFwdContainer]
+          : [styles.obFwdContainer, styles.white]
+      }
       onPress={() => {
         props.onButtonPress();
       }}
     >
-      <Text style={styles.obFwdBtnText}>{props.label}</Text>
+      <Text
+        style={
+          props.inactive === true
+            ? [styles.obFwdBtnText, styles.inactive]
+            : !props.color || props.color === 'black'
+            ? styles.obFwdBtnText
+            : [styles.obFwdBtnText, styles.white]
+        }
+      >
+        {props.label}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -22,18 +44,25 @@ const styles = StyleSheet.create({
     height: 40,
     borderWidth: 2,
     borderColor: '#000',
-    borderRadius: 20,
-    alignSelf: 'flex-end',
-    flexDirection: 'column',
-    justifyContent: 'center',
+    borderRadius: 5,
     alignItems: 'center',
-    marginRight: '5%'
+    marginBottom: '10%',
+    marginRight: '10%',
+    marginTop: '3%'
   },
   obFwdBtnText: {
     fontFamily: 'Lato-Bold',
     fontStyle: 'normal',
-    fontSize: 18,
-    lineHeight: 25,
-    color: '#000000'
+    fontSize: responsiveFontSize(2.3),
+    color: '#000000',
+    margin: '5%'
+  },
+  white: {
+    borderColor: '#fff',
+    color: '#fff'
+  },
+  inactive: {
+    borderColor: '#E0E0E0',
+    color: '#E0E0E0'
   }
 });
