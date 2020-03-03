@@ -54,7 +54,7 @@ const axiosWithAuth = (dispatch, req) => {
 // production
 const PRODUCTION = 'https://key-conservation.herokuapp.com/api/';
 // staging
-// const STAGING = 'https://key-conservation-staging.herokuapp.com/api/';
+const STAGING = 'https://key-conservation-staging.herokuapp.com/api/';
 const seturl = __DEV__ ? STAGING : PRODUCTION;
 
 const filterUrls = (keys, object) => {

@@ -47,8 +47,11 @@ class ProfileScreen extends React.Component {
 
   initProfileData = async () => {
     try {
+      const id = this.props.navigation.getParam('selectedProfile')
+      console.log('rendered profile id:', id);
+
       const user = await this.props.getProfileData(
-        this.profileId,
+        id,
         null,
         !this.props.navigation.getParam('selectedProfile')
       );
@@ -68,6 +71,10 @@ class ProfileScreen extends React.Component {
 
   componentDidMount = () => {
     this.initProfileData();
+
+    this.profileId =
+      this.props.navigation.getParam('selectedProfile') ||
+      this.props.currentUserProfile.id;
 
     this._sub = this.props.navigation.addListener(
       'didFocus',
