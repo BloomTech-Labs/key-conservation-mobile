@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Alert } from 'react-native';
-import { getConnections } from '../../store/actions';
+import { View, Text, Alert, TouchableOpacity } from 'react-native';
+import { getConnections, getProfileData } from '../../store/actions';
 import { Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
 import styles from '../../constants/Connections/Cards';
+import { withNavigation } from 'react-navigation';
 
 const OrganizationsCard = props => {
   const [connections, setConnections] = useState([]);
@@ -17,6 +18,10 @@ const OrganizationsCard = props => {
       Alert.alert('Failed to get your connections');
     }
   };
+
+  useEffect(() => {
+    getProfileData();
+  }, [])
 
   useEffect(() => {
     getConnections();
@@ -66,6 +71,17 @@ const OrganizationsCard = props => {
                     />
                   </View>
                   <View>
+                  <TouchableOpacity
+                    onPress={() => {
+                        props.selectedProfile.id === connection.connector_id
+                        ? props.navigation.push('Pro', {
+                            selectedProfile: connection.connected_id
+                          })
+                        : props.navigation.push('Pro', {
+                            selectedProfile: connection.connector_id
+                          })
+                    }}
+                  >
                     <Text key={connection.connection_id} style={styles.name}>
                       {connection.connected_name === null
                         ? '---'
@@ -73,6 +89,7 @@ const OrganizationsCard = props => {
                         ? connection.connected_name
                         : connection.connector_name}
                     </Text>
+                    </TouchableOpacity>
                   </View>
                 </View>
               </View>
@@ -88,4 +105,4 @@ const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
   selectedProfile: state.selectedProfile
 });
-export default connect(mapStateToProps, { getConnections })(OrganizationsCard);
+export default connect(mapStateToProps, { getConnections, getProfileData })(withNavigation(OrganizationsCard));
