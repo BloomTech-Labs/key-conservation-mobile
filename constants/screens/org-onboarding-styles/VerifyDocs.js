@@ -1,4 +1,56 @@
-export default {
+import { StyleSheet, Dimensions } from 'react-native';
+import { responsiveFontSize } from 'react-native-responsive-dimensions';
+import * as Font from 'expo-font';
+Font.loadAsync({
+  //   'lato-regular-italic': require('../../../assets/fonts/Lato/Lato-RegularItalic.ttf'),
+  'lato-bold-italic': require('../../../assets/fonts/Lato/Lato-BoldItalic.ttf')
+});
+
+export default StyleSheet.create({
+  container: {
+    borderWidth: 2,
+    flex: 1,
+    backgroundColor: 'white',
+    justifyContent: 'center'
+  },
+  header: {
+    flex: 0,
+    padding: '2.5%',
+    top: '2.5%',
+    flexDirection: 'row'
+  },
+  arrowView: {
+    padding: '2.5%',
+    top: '2.5%',
+    alignSelf: 'flex-start',
+    left: '1.5%'
+  },
+  progressBar: {
+    width: '75%',
+    alignSelf: 'center',
+    padding: '7%',
+    top: '5%',
+    right: '20%'
+  },
+  progressBarText: {
+    textAlign: 'center',
+    fontFamily: 'Lato',
+    fontSize: responsiveFontSize(1.8),
+    paddingTop: 4
+  },
+  keyboardView: {
+    marginVertical: '3%',
+    flex: 1,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  obBody: {
+    flex: 1,
+    backgroundColor: 'white',
+    padding: '4%'
+  },
   borderContainer: {
     display: 'flex',
     backgroundColor: 'white',
@@ -64,6 +116,7 @@ export default {
     marginBottom: '2%',
     marginRight: '7%'
   },
+
   obTextBottom: {
     color: '#000000',
     fontFamily: 'Lato',
@@ -118,7 +171,7 @@ export default {
   },
   obFieldName: {
     fontFamily: 'Lato',
-    fontWeight: 300,
+    // fontWeight: 300,
     fontSize: 14,
     lineHeight: 19,
     color: '#000000',
@@ -136,8 +189,8 @@ export default {
     marginLeft: 20,
     marginBottom: 20,
     backgroundColor: 'rgba(196, 196, 196, 0.5)',
-    borderRadius: 8,
-    keyboardType: 'phone-pad'
+    borderRadius: 8
+    // keyboardType: 'phone-pad'
   },
   obUploadBtn: {
     backgroundColor: '#D7FF43',
@@ -160,5 +213,35 @@ export default {
   svg: {
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+    justifyContent: 'center'
+  },
+  header: {
+    flex: 0,
+    padding: '2.5%',
+    top: '2.5%',
+    flexDirection: 'row'
+  },
+  arrowView: {
+    padding: '2.5%',
+    top: '2.5%',
+    alignSelf: 'flex-start',
+    left: '1.5%'
+  },
+  progressBar: {
+    width: '75%',
+    alignSelf: 'center',
+    padding: '7%',
+    top: '5%',
+    right: '20%'
+  },
+  progressBarText: {
+    textAlign: 'center',
+    fontFamily: 'Lato',
+    fontSize: responsiveFontSize(1.8),
+    paddingTop: 4
   }
-};
+});

@@ -104,8 +104,8 @@ export default StyleSheet.create({
     paddingLeft: '3%'
   },
   questionMark: {
-    justifyContent: 'flex-end'
-    // marginLeft: 10,
+    alignItems: 'flex-start',
+    left: '155%'
     // marginTop: 3
   },
   // ******* Switch Styles below  ********

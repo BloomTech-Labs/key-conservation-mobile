@@ -1,32 +1,24 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-
-import X from '../../assets/jsicons/miscIcons/X';
+import { View, Text, StyleSheet } from 'react-native';
 
 const ItemCard = props => {
   const { item } = props;
+  const listItems = item.split(',');
 
-  return (
-    <View style={styles.aroundName}>
-      <Text style={styles.text}>{item}</Text>
-      {props.isEditingOrganization === true ? (
-        <TouchableOpacity
-          style={styles.aroundX}
-          onPress={() => {
-            removeSelected(item);
-          }}
-        >
-          <X />
-        </TouchableOpacity>
-      ) : null}
-    </View>
-  );
+  return listItems.map((item, index) => {
+    return (
+      <View style={styles.aroundName} key={index}>
+        <Text style={styles.text}>{item}</Text>
+      </View>
+    );
+  });
 };
 
 const styles = StyleSheet.create({
   aroundName: {
     backgroundColor: '#3FFFB3',
-    margin: 15,
+    margin: 8,
+    marginLeft: '5%',
     borderRadius: 5,
     alignSelf: 'flex-start',
     height: 40
@@ -35,11 +27,6 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontFamily: 'Lato',
     padding: 10
-  },
-  aroundX: {
-    alignSelf: 'flex-end',
-    left: 10,
-    bottom: '120%'
   }
 });
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 
-import BackArrowHeader from '../../../assets/jsicons/miscIcons/BackArrowHeader';
+import BackArrow from '../../../assets/jsicons/miscIcons/BackArrow';
 
 //NavigateBack props:
 // onButtonPress -> button function
@@ -13,7 +13,7 @@ const NavigateBack = props => {
         props.onButtonPress();
       }}
     >
-      <BackArrowHeader fill={props.color} width='40' height='40' />
+      <BackArrow fill={props.color} width='40' height='40' />
     </TouchableOpacity>
   );
 };

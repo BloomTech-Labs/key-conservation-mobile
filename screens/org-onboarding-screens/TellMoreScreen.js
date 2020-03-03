@@ -1,27 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Picker,
   Switch,
   Text,
   TextInput,
   View,
-  TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
   Alert,
-  TouchableHighlight,
-  StyleSheet
+  TouchableHighlight
 } from 'react-native';
-import styles from '../../constants/screens/org-onboarding-styles/TellMore';
-import ConservationOptimismModal from '../../components/ConservationOptimismModal';
 import * as SecureStore from 'expo-secure-store';
+import CountryPicker from 'react-native-country-picker-modal';
+
+import styles from '../../constants/screens/org-onboarding-styles/TellMore';
+
+import ConservationOptimismModal from '../../components/ConservationOptimismModal';
 import ProgressBar from './formElement/ProgressBar';
 
 import QuestionCircle from '../../assets/jsicons/OnBoarding/QuestionCircle';
 import NavigateButton from './formElement/NavigateButton';
 import NavigateBack from './formElement/NavigateBack.js';
 import ChevronLeftBlack from '../../assets/jsicons/miscIcons/ChevronLeftBlack.js';
-import CountryPicker from 'react-native-country-picker-modal';
 import OrgOnboardCountries from '../../components/OrgOnboardCountries';
 
 const TellMoreScreen = props => {
@@ -31,7 +30,7 @@ const TellMoreScreen = props => {
     affiliations_partnerships: '',
     conservation_optimism: null,
     smartphone_access: null,
-    smartphone_type: ''
+    smartphone_type: 'None'
   });
 
   const [selectedCountries, setSelectedCountries] = useState([]);
@@ -49,109 +48,36 @@ const TellMoreScreen = props => {
   const [androidPhone, setAndroidPhone] = useState(false);
   const [otherPhone, setOtherPhone] = useState(false);
 
-  const toggled = type => {
-    switch (type) {
-      case 'apple': {
-        setApplePhone(!applePhone);
-        console.log(
-          'apple',
-          applePhone,
-          'android',
-          androidPhone,
-          'other',
-          otherPhone
-        );
-        break;
+  useEffect(() => {
+    let smartphoneType = '';
+    const types = ['Apple', 'Android', 'Other'];
+    const bools = [applePhone, androidPhone, otherPhone];
+    types.forEach((type, index) => {
+      if (bools[index]) {
+        if (smartphoneType.length) {
+          smartphoneType = `${smartphoneType}, ${type}`;
+        } else smartphoneType = type;
       }
-      case 'android': {
-        setAndroidPhone(!androidPhone);
-        console.log(
-          'apple',
-          applePhone,
-          'android',
-          androidPhone,
-          'other',
-          otherPhone
-        );
-        break;
-      }
-      case 'other': {
-        setOtherPhone(!otherPhone);
-        console.log(
-          'apple',
-          applePhone,
-          'android',
-          androidPhone,
-          'other',
-          otherPhone
-        );
-        break;
-      }
-      default: {
-        return null;
-      }
-    }
-  };
-
-  const whichPhones = (apple, android, other) => {
-    switch ((apple, android, other)) {
-      case (true, true, true): {
-        onChangeText({
-          ...airtableState,
-          smartphone_type: 'All'
-        });
-        break;
-      }
-      case (true, true, false): {
-        onChangeText({
-          ...airtableState,
-          smartphone_type: 'Apple, Android'
-        });
-        break;
-      }
-      case (false, true, false): {
-        onChangeText({
-          ...airtableState,
-          smartphone_type: 'Android'
-        });
-        break;
-      }
-      case (true, false, false): {
-        onChangeText({
-          ...airtableState,
-          smartphone_type: 'Apple'
-        });
-        break;
-      }
-      case (false, true, true): {
-        onChangeText({
-          ...airtableState,
-          smartphone_type: 'Android, Other'
-        });
-        break;
-      }
-      default: {
-        return null;
-      }
-    }
-  };
+    });
+    onChangeText({
+      ...airtableState,
+      smartphone_type: smartphoneType
+    });
+  }, [applePhone, androidPhone, otherPhone, airtableState.smartphone_type]);
 
   useEffect(() => {
-    whichPhones(applePhone, androidPhone, otherPhone);
-  }, [applePhone, androidPhone, otherPhone]);
-
-  useEffect(() => {
-    onChangeText({ other_countries: selectedCountries.toString() });
+    onChangeText({
+      ...airtableState,
+      other_countries: selectedCountries.toString()
+    });
   }, [selectedCountries]);
 
   const setAirtableID = async () => {
     await SecureStore.setItemAsync('airtableID', airtableID);
-    // console.log(await SecureStore.getItemAsync('airtableID', {}));
   }; // This saves the current airtable form's ID in SecureStore.
 
   useEffect(() => {
     setAirtableID();
-    // console.log('airtableState2', airtableState2);
   });
 
   const airtableStateAdd = Object.assign({
@@ -214,15 +140,15 @@ const TellMoreScreen = props => {
       </View>
       <KeyboardAvoidingView
         style={styles.keyboardView}
-        behavior='height'
-        keyboardVerticalOffset={86}
+        behavior='padding'
+        // keyboardVerticalOffset={86}
         enabled
       >
         <ScrollView>
           <View style={styles.obBody}>
             <Text style={styles.obTitle}>Organization Details</Text>
-            <Text style={styles.obText}>
-              In which countries does you organization work?{' '}
+            <Text style={[styles.obText, styles.bold]}>
+              In which countries does your organization work?{' '}
               <Text style={[styles.obText, styles.italic]}>
                 Select All that apply.
               </Text>
@@ -247,10 +173,6 @@ const TellMoreScreen = props => {
                           value.name
                         ]);
                       }
-                      // onChangeText({
-                      //   ...airtableState,
-                      //   other_countries: selectedCountries.toString()
-                      // });
                     }}
                     cca2='US'
                     translation='eng'
@@ -274,11 +196,16 @@ const TellMoreScreen = props => {
             </View>
 
             <Text style={styles.obText}>
-              (Optional) If you have multiple projects under your organization,
-              enter the name of each one to add them to your profile. If they
-              are signed up to the Key App they will auto-populate so you can
-              add them. If they have not signed up, you can add them later. You
-              can separate lists of items with a comma.
+              <Text style={[styles.obText, styles.bold]}>
+                Projects within your organization (Optional):{' '}
+              </Text>
+              If you have multiple projects going on within your organization
+              that are based in different parts of the world it may be best to
+              have each project create their own organization profile. This way
+              the team on the ground can better share the work they are doing in
+              the field. If they are officially signed up to the Key App they
+              will auto-populate so you can add them. If they have not signed up
+              you can add them to your profile at a later date.
             </Text>
 
             <View style={styles.aroundInput}>
@@ -292,7 +219,11 @@ const TellMoreScreen = props => {
               />
             </View>
             <Text style={styles.obText}>
-              Please list your current partnerships and affiliations:
+              <Text style={[styles.obText, styles.bold]}>Partnerships: </Text>
+              Please list your current partnerships and affiliations. These are
+              organizations that you are currently collaborating with in order
+              to spread awareness and raise the resources needed for your
+              conservation goals.
             </Text>
             <View style={styles.aroundInput}>
               <Text style={styles.placeholderText}>Add Partnerships</Text>
@@ -356,23 +287,21 @@ const TellMoreScreen = props => {
                     Select All that apply.
                   </Text>
                 </Text>
-
                 <View style={styles.switchContainer}>
                   <Switch
                     trackColor={{ true: '#00FF9D' }}
                     style={styles.obSwitchButton}
                     value={applePhone}
-                    onChange={() => toggled('apple')}
+                    onValueChange={newValue => setApplePhone(newValue)}
                   />
                   <Text style={styles.obSwitchLabel}>Apple</Text>
                 </View>
-
                 <View style={styles.switchContainer}>
                   <Switch
                     trackColor={{ true: '#00FF9D' }}
                     style={styles.obSwitchButton}
                     value={androidPhone}
-                    onValueChange={() => toggled('android')}
+                    onValueChange={newValue => setAndroidPhone(newValue)}
                   />
                   <Text style={styles.obSwitchLabel}>Android</Text>
                 </View>
@@ -381,24 +310,10 @@ const TellMoreScreen = props => {
                     trackColor={{ true: '#00FF9D' }}
                     style={styles.obSwitchButton}
                     value={otherPhone}
-                    onChange={() => toggled('other')}
+                    onValueChange={newValue => setOtherPhone(newValue)}
                   />
                   <Text style={styles.obSwitchLabel}>Other</Text>
                 </View>
-                {/* <View style={styles.switchContainer}>
-                  <Switch
-                    trackColor={{ true: '#00FF9D' }}
-                    style={styles.obSwitchButton}
-                    selectedValue={airtableState.smartphone_type}
-                    onValueChange={newValue =>
-                      onChangeText({
-                        ...airtableState,
-                        smartphone_type: 'All'
-                      })
-                    }
-                  />
-                  <Text style={styles.obSwitchLabel}>All</Text>
-                </View> */}
               </React.Fragment>
             ) : null}
             <View style={styles.buttons}>
