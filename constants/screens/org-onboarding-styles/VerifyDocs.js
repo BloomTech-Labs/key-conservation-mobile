@@ -107,5 +107,9 @@ export default StyleSheet.create({
     marginTop: '2%',
     marginBottom: '2%',
     marginRight: '7%'
+  },
+  buttons: {
+    alignItems: 'flex-end',
+    padding: 0
   }
 });

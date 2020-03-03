@@ -8,6 +8,8 @@ const ChoosePhoneSwitches = props => {
   const [androidPhone, setAndroidPhone] = useState(false);
   const [otherPhone, setOtherPhone] = useState(false);
 
+  console.log(props.airtableState);
+
   useEffect(() => {
     let smartphoneType = '';
     const types = ['Apple', 'Android', 'Other'];
@@ -34,6 +36,7 @@ const ChoosePhoneSwitches = props => {
     <React.Fragment>
       <View style={styles.switchContainer}>
         <Switch
+          disabled={props.disabled}
           trackColor={{ true: '#00FF9D' }}
           style={styles.obSwitchButton}
           value={applePhone}
@@ -43,6 +46,7 @@ const ChoosePhoneSwitches = props => {
       </View>
       <View style={styles.switchContainer}>
         <Switch
+          disabled={props.disabled}
           trackColor={{ true: '#00FF9D' }}
           style={styles.obSwitchButton}
           value={androidPhone}
@@ -52,6 +56,7 @@ const ChoosePhoneSwitches = props => {
       </View>
       <View style={styles.switchContainer}>
         <Switch
+          disabled={props.disabled}
           trackColor={{ true: '#00FF9D' }}
           style={styles.obSwitchButton}
           value={otherPhone}

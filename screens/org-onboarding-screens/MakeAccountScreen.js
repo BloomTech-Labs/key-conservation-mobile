@@ -30,11 +30,8 @@ const MakeAccountScreen = props => {
           onButtonPress={() => {
             props.navigation.navigate('TellAboutOrganization');
           }}
-          //   onButtonPress={() => {
-          //     props.navigation.navigate('Welcome');
-          //   }}
-          color='white'
           label='Next'
+          color='white'
         />
       </View>
     </ImageBackground>

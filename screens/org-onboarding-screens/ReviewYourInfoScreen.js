@@ -56,7 +56,7 @@ const ReviewYourInfoScreen = props => {
     profile_image: ''
   });
 
-  console.log(state.email, 'state.email');
+  console.log('Review state ->', state.smartphone_type);
 
   useEffect(() => {
     // Grabs state for backend through nav params again.
@@ -113,7 +113,7 @@ const ReviewYourInfoScreen = props => {
         <View style={styles.arrowView}>
           <NavigateBack
             onButtonPress={() => {
-              props.navigation.navigate('AccountScreen');
+              props.navigation.navigate('VerifyDocumentation');
             }}
             color='#000'
           />
@@ -131,7 +131,6 @@ const ReviewYourInfoScreen = props => {
       <KeyboardAvoidingView
         style={styles.keyboardView}
         behavior='padding'
-        // keyboardVerticalOffset={86}
         enabled
       >
         <ScrollView style={styles.obBody}>
@@ -377,7 +376,8 @@ const ReviewYourInfoScreen = props => {
                   <Text style={styles.italic}> Select All that apply.</Text>
                 </Text>
                 <ChoosePhoneSwitches
-                  airtableState={state.smartphone_type}
+                  disabled={true}
+                  airtableState={state}
                   onChangeText={setState}
                 />
               </View>
@@ -631,7 +631,7 @@ const ReviewYourInfoScreen = props => {
                   SecureStore.setItemAsync('vetting', 'true');
 
                   // Passes updated state down for backend.
-                  props.navigation.navigate('VerifyDocumentation', {
+                  props.navigation.navigate('Welcome', {
                     airtableStateAdd: state,
                     airtableKey: key
                   });

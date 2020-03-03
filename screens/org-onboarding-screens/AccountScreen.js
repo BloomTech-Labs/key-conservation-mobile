@@ -32,7 +32,7 @@ const AccountScreen = props => {
 
   const handleSubmit = async () => {
     const airtableStateAdd = Object.assign({ ...airtableState, ...values }); // Updates state for backend with new fields.
-    props.navigation.navigate('ReviewYourInfo', {
+    props.navigation.navigate('VerifyDocumentation', {
       airtableState: airtableStateAdd,
       airtableKey: key
     });

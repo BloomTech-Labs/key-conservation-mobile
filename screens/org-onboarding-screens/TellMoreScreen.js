@@ -31,7 +31,7 @@ const TellMoreScreen = props => {
     affiliations_partnerships: '',
     conservation_optimism: null,
     smartphone_access: null,
-    smartphone_type: 'None'
+    smartphone_type: ''
   });
 
   const [selectedCountries, setSelectedCountries] = useState([]);
@@ -44,27 +44,6 @@ const TellMoreScreen = props => {
     'airtableState',
     'defaultValue'
   ); // this grabs the airtable form ID and data from previous component.
-
-  //   const [applePhone, setApplePhone] = useState(false);
-  //   const [androidPhone, setAndroidPhone] = useState(false);
-  //   const [otherPhone, setOtherPhone] = useState(false);
-
-  //   useEffect(() => {
-  //     let smartphoneType = '';
-  //     const types = ['Apple', 'Android', 'Other'];
-  //     const bools = [applePhone, androidPhone, otherPhone];
-  //     types.forEach((type, index) => {
-  //       if (bools[index]) {
-  //         if (smartphoneType.length) {
-  //           smartphoneType = `${smartphoneType}, ${type}`;
-  //         } else smartphoneType = type;
-  //       }
-  //     });
-  //     onChangeText({
-  //       ...airtableState,
-  //       smartphone_type: smartphoneType
-  //     });
-  //   }, [applePhone, androidPhone, otherPhone, airtableState.smartphone_type]);
 
   useEffect(() => {
     onChangeText({
@@ -89,9 +68,9 @@ const TellMoreScreen = props => {
   const updateAirtable = () => {
     // this updates the airtable form created in the previous component
 
-    if (airtableState.smartphone_type) {
-      onChangeText({ ...airtableState, smartphone_access: 'Yes' });
-    }
+    // if (airtableState.smartphone_access) {
+    //   onChangeText({ ...airtableState, smartphone_access: 'Yes' });
+    // }
     var Airtable = require('airtable');
     var base = new Airtable({ apiKey: airtableKey }).base('appbPeeXUSNCQWwnQ');
     base('Table 1').update(
@@ -124,7 +103,7 @@ const TellMoreScreen = props => {
         <View style={styles.arrowView}>
           <NavigateBack
             onButtonPress={() => {
-              props.navigation.navigate('TellAboutOrganization', {});
+              props.navigation.navigate('TellAboutOrganization');
             }}
             color='#000'
           />
@@ -295,8 +274,10 @@ const TellMoreScreen = props => {
               </React.Fragment>
             ) : null}
             <View style={styles.buttons}>
-              {airtableState.other_countries === '' ||
-              airtableState.smartphone_type === '' ? (
+              {airtableState.other_countries === undefined ||
+              airtableState.smartphone_type === '' ||
+              airtableState.conservation_optimism === false ||
+              airtableState.smartphone_access === false ? (
                 <NavigateButton
                   label='Next'
                   inactive={true}
@@ -304,19 +285,6 @@ const TellMoreScreen = props => {
                     Alert.alert('Oops', 'Please fill in all sections of form', [
                       { text: 'Got it.' }
                     ]);
-                  }}
-                />
-              ) : airtableState.conservation_optimism === false ||
-                airtableState.smartphone_access === false ? (
-                <NavigateButton
-                  label='Next'
-                  inactive={true}
-                  onButtonPress={() => {
-                    Alert.alert(
-                      'Oops',
-                      'Agree to conservation optimism and smart phone use',
-                      [{ text: 'Got it.' }]
-                    );
                   }}
                 />
               ) : (
