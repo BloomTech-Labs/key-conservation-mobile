@@ -22,6 +22,7 @@ import NavigateButton from './formElement/NavigateButton';
 import NavigateBack from './formElement/NavigateBack.js';
 import ChevronLeftBlack from '../../assets/jsicons/miscIcons/ChevronLeftBlack.js';
 import OrgOnboardCountries from '../../components/OrgOnboardCountries';
+import ChoosePhoneSwitches from '../../components/Onboarding/ChoosePhoneSwitches';
 
 const TellMoreScreen = props => {
   const [airtableState, onChangeText] = useState({
@@ -44,26 +45,26 @@ const TellMoreScreen = props => {
     'defaultValue'
   ); // this grabs the airtable form ID and data from previous component.
 
-  const [applePhone, setApplePhone] = useState(false);
-  const [androidPhone, setAndroidPhone] = useState(false);
-  const [otherPhone, setOtherPhone] = useState(false);
+  //   const [applePhone, setApplePhone] = useState(false);
+  //   const [androidPhone, setAndroidPhone] = useState(false);
+  //   const [otherPhone, setOtherPhone] = useState(false);
 
-  useEffect(() => {
-    let smartphoneType = '';
-    const types = ['Apple', 'Android', 'Other'];
-    const bools = [applePhone, androidPhone, otherPhone];
-    types.forEach((type, index) => {
-      if (bools[index]) {
-        if (smartphoneType.length) {
-          smartphoneType = `${smartphoneType}, ${type}`;
-        } else smartphoneType = type;
-      }
-    });
-    onChangeText({
-      ...airtableState,
-      smartphone_type: smartphoneType
-    });
-  }, [applePhone, androidPhone, otherPhone, airtableState.smartphone_type]);
+  //   useEffect(() => {
+  //     let smartphoneType = '';
+  //     const types = ['Apple', 'Android', 'Other'];
+  //     const bools = [applePhone, androidPhone, otherPhone];
+  //     types.forEach((type, index) => {
+  //       if (bools[index]) {
+  //         if (smartphoneType.length) {
+  //           smartphoneType = `${smartphoneType}, ${type}`;
+  //         } else smartphoneType = type;
+  //       }
+  //     });
+  //     onChangeText({
+  //       ...airtableState,
+  //       smartphone_type: smartphoneType
+  //     });
+  //   }, [applePhone, androidPhone, otherPhone, airtableState.smartphone_type]);
 
   useEffect(() => {
     onChangeText({
@@ -279,42 +280,46 @@ const TellMoreScreen = props => {
             />
 
             {airtableState.smartphone_access === true ? (
-              <React.Fragment>
-                <Text style={styles.obText}>
-                  What type of smartphones do you use?
-                  <Text style={[styles.obText, styles.italic]}>
-                    {' '}
-                    Select All that apply.
-                  </Text>
-                </Text>
-                <View style={styles.switchContainer}>
-                  <Switch
-                    trackColor={{ true: '#00FF9D' }}
-                    style={styles.obSwitchButton}
-                    value={applePhone}
-                    onValueChange={newValue => setApplePhone(newValue)}
-                  />
-                  <Text style={styles.obSwitchLabel}>Apple</Text>
-                </View>
-                <View style={styles.switchContainer}>
-                  <Switch
-                    trackColor={{ true: '#00FF9D' }}
-                    style={styles.obSwitchButton}
-                    value={androidPhone}
-                    onValueChange={newValue => setAndroidPhone(newValue)}
-                  />
-                  <Text style={styles.obSwitchLabel}>Android</Text>
-                </View>
-                <View style={styles.switchContainer}>
-                  <Switch
-                    trackColor={{ true: '#00FF9D' }}
-                    style={styles.obSwitchButton}
-                    value={otherPhone}
-                    onValueChange={newValue => setOtherPhone(newValue)}
-                  />
-                  <Text style={styles.obSwitchLabel}>Other</Text>
-                </View>
-              </React.Fragment>
+              //   <React.Fragment>
+              //     <Text style={styles.obText}>
+              //       What type of smartphones do you use?
+              //       <Text style={[styles.obText, styles.italic]}>
+              //         {' '}
+              //         Select All that apply.
+              //       </Text>
+              //     </Text>
+              //     <View style={styles.switchContainer}>
+              //       <Switch
+              //         trackColor={{ true: '#00FF9D' }}
+              //         style={styles.obSwitchButton}
+              //         value={applePhone}
+              //         onValueChange={newValue => setApplePhone(newValue)}
+              //       />
+              //       <Text style={styles.obSwitchLabel}>Apple</Text>
+              //     </View>
+              //     <View style={styles.switchContainer}>
+              //       <Switch
+              //         trackColor={{ true: '#00FF9D' }}
+              //         style={styles.obSwitchButton}
+              //         value={androidPhone}
+              //         onValueChange={newValue => setAndroidPhone(newValue)}
+              //       />
+              //       <Text style={styles.obSwitchLabel}>Android</Text>
+              //     </View>
+              //     <View style={styles.switchContainer}>
+              //       <Switch
+              //         trackColor={{ true: '#00FF9D' }}
+              //         style={styles.obSwitchButton}
+              //         value={otherPhone}
+              //         onValueChange={newValue => setOtherPhone(newValue)}
+              //       />
+              //       <Text style={styles.obSwitchLabel}>Other</Text>
+              //     </View>
+              //   </React.Fragment>
+              <ChoosePhoneSwitches
+                onChangeText={onChangeText}
+                airtableState={airtableState}
+              />
             ) : null}
             <View style={styles.buttons}>
               {airtableState.other_countries === '' ||
