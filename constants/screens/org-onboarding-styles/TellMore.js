@@ -108,7 +108,7 @@ export default StyleSheet.create({
   },
   questionMark: {
     alignItems: 'flex-start',
-    left: '155%'
+    left: '50%'
     // marginTop: 3
   },
   // ******* Switch Styles below  ********

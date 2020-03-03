@@ -66,7 +66,7 @@ const AccountScreen = props => {
       >
         <ScrollView>
           <View style={styles.obBody}>
-            <View>
+            <View style={styles.imageContainer}>
               <Image
                 source={require('../../assets/images/onboarding/yellow.png')}
               />

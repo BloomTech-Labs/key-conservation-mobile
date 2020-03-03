@@ -101,8 +101,10 @@ export default StyleSheet.create({
     top: '2.9%'
   },
   uploadButton: {
+    flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'flex-start',
+    margin: '6%'
   },
   buttons: {
     alignItems: 'flex-end',

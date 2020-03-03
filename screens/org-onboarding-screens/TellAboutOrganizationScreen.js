@@ -43,18 +43,12 @@ const TellAboutOrganizationScreen = props => {
     const key = await SecureStore.getItemAsync('airtableKey', {});
     setState({ email: email2 });
     setAirtableKey({ key: key });
+    console.log('email2', email2, state.email, 'state.email');
   }; // This assigns the current account's email to the new airtable form.
 
   useEffect(() => {
     getEmail();
   }, []);
-
-  //   useEffect(() => {
-  //     console.log('***************************************');
-  //     console.log('TellAbout props', props.mediaUpload);
-  //     console.log('TellAbout state', state);
-  //     console.log('TellAbout airTableKey', airtableKey);
-  //   }, [props, state, airtableKey]);
 
   useEffect(() => {
     if (props.mediaUpload) {

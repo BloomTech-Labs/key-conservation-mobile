@@ -1,4 +1,4 @@
-# Order of Organization-Onboarding screens
+# Order of Conservationist-Onboarding screens
 
 Dear Key Conservation app programmers,
 
@@ -13,13 +13,10 @@ Because there are so many onboarding screens, we have provided you with this lis
 7. TellAboutOrganizationScreen
 8. TellMoreScreen
 9. AccountScreen
-10. ReviewYourInfoScreen
-11. VerifyDocumentationScreen
+10. VerifyDocumentationScreen
+11. ReviewYourInfoScreen
 
 **These are completed and hooked up but not currently in use**
 
 11. AlmostDoneScreen
 12. ThankYouScreen
-
-Yours Truly,
-Julie Christine Gumerman :D

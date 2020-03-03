@@ -2,8 +2,8 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 import * as Font from 'expo-font';
 Font.loadAsync({
-  //   'lato-regular-italic': require('../../../assets/fonts/Lato/Lato-RegularItalic.ttf'),
-  'lato-bold-italic': require('../../../assets/fonts/Lato/Lato-BoldItalic.ttf')
+  'lato-regular-italic': require('../../../assets/fonts/Lato/Lato-RegularItalic.ttf')
+  //   'lato-bold-italic': require('../../../assets/fonts/Lato/Lato-BoldItalic.ttf')
 });
 
 export default StyleSheet.create({
@@ -37,6 +37,11 @@ export default StyleSheet.create({
     fontSize: responsiveFontSize(1.8),
     paddingTop: 4
   },
+  imageContainer: {
+    flex: 1,
+    alignSelf: 'center',
+    height: Dimensions.get('screen').height * 0.25
+  },
   keyboardView: {
     marginVertical: '3%',
     flex: 1,
@@ -53,7 +58,7 @@ export default StyleSheet.create({
   obTitle: {
     color: '#000000',
     fontFamily: 'Lato-Bold',
-    fontSize: 28,
+    fontSize: responsiveFontSize(3.4),
     lineHeight: 38,
     marginLeft: '5%',
     marginTop: '2%',
@@ -64,13 +69,13 @@ export default StyleSheet.create({
   },
   obText: {
     fontFamily: 'Lato',
-    fontSize: responsiveFontSize(2.2),
+    fontSize: responsiveFontSize(2.4),
     lineHeight: 25,
     marginLeft: '5%',
     marginVertical: '5%'
   },
   italic: {
-    fontFamily: 'lato-bold-italic'
+    fontFamily: 'lato-regular-italic'
   },
   bold: {
     fontFamily: 'Lato-Bold'
@@ -78,13 +83,10 @@ export default StyleSheet.create({
   obSubtitle: {
     color: '#000000',
     fontFamily: 'Lato-Bold',
-    fontSize: 21,
+    fontSize: responsiveFontSize(2.8),
     lineHeight: 29,
     marginLeft: '5%',
-    marginTop: '2%',
-    marginBottom: '2%',
     marginRight: '7%',
-    borderRadius: 8,
     marginLeft: '5%',
     marginRight: '5%',
     lineHeight: 50
@@ -97,7 +99,6 @@ export default StyleSheet.create({
   },
   textArea: {
     backgroundColor: '#F5F5F5',
-    borderRadius: 15,
     padding: 20,
     paddingBottom: 10,
     fontFamily: 'Lato',
@@ -108,7 +109,7 @@ export default StyleSheet.create({
   textAreaSm: {
     height: 47,
     backgroundColor: '#F5F5F5',
-    borderRadius: 15,
+    borderRadius: 5,
     paddingLeft: 20,
     paddingRight: 20,
     fontFamily: 'Lato',
