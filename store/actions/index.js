@@ -52,7 +52,7 @@ const axiosWithAuth = (dispatch, req) => {
 // url for heroku staging vs production server
 // Automatically set based on environment
 // production
-const PRODUCTION = 'https://key-conservation.herokuapp.com/api/';
+const seturl = PRODUCTION = 'https://key-conservation.herokuapp.com/api/';
 // staging
 // const STAGING = 'https://key-conservation-staging.herokuapp.com/api/';
 // const seturl = STAGING = 'https://key-conservation-staging.herokuapp.com/api/';
