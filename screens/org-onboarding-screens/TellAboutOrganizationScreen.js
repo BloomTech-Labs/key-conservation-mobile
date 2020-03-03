@@ -242,9 +242,10 @@ const TellAboutOrganizationScreen = props => {
               ) : null}
             </View>
 
-            <View style={styles.uploadButton}>
+            {/* The following lines are commented out for now because logo not being saved to airtable, user must re-upload later in the onboarding process and can change logo in the edit profile page in app */}
+            {/* <View style={styles.uploadButton}>
               <UploadMedia circular title='Upload your logo' />
-            </View>
+            // </View> */}
 
             <View style={styles.buttons}>
               {state.org_name === undefined ||
