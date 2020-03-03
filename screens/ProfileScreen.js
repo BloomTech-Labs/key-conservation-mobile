@@ -48,7 +48,6 @@ class ProfileScreen extends React.Component {
   initProfileData = async () => {
     try {
       const id = this.props.navigation.getParam('selectedProfile')
-      console.log('rendered profile id:', id);
 
       const user = await this.props.getProfileData(
         id,
@@ -163,7 +162,6 @@ class ProfileScreen extends React.Component {
   render() {
     const { navigation } = this.props;
 
-    // console.log(this.props);
 
     const profileData = this.props.navigation.getParam('selectedProfile')
       ? this.state.user

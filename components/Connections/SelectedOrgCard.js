@@ -5,7 +5,6 @@ import { Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
 import styles from '../../constants/Connections/Cards';
 import { withNavigation } from 'react-navigation';
-import LoadingOverlay from '../../components/LoadingOverlay';
 
 const OrganizationsCard = props => {
   const [connections, setConnections] = useState([]);
@@ -75,16 +74,14 @@ const OrganizationsCard = props => {
                   <TouchableOpacity
                     onPress={() => {
                         props.selectedProfile.id === connection.connector_id
-                        ? props.navigation.navigate('Pro', {
+                        ? props.navigation.push('Pro', {
                             selectedProfile: connection.connected_id
                           })
-                        : props.navigation.navigate('Pro', {
+                        : props.navigation.push('Pro', {
                             selectedProfile: connection.connector_id
                           })
                     }}
                   >
-                        <LoadingOverlay />
-
                     <Text key={connection.connection_id} style={styles.name}>
                       {connection.connected_name === null
                         ? '---'

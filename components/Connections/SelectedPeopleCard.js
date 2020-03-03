@@ -69,10 +69,10 @@ const PeopleCard = props => {
                     <TouchableOpacity
                     onPress={() => {
                         props.selectedProfile.id === connection.connector_id
-                        ? props.navigation.navigate('Pro', {
+                        ? props.navigation.push('Pro', {
                             selectedProfile: connection.connected_id
                           })
-                        : props.navigation.navigate('Pro', {
+                        : props.navigation.push('Pro', {
                             selectedProfile: connection.connector_id
                           })
                     }}
