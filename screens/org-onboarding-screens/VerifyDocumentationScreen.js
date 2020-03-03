@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, Image } from 'react-native';
+import { Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/VerifyDocs.js';
 
 import * as WebBrowser from 'expo-web-browser';
@@ -57,58 +57,62 @@ export default VerifyDocumentationScreen = props => {
         </View>
         <View style={styles.progressBar}>
           <ProgressBar
-            progress={90}
+            progress={75}
             height={9}
             backgroundColor='#D7FF44'
             animated={false}
           />
-          <Text style={styles.progressBarText}>90% Complete!</Text>
+          <Text style={styles.progressBarText}>75% Complete</Text>
         </View>
       </View>
-      <View style={styles.obBody}>
-        <View>
-          <Image
-            source={require('../../assets/images/onboarding/pinkcircle.png')}
-          />
-          <Text style={styles.obTitle}>Verify your {'\n'}organization </Text>
-        </View>
-
-        <Text style={styles.obText}>
-          To prevent fraud, we need to properly vet organization credentials.
-        </Text>
-
-        <View style={styles.borderContainer}>
-          <TouchableOpacity
-            style={styles.obUploadBtn}
-            onPress={() => _handlePressButtonAsync()}
-          >
-            <SmallPlus />
-          </TouchableOpacity>
-          <Text style={styles.obText}>
-            By clicking the button, you’ll be taken to an Airtable link to
-            upload your official documentation.
-          </Text>
-        </View>
-        <View style={styles.noBorderConatiner}>
-          <View>
-            <Lock />
+      <ScrollView>
+        <View style={styles.obBody}>
+          <View style={styles.imageContainer}>
+            <Image
+              source={require('../../assets/images/onboarding/pinkcircle.png')}
+            />
+            <Text style={styles.obTitle}>Verify your {'\n'}organization </Text>
           </View>
-          <View>
-            <Text style={styles.obSubtitle}>Privacy</Text>
-            <Text style={[styles.obText, { marginTop: 0 }]}>
-              Airtable is a secure platform
+
+          <Text style={styles.obText}>
+            To prevent fraud in our community, we need to verify all
+            organizations' credentials.
+          </Text>
+
+          <View style={styles.borderContainer}>
+            <TouchableOpacity
+              style={styles.obUploadBtn}
+              onPress={() => _handlePressButtonAsync()}
+            >
+              <SmallPlus fill='#CBCBCB' />
+            </TouchableOpacity>
+            <Text style={styles.obText}>
+              By clicking the button, you’ll be taken to an external link to
+              upload your current official documentation for your NGO,
+              non-profit or charity.
             </Text>
           </View>
-        </View>
+          <View style={styles.noBorderContainer}>
+            <View>
+              <Lock fill='#CBCBCB' />
+            </View>
+            <View>
+              <Text style={styles.obSubtitle}>Privacy</Text>
+              <Text style={[styles.obText, { marginTop: 0 }]}>
+                All documentation is stored off of the KeyApp in a secure
+                location.
+              </Text>
+            </View>
+          </View>
 
-        <View style={styles.spacer} />
-        <NavigateButton
-          label='Next'
-          onButtonPress={() => {
-            navigate();
-          }}
-        />
-      </View>
+          {/* <NavigateButton
+            label='Next'
+            onButtonPress={() => {
+              navigate();
+            }}
+          /> */}
+        </View>
+      </ScrollView>
     </View>
   );
 };

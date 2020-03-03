@@ -36,6 +36,8 @@ const TellAboutOrganizationScreen = props => {
     email: ''
   }); // This state holds field data for airtable create(), and backend for later use.
 
+  console.log(state.email, 'state.email');
+
   const getEmail = async () => {
     const email2 = await SecureStore.getItemAsync('email', {});
     const key = await SecureStore.getItemAsync('airtableKey', {});

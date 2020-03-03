@@ -32,13 +32,6 @@ const ChoosePhoneSwitches = props => {
 
   return (
     <React.Fragment>
-      <Text style={styles.obText}>
-        What type of smartphones do you use?
-        <Text style={[styles.obText, styles.italic]}>
-          {' '}
-          Select All that apply.
-        </Text>
-      </Text>
       <View style={styles.switchContainer}>
         <Switch
           trackColor={{ true: '#00FF9D' }}

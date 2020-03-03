@@ -13,17 +13,6 @@ import NavigateButton from './formElement/NavigateButton.js';
 import NavigateBack from './formElement/NavigateBack.js';
 import ProgressBar from './formElement/ProgressBar';
 
-// const AccountScreen = props => {
-//   const [values, handleChange] = useState({
-//     mini_bio: 'Brief Statement',
-//     about_us: 'Your Mission',
-//     species_and_habitats: 'Add Species and Habitats',
-//     facebook: 'Enter url',
-//     instagram: 'Enter url',
-//     twitter: 'Enter url',
-//     org_cta: 'Enter url'
-//   });
-
 const AccountScreen = props => {
   const [values, handleChange] = useState({
     mini_bio: '',
@@ -34,8 +23,6 @@ const AccountScreen = props => {
     twitter: '',
     org_cta: ''
   });
-
-  //   console.log(values);
 
   const airtableState = props.navigation.getParam(
     'airtableStateAdd',
@@ -75,7 +62,6 @@ const AccountScreen = props => {
       <KeyboardAvoidingView
         style={styles.keyboardView}
         behavior='padding'
-        // keyboardVerticalOffset={86}
         enabled
       >
         <ScrollView>
@@ -101,13 +87,11 @@ const AccountScreen = props => {
               <TextInput
                 style={styles.textArea}
                 multiline
-                // onKeyPress={() => handleChange({ ...values, mini_bio: '' })}
                 onChangeText={text =>
                   handleChange({ ...values, mini_bio: text })
                 }
                 maxLength={150}
                 value={values.mini_bio}
-                // clearTextOnFocus={true}
                 placeholder='Brief Statement'
                 type='mini_bio'
                 name='mini_bio'
@@ -125,7 +109,6 @@ const AccountScreen = props => {
                   handleChange({ ...values, about_us: text })
                 }
                 value={values.about_us}
-                // clearTextOnFocus={true}
                 placeholder='Your Mission'
                 type='about_us'
                 name='about_us'
@@ -146,25 +129,22 @@ const AccountScreen = props => {
                 }
                 value={values.species_and_habitats}
                 placeholder='Add Species and Habitats'
-                // clearTextOnFocus={true}
                 type='species_and_habitats'
                 name='species_and_habitats'
                 required
               />
             </View>
             <Text style={styles.obText}>
-              Connect to your social media sites:
+              Connect to your social media sites (Optional):
             </Text>
             <View style={styles.inputBlockSm}>
               <Text style={styles.obText}>Facebook</Text>
               <TextInput
                 style={styles.textAreaSm}
-                // onKeyPress={() => handleChange({ ...values, facebook: '' })}
                 onChangeText={text =>
                   handleChange({ ...values, facebook: text })
                 }
                 placeholder='Enter URL'
-                // clearTextOnFocus={true}
                 type='url'
                 name='facebook'
                 value={values.facebook}
@@ -174,11 +154,9 @@ const AccountScreen = props => {
               <Text style={styles.obText}>Instagram</Text>
               <TextInput
                 style={styles.textAreaSm}
-                // onKeyPress={() => handleChange({ ...values, instagram: '' })}
                 onChangeText={text =>
                   handleChange({ ...values, instagram: text })
                 }
-                // clearTextOnFocus={true}
                 placeholder='Enter URL'
                 value={values.instagram}
                 type='url'
@@ -189,11 +167,9 @@ const AccountScreen = props => {
               <Text style={styles.obText}>Twitter</Text>
               <TextInput
                 style={styles.textAreaSm}
-                // onKeyPress={() => handleChange({ ...values, twitter: '' })}
                 onChangeText={text =>
                   handleChange({ ...values, twitter: text })
                 }
-                // clearTextOnFocus={true}
                 placeholder='Enter URL'
                 value={values.twitter}
                 type='url'
@@ -206,11 +182,9 @@ const AccountScreen = props => {
               </Text>
               <TextInput
                 style={styles.textAreaSm}
-                // onKeyPress={() => handleChange({ ...values, facebook: '' })}
                 onChangeText={text =>
                   handleChange({ ...values, org_cta: text })
                 }
-                // clearTextOnFocus={true}
                 placeholder='Enter URL'
                 type='url'
                 name='org_cta'

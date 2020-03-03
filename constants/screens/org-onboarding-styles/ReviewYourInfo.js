@@ -1,5 +1,11 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
+import * as Font from 'expo-font';
+
+Font.loadAsync({
+  'lato-regular-italic': require('../../../assets/fonts/Lato/Lato-RegularItalic.ttf')
+  //   'lato-bold-italic': require('../../../assets/fonts/Lato/Lato-BoldItalic.ttf')
+});
 
 export default StyleSheet.create({
   container: {
@@ -83,7 +89,9 @@ export default StyleSheet.create({
     marginRight: 20
   },
   editIcons: {},
-
+  italic: {
+    fontFamily: 'lato-regular-italic'
+  },
   row: {
     // borderWidth: 2,
     flex: 1,
@@ -140,7 +148,9 @@ export default StyleSheet.create({
     marginLeft: '5%',
     marginTop: '2%',
     marginBottom: '2%',
-    marginRight: '7%'
+    marginRight: '7%',
+    backgroundColor: '#F3F2F5',
+    height: Dimensions.get('screen').height * 0.03
   },
   basicInfoRowTitle: {
     // borderWidth: 2,
@@ -164,6 +174,22 @@ export default StyleSheet.create({
     marginBottom: '2%'
     // width: '29%'
   },
+  OrgDetailTextInput: {
+    // borderWidth: 2,
+    // backgroundColor: '#F3F2F5',
+    fontFamily: 'Lato-Bold',
+    fontSize: 18,
+    lineHeight: 19,
+    color: '#000000',
+    marginLeft: '3%',
+    marginTop: '2%',
+    marginBottom: '2%',
+    marginRight: '1%',
+    fontFamily: 'Lato',
+    width: '95%'
+    // alignItems: 'flex-end'
+  },
+  UploadMediaButton: { alignSelf: 'center' },
   obFieldName: {
     // borderWidth: 2,
     // backgroundColor: '#F3F2F5',

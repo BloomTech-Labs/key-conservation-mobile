@@ -51,7 +51,7 @@ export default StyleSheet.create({
     padding: '4%'
   },
   obText: {
-    fontFamily: 'Lato-Bold',
+    fontFamily: 'Lato',
     fontSize: responsiveFontSize(2.1),
     lineHeight: 25,
     marginLeft: '5%',
@@ -68,6 +68,9 @@ export default StyleSheet.create({
   },
   italic: {
     fontFamily: 'lato-bold-italic'
+  },
+  bold: {
+    fontFamily: 'Lato-Bold'
   },
   obFieldName: {
     borderWidth: 2,

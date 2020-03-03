@@ -96,12 +96,10 @@ export default StyleSheet.create({
     marginBottom: 10
   },
   textArea: {
-    height: 120,
     backgroundColor: '#F5F5F5',
     borderRadius: 15,
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingTop: 20,
+    padding: 20,
+    paddingBottom: 10,
     fontFamily: 'Lato',
     fontSize: responsiveFontSize(2.1),
     lineHeight: 25,

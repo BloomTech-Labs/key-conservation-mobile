@@ -20,6 +20,7 @@ import SVGCheckMark from '../../assets/jsicons/SVGCheckMark';
 import EditPencil from '../../assets/jsicons/OnBoarding/EditPencil';
 import UploadMedia from '../../components/UploadMedia';
 import { connect } from 'react-redux';
+import ChoosePhoneSwitches from '../../components/Onboarding/ChoosePhoneSwitches';
 
 const ReviewYourInfoScreen = props => {
   const [isEditingBasicInfo, setIsEditingBasicInfo] = useState(false);
@@ -54,6 +55,8 @@ const ReviewYourInfoScreen = props => {
     about_us: '',
     profile_image: ''
   });
+
+  console.log(state.email, 'state.email');
 
   useEffect(() => {
     // Grabs state for backend through nav params again.
@@ -117,12 +120,12 @@ const ReviewYourInfoScreen = props => {
         </View>
         <View style={styles.progressBar}>
           <ProgressBar
-            progress={85}
+            progress={100}
             height={9}
             backgroundColor='#D7FF44'
             animated={false}
           />
-          <Text style={styles.progressBarText}>85% Complete</Text>
+          <Text style={styles.progressBarText}>100% Complete!</Text>
         </View>
       </View>
       <KeyboardAvoidingView
@@ -331,16 +334,57 @@ const ReviewYourInfoScreen = props => {
                   Current partnerships and affiliations:
                 </Text>
                 <View style={styles.listContainer}>
-                  <ItemCard
-                    item={state.affiliations_partnerships}
-                    list={true}
-                  />
+                  {!state.affiliations_partnerships ? null : (
+                    <ItemCard item={state.affiliations_partnerships} />
+                  )}
                 </View>
+              </View>
+              <View>
+                <Text style={styles.obSubtitleSm}>
+                  Will you join us in Conservation Optimism?
+                </Text>
+              </View>
+              <Switch
+                disabled={true}
+                trackColor={{ true: '#00FF9D' }}
+                style={styles.obSwitchButton}
+                value={state.conservation_optimism}
+                onValueChange={newValue =>
+                  setState({
+                    ...state,
+                    conservation_optimism: newValue
+                  })
+                }
+              />
+              <Text style={styles.obSubtitleSm}>
+                Does your organization have access to a smartphone?
+              </Text>
+              <Switch
+                disabled={true}
+                trackColor={{ true: '#00FF9D' }}
+                style={styles.obSwitchButton}
+                value={state.smartphone_access}
+                onValueChange={newValue =>
+                  setState({
+                    ...state,
+                    smartphone_access: newValue
+                  })
+                }
+              />
+              <View>
+                <Text style={styles.obSubtitleSm}>
+                  What type of smartphones do you use?
+                  <Text style={styles.italic}> Select All that apply.</Text>
+                </Text>
+                <ChoosePhoneSwitches
+                  airtableState={state.smartphone_type}
+                  onChangeText={setState}
+                />
               </View>
             </View>
           ) : (
             <View style={styles.sectionContainer}>
-              <View style={styles.editIcons}>
+              <View style={styles.obSectionHeader}>
                 <Text style={styles.obSectionHeaderTitle}>
                   Organization Details
                 </Text>
@@ -351,13 +395,18 @@ const ReviewYourInfoScreen = props => {
                   <SVGCheckMark />
                 </TouchableOpacity>
               </View>
-              <Text style={styles.obSubtitleSm}>
-                Countries your organization works in:
-              </Text>
+              <View style={styles.row}>
+                <Text style={styles.obSubtitleSm}>
+                  Countries your organization works in:
+                </Text>
+              </View>
               <TextInput
-                style={styles.textInput}
+                multiline
+                style={[styles.OrgDetailTextInput, styles.grayBackground]}
                 value={state.other_countries}
-                setState={text => setState({ ...state, other_countries: text })}
+                onChangeText={text =>
+                  setState({ ...state, other_countries: text })
+                }
               />
 
               <View>
@@ -365,14 +414,12 @@ const ReviewYourInfoScreen = props => {
                   Projects within your organization:
                 </Text>
                 <TextInput
-                  style={styles.textInput}
+                  multiline
+                  style={[styles.OrgDetailTextInput, styles.grayBackground]}
                   value={state.multiple_projects}
-                  setState={text => {
-                    setState({
-                      ...state,
-                      multiple_projects: text
-                    });
-                  }}
+                  onChangeText={text =>
+                    setState({ ...state, multiple_projects: text })
+                  }
                 />
               </View>
               <View>
@@ -380,14 +427,52 @@ const ReviewYourInfoScreen = props => {
                   Current partnerships and affiliations:
                 </Text>
                 <TextInput
-                  style={styles.textInput}
+                  multiline
+                  style={[styles.OrgDetailTextInput, styles.grayBackground]}
                   value={state.affiliations_partnerships}
-                  onChangeText={text => {
-                    setState({
-                      ...state,
-                      affiliations_partnerships: text
-                    });
-                  }}
+                  onChangeText={text =>
+                    setState({ ...state, affiliations_partnerships: text })
+                  }
+                />
+              </View>
+              <View>
+                <Text style={styles.obSubtitleSm}>
+                  Will you join us in Conservation Optimism?
+                </Text>
+              </View>
+              <Switch
+                trackColor={{ true: '#00FF9D' }}
+                style={styles.obSwitchButton}
+                value={state.conservation_optimism}
+                onValueChange={newValue =>
+                  setState({
+                    ...state,
+                    conservation_optimism: newValue
+                  })
+                }
+              />
+              <Text style={styles.obSubtitleSm}>
+                Does your organization have access to a smartphone?
+              </Text>
+              <Switch
+                trackColor={{ true: '#00FF9D' }}
+                style={styles.obSwitchButton}
+                value={state.smartphone_access}
+                onValueChange={newValue =>
+                  setState({
+                    ...state,
+                    smartphone_access: newValue
+                  })
+                }
+              />
+              <View>
+                <Text style={styles.obSubtitleSm}>
+                  What type of smartphones do you use?
+                  <Text style={styles.italic}> Select All that apply.</Text>
+                </Text>
+                <ChoosePhoneSwitches
+                  airtableState={state.smartphone_type}
+                  onChangeText={setState}
                 />
               </View>
             </View>
@@ -395,7 +480,7 @@ const ReviewYourInfoScreen = props => {
 
           {!isEditingActivityQuest ? (
             <View style={styles.sectionContainer}>
-              <View style={styles.editIcons}>
+              <View style={styles.obSectionHeader}>
                 <Text style={styles.obSectionHeaderTitle}>
                   Activity Questionnaire
                 </Text>
@@ -408,34 +493,32 @@ const ReviewYourInfoScreen = props => {
                   <EditPencil width='23' height='23' />
                 </TouchableOpacity>
               </View>
-              <View style={styles.row}>
+              <View>
                 <Text style={styles.obSubtitleSm}>
                   In a brief statement, only 150 characters, tell us about your
                   organization.
                 </Text>
                 <Text style={styles.obText}>{state.mini_bio}</Text>
               </View>
-              <View style={styles.row}>
+              <View>
                 <Text style={styles.obSubtitleSm}>
                   In more depth, tell us about your organization's mission.
                 </Text>
                 <Text style={styles.obText}>{state.about_us}</Text>
-                <Text style={styles.obText}>
-                  Will you join us in Conservation Optimism?
+              </View>
+              <View>
+                <Text style={styles.obSubtitleSm}>
+                  What species and habitats does your organization directly work
+                  in or with?
                 </Text>
-                <Switch
-                  trackColor={{ true: '#00FF9D' }}
-                  style={styles.obSwitchButton}
-                  value={state.conservation_optimism}
-                  onValueChange={newValue =>
-                    setState({ ...state, conservation_optimism: newValue })
-                  }
-                />
+                <View style={styles.listContainer}>
+                  <ItemCard item={state.species_and_habitats} />
+                </View>
               </View>
             </View>
           ) : (
             <View style={styles.sectionContainer}>
-              <View style={styles.editIcons}>
+              <View style={styles.obSectionHeader}>
                 <Text style={styles.obSectionHeaderTitle}>
                   Activity Questionnaire
                 </Text>
@@ -449,41 +532,44 @@ const ReviewYourInfoScreen = props => {
                 </TouchableOpacity>
               </View>
 
-              <View style={styles.row}>
+              <View>
                 <Text style={styles.obSubtitleSm}>
                   In a brief statement, only 150 characters, tell us about your
                   organization.
                 </Text>
                 <TextInput
-                  style={styles.textInput}
+                  multiline
+                  style={[styles.OrgDetailTextInput, styles.grayBackground]}
                   value={state.mini_bio}
-                  placeholder={'Mini Bio'}
-                  setState={text => setState({ ...state, mini_bio: text })}
+                  onChangeText={text => setState({ ...state, mini_bio: text })}
                 />
               </View>
 
-              <View style={styles.row}>
+              <View>
                 <Text style={styles.obSubtitleSm}>
                   In more depth, tell us about your organization's mission.
                 </Text>
                 <TextInput
-                  style={styles.textInput}
+                  multiline
+                  style={[styles.OrgDetailTextInput, styles.grayBackground]}
                   value={state.about_us}
-                  placeholder={'About us'}
-                  setState={text => setState({ ...state, about_us: text })}
+                  onChangeText={text => setState({ ...state, about_us: text })}
                 />
               </View>
-              <Text style={styles.obText}>
-                Will you join us in Conservation Optimism?
-              </Text>
-              <Switch
-                trackColor={{ true: '#00FF9D' }}
-                style={styles.obSwitchButton}
-                value={state.conservation_optimism}
-                onValueChange={newValue =>
-                  setState({ ...state, conservation_optimism: newValue })
-                }
-              />
+              <View>
+                <Text style={styles.obSubtitleSm}>
+                  What species and habitats does your organization directly work
+                  in or with?
+                </Text>
+                <TextInput
+                  multiline
+                  style={[styles.OrgDetailTextInput, styles.grayBackground]}
+                  value={state.species_and_habitats}
+                  onChangeText={text =>
+                    setState({ ...state, species_and_habitats: text })
+                  }
+                />
+              </View>
             </View>
           )}
 
@@ -491,132 +577,11 @@ const ReviewYourInfoScreen = props => {
             <View style={styles.obSectionHeader}>
               <Text style={styles.obSectionHeaderTitle}>Organization Logo</Text>
             </View>
-            <UploadMedia circular title='Change logo' />
-            {state.profile_image ? (
-              <Image
-                source={{ uri: state.profile_image }}
-                style={{
-                  height: 300,
-                  width: 300
-                }}
-              />
-            ) : null}
+            <View style={styles.UploadMediaButton}>
+              <UploadMedia circular title='Change logo' />
+            </View>
           </View>
 
-          {/* {!isEditingOrgDetails ? (
-              <View style={styles.sectionContainer}>
-                <View style={[styles.row, styles.opaqueHeader]}>
-                  <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
-                    Partnerships & Affiliations
-                  </Text>
-                  <TouchableOpacity
-                  style={styles.editIcons}
-                    onPress={() =>
-                      setIsEditingAffiliations(!isEditingAffiliations)
-                    }
-                  >
-                    <EditPencil />
-                  </TouchableOpacity>
-                </View>
-                <Text style={styles.obText}>
-                  {state.affiliations_partnerships}
-                </Text>
-              </View>
-            ) : (
-              <View style={styles.sectionContainer}>
-                <View style={[styles.row, styles.opaqueHeader]}>
-                  <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
-                    Partnerships & Affiliations
-                  </Text>
-                  <TouchableOpacity
-                  style={styles.editIcons}
-                    onPress={() =>
-                      setIsEditingAffiliations(!isEditingAffiliations)
-                    }
-                  >
-                    <SVGCheckMark />
-                  </TouchableOpacity>
-                </View>
-                <TextInput
-                  style={styles.textInput}
-                  value={state.affiliations_partnerships}
-                  setState={text => {
-                    setState({
-                      ...state,
-                      affiliations_partnerships: text
-                    });
-                  }}
-                />
-              </View>
-            )} */}
-
-          {/* {!isEditingMisc ? (
-              <View style={styles.sectionContainer}>
-                <View style={[styles.row, styles.opaqueHeader]}>
-                  <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
-                    Miscellaneous Items
-                  </Text>
-                  <TouchableOpacity
-                  style={styles.editIcons}
-                    onPress={() => setIsEditingMisc(!isEditingMisc)}
-                  >
-                    <EditPencil />
-                  </TouchableOpacity>
-                </View> */}
-
-          {/* {state.conservation_optimism && (
-                  <Text style={styles.obText}>
-                    We will join Key Conservation in practicing Conservation
-                    Optimism.
-                  </Text>
-                )}
-                {state.smartphone_access && (
-                  <Text style={styles.obText}>
-                    Our Organization does use smartphones.
-                  </Text>
-                )}
-              </View>
-            ) : (
-              <View style={styles.sectionContainer}>
-                <View style={[styles.row, styles.opaqueHeader]}>
-                  <Text style={[styles.obSubtitle, { marginRight: 20 }]}>
-                    Miscellaneous Items
-                  </Text>
-                  <TouchableOpacity
-                  style={styles.editIcons}
-                    onPress={() => setIsEditingMisc(!isEditingMisc)}
-                  >
-                    <EditPencil />
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.column}>
-                  <Text style={styles.obText}>
-                    Will you join us in Conservation Optimism?
-                  </Text>
-                  <Switch
-                    trackColor={{ true: '#00FF9D' }}
-                    style={styles.obSwitchButton}
-                    value={state.conservation_optimism}
-                    onValueChange={newValue =>
-                      setState({ ...state, conservation_optimism: newValue })
-                    }
-                  />
-                </View>
-                <View style={styles.column}>
-                  <Text style={styles.obText}>
-                    Does your organization have access to a smartphone?
-                  </Text>
-                  <Switch
-                    style={styles.obSwitchButton}
-                    trackColor={{ true: '#00FF9D' }}
-                    value={state.smartphone_access}
-                    onValueChange={newValue =>
-                      setState({ ...state, smartphone_access: newValue })
-                    }
-                  />
-                </View>
-              </View>
-            )} */}
           <View style={styles.buttons}>
             <NavigateButton
               label='Submit'
@@ -626,10 +591,8 @@ const ReviewYourInfoScreen = props => {
                   state.org_link_url === undefined ||
                   state.phone_number === undefined ||
                   state.location === undefined ||
-                  state.country === undefined ||
-                  //   state.point_of_contact_name === undefined ||
-                  //   state.point_of_contact_position === undefined ||
-                  state.email === undefined
+                  state.country === undefined
+                  //   || state.email === undefined
                 ) {
                   Alert.alert('Oops', 'Please fill in all sections of form', [
                     { text: 'Got it' }

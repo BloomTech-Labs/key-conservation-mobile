@@ -280,46 +280,19 @@ const TellMoreScreen = props => {
             />
 
             {airtableState.smartphone_access === true ? (
-              //   <React.Fragment>
-              //     <Text style={styles.obText}>
-              //       What type of smartphones do you use?
-              //       <Text style={[styles.obText, styles.italic]}>
-              //         {' '}
-              //         Select All that apply.
-              //       </Text>
-              //     </Text>
-              //     <View style={styles.switchContainer}>
-              //       <Switch
-              //         trackColor={{ true: '#00FF9D' }}
-              //         style={styles.obSwitchButton}
-              //         value={applePhone}
-              //         onValueChange={newValue => setApplePhone(newValue)}
-              //       />
-              //       <Text style={styles.obSwitchLabel}>Apple</Text>
-              //     </View>
-              //     <View style={styles.switchContainer}>
-              //       <Switch
-              //         trackColor={{ true: '#00FF9D' }}
-              //         style={styles.obSwitchButton}
-              //         value={androidPhone}
-              //         onValueChange={newValue => setAndroidPhone(newValue)}
-              //       />
-              //       <Text style={styles.obSwitchLabel}>Android</Text>
-              //     </View>
-              //     <View style={styles.switchContainer}>
-              //       <Switch
-              //         trackColor={{ true: '#00FF9D' }}
-              //         style={styles.obSwitchButton}
-              //         value={otherPhone}
-              //         onValueChange={newValue => setOtherPhone(newValue)}
-              //       />
-              //       <Text style={styles.obSwitchLabel}>Other</Text>
-              //     </View>
-              //   </React.Fragment>
-              <ChoosePhoneSwitches
-                onChangeText={onChangeText}
-                airtableState={airtableState}
-              />
+              <React.Fragment>
+                <Text style={styles.obText}>
+                  What type of smartphones do you use?
+                  <Text style={[styles.obText, styles.italic]}>
+                    {' '}
+                    Select All that apply.
+                  </Text>
+                </Text>
+                <ChoosePhoneSwitches
+                  onChangeText={onChangeText}
+                  airtableState={airtableState}
+                />
+              </React.Fragment>
             ) : null}
             <View style={styles.buttons}>
               {airtableState.other_countries === '' ||

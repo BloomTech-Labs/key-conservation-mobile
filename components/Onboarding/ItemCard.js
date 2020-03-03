@@ -2,16 +2,21 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 const ItemCard = props => {
+  //   console.log(props);
   const { item } = props;
-  const listItems = item.split(',');
+  if (!item) {
+    return null;
+  } else {
+    const listItems = item.split(',');
 
-  return listItems.map((item, index) => {
-    return (
-      <View style={styles.aroundName} key={index}>
-        <Text style={styles.text}>{item}</Text>
-      </View>
-    );
-  });
+    return listItems.map((item, index) => {
+      return (
+        <View style={styles.aroundName} key={index}>
+          <Text style={styles.text}>{item}</Text>
+        </View>
+      );
+    });
+  }
 };
 
 const styles = StyleSheet.create({
