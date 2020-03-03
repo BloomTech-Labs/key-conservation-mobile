@@ -11,7 +11,6 @@ Current version: 4.2.0. This app is in Beta for iOS and Android.
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Maintainability](https://api.codeclimate.com/v1/badges/334bb92955b642b45954/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/key-conservation-mobile/maintainability)
-
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/key-conservation-mobile/test_coverage)
 
 # Contributors
@@ -37,9 +36,6 @@ Brianna Workman - [GitHub](https://github.com/briworkman) | [LinkedIn](https://w
 Arielle Hollingsworth- [Github](https://github.com/arizephyr123) | [LinkedIn](https://www.linkedin.com/in/arielle-hollingsworth/)
 
 Rasha Moumneh - [Github](https://github.com/RashaMou) | [LinkedIn](https://www.linkedin.com/in/rashamoumneh/)
-
-Zach Baca - [Github](https://github.com/zacharybaca)
-| [LinkedIn](https://www.linkedin.com/in/z46350/)
 
 ## Previous Labs Teams Who Contributed To This Project
 
