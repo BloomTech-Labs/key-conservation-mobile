@@ -362,7 +362,7 @@ const FeedCampaign = props => {
             />
           </TouchableOpacity>
         </View>
-        <TakeActionCta profile={props.currentUserProfile} />
+        <TakeActionCta donate={props.data} />
       </View>
       <View style={styles.demarcation} />
     </View>

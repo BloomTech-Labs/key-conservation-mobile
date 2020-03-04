@@ -4,13 +4,13 @@ import { View, Text } from 'react-native';
 import styles from '../../../constants/Profile/tabs/Details';
 
 import FileIcon from '../../../assets/jsicons/detailAboutUs/File';
+import ConnectFurther from '../ConnectFurther';
 
 const Details = props => {
   const { profile } = props;
 
   return (
     <View style={styles.container}>
-
       {profile.roles !== 'supporter' && (
         <View>
           <View style={styles.sections}>
@@ -21,7 +21,7 @@ const Details = props => {
             <Text style={styles.body}>{profile.about_us}</Text>
           </View>
 
-{/* Species and Habitats is a feature not yet in place */}
+          {/* Species and Habitats is a feature not yet in place */}
           {/* <View style={styles.sections}>
             <View style={styles.iconWrap}>
               <Seedling />
@@ -33,7 +33,11 @@ const Details = props => {
               </Text>
             </View>
           </View> */}
-
+        </View>
+      )}
+      {profile.roles === 'supporter' && (
+        <View style={styles.sections}>
+          <ConnectFurther profile={profile} />
         </View>
       )}
     </View>

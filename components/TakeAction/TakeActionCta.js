@@ -5,15 +5,15 @@ import * as WebBrowser from 'expo-web-browser';
 import styles from '../../constants/TakeAction/TakeActionCta';
 
 const TakeActionCta = props => {
-  const { profile } = props;
+  const { donate } = props;
 
-  return profile.org_cta && profile.org_cta !== null ? (
+  return donate.camp_cta && donate.camp_cta !== null ? (
     <View style={styles.buttonContainer}>
       <TouchableOpacity
         style={styles.buttonTouch}
-        onPress={async () => await WebBrowser.openBrowserAsync(profile.org_cta)}
+        onPress={async () => await WebBrowser.openBrowserAsync(donate.camp_cta)}
       >
-        <Text style={styles.text}>Donate</Text>
+        <Text style={styles.text}>donate</Text>
       </TouchableOpacity>
     </View>
   ) : null;
