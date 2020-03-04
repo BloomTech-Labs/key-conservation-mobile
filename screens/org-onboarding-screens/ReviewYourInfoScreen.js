@@ -56,13 +56,17 @@ const ReviewYourInfoScreen = props => {
     profile_image: ''
   });
 
-  console.log('Review state ->', state.smartphone_type);
-
   useEffect(() => {
     // Grabs state for backend through nav params again.
+    const stayte = props.navigation.getParam('airtableState', 'defaultValue');
     setState(props.navigation.getParam('airtableState', 'defaultValue'));
     getAirtableID();
+    console.log('stayte profile image', stayte.profile_image);
   }, []);
+
+  useEffect(() => {
+    console.log('profile from state', state.profile_image);
+  }, [state.profile_image]);
 
   const getAirtableID = async () => {
     const id = await SecureStore.getItemAsync('airtableID', {});
