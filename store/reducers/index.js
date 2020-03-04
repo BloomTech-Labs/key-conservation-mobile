@@ -110,7 +110,7 @@ const reducer = (state = initialState, action) => {
       };
     case actions.GET_PROFILE_SUCCESS:
       let { user } = action.payload;
-      console.log("GOT PROFILE")
+      // console.log("GOT PROFILE")
       if (user.campaigns) {
         user.campaigns.sort(function(a, b) {
           return moment(b.created_at) - moment(a.created_at);

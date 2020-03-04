@@ -28,7 +28,7 @@ export default class App extends React.Component {
     const placeIdUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${}&fields=geometry&key=${key}`
     const coords = await fetch(placeIdUrl)
     const coordsJson = await result.json()
-    console.log('coordsJson') 
+    // console.log('coordsJson') 
   }
 
   async onChangeDestination(destination) {

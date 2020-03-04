@@ -8,7 +8,7 @@ import styles from '../../constants/TakeAction/TakeActionCta';
 const TakeActionCta = props => {
   const { donate } = props;
   const role = props.currentUserProfile.roles;
-  console.log(role);
+  // console.log(role);
 
   if (!role || role === 'supporter') {
     return (

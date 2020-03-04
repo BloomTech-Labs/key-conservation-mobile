@@ -18,7 +18,7 @@ const ChoosePhoneSwitches = props => {
     } else {
       null;
     }
-    console.log('props.type', props.type);
+    // console.log('props.type', props.type);
   }, [props.type]);
 
   const [applePhone, setApplePhone] = useState(null);

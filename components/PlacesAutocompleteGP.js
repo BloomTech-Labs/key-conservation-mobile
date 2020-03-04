@@ -26,7 +26,7 @@ const PlacesAutocomplete = () => {
       renderDescription={row => row.description} // custom description render
       onPress={(data, details = null) => {
         // 'details' is provided when fetchDetails = true
-        console.log(data, details);
+        // console.log(data, details);
       }}
       getDefaultValue={() => ''}
       query={{
