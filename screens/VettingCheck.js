@@ -28,16 +28,17 @@ function VettingCheck(props) {
   const [state, setState] = useState({});
 
   // Retrieves state object from SecureStore that was created in the onboarding process (ReviewYourInfoScreen).
-  getBackend = async () => {
+  const getBackend = async () => {
     const state = await SecureStore.getItemAsync('stateBE', {});
     const parseBE = JSON.parse(state);
     parseBE ? setUser(parseBE) : null;
   };
 
-  getAirtableId = async () => {
+  const getAirtableId = async () => {
     const id = await SecureStore.getItemAsync('airtableID', {});
     const email = await SecureStore.getItemAsync('email', {});
     const key = await SecureStore.getItemAsync('airtableKey', {});
+
     setState({ email: email, id: id, key: key });
     updateAirtableVettingTrue();
     await SecureStore.setItemAsync('isVetting', 'true');
@@ -61,7 +62,7 @@ function VettingCheck(props) {
     }
   };
 
-  getAirtable = () => {
+  const getAirtable = () => {
     var Airtable = require('airtable');
     var base = new Airtable({ apiKey: state.key }).base('appbPeeXUSNCQWwnQ');
     base('Table 2')
@@ -85,7 +86,7 @@ function VettingCheck(props) {
       );
   }; // Checks 'Table 2' for 'accepted' field.
 
-  updateAirtableVettingTrue = async () => {
+  const updateAirtableVettingTrue = async () => {
     console.log('update airtable activated!');
     var Airtable = require('airtable');
     var base = new Airtable({ apiKey: state.key }).base('appbPeeXUSNCQWwnQ');
@@ -110,7 +111,7 @@ function VettingCheck(props) {
     );
   }; // Updates 'isVetting' field in 'Table 1' based on airtable ID.
 
-  updateAirtableVettingFalse = async () => {
+  const updateAirtableVettingFalse = async () => {
     console.log('NameScreen updateAirtable triggered');
     var Airtable = require('airtable');
     var base = new Airtable({ apiKey: state.key }).base('appbPeeXUSNCQWwnQ');
@@ -136,7 +137,7 @@ function VettingCheck(props) {
     );
   }; // This sets the cuurent user's 'Table 1' form, field 'isVetting', to false. This will allow a new organization to sign up through the same device.
 
-  logoutPress = async () => {
+  const logoutPress = async () => {
     await SecureStore.deleteItemAsync('sub', {});
     await SecureStore.deleteItemAsync('email', {});
     await SecureStore.deleteItemAsync('roles', {});
