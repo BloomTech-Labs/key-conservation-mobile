@@ -163,7 +163,7 @@ class ReportDetailScreen extends Component {
 }
 
 const mapStateToProps = state => ({
-  loading: state.reports.loading || state.pending.getProfile,
+  loading: state.reports.loading,
   currentReport: state.reports.currentReport,
   currentUserProfile: state.currentUserProfile
 });
