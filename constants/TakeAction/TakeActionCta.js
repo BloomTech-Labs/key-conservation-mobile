@@ -9,29 +9,28 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    fontSize: 15
+    fontSize: 18
   },
   buttonTouch: {
-    width: '97%',
+    width: '95%',
     height: 48,
-    backgroundColor: '#DBDBDB',
+    backgroundColor: '#F5F5F5',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
     fontSize: 18,
     textAlign: 'center',
-    shadowColor: 'rgba(0, 0, 0, 0.25)',
+    shadowColor: 'rgba(0, 0, 0, 0.15)',
     shadowOffset: {
       height: 4
     },
-    shadowRadius: 4,
+    shadowRadius: 5,
     shadowOpacity: 10
   },
   text: {
     color: '#323339',
     textTransform: 'uppercase',
     letterSpacing: 2,
-    marginTop: 10,
     fontSize: 15,
     textAlign: 'center',
     fontFamily: 'Lato-Bold'
