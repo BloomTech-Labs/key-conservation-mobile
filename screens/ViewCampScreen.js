@@ -179,7 +179,7 @@ class ViewCampScreen extends React.Component {
                   </View>
 
                   <View style={styles.donateView}>
-                    <TakeActionCta donate={this.props.selectedCampaign} />
+                    <TakeActionCta donate={this.props.currentUserProfile} />
                   </View>
 
                   <View style={styles.feedContainer}>
@@ -290,7 +290,10 @@ class ViewCampScreen extends React.Component {
                   </View>
 
                   <View style={styles.donateView}>
-                    <TakeActionCta donate={this.props.selectedCampaign} />
+                    <TakeActionCta
+                      donate={this.props.selectedCampaign}
+                      style={{ backgroundColor: '#fff' }}
+                    />
                   </View>
 
                   <View style={styles.feedContainer}>
