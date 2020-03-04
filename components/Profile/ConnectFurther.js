@@ -13,6 +13,9 @@ import Instagram from '../../assets/jsicons/socialmedia/Instagram';
 import IgAdd from '../../assets/jsicons/socialmedia/IgAdd';
 import Facebook from '../../assets/jsicons/socialmedia/Facebook';
 import FbAdd from '../../assets/jsicons/socialmedia/FbAdd';
+{
+  /* the following is ready to go for when gihub/linkedin added to backend */
+}
 // import LinkedIn from '../../assets/jsicons/socialmedia/LinkedIn';
 // import LinkedInAdd from '../../assets/jsicons/socialmedia/LinkedInAdd';
 // import GitHub from '../../assets/jsicons/socialmedia/GitHub';
@@ -43,7 +46,7 @@ const ConnectFurther = props => {
         >
           <Envelope fill='#323338' width='35' height='35' />
         </TouchableOpacity>
-
+        {/* the following is ready to go for when linkedIn added to backend */}
         {/* {!profile.linkedin ? (
           myProfile ? (
             <TouchableOpacity
