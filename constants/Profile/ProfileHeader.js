@@ -3,7 +3,7 @@ import { StyleSheet, Platform } from 'react-native';
 export default StyleSheet.create({
   container: {
     backgroundColor: 'black',
-    position:'absolute',
+    position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
@@ -21,7 +21,7 @@ export default StyleSheet.create({
     alignItems: 'flex-start',
     flexDirection: 'row',
     justifyContent: 'center',
-    paddingTop: 30,
+    paddingTop: 10,
     paddingBottom: 30,
     flexWrap: 'wrap'
   },
@@ -32,7 +32,7 @@ export default StyleSheet.create({
   headerTitleContainer: {
     position: 'absolute',
     bottom: 16,
-    width: '100%',
+    width: '100%'
   },
   headerTitle: {
     flex: 1,
@@ -53,13 +53,13 @@ export default StyleSheet.create({
     marginBottom: 25,
     width: '100%',
     paddingLeft: 40,
-    paddingRight: 40,
+    paddingRight: 40
   },
   bioText: {
     color: 'white',
     textAlign: 'center',
     fontFamily: 'Lato',
-    fontSize: 17,
+    fontSize: 17
   },
   org: {
     lineHeight: 22,
@@ -141,7 +141,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     alignItems: 'center',
-    marginTop: 20
+    marginTop: 15
   },
   connectText: {
     color: 'white',
