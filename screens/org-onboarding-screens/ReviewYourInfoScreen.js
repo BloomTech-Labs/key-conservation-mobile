@@ -56,10 +56,26 @@ const ReviewYourInfoScreen = props => {
     profile_image: ''
   });
 
-  console.log('Review state ->', state.smartphone_type);
+  // useEffect(()=> {
+  //     console.log('Review state ->',
+  //       props.navigation.getParam('airtableState', 'defaultValue')
+  //     );
+  // })
+
+  // const [applePhone, setApplePhone] = useState(null);
+  //   const [androidPhone, setAndroidPhone] = useState(null);
+  //   const [otherPhone, setOtherPhone] = useState(null);
+
+  // console.log('Review state ->', state.smartphone_type);
+
+  const airtableState = props.navigation.getParam(
+    'airtableState',
+    'defaultValue'
+  );
 
   useEffect(() => {
     // Grabs state for backend through nav params again.
+
     setState(props.navigation.getParam('airtableState', 'defaultValue'));
     getAirtableID();
   }, []);
@@ -102,7 +118,15 @@ const ReviewYourInfoScreen = props => {
           console.error(err);
           return;
         }
-        records.forEach(function(record) {});
+        records.forEach(function(record) {
+          let airtableID = record.getId();
+          props.navigation.navigate('TellMore', {
+            airtableID: airtableID,
+            airtableState: state,
+            airtableKey: airtableKey.key
+          });
+          // This passes the returned form ID and the needed fields for backend and airtable update() to the next component.
+        });
       }
     );
   };
@@ -376,6 +400,7 @@ const ReviewYourInfoScreen = props => {
                   <Text style={styles.italic}> Select All that apply.</Text>
                 </Text>
                 <ChoosePhoneSwitches
+                  type={airtableState.smartphone_type}
                   disabled={true}
                   airtableState={state}
                   onChangeText={setState}
@@ -431,7 +456,10 @@ const ReviewYourInfoScreen = props => {
                   style={[styles.OrgDetailTextInput, styles.grayBackground]}
                   value={state.affiliations_partnerships}
                   onChangeText={text =>
-                    setState({ ...state, affiliations_partnerships: text })
+                    setState({
+                      ...state,
+                      affiliations_partnerships: text
+                    })
                   }
                 />
               </View>
@@ -601,7 +629,10 @@ const ReviewYourInfoScreen = props => {
                   updateAirtable();
                   const sub = await SecureStore.getItemAsync('sub', {});
                   if (props.mediaUpload) {
-                    setState({ ...state, profile_image: props.mediaUpload });
+                    setState({
+                      ...state,
+                      profile_image: props.mediaUpload
+                    });
                   }
                   const stringBE = JSON.stringify({
                     org_name: state.org_name,
@@ -631,9 +662,9 @@ const ReviewYourInfoScreen = props => {
                   SecureStore.setItemAsync('vetting', 'true');
 
                   // Passes updated state down for backend.
-                  props.navigation.navigate('Welcome', {
+                  props.navigation.navigate('Vetting', {
                     airtableStateAdd: state,
-                    airtableKey: key
+                    airtableKey: airtableKey.key
                   });
                 }
               }}

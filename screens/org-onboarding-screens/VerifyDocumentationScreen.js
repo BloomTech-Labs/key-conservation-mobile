@@ -36,6 +36,13 @@ export default VerifyDocumentationScreen = props => {
     }
   }; // This opens up the in-app browser for 'Table 2' submission. This is required because the Airtable API doesn't allow for non-URL image uploads.
 
+  useEffect(() => {
+    console.log(
+      'VerifyScreen',
+      props.navigation.getParam('airtableState', 'defaultValue')
+    );
+  });
+
   navigate = async () => {
     const airtableState = await props.navigation.getParam(
       'airtableState',
