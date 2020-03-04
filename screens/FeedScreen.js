@@ -74,9 +74,6 @@ class FeedScreen extends React.Component {
             ) : null}
           </View>
           <View style={styles.feedContainer}>
-            {/* {this.props.currentUserProfile.roles === 'conservationist' ? (
-              <AddCampaignHeader profile={this.props.currentUserProfile} />
-            ) : null} */}
             <NavigationEvents
               onDidFocus={this.startGettingCampaigns}
               onDidBlur={this.stopGettingCampaigns}
