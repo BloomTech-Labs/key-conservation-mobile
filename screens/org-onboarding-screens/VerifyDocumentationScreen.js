@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/VerifyDocs.js';
 
@@ -12,12 +12,15 @@ import Lock from '../../assets/jsicons/OnBoarding/Lock';
 export default VerifyDocumentationScreen = props => {
   const key = props.navigation.getParam('airtableKey', 'defaultValue');
 
-  getState = async () => {
-    const airtableState = props.navigation.getParam(
-      'airtableStateAdd',
-      'defaultValue'
-    );
-  };
+  //   useEffect(() => {
+  //     getState = async () => {
+  //       const airtableState = props.navigation.getParam(
+  //         'airtableStateAdd',
+  //         'defaultValue'
+  //       );
+  //       return airtableState;
+  //     };
+  //   }, []);
 
   _handlePressButtonAsync = async () => {
     try {
@@ -31,14 +34,22 @@ export default VerifyDocumentationScreen = props => {
     } catch (error) {
       console.log(error);
     }
-  }; // This opens up the in-app browser for 'Table 2' submission. This is required because the Airtable API doesnt allow for non-URL image uploads.
+  }; // This opens up the in-app browser for 'Table 2' submission. This is required because the Airtable API doesn't allow for non-URL image uploads.
 
-  navigate = () => {
-    const airtableState = props.navigation.getParam(
-      'airtableStateAdd',
+  useEffect(() => {
+    console.log(
+      'VerifyScreen',
+      props.navigation.getParam('airtableState', 'defaultValue')
+    );
+  });
+
+  navigate = async () => {
+    const airtableState = await props.navigation.getParam(
+      'airtableState',
       'defaultValue'
     );
-    props.navigation.navigate('Vetting', {
+    console.log('Verify =>', airtableState);
+    props.navigation.navigate('ReviewYourInfo', {
       airtableState: airtableState,
       airtableKey: key
     });
@@ -104,13 +115,14 @@ export default VerifyDocumentationScreen = props => {
               </Text>
             </View>
           </View>
-
-          {/* <NavigateButton
-            label='Next'
-            onButtonPress={() => {
-              navigate();
-            }}
-          /> */}
+          <View style={styles.buttons}>
+            <NavigateButton
+              label='Next'
+              onButtonPress={() => {
+                navigate();
+              }}
+            />
+          </View>
         </View>
       </ScrollView>
     </View>

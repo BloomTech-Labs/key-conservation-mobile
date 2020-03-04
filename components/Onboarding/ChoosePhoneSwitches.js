@@ -4,9 +4,28 @@ import { Switch, Text, View } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/ChoosePhoneSwitches';
 
 const ChoosePhoneSwitches = props => {
-  const [applePhone, setApplePhone] = useState(false);
-  const [androidPhone, setAndroidPhone] = useState(false);
-  const [otherPhone, setOtherPhone] = useState(false);
+  useEffect(() => {
+    if (props.type) {
+      if (props.type === 'Android') {
+        setAndroidPhone(true);
+      }
+      if (props.type === 'Apple') {
+        setApplePhone(true);
+      }
+      if (props.type === 'Other') {
+        setOtherPhone(true);
+      }
+    } else {
+      null;
+    }
+    console.log('props.type', props.type);
+  }, [props.type]);
+
+  const [applePhone, setApplePhone] = useState(null);
+  const [androidPhone, setAndroidPhone] = useState(null);
+  const [otherPhone, setOtherPhone] = useState(null);
+
+  //   console.log('Choose', props.importedState);
 
   useEffect(() => {
     let smartphoneType = '';
@@ -34,6 +53,7 @@ const ChoosePhoneSwitches = props => {
     <React.Fragment>
       <View style={styles.switchContainer}>
         <Switch
+          disabled={props.disabled}
           trackColor={{ true: '#00FF9D' }}
           style={styles.obSwitchButton}
           value={applePhone}
@@ -43,6 +63,7 @@ const ChoosePhoneSwitches = props => {
       </View>
       <View style={styles.switchContainer}>
         <Switch
+          disabled={props.disabled}
           trackColor={{ true: '#00FF9D' }}
           style={styles.obSwitchButton}
           value={androidPhone}
@@ -52,6 +73,7 @@ const ChoosePhoneSwitches = props => {
       </View>
       <View style={styles.switchContainer}>
         <Switch
+          disabled={props.disabled}
           trackColor={{ true: '#00FF9D' }}
           style={styles.obSwitchButton}
           value={otherPhone}

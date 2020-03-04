@@ -56,13 +56,23 @@ const ReviewYourInfoScreen = props => {
     profile_image: ''
   });
 
-  console.log(state.email, 'state.email');
+  const airtableState = props.navigation.getParam(
+    'airtableState',
+    'defaultValue'
+  );
+  useEffect(() => {
+    // Grabs state for backend through nav params again.
+  });
 
   useEffect(() => {
     // Grabs state for backend through nav params again.
     setState(props.navigation.getParam('airtableState', 'defaultValue'));
     getAirtableID();
   }, []);
+
+  useEffect(() => {
+    console.log('profile from state', state.profile_image);
+  }, [state.profile_image]);
 
   const getAirtableID = async () => {
     const id = await SecureStore.getItemAsync('airtableID', {});
@@ -102,7 +112,15 @@ const ReviewYourInfoScreen = props => {
           console.error(err);
           return;
         }
-        records.forEach(function(record) {});
+        records.forEach(function(record) {
+          let airtableID = record.getId();
+          props.navigation.navigate('TellMore', {
+            airtableID: airtableID,
+            airtableState: state,
+            airtableKey: airtableKey.key
+          });
+          // This passes the returned form ID and the needed fields for backend and airtable update() to the next component.
+        });
       }
     );
   };
@@ -113,7 +131,7 @@ const ReviewYourInfoScreen = props => {
         <View style={styles.arrowView}>
           <NavigateBack
             onButtonPress={() => {
-              props.navigation.navigate('AccountScreen');
+              props.navigation.navigate('VerifyDocumentation');
             }}
             color='#000'
           />
@@ -131,7 +149,6 @@ const ReviewYourInfoScreen = props => {
       <KeyboardAvoidingView
         style={styles.keyboardView}
         behavior='padding'
-        // keyboardVerticalOffset={86}
         enabled
       >
         <ScrollView style={styles.obBody}>
@@ -377,7 +394,9 @@ const ReviewYourInfoScreen = props => {
                   <Text style={styles.italic}> Select All that apply.</Text>
                 </Text>
                 <ChoosePhoneSwitches
-                  airtableState={state.smartphone_type}
+                  type={airtableState.smartphone_type}
+                  disabled={true}
+                  airtableState={state}
                   onChangeText={setState}
                 />
               </View>
@@ -431,7 +450,10 @@ const ReviewYourInfoScreen = props => {
                   style={[styles.OrgDetailTextInput, styles.grayBackground]}
                   value={state.affiliations_partnerships}
                   onChangeText={text =>
-                    setState({ ...state, affiliations_partnerships: text })
+                    setState({
+                      ...state,
+                      affiliations_partnerships: text
+                    })
                   }
                 />
               </View>
@@ -601,10 +623,14 @@ const ReviewYourInfoScreen = props => {
                   updateAirtable();
                   const sub = await SecureStore.getItemAsync('sub', {});
                   if (props.mediaUpload) {
-                    setState({ ...state, profile_image: props.mediaUpload });
+                    setState({
+                      ...state,
+                      profile_image: props.mediaUpload
+                    });
                   }
                   const stringBE = JSON.stringify({
                     org_name: state.org_name,
+                    name: state.org_name,
                     org_link_url: state.org_link_url,
                     twitter: state.twitter,
                     facebook: state.facebook,
@@ -631,9 +657,8 @@ const ReviewYourInfoScreen = props => {
                   SecureStore.setItemAsync('vetting', 'true');
 
                   // Passes updated state down for backend.
-                  props.navigation.navigate('VerifyDocumentation', {
-                    airtableStateAdd: state,
-                    airtableKey: key
+                  props.navigation.navigate('Vetting', {
+                    airtableStateAdd: state
                   });
                 }
               }}

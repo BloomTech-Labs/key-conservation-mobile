@@ -50,10 +50,13 @@ const axiosWithAuth = (dispatch, req) => {
 };
 
 // url for heroku staging vs production server
+// Automatically set based on environment
 // production
 const seturl = PRODUCTION = 'https://key-conservation.herokuapp.com/api/';
 // staging
+// const STAGING = 'https://key-conservation-staging.herokuapp.com/api/';
 // const seturl = STAGING = 'https://key-conservation-staging.herokuapp.com/api/';
+
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
