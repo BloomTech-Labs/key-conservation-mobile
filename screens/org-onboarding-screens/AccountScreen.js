@@ -30,6 +30,8 @@ const AccountScreen = props => {
   );
   const key = props.navigation.getParam('airtableKey', 'defaultValue');
 
+  console.log('AccountScreen', airtableState);
+
   const handleSubmit = async () => {
     const airtableStateAdd = Object.assign({ ...airtableState, ...values }); // Updates state for backend with new fields.
     props.navigation.navigate('VerifyDocumentation', {
