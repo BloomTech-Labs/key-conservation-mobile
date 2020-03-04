@@ -56,32 +56,18 @@ const ReviewYourInfoScreen = props => {
     profile_image: ''
   });
 
-  useEffect(() => {
-    // Grabs state for backend through nav params again.
-    const stayte = props.navigation.getParam('airtableState', 'defaultValue');
-  // useEffect(()=> {
-  //     console.log('Review state ->',
-  //       props.navigation.getParam('airtableState', 'defaultValue')
-  //     );
-  // })
-
-  // const [applePhone, setApplePhone] = useState(null);
-  //   const [androidPhone, setAndroidPhone] = useState(null);
-  //   const [otherPhone, setOtherPhone] = useState(null);
-
-  // console.log('Review state ->', state.smartphone_type);
-
   const airtableState = props.navigation.getParam(
     'airtableState',
     'defaultValue'
   );
+  useEffect(() => {
+    // Grabs state for backend through nav params again.
+  });
 
   useEffect(() => {
     // Grabs state for backend through nav params again.
-
     setState(props.navigation.getParam('airtableState', 'defaultValue'));
     getAirtableID();
-    console.log('stayte profile image', stayte.profile_image);
   }, []);
 
   useEffect(() => {
@@ -644,6 +630,7 @@ const ReviewYourInfoScreen = props => {
                   }
                   const stringBE = JSON.stringify({
                     org_name: state.org_name,
+                    name: state.org_name,
                     org_link_url: state.org_link_url,
                     twitter: state.twitter,
                     facebook: state.facebook,
@@ -671,8 +658,7 @@ const ReviewYourInfoScreen = props => {
 
                   // Passes updated state down for backend.
                   props.navigation.navigate('Vetting', {
-                    airtableStateAdd: state,
-                    airtableKey: airtableKey.key
+                    airtableStateAdd: state
                   });
                 }
               }}
