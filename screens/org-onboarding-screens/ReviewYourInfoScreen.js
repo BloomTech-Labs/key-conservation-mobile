@@ -120,10 +120,10 @@ const ReviewYourInfoScreen = props => {
         }
         records.forEach(function(record) {
           let airtableID = record.getId();
-          props.navigation.navigate('TellMore', {
+          props.navigation.navigate('Vetting', {
             airtableID: airtableID,
             airtableState: state,
-            airtableKey: airtableKey.key
+            airtableKey: key
           });
           // This passes the returned form ID and the needed fields for backend and airtable update() to the next component.
         });

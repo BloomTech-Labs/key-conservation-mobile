@@ -1,118 +1,85 @@
-export default {
+import { StyleSheet, Dimensions } from 'react-native';
+import { responsiveFontSize } from 'react-native-responsive-dimensions';
+
+export default StyleSheet.create({
+  arrowView: {
+    padding: '2.5%',
+    top: '2.5%',
+    alignSelf: 'flex-start',
+    left: '1.5%'
+  },
   obBody: {
-    paddingTop: '5%',
-    paddingBottom: '5%',
-    paddingLeft: '2%',
-    paddingRight: '2%',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex: 1,
+    padding: '4%'
+  },
+  aroundImage: {
+    flex: 1,
+    borderWidth: 2,
+    borderColor: 'yellow',
+    alignSelf: 'center',
+    height: Dimensions.get('screen').height * 0.9,
+    width: Dimensions.get('screen').width * 0.6
+  },
+  image: {
+    // flex: 1,
+    borderWidth: 2,
+    borderColor: 'orange',
+    alignSelf: 'center',
+    height: Dimensions.get('screen').height * 0.4,
+    width: Dimensions.get('screen').width * 0.8
+  },
+  titleTexts: {
+    //   flex: 0,
+    borderWidth: 2,
+    borderColor: 'red',
+    fontFamily: 'Lato'
   },
   obText: {
+    // flex: 0,
+    borderWidth: 2,
+    borderColor: 'red',
     color: '#000000',
     fontFamily: 'Lato',
     fontSize: 18,
-    lineHeight: 25,
-    marginTop: '5%',
-    marginBottom: '10%'
-  },
-  highlight: {
-    backgroundColor: '#D7FF43',
-    borderRadius: 10
-  },
-  contentWrapper: {
-    display: 'flex',
-    marginLeft: '5%',
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: '5%'
-  },
-  iconWrapper: {
-    marginTop: '5%'
-  },
-  textBox: {
-    width: '90%',
-    height: 125
+    lineHeight: 25
+    // marginTop: '5%',
+    // marginBottom: '10%',
   },
   obTitle: {
+    borderWidth: 2,
+    borderColor: 'red',
     color: '#000000',
     fontFamily: 'Lato-Bold',
     fontSize: 28,
-    lineHeight: 38,
-    marginTop: '15%',
-    marginBottom: '5%'
+    lineHeight: 38
   },
-  obFwdContainer: {
-    width: 282,
-    height: 50,
+  button: {
     borderWidth: 2,
-    borderColor: '#000',
-    borderRadius: 20,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  obFwdBtnText: {
-    fontFamily: 'Lato-Bold',
-    fontStyle: 'normal',
-    letterSpacing: 2,
-    fontSize: 18,
-    lineHeight: 25,
-    color: '#000000'
-  },
-  buttons: {
+    borderColor: 'red',
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
   },
-  greenButton: {
+  buttonTouch: {
+    borderWidth: 2,
+    borderColor: 'red',
     width: 282,
     height: 55,
     borderRadius: 20,
     backgroundColor: '#00FF9D',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'column',
+    flexDirection: 'column'
   },
-  greenText: {
+  buttontext: {
+    borderWidth: 2,
+    borderColor: 'red',
     fontFamily: 'Lato-Bold',
     letterSpacing: 2,
     fontStyle: 'normal',
     fontSize: 18,
     lineHeight: 25,
     color: '#000000'
-  },
-  obFieldName: {
-    fontFamily: 'Lato',
-    fontWeight: 300,
-    fontSize: 14,
-    lineHeight: 19,
-    color: '#000000'
-  },
-  obTextInput: {
-    marginLeft: 20,
-    marginBottom: 20,
-    backgroundColor: 'rgba(196, 196, 196, 0.5)',
-    borderRadius: 8,
-    keyboardType: 'default'
-  },
-  obNumInput: {
-    marginLeft: 20,
-    marginBottom: 20,
-    backgroundColor: 'rgba(196, 196, 196, 0.5)',
-    borderRadius: 8,
-    keyboardType: 'phone-pad'
-  },
-  obOrgBtn: {
-    backgroundColor: '#C4C4C4',
-    borderRadius: 24,
-    width: 214,
-    height: 68
-  },
-  spacer: {
-    height: 30
   }
-};
+});

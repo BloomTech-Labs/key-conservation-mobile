@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, Alert, TouchableOpacity } from 'react-native';
+import {
+  Text,
+  View,
+  Alert,
+  TouchableOpacity,
+  ImageBackground,
+  Image
+} from 'react-native';
 import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
 import * as SecureStore from 'expo-secure-store';
@@ -8,6 +15,7 @@ import { logout, postUser } from '../store/actions';
 
 import Constants from 'expo-constants';
 import * as WebBrowser from 'expo-web-browser';
+import NavigateBack from './org-onboarding-screens/formElement/NavigateBack.js';
 
 function VettingCheck(props) {
   useEffect(() => {
@@ -147,30 +155,85 @@ function VettingCheck(props) {
   };
 
   return (
-    <View style={styles.contentWrapper}>
+    <ImageBackground
+      source={require('../assets/images/sumatranrhinoceros.png')}
+      style={{ width: '100%', height: '100%' }}
+    >
+      <View style={styles.arrowView}>
+        <NavigateBack
+          onButtonPress={() => {
+            props.navigation.navigate('ReviewYourInfo');
+          }}
+          color='#fff'
+        />
+      </View>
       <View style={styles.obBody}>
-        <Text style={styles.obTitle}>
-          Thanks for submitting your application!
-        </Text>
-        <Text style={styles.obText}>
-          You will receive an email with the outcome of your application in the
-          next few days.
-        </Text>
-
-        <TouchableOpacity onPress={getAirtable} style={styles.greenButton}>
-          <View style={styles.buttons}>
-            <Text style={styles.greenText}>Check vetting status</Text>
+        <View style={styles.aroundImage}>
+          <Image
+            source={require('../assets/images/onboarding/on_g1.png')}
+            resizeMode={'contain'}
+            style={styles.image}
+          />
+          <View style={styles.titleTexts}>
+            <Text style={styles.obTitle}>
+              Thanks for submitting your application!
+            </Text>
+            <Text style={styles.obText}>
+              You will receive an email with the outcome of your application in
+              the next few days.
+            </Text>
+          </View>
+        </View>
+        <TouchableOpacity onPress={getAirtable} style={styles.buttonTouch}>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Check vetting status</Text>
           </View>
         </TouchableOpacity>
-        <View style={styles.spacer}></View>
-        <TouchableOpacity onPress={logoutPress} style={styles.obFwdContainer}>
-          <View style={styles.buttons}>
-            <Text style={styles.obFwdBtnText}>Log Out</Text>
+
+        <TouchableOpacity onPress={logoutPress} style={styles.buttonTouch}>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Log Out</Text>
           </View>
         </TouchableOpacity>
       </View>
-    </View>
+    </ImageBackground>
   );
+
+  //   return (
+  //     // on_g1.png
+
+  //     <View style={styles.contentWrapper}>
+  //       <View style={styles.arrowView}>
+  //         <NavigateBack
+  //           onButtonPress={() => {
+  //             props.navigation.navigate('ReviewYourInfo');
+  //           }}
+  //           color='#FFF'
+  //         />
+  //       </View>
+  //       <View style={styles.obBody}>
+  //         <Text style={styles.obTitle}>
+  //           Thanks for submitting your application!
+  //         </Text>
+  //         <Text style={styles.obText}>
+  //           You will receive an email with the outcome of your application in the
+  //           next few days.
+  //         </Text>
+
+  //         <TouchableOpacity onPress={getAirtable} style={styles.greenButton}>
+  //           <View style={styles.buttons}>
+  //             <Text style={styles.greenText}>Check vetting status</Text>
+  //           </View>
+  //         </TouchableOpacity>
+  //         <View style={styles.spacer}></View>
+  //         <TouchableOpacity onPress={logoutPress} style={styles.obFwdContainer}>
+  //           <View style={styles.buttons}>
+  //             <Text style={styles.obFwdBtnText}>Log Out</Text>
+  //           </View>
+  //         </TouchableOpacity>
+  //       </View>
+  //     </View>
+  //   );
 }
 
 export default connect(null, { postUser })(VettingCheck);
