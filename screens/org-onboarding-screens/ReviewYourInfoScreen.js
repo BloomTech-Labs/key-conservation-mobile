@@ -487,16 +487,16 @@ const ReviewYourInfoScreen = props => {
                   })
                 }
               />
-              <View>
+              {/* <View>
                 <Text style={styles.obSubtitleSm}>
                   What type of smartphones do you use?
                   <Text style={styles.italic}> Select All that apply.</Text>
                 </Text>
                 <ChoosePhoneSwitches
-                  airtableState={state.smartphone_type}
+                  airtableState={state}
                   onChangeText={setState}
                 />
-              </View>
+              </View> */}
             </View>
           )}
 
