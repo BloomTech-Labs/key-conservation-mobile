@@ -24,13 +24,13 @@ import Hand from '../assets/jsicons/detailAboutUs/Hand';
 import styles from '../constants/screens/ViewCampScreen';
 import Ellipse from '../assets/jsicons/Ellipse';
 import CampaignActionSheet from '../components/Reports/CampaignActionSheet';
-import TakeAction from '../components/TakeAction/TakeActionCta'
+import TakeActionCta from '../components/TakeAction/TakeActionCta';
 
 // Redux gave us a hard time on this project. We worked on comments first and when our commentOnCampaign action failed to trigger the re-render we expected, and when we couldn't solve the
 // issue in labs_help, we settled for in-component axios calls. Not elegant. Probably not super scalable—but it worked. Hopefully a more talented team can solve what we couldn't.
 // In the meantime, ViewCampScreen, ViewCampUpdateScreen, FeedCampaign, and FeedUpdate are all interconnected, sharing props (state, functions) via React-Navigation.
 
-const { data } = props;
+// const { data } = props;
 
 class ViewCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -67,7 +67,6 @@ class ViewCampScreen extends React.Component {
   showActionSheet = () => {
     this.ActionSheet?.show();
   };
-
 
   render() {
     let sortedUpdates = false;
@@ -164,91 +163,7 @@ class ViewCampScreen extends React.Component {
                       style={styles.campImgContain}
                     />
                   )}
-                  {/* <View style={styles.iconRow}>
-                    <View style={styles.likesContainer}>
-                      <View style={styles.hearts}>
-                        <View
-                          style={
-                            !this.state.userLiked
-                              ? { zIndex: 1 }
-                              : { zIndex: -1 }
-                          }
-                        >
-                          <FontAwesome
-                            onPress={() =>
-                              this.addLike(this.props.selectedCampaign.camp_id)
-                            }
-                            name='heart-o'
-                            style={styles.heartOutline}
-                          />
-                        </View>
-                        <View
-                          animation={
-                            this.state.userLiked ? "zoomIn" : "zoomOut"
-                          }
-                          style={
-                            (this.state.userLiked
-                              ? { zIndex: 1 }
-                              : { zIndex: -1 },
-                            { marginTop: -29, marginLeft: -1.25 })
-                          }
-                          duration={300}
-                        >
-                          <FontAwesome
-                            onPress={() =>
-                              this.deleteLike(
-                                this.props.selectedCampaign.camp_id
-                              )
-                            }
-                            name='heart'
-                            style={styles.heartFill}
-                          />
-                        </View>
-                      </View>
-                      {this.state.likes === 0 ? null : this.state.likes > 1 ? (
-                        <Text style={styles.likes}>
-                          {this.state.likes} likes
-                        </Text>
-                      ) : (
-                        <Text style={styles.likes}>
-                          {this.state.likes} like
-                        </Text>
-                      )}
-                    </View>
-                    <View style={styles.bookmarks}>
-                      <View
-                        style={
-                          !this.state.userBookmarked
-                            ? { zIndex: 1 }
-                            : { zIndex: -1 }
-                        }
-                      >
-                        <FontAwesome
-                          onPress={() => this.addBookmark()}
-                          name='bookmark-o'
-                          style={styles.bookmarkOutline}
-                        />
-                      </View>
-                      <View
-                        animation={
-                          this.state.userBookmarked ? "zoomIn" : "zoomOut"
-                        }
-                        style={
-                          (this.state.userBookmarked
-                            ? { zIndex: 1 }
-                            : { zIndex: -1 },
-                          { marginTop: -28.75, marginLeft: -1.25 })
-                        }
-                        duration={300}
-                      >
-                        <FontAwesome
-                          onPress={() => this.deleteBookmark()}
-                          name='bookmark'
-                          style={styles.bookmarkFill}
-                        />
-                      </View>
-                    </View>
-                  </View> */}
+
                   <View style={styles.campDescContain}>
                     <Text style={styles.campDescName}>
                       {this.props.selectedCampaign.camp_name}
@@ -263,40 +178,10 @@ class ViewCampScreen extends React.Component {
                     <CommentsView />
                   </View>
 
-                  <TakeAction donate={props.data} />
+                  <View style={styles.donateView}>
+                    <TakeActionCta donate={this.props.selectedCampaign} />
+                  </View>
 
-                  {/* <View style={styles.donateView}>
-                    <View style={styles.campMission}>
-                      <Hand fill='#3b3b3b' width='25' height='25' />
-                      <Text style={styles.supportMissionText}>
-                        Support Our Mission
-                      </Text>
-                      <Text style={styles.campMissionText}>
-                        Your donation helps us more{'\n'}than you know. Thanks!
-                      </Text>
-                    </View>
-                    <View style={styles.donateButton}>
-                      <TouchableOpacity
-                        style={styles.touchableButton}
-                        // If these links are empty string and don't have an http:// or a https:// it will send you with unpromised rejections.
-                        onPress={async () =>
-                          this.props.selectedCampaign.camp_cta &&
-                          this.props.selectedCampaign.camp_cta !== null &&
-                          (await WebBrowser.openBrowserAsync(
-                            this.props.selectedCampaign.camp_cta
-                          )) &&
-                          AmpEvent('Campaign Donation Button Clicked', {
-                            name: this.props.name,
-                            campId: this.props.selectedCampaign.camp_id
-                          })
-                        }
-                      >
-                        <View style={styles.touchableView}>
-                          <Text style={styles.touchableText}>Donate</Text>
-                        </View>
-                      </TouchableOpacity>
-                    </View>
-                  </View> */}
                   <View style={styles.feedContainer}>
                     {sortedUpdates !== false &&
                       sortedUpdates.map(update => {
@@ -355,8 +240,8 @@ class ViewCampScreen extends React.Component {
                       style={styles.campImgContain}
                     />
                   )}
-               
-                    {/* <View style={styles.bookmarks}>
+
+                  {/* <View style={styles.bookmarks}>
                       <View
                         style={
                           !this.state.userBookmarked
@@ -404,41 +289,9 @@ class ViewCampScreen extends React.Component {
                     <CommentsView />
                   </View>
 
-                  <TakeAction donate={props.data} />
-
-                  {/* <View style={styles.donateView}>
-                    <View style={styles.campMission}>
-                      <Hand fill='#3b3b3b' width='25' height='25' />
-                      <Text style={styles.supportMissionText}>
-                        Support Our Mission
-                      </Text>
-
-                      <Text style={styles.campMissionText}>
-                        Your donation helps us more than you know. Thanks!
-                      </Text>
-                    </View>
-                    <View style={styles.donateButton}>
-                      <TouchableOpacity
-                        style={styles.touchableButton}
-                        // If these links are empty string and don't have an http:// or a https:// it will send you with unpromised rejections.
-                        onPress={async () =>
-                          this.props.selectedCampaign.camp_cta &&
-                          this.props.selectedCampaign.camp_cta !== null &&
-                          (await WebBrowser.openBrowserAsync(
-                            this.props.selectedCampaign.camp_cta
-                          )) &&
-                          AmpEvent('Campaign Donation Button Clicked', {
-                            name: this.props.name,
-                            campId: this.props.selectedCampaign.camp_id
-                          })
-                        }
-                      >
-                        <View style={styles.touchableView}>
-                          <Text style={styles.touchableText}>Donate</Text>
-                        </View>
-                      </TouchableOpacity>
-                    </View>
-                  </View> */}
+                  <View style={styles.donateView}>
+                    <TakeActionCta donate={this.props.selectedCampaign} />
+                  </View>
 
                   <View style={styles.feedContainer}>
                     {sortedUpdates !== false &&
