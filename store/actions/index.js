@@ -880,6 +880,8 @@ export const getReport = id => dispatch => {
   dispatch({ type: GET_REPORT_START });
   let url = `${seturl}reports/${id}`;
 
+  console.log(`getting report ${id}`)
+
   return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .get(url)
@@ -887,6 +889,7 @@ export const getReport = id => dispatch => {
         dispatch({ type: GET_REPORT_SUCCESS, payload: res?.data });
       })
       .catch(err => {
+        console.log(err);
         dispatch({ type: GET_REPORT_ERROR, payload: err.message });
       });
   });
