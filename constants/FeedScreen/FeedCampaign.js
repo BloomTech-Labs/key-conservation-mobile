@@ -125,7 +125,7 @@ export default {
     fontSize: 14,
     lineHeight: 16,
     justifyContent: 'center',
-    backgroundColor: '#EAEAEA',
+    backgroundColor: '#F5F5F5',
     alignSelf: 'flex-end',
     paddingVertical: 4,
     paddingHorizontal: 10
@@ -150,6 +150,6 @@ export default {
     marginTop: 5
   },
   subtitleText: {
-    color: '#929292',
+    color: '#929292'
   }
 };
