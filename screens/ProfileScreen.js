@@ -47,10 +47,8 @@ class ProfileScreen extends React.Component {
 
   initProfileData = async () => {
     try {
-      const id = this.props.navigation.getParam('selectedProfile')
-
       const user = await this.props.getProfileData(
-        id,
+        this.profileId,
         null,
         !this.props.navigation.getParam('selectedProfile')
       );
@@ -70,10 +68,6 @@ class ProfileScreen extends React.Component {
 
   componentDidMount = () => {
     this.initProfileData();
-
-    this.profileId =
-      this.props.navigation.getParam('selectedProfile') ||
-      this.props.currentUserProfile.id;
 
     this._sub = this.props.navigation.addListener(
       'didFocus',
@@ -149,19 +143,15 @@ class ProfileScreen extends React.Component {
   };
 
   scrollToMaximizeContent = (animate = false) => {
-
-    this.scrollView.current
-      ?.getNode()
-      .scrollTo({
-        x: 0,
-        y: this.state.contentPaddingTop - this.state.headerHeight,
-        animate: animate
-      });
+    this.scrollView.current?.getNode().scrollTo({
+      x: 0,
+      y: this.state.contentPaddingTop - this.state.headerHeight,
+      animate: animate
+    });
   };
 
   render() {
     const { navigation } = this.props;
-
 
     const profileData = this.props.navigation.getParam('selectedProfile')
       ? this.state.user
@@ -216,6 +206,7 @@ class ProfileScreen extends React.Component {
                 profile={profileData}
                 contentPaddingTop={this.state.contentPaddingTop}
                 headerHeight={this.state.headerHeight}
+                myProfile={profileData === this.props.currentUserProfile}
                 scrollY={this.scrollY}
                 ref={this.bodyOnScroll}
                 scrollToMaximizeContent={this.scrollToMaximizeContent}

@@ -34,7 +34,7 @@ export default React.forwardRef((props, ref) => {
   const handleIndexChange = index => {
     props.scrollToMaximizeContent(index === state.index);
     setState(prevState => ({ ...prevState, index }));
-  }
+  };
 
   const renderTabBar = ({ navigationState }) => {
     const distance = props.contentPaddingTop - props.headerHeight;
@@ -61,9 +61,7 @@ export default React.forwardRef((props, ref) => {
                   state.index === i ? 1 : 0
                 })`
               }}
-              onPress={() =>
-                handleIndexChange(i)
-              }
+              onPress={() => handleIndexChange(i)}
             >
               <Animated.Text style={{ fontFamily: 'Lato-Bold', fontSize: 18 }}>
                 {route.title}
@@ -83,10 +81,10 @@ export default React.forwardRef((props, ref) => {
 
   return (
     <TabView
-    sceneContainerStyle={{
-      flex: 1,
-      paddingTop: 48
-    }}
+      sceneContainerStyle={{
+        flex: 1,
+        paddingTop: 48
+      }}
       navigationState={state}
       renderScene={renderScene}
       renderTabBar={renderTabBar}
