@@ -1,13 +1,13 @@
 import React from 'react';
 import { Platform, Text, View, TextInput } from 'react-native';
-import { ScrollView, NavigationEvents } from 'react-navigation';
+import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
 import BackButton from '../components/BackButton';
 import * as SecureStore from 'expo-secure-store';
 import DoneButton from '../components/DoneButton';
 import UploadMedia from '../components/UploadMedia';
 
-import { editProfileData, logout, clearMedia } from '../store/actions';
+import { editProfileData, logout } from '../store/actions';
 import { AmpEvent } from '../components/withAmplitude';
 import LocationIQ from 'react-native-locationiq';
 
@@ -111,12 +111,6 @@ class EditProScreen extends React.Component {
 
   done = () => {
     let changes = this.state;
-    if (this.props.mediaUpload) {
-      changes = {
-        ...this.state,
-        profile_image: this.props.mediaUpload
-      };
-    }
     this.props.editProfileData(this.props.currentUserProfile.id, changes);
     if (this.props.firstLogin) {
       this.props.navigation.navigate('Home');
@@ -127,9 +121,8 @@ class EditProScreen extends React.Component {
 
   render() {
     return (
-      <KeyboardAwareScrollView>
+      <KeyboardAwareScrollView enableOnAndroid={true} extraScrollHeight={32}>
         <ScrollView>
-          <NavigationEvents onWillFocus={this.props.clearMedia} />
           <View style={styles.sectionContainer}>
             <Text style={styles.sectionHeader}>Details</Text>
             <View style={styles.Card} />
@@ -227,6 +220,8 @@ class EditProScreen extends React.Component {
                   size={128}
                   circular
                   title='Upload a logo'
+                  removable
+                  onChangeMedia={media => this.setState({ profile_image: media })}
                 />
               </View>
             </View>
@@ -391,11 +386,9 @@ class EditProScreen extends React.Component {
 
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
-  mediaUpload: state.mediaUpload
 });
 
 export default connect(mapStateToProps, {
   editProfileData,
   logout,
-  clearMedia
 })(EditProScreen);

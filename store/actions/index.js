@@ -52,7 +52,7 @@ const axiosWithAuth = (dispatch, req) => {
 // url for heroku staging vs production server
 // Automatically set based on environment
 // production
-const seturl = PRODUCTION = 'https://key-conservation.herokuapp.com/api/';
+const seturl = PRODUCTION = 'http://192.168.1.13:8000/api/';
 // staging
 // const STAGING = 'https://key-conservation-staging.herokuapp.com/api/';
 // const seturl = STAGING = 'https://key-conservation-staging.herokuapp.com/api/';
@@ -687,14 +687,17 @@ export const [
 ];
 
 export const deleteCampaignUpdate = id => dispatch => {
+  console.log('deleting campaign update');
   dispatch({ type: DELETE_CAMPAIGN_UPDATE_START });
   return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .delete(`${seturl}updates/${id}`)
       .then(res => {
+        console.log('success in actions', res.data);
         dispatch({ type: DELETE_CAMPAIGN_UPDATE_SUCCESS, payload: res.data });
       })
       .catch(err => {
+        console.log(err);
         dispatch({ type: DELETE_CAMPAIGN_UPDATE_ERROR, payload: err });
         return err;
       });
@@ -707,23 +710,6 @@ export const toggleCampaignText = id => ({
   type: TOGGLE_CAMPAIGN_TEXT,
   payload: id
 });
-
-export const MEDIA_UPLOAD = 'MEDIA_UPLOAD';
-
-export const setMedia = media => {
-  return {
-    type: MEDIA_UPLOAD,
-    payload: media
-  };
-};
-
-export const MEDIA_CLEAR = 'MEDIA_CLEAR';
-
-export const clearMedia = () => {
-  return {
-    type: MEDIA_CLEAR
-  };
-};
 
 export const [
   POST_COMMENT_START,

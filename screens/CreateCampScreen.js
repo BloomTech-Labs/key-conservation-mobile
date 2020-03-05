@@ -13,7 +13,7 @@ import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import { postCampaign, getCampaigns, clearMedia } from '../store/actions';
+import { postCampaign, getCampaigns } from '../store/actions';
 import BackButton from '../components/BackButton';
 import PublishButton from '../components/PublishButton';
 import { AmpEvent } from '../components/withAmplitude';
@@ -67,6 +67,7 @@ class CreateCampScreen extends React.Component {
   }
 
   state = {
+    image: '',
     users_id: this.props.currentUserProfile.id,
     camp_name: '',
     camp_desc: '',
@@ -97,20 +98,20 @@ class CreateCampScreen extends React.Component {
       loading: true
     });
     if (
-      !this.props.mediaUpload ||
+      !this.state.image ||
       !this.state.camp_name ||
       !this.state.camp_desc ||
       !this.state.camp_cta
     ) {
       const errorMessage =
         'Form incomplete. Please include:' +
-        (this.props.mediaUpload ? '' : '\n    - Campaign Image') +
+        (this.state.image ? '' : '\n    - Campaign Image') +
         (this.state.camp_name ? '' : '\n    - Campaign Name') +
         (this.state.camp_desc ? '' : '\n    - Campaign Details') +
         (this.state.camp_cta ? '' : '\n    - Donation Link');
       this.setState({
         loading: false
-      })
+      });
       return Alert.alert('Error', errorMessage);
     } else {
       const camp = {
@@ -119,7 +120,7 @@ class CreateCampScreen extends React.Component {
         camp_desc: this.state.camp_desc,
         camp_cta: this.state.camp_cta,
         urgency: this.state.urgency,
-        camp_img: this.props.mediaUpload
+        camp_img: this.state.image
       };
       this.props
         .postCampaign(camp)
@@ -133,7 +134,7 @@ class CreateCampScreen extends React.Component {
         .catch(err => {
           this.setState({
             loading: false
-          })
+          });
           console.log(err);
         });
     }
@@ -143,7 +144,7 @@ class CreateCampScreen extends React.Component {
     this.setState({
       loading: false,
       users_id: this.props.currentUserProfile.id,
-      camp_img: this.props.mediaUpload,
+      camp_img: '',
       camp_name: '',
       camp_desc: '',
       camp_cta: '',
@@ -161,10 +162,7 @@ class CreateCampScreen extends React.Component {
     }
     return (
       <KeyboardAwareScrollView contentContainerStyle={styles.container}>
-        <NavigationEvents
-          onWillFocus={this.props.clearMedia}
-          onDidBlur={this.clearState}
-        />
+        <NavigationEvents onDidBlur={this.clearState} />
         <View style={styles.sectionContainer}>
           <View style={styles.horizontalContainer}>
             <View style={styles.iconContainer}>
@@ -191,7 +189,11 @@ class CreateCampScreen extends React.Component {
         <View style={styles.sectionContainer}>
           <View style={styles.horizontalContainer}>
             <View style={styles.iconContainer}>
-              <UploadMedia title='Upload campaign image' />
+              <UploadMedia
+                title='Upload campaign image'
+                media={this.state.image}
+                onChangeMedia={media => this.setState({ image: media })}
+              />
             </View>
             <TextInput
               ref={input => {
@@ -264,13 +266,11 @@ class CreateCampScreen extends React.Component {
 
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
-  mediaUpload: state.mediaUpload,
   allCampaigns: state.allCampaigns,
   token: state.token
 });
 
 export default connect(mapStateToProps, {
   postCampaign,
-  getCampaigns,
-  clearMedia
+  getCampaigns
 })(CreateCampScreen);

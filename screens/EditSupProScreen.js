@@ -1,17 +1,15 @@
 import React from 'react';
 import { Platform, Text, View, TextInput } from 'react-native';
-import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import BackButton from '../components/BackButton';
 
 import DoneButton from '../components/DoneButton';
 import UploadMedia from '../components/UploadMedia';
 
-import { editProfileData, logout, clearMedia } from '../store/actions';
+import { editProfileData, logout } from '../store/actions';
 import { AmpEvent } from '../components/withAmplitude';
 
 import styles from '../constants/screens/EditSupProScreen';
-import { Avatar } from 'react-native-elements';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -61,12 +59,6 @@ class EditSupProScreen extends React.Component {
 
   done = () => {
     let changes = this.state;
-    if (this.props.mediaUpload) {
-      changes = {
-        ...this.state,
-        profile_image: this.props.mediaUpload
-      };
-    }
     this.props.editProfileData(this.props.currentUserProfile.id, changes);
     if (this.props.firstLogin) {
       this.props.navigation.navigate('Home');
@@ -78,7 +70,6 @@ class EditSupProScreen extends React.Component {
   render() {
     return (
       <KeyboardAwareScrollView enableOnAndroid={true} extraScrollHeight={32}>
-        <NavigationEvents onWillFocus={this.props.clearMedia} />
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionHeader}>Details</Text>
           <View style={styles.sections}>
@@ -164,9 +155,11 @@ class EditSupProScreen extends React.Component {
             <View style={styles.imageSelectContainer}>
               <UploadMedia
                 media={this.state.profile_image}
+                onChangeMedia={media => this.setState({ profile_image: media })}
                 size={128}
                 circular
                 title='Upload photo'
+                removable
               />
             </View>
           </View>
@@ -239,12 +232,10 @@ class EditSupProScreen extends React.Component {
 
 const mapStateToProps = state => ({
   error: state.error,
-  currentUserProfile: state.currentUserProfile,
-  mediaUpload: state.mediaUpload
+  currentUserProfile: state.currentUserProfile
 });
 
 export default connect(mapStateToProps, {
   editProfileData,
-  logout,
-  clearMedia
+  logout
 })(EditSupProScreen);
