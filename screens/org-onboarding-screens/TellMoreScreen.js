@@ -60,8 +60,6 @@ const TellMoreScreen = props => {
     setAirtableID();
   });
 
-  console.log('TellMore', airtableState);
-
   const airtableStateAdd = Object.assign({
     ...airtableState2,
     ...airtableState
@@ -70,9 +68,10 @@ const TellMoreScreen = props => {
   const updateAirtable = () => {
     // this updates the airtable form created in the previous component
 
-    // if (airtableState.smartphone_access) {
-    //   onChangeText({ ...airtableState, smartphone_access: 'Yes' });
-    // }
+    if (airtableState.smartphone_access) {
+      onChangeText({ ...airtableState, smartphone_access: 'Yes' });
+    }
+
     var Airtable = require('airtable');
     var base = new Airtable({ apiKey: airtableKey }).base('appbPeeXUSNCQWwnQ');
     base('Table 1').update(

@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 const ItemCard = props => {
-  //   console.log(props);
   const { item } = props;
   if (!item) {
     return null;

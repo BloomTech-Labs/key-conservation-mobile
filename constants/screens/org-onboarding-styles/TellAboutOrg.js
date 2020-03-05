@@ -92,7 +92,7 @@ export default StyleSheet.create({
   obTextInput: {
     alignContent: 'center',
     backgroundColor: '#F5F5F5',
-    height: 45,
+    height: 42,
     width: Dimensions.get('screen').width * 0.6,
     marginRight: Dimensions.get('screen').width * 0.1,
     fontFamily: 'Lato',

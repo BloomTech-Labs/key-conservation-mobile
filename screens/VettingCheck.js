@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, Alert, TouchableOpacity } from 'react-native';
+import {
+  Text,
+  View,
+  Alert,
+  TouchableOpacity,
+  ImageBackground,
+  Image
+} from 'react-native';
 import { connect } from 'react-redux';
 import * as SecureStore from 'expo-secure-store';
 import styles from '../constants/screens/org-onboarding-styles/VettingCheck.js';
@@ -17,6 +24,18 @@ function VettingCheck(props) {
   const [user, setUser] = useState({});
 
   const [state, setState] = useState({});
+
+  navigate = async () => {
+    const airtableState = await props.navigation.getParam(
+      'airtableState',
+      'defaultValue'
+    );
+    // console.log('Vetting =>', airtableState);
+    props.navigation.navigate('ReviewYourInfo', {
+      airtableState: airtableState,
+      airtableKey: state.key
+    });
+  };
 
   // Retrieves state object from SecureStore that was created in the onboarding process (ReviewYourInfoScreen).
   const getBackend = async () => {
@@ -75,7 +94,8 @@ function VettingCheck(props) {
           }
         }
       );
-  }; // Checks 'Table 2' for 'accepted' field.
+  };
+  // Checks 'Table 2' for 'accepted' field.
 
   const updateAirtableVettingTrue = async () => {
     console.log('update airtable activated!');
@@ -126,7 +146,9 @@ function VettingCheck(props) {
         });
       }
     );
-  }; // This sets the cuurent user's 'Table 1' form, field 'isVetting', to false. This will allow a new organization to sign up through the same device.
+  };
+
+  // This sets the current user's 'Table 1' form, field 'isVetting', to false. This will allow a new organization to sign up through the same device.
 
   const logoutPress = async () => {
     await SecureStore.deleteItemAsync('sub', {});
@@ -147,28 +169,44 @@ function VettingCheck(props) {
   };
 
   return (
-    <View style={styles.contentWrapper}>
-      <View style={styles.obBody}>
-        <Text style={styles.obTitle}>
-          Thanks for submitting your application!
-        </Text>
-        <Text style={styles.obText}>
-          You will receive an email with the outcome of your application in the
-          next few days.
-        </Text>
-
-        <TouchableOpacity onPress={getAirtable} style={styles.greenButton}>
-          <View style={styles.buttons}>
-            <Text style={styles.greenText}>Check vetting status</Text>
+    <View style={styles.container}>
+      <ImageBackground
+        source={require('../assets/images/sumatranrhinoceros.png')}
+        style={{ width: '100%', height: '100%' }}
+      >
+        <View style={styles.obBody}>
+          <Image
+            source={require('../assets/images/onboarding/on_g1.png')}
+            resizeMode={'contain'}
+            style={styles.image}
+          />
+          <View style={styles.titleTexts}>
+            <Text style={styles.obTitle}>
+              Thanks for submitting your application!
+            </Text>
+            <Text style={styles.obText}>
+              You will receive an email with the outcome of your application in
+              the next few days.
+            </Text>
           </View>
-        </TouchableOpacity>
-        <View style={styles.spacer}></View>
-        <TouchableOpacity onPress={logoutPress} style={styles.obFwdContainer}>
           <View style={styles.buttons}>
-            <Text style={styles.obFwdBtnText}>Log Out</Text>
+            <TouchableOpacity
+              onPress={getAirtable}
+              style={[styles.buttonTouch, styles.green]}
+            >
+              <Text style={styles.buttonText}>Check vetting status</Text>
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
-      </View>
+          <View style={styles.buttons}>
+            <TouchableOpacity
+              onPress={logoutPress}
+              style={[styles.buttonTouch, styles.white]}
+            >
+              <Text style={styles.buttonText}>Log Out</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ImageBackground>
     </View>
   );
 }

@@ -24,7 +24,6 @@ const ReviewYourInfoScreen = props => {
   const [isEditingBasicInfo, setIsEditingBasicInfo] = useState(false);
   const [isEditingOrgDetails, setIsEditingOrgDetails] = useState(false);
   const [isEditingActivityQuest, setIsEditingActivityQuest] = useState(false);
-  const [isEditingDocs, setIsEditingDocs] = useState(false);
 
   const [airtableId, setAirtableId] = useState('');
 
@@ -54,12 +53,14 @@ const ReviewYourInfoScreen = props => {
     profile_image: ''
   });
 
+  // airtableState and choosePhoneState below are so that the ChoosePhoneSwitches have the correct data
   const airtableState = props.navigation.getParam(
     'airtableState',
     'defaultValue'
   );
+  const [choosePhoneState, setChoosePhoneState] = useState(airtableState);
   useEffect(() => {
-    // Grabs state for backend through nav params again.
+    !state.smartphone_type ? null : setChoosePhoneState(state);
   });
 
   useEffect(() => {
@@ -67,10 +68,6 @@ const ReviewYourInfoScreen = props => {
     setState(props.navigation.getParam('airtableState', 'defaultValue'));
     getAirtableID();
   }, []);
-
-  useEffect(() => {
-    console.log('profile from state', state.profile_image);
-  }, [state.profile_image]);
 
   const getAirtableID = async () => {
     const id = await SecureStore.getItemAsync('airtableID', {});
@@ -112,10 +109,10 @@ const ReviewYourInfoScreen = props => {
         }
         records.forEach(function(record) {
           let airtableID = record.getId();
-          props.navigation.navigate('TellMore', {
+          props.navigation.navigate('Vetting', {
             airtableID: airtableID,
             airtableState: state,
-            airtableKey: airtableKey.key
+            airtableKey: key
           });
           // This passes the returned form ID and the needed fields for backend and airtable update() to the next component.
         });
@@ -349,9 +346,7 @@ const ReviewYourInfoScreen = props => {
                   Current partnerships and affiliations:
                 </Text>
                 <View style={styles.listContainer}>
-                  {!state.affiliations_partnerships ? null : (
-                    <ItemCard item={state.affiliations_partnerships} />
-                  )}
+                  <ItemCard item={state.affiliations_partnerships} />
                 </View>
               </View>
               <View>
@@ -392,10 +387,9 @@ const ReviewYourInfoScreen = props => {
                   <Text style={styles.italic}> Select All that apply.</Text>
                 </Text>
                 <ChoosePhoneSwitches
-                  type={airtableState.smartphone_type}
                   disabled={true}
-                  airtableState={state}
-                  onChangeText={setState}
+                  airtableState={choosePhoneState}
+                  onChangeText={() => null}
                 />
               </View>
             </View>
@@ -491,7 +485,7 @@ const ReviewYourInfoScreen = props => {
                   <Text style={styles.italic}> Select All that apply.</Text>
                 </Text>
                 <ChoosePhoneSwitches
-                  airtableState={state.smartphone_type}
+                  airtableState={state}
                   onChangeText={setState}
                 />
               </View>
@@ -616,8 +610,9 @@ const ReviewYourInfoScreen = props => {
                   state.org_link_url === undefined ||
                   state.phone_number === undefined ||
                   state.location === undefined ||
-                  state.country === undefined
-                  //   || state.email === undefined
+                  state.country === undefined ||
+                  state.email === undefined ||
+                  state.profile_image === undefined
                 ) {
                   Alert.alert('Oops', 'Please fill in all sections of form', [
                     { text: 'Got it' }

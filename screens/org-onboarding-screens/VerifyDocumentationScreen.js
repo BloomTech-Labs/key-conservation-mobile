@@ -12,16 +12,6 @@ import Lock from '../../assets/jsicons/OnBoarding/Lock';
 export default VerifyDocumentationScreen = props => {
   const key = props.navigation.getParam('airtableKey', 'defaultValue');
 
-  //   useEffect(() => {
-  //     getState = async () => {
-  //       const airtableState = props.navigation.getParam(
-  //         'airtableStateAdd',
-  //         'defaultValue'
-  //       );
-  //       return airtableState;
-  //     };
-  //   }, []);
-
   _handlePressButtonAsync = async () => {
     try {
       let result = await WebBrowser.openAuthSessionAsync(
@@ -36,19 +26,11 @@ export default VerifyDocumentationScreen = props => {
     }
   }; // This opens up the in-app browser for 'Table 2' submission. This is required because the Airtable API doesn't allow for non-URL image uploads.
 
-  useEffect(() => {
-    console.log(
-      'VerifyScreen',
-      props.navigation.getParam('airtableState', 'defaultValue')
-    );
-  });
-
   navigate = async () => {
     const airtableState = await props.navigation.getParam(
       'airtableState',
       'defaultValue'
     );
-    console.log('Verify =>', airtableState);
     props.navigation.navigate('ReviewYourInfo', {
       airtableState: airtableState,
       airtableKey: key
