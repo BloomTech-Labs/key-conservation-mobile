@@ -1,25 +1,12 @@
 import React from 'react';
-import {
-  StyleSheet,
-  TextInput,
-  Text,
-  View,
-  KeyboardAvoidingView,
-  Platform,
-  Alert,
-  ActivityIndicator
-} from 'react-native';
-import { ScrollView, NavigationEvents } from 'react-navigation';
+import { TextInput, Text, View, Alert, ActivityIndicator } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import styles from '../constants/screens/CreateCampScreen';
 
-import {
-  postCampaignUpdate,
-  clearMedia,
-  getProfileData
-} from '../store/actions';
+import { postCampaignUpdate, getProfileData } from '../store/actions';
 import BackButton from '../components/BackButton';
 import PublishButton from '../components/PublishButton';
 import UploadMedia from '../components/UploadMedia';
@@ -50,6 +37,7 @@ class CreateCampUpdateScreen extends React.Component {
   }
 
   state = {
+    update_image: '',
     update_desc: '',
     loading: false
   };
@@ -68,10 +56,7 @@ class CreateCampUpdateScreen extends React.Component {
     }
     return (
       <KeyboardAwareScrollView style={styles.container}>
-        <NavigationEvents
-          onWillFocus={this.props.clearMedia}
-          onDidBlur={this.clearState}
-        />
+        <NavigationEvents onDidBlur={this.clearState} />
         <View style={styles.sectionContainer}>
           <View style={styles.goToCampaignButton}>
             <Text style={styles.goToCampaignText}>Post an update about</Text>
@@ -79,7 +64,11 @@ class CreateCampUpdateScreen extends React.Component {
           <Text style={styles.sectionsText}>
             "{this.selectedCampaign.camp_name}"
           </Text>
-          <UploadMedia title='Upload update image' />
+          <UploadMedia
+            title='Upload update image'
+            media={this.state.update_image}
+            onChangeMedia={media => this.setState({ update_image: media })}
+          />
           <TextInput
             ref={input => {
               this.campDetailsInput = input;
@@ -97,33 +86,32 @@ class CreateCampUpdateScreen extends React.Component {
   }
 
   publish = async () => {
-    this.setState({
-      ...this.state,
-      loading: true
-    });
-    if (!this.props.mediaUpload || !this.state.update_desc) {
+    if (!this.state.update_image || !this.state.update_desc) {
       const errorMessage =
         'Form incomplete. Please include:' +
-        (this.props.mediaUpload ? '' : '\n    - Update Image') +
+        (this.state.update_image ? '' : '\n    - Update Image') +
         (this.state.update_desc ? '' : '\n    - Update Details');
       return Alert.alert('Error', errorMessage);
     } else {
+      this.setState({
+        loading: true
+      });
       const campUpdate = {
         update_desc: this.state.update_desc,
         users_id: this.props.currentUserProfile.id,
         camp_id: this.selectedCampaign.camp_id,
-        update_img: this.props.mediaUpload
+        update_img: this.state.update_image
       };
-      // console.log(this.selectedCampaign);
+      console.log(campUpdate);
       this.postCampaignUpdate(campUpdate);
     }
   };
 
   postCampaignUpdate = campUpdate => {
     if (
-      this.props.mediaUpload.includes('.mov') ||
-      this.props.mediaUpload.includes('.mp3') ||
-      this.props.mediaUpload.includes('.mp4')
+      this.state.update_image.includes('.mov') ||
+      this.state.update_image.includes('.mp3') ||
+      this.state.update_image.includes('.mp4')
     ) {
       Alert.alert("We're uploading your video!");
     }
@@ -134,6 +122,7 @@ class CreateCampUpdateScreen extends React.Component {
           ...this.state,
           loading: false
         });
+        console.log(err);
         Alert.alert('Error', 'Failed to post campaign update');
       } else {
         this.props.getProfileData(this.props.currentUserProfile.id, null, true);
@@ -148,16 +137,15 @@ class CreateCampUpdateScreen extends React.Component {
 
   clearState = () => {
     this.setState({
-      update_desc: ''
+      update_desc: '',
+      update_image: ''
     });
   };
 }
 const mapStateToProps = state => ({
-  currentUserProfile: state.currentUserProfile,
-  mediaUpload: state.mediaUpload
+  currentUserProfile: state.currentUserProfile
 });
 export default connect(mapStateToProps, {
   postCampaignUpdate,
-  getProfileData,
-  clearMedia
+  getProfileData
 })(CreateCampUpdateScreen);

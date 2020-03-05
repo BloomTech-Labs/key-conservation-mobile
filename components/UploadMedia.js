@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import {
-  TouchableOpacity,
   View,
   Text,
   Image,
@@ -13,7 +11,8 @@ import * as ImagePicker from 'expo-image-picker';
 import { Video } from 'expo-av';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
-import { setMedia } from '../store/actions';
+
+import ActionSheet from 'react-native-actionsheet';
 
 import styles from '../constants/UploadMedia';
 
@@ -24,6 +23,10 @@ import styles from '../constants/UploadMedia';
 // circular
 // size (default is 100)
 // media
+// removable
+
+// Required prop:
+// onChangeMedia
 
 class UploadMedia extends Component {
   constructor(props) {
@@ -31,7 +34,25 @@ class UploadMedia extends Component {
 
     this.state = {
       media: this.props.media || ''
-    }
+    };
+
+    this.actionSheet = React.createRef();
+    this.ACTIONSHEET_OPTIONS = {
+      title: 'Edit Image',
+      options: ['Change', 'Remove Image', 'Cancel'],
+      cancelIndex: 2,
+      destructiveIndex: 1,
+      onPress: index => {
+        switch (index) {
+          case 0: {
+            this._pickImage();
+          }
+          case 1: {
+            this.clearState();
+          }
+        }
+      }
+    };
   }
 
   getPermissionAsync = async () => {
@@ -46,6 +67,7 @@ class UploadMedia extends Component {
   };
 
   _pickImage = async () => {
+    await this.getPermissionAsync();
     const { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
     if (status !== 'granted') {
       const permitted = await this.getPermissionAsync();
@@ -62,32 +84,47 @@ class UploadMedia extends Component {
         {
           media: result.uri
         },
-        () => this.props.setMedia(this.state)
+        () => this.props.onChangeMedia?.(this.state.media)
       );
     }
   };
 
+  onEdit = () => {
+    if (this.props.removable && this.state.media) {
+      this.actionSheet.current?.show();
+    } else {
+      this._pickImage();
+    }
+  };
+
   componentDidMount() {
-    this.getPermissionAsync();
+    // Warn developer if onChangeMedia is not present
+    if (typeof this.props.onChangeMedia !== 'function') {
+      console.warn(
+        'UploadMedia: onChangeMedia is a required prop, but a function with that name was not passed'
+      );
+    }
   }
 
   clearState = () => {
-    this.setState({
-      media: ''
-    });
+    this.setState(
+      {
+        media: ''
+      },
+      () => this.props.onChangeMedia?.(this.state.media)
+    );
   };
 
   render() {
-
     const { media } = this.state;
 
     const textStyle = {
       ...styles.touchableText,
       fontSize: this.props.fontSize || 10
-    }
+    };
 
     return (
-      <TouchableWithoutFeedback onPress={this._pickImage}>
+      <TouchableWithoutFeedback onPress={this.onEdit}>
         <View
           style={{
             ...styles.container,
@@ -97,17 +134,25 @@ class UploadMedia extends Component {
             height: this.props.size || 100
           }}
         >
+          {/* If this image is marked 'removable', this action sheet will
+          pop up to present options to user when component is pressed */}
+          <ActionSheet
+            ref={this.actionSheet}
+            title={this.ACTIONSHEET_OPTIONS.title}
+            options={this.ACTIONSHEET_OPTIONS.options}
+            cancelButtonIndex={this.ACTIONSHEET_OPTIONS.cancelIndex}
+            destructiveButtonIndex={this.ACTIONSHEET_OPTIONS.destructiveIndex}
+            onPress={this.ACTIONSHEET_OPTIONS.onPress}
+          />
           <NavigationEvents onDidBlur={this.clearState} />
           <View style={styles.imageButton}>
-            {
-              media ? (
-                <View style={styles.editOverlay}>
-                  <Text style={textStyle}>Edit</Text>
-                </View>
-              ) : (
-                <Text style={textStyle}>{this.props.title}</Text>
-              )
-            }
+            {media ? (
+              <View style={styles.editOverlay}>
+                <Text style={textStyle}>Edit</Text>
+              </View>
+            ) : (
+              <Text style={textStyle}>{this.props.title}</Text>
+            )}
           </View>
           <View style={styles.imageContain}>
             {media ? (
@@ -153,4 +198,4 @@ class UploadMedia extends Component {
   }
 }
 
-export default connect(null, { setMedia })(UploadMedia);
+export default UploadMedia;
