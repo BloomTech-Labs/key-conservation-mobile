@@ -36,14 +36,12 @@ const TellAboutOrganizationScreen = props => {
     email: ''
   }); // This state holds field data for airtable create(), and backend for later use.
 
-  console.log(state.email, 'state.email');
-
   const getEmail = async () => {
     const email2 = await SecureStore.getItemAsync('email', {});
     const key = await SecureStore.getItemAsync('airtableKey', {});
     setState({ email: email2 });
     setAirtableKey({ key: key });
-    console.log('email2', email2, state.email, 'state.email');
+    // console.log('email2', email2, state.email, 'state.email');
   }; // This assigns the current account's email to the new airtable form.
 
   useEffect(() => {
@@ -73,7 +71,8 @@ const TellAboutOrganizationScreen = props => {
             country: state.country,
             point_of_contact: state.point_of_contact_name,
             poc_position: state.point_of_contact_position,
-            email: state.email
+            email: state.email,
+            profile_image: state.profile_image
           }
         }
       ],
@@ -241,11 +240,9 @@ const TellAboutOrganizationScreen = props => {
                 </View>
               ) : null}
             </View>
-
-            {/* The following lines are commented out for now because logo not being saved to airtable, user must re-upload later in the onboarding process and can change logo in the edit profile page in app */}
-            {/* <View style={styles.uploadButton}>
+            <View style={styles.uploadButton}>
               <UploadMedia circular title='Upload your logo' />
-            // </View> */}
+            </View>
 
             <View style={styles.buttons}>
               {state.org_name === undefined ||
@@ -255,7 +252,8 @@ const TellAboutOrganizationScreen = props => {
               state.country === undefined ||
               state.point_of_contact_name === undefined ||
               state.point_of_contact_position === undefined ||
-              state.email === undefined ? (
+              state.email === undefined ||
+              state.profile_image === undefined ? (
                 <NavigateButton
                   label='Next'
                   inactive={true}

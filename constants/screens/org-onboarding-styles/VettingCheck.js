@@ -2,17 +2,24 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 
 export default StyleSheet.create({
-  arrowView: {
-    padding: '2.5%',
-    top: '2.5%',
-    alignSelf: 'flex-start',
-    left: '1.5%'
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: Dimensions.get('screen').width
   },
+  //   arrowView: {
+  //     padding: '2.5%',
+  //     top: '2.5%',
+  //     alignSelf: 'flex-start',
+  //     left: '1.5%'
+  //   },
   obBody: {
     flex: 1,
     padding: '4%',
     alignItems: 'center',
-    justifyContent: 'flex-start'
+    justifyContent: 'center',
+    top: '8%'
   },
   image: {
     height: Dimensions.get('screen').height * 0.5

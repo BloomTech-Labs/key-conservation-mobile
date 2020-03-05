@@ -7,7 +7,6 @@ import {
   ImageBackground,
   Image
 } from 'react-native';
-import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
 import * as SecureStore from 'expo-secure-store';
 import styles from '../constants/screens/org-onboarding-styles/VettingCheck.js';
@@ -15,7 +14,6 @@ import { logout, postUser } from '../store/actions';
 
 import Constants from 'expo-constants';
 import * as WebBrowser from 'expo-web-browser';
-import NavigateBack from './org-onboarding-screens/formElement/NavigateBack.js';
 
 function VettingCheck(props) {
   useEffect(() => {
@@ -26,6 +24,18 @@ function VettingCheck(props) {
   const [user, setUser] = useState({});
 
   const [state, setState] = useState({});
+
+  navigate = async () => {
+    const airtableState = await props.navigation.getParam(
+      'airtableState',
+      'defaultValue'
+    );
+    // console.log('Vetting =>', airtableState);
+    props.navigation.navigate('ReviewYourInfo', {
+      airtableState: airtableState,
+      airtableKey: state.key
+    });
+  };
 
   // Retrieves state object from SecureStore that was created in the onboarding process (ReviewYourInfoScreen).
   const getBackend = async () => {
@@ -84,7 +94,8 @@ function VettingCheck(props) {
           }
         }
       );
-  }; // Checks 'Table 2' for 'accepted' field.
+  };
+  // Checks 'Table 2' for 'accepted' field.
 
   const updateAirtableVettingTrue = async () => {
     console.log('update airtable activated!');
@@ -135,7 +146,9 @@ function VettingCheck(props) {
         });
       }
     );
-  }; // This sets the current user's 'Table 1' form, field 'isVetting', to false. This will allow a new organization to sign up through the same device.
+  };
+
+  // This sets the current user's 'Table 1' form, field 'isVetting', to false. This will allow a new organization to sign up through the same device.
 
   const logoutPress = async () => {
     await SecureStore.deleteItemAsync('sub', {});
@@ -161,14 +174,6 @@ function VettingCheck(props) {
         source={require('../assets/images/sumatranrhinoceros.png')}
         style={{ width: '100%', height: '100%' }}
       >
-        <View style={styles.arrowView}>
-          <NavigateBack
-            onButtonPress={() => {
-              props.navigation.navigate('ReviewYourInfo');
-            }}
-            color='#fff'
-          />
-        </View>
         <View style={styles.obBody}>
           <Image
             source={require('../assets/images/onboarding/on_g1.png')}
