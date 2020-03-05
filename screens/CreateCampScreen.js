@@ -79,6 +79,78 @@ class CreateCampScreen extends React.Component {
     this.props.navigation.setParams({ publish: this.publish });
   }
 
+  setUrgency = urgencyLevel => {
+    if (this.state.urgency === urgencyLevel) {
+      this.setState({
+        urgency: null
+      });
+    } else {
+      this.setState({
+        urgency: urgencyLevel
+      });
+    }
+  };
+
+  publish = async () => {
+    this.setState({
+      ...this.state,
+      loading: true
+    });
+    if (
+      !this.props.mediaUpload ||
+      !this.state.camp_name ||
+      !this.state.camp_desc ||
+      !this.state.camp_cta
+    ) {
+      const errorMessage =
+        'Form incomplete. Please include:' +
+        (this.props.mediaUpload ? '' : '\n    - Campaign Image') +
+        (this.state.camp_name ? '' : '\n    - Campaign Name') +
+        (this.state.camp_desc ? '' : '\n    - Campaign Details') +
+        (this.state.camp_cta ? '' : '\n    - Donation Link');
+      this.setState({
+        loading: false
+      })
+      return Alert.alert('Error', errorMessage);
+    } else {
+      const camp = {
+        users_id: this.props.currentUserProfile.id,
+        camp_name: this.state.camp_name,
+        camp_desc: this.state.camp_desc,
+        camp_cta: this.state.camp_cta,
+        urgency: this.state.urgency,
+        camp_img: this.props.mediaUpload
+      };
+      this.props
+        .postCampaign(camp)
+        .then(async res => {
+          AmpEvent('Campaign Created');
+          await this.setState({
+            loading: false
+          });
+          this.props.navigation.navigate('Home');
+        })
+        .catch(err => {
+          this.setState({
+            loading: false
+          })
+          console.log(err);
+        });
+    }
+  };
+
+  clearState = () => {
+    this.setState({
+      loading: false,
+      users_id: this.props.currentUserProfile.id,
+      camp_img: this.props.mediaUpload,
+      camp_name: '',
+      camp_desc: '',
+      camp_cta: '',
+      urgency: null
+    });
+  };
+
   render() {
     if (this.state.loading === true) {
       return (
@@ -188,72 +260,6 @@ class CreateCampScreen extends React.Component {
       </KeyboardAwareScrollView>
     );
   }
-
-  setUrgency = urgencyLevel => {
-    if (this.state.urgency === urgencyLevel) {
-      this.setState({
-        urgency: null
-      });
-    } else {
-      this.setState({
-        urgency: urgencyLevel
-      });
-    }
-  };
-
-  publish = async () => {
-    this.setState({
-      ...this.state,
-      loading: true
-    });
-    if (
-      !this.props.mediaUpload ||
-      !this.state.camp_name ||
-      !this.state.camp_desc ||
-      !this.state.camp_cta
-    ) {
-      const errorMessage =
-        'Form incomplete. Please include:' +
-        (this.props.mediaUpload ? '' : '\n    - Campaign Image') +
-        (this.state.camp_name ? '' : '\n    - Campaign Name') +
-        (this.state.camp_desc ? '' : '\n    - Campaign Details') +
-        (this.state.camp_cta ? '' : '\n    - Donation Link');
-      return Alert.alert('Error', errorMessage);
-    } else {
-      const camp = {
-        users_id: this.props.currentUserProfile.id,
-        camp_name: this.state.camp_name,
-        camp_desc: this.state.camp_desc,
-        camp_cta: this.state.camp_cta,
-        urgency: this.state.urgency,
-        camp_img: this.props.mediaUpload
-      };
-      this.props
-        .postCampaign(camp)
-        .then(async res => {
-          AmpEvent('Campaign Created');
-          await this.setState({
-            loading: false
-          });
-          this.props.navigation.navigate('Home');
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-  };
-
-  clearState = () => {
-    this.setState({
-      loading: false,
-      users_id: this.props.currentUserProfile.id,
-      camp_img: this.props.mediaUpload,
-      camp_name: '',
-      camp_desc: '',
-      camp_cta: '',
-      urgency: null
-    });
-  };
 }
 
 const mapStateToProps = state => ({
