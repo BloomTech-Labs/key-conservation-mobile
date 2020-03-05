@@ -73,7 +73,7 @@ class LoadingScreen extends React.Component {
     const isVetting = await SecureStore.getItemAsync('isVetting', {});
     const email2 = await SecureStore.getItemAsync('vettingEmail', {});
     const key = await SecureStore.getItemAsync('airtableKey', {});
-    await SecureStore.deleteItemAsync('isVetting', {});
+    // await SecureStore.deleteItemAsync('isVetting', {});
     // await SecureStore.deleteItemAsync('vettingEmail', {});
 
     // NOTE: IF you are unable to remember the 'unfinished' conservationist account and you are locked out, uncomment this code above, run the app, comment the code out, rer-un and you should be good.

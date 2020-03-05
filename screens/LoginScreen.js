@@ -100,7 +100,7 @@ export default LoginScreen = props => {
   const resetPassword = email => {
     const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId });
 
-    console.log(email, connection);
+    // console.log(email, connection);
 
     return auth0.auth
       .resetPassword({ email, connection })

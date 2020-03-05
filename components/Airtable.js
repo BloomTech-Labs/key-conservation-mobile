@@ -36,12 +36,12 @@ const Airtable = props => {
           return;
         }
         records.forEach(function(record) {
-          console.log(record.getId());
+          // console.log(record.getId());
         });
       }
     );
   } else {
-    console.log('props are null');
+    // console.log('props are null');
     return null;
   }
 };

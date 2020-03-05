@@ -114,7 +114,7 @@ class CreateCampUpdateScreen extends React.Component {
         camp_id: this.selectedCampaign.camp_id,
         update_img: this.props.mediaUpload
       };
-      console.log(this.selectedCampaign);
+      // console.log(this.selectedCampaign);
       this.postCampaignUpdate(campUpdate);
     }
   };
