@@ -25,7 +25,7 @@ import { Alert } from 'react-native';
 // To show
 /*
 ...
-  this.ActionSheet.show();
+  this.ActionSheet.current?.show();
 ...
 */
 
@@ -70,7 +70,7 @@ export default forwardRef((props, ref) => {
       del = deleteCampaignUpdate;
     }
 
-    dispatch(del(id)).then(() => {
+    dispatch(del(id)).finally(() => {
       Alert.alert('Deleted successfully!');
       if (props.goBack) goBack();
     });

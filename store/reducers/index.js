@@ -34,7 +34,6 @@ const initialState = {
   allCampaigns: [],
   firstLogin: false,
   campaignsToggled: [],
-  mediaUpload: '',
   token: '',
   profileReset: false,
   userRegistered: true,
@@ -230,16 +229,17 @@ const reducer = (state = initialState, action) => {
         error: ''
       };
     case actions.DELETE_CAMPAIGN_SUCCESS:
-      const deleted = Number(action.payload);
-      const newCampaigns = state.currentUserProfile.campaigns.filter(camp => {
-        return camp.camp_id !== deleted;
-      });
       return {
         ...state,
         pending: { ...state.pending, deleteCampaign: false },
+        allCampaigns: state.allCampaigns?.filter?.(
+          camp => camp.camp_id !== Number(action.payload)
+        ),
         currentUserProfile: {
           ...state.currentUserProfile,
-          campaigns: newCampaigns
+          campaigns: state.currentUserProfile.campaigns?.filter?.(
+            camp => camp.camp_id !== action.payload
+          )
         }
       };
     case actions.DELETE_CAMPAIGN_ERROR:
@@ -258,9 +258,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, postCampaign: false },
+        allCampaigns: [
+          action.payload,
+          ...(state.allCampaigns || []),
+        ],
         currentUserProfile: {
           ...state.currentUserProfile,
-          campaigns: [...state.currentUserProfile.campaigns, action.payload]
+          campaigns: [
+            ...(state.currentUserProfile?.campaigns || []),
+            action.payload
+          ]
         }
       };
     case actions.POST_CAMPAIGN_ERROR:
@@ -276,21 +283,9 @@ const reducer = (state = initialState, action) => {
         error: ''
       };
     case actions.EDIT_CAMPAIGN_SUCCESS:
-      let { camp_id } = action.payload;
-      const alteredCampaigns = state.currentUserProfile.campaigns.map(camp => {
-        if (camp.camp_id === camp_id && !camp.update_id) {
-          return action.payload;
-        } else {
-          return camp;
-        }
-      });
       return {
         ...state,
         pending: { ...state.pending, editCampaign: false },
-        currentUserProfile: {
-          ...state.currentUserProfile,
-          campaigns: alteredCampaigns
-        },
         selectedCampaign: action.payload
       };
     case actions.EDIT_CAMPAIGN_ERROR:
@@ -306,21 +301,19 @@ const reducer = (state = initialState, action) => {
         error: ''
       };
     case actions.POST_CAMPAIGN_UPDATE_SUCCESS:
-      const updateInsertedinCamp = state.currentUserProfile.campaigns.map(
-        camp => {
-          let { update_id, camp_id } = action.payload;
-          if (camp.camp_id === camp_id && !camp.update_id) {
-            camp.updates = [...camp.updates, action.payload];
-          }
-          return camp;
-        }
-      );
       return {
         ...state,
         pending: { ...state.pending, postCampaignUpdate: false },
+        allCampaigns: [
+          action.payload,
+          ...(state.allCampaigns || []),
+        ],
         currentUserProfile: {
           ...state.currentUserProfile,
-          campaigns: [...updateInsertedinCamp, action.payload]
+          campaigns: [
+            ...(state.currentUserProfile?.campaigns || []),
+            action.payload
+          ]
         }
       };
     case actions.POST_CAMPAIGN_UPDATE_ERROR:
@@ -336,32 +329,9 @@ const reducer = (state = initialState, action) => {
         error: ''
       };
     case actions.EDIT_CAMPAIGN_UPDATE_SUCCESS:
-      const alteredCampaignsandUpdates = state.currentUserProfile.campaigns.map(
-        camp => {
-          let { update_id, camp_id } = action.payload;
-          if (camp.update_id === update_id) {
-            return action.payload;
-          } else if (camp.camp_id === camp_id && !camp.update_id) {
-            camp.updates.map(update => {
-              if (update.update_id === update_id) {
-                return action.payload;
-              } else {
-                return update;
-              }
-            });
-            return camp;
-          } else {
-            return camp;
-          }
-        }
-      );
       return {
         ...state,
         pending: { ...state.pending, editCampaignUpdate: false },
-        currentUserProfile: {
-          ...state.currentUserProfile,
-          campaigns: alteredCampaignsandUpdates
-        },
         selectedCampaign: action.payload
       };
     case actions.EDIT_CAMPAIGN_UPDATE_ERROR:
@@ -377,32 +347,17 @@ const reducer = (state = initialState, action) => {
         error: ''
       };
     case actions.DELETE_CAMPAIGN_UPDATE_SUCCESS:
-      let deletedFromCamp;
-      const deletedUpdate = Number(action.payload);
-      const newCampaignsAndUpdatesA = state.currentUserProfile.campaigns.filter(
-        camp => {
-          if (camp.update_id === deletedUpdate) {
-            deletedFromCamp = camp.camp_id;
-          }
-          return camp.update_id !== deletedUpdate;
-        }
-      );
-
-      const newCampaignsAndUpdatesB = newCampaignsAndUpdatesA.map(camp => {
-        if (camp.camp_id === deletedFromCamp && !camp.update_id) {
-          camp.updates = camp.updates.filter(update => {
-            return update.update_id !== deletedUpdate;
-          });
-        }
-        return camp;
-      });
-
       return {
         ...state,
         pending: { ...state.pending, deleteCampaignUpdate: false },
+        allCampaigns: state.allCampaigns?.filter?.(
+          update => update.update_id !== Number(action.payload)
+        ),
         currentUserProfile: {
           ...state.currentUserProfile,
-          campaigns: newCampaignsAndUpdatesB
+          campaigns: state.currentUserProfile.campaigns?.filter?.(
+            update => update.update_id !== action.payload
+          )
         }
       };
     case actions.DELETE_CAMPAIGN_UPDATE_ERROR:
@@ -415,16 +370,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         campaignsToggled: [...state.campaignsToggled, action.payload]
-      };
-    case actions.MEDIA_UPLOAD:
-      return {
-        ...state,
-        mediaUpload: action.payload.media
-      };
-    case actions.MEDIA_CLEAR:
-      return {
-        ...state,
-        mediaUpload: ''
       };
     case actions.POST_COMMENT_START:
       return {

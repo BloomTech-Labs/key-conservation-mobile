@@ -7,7 +7,7 @@ import {
 import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { editCampaign, getCampaigns, clearMedia } from '../store/actions';
+import { editCampaign, getCampaigns } from '../store/actions';
 import BackButton from '../components/BackButton';
 
 import DoneButton from '../components/DoneButton';
@@ -52,12 +52,6 @@ class EditCampScreen extends React.Component {
       return;
     } else {
       let changes = this.state;
-      if (this.props.mediaUpload) {
-        changes = {
-          ...this.state,
-          camp_img: this.props.mediaUpload
-        };
-      }
       await this.props.editCampaign(this.selectedCampaign.camp_id, changes);
       this.props.navigation.goBack();
     }
@@ -73,7 +67,6 @@ class EditCampScreen extends React.Component {
     return (
       <KeyboardAwareScrollView contentContainerStyle={styles.container}>
         <NavigationEvents
-          onWillFocus={this.props.clearMedia}
           onDidBlur={this.clearState}
         />
         <View style={styles.sectionContainer}>
@@ -101,12 +94,7 @@ class EditCampScreen extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  mediaUpload: state.mediaUpload
-});
-
-export default connect(mapStateToProps, {
+export default connect(null, {
   editCampaign,
   getCampaigns,
-  clearMedia
 })(EditCampScreen);

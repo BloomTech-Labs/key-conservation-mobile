@@ -9,8 +9,6 @@ import {
   View
 } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/TellAboutOrg.js';
-import { connect } from 'react-redux';
-import UploadMedia from '../../components/UploadMedia';
 import * as SecureStore from 'expo-secure-store';
 
 import NavigateButton from './formElement/NavigateButton';
@@ -47,12 +45,6 @@ const TellAboutOrganizationScreen = props => {
   useEffect(() => {
     getEmail();
   }, []);
-
-  useEffect(() => {
-    if (props.mediaUpload) {
-      setState({ ...state, profile_image: props.mediaUpload });
-    }
-  }, [props.mediaUpload]);
 
   const sendAirtable = () => {
     // this creates a new Airtable form.
@@ -279,8 +271,4 @@ const TellAboutOrganizationScreen = props => {
   );
 };
 
-const mapStateToProps = state => ({
-  mediaUpload: state.mediaUpload
-});
-
-export default connect(mapStateToProps, {})(TellAboutOrganizationScreen);
+export default TellAboutOrganizationScreen;

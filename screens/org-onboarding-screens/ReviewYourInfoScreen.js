@@ -7,7 +7,6 @@ import {
   KeyboardAvoidingView,
   Switch,
   Alert,
-  Image,
   TextInput
 } from 'react-native';
 import styles from '../../constants/screens/org-onboarding-styles/ReviewYourInfo';
@@ -19,7 +18,6 @@ import * as SecureStore from 'expo-secure-store';
 import SVGCheckMark from '../../assets/jsicons/SVGCheckMark';
 import EditPencil from '../../assets/jsicons/OnBoarding/EditPencil';
 import UploadMedia from '../../components/UploadMedia';
-import { connect } from 'react-redux';
 import ChoosePhoneSwitches from '../../components/Onboarding/ChoosePhoneSwitches';
 
 const ReviewYourInfoScreen = props => {
@@ -594,7 +592,12 @@ const ReviewYourInfoScreen = props => {
               <Text style={styles.obSectionHeaderTitle}>Organization Logo</Text>
             </View>
             <View style={styles.UploadMediaButton}>
-              <UploadMedia circular title='Change logo' />
+              <UploadMedia
+                circular
+                title='Change logo'
+                media={this.state.profile_image}
+                onChangeMedia={media => this.setState({ profile_image: media })}
+              />
             </View>
           </View>
 
@@ -617,12 +620,6 @@ const ReviewYourInfoScreen = props => {
                 } else {
                   updateAirtable();
                   const sub = await SecureStore.getItemAsync('sub', {});
-                  if (props.mediaUpload) {
-                    setState({
-                      ...state,
-                      profile_image: props.mediaUpload
-                    });
-                  }
                   const stringBE = JSON.stringify({
                     org_name: state.org_name,
                     name: state.org_name,
@@ -665,8 +662,4 @@ const ReviewYourInfoScreen = props => {
   );
 };
 
-const mapStateToProps = state => ({
-  mediaUpload: state.mediaUpload
-});
-
-export default connect(mapStateToProps, {})(ReviewYourInfoScreen);
+export default ReviewYourInfoScreen;
