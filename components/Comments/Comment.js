@@ -64,7 +64,7 @@ const Comment = props => {
       pointerEvents={loading ? 'none' : 'auto'}
       style={{
         ...styles.commentWrapper,
-        opacity: loading ? 0.32 : 1
+        opacity: loading ? 0.4 : 1
       }}
     >
       <View>

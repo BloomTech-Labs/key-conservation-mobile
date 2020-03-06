@@ -7,7 +7,8 @@ import {
   Alert,
   Image,
   ActivityIndicator,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  TouchableOpacity
 } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -15,7 +16,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import { postCampaign, getCampaigns } from '../store/actions';
 import BackButton from '../components/BackButton';
-import PublishButton from '../components/PublishButton';
 import { AmpEvent } from '../components/withAmplitude';
 import UploadMedia from '../components/UploadMedia';
 
@@ -32,13 +32,14 @@ class CreateCampScreen extends React.Component {
         backgroundColor: '#323338'
       },
       headerTintColor: '#fff',
-      headerLeft: () => <BackButton navigation={navigation} />,
-      headerRight: () => (
-        <PublishButton
+      headerLeft: () => (
+        <BackButton
           navigation={navigation}
-          pressAction={navigation.getParam('publish')}
+          content='Cancel'
+          confirm='Are you sure you want to cancel? Any progress will be lost'
         />
-      )
+      ),
+      gestureEnabled: false
     };
   };
 
@@ -75,10 +76,6 @@ class CreateCampScreen extends React.Component {
     urgency: null,
     loading: false
   };
-
-  componentDidMount() {
-    this.props.navigation.setParams({ publish: this.publish });
-  }
 
   setUrgency = urgencyLevel => {
     if (this.state.urgency === urgencyLevel) {
@@ -258,6 +255,13 @@ class CreateCampScreen extends React.Component {
               </TouchableWithoutFeedback>
             ))}
           </View>
+        </View>
+        <View style={styles.sectionContainer}>
+          <TouchableOpacity onPress={this.publish}>
+            <View style={styles.publishButton}>
+              <Text style={styles.publishButtonText}>Publish Live</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </KeyboardAwareScrollView>
     );
