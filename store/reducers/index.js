@@ -13,7 +13,9 @@ import * as actions from '../actions';
 const initialState = {
   error: '',
   pending: {
-    updateProfile: false
+    updateProfile: false,
+    deleteCampaignUpdate: [],
+    deleteCampaign: []
   },
   currentUser: {
     sub: '',
@@ -225,13 +227,21 @@ const reducer = (state = initialState, action) => {
     case actions.DELETE_CAMPAIGN_START:
       return {
         ...state,
-        pending: { ...state.pending, deleteCampaign: true },
+        pending: {
+          ...state.pending,
+          deleteCampaign: [...state.pending.deleteCampaign, action.payload]
+        },
         error: ''
       };
     case actions.DELETE_CAMPAIGN_SUCCESS:
       return {
         ...state,
-        pending: { ...state.pending, deleteCampaign: false },
+        pending: {
+          ...state.pending,
+          deleteCampaign: state.pending.deleteCampaign.filter(
+            id => id !== action.payload
+          )
+        },
         allCampaigns: state.allCampaigns?.filter?.(
           camp => camp.camp_id !== Number(action.payload)
         ),
@@ -245,8 +255,13 @@ const reducer = (state = initialState, action) => {
     case actions.DELETE_CAMPAIGN_ERROR:
       return {
         ...state,
-        pending: { ...state.pending, deleteCampaign: false },
-        error: action.payload
+        pending: {
+          ...state.pending,
+          deleteCampaign: state.pending.deleteCampaign.filter(
+            id => id !== action.payload.id
+          )
+        },
+        error: action.payload.error
       };
     case actions.POST_CAMPAIGN_START:
       return {
@@ -258,10 +273,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, postCampaign: false },
-        allCampaigns: [
-          action.payload,
-          ...(state.allCampaigns || []),
-        ],
+        allCampaigns: [action.payload, ...(state.allCampaigns || [])],
         currentUserProfile: {
           ...state.currentUserProfile,
           campaigns: [
@@ -304,10 +316,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, postCampaignUpdate: false },
-        allCampaigns: [
-          action.payload,
-          ...(state.allCampaigns || []),
-        ],
+        allCampaigns: [action.payload, ...(state.allCampaigns || [])],
         currentUserProfile: {
           ...state.currentUserProfile,
           campaigns: [
@@ -343,28 +352,44 @@ const reducer = (state = initialState, action) => {
     case actions.DELETE_CAMPAIGN_UPDATE_START:
       return {
         ...state,
-        pending: { ...state.pending, deleteCampaignUpdate: true },
+        pending: {
+          ...state.pending,
+          deleteCampaignUpdate: [
+            ...state.pending.deleteCampaignUpdate,
+            action.payload
+          ]
+        },
         error: ''
       };
     case actions.DELETE_CAMPAIGN_UPDATE_SUCCESS:
       return {
         ...state,
-        pending: { ...state.pending, deleteCampaignUpdate: false },
+        pending: {
+          ...state.pending,
+          deleteCampaignUpdate: state.pending.deleteCampaignUpdate.filter(
+            id => id !== Number(action.payload)
+          )
+        },
         allCampaigns: state.allCampaigns?.filter?.(
           update => update.update_id !== Number(action.payload)
         ),
         currentUserProfile: {
           ...state.currentUserProfile,
           campaigns: state.currentUserProfile.campaigns?.filter?.(
-            update => update.update_id !== action.payload
+            update => update.update_id !== Number(action.payload)
           )
         }
       };
     case actions.DELETE_CAMPAIGN_UPDATE_ERROR:
       return {
         ...state,
-        pending: { ...state.pending, deleteCampaignUpdate: false },
-        error: action.payload
+        pending: {
+          ...state.pending,
+          deleteCampaignUpdate: state.pending.deleteCampaignUpdate.filter(
+            id => id !== Number(action.payload.id)
+          )
+        },
+        error: action.payload.error
       };
     case actions.TOGGLE_CAMPAIGN_TEXT:
       return {

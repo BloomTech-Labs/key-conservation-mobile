@@ -23,6 +23,7 @@ export default {
   },
 
   container: {
+    overflow: 'hidden',
     width: '95%',
     justifyContent: 'center',
     alignSelf: 'center',
