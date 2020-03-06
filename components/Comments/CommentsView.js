@@ -20,17 +20,39 @@ import InactiveComment from '../../assets/jsicons/Comments/InactiveComment';
 class CommentsView extends React.Component {
   state = {
     comment: '',
-    posted: false,
-    commentsVisible: 3,
-    err: '',
-    allComments: []
+    commentsVisible: 3
   };
+
+  bufferedComment = null;
+
+  componentDidUpdate() {
+    this.bufferedComment = null;
+  }
 
   addMoreComments = () => {
     this.setState({
       ...this.state,
       commentsVisible: this.state.commentsVisible + 9
     });
+  };
+
+  postComment = () => {
+    this.props.commentOnCampaign(
+      this.props.selectedCampaign.camp_id,
+      this.state.comment.trim()
+    );
+
+    // Add ghost comment for better user experience
+    this.bufferedComment = {
+      profile_image: this.props.currentUserProfile.profile_image,
+      name: this.props.currentUserProfile.name,
+      comment_body: this.state.comment
+    };
+
+    this.setState(prevState => ({
+      comment: '',
+      commentsVisible: prevState.commentsVisible + 1
+    }));
   };
 
   render() {
@@ -47,8 +69,9 @@ class CommentsView extends React.Component {
           </View>
         )}
         <View style={{ flex: 1, flexDirection: 'column-reverse' }}>
-          {this.props.campaignComments
-            ?.slice(0, this.state.commentsVisible)
+          {[this.bufferedComment, ...this.props.campaignComments]
+            ?.filter(com => com !== null)
+            .slice(0, this.state.commentsVisible)
             .map(comment => {
               return (
                 <Comment
@@ -77,18 +100,12 @@ class CommentsView extends React.Component {
               style={styles.input}
               value={this.state.comment}
               textAlignVertical={'center'}
-              onSubmitEditing={() => {
-                this.setState({ comment: '' });
-                this.props.commentOnCampaign(
-                  this.props.selectedCampaign.camp_id,
-                  this.state.comment.trim()
-                );
-              }}
+              onSubmitEditing={this.postComment}
               blurOnSubmit={Platform.OS === 'android'}
               ref={input => {
                 this.commentInput = input;
               }}
-              returnKeyType='next'
+              returnKeyType='send'
             />
             {this.state.comment === null || this.state.comment === '' ? (
               <TouchableOpacity style={styles.commentButton}>
@@ -97,13 +114,7 @@ class CommentsView extends React.Component {
             ) : (
               <TouchableOpacity
                 style={styles.commentButton}
-                onPress={() => {
-                  this.setState({ comment: '' });
-                  this.props.commentOnCampaign(
-                    this.props.selectedCampaign.camp_id,
-                    this.state.comment.trim()
-                  );
-                }}
+                onPress={this.postComment}
               >
                 <ActiveComment />
               </TouchableOpacity>

@@ -30,22 +30,23 @@ import { Alert } from 'react-native';
 */
 
 export default forwardRef((props, ref) => {
-
   const dispatch = useDispatch();
 
   const report = () => {
-    if(!props.commentId) {
-      console.warn('CommentActionSheet: commentId prop not found - action canceled');
+    if (!props.commentId) {
+      console.warn(
+        'CommentActionSheet: commentId prop not found - action canceled'
+      );
       return;
     }
 
-    if(typeof props.camp?.camp_id !== 'number') {
+    if (typeof props.camp?.camp_id !== 'number') {
       console.warn(
         'CommentActionSheet: `camp` property not found or invalid - action canceled'
       );
       return;
     }
-    
+
     dispatch(setCampaign(props.camp));
 
     // Take the user to a report screen
@@ -53,65 +54,77 @@ export default forwardRef((props, ref) => {
       type: 'comments',
       id: props.commentId
     });
-  }
+  };
 
   const deleteCom = () => {
-    if(!props.commentId) {
-      console.warn('CommentActionSheet: commentId prop not found - action canceled');
+    if (!props.commentId) {
+      console.warn(
+        'CommentActionSheet: commentId prop not found - action canceled'
+      );
       return;
     }
-    dispatch(deleteComment(props.commentId)).then(() => {
-      Alert.alert("Deleted successfully!");
+    props.onDelete?.();
+    dispatch(deleteComment(props.commentId)).then(err => {
+      if (err) {
+        Alert.alert('Failed to delete comment');
+        props.onDelete?.(true);
+      } else {
+        Alert.alert('Deleted successfully!');
+      }
     });
-  }
+  };
 
   // Options for actions to take on a comment differ
   // for admins and regular users, so we use this
   // constant to initialize those options
-  const ACTIONSHEET_OPTIONS = props.isMine ? ({
-    title: 'Actions',
-    options: ['Delete comment', 'Cancel'],
-    cancelIndex: 1,
-    destructiveIndex: 0,
-    onPress: (index) => {
-      switch(index) {
-        case 0: {
-          deleteCom();
-          break;
+  const ACTIONSHEET_OPTIONS = props.isMine
+    ? {
+        title: 'Actions',
+        options: ['Delete comment', 'Cancel'],
+        cancelIndex: 1,
+        destructiveIndex: 0,
+        onPress: index => {
+          switch (index) {
+            case 0: {
+              deleteCom();
+              break;
+            }
+          }
         }
       }
-    }
-  }) : props.admin ? {
-    title: 'Admin Controls',
-    options: ['Delete comment', 'Report', 'Cancel'],
-    cancelIndex: 2,
-    destructiveIndex: 0,
-    onPress: (index) => {
-      switch(index) {
-        case 0: {
-          deleteCom();
-          break;
-        }
-        case 1: {
-          report();
-          break;
-        }
-      }
-    }
-  } : {
-    title: 'Actions',
-    options: ['Report', 'Cancel'],
-    cancelIndex: 1,
-    destructiveIndex: 0,
-    onPress: (index) => {
-      switch(index) {
-        case 0: {
-          report();
-          break;
+    : props.admin
+    ? {
+        title: 'Admin Controls',
+        options: ['Delete comment', 'Report', 'Cancel'],
+        cancelIndex: 2,
+        destructiveIndex: 0,
+        onPress: index => {
+          switch (index) {
+            case 0: {
+              deleteCom();
+              break;
+            }
+            case 1: {
+              report();
+              break;
+            }
+          }
         }
       }
-    }
-  }
+    : {
+        title: 'Actions',
+        options: ['Report', 'Cancel'],
+        cancelIndex: 1,
+        destructiveIndex: 0,
+        onPress: index => {
+          switch (index) {
+            case 0: {
+              report();
+              break;
+            }
+          }
+        }
+      };
 
   return (
     <ActionSheet
