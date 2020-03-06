@@ -45,12 +45,6 @@ class ViewCampUpdateScreen extends React.Component {
     };
   };
 
-  state = {
-    likes: this.props.navigation.state.params.likes,
-    userLiked: this.props.navigation.state.params.userLiked,
-    campaign: {}
-  };
-
   showActionSheet = () => {
     this.ActionSheet?.show();
   };
@@ -59,7 +53,6 @@ class ViewCampUpdateScreen extends React.Component {
     this.props.navigation.setParams({
       showCampUpdateOptions: this.showActionSheet
     });
-    this.getCampaign();
   };
 
   render() {
@@ -143,39 +136,13 @@ class ViewCampUpdateScreen extends React.Component {
     });
   };
 
-  getCampaign = async () => {
-    const camp = await this.props.getCampaign(this.props.selectedCampaign.camp_id);
-    this.setState({
-      campaign: camp?.data?.camp
-    })
-    // axios
-    //   .get(`${seturl}campaigns/${this.props.selectedCampaign.camp_id}`, {
-    //     headers: {
-    //       Accept: 'application/json',
-    //       Authorization: `Bearer ${this.props.token}`,
-    //       'Content-Type': 'application/json'
-    //     }
-    //   })
-    //   .then(res => {
-    //     this.setState({
-    //       ...this.state,
-    //       campaign: res.data.camp
-    //     });
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
-  };
-
   goToCampaign = async () => {
-    await this.props.getCampaign(this.props.selectedCampaign.camp_id);
-    this.props.navigation.navigate('Camp', {
-      likes: this.state.campaign.likes.length,
-      userLiked: this.props.navigation.state.params.userLiked,
-      addLike: this.props.navigation.state.params.addLike,
-      deleteLike: this.props.navigation.state.params.deleteLike,
-      media: this.state.campaign.camp_img
-    });
+    try{
+      await this.props.getCampaign(this.props.selectedCampaign.camp_id);
+      this.props.navigation.navigate('Camp', {
+        media: this.props.selectedCampaign.camp_img
+      });
+    } catch (err) {console.log(err);}
   };
 }
 
@@ -231,22 +198,6 @@ const styles = StyleSheet.create({
     flex: 1,
     height: deviceWidth,
     width: deviceWidth
-  },
-  likesContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 15
-  },
-  hearts: {
-    marginHorizontal: 15
-  },
-  heartOutline: {
-    fontSize: 28,
-    color: 'black'
-  },
-  heartFill: {
-    fontSize: 30,
-    color: '#e60024'
   },
   campDescContain: {
     marginLeft: 15,
