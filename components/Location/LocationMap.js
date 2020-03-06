@@ -9,10 +9,8 @@ const LocationMap = ({ getOrganizations, profile }) => {
     getOrganizations();
   }, []);
 
-  const lat = isNaN(Number(profile.latitude))
-    ? 0
-    : Number(profile.latitude) - 1;
-  const lon = isNaN(Number(profile.longitude)) ? 0 : Number(profile.longitude);
+  const lat = isNaN(profile.latitude) ? 0 : profile.latitude;
+  const lon = isNaN(profile.longitude) ? 0 : profile.longitude;
 
   return (
     <View style={styles.container}>
@@ -24,7 +22,7 @@ const LocationMap = ({ getOrganizations, profile }) => {
             latitude: lat, // Keeps marker centered.
             longitude: lon
           },
-          pitch: 45,
+          pitch: 0,
           heading: 0,
           altitude: 1000000,
           zoom: 5
