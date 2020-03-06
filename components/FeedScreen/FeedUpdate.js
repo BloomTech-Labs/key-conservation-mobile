@@ -3,13 +3,13 @@ import {
   Text,
   ImageBackground,
   ActivityIndicator,
-  TouchableOpacity,
+  TouchableOpacity
 } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 import { View } from 'react-native-animatable';
 import moment from 'moment';
 import { Video } from 'expo-av';
-import { ListItem, Badge } from 'react-native-elements';
+import { ListItem } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
@@ -18,11 +18,11 @@ import { navigate } from '../../navigation/RootNavigator';
 
 import { setCampaign, toggleCampaignText } from '../../store/actions';
 import { AmpEvent } from '../withAmplitude';
+import LoadingOverlay from '../LoadingOverlay';
 
 import Ellipse from '../../assets/jsicons/Ellipse';
 import CampaignActionSheet from '../Reports/CampaignActionSheet';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
-import CommentIcon from '../../assets/jsicons/CommentIcon';
 import styles from '../../constants/FeedScreen/FeedCampaign';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
@@ -34,7 +34,6 @@ const ViewportAwareVideo = Viewport.Aware(
 const FeedUpdate = props => {
   const [loader, setLoader] = useState(true);
   const actionSheetRef = useRef(null);
-
 
   const dispatch = useDispatch();
   const { data, toggled } = props;
@@ -116,6 +115,7 @@ const FeedUpdate = props => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.container}>
+        <LoadingOverlay loading={props.deleteBuffer.includes(data.update_id)} backgroundColor='white' />
         <CampaignActionSheet
           ref={actionSheetRef}
           admin={props.currentUserProfile.admin}
@@ -264,6 +264,7 @@ const FeedUpdate = props => {
 };
 
 const mapStateToProps = state => ({
+  deleteBuffer: state.pending.deleteCampaignUpdate,
   currentUserProfile: state.currentUserProfile,
   token: state.token
 });

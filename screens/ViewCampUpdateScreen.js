@@ -21,16 +21,6 @@ import CampaignActionSheet from '../components/Reports/CampaignActionSheet';
 
 const deviceWidth = Dimensions.get('window').width;
 
-// url for heroku staging vs production server
-// production
-const seturl = 'https://key-conservation.herokuapp.com/api/';
-// staging
-// const seturl = "https://key-conservation-staging.herokuapp.com/api/";
-
-// Redux gave us a hard time on this project. We worked on comments first and when our commentOnCampaign action failed to trigger the re-render we expected, and when we couldn't solve the
-// issue in labs_help, we settled for in-component axios calls. Not elegant. Probably not super scalable—but it worked. Hopefully a more talented team can solve what we couldn't.
-// In the meantime, ViewCampScreen, ViewCampUpdateScreen, FeedCampaign, and FeedUpdate are all interconnected, sharing props (state, functions) via React-Navigation.
-
 class ViewCampUpdateScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -55,12 +45,6 @@ class ViewCampUpdateScreen extends React.Component {
     };
   };
 
-  state = {
-    likes: this.props.navigation.state.params.likes,
-    userLiked: this.props.navigation.state.params.userLiked,
-    campaign: {}
-  };
-
   showActionSheet = () => {
     this.ActionSheet?.show();
   };
@@ -69,7 +53,6 @@ class ViewCampUpdateScreen extends React.Component {
     this.props.navigation.setParams({
       showCampUpdateOptions: this.showActionSheet
     });
-    this.getCampaign();
   };
 
   render() {
@@ -119,51 +102,6 @@ class ViewCampUpdateScreen extends React.Component {
               style={styles.campImgContain}
             />
           )}
-          {/* 
-          <View style={styles.likesContainer}>
-            <View style={styles.hearts}>
-              <View
-                style={!this.state.userLiked ? { zIndex: 1 } : { zIndex: -1 }}
-              >
-                <FontAwesome
-                  onPress={() =>
-                    this.addLike(
-                      this.props.selectedCampaign.camp_id,
-                      this.props.selectedCampaign.update_id
-                    )
-                  }
-                  name='heart-o'
-                  style={styles.heartOutline}
-                />
-              </View>
-              <View
-                animation={this.state.userLiked ? 'zoomIn' : 'zoomOut'}
-                style={
-                  (this.state.userLiked ? { zIndex: 1 } : { zIndex: -1 },
-                  Platform.OS === 'android'
-                    ? { marginTop: -29, marginLeft: -1.25 }
-                    : { marginTop: -28.75, marginLeft: -1.25 })
-                }
-                duration={300}
-              >
-                <FontAwesome
-                  onPress={() =>
-                    this.deleteLike(
-                      this.props.selectedCampaign.camp_id,
-                      this.props.selectedCampaign.update_id
-                    )
-                  }
-                  name='heart'
-                  style={styles.heartFill}
-                />
-              </View>
-            </View>
-            {this.state.likes === 0 ? null : this.state.likes > 1 ? (
-              <Text style={styles.likes}>{this.state.likes} likes</Text>
-            ) : (
-              <Text style={styles.likes}>{this.state.likes} like</Text>
-            )}
-          </View> */}
           <View style={styles.campDescContain}>
             <Text style={styles.campDescName}>
               {this.props.selectedCampaign.camp_name}
@@ -192,59 +130,19 @@ class ViewCampUpdateScreen extends React.Component {
     );
   }
 
-  addLike = (campId, updateId) => {
-    this.setState({
-      ...this.state,
-      likes: this.state.likes + 1,
-      userLiked: true
-    });
-    this.props.navigation.state.params.addLike(campId, updateId);
-  };
-
-  deleteLike = (campId, updateId) => {
-    this.setState({
-      ...this.state,
-      likes: this.state.likes - 1,
-      userLiked: false
-    });
-    this.props.navigation.state.params.deleteLike(campId, updateId);
-  };
-
   goToProfile = () => {
     this.props.navigation.navigate('Pro', {
       selectedProfile: this.props.selectedCampaign.users_id
     });
   };
 
-  getCampaign = () => {
-    axios
-      .get(`${seturl}campaigns/${this.props.selectedCampaign.camp_id}`, {
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${this.props.token}`,
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(res => {
-        this.setState({
-          ...this.state,
-          campaign: res.data.camp
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
   goToCampaign = async () => {
-    await this.props.getCampaign(this.props.selectedCampaign.camp_id);
-    this.props.navigation.navigate('Camp', {
-      likes: this.state.campaign.likes.length,
-      userLiked: this.props.navigation.state.params.userLiked,
-      addLike: this.props.navigation.state.params.addLike,
-      deleteLike: this.props.navigation.state.params.deleteLike,
-      media: this.state.campaign.camp_img
-    });
+    try{
+      await this.props.getCampaign(this.props.selectedCampaign.camp_id);
+      this.props.navigation.navigate('Camp', {
+        media: this.props.selectedCampaign.camp_img
+      });
+    } catch (err) {console.log(err);}
   };
 }
 
@@ -300,22 +198,6 @@ const styles = StyleSheet.create({
     flex: 1,
     height: deviceWidth,
     width: deviceWidth
-  },
-  likesContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 15
-  },
-  hearts: {
-    marginHorizontal: 15
-  },
-  heartOutline: {
-    fontSize: 28,
-    color: 'black'
-  },
-  heartFill: {
-    fontSize: 30,
-    color: '#e60024'
   },
   campDescContain: {
     marginLeft: 15,

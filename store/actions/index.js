@@ -52,11 +52,11 @@ const axiosWithAuth = (dispatch, req) => {
 // url for heroku staging vs production server
 // Automatically set based on environment
 // production
-const seturl = PRODUCTION = 'https://key-conservation.herokuapp.com/api/';
+const seturl = 'http://192.168.1.13:8000/api/';
+// const seturl = PRODUCTION = 'https://key-conservation.herokuapp.com/api/';
 // staging
 // const STAGING = 'https://key-conservation-staging.herokuapp.com/api/';
 // const seturl = STAGING = 'https://key-conservation-staging.herokuapp.com/api/';
-
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
@@ -506,7 +506,7 @@ export const [
 ];
 
 export const deleteCampaign = id => dispatch => {
-  dispatch({ type: DELETE_CAMPAIGN_START });
+  dispatch({ type: DELETE_CAMPAIGN_START, payload: id });
 
   return axiosWithAuth(dispatch, aaxios => {
     return aaxios
@@ -516,7 +516,7 @@ export const deleteCampaign = id => dispatch => {
       })
       .catch(err => {
         dispatch({ type: DELETE_CAMPAIGN_ERROR, payload: err });
-        return err;
+        return { error: err, id };
       });
   });
 };
@@ -688,7 +688,7 @@ export const [
 
 export const deleteCampaignUpdate = id => dispatch => {
   console.log('deleting campaign update');
-  dispatch({ type: DELETE_CAMPAIGN_UPDATE_START });
+  dispatch({ type: DELETE_CAMPAIGN_UPDATE_START, payload: id });
   return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .delete(`${seturl}updates/${id}`)
@@ -699,7 +699,7 @@ export const deleteCampaignUpdate = id => dispatch => {
       .catch(err => {
         console.log(err);
         dispatch({ type: DELETE_CAMPAIGN_UPDATE_ERROR, payload: err });
-        return err;
+        return { error: err, id };
       });
   });
 };
@@ -866,7 +866,7 @@ export const getReport = id => dispatch => {
   dispatch({ type: GET_REPORT_START });
   let url = `${seturl}reports/${id}`;
 
-  console.log(`getting report ${id}`)
+  console.log(`getting report ${id}`);
 
   return axiosWithAuth(dispatch, aaxios => {
     return aaxios

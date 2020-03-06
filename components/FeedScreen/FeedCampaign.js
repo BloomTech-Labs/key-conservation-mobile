@@ -16,6 +16,8 @@ import { Viewport } from '@skele/components';
 
 import { getCampaign, toggleCampaignText } from '../../store/actions';
 import { AmpEvent } from '../withAmplitude';
+import LoadingOverlay from '../LoadingOverlay';
+
 
 import { navigate } from '../../navigation/RootNavigator';
 
@@ -222,6 +224,10 @@ const FeedCampaign = props => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.container}>
+        <LoadingOverlay
+          loading={props.deleteBuffer.includes(data.camp_id)}
+          backgroundColor='white'
+        />
         <CampaignActionSheet
           ref={actionSheetRef}
           admin={props.currentUserProfile.admin}
@@ -371,7 +377,8 @@ const FeedCampaign = props => {
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
   currentUser: state.currentUser,
-  token: state.token
+  token: state.token,
+  deleteBuffer: state.pending.deleteCampaign
 });
 export default connect(mapStateToProps, {
   getCampaign,

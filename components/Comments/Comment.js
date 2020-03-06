@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import moment from 'moment';
@@ -8,9 +8,15 @@ import { withNavigation } from 'react-navigation';
 import styles from '../../constants/Comments/Comments';
 import Ellipse from '../../assets/jsicons/Ellipse';
 import CommentActionSheet from '../Reports/CommentActionSheet';
+import LoadingOverlay from '../LoadingOverlay';
 
 const Comment = props => {
-  const dispatch = useDispatch();
+
+  // This is so that the opacity of the comment will be
+  // reduced when it is being deleting, or barely being posted
+  // This is for a more streamlined user experience
+  const [loading, setLoading] = useState(props.comment.comment_id ? '' : 'Posting...');
+
   const actionSheetRef = useRef(null);
 
   const createdAt = props.comment.created_at;
@@ -54,9 +60,16 @@ const Comment = props => {
   };
 
   return (
-    <View style={styles.commentWrapper}>
+    <View
+      pointerEvents={loading ? 'none' : 'auto'}
+      style={{
+        ...styles.commentWrapper,
+        opacity: loading ? 0.4 : 1
+      }}
+    >
       <View>
         <CommentActionSheet
+          onDelete={(failed = false) => setLoading(failed ? '' : 'Deleting...')}
           isMine={props.comment.users_id === props.currentUserProfile.id}
           admin={props.admin}
           commentId={props.comment.comment_id}
@@ -91,7 +104,7 @@ const Comment = props => {
           </TouchableOpacity>
         </View>
         <View style={styles.interaction}>
-          <Text style={styles.timeText}>{timeDiff}</Text>
+          <Text style={styles.timeText}>{loading || timeDiff}</Text>
         </View>
       </View>
     </View>
@@ -103,6 +116,4 @@ const mapStateToProps = state => ({
   admin: state.currentUserProfile.admin
 });
 
-export default connect(mapStateToProps)(
-  withNavigation(Comment)
-);
+export default connect(mapStateToProps)(withNavigation(Comment));
