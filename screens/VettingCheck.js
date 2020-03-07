@@ -151,21 +151,7 @@ function VettingCheck(props) {
   // This sets the current user's 'Table 1' form, field 'isVetting', to false. This will allow a new organization to sign up through the same device.
 
   const logoutPress = async () => {
-    await SecureStore.deleteItemAsync('sub', {});
-    await SecureStore.deleteItemAsync('email', {});
-    await SecureStore.deleteItemAsync('roles', {});
-    await SecureStore.deleteItemAsync('id', {});
-    await SecureStore.deleteItemAsync('accessToken', {});
-    logout();
-
-    const logoutURL = 'https://key-conservation.auth0.com/v2/logout?federated';
-
-    if (Constants.platform.ios) {
-      await WebBrowser.openAuthSessionAsync(logoutURL).then(result => {});
-    } else {
-      await WebBrowser.openBrowserAsync(logoutURL).then(result => {});
-    }
-    props.navigation.navigate('Logout');
+    props.logout();
   };
 
   return (
@@ -211,4 +197,4 @@ function VettingCheck(props) {
   );
 }
 
-export default connect(null, { postUser })(VettingCheck);
+export default connect(null, { postUser, logout })(VettingCheck);
