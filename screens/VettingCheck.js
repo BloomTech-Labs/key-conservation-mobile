@@ -51,7 +51,8 @@ function VettingCheck(props) {
 
     if(!key) {
       console.log('getting key from backend...');
-      key = await this.props.getAirtableKey();
+      await this.props.getAirtableKey();
+      key = await SecureStore.getItemAsync('airtableKey', {});
     }
 
     console.log(key);
