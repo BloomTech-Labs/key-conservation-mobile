@@ -15,6 +15,7 @@ import NavigateButton from './formElement/NavigateButton';
 import NavigateBack from './formElement/NavigateBack.js';
 import CheckMark from '../../assets/jsicons/miscIcons/CheckMark';
 import ProgressBar from './formElement/ProgressBar';
+import UploadMedia from '../../components/UploadMedia';
 
 const TellAboutOrganizationScreen = props => {
   const [airtableKey, setAirtableKey] = useState({
@@ -233,7 +234,14 @@ const TellAboutOrganizationScreen = props => {
               ) : null}
             </View>
             <View style={styles.uploadButton}>
-              <UploadMedia circular title='Upload your logo' />
+              <UploadMedia
+                media={state.profile_image}
+                onChangeMedia={media =>
+                  setState({ ...state, profile_image: media })
+                }
+                circular
+                title='Upload your logo'
+              />
             </View>
 
             <View style={styles.buttons}>
