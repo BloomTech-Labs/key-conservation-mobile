@@ -52,9 +52,9 @@ const axiosWithAuth = (dispatch, req) => {
 // url for heroku staging vs production server
 // comment out either server depending on testing needs
 // production
-// const seturl = 'https://key-conservation.herokuapp.com/api/';
+const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
-const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+// const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
 
 const filterUrls = (keys, object) => {
@@ -322,6 +322,7 @@ export const editProfileData = (id, changes) => dispatch => {
         dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.editUser });
       })
       .catch(err => {
+        console.log(err);
         dispatch({ type: EDIT_PROFILE_ERROR, payload: err });
       });
   });
