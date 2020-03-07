@@ -595,8 +595,8 @@ const ReviewYourInfoScreen = props => {
               <UploadMedia
                 circular
                 title='Change logo'
-                media={this.state.profile_image}
-                onChangeMedia={media => this.setState({ profile_image: media })}
+                media={state.profile_image}
+                onChangeMedia={media => setState({ profile_image: media })}
               />
             </View>
           </View>

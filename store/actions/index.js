@@ -147,6 +147,7 @@ export const getAirtableKey = () => {
           'airtableKey',
           response.data.airtable_key
         );
+        return response.data.airtable_key;
       })
       .catch(error => console.log(error));
   });

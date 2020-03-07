@@ -10,7 +10,7 @@ import {
 import { connect } from 'react-redux';
 import * as SecureStore from 'expo-secure-store';
 import styles from '../constants/screens/org-onboarding-styles/VettingCheck.js';
-import { logout, postUser } from '../store/actions';
+import { logout, postUser, getAirtableKey } from '../store/actions';
 
 import Constants from 'expo-constants';
 import * as WebBrowser from 'expo-web-browser';
@@ -47,7 +47,15 @@ function VettingCheck(props) {
   const getAirtableId = async () => {
     const id = await SecureStore.getItemAsync('airtableID', {});
     const email = await SecureStore.getItemAsync('email', {});
-    const key = await SecureStore.getItemAsync('airtableKey', {});
+    let key = await SecureStore.getItemAsync('airtableKey', {});
+
+    if(!key) {
+      console.log('getting key from backend...');
+      await this.props.getAirtableKey();
+      key = await SecureStore.getItemAsync('airtableKey', {});
+    }
+
+    console.log(key);
 
     setState({ email: email, id: id, key: key });
     updateAirtableVettingTrue();
@@ -151,21 +159,7 @@ function VettingCheck(props) {
   // This sets the current user's 'Table 1' form, field 'isVetting', to false. This will allow a new organization to sign up through the same device.
 
   const logoutPress = async () => {
-    await SecureStore.deleteItemAsync('sub', {});
-    await SecureStore.deleteItemAsync('email', {});
-    await SecureStore.deleteItemAsync('roles', {});
-    await SecureStore.deleteItemAsync('id', {});
-    await SecureStore.deleteItemAsync('accessToken', {});
-    logout();
-
-    const logoutURL = 'https://key-conservation.auth0.com/v2/logout?federated';
-
-    if (Constants.platform.ios) {
-      await WebBrowser.openAuthSessionAsync(logoutURL).then(result => {});
-    } else {
-      await WebBrowser.openBrowserAsync(logoutURL).then(result => {});
-    }
-    props.navigation.navigate('Logout');
+    props.logout();
   };
 
   return (
@@ -211,4 +205,4 @@ function VettingCheck(props) {
   );
 }
 
-export default connect(null, { postUser })(VettingCheck);
+export default connect(null, { postUser, logout })(VettingCheck);
