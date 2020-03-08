@@ -86,11 +86,11 @@
     "redux-thunk": "^2.3.0",
     "string.prototype.trim": "^1.2.1"
   },
-
   "collectCoverageFrom": [
     "**/*.{js,jsx}",
-		"!**/node_modules/**",
-    "!**/vendor/**"],
+    "!**/node_modules/**",
+    "!**/vendor/**"
+  ],
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "babel-preset-expo": "^8.0.0",

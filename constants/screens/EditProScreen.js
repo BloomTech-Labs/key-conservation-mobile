@@ -75,8 +75,6 @@ export default {
   },
   buttonText: {
     fontWeight: 'bold',
-    color: 'black',
-    fontWeight: 'bold',
     letterSpacing: 1,
     textAlign: 'center',
     color: 'black',
