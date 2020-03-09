@@ -19,7 +19,7 @@
     "assetBundlePatterns": ["**/*"],
     "android": {
       "package": "com.kc.keyconservation",
-      "versionCode": 13,
+      "versionCode": 14,
       "config": {
         "googleMaps": {
           "apiKey": "process.env.REACT_APP_GOOGLE_MAPS_API_KEY"
@@ -36,7 +36,7 @@
           }
         ]
       },
-      "buildNumber": "13",
+      "buildNumber": "14",
       "supportsTablet": true,
       "bundleIdentifier": "com.kc.keyconservation"
     },
