@@ -1,13 +1,20 @@
 const buttonContainer = {
-  width: '30%',
-  height: 30,
-  marginBottom: 18,
+  height: 40,
+  flexDirection: 'column',
+  flexWrap: 'nowrap',
+  margin: 5,
+  padding: 10,
   borderRadius: 4,
-  fontFamily: 'Lato',
-  justifyContent: 'center'
+  backgroundColor: '#00FF9D',
+  justifyContent: 'center',
 };
 
 export default {
+  list: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center'
+  },
   unselectedContainer: {
     ...buttonContainer,
     backgroundColor: '#F5F5F5'
@@ -18,6 +25,7 @@ export default {
   },
   text: {
     fontWeight: 'bold',
+    fontFamily: 'Lato-Bold',
     letterSpacing: 1,
     textAlign: 'center',
     color: 'black',

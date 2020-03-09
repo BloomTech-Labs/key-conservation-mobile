@@ -12,6 +12,7 @@ import { AmpEvent } from '../components/withAmplitude';
 import styles from '../constants/screens/EditSupProScreen';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import SkillSelect from '../components/SkillSelect';
 
 class EditSupProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -40,7 +41,8 @@ class EditSupProScreen extends React.Component {
     facebook: this.props.currentUserProfile.facebook,
     instagram: this.props.currentUserProfile.instagram,
     twitter: this.props.currentUserProfile.twitter,
-    species_and_habitats: this.props.currentUserProfile.species_and_habitats
+    species_and_habitats: this.props.currentUserProfile.species_and_habitats,
+    skills: this.props.currentUserProfile.skills,
   };
 
   componentDidMount() {
@@ -163,6 +165,14 @@ class EditSupProScreen extends React.Component {
               />
             </View>
           </View>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionHeader}>Skilled Impact</Text>
+          <Text>Select the skills you currently have and want to use to help conservationists.</Text>
+          <SkillSelect
+            skills={this.state.skills}
+            onSkillsChanged={skills => this.setState({ skills })}
+          />
         </View>
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionHeader}>Linked Accounts</Text>

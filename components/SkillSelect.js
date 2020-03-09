@@ -1,16 +1,21 @@
 import React from 'react';
-import { Button, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 import { Skills } from '../constants/Skills';
+import styles from '../constants/SkillSelect';
 
 const SkillButton = props => {
   const { skill, selected, onPress } = props;
 
   return (
-    <Button
-      color={selected ? 'green' : 'white'} // todo
-      title={Skills[skill].toUpperCase()}
-      onPress={onPress} />
+      <TouchableOpacity
+        style={selected ? styles.selectedContainer : styles.unselectedContainer}
+        onPress={onPress}
+      >
+        <Text style={styles.text}>
+          {Skills[skill].toUpperCase()}
+        </Text>
+      </TouchableOpacity>
   )
 };
 
@@ -20,35 +25,27 @@ class SkillSelect extends React.Component {
     this.onSkillsChanged = props.onSkillsChanged;
 
     this.state = {
-      selectedSkills: props.initialSkills || []
+      selectedSkills: props.skills || []
     }
   }
 
   toggleSkill(skill) {
-    if (this.state.selectedSkills.includes(skill)) {
-      this.setState(state => ({
-        selectedSkills: state.selectedSkills.filter(selectedSkill => selectedSkill !== skill)
-      }));
-    } else {
-      this.setState(state => ({
-        selectedSkills: state.selectedSkills.concat(skill)
-      }));
-    }
+    const newSkills = this.state.selectedSkills.includes(skill)
+      ? this.state.selectedSkills.filter(selectedSkill => selectedSkill !== skill)
+      : this.state.selectedSkills.concat(skill);
 
-    this.onSkillsChanged(this.state.selectedSkills);
+    this.setState({ selectedSkills: newSkills });
+
+    this.onSkillsChanged(newSkills);
   }
 
   render() {
+    const skills = Object.keys(Skills).map(skill =>
+      <SkillButton key={skill} skill={skill} selected={this.state.selectedSkills.includes(skill)} onPress={() => this.toggleSkill.call(this, skill)} />
+    );
     return (
-      <View
-        style={{ // todo
-
-        }}>
-        {
-          Object.keys(Skills).map(skill =>
-            <SkillButton skill={skill} selected={skill === this.selectedSkill} onPress={this.setSkill.call(this)} />
-          )
-        }
+      <View style={styles.list}>
+      {skills}
       </View>
     )
   }
