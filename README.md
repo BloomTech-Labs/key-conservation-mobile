@@ -15,7 +15,17 @@ Current version: 4.2.0. This app is in Beta for iOS and Android.
 
 # Contributors
 
-## Labs 20 - (Current) Fourth Product Cycle
+### Labs 22 - (Current) Fifth Product Cycle
+
+#### Team Lead:
+
+Katie Rose Felten - [GitHub](https://github.com/katie-rose) | [LinkedIn](https://www.linkedin.com/in/kfelten)
+
+#### React Native Developers:
+
+## Previous Labs Teams Who Contributed To This Project
+
+### Labs 20 - Fourth Product Cycle
 
 #### Team Lead:
 
@@ -37,9 +47,8 @@ Arielle Hollingsworth- [Github](https://github.com/arizephyr123) | [LinkedIn](ht
 
 Rasha Moumneh - [Github](https://github.com/RashaMou) | [LinkedIn](https://www.linkedin.com/in/rashamoumneh/)
 
-## Previous Labs Teams Who Contributed To This Project
 
-## Labs 18 - Third Product Cycle
+### Labs 18 - Third Product Cycle
 
 #### Team Lead:
 
