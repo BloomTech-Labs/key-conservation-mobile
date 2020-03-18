@@ -23,6 +23,14 @@ Katie Rose Felten - [GitHub](https://github.com/katie-rose) | [LinkedIn](https:/
 
 #### React Native Developers:
 
+Kelly Moreira - [GitHub](https://github.com/misskellymore) | [LinkedIn](https://www.linkedin.com/in/kemore/)
+
+Jess Novak - [GitHub](https://github.com/meowyadoin) | [LinkedIn](https://www.linkedin.com/in/jess-novak-409585139/)
+
+Alex Gohorel - [GitHub](https://github.com/agohorel) | [LinkedIn](https://www.linkedin.com/in/alex-gohorel-86348b186/)
+
+Robert Stepanov - [GitHub](https://github.com/robertstepanov) | [LinkedIn](https://www.linkedin.com/in/robert-stepanov-7b7739aa/)
+
 ## Previous Labs Teams Who Contributed To This Project
 
 ### Labs 20 - Fourth Product Cycle
@@ -46,7 +54,6 @@ Brianna Workman - [GitHub](https://github.com/briworkman) | [LinkedIn](https://w
 Arielle Hollingsworth- [Github](https://github.com/arizephyr123) | [LinkedIn](https://www.linkedin.com/in/arielle-hollingsworth/)
 
 Rasha Moumneh - [Github](https://github.com/RashaMou) | [LinkedIn](https://www.linkedin.com/in/rashamoumneh/)
-
 
 ### Labs 18 - Third Product Cycle
 
