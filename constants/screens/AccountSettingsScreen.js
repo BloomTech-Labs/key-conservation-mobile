@@ -5,7 +5,8 @@ const styles = StyleSheet.create({
   // in headerLeft
   backArrowTouch: {
     zIndex: 300,
-    padding: 12
+    padding: 12,
+    color: '#fff'
   },
   scrollBG: {
     backgroundColor: '#F2F2FB',

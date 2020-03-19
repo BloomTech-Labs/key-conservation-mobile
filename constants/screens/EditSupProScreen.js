@@ -10,7 +10,7 @@ export default {
   sectionHeader: {
     fontFamily: 'Lato-Bold',
     fontSize: 22,
-    paddingBottom: 16,
+    paddingBottom: 16
   },
   inputContain: {
     height: 48,
@@ -101,5 +101,13 @@ export default {
     justifyContent: 'center',
     alignItems: 'center',
     fontSize: 13
+  },
+  bioInputContain: {
+    height: 148,
+    backgroundColor: '#F5F5F5',
+    padding: 12,
+    borderRadius: 5,
+    fontSize: 20,
+    marginBottom: 25
   }
 };
