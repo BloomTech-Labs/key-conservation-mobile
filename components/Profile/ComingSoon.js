@@ -6,10 +6,8 @@ import styles from '../../constants/Profile/CampBlankSpace';
 const ComingSoon = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.plusIcon}>
-        <KeyIconGray />
-        <Text style={styles.text}>More exciting features to come!</Text>
-      </View>
+      <KeyIconGray />
+      <Text style={styles.text}>More exciting features to come!</Text>
     </View>
   );
 };
