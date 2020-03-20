@@ -7377,6 +7377,11 @@ react-native-search-filter@^0.1.4:
     diacritics "^1.3.0"
     fuse.js "^3.4.5"
 
+react-native-slack-emoji@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-slack-emoji/-/react-native-slack-emoji-0.0.1.tgz#2b37c74d376b140f9ae459839dff52cda6c62dac"
+  integrity sha512-Y5C9SKDIpZd/9FQjcNvJA+cwztU50Ju0AOmLLpYPPSxGiO1CdysgD7f4PhNH/dZO4/X+5KwSGMtr2eX92gcW+g==
+
 react-native-slick@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-native-slick/-/react-native-slick-1.0.2.tgz#4cec1fd5a2e31ad013c5cc7ba9d1511b8eb6214c"
