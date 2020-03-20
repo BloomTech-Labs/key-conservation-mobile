@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     flexDirection: 'row',
-    marginLeft: Dimensions.get('screen').width * 0.02
+    marginLeft: Dimensions.get('screen').width * 0.02,
+    marginTop: 15
   },
   logoutButton: {
     backgroundColor: '#F2F2FB',
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   linkText: {
-    fontSize: responsiveFontSize(1.8),
+    fontSize: responsiveFontSize(2.8),
     alignSelf: 'center',
     marginLeft: '4%',
     fontFamily: 'Lato-Bold',

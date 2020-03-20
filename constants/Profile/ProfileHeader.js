@@ -27,7 +27,9 @@ export default StyleSheet.create({
   },
   textContainer: {
     flex: 1,
-    color: 'white'
+    color: 'white',
+    marginLeft: 15,
+    marginTop: 15
   },
   headerTitleContainer: {
     position: 'absolute',
