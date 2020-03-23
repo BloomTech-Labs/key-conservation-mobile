@@ -28,7 +28,8 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 25,
-    paddingBottom: 5
+    paddingBottom: 5,
+    marginTop: 120
   },
   titleContainer: {
     flex: 0,
