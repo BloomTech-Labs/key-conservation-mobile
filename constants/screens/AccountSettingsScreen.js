@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   linkText: {
-    fontSize: responsiveFontSize(2.8),
+    fontSize: responsiveFontSize(2.3),
     alignSelf: 'center',
     marginLeft: '4%',
     fontFamily: 'Lato-Bold',
