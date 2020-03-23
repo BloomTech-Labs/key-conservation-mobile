@@ -21,7 +21,7 @@ import QuestionCircle from '../../assets/jsicons/OnBoarding/QuestionCircle';
 import NavigateButton from './formElement/NavigateButton';
 import NavigateBack from './formElement/NavigateBack.js';
 import ChevronLeftBlack from '../../assets/jsicons/miscIcons/ChevronLeftBlack.js';
-import OrgOnboardCountries from '../../components/OrgOnboardCountries';
+import OrganizationOnboardCountries from '../../components/OrganizationOnboardCountries';
 import ChoosePhoneSwitches from '../../components/Onboarding/ChoosePhoneSwitches';
 
 const TellMoreScreen = props => {
@@ -166,7 +166,7 @@ const TellMoreScreen = props => {
             </View>
             <View style={styles.listContainer}>
               {selectedCountries.map((name, index) => (
-                <OrgOnboardCountries
+                <OrganizationOnboardCountries
                   key={index}
                   name={name}
                   index={index}

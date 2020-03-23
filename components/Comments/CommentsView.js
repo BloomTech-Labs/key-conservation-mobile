@@ -36,7 +36,7 @@ class CommentsView extends React.Component {
 
   postComment = () => {
     this.props.commentOnCampaign(
-      this.props.selectedCampaign.camp_id,
+      this.props.selectedCampaign.id,
       this.state.comment.trim()
     );
 
@@ -44,7 +44,7 @@ class CommentsView extends React.Component {
     this.bufferedComment = {
       profile_image: this.props.currentUserProfile.profile_image,
       name: this.props.currentUserProfile.name,
-      comment_body: this.state.comment
+      body: this.state.comment
     };
 
     this.setState(prevState => ({
@@ -73,7 +73,7 @@ class CommentsView extends React.Component {
             .map(comment => {
               return (
                 <Comment
-                  key={comment.comment_id}
+                  key={comment.id}
                   comment={comment}
                   currentUserProfile={this.props.currentUserProfile}
                   selectedCampaign={this.props.selectedCampaign}

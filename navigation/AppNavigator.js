@@ -2,7 +2,7 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 import {
   ConsNavigator,
-  SupNavigator,
+  SupporterNavigator,
   LoginStack,
   NameStack,
   LogoutStack,
@@ -25,7 +25,7 @@ export default createAppContainer(
       Vetting: VettingCheck,
       CreateAccount: NameStack,
       Conservationist: ConsNavigator,
-      Supporter: SupNavigator,
+      Supporter: SupporterNavigator,
       Logout: LogoutStack,
       AccountSettings: AccountSettingsStack,
     },

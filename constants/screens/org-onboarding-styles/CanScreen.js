@@ -43,7 +43,6 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1,
     color: '#000000',
     fontFamily: 'Lato',
     fontSize: responsiveFontSize(2.4),

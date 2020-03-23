@@ -16,7 +16,7 @@ import { Alert } from 'react-native';
   <ActionSheet
     ref={o => this.ActionSheet = o}
     admin={boolean}
-    camp={object}                   // The campaign data
+    campaign={object}                   // The campaign data
     OPTIONAL: goBack={boolean}      // Do we need to navigate back?
   />
 ...
@@ -33,18 +33,18 @@ export default forwardRef((props, ref) => {
   const dispatch = useDispatch();
 
   const report = () => {
-    const id = props.camp?.camp_id || props.update?.update_id;
+    const id = props.campaign?.id || props.update?.id;
 
     if(typeof id === 'undefined') {
       console.warn(
-        'CampaignActionSheet: `camp` or `update` property missing or invalid - action canceled'
+        'CampaignActionSheet: `campaign` or `update` property missing or invalid - action canceled'
       );
       return;
     }
 
-    dispatch(setCampaign(props.camp || props.update));
+    dispatch(setCampaign(props.campaign || props.update));
     
-    const type = props.camp ? 'campaigns' : 'campaign_updates';
+    const type = props.campaign ? 'campaigns' : 'campaign_updates';
 
     // Take the user to a report screen
     navigate('CreateReport', {
@@ -53,18 +53,18 @@ export default forwardRef((props, ref) => {
     });
   };
 
-  const deleteCamp = () => {
-    const id = props.camp?.camp_id || props.update?.update_id;
+  const deleteCampaignOrUpdate = () => {
+    const id = props.campaign?.id || props.update?.id;
     if(typeof id === 'undefined') {
       console.warn(
-        'CampaignActionSheet: `camp` or `update` property missing or invalid - action canceled'
+        'CampaignActionSheet: `campaign` or `update` property missing or invalid - action canceled'
       );
       return;
     }
 
     let del;
 
-    if (props.camp) {
+    if (props.campaign) {
       del = deleteCampaign;
     } else if (props.update) {
       del = deleteCampaignUpdate;
@@ -76,21 +76,21 @@ export default forwardRef((props, ref) => {
     });
   };
 
-  const editCamp = () => {
-    navigate('EditCamp', {
-      selectedCampaign: props.camp
+  const editCampaign = () => {
+    navigate('EditCampaign', {
+      selectedCampaign: props.campaign
     })
   }
 
   const editUpdate = () => {
-    navigate('EditCampUpdate', {
+    navigate('EditCampaignUpdate', {
       selectedCampaign: props.update
     })
   }
 
   const postUpdate = () => {
-    navigate('CreateCampUpdate', {
-      selectedCampaign: props.camp || props.update
+    navigate('CreateCampaignUpdate', {
+      selectedCampaign: props.campaign || props.update
     })
   }
 
@@ -106,12 +106,12 @@ export default forwardRef((props, ref) => {
         onPress: index => {
           switch(index) {
             case 0: {
-              deleteCamp();
+              deleteCampaignOrUpdate();
               break;
             }
             case 1: {
-              if(props.camp) {
-                editCamp();
+              if(props.campaign) {
+                editCampaign();
               } else if (props.update) {
                 editUpdate();
               }
@@ -133,7 +133,7 @@ export default forwardRef((props, ref) => {
         onPress: index => {
           switch (index) {
             case 0: {
-              deleteCamp();
+              deleteCampaignOrUpdate();
               break;
             }
             case 1: {

@@ -44,20 +44,20 @@ const PeopleCard = props => {
         ) : (
           <View>
             {selectedUserConnections?.map(connection => (
-              <View style={styles.card} key={connection.connection_id}>
+              <View style={styles.card} key={connection.id}>
                 <View
                   style={styles.peopleCardContainer}
-                  key={connection.connection_id}
+                  key={connection.id}
                 >
-                  <View style={styles.userInfo} key={connection.connection_id}>
+                  <View style={styles.userInfo} key={connection.id}>
                     <View
                       style={styles.imageContainer}
-                      key={connection.connection_id}
+                      key={connection.id}
                     >
                       <Avatar
                         size={48}
                         rounded
-                        key={connection.connection_id}
+                        key={connection.id}
                         source={{
                           uri:
                             props.selectedProfile.id === connection.connector_id
@@ -77,7 +77,7 @@ const PeopleCard = props => {
                           })
                     }}
                   >
-                      <Text key={connection.connection_id} style={styles.name}>
+                      <Text key={connection.id} style={styles.name}>
                         {connection.connected_name === null
                           ? '---'
                           : props.selectedProfile.id === connection.connector_id

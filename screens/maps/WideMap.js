@@ -28,7 +28,7 @@ const WideMap = ({ getOrganizations, coords, navigation }) => {
         {coords.map(coordinate => {
           return (
             <Marker
-              key={coordinate.users_id}
+              key={coordinate.user_id}
               pinColor='#00FF9D'
               coordinate={{
                 latitude: coordinate.latitude,
@@ -43,7 +43,7 @@ const WideMap = ({ getOrganizations, coords, navigation }) => {
                 style={styles.markerImg}
               />
               <Callout
-                onPress={() => goToProfile(coordinate.users_id)}
+                onPress={() => goToProfile(coordinate.user_id)}
                 style={styles.markerCallout}
               >
                 <Text style={styles.calloutOrgName}>{coordinate.name}</Text>
@@ -90,7 +90,7 @@ const mapPropsToState = state => {
   const coords = state.filteredOrganization
     .map(org => {
       return {
-        users_id: org.users_id,
+        user_id: org.user_id,
         latitude: org.latitude,
         longitude: org.longitude,
         name: org.name,
