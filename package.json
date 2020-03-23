@@ -65,6 +65,7 @@
     "react-native-safe-area-context": "^0.6.2",
     "react-native-screens": "^2.0.0-alpha.32",
     "react-native-search-filter": "^0.1.4",
+    "react-native-slack-emoji": "^0.0.1",
     "react-native-slick": "^1.0.2",
     "react-native-sticky-header-footer-scroll-view": "^2.1.3",
     "react-native-svg": "9.13.3",
@@ -86,11 +87,11 @@
     "redux-thunk": "^2.3.0",
     "string.prototype.trim": "^1.2.1"
   },
-
   "collectCoverageFrom": [
     "**/*.{js,jsx}",
-		"!**/node_modules/**",
-    "!**/vendor/**"],
+    "!**/node_modules/**",
+    "!**/vendor/**"
+  ],
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "babel-preset-expo": "^8.0.0",
