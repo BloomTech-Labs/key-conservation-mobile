@@ -2,8 +2,8 @@ import React from 'react';
 import { SvgXml } from 'react-native-svg';
 
 export default function LogOut() {
-	const logout = `
-    <svg width="180" height="180" viewBox="0 0 180 180" fill="#000" xmlns="http://www.w3.org/2000/svg">
+  const logout = `
+    <svg viewBox="0 0 180 180" fill="#000" xmlns="http://www.w3.org/2000/svg">
     <rect width="180" height="180" fill="#FFF"/>
     <rect width="180" height="180" rx="40" fill="#FFFF"/>
     <path d="M103 130.394V107.894H70.5C68.0832 107.73 67.2085 107.087 67 104.394V74.8938C67.2253 72.3854 67.8756 71.5031 70.5 71.3938H103V49.3938C102.964 47.6269 105 47.3938 105 47.3938C105 47.3938 107.282 46.5077 109 47.3938L151 88.8938C151.314 89.8701 151.26 90.4175 151 91.3938L109 132.894C107.438 133.383 106.562 133.406 105 132.894C103.81 132.499 103.369 131.956 103 130.394Z" fill="#3b3b3b"/>
@@ -11,7 +11,7 @@ export default function LogOut() {
     </svg>
 `;
 
-	const LogOut = () => <SvgXml xml={logout} width='30' height='30' />;
+  const LogOut = () => <SvgXml xml={logout} width='25' height='25' />;
 
-	return <LogOut />;
+  return <LogOut />;
 }

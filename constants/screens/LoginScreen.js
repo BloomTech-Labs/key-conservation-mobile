@@ -29,7 +29,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     paddingTop: 25,
     paddingBottom: 5,
-    marginTop: 120
+    marginTop: 90
   },
   titleContainer: {
     flex: 0,
