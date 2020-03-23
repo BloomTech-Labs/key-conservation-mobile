@@ -219,15 +219,19 @@ const TellMoreScreen = props => {
                 value={airtableState.affiliations_partnerships}
               />
             </View>
-            <View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+              }}
+            >
               <Text style={styles.obText}>
                 Will you join us in Conservation Optimism?
-                <TouchableHighlight onPress={() => setIsModalVisible(true)}>
-                  <View style={styles.questionMark}>
-                    <QuestionCircle width='22' height='22' />
-                  </View>
-                </TouchableHighlight>
               </Text>
+              <TouchableHighlight onPress={() => setIsModalVisible(true)}>
+                <QuestionCircle />
+              </TouchableHighlight>
             </View>
             <ConservationOptimismModal
               setIsModalVisible={setIsModalVisible}

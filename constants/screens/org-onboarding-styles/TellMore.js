@@ -107,9 +107,8 @@ export default StyleSheet.create({
     paddingLeft: '3%'
   },
   questionMark: {
-    alignItems: 'flex-start',
+    // alignItems: 'flex-end'
     left: '50%'
-    // marginTop: 3
   },
   // ******* Switch Styles below  ********
   switchContainer: {
