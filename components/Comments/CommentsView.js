@@ -5,7 +5,8 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
-  Platform
+  Platform,
+  Button
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -16,6 +17,7 @@ import Comment from './Comment';
 import styles from '../../constants/Comments/Comments';
 import ActiveComment from '../../assets/jsicons/Comments/ActiveComment';
 import InactiveComment from '../../assets/jsicons/Comments/InactiveComment';
+
 
 class CommentsView extends React.Component {
   state = {
@@ -95,7 +97,7 @@ class CommentsView extends React.Component {
           </View>
           <View style={styles.inputWrapper}>
             <TextInput
-              placeholder='Be a part of the conversation...'
+              placeholder='Write a comment...'
               onChangeText={text => this.setState({ comment: text })}
               style={styles.input}
               value={this.state.comment}
@@ -108,16 +110,17 @@ class CommentsView extends React.Component {
               returnKeyType='send'
             />
             {this.state.comment === null || this.state.comment === '' ? (
-              <TouchableOpacity style={styles.commentButton}>
-                <InactiveComment />
-              </TouchableOpacity>
+              <Button title="Post" style={styles.commentButton} />
+                /* <InactiveComment />
+              </TouchableOpacity> */
             ) : (
-              <TouchableOpacity
+              <Button
+                title="Post"
                 style={styles.commentButton}
                 onPress={this.postComment}
-              >
-                <ActiveComment />
-              </TouchableOpacity>
+              />
+                /* <ActiveComment />               
+              </TouchableOpacity> */
             )}
           </View>
         </View>

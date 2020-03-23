@@ -10,6 +10,7 @@ import Ellipse from '../../assets/jsicons/Ellipse';
 import CommentActionSheet from '../Reports/CommentActionSheet';
 import LoadingOverlay from '../LoadingOverlay';
 
+
 const Comment = props => {
 
   // This is so that the opacity of the comment will be
