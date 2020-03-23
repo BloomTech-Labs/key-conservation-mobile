@@ -15,8 +15,7 @@ import { commentOnCampaign, getCampaign } from '../../store/actions';
 import Comment from './Comment';
 
 import styles from '../../constants/Comments/Comments';
-import ActiveComment from '../../assets/jsicons/Comments/ActiveComment';
-import InactiveComment from '../../assets/jsicons/Comments/InactiveComment';
+
 
 
 class CommentsView extends React.Component {
@@ -111,16 +110,14 @@ class CommentsView extends React.Component {
             />
             {this.state.comment === null || this.state.comment === '' ? (
               <Button title="Post" style={styles.commentButton} />
-                /* <InactiveComment />
-              </TouchableOpacity> */
+              
             ) : (
               <Button
                 title="Post"
                 style={styles.commentButton}
                 onPress={this.postComment}
               />
-                /* <ActiveComment />               
-              </TouchableOpacity> */
+               
             )}
           </View>
         </View>
