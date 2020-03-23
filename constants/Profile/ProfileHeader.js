@@ -28,7 +28,7 @@ export default StyleSheet.create({
   textContainer: {
     flex: 1,
     color: 'white',
-    marginLeft: 15,
+    marginLeft: 0,
     marginTop: 15
   },
   headerTitleContainer: {
@@ -45,8 +45,9 @@ export default StyleSheet.create({
     color: 'white'
   },
   avatarContainer: {
-    width: '20%',
-    marginLeft: 30,
+    width: '25%',
+    paddingTop: 10,
+    marginLeft: 20,
     flex: 0,
     alignItems: 'center'
   },
