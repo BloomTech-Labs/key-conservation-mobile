@@ -21,7 +21,6 @@ class EditSupProScreen extends React.Component {
         backgroundColor: '#323338'
       },
       headerTintColor: '#fff',
-      //headerLeft: () => <BackButton navigation={navigation} />,
       headerRight: () => (
         <DoneButton
           navigation={navigation}
