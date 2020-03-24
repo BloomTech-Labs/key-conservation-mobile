@@ -16,7 +16,7 @@ export default StyleSheet.create({
   },
   commentButton: {
     color: 'grey',
-    fontSize: 18,
+    fontSize: 17,
     fontFamily: 'Lato',
     minHeight: '100%',
     paddingTop: 8,
@@ -24,7 +24,9 @@ export default StyleSheet.create({
   },
   replyView: {
     flexDirection: 'row',
-    marginTop: 20
+    width: '100%',
+    marginTop: 20,
+    paddingTop: 10
   },
   name: {
     paddingBottom: 3,
@@ -48,10 +50,8 @@ export default StyleSheet.create({
   input: {
     color: 'grey',
     minHeight: 40,
-    // paddingTop: 7,
-    // padding: 5,
     borderRadius: 5,
-    fontSize: 18,
+    fontSize: 17,
     marginLeft: 5,
     marginRight: 5,
     marginBottom: 20,
@@ -62,7 +62,8 @@ export default StyleSheet.create({
     height: '70%',
     marginLeft: 6,
     borderRadius: 5,
-    backgroundColor: '#f5f5f5'
+    backgroundColor: '#f5f5f5',
+    width: '85%'
   },
   interaction: {
     flexDirection: 'row',
@@ -76,7 +77,7 @@ export default StyleSheet.create({
     marginTop: 10
   },
   deleteText: {
-    fontSize: 10,
+    fontSize: 13,
     marginRight: 15,
     marginTop: 10
   },
@@ -87,20 +88,20 @@ export default StyleSheet.create({
     marginTop: 8
   },
   replyAvatar: {
-    marginTop: 7
+    // marginTop: 7
   },
   confirmation: {
     flexDirection: 'row'
   },
   confirmText: {
     color: '#ff0a55',
-    fontSize: 12,
+    fontSize: 13,
     marginRight: 15,
     marginTop: 7
   },
   confirmNo: {
     color: '#00FF9D',
-    fontSize: 12,
+    fontSize: 13,
     marginRight: 10,
     marginTop: 7
   },
@@ -111,7 +112,8 @@ export default StyleSheet.create({
   moreContainer: {
     width: '100%',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingBottom: 20
   },
   more: {
     backgroundColor: '#fff',
@@ -124,7 +126,7 @@ export default StyleSheet.create({
     width: 243
   },
   moreText: {
-    fontSize: 14,
+    fontSize: 15,
     fontFamily: 'Lato',
     color: 'black'
   },

@@ -86,6 +86,7 @@ class CommentsView extends React.Component {
           <View style={styles.replyAvatar}>
             <Avatar
               rounded
+              size='medium'
               source={{
                 uri: this.props.currentUserProfile.profile_image
               }}
