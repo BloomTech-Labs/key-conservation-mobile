@@ -15,7 +15,10 @@ export default StyleSheet.create({
     marginTop: 5
   },
   commentButton: {
-    marginTop: 10
+    color: 'grey',
+    fontSize: 19,
+    marginTop: '8%',
+    fontFamily: 'Lato'
   },
   replyView: {
     flexDirection: 'row',
@@ -41,15 +44,16 @@ export default StyleSheet.create({
     fontFamily: 'Lato-Bold'
   },
   input: {
+    color: 'grey',
     minHeight: 48,
     paddingTop: 7,
     padding: 5,
     borderRadius: 5,
-    fontSize: 14,
+    fontSize: 17,
     marginLeft: 5,
     marginRight: 5,
     marginBottom: 20,
-    backgroundColor: '#f7f9fc',
+    backgroundColor: '#f5f5f5',
     width: '80%'
   },
   inputWrapper: {

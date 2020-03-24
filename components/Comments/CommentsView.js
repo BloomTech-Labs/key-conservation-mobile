@@ -5,8 +5,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
-  Platform,
-  Button
+  Platform
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -15,8 +14,6 @@ import { commentOnCampaign, getCampaign } from '../../store/actions';
 import Comment from './Comment';
 
 import styles from '../../constants/Comments/Comments';
-
-
 
 class CommentsView extends React.Component {
   state = {
@@ -109,15 +106,13 @@ class CommentsView extends React.Component {
               returnKeyType='send'
             />
             {this.state.comment === null || this.state.comment === '' ? (
-              <Button title="Post" style={styles.commentButton} />
-              
+              <TouchableOpacity>
+                <Text style={styles.commentButton}>Post</Text>
+              </TouchableOpacity>
             ) : (
-              <Button
-                title="Post"
-                style={styles.commentButton}
-                onPress={this.postComment}
-              />
-               
+              <TouchableOpacity onPress={this.postComment}>
+                <Text style={styles.commentButton}>Post</Text>
+              </TouchableOpacity>
             )}
           </View>
         </View>
