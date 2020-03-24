@@ -22,12 +22,12 @@ import ChevronLeftWhite from '../assets/jsicons/miscIcons/ChevronLeftWhite';
 
 // These are the keywords that filtered through the map. You can add more to do depending.
 const KEYS_TO_FILTERS = [
-  'camp_name',
-  'camp_desc',
+  'campaign_name',
+  'description',
   'name',
   'location',
   'data',
-  'update_desc'
+  'update_description'
 ];
 
 class SearchScreen extends React.Component {
@@ -60,7 +60,7 @@ class SearchScreen extends React.Component {
   render() {
     const { navigation } = this.props;
     // filters in the map method
-    const filterCamps = this.props.allCampaigns.filter(
+    const filteredCampaigns = this.props.allCampaigns.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
     );
     return (
@@ -130,25 +130,13 @@ class SearchScreen extends React.Component {
             }
           />
           {this.props.allCampaigns.length > 0 &&
-            filterCamps.map(camp => {
-              if (camp.update_id) {
-                return (
-                  <FeedUpdate
-                    key={`update${camp.update_id}`}
-                    data={camp}
-                    navigation={navigation}
-                  />
-                );
-              } else {
-                return (
-                  <FeedCampaign
-                    key={camp.camp_id}
-                    data={camp}
-                    navigation={navigation}
-                  />
-                );
-              }
-            })}
+            filteredCampaigns.map(campaign =>
+              <FeedCampaign
+                key={campaign.id}
+                data={campaign}
+                navigation={navigation}
+              />
+            )}
         </ScrollView>
       </KeyboardAvoidingView>
     );

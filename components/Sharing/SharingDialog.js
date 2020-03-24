@@ -91,8 +91,8 @@ const SharingDialog = ({ onClose, data }) => {
     const params = {
       url: data.profile_image,
       text: shorten(
-        `${data.camp_name} \nBy ${data.name}\n${data.location}\n${
-          data.camp_desc ? data.camp_desc : data.update_desc
+        `${data.campaign_name} \nBy ${data.name}\n${data.location}\n${
+          data.description ? data.description : data.update_description
         }\n`,
         220
       ),
@@ -125,8 +125,8 @@ const SharingDialog = ({ onClose, data }) => {
     let parameters = '';
 
     const text = shorten(
-      `${data.camp_name} \nBy ${data.name}\n${data.location}\n${
-        data.camp_desc ? data.camp_desc : data.update_desc
+      `${data.campaign_name} \nBy ${data.name}\n${data.location}\n${
+        data.description ? data.description : data.update_description
       }\n`,
       500
     );

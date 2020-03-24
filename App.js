@@ -28,7 +28,7 @@ function App(props) {
       if (action.key) {
         const key = action.key;
         if (key.search('id') === 0) {
-          return 'Unique screen - Camp Post/Edit Pro/Detail screen';
+          return 'Unique screen - Campaign Post/Edit Profile/Detail screen';
         } else {
           return action.key;
         }

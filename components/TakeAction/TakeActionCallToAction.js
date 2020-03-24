@@ -2,14 +2,14 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 
-import styles from '../../constants/TakeAction/TakeActionCta';
+import styles from '../../constants/TakeAction/TakeActionCallToAction';
 
-const TakeActionCta = props => {
+const TakeActionCallToAction = props => {
   const { donate } = props;
 
   return (
     <React.Fragment>
-      {donate.camp_cta ? (
+      {donate.call_to_action ? (
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={
@@ -18,7 +18,7 @@ const TakeActionCta = props => {
                 : styles.buttonTouch
             }
             onPress={async () =>
-              await WebBrowser.openBrowserAsync(donate.camp_cta)
+              await WebBrowser.openBrowserAsync(donate.call_to_action)
             }
           >
             <Text style={styles.text}>donate</Text>
@@ -29,4 +29,4 @@ const TakeActionCta = props => {
   );
 };
 
-export default TakeActionCta;
+export default TakeActionCallToAction;

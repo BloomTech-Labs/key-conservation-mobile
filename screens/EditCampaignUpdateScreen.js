@@ -7,9 +7,9 @@ import { editCampaignUpdate, getCampaigns } from '../store/actions';
 import BackButton from '../components/BackButton';
 import DoneButton from '../components/DoneButton';
 
-import styles from '../constants/screens/EditCampScreen';
+import styles from '../constants/screens/EditCampaignScreen';
 
-class EditCampUpdateScreen extends React.Component {
+class EditCampaignUpdateScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Edit Update Post',
@@ -34,7 +34,7 @@ class EditCampUpdateScreen extends React.Component {
       this.props.navigation.getParam('selectedCampaign') || {};
 
     this.state = {
-      update_desc: this.selectedCampaign.update_desc
+      update_description: this.selectedCampaign.update_description
     };
   }
 
@@ -45,14 +45,14 @@ class EditCampUpdateScreen extends React.Component {
   edit = async () => {
     let changes = this.state;
     await this.props.editCampaignUpdate(
-      this.selectedCampaign.update_id,
+      this.selectedCampaign.id,
       changes
     );
     this.props.navigation.goBack();
   };
   clearState = () => {
     this.setState({
-      update_desc: this.selectedCampaign.update_desc
+      update_description: this.selectedCampaign.update_description
     });
   };
   render() {
@@ -67,14 +67,14 @@ class EditCampUpdateScreen extends React.Component {
             </View>
             <TextInput
               ref={input => {
-                this.campDetailsInput = input;
+                this.campaignDetailsInput = input;
               }}
               returnKeyType='next'
               placeholder='Write an update here to tell people what has happened since their donation.'
               style={styles.inputContain2}
-              onChangeText={text => this.setState({ update_desc: text })}
+              onChangeText={text => this.setState({ update_description: text })}
               multiline={true}
-              value={this.state.update_desc}
+              value={this.state.update_description}
             />
           </View>
         </View>
@@ -89,4 +89,4 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   editCampaignUpdate,
   getCampaigns
-})(EditCampUpdateScreen);
+})(EditCampaignUpdateScreen);

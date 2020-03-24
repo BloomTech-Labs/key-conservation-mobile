@@ -17,18 +17,18 @@ import ReviewYourInfoScreen from '../screens/org-onboarding-screens/ReviewYourIn
 import AccountScreen from '../screens/org-onboarding-screens/AccountScreen';
 
 import FeedScreen from '../screens/FeedScreen';
-import CreateCampScreen from '../screens/CreateCampScreen';
+import CreateCampaignScreen from '../screens/CreateCampaignScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import EditProScreen from '../screens/EditProScreen';
+import EditProfileScreen from '../screens/EditProfileScreen';
 import LoginScreen from '../screens/LoginScreen';
 import NameScreen from '../screens/NameScreen';
 import SearchScreen from '../screens/SearchScreen';
-import ViewCampScreen from '../screens/ViewCampScreen';
-import EditCampScreen from '../screens/EditCampScreen';
-import EditSupProScreen from '../screens/EditSupProScreen';
-import ViewCampUpdateScreen from '../screens/ViewCampUpdateScreen';
-import CreateCampUpdateScreen from '../screens/CreateCampUpdateScreen';
-import EditCampUpdateScreen from '../screens/EditCampUpdateScreen';
+import ViewCampaignScreen from '../screens/ViewCampaignScreen';
+import EditCampaignScreen from '../screens/EditCampaignScreen';
+import EditSupporterProfileScreen from '../screens/EditSupporterProfileScreen';
+import ViewCampaignUpdateScreen from '../screens/ViewCampaignUpdateScreen';
+import CreateCampaignUpdateScreen from '../screens/CreateCampaignUpdateScreen';
+import EditCampaignUpdateScreen from '../screens/EditCampaignUpdateScreen';
 import AccountSettingsScreen from '../screens/AccountSettingsScreen';
 import WideMapScreen from '../screens/maps/WideMapScreen';
 import AdminReportScreen from '../screens/AdminReportScreen';
@@ -98,14 +98,14 @@ const FeedStack = createStackNavigator(
     },
     Connections: { screen: ConnectionsScreen },
     SelectedConnections: { screen: SelectedConnectionsScreen },
-    Camp: ViewCampScreen,
-    CampUpdate: ViewCampUpdateScreen,
-    SupPro: ProfileScreen,
+    Campaign: ViewCampaignScreen,
+    CampaignUpdate: ViewCampaignUpdateScreen,
+    SupporterProfile: ProfileScreen,
     CreateReport: CreateReportScreen,
-    EditCamp: EditCampScreen,
-    EditCampUpdate: EditCampUpdateScreen,
-    CreateCampaign: CreateCampScreen,
-    CreateCampUpdate: CreateCampUpdateScreen
+    EditCampaign: EditCampaignScreen,
+    EditCampaignUpdate: EditCampaignUpdateScreen,
+    CreateCampaign: CreateCampaignScreen,
+    CreateCampaignUpdate: CreateCampaignUpdateScreen
   },
   {
     navigationOptions: {
@@ -119,8 +119,8 @@ export const AccountSettingsStack = createStackNavigator({
   AccountSettings: AccountSettingsScreen,
   AdminScreen: AdminReportScreen,
   ReportScreen: ReportDetailScreen,
-  SupProDetails: ProfileScreen,
-  ProDetails: ProfileScreen,
+  SupporterProfileDetails: ProfileScreen,
+  ProfileDetails: ProfileScreen,
   Connections: ConnectionsScreen,
   SelectedConnections: SelectedConnectionsScreen
 });
@@ -133,15 +133,15 @@ const MyProStack = createStackNavigator(
     MyPro: {
       screen: ProfileScreen
     },
-    EditPro: {
-      screen: EditProScreen,
+    EditProfile: {
+      screen: EditProfileScreen,
       navigationOptions: { title: 'Edit Profile' }
     },
-    Camp: ViewCampScreen,
-    EditCamp: EditCampScreen,
-    CampUpdate: ViewCampUpdateScreen,
-    CreateCampUpdate: CreateCampUpdateScreen,
-    EditCampUpdate: EditCampUpdateScreen,
+    Campaign: ViewCampaignScreen,
+    EditCampaign: EditCampaignScreen,
+    CampaignUpdate: ViewCampaignUpdateScreen,
+    CreateCampaignUpdate: CreateCampaignUpdateScreen,
+    EditCampaignUpdate: EditCampaignUpdateScreen,
     CreateReport: CreateReportScreen
   },
   {
@@ -152,10 +152,10 @@ const MyProStack = createStackNavigator(
   }
 );
 
-const MySupProStack = createStackNavigator(
+const SupporterProfileStack = createStackNavigator(
   {
-    MySupPro: { screen: ProfileScreen },
-    EditSupPro: { screen: EditSupProScreen },
+    MySupporterProfile: { screen: ProfileScreen },
+    EditSupporterProfile: { screen: EditSupporterProfileScreen },
     Connections: { screen: ConnectionsScreen }
   },
   {
@@ -234,7 +234,7 @@ export const ConsNavigator = createBottomTabNavigator(
   }
 );
 
-export const SupNavigator = createBottomTabNavigator(
+export const SupporterNavigator = createBottomTabNavigator(
   {
     FeedStack: {
       screen: FeedStack,
@@ -243,8 +243,8 @@ export const SupNavigator = createBottomTabNavigator(
     MapStack: {
       screen: MapStack
     },
-    MySupProStack: {
-      screen: MySupProStack,
+    SupporterProfileStack: {
+      screen: SupporterProfileStack,
       path: ''
     }
   },

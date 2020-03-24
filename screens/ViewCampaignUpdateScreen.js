@@ -21,7 +21,7 @@ import CampaignActionSheet from '../components/Reports/CampaignActionSheet';
 
 const deviceWidth = Dimensions.get('window').width;
 
-class ViewCampUpdateScreen extends React.Component {
+class ViewCampaignUpdateScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Update',
@@ -37,7 +37,7 @@ class ViewCampUpdateScreen extends React.Component {
             padding: 16,
             paddingRight: 24
           }}
-          onPress={navigation.getParam('showCampUpdateOptions')}
+          onPress={navigation.getParam('showCampaignUpdateOptions')}
         >
           <Ellipse width='25' height='25' />
         </TouchableOpacity>
@@ -51,7 +51,7 @@ class ViewCampUpdateScreen extends React.Component {
 
   componentDidMount = () => {
     this.props.navigation.setParams({
-      showCampUpdateOptions: this.showActionSheet
+      showCampaignUpdateOptions: this.showActionSheet
     });
   };
 
@@ -64,7 +64,7 @@ class ViewCampUpdateScreen extends React.Component {
           update={this.props.selectedCampaign}
           isMine={
             this.props.currentUserProfile.admin ===
-            this.props.selectedCampaign.users_id
+            this.props.selectedCampaign.user_id
           }
           goBack
         />
@@ -88,7 +88,7 @@ class ViewCampUpdateScreen extends React.Component {
           this.props.navigation.state.params.media.includes('.mp4') ? (
             <Video
               source={{
-                uri: this.props.selectedCampaign.update_img
+                uri: this.props.selectedCampaign.update_image
               }}
               rate={1.0}
               volume={1.0}
@@ -98,16 +98,16 @@ class ViewCampUpdateScreen extends React.Component {
             />
           ) : (
             <Image
-              source={{ uri: this.props.selectedCampaign.update_img }}
+              source={{ uri: this.props.selectedCampaign.update_image }}
               style={styles.campImgContain}
             />
           )}
-          <View style={styles.campDescContain}>
-            <Text style={styles.campDescName}>
-              {this.props.selectedCampaign.camp_name}
+          <View style={styles.campaignDescriptionContainer}>
+            <Text style={styles.campaignDescriptionName}>
+              {this.props.selectedCampaign.name}
             </Text>
-            <Text style={styles.campDesc}>
-              {this.props.selectedCampaign.update_desc}
+            <Text style={styles.campaignDescriptionName}>
+              {this.props.selectedCampaign.description}
             </Text>
           </View>
           <View style={styles.ogBorder} />
@@ -132,15 +132,15 @@ class ViewCampUpdateScreen extends React.Component {
 
   goToProfile = () => {
     this.props.navigation.navigate('Pro', {
-      selectedProfile: this.props.selectedCampaign.users_id
+      selectedProfile: this.props.selectedCampaign.user_id
     });
   };
 
   goToCampaign = async () => {
     try{
-      await this.props.getCampaign(this.props.selectedCampaign.camp_id);
-      this.props.navigation.navigate('Camp', {
-        media: this.props.selectedCampaign.camp_img
+      await this.props.getCampaign(this.props.selectedCampaign.id);
+      this.props.navigation.navigate('Campaign', {
+        media: this.props.selectedCampaign.image
       });
     } catch (err) {console.log(err);}
   };
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingLeft: 10
   },
-  campMissionText: {
+  campaignMissionText: {
     fontFamily: 'Lato',
     fontSize: 16,
     lineHeight: 19,
@@ -199,18 +199,18 @@ const styles = StyleSheet.create({
     height: deviceWidth,
     width: deviceWidth
   },
-  campDescContain: {
+  campaignDescriptionContainer: {
     marginLeft: 15,
     paddingTop: 15,
     marginRight: 15
   },
-  campDescName: {
+  campaignDescriptionName: {
     fontFamily: 'Lato-Bold',
     fontSize: 18,
     lineHeight: 22,
     paddingBottom: 10
   },
-  campDesc: {
+  campaignDescription: {
     fontFamily: 'Lato',
     fontSize: 16,
     lineHeight: 19,
@@ -237,4 +237,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps, { getCampaign })(ViewCampUpdateScreen);
+export default connect(mapStateToProps, { getCampaign })(ViewCampaignUpdateScreen);

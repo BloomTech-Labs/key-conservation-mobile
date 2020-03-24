@@ -28,9 +28,9 @@ const ProfileHeader = forwardRef((props, ref) => {
   let randomHeaderImage = useMemo(() => randomImage(), []);
 
   const WebsiteClick = async () => {
-    if (profile.org_link_url && profile.org_link_url !== null) {
-      (await WebBrowser.openBrowserAsync(profile.org_link_url)) &&
-        AmpEvent('Website Link Clicked', { orgName: profile.name });
+    if (profile.link_url) {
+      (await WebBrowser.openBrowserAsync(profile.link_url)) &&
+        AmpEvent('Website Link Clicked', { name: profile.name });
     }
   };
 
@@ -128,14 +128,14 @@ const ProfileHeader = forwardRef((props, ref) => {
                   <MapMarker /> {profile.location}
                 </Text>
               )}
-              {profile.org_link_url || profile.org_link_url !== '' ? (
-                profile.org_link_text || profile.org_link_text !== '' ? (
+              {profile.link_url || profile.link_url !== '' ? (
+                profile.link_text || profile.link_text !== '' ? (
                   <Text style={styles.websiteText} onPress={WebsiteClick}>
-                    {profile.org_link_text}
+                    {profile.link_text}
                   </Text>
                 ) : (
                   <Text style={styles.websiteText} onPress={WebsiteClick}>
-                    {profile.org_link_url}
+                    {profile.link_url}
                   </Text>
                 )
               ) : null}

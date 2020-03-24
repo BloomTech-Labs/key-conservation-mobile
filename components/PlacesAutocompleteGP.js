@@ -1,5 +1,4 @@
 import React from 'react';
-import { Image, Text } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import styles from '../constants/screens/org-onboarding-styles/TellAboutOrg.js';
 

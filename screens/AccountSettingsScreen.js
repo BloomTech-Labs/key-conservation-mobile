@@ -42,9 +42,9 @@ class AccountSettingsScreen extends React.Component {
 
   done = () => {
     if (this.state.roles === 'conservationist') {
-      this.props.navigation.navigate('MyPro');
+      this.props.navigation.navigate('MyProfile');
     } else {
-      this.props.navigation.navigate('MySupPro');
+      this.props.navigation.navigate('MySupporterProfile');
     }
   };
   viewReports = () => {

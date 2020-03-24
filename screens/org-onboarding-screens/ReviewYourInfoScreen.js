@@ -35,7 +35,7 @@ const ReviewYourInfoScreen = props => {
     conservation_optimism: null,
     smartphone_access: null,
     smartphone_type: '',
-    org_link_url: '',
+    link_url: '',
     twitter: '',
     facebook: '',
     instagram: '',
@@ -47,9 +47,8 @@ const ReviewYourInfoScreen = props => {
     email: '',
     about_us: '',
     species_and_habitats: '',
-    org_cta: '',
+    call_to_action: '',
     mini_bio: '',
-    about_us: '',
     profile_image: ''
   });
 
@@ -91,8 +90,8 @@ const ReviewYourInfoScreen = props => {
             multiple_projects: state.multiple_projects,
             smartphone_access: state.smartphone_access,
             smartphone_type: state.smartphone_type,
-            org_name: state.name,
-            website: state.org_link_url,
+            name: state.name,
+            website: state.link_url,
             phone: state.phone_number,
             address: state.location,
             country: state.country,
@@ -170,7 +169,7 @@ const ReviewYourInfoScreen = props => {
 
               <View style={styles.basicInfoRow}>
                 <Text style={styles.basicInfoRowTitle}>Name</Text>
-                <Text style={styles.obFieldName}>{state.org_name}</Text>
+                <Text style={styles.obFieldName}>{state.name}</Text>
               </View>
 
               <View style={styles.basicInfoRow}>
@@ -185,7 +184,7 @@ const ReviewYourInfoScreen = props => {
 
               <View style={styles.basicInfoRow}>
                 <Text style={styles.basicInfoRowTitle}>Website</Text>
-                <Text style={styles.obFieldName}>{state.org_link_url}</Text>
+                <Text style={styles.obFieldName}>{state.link_url}</Text>
               </View>
 
               <View style={styles.basicInfoRow}>
@@ -210,7 +209,7 @@ const ReviewYourInfoScreen = props => {
 
               <View style={styles.basicInfoRow}>
                 <Text style={styles.basicInfoRowTitle}>Donation Link</Text>
-                <Text style={styles.obFieldName}>{state.org_cta}</Text>
+                <Text style={styles.obFieldName}>{state.call_to_action}</Text>
               </View>
             </View>
           ) : (
@@ -231,8 +230,8 @@ const ReviewYourInfoScreen = props => {
                 <Text style={styles.basicInfoRowTitle}>Name</Text>
                 <TextInput
                   style={[styles.obFieldName, styles.grayBackground]}
-                  value={state.org_name}
-                  onChangeText={text => setState({ ...state, org_name: text })}
+                  value={state.name}
+                  onChangeText={text => setState({ ...state, name: text })}
                 />
               </View>
               <View style={styles.basicInfoRow}>
@@ -256,9 +255,9 @@ const ReviewYourInfoScreen = props => {
                 <Text style={styles.basicInfoRowTitle}>Website</Text>
                 <TextInput
                   style={[styles.obFieldName, styles.grayBackground]}
-                  value={state.org_link_url}
+                  value={state.link_url}
                   onChangeText={text =>
-                    setState({ ...state, org_link_url: text })
+                    setState({ ...state, link_url: text })
                   }
                 />
               </View>
@@ -304,8 +303,8 @@ const ReviewYourInfoScreen = props => {
                 <Text style={styles.basicInfoRowTitle}>Donation Link</Text>
                 <TextInput
                   style={[styles.obFieldName, styles.grayBackground]}
-                  value={state.org_cta}
-                  onChangeText={text => setState({ ...state, org_cta: text })}
+                  value={state.call_to_action}
+                  onChangeText={text => setState({ ...state, call_to_action: text })}
                 />
               </View>
             </View>
@@ -606,8 +605,8 @@ const ReviewYourInfoScreen = props => {
               label='Submit'
               onButtonPress={async () => {
                 if (
-                  state.org_name === undefined ||
-                  state.org_link_url === undefined ||
+                  state.name === undefined ||
+                  state.link_url === undefined ||
                   state.phone_number === undefined ||
                   state.location === undefined ||
                   state.country === undefined ||
@@ -621,9 +620,8 @@ const ReviewYourInfoScreen = props => {
                   updateAirtable();
                   const sub = await SecureStore.getItemAsync('sub', {});
                   const stringBE = JSON.stringify({
-                    org_name: state.org_name,
-                    name: state.org_name,
-                    org_link_url: state.org_link_url,
+                    name: state.name,
+                    link_url: state.link_url,
                     twitter: state.twitter,
                     facebook: state.facebook,
                     instagram: state.instagram,
@@ -634,9 +632,8 @@ const ReviewYourInfoScreen = props => {
                     email: state.email,
                     about_us: state.about_us,
                     species_and_habitats: state.species_and_habitats,
-                    org_cta: state.org_cta,
+                    call_to_action: state.call_to_action,
                     mini_bio: state.mini_bio,
-                    about_us: state.about_us,
                     roles: 'conservationist',
                     sub: sub,
                     profile_image: state.profile_image
