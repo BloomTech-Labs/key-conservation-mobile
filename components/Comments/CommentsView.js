@@ -14,8 +14,6 @@ import { commentOnCampaign, getCampaign } from '../../store/actions';
 import Comment from './Comment';
 
 import styles from '../../constants/Comments/Comments';
-import ActiveComment from '../../assets/jsicons/Comments/ActiveComment';
-import InactiveComment from '../../assets/jsicons/Comments/InactiveComment';
 
 class CommentsView extends React.Component {
   state = {
@@ -88,6 +86,7 @@ class CommentsView extends React.Component {
           <View style={styles.replyAvatar}>
             <Avatar
               rounded
+              size='medium'
               source={{
                 uri: this.props.currentUserProfile.profile_image
               }}
@@ -95,7 +94,7 @@ class CommentsView extends React.Component {
           </View>
           <View style={styles.inputWrapper}>
             <TextInput
-              placeholder='Be a part of the conversation...'
+              placeholder='Write a comment...'
               onChangeText={text => this.setState({ comment: text })}
               style={styles.input}
               value={this.state.comment}
@@ -108,15 +107,12 @@ class CommentsView extends React.Component {
               returnKeyType='send'
             />
             {this.state.comment === null || this.state.comment === '' ? (
-              <TouchableOpacity style={styles.commentButton}>
-                <InactiveComment />
+              <TouchableOpacity>
+                <Text style={styles.commentButton}>Post</Text>
               </TouchableOpacity>
             ) : (
-              <TouchableOpacity
-                style={styles.commentButton}
-                onPress={this.postComment}
-              >
-                <ActiveComment />
+              <TouchableOpacity onPress={this.postComment}>
+                <Text style={styles.commentButton}>Post</Text>
               </TouchableOpacity>
             )}
           </View>
