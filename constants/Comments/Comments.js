@@ -16,12 +16,11 @@ export default StyleSheet.create({
   },
   commentButton: {
     color: 'grey',
-    fontSize: 19,
-    marginTop: '8%',
+    fontSize: 18,
     fontFamily: 'Lato',
     minHeight: '100%',
-    paddingTop: 7,
-    padding: 5
+    paddingTop: 8,
+    marginLeft: 12
   },
   replyView: {
     flexDirection: 'row',
@@ -48,15 +47,15 @@ export default StyleSheet.create({
   },
   input: {
     color: 'grey',
-    minHeight: 48,
-    paddingTop: 7,
-    padding: 5,
+    minHeight: 40,
+    // paddingTop: 7,
+    // padding: 5,
     borderRadius: 5,
-    fontSize: 17,
+    fontSize: 18,
     marginLeft: 5,
     marginRight: 5,
     marginBottom: 20,
-    width: '80%'
+    width: '75%'
   },
   inputWrapper: {
     flexDirection: 'row',

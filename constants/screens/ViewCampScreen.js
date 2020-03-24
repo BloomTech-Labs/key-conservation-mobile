@@ -49,12 +49,9 @@ export default {
     fontSize: 14,
     fontFamily: 'Lato',
     marginTop: 20,
-    paddingTop: 19,
-    paddingBottom: 19,
-    borderTopWidth: 2,
-    borderTopColor: '#eee',
-    borderBottomWidth: 2,
-    borderBottomColor: '#eee'
+    padding: 19,
+    borderRadius: 10,
+    backgroundColor: 'white'
   },
   campMission: {
     marginLeft: 15,
@@ -78,9 +75,12 @@ export default {
     width: deviceWidth
   },
   campDescContain: {
-    marginLeft: 15,
-    paddingTop: 15,
-    marginRight: 15
+    marginLeft: 10,
+    padding: 15,
+    marginTop: 10,
+    marginRight: 10,
+    borderRadius: 10,
+    backgroundColor: 'white'
   },
   campDescName: {
     fontFamily: 'Lato-Bold',
