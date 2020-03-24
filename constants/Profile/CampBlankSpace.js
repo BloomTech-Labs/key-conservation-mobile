@@ -11,15 +11,15 @@ const styles = StyleSheet.create({
   plusIcon: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 60,
+    paddingTop: 30,
     paddingHorizontal: 60
   },
   text: {
     fontFamily: 'Lato-Bold',
-    fontSize: 22,
+    fontSize: 20,
     textAlign: 'center',
     alignSelf: 'center',
-    paddingTop: 50,
+    paddingTop: 10,
     color: '#505050'
   }
 });

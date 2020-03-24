@@ -8,19 +8,24 @@ export default {
     alignItems: 'center'
   },
   Card: {
-    // marginTop: 20,
+    marginTop: 20,
     backgroundColor: '#fff',
     width: '100%',
-    padding: 25
+    padding: 25,
+    borderRadius: 10
   },
   inputContain: {
     borderWidth: 2,
     borderColor: '#C4C4C4',
     padding: 5,
     borderRadius: 3,
-    fontSize: 16,
-    width: 281,
-    height: 38
+    width: '100%',
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  inputText: {
+    fontSize: 22
   },
   touchableButton: {
     marginBottom: 100,
@@ -38,7 +43,7 @@ export default {
     backgroundColor: '#00FF9D',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'column',
+    flexDirection: 'column'
   },
   touchableText: {
     fontFamily: 'Lato-Bold',
@@ -64,11 +69,30 @@ export default {
   obTitle: {
     color: '#000000',
     fontFamily: 'Lato-Bold',
-    fontSize: 28,
-    lineHeight: 38,
+    fontSize: 26,
+    lineHeight: 22,
     marginLeft: '5%',
     marginBottom: '2%',
-    marginRight: '7%'
+    marginTop: '5%',
+    marginRight: '5%',
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    flex: 1,
+    textAlign: 'center'
+  },
+  obSubTitle: {
+    color: '#000000',
+    fontFamily: 'Lato',
+    fontSize: 22,
+    lineHeight: 22,
+    marginLeft: '5%',
+    marginBottom: '2%',
+    marginTop: '10%',
+    marginRight: '5%',
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    flex: 1,
+    textAlign: 'center'
   },
   obBody: {
     flex: 1,
@@ -83,7 +107,7 @@ export default {
     borderRadius: 20,
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   obFwdBtnText: {
     fontFamily: 'Lato-Bold',

@@ -92,53 +92,57 @@ class NameScreen extends React.Component {
     return (
       <ScrollView>
         <View style={styles.sectionContainer}>
-          <View style={styles.Card} />
-          <View style={styles.textContainer}>
-            <Text style={styles.obTitle}>
-              You're in! Tell us your name to get started
-            </Text>
+          <View style={styles.Card}>
+            <View style={styles.textContainer}>
+              <Text style={styles.obTitle}>You're in!</Text>
+              <Text style={styles.obSubTitle}>
+                Tell us your name to get started.
+              </Text>
+            </View>
+            <View style={styles.inputContain}>
+              <TextInput
+                returnKeyType='go'
+                placeholder='Bird Rescue Tennessee'
+                style={styles.inputText}
+                onChangeText={text => this.setState({ nameInput: text })}
+                value={this.state.nameInput}
+                required
+              />
+            </View>
+            <View style={{ height: 20, margin: 25 }}>
+              {this.state.error ? (
+                <Text style={{ textAlign: 'center', color: 'red' }}>
+                  {this.state.error}
+                </Text>
+              ) : this.props.error.config &&
+                this.props.error.config.method === 'get' ? (
+                <Text style={{ textAlign: 'center', color: 'green' }}>
+                  Please choose a name and enter it above
+                </Text>
+              ) : this.props.error.message ? (
+                <Text style={{ textAlign: 'center', color: 'red' }}>
+                  Failed to submit data
+                </Text>
+              ) : null}
+            </View>
+            <TouchableOpacity
+              onPress={this.handlePress}
+              style={styles.touchableButton}
+            >
+              <View style={styles.touchableView}>
+                <Text style={styles.touchableText}>CONTINUE</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={this.props.logout}
+              style={styles.touchableButton}
+            >
+              <View style={styles.obFwdContainer}>
+                <Text style={styles.obFwdBtnText}>LOGOUT</Text>
+              </View>
+            </TouchableOpacity>
           </View>
-          <TextInput
-            returnKeyType='go'
-            placeholder='BirdRescueTN'
-            style={styles.inputContain}
-            onChangeText={text => this.setState({ nameInput: text })}
-            value={this.state.nameInput}
-            required
-          />
         </View>
-        <View style={{ height: 20, margin: 25 }}>
-          {this.state.error ? (
-            <Text style={{ textAlign: 'center', color: 'red' }}>
-              {this.state.error}
-            </Text>
-          ) : this.props.error.config &&
-            this.props.error.config.method === 'get' ? (
-            <Text style={{ textAlign: 'center', color: 'green' }}>
-              Please choose a name and enter it above
-            </Text>
-          ) : this.props.error.message ? (
-            <Text style={{ textAlign: 'center', color: 'red' }}>
-              Failed to submit data
-            </Text>
-          ) : null}
-        </View>
-        <TouchableOpacity
-          onPress={this.handlePress}
-          style={styles.touchableButton}
-        >
-          <View style={styles.touchableView}>
-            <Text style={styles.touchableText}>CONTINUE</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={this.props.logout}
-          style={styles.touchableButton}
-        >
-          <View style={styles.obFwdContainer}>
-            <Text style={styles.obFwdBtnText}>LOGOUT</Text>
-          </View>
-        </TouchableOpacity>
       </ScrollView>
     );
   }

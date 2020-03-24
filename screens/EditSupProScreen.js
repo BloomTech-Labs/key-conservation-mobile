@@ -116,10 +116,12 @@ class EditSupProScreen extends React.Component {
               ref={input => {
                 this.mini_bioInput = input;
               }}
+              multiline={true}
+              numberOfLines={5}
               maxLength={150}
               returnKeyType='next'
               placeholder='Tell us about yourself!'
-              style={styles.inputContain}
+              style={styles.bioInputContain}
               onChangeText={text => this.setState({ mini_bio: text })}
               onSubmitEditing={() => {
                 if (Platform.OS === 'android') return;
