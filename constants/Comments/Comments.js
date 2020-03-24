@@ -18,7 +18,10 @@ export default StyleSheet.create({
     color: 'grey',
     fontSize: 19,
     marginTop: '8%',
-    fontFamily: 'Lato'
+    fontFamily: 'Lato',
+    minHeight: '100%',
+    paddingTop: 7,
+    padding: 5
   },
   replyView: {
     flexDirection: 'row',
@@ -53,15 +56,14 @@ export default StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
     marginBottom: 20,
-    backgroundColor: '#f5f5f5',
     width: '80%'
   },
   inputWrapper: {
     flexDirection: 'row',
-    height: 48,
+    height: '70%',
     marginLeft: 6,
     borderRadius: 5,
-    backgroundColor: '#f7f9fc'
+    backgroundColor: '#f5f5f5'
   },
   interaction: {
     flexDirection: 'row',

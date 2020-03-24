@@ -117,21 +117,6 @@ export default {
     justifyContent: 'space-between',
     marginTop: 15
   },
-  likesContainer: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  hearts: {
-    marginHorizontal: 15
-  },
-  heartOutline: {
-    fontSize: 28,
-    color: 'black'
-  },
-  heartFill: {
-    fontSize: 30,
-    color: '#e60024'
-  },
   bookmarks: {
     marginHorizontal: 15
   },
