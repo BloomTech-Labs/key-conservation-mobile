@@ -55,9 +55,9 @@ const FeedCampaign = props => {
   //     setUserBookmarked(true);
   //   }
   //   if (
-  //     data.campaign_img.includes('.mov') ||
-  //     data.campaign_img.includes('.mp3') ||
-  //     data.campaign_img.includes('.mp4')
+  //     data.image.includes('.mov') ||
+  //     data.image.includes('.mp3') ||
+  //     data.image.includes('.mp4')
   //   ) {
   //     setUrgTop(3);
   //   }
@@ -156,7 +156,7 @@ const FeedCampaign = props => {
       // userBookmarked: userBookmarked,
       // addBookmark: addBookmark,
       // deleteBookmark: deleteBookmark,
-      media: data.campaign_img
+      media: data.image
     });
   };
 
