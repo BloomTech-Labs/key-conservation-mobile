@@ -354,7 +354,7 @@ const FeedCampaign = props => {
             <Badge
               textStyle={{
                 color: 'black',
-                fontSize: 12
+                fontSize: 15
               }}
               badgeStyle={{
                 backgroundColor: '#CAFF03'
