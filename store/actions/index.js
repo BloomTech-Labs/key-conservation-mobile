@@ -474,7 +474,7 @@ export const postCampaign = campaign => dispatch => {
   });
   formData.append('call_to_action', filteredCampaign.call_to_action);
   formData.append('description', filteredCampaign.description);
-  formData.append('campaign_name', filteredCampaign.name);
+  formData.append('name', filteredCampaign.name);
   formData.append('user_id', filteredCampaign.user_id);
   formData.append('urgency', filteredCampaign.urgency);
 
@@ -580,10 +580,10 @@ export const [
   'POST_CAMPAIGN_UPDATE_SUCCESS'
 ];
 
-export const postCampaignUpdate = campaginUpdate => dispatch => {
+export const postCampaignUpdate = campaignUpdate => dispatch => {
   dispatch({ type: POST_CAMPAIGN_UPDATE_START });
 
-  const uri = campaginUpdate.update_image;
+  const uri = campaignUpdate.update_image;
 
   let uriParts = uri.split('.');
   let fileType = uriParts[uriParts.length - 1];
@@ -595,9 +595,9 @@ export const postCampaignUpdate = campaginUpdate => dispatch => {
     type: `image/${fileType}`
   });
 
-  formData.append('update_description', campaginUpdate.update_description);
-  formData.append('user_id', campaginUpdate.user_id);
-  formData.append('id', campaginUpdate.id);
+  formData.append('update_description', campaignUpdate.update_description);
+  formData.append('user_id', campaignUpdate.user_id);
+  formData.append('id', campaignUpdate.id);
 
   return axiosWithAuth(dispatch, aaxios => {
     return aaxios

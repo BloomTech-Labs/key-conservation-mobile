@@ -167,12 +167,12 @@ class CreateCampaignScreen extends React.Component {
             </View>
             <TextInput
               ref={input => {
-                this.campNameInput = input;
+                this.campaignNameInput = input;
               }}
               returnKeyType='next'
               placeholder='Name Campaign'
               style={styles.inputContain}
-              onChangeText={text => this.setState({ campaign_name: text })}
+              onChangeText={text => this.setState({ name: text })}
               onSubmitEditing={() => {
                 if (Platform.OS === 'android') return;
                 this.campImgUrlInput.focus();
