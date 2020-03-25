@@ -18,7 +18,6 @@ import { getCampaign, toggleCampaignText } from '../../store/actions';
 import { AmpEvent } from '../withAmplitude';
 import LoadingOverlay from '../LoadingOverlay';
 
-
 import { navigate } from '../../navigation/RootNavigator';
 
 import styles from '../../constants/FeedScreen/FeedCampaign';
@@ -260,7 +259,9 @@ const FeedCampaign = props => {
         <View style={styles.campaignDescription}>
           {toggled || data.description.length < 80 ? (
             <View>
-              <Text style={styles.campaignDescriptionText}>{data.description}</Text>
+              <Text style={styles.campaignDescriptionText}>
+                {data.description}
+              </Text>
               <Text style={styles.timeText}>{timeDiff}</Text>
             </View>
           ) : (
