@@ -71,7 +71,7 @@ export default {
     zIndex: 3,
     position: 'absolute',
     right: 0,
-    top: Dimensions.get('screen').height * 0.015,
+    top: Dimensions.get('screen').height * 0.0055,
     padding: 25
   },
   chevronSelected: {
