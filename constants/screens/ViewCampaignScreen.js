@@ -36,7 +36,7 @@ export default {
     fontSize: 16,
     paddingLeft: 10
   },
-  campMissionText: {
+  campaignMissionText: {
     fontFamily: 'Lato',
     fontSize: 16,
     lineHeight: 19,
@@ -49,14 +49,11 @@ export default {
     fontSize: 14,
     fontFamily: 'Lato',
     marginTop: 20,
-    paddingTop: 19,
-    paddingBottom: 19,
-    borderTopWidth: 2,
-    borderTopColor: '#eee',
-    borderBottomWidth: 2,
-    borderBottomColor: '#eee'
+    padding: 19,
+    borderRadius: 10,
+    backgroundColor: 'white'
   },
-  campMission: {
+  campaignMission: {
     marginLeft: 15,
     marginRight: 15,
     width: deviceWidth / 2,
@@ -69,7 +66,7 @@ export default {
     marginTop: 20,
     paddingTop: 19
   },
-  campImgContain: {
+  campaignImageContainer: {
     /* Must have a Width && Height or it won't display anything! */
     // resizeMode: 'contain',
     // height: deviceWidth <= 415 ? deviceWidth : 415
@@ -77,18 +74,21 @@ export default {
     height: deviceWidth,
     width: deviceWidth
   },
-  campDescContain: {
+  campaignDescriptionContainer: {
     marginLeft: 15,
-    paddingTop: 15,
-    marginRight: 15
+    padding: 15,
+    marginTop: 10,
+    marginRight: 10,
+    borderRadius: 10,
+    backgroundColor: 'white'
   },
-  campDescName: {
+  campaignDescriptionName: {
     fontFamily: 'Lato-Bold',
     fontSize: 18,
     lineHeight: 22,
     paddingBottom: 10
   },
-  campDesc: {
+  campaignDescription: {
     fontFamily: 'Lato',
     fontSize: 16,
     lineHeight: 19
@@ -116,21 +116,6 @@ export default {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 15
-  },
-  likesContainer: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  hearts: {
-    marginHorizontal: 15
-  },
-  heartOutline: {
-    fontSize: 28,
-    color: 'black'
-  },
-  heartFill: {
-    fontSize: 30,
-    color: '#e60024'
   },
   bookmarks: {
     marginHorizontal: 15

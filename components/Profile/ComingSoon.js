@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 
 import KeyIconGray from '../../assets/jsicons/KeyCon/KeyIconGray';
-import styles from '../../constants/Profile/CampBlankSpace';
+import styles from '../../constants/Profile/CampaignBlankSpace';
 const ComingSoon = () => {
   return (
     <View style={styles.container}>

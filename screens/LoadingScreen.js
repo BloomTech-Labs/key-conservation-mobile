@@ -76,7 +76,7 @@ class LoadingScreen extends React.Component {
     // await SecureStore.deleteItemAsync('isVetting', {});
     // await SecureStore.deleteItemAsync('vettingEmail', {});
 
-    // NOTE: IF you are unable to remember the 'unfinished' conservationist account and you are locked out, uncomment this code above, run the app, comment the code out, rer-un and you should be good.
+    // NOTE: IF you are unable to remember the 'unfinished' conservationist account and you are locked out, uncomment this code above, run the app, comment the code out, re-run and you should be good.
 
     this.setState({ email: email });
 
@@ -124,9 +124,9 @@ class LoadingScreen extends React.Component {
           if (this.props.firstLogin) {
             this.props.afterFirstLogin();
             if (roles === 'conservationist') {
-              this.props.navigation.navigate('EditPro');
+              this.props.navigation.navigate('EditProfile');
             } else {
-              this.props.navigation.navigate('EditSupPro');
+              this.props.navigation.navigate('EditSupporterProfile');
             }
           } else {
             this.props.navigation.navigate(

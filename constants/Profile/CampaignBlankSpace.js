@@ -13,10 +13,10 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'Lato-Bold',
-    fontSize: 22,
+    fontSize: 20,
     textAlign: 'center',
     alignSelf: 'center',
-    paddingTop: 50,
+    paddingTop: 10,
     color: '#505050'
   }
 });

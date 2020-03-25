@@ -9,11 +9,11 @@ import UploadMedia from '../components/UploadMedia';
 import { editProfileData, logout } from '../store/actions';
 import { AmpEvent } from '../components/withAmplitude';
 
-import styles from '../constants/screens/EditSupProScreen';
+import styles from '../constants/screens/EditSupporterProfileScreen';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-class EditSupProScreen extends React.Component {
+class EditSupporterProfileScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Edit Profile',
@@ -21,7 +21,6 @@ class EditSupProScreen extends React.Component {
         backgroundColor: '#323338'
       },
       headerTintColor: '#fff',
-      headerLeft: () => <BackButton navigation={navigation} />,
       headerRight: () => (
         <DoneButton
           navigation={navigation}
@@ -32,7 +31,7 @@ class EditSupProScreen extends React.Component {
   };
 
   state = {
-    sup_name: this.props.currentUserProfile.name,
+    name: this.props.currentUserProfile.name,
     profile_image: this.props.currentUserProfile.profile_image,
     location: this.props.currentUserProfile.location,
     mini_bio: this.props.currentUserProfile.mini_bio,
@@ -81,13 +80,13 @@ class EditSupProScreen extends React.Component {
               returnKeyType='next'
               placeholder='John Doe'
               style={styles.inputContain}
-              onChangeText={text => this.setState({ sup_name: text })}
+              onChangeText={text => this.setState({ name: text })}
               onSubmitEditing={() => {
                 if (Platform.OS === 'android') return;
                 this.locationInput.focus();
               }}
               // blurOnSubmit={Platform.OS === 'android'}
-              value={this.state.sup_name}
+              value={this.state.name}
             />
           </View>
 
@@ -116,10 +115,12 @@ class EditSupProScreen extends React.Component {
               ref={input => {
                 this.mini_bioInput = input;
               }}
+              multiline={true}
+              numberOfLines={5}
               maxLength={150}
               returnKeyType='next'
               placeholder='Tell us about yourself!'
-              style={styles.inputContain}
+              style={styles.bioInputContain}
               onChangeText={text => this.setState({ mini_bio: text })}
               onSubmitEditing={() => {
                 if (Platform.OS === 'android') return;
@@ -238,4 +239,4 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   editProfileData,
   logout
-})(EditSupProScreen);
+})(EditSupporterProfileScreen);

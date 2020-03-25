@@ -52,10 +52,9 @@ const axiosWithAuth = (dispatch, req) => {
 // url for heroku staging vs production server
 // comment out either server depending on testing needs
 // production
-const seturl = 'https://key-conservation.herokuapp.com/api/';
+// const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
-// const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
-
+const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
@@ -282,7 +281,7 @@ export const editProfileData = (id, changes) => dispatch => {
   dispatch({ type: EDIT_PROFILE_START });
 
   const filteredChanges = filterUrls(
-    ['facebook', 'twitter', 'instagram', 'org_link_url', 'org_cta'],
+    ['facebook', 'twitter', 'instagram', 'link_url', 'call_to_action'],
     changes
   );
 
@@ -320,7 +319,7 @@ export const editProfileData = (id, changes) => dispatch => {
         }
       })
       .then(res => {
-        dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.editUser });
+        dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.user });
       })
       .catch(err => {
         console.log(err);
@@ -339,7 +338,7 @@ export const postUser = user => dispatch => {
   dispatch({ type: POST_USER_START });
 
   const filteredPost = filterUrls(
-    ['facebook', 'twitter', 'instagram', 'org_link_url', 'org_cta'],
+    ['facebook', 'twitter', 'instagram', 'link_url', 'call_to_action'],
     user
   );
 
@@ -377,7 +376,7 @@ export const postUser = user => dispatch => {
     return aaxios
       .post(`${seturl}users`, formData)
       .then(res => {
-        dispatch({ type: POST_USER_SUCCESS, payload: res.data.newUser });
+        dispatch({ type: POST_USER_SUCCESS, payload: res.data.user });
       })
       .catch(err => {
         console.log(err.response, 'err in postUser');
@@ -399,11 +398,11 @@ export const getCampaigns = () => dispatch => {
     return aaxios
       .get(`${seturl}campaigns`)
       .then(res => {
-        campaigns = res.data.camp;
+        campaigns = res.data.campaigns;
         return aaxios
           .get(`${seturl}updates`)
           .then(res => {
-            campaigns = campaigns.concat(res.data.campUpdate);
+            campaigns = campaigns.concat(res.data.campaignUpdate);
             dispatch({
               type: GET_CAMPAIGNS_SUCCESS,
               payload: campaigns
@@ -434,7 +433,7 @@ export const getCampaign = id => dispatch => {
     return aaxios
       .get(`${seturl}campaigns/${id}`)
       .then(res => {
-        dispatch({ type: GET_CAMPAIGN_SUCCESS, payload: res.data.camp });
+        dispatch({ type: GET_CAMPAIGN_SUCCESS, payload: res.data.campaign });
       })
       .catch(err => {
         dispatch({ type: GET_CAMPAIGN_ERROR, payload: err });
@@ -444,10 +443,10 @@ export const getCampaign = id => dispatch => {
 
 export const SET_CAMPAIGN = 'SET_CAMPAIGN';
 
-export const setCampaign = camp => {
+export const setCampaign = campaign => {
   return {
     type: SET_CAMPAIGN,
-    payload: camp
+    payload: campaign
   };
 };
 
@@ -457,12 +456,12 @@ export const [
   POST_CAMPAIGN_SUCCESS
 ] = ['POST_CAMPAIGN_START', 'POST_CAMPAIGN_ERROR', 'POST_CAMPAIGN_SUCCESS'];
 
-export const postCampaign = camp => dispatch => {
+export const postCampaign = campaign => dispatch => {
   dispatch({ type: POST_CAMPAIGN_START });
 
-  const filteredCamp = filterUrls(['camp_cta'], camp);
+  const filteredCampaign = filterUrls(['call_to_action'], campaign);
 
-  const uri = filteredCamp.camp_img;
+  const uri = filteredCampaign.image;
 
   let uriParts = uri.split('.');
   let fileType = uriParts[uriParts.length - 1];
@@ -473,11 +472,11 @@ export const postCampaign = camp => dispatch => {
     name: `photo.${fileType}`,
     type: `image/${fileType}`
   });
-  formData.append('camp_cta', filteredCamp.camp_cta);
-  formData.append('camp_desc', filteredCamp.camp_desc);
-  formData.append('camp_name', filteredCamp.camp_name);
-  formData.append('users_id', filteredCamp.users_id);
-  formData.append('urgency', filteredCamp.urgency);
+  formData.append('call_to_action', filteredCampaign.call_to_action);
+  formData.append('description', filteredCampaign.description);
+  formData.append('name', filteredCampaign.name);
+  formData.append('user_id', filteredCampaign.user_id);
+  formData.append('urgency', filteredCampaign.urgency);
 
   return axiosWithAuth(dispatch, aaxios => {
     return aaxios
@@ -488,7 +487,7 @@ export const postCampaign = camp => dispatch => {
         }
       })
       .then(res => {
-        dispatch({ type: POST_CAMPAIGN_SUCCESS, payload: res.data.newCamps });
+        dispatch({ type: POST_CAMPAIGN_SUCCESS, payload: res.data.campaignUpdate });
       })
       .catch(err => {
         dispatch({ type: POST_CAMPAIGN_ERROR, payload: err });
@@ -534,11 +533,11 @@ export const editCampaign = (id, changes) => dispatch => {
   let formData = new FormData();
 
   let keys = Object.keys(changes).filter(key => {
-    return key !== 'camp_img';
+    return key !== 'image';
   });
 
-  if (changes.camp_img) {
-    const uri = changes.camp_img;
+  if (changes.image) {
+    const uri = changes.image;
 
     let uriParts = uri.split('.');
     let fileType = uriParts[uriParts.length - 1];
@@ -563,7 +562,7 @@ export const editCampaign = (id, changes) => dispatch => {
         }
       })
       .then(res => {
-        dispatch({ type: EDIT_CAMPAIGN_SUCCESS, payload: res.data.editCamp });
+        dispatch({ type: EDIT_CAMPAIGN_SUCCESS, payload: res.data.campaignUpdate });
       })
       .catch(err => {
         dispatch({ type: EDIT_CAMPAIGN_ERROR, payload: err });
@@ -581,10 +580,10 @@ export const [
   'POST_CAMPAIGN_UPDATE_SUCCESS'
 ];
 
-export const postCampaignUpdate = campUpdate => dispatch => {
+export const postCampaignUpdate = campaignUpdate => dispatch => {
   dispatch({ type: POST_CAMPAIGN_UPDATE_START });
 
-  const uri = campUpdate.update_img;
+  const uri = campaignUpdate.update_image;
 
   let uriParts = uri.split('.');
   let fileType = uriParts[uriParts.length - 1];
@@ -596,9 +595,9 @@ export const postCampaignUpdate = campUpdate => dispatch => {
     type: `image/${fileType}`
   });
 
-  formData.append('update_desc', campUpdate.update_desc);
-  formData.append('users_id', campUpdate.users_id);
-  formData.append('camp_id', campUpdate.camp_id);
+  formData.append('update_description', campaignUpdate.update_description);
+  formData.append('user_id', campaignUpdate.user_id);
+  formData.append('id', campaignUpdate.id);
 
   return axiosWithAuth(dispatch, aaxios => {
     return aaxios
@@ -611,7 +610,7 @@ export const postCampaignUpdate = campUpdate => dispatch => {
       .then(res => {
         dispatch({
           type: POST_CAMPAIGN_UPDATE_SUCCESS,
-          payload: res.data.newCampUpdates
+          payload: res.data.campaignUpdate
         });
       })
       .catch(err => {
@@ -637,11 +636,11 @@ export const editCampaignUpdate = (id, changes) => dispatch => {
   let formData = new FormData();
 
   let keys = Object.keys(changes).filter(key => {
-    return key !== 'update_img';
+    return key !== 'update_image';
   });
 
-  if (changes.update_img) {
-    const uri = changes.update_img;
+  if (changes.update_image) {
+    const uri = changes.update_image;
 
     let uriParts = uri.split('.');
     let fileType = uriParts[uriParts.length - 1];
@@ -668,7 +667,7 @@ export const editCampaignUpdate = (id, changes) => dispatch => {
       .then(res => {
         dispatch({
           type: EDIT_CAMPAIGN_UPDATE_SUCCESS,
-          payload: res.data.editCampUpdate
+          payload: res.data.campaignUpdate
         });
       })
       .catch(err => {
@@ -725,7 +724,7 @@ export const commentOnCampaign = (id, body) => dispatch => {
   return axiosWithAuth(dispatch, aaxios => {
     return aaxios
       .post(`${seturl}comments/${id}`, {
-        comment_body: body
+        body: body
       })
       .then(res => {
         console.log('res', res);
@@ -764,7 +763,7 @@ export const deleteComment = id => dispatch => {
 export const addLike = (id, userId) => dispatch => {
   return axiosWithAuth(dispatch, aaxios => {
     return aaxios
-      .post(`${seturl}social/likes/${id}`, { users_id: userId, camp_id: id })
+      .post(`${seturl}social/likes/${id}`, { user_id: userId, id: id })
       .then(console.log('word'));
   });
 };
@@ -931,28 +930,25 @@ export const connectRequest = connected_id => dispatch => {
     let url = `${seturl}users/connect/${connected_id}`;
     return aaxios
       .post(url)
-      .then(res => {})
       .catch(err => {
         return err.message;
       });
   });
 };
-export const editConnectStatus = (connection_id, status) => dispatch => {
+export const editConnectStatus = (id, status) => dispatch => {
   return axiosWithAuth(dispatch, aaxios => {
     return aaxios
-      .put(`${seturl}users/connect/${connection_id}`, status)
-      .then(res => {})
+      .put(`${seturl}users/connect/${id}`, status)
       .catch(err => {
         return err.message;
       });
   });
 };
 
-export const deleteConnection = connection_id => dispatch => {
+export const deleteConnection = id => dispatch => {
   return axiosWithAuth(dispatch, aaxios => {
     return aaxios
-      .delete(`${seturl}users/connect/${connection_id}`)
-      .then(res => {})
+      .delete(`${seturl}users/connect/${id}`)
       .catch(err => {
         console.log(err);
         return err.message;

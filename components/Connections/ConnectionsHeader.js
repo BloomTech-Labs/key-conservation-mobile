@@ -46,10 +46,10 @@ const Connect = props => {
 
   const disconnect = () => {
     setConnections(
-      connections.filter?.(c => c.connection_id !== myConnection.connection_id)
+      connections.filter?.(c => c.id !== myConnection.id)
     );
     props
-      .deleteConnection(myConnection.connection_id, props.profileId)
+      .deleteConnection(myConnection.id, props.profileId)
       .then(error => {
         if (error) Alert.alert('Failed to remove connection');
         getConnections();

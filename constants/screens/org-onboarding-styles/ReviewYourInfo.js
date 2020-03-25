@@ -175,8 +175,6 @@ export default StyleSheet.create({
     // width: '29%'
   },
   OrgDetailTextInput: {
-    // borderWidth: 2,
-    // backgroundColor: '#F3F2F5',
     fontFamily: 'Lato-Bold',
     fontSize: 18,
     lineHeight: 19,
@@ -187,12 +185,9 @@ export default StyleSheet.create({
     marginRight: '1%',
     fontFamily: 'Lato',
     width: '95%'
-    // alignItems: 'flex-end'
   },
   UploadMediaButton: { alignSelf: 'center' },
   obFieldName: {
-    // borderWidth: 2,
-    // backgroundColor: '#F3F2F5',
     fontFamily: 'Lato-Bold',
     fontSize: 18,
     lineHeight: 19,
@@ -203,7 +198,6 @@ export default StyleSheet.create({
     marginRight: '1%',
     fontFamily: 'Lato',
     width: '59%'
-    // alignItems: 'flex-end'
   },
   obTextBottom: {
     color: '#000000',

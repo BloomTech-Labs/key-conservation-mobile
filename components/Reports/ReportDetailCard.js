@@ -56,19 +56,19 @@ class ReportDetailCard extends Component {
           switch (this.props.currentReport.table_name) {
             case 'campaigns':
               this.type = 'Campaign';
-              this.setState({ postText: res.data.camp.camp_desc });
-              this.setState({ postImage: res.data.camp.camp_img });
+              this.setState({ postText: res.data.campaign.description });
+              this.setState({ postImage: res.data.campaign.image });
               break;
             case 'campaign_updates':
               this.type = 'Campaign';
-              this.setState({ postText: res.data.campUpdate.update_desc });
-              this.setState({ postImage: res.data.campUpdate.update_img });
+              this.setState({ postText: res.data.campaignUpdate.description });
+              this.setState({ postImage: res.data.campaignUpdate.image });
               break;
             case 'comments':
               this.type = 'Comment';
-              this.setState({ postText: res.data.comment_body });
-              // Image retreieved thru res.data.camp_id
-              return this.props.getCustomById('campaigns', res.data.camp_id);
+              this.setState({ postText: res.data.body });
+              // Image retreieved thru res.data.id
+              return this.props.getCustomById('campaigns', res.data.id);
             default: {
               console.warn(
                 'invalid table name found in ReportDetailCard.componentDidMount()'
@@ -78,7 +78,7 @@ class ReportDetailCard extends Component {
         })
         .then(campaign => {
           if (campaign?.data) {
-            this.setState({ postImage: campaign.data.camp.camp_img });
+            this.setState({ postImage: campaign.data.campaign.image });
           }
         })
         .catch(err => {
@@ -205,7 +205,7 @@ class ReportDetailCard extends Component {
             <View style={styles.detail_field}>
               <Text style={styles.text_label}>Description</Text>
               <Text style={styles.text_label}>
-                {this.props.currentReport.report_desc || '---'}
+                {this.props.currentReport.description || '---'}
               </Text>
             </View>
             <View style={styles.detail_field}>

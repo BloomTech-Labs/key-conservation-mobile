@@ -21,7 +21,7 @@ import QuestionCircle from '../../assets/jsicons/OnBoarding/QuestionCircle';
 import NavigateButton from './formElement/NavigateButton';
 import NavigateBack from './formElement/NavigateBack.js';
 import ChevronLeftBlack from '../../assets/jsicons/miscIcons/ChevronLeftBlack.js';
-import OrgOnboardCountries from '../../components/OrgOnboardCountries';
+import OrganizationOnboardCountries from '../../components/OrganizationOnboardCountries';
 import ChoosePhoneSwitches from '../../components/Onboarding/ChoosePhoneSwitches';
 
 const TellMoreScreen = props => {
@@ -166,7 +166,7 @@ const TellMoreScreen = props => {
             </View>
             <View style={styles.listContainer}>
               {selectedCountries.map((name, index) => (
-                <OrgOnboardCountries
+                <OrganizationOnboardCountries
                   key={index}
                   name={name}
                   index={index}
@@ -219,15 +219,19 @@ const TellMoreScreen = props => {
                 value={airtableState.affiliations_partnerships}
               />
             </View>
-            <View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+              }}
+            >
               <Text style={styles.obText}>
                 Will you join us in Conservation Optimism?
-                <TouchableHighlight onPress={() => setIsModalVisible(true)}>
-                  <View style={styles.questionMark}>
-                    <QuestionCircle width='22' height='22' />
-                  </View>
-                </TouchableHighlight>
               </Text>
+              <TouchableHighlight onPress={() => setIsModalVisible(true)}>
+                <QuestionCircle />
+              </TouchableHighlight>
             </View>
             <ConservationOptimismModal
               setIsModalVisible={setIsModalVisible}

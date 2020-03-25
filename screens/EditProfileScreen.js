@@ -11,11 +11,11 @@ import { editProfileData, logout } from '../store/actions';
 import { AmpEvent } from '../components/withAmplitude';
 import LocationIQ from 'react-native-locationiq';
 
-import styles from '../constants/screens/EditProScreen';
+import styles from '../constants/screens/EditProfileScreen';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-class EditProScreen extends React.Component {
+class EditProfileScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Edit Profile',
@@ -23,7 +23,6 @@ class EditProScreen extends React.Component {
         backgroundColor: '#323338'
       },
       headerTintColor: '#fff',
-      headerLeft: () => <BackButton navigation={navigation} />,
       headerRight: () => (
         <DoneButton
           navigation={navigation}
@@ -34,20 +33,20 @@ class EditProScreen extends React.Component {
   };
 
   state = {
-    org_name: this.props.currentUserProfile.name,
+    name: this.props.currentUserProfile.name,
     profile_image: this.props.currentUserProfile.profile_image,
     location: this.props.currentUserProfile.location,
     mini_bio: this.props.currentUserProfile.mini_bio,
     email: this.props.currentUserProfile.email,
-    org_link_url: this.props.currentUserProfile.org_link_url,
-    org_link_text: this.props.currentUserProfile.org_link_text,
+    link_url: this.props.currentUserProfile.link_url,
+    link_text: this.props.currentUserProfile.link_text,
     facebook: this.props.currentUserProfile.facebook,
     instagram: this.props.currentUserProfile.instagram,
     twitter: this.props.currentUserProfile.twitter,
     about_us: this.props.currentUserProfile.about_us,
     species_and_habitats: this.props.currentUserProfile.species_and_habitats,
     phone_number: this.props.currentUserProfile.phone_number,
-    org_cta: this.props.currentUserProfile.org_cta,
+    call_to_action: this.props.currentUserProfile.call_to_action,
     longitude: this.props.currentUserProfile.longitude,
     latitude: this.props.currentUserProfile.latitude
   };
@@ -66,14 +65,14 @@ class EditProScreen extends React.Component {
     const parseBE = JSON.parse(state);
     parseBE
       ? this.setState({
-          org_name: parseBE.org_name,
+          name: parseBE.name,
           phone_number: parseBE.phone,
           mini_bio: parseBE.mini_bio,
           about_us: parseBE.about_us,
           facebook: parseBE.facebook,
           instagram: parseBE.instagram,
           twitter: parseBE.twitter,
-          org_link_url: parseBE.website,
+          link_url: parseBE.website,
           location: parseBE.address + ', ' + parseBE.country
         })
       : null;
@@ -134,13 +133,13 @@ class EditProScreen extends React.Component {
                 }}
                 returnKeyType='next'
                 style={styles.inputContain}
-                onChangeText={text => this.setState({ org_name: text })}
+                onChangeText={text => this.setState({ name: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
                   this.locationInput.focus();
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.org_name}
+                value={this.state.name}
                 placeholder='Carribbean Sea Turtle Project'
               />
             </View>
@@ -233,21 +232,20 @@ class EditProScreen extends React.Component {
               <Text style={styles.sectionsText}>Website Link URL</Text>
               <TextInput
                 ref={input => {
-                  this.org_link_urlInput = input;
+                  this.link_urlInput = input;
                 }}
                 returnKeyType='next'
                 keyboardType='default'
                 style={styles.inputContain}
                 autoCapitalize='none'
                 placeholder='Please include full URL'
-                onChangeText={text => this.setState({ org_link_url: text })}
+                onChangeText={text => this.setState({ link_url: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
                   this.orgLinkTextInput.focus();
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.org_link_url}
-                placeholder='https://www.carribbbeanseaturtle.org'
+                value={this.state.link_url}
               />
             </View>
 
@@ -260,13 +258,13 @@ class EditProScreen extends React.Component {
                 returnKeyType='next'
                 placeholder='How you wish your website to appear'
                 style={styles.inputContain}
-                onChangeText={text => this.setState({ org_link_text: text })}
+                onChangeText={text => this.setState({ link_text: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
                   this.orgCtaInput.focus();
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.org_link_text}
+                value={this.state.link_text}
               />
             </View>
 
@@ -274,20 +272,20 @@ class EditProScreen extends React.Component {
               <Text style={styles.sectionsText}>Donation Link</Text>
               <TextInput
                 ref={input => {
-                  this.org_ctaInput = input;
+                  this.callToActionInput = input;
                 }}
                 returnKeyType='next'
                 keyboardType='default'
                 style={styles.inputContain}
                 autoCapitalize='none'
                 placeholder='Please include full URL'
-                onChangeText={text => this.setState({ org_cta: text })}
+                onChangeText={text => this.setState({ call_to_action: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
                   this.facebookInput.focus();
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.org_cta}
+                value={this.state.call_to_action}
                 placeholder='https://www.carribbbeanseaturtle.org/donate'
               />
             </View>
@@ -391,4 +389,4 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   editProfileData,
   logout,
-})(EditProScreen);
+})(EditProfileScreen);
