@@ -398,7 +398,7 @@ export const getCampaigns = () => dispatch => {
     return aaxios
       .get(`${seturl}campaigns`)
       .then(res => {
-        campaigns = res.data.campaign;
+        campaigns = res.data.campaigns;
         return aaxios
           .get(`${seturl}updates`)
           .then(res => {

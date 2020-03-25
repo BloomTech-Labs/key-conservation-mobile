@@ -86,7 +86,7 @@ const FeedStack = createStackNavigator(
     Search: {
       screen: SearchScreen,
       navigationOptions: {
-        header: null
+        headerShown: false
       }
     },
     Pro: {
