@@ -1,5 +1,5 @@
-import React from "react";
-import { SvgXml } from "react-native-svg";
+import React from 'react';
+import { SvgXml } from 'react-native-svg';
 
 export default function Smile() {
   const smile = `<svg version="1.1" id="_x31_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -26,7 +26,7 @@ export default function Smile() {
 </g>
 </svg>`;
 
-  const Smile = () => <SvgXml xml={smile} width="40" height="40" />;
+  const Smile = () => <SvgXml xml={smile} width='25' height='25' />;
 
   return <Smile />;
 }
