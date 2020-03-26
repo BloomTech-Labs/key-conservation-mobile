@@ -17,7 +17,7 @@ import { Alert } from 'react-native';
     ref={o => this.ActionSheet = o}
     admin={boolean}
     commentId={id}
-    camp={object}                   // The campaign data
+    campaign={object}                   // The campaign data
   />
 ...
 */
@@ -40,14 +40,14 @@ export default forwardRef((props, ref) => {
       return;
     }
 
-    if (typeof props.camp?.camp_id !== 'number') {
+    if (typeof props.campaign?.id !== 'number') {
       console.warn(
-        'CommentActionSheet: `camp` property not found or invalid - action canceled'
+        'CommentActionSheet: `campaign` property not found or invalid - action canceled'
       );
       return;
     }
 
-    dispatch(setCampaign(props.camp));
+    dispatch(setCampaign(props.campaign));
 
     // Take the user to a report screen
     navigate('CreateReport', {

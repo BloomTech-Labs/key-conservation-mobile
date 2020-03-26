@@ -12,7 +12,7 @@ const Airtable = props => {
   );
 
   if (
-    props.org_name &&
+    props.name &&
     props.website &&
     props.address &&
     props.country !== null
@@ -21,7 +21,7 @@ const Airtable = props => {
       [
         {
           fields: {
-            org_name: props.org_name,
+            name: props.name,
             website: props.website,
             address: props.address,
             country: props.country,

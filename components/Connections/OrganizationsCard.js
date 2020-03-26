@@ -29,10 +29,10 @@ const OrganizationsCard = props => {
   const disconnect = () => {
     setConnections(
       connections.filter(
-        c => c.connection_id !== myPendingConnection.connection_id
+        c => c.id !== myPendingConnection.id
       )
     );
-    props.deleteConnection(myPendingConnection.connection_id).then(error => {
+    props.deleteConnection(myPendingConnection.id).then(error => {
       if (error) Alert.alert('Failed to decline connection');
       getConnections();
     });
@@ -90,23 +90,23 @@ const OrganizationsCard = props => {
             ) : (
               <View>
                 {currentUserPendingConnections?.map(connection => (
-                  <View style={styles.card} key={connection.connection_id}>
+                  <View style={styles.card} key={connection.id}>
                     <View
                       style={styles.peopleCardContainer}
-                      key={connection.connection_id}
+                      key={connection.id}
                     >
                       <View
                         style={styles.userInfo}
-                        key={connection.connection_id}
+                        key={connection.id}
                       >
                         <View
                           style={styles.imageContainer}
-                          key={connection.connection_id}
+                          key={connection.id}
                         >
                           <Avatar
                             size={48}
                             rounded
-                            key={connection.connection_id}
+                            key={connection.id}
                             source={{
                               uri:
                                 props.currentUserProfile.id ===
@@ -118,7 +118,7 @@ const OrganizationsCard = props => {
                         </View>
                         <View>
                           <Text
-                            key={connection.connection_id}
+                            key={connection.id}
                             style={styles.name}
                           >
                             {connection.connector_name === null
@@ -148,23 +148,23 @@ const OrganizationsCard = props => {
             ) : (
               <View>
                 {orgCurrentUserConnections?.map(connection => (
-                  <View style={styles.card} key={connection.connection_id}>
+                  <View style={styles.card} key={connection.id}>
                     <View
                       style={styles.peopleCardContainer}
-                      key={connection.connection_id}
+                      key={connection.id}
                     >
                       <View
                         style={styles.userInfo}
-                        key={connection.connection_id}
+                        key={connection.id}
                       >
                         <View
                           style={styles.imageContainer}
-                          key={connection.connection_id}
+                          key={connection.id}
                         >
                           <Avatar
                             size={48}
                             rounded
-                            key={connection.connection_id}
+                            key={connection.id}
                             source={{
                               uri:
                                 props.currentUserProfile.id ===
@@ -187,7 +187,7 @@ const OrganizationsCard = props => {
                           }}
                         >
                           <Text
-                            key={connection.connection_id}
+                            key={connection.id}
                             style={styles.name}
                           >
                             {connection.connected_name === null
@@ -213,19 +213,19 @@ const OrganizationsCard = props => {
           ) : (
             <View>
               {supCurrentUserConnections?.map(connection => (
-                <View style={styles.card} key={connection.connection_id}>
+                <View style={styles.card} key={connection.id}>
                   <View
                     style={styles.cardContainer}
-                    key={connection.connection_id}
+                    key={connection.id}
                   >
                     <View
                       style={styles.imageContainer}
-                      key={connection.connection_id}
+                      key={connection.id}
                     >
                       <Avatar
                         size={48}
                         rounded
-                        key={connection.connection_id}
+                        key={connection.id}
                         source={{
                           uri:
                             props.currentUserProfile.id ===
@@ -242,7 +242,7 @@ const OrganizationsCard = props => {
                         })
                       }
                     >
-                      <Text key={connection.connection_id} style={styles.name}>
+                      <Text key={connection.id} style={styles.name}>
                         {connection.connected_name === null
                           ? '---'
                           : connection.connected_name}

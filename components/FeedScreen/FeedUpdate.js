@@ -83,21 +83,21 @@ const FeedUpdate = props => {
   const goToProfile = () => {
     AmpEvent('Select Profile from Campaign', {
       profile: data.name,
-      campaign: data.camp_name
+      campaign: data.campaign_name
     });
-    navigate('Pro', { selectedProfile: data.users_id });
+    navigate('Pro', { selectedProfile: data.user_id });
   };
 
-  const goToCampUpdate = () => {
+  const goToCampaignUpdate = () => {
     dispatch(setCampaign(data));
-    navigate('CampUpdate', {
+    navigate('CampaignUpdate', {
       backBehavior: 'Home',
-      media: data.update_img
+      media: data.update_image
     });
   };
 
   const toggleText = () => {
-    dispatch(toggleCampaignText(`update${data.update_id}`));
+    dispatch(toggleCampaignText(`update${data.id}`));
   };
 
   const onPlaybackStatusUpdate = status => {
@@ -115,11 +115,11 @@ const FeedUpdate = props => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.container}>
-        <LoadingOverlay loading={props.deleteBuffer.includes(data.update_id)} backgroundColor='white' />
+        <LoadingOverlay loading={props.deleteBuffer.includes(data.id)} backgroundColor='white' />
         <CampaignActionSheet
           ref={actionSheetRef}
           admin={props.currentUserProfile.admin}
-          isMine={props.currentUserProfile.id === data.users_id}
+          isMine={props.currentUserProfile.id === data.user_id}
           update={data}
         />
         {props.hideName === undefined && (
@@ -152,12 +152,12 @@ const FeedUpdate = props => {
             }
           />
         )}
-        <View style={styles.campDesc}>
-          {toggled || data.update_desc.length < 80 ? (
-            <Text style={styles.campDescText}>{data.update_desc}</Text>
+        <View style={styles.campaignDescription}>
+          {toggled || data.update_description.length < 80 ? (
+            <Text style={styles.campaignDescriptionText}>{data.update_description}</Text>
           ) : (
-            <Text style={styles.campDescText}>
-              {shorten(data.update_desc, 80)}
+            <Text style={styles.campaignDescriptionText}>
+              {shorten(data.update_description, 80)}
               &nbsp;
               <Text onPress={toggleText} style={styles.readMore}>
                 Read More
@@ -167,11 +167,11 @@ const FeedUpdate = props => {
           <Text style={styles.timeText}>{timeDiff}</Text>
         </View>
         <View>
-          {props.fromCampScreen ? (
+          {props.fromCampaignScreen ? (
             <View>
-              {data.update_img.includes('.mov') ||
-              data.update_img.includes('.mp3') ||
-              data.update_img.includes('.mp4') ? (
+              {data.update_image.includes('.mov') ||
+              data.update_image.includes('.mp3') ||
+              data.update_image.includes('.mp4') ? (
                 <View>
                   {loader ? (
                     <View style={styles.indicator}>
@@ -184,7 +184,7 @@ const FeedUpdate = props => {
                   {props.isFocused ? (
                     <ViewportAwareVideo
                       source={{
-                        uri: data.update_img
+                        uri: data.update_image
                       }}
                       retainOnceInViewport={false}
                       preTriggerRatio={-0.1}
@@ -202,7 +202,7 @@ const FeedUpdate = props => {
                 </View>
               ) : (
                 <ImageBackground
-                  source={{ uri: data.update_img }}
+                  source={{ uri: data.update_image }}
                   style={styles.campImgContain}
                 >
                   <View style={styles.updateBar}>
@@ -212,10 +212,10 @@ const FeedUpdate = props => {
               )}
             </View>
           ) : (
-            <TouchableOpacity activeOpacity={0.5} onPress={goToCampUpdate}>
-              {data.update_img.includes('.mov') ||
-              data.update_img.includes('.mp3') ||
-              data.update_img.includes('.mp4') ? (
+            <TouchableOpacity activeOpacity={0.5} onPress={goToCampaignUpdate}>
+              {data.update_image.includes('.mov') ||
+              data.update_image.includes('.mp3') ||
+              data.update_image.includes('.mp4') ? (
                 <View>
                   {loader ? (
                     <View style={styles.indicator}>
@@ -228,7 +228,7 @@ const FeedUpdate = props => {
                   {props.isFocused ? (
                     <ViewportAwareVideo
                       source={{
-                        uri: data.update_img
+                        uri: data.update_image
                       }}
                       retainOnceInViewport={false}
                       preTriggerRatio={-0.1}
@@ -246,7 +246,7 @@ const FeedUpdate = props => {
                 </View>
               ) : (
                 <ImageBackground
-                  source={{ uri: data.update_img }}
+                  source={{ uri: data.update_image }}
                   style={styles.campImgContain}
                 >
                   <View style={styles.updateBar}>

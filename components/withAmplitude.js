@@ -85,7 +85,7 @@ export async function AmpInit() {
     if (data) {
       const profileData = {
         campaignsTotal: data.campaigns && data.campaigns.length,
-        cons_id: data.cons_id,
+        conservationist_id: data.conservationist_id,
         email: data.email,
         id: data.id,
         location: data.location,
@@ -93,7 +93,6 @@ export async function AmpInit() {
         roles: data.roles,
         species_and_habitats: data.species_and_habitats,
         sub: data.sub,
-        name: data.name
       };
       await Amplitude.initialize('fae81e5eeff3b6917f9d76566b67a7da');
       Amplitude.setUserId(`${profileData.sub}`);

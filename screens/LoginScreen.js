@@ -37,7 +37,7 @@ const AUTH0_DOMAIN = 'https://key-conservation.auth0.com/';
 export default LoginScreen = props => {
   navigationOptions = () => {
     return {
-      header: null
+      headerShown: false
     };
   };
 

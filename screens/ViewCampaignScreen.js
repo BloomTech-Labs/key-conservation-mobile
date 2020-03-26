@@ -11,28 +11,25 @@ import { Video } from 'expo-av';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-navigation';
-import * as WebBrowser from 'expo-web-browser';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { Viewport } from '@skele/components';
 
 import BackButton from '../components/BackButton';
-import { AmpEvent } from '../components/withAmplitude';
 import FeedUpdate from '../components/FeedScreen/FeedUpdate';
 import CommentsView from '../components/Comments/CommentsView';
-import Hand from '../assets/jsicons/detailAboutUs/Hand';
-import styles from '../constants/screens/ViewCampScreen';
+import styles from '../constants/screens/ViewCampaignScreen';
 import Ellipse from '../assets/jsicons/Ellipse';
 import CampaignActionSheet from '../components/Reports/CampaignActionSheet';
-import TakeActionCta from '../components/TakeAction/TakeActionCta';
+import TakeActionCallToAction from '../components/TakeAction/TakeActionCallToAction';
 
 // Redux gave us a hard time on this project. We worked on comments first and when our commentOnCampaign action failed to trigger the re-render we expected, and when we couldn't solve the
 // issue in labs_help, we settled for in-component axios calls. Not elegant. Probably not super scalable—but it worked. Hopefully a more talented team can solve what we couldn't.
-// In the meantime, ViewCampScreen, ViewCampUpdateScreen, FeedCampaign, and FeedUpdate are all interconnected, sharing props (state, functions) via React-Navigation.
+// In the meantime, ViewCampaignScreen, ViewCampaignUpdateScreen, FeedCampaign, and FeedUpdate are all interconnected, sharing props (state, functions) via React-Navigation.
 
 // const { data } = props;
 
-class ViewCampScreen extends React.Component {
+class ViewCampaignScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Campaign',
@@ -48,7 +45,7 @@ class ViewCampScreen extends React.Component {
             padding: 16,
             paddingRight: 24
           }}
-          onPress={navigation.getParam('showCampOptions')}
+          onPress={navigation.getParam('showCampaignOptions')}
         >
           <Ellipse width='25' height='25' />
         </TouchableOpacity>
@@ -57,7 +54,7 @@ class ViewCampScreen extends React.Component {
   };
 
   componentDidMount() {
-    this.props.navigation.setParams({ showCampOptions: this.showActionSheet });
+    this.props.navigation.setParams({ showCampaignOptions: this.showActionSheet });
   }
 
   state = {
@@ -113,11 +110,11 @@ class ViewCampScreen extends React.Component {
       <View>
         <CampaignActionSheet
           admin={this.props.currentUserProfile.admin}
-          camp={this.props.selectedCampaign}
+          campaign={this.props.selectedCampaign}
           ref={o => (this.ActionSheet = o)}
           isMine={
             this.props.currentUserProfile.admin ===
-            this.props.selectedCampaign.users_id
+            this.props.selectedCampaign.user_id
           }
           goBack
         />
@@ -149,27 +146,27 @@ class ViewCampScreen extends React.Component {
                   this.props.navigation.state.params.media.includes('.mp4') ? (
                     <Video
                       source={{
-                        uri: this.props.selectedCampaign.camp_img
+                        uri: this.props.selectedCampaign.image
                       }}
                       rate={1.0}
                       volume={1.0}
                       useNativeControls={true}
                       resizeMode='cover'
-                      style={styles.campImgContain}
+                      style={styles.campaignImageContainer}
                     />
                   ) : (
                     <Image
-                      source={{ uri: this.props.selectedCampaign.camp_img }}
-                      style={styles.campImgContain}
+                      source={{ uri: this.props.selectedCampaign.image }}
+                      style={styles.campaignImageContainer}
                     />
                   )}
 
-                  <View style={styles.campDescContain}>
-                    <Text style={styles.campDescName}>
-                      {this.props.selectedCampaign.camp_name}
+                  <View style={styles.campaignDescriptionContainer}>
+                    <Text style={styles.campaignDescriptionName}>
+                      {this.props.selectedCampaign.name}
                     </Text>
-                    <Text style={styles.campDesc}>
-                      {this.props.selectedCampaign.camp_desc}
+                    <Text style={styles.campaignDescription}>
+                      {this.props.selectedCampaign.description}
                     </Text>
                     <Text style={styles.timeText}>{timeDiff}</Text>
                   </View>
@@ -179,7 +176,7 @@ class ViewCampScreen extends React.Component {
                   </View>
 
                   <View style={styles.donateView}>
-                    <TakeActionCta
+                    <TakeActionCallToAction
                       donate={this.props.selectedCampaign}
                       style={{ backgroundColor: '#ffffff' }}
                     />
@@ -187,18 +184,16 @@ class ViewCampScreen extends React.Component {
 
                   <View style={styles.feedContainer}>
                     {sortedUpdates !== false &&
-                      sortedUpdates.map(update => {
-                        return (
-                          <FeedUpdate
-                            key={`update${update.update_id}`}
-                            data={update}
-                            toggled
-                            hideName
-                            navigation={this.props.navigation}
-                            fromCampScreen={true}
-                          />
-                        );
-                      })}
+                      sortedUpdates.map(update =>
+                        <FeedUpdate
+                          key={`update${update.id}`}
+                          data={update}
+                          toggled
+                          hideName
+                          navigation={this.props.navigation}
+                          fromCampaignScreen={true}
+                        />
+                      )}
                   </View>
                 </View>
               </ScrollView>
@@ -228,19 +223,19 @@ class ViewCampScreen extends React.Component {
                   this.props.navigation.state.params.media.includes('.mp4') ? (
                     <Video
                       source={{
-                        uri: this.props.selectedCampaign.camp_img
+                        uri: this.props.selectedCampaign.image
                       }}
                       rate={1.0}
                       volume={1.0}
                       isMuted={true}
                       useNativeControls={true}
                       resizeMode='cover'
-                      style={styles.campImgContain}
+                      style={styles.campaignImageContainer}
                     />
                   ) : (
                     <Image
-                      source={{ uri: this.props.selectedCampaign.camp_img }}
-                      style={styles.campImgContain}
+                      source={{ uri: this.props.selectedCampaign.image }}
+                      style={styles.campaignImageContainer}
                     />
                   )}
 
@@ -279,12 +274,12 @@ class ViewCampScreen extends React.Component {
                     </View>
                   </View>  */}
 
-                  <View style={styles.campDescContain}>
-                    <Text style={styles.campDescName}>
-                      {this.props.selectedCampaign.camp_name}
+                  <View style={styles.campaignDescriptionContainer}>
+                    <Text style={styles.campaignDescriptionName}>
+                      {this.props.selectedCampaign.name}
                     </Text>
-                    <Text style={styles.campDesc}>
-                      {this.props.selectedCampaign.camp_desc}
+                    <Text style={styles.campaignDescription}>
+                      {this.props.selectedCampaign.description}
                     </Text>
                     <Text style={styles.timeText}>{timeDiff}</Text>
                   </View>
@@ -293,7 +288,7 @@ class ViewCampScreen extends React.Component {
                   </View>
 
                   <View style={styles.donateView}>
-                    <TakeActionCta
+                    <TakeActionCallToAction
                       donate={this.props.selectedCampaign}
                       style={{ backgroundColor: '#ffffff' }}
                     />
@@ -301,18 +296,16 @@ class ViewCampScreen extends React.Component {
 
                   <View style={styles.feedContainer}>
                     {sortedUpdates !== false &&
-                      sortedUpdates.map(update => {
-                        return (
-                          <FeedUpdate
-                            key={`update${update.update_id}`}
-                            data={update}
-                            toggled
-                            hideName
-                            navigation={this.props.navigation}
-                            fromCampScreen={true}
-                          />
-                        );
-                      })}
+                      sortedUpdates.map(update =>
+                        <FeedUpdate
+                          key={`update${update.id}`}
+                          data={update}
+                          toggled
+                          hideName
+                          navigation={this.props.navigation}
+                          fromCampaignScreen={true}
+                        />
+                      )}
                   </View>
                 </View>
               </ScrollView>
@@ -360,7 +353,7 @@ class ViewCampScreen extends React.Component {
 
   goToProfile = () => {
     this.props.navigation.navigate('Pro', {
-      selectedProfile: this.props.selectedCampaign.users_id
+      selectedProfile: this.props.selectedCampaign.user_id
     });
   };
 }
@@ -372,4 +365,4 @@ const mapStateToProps = state => ({
   token: state.token
 });
 
-export default connect(mapStateToProps)(ViewCampScreen);
+export default connect(mapStateToProps)(ViewCampaignScreen);
