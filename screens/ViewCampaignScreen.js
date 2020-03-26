@@ -54,7 +54,9 @@ class ViewCampaignScreen extends React.Component {
   };
 
   componentDidMount() {
-    this.props.navigation.setParams({ showCampaignOptions: this.showActionSheet });
+    this.props.navigation.setParams({
+      showCampaignOptions: this.showActionSheet
+    });
   }
 
   state = {
@@ -184,7 +186,7 @@ class ViewCampaignScreen extends React.Component {
 
                   <View style={styles.feedContainer}>
                     {sortedUpdates !== false &&
-                      sortedUpdates.map(update =>
+                      sortedUpdates.map(update => (
                         <FeedUpdate
                           key={`update${update.id}`}
                           data={update}
@@ -193,7 +195,7 @@ class ViewCampaignScreen extends React.Component {
                           navigation={this.props.navigation}
                           fromCampaignScreen={true}
                         />
-                      )}
+                      ))}
                   </View>
                 </View>
               </ScrollView>
@@ -296,7 +298,7 @@ class ViewCampaignScreen extends React.Component {
 
                   <View style={styles.feedContainer}>
                     {sortedUpdates !== false &&
-                      sortedUpdates.map(update =>
+                      sortedUpdates.map(update => (
                         <FeedUpdate
                           key={`update${update.id}`}
                           data={update}
@@ -305,7 +307,7 @@ class ViewCampaignScreen extends React.Component {
                           navigation={this.props.navigation}
                           fromCampaignScreen={true}
                         />
-                      )}
+                      ))}
                   </View>
                 </View>
               </ScrollView>
@@ -316,24 +318,6 @@ class ViewCampaignScreen extends React.Component {
       </View>
     );
   }
-
-  addLike = campId => {
-    this.setState({
-      ...this.state,
-      likes: this.state.likes + 1,
-      userLiked: true
-    });
-    this.props.navigation.state.params.addLike(campId);
-  };
-
-  deleteLike = campId => {
-    this.setState({
-      ...this.state,
-      likes: this.state.likes - 1,
-      userLiked: false
-    });
-    this.props.navigation.state.params.deleteLike(campId);
-  };
 
   addBookmark = () => {
     this.setState({

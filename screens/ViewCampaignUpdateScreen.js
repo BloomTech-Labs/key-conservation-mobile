@@ -39,7 +39,7 @@ class ViewCampaignUpdateScreen extends React.Component {
           }}
           onPress={navigation.getParam('showCampaignUpdateOptions')}
         >
-          <Ellipse width='25' height='25' />
+          <Ellipse width="25" height="25" />
         </TouchableOpacity>
       )
     };
@@ -88,17 +88,17 @@ class ViewCampaignUpdateScreen extends React.Component {
           this.props.navigation.state.params.media.includes('.mp4') ? (
             <Video
               source={{
-                uri: this.props.selectedCampaign.update_image
+                uri: this.props.selectedCampaign.image
               }}
               rate={1.0}
               volume={1.0}
               useNativeControls={true}
-              resizeMode='cover'
+              resizeMode="cover"
               style={styles.campImgContain}
             />
           ) : (
             <Image
-              source={{ uri: this.props.selectedCampaign.update_image }}
+              source={{ uri: this.props.selectedCampaign.image }}
               style={styles.campImgContain}
             />
           )}
@@ -137,12 +137,14 @@ class ViewCampaignUpdateScreen extends React.Component {
   };
 
   goToCampaign = async () => {
-    try{
+    try {
       await this.props.getCampaign(this.props.selectedCampaign.id);
       this.props.navigation.navigate('Campaign', {
         media: this.props.selectedCampaign.image
       });
-    } catch (err) {console.log(err);}
+    } catch (err) {
+      console.log(err);
+    }
   };
 }
 
@@ -237,4 +239,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps, { getCampaign })(ViewCampaignUpdateScreen);
+export default connect(mapStateToProps, { getCampaign })(
+  ViewCampaignUpdateScreen
+);

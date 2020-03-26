@@ -89,7 +89,7 @@ class CreateReportScreen extends Component {
         const {
           profile_image: image,
           name,
-          update_desc: text_data
+          descripton: text_data
         } = this.props.selectedCampaign;
         this.setState({
           image,
