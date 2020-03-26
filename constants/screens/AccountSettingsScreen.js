@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: responsiveFontSize(2.9),
-    // alignItems: 'left',
     marginLeft: 15,
     fontFamily: 'Lato-Bold',
     color: '#323338'
@@ -38,7 +37,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     flexDirection: 'row',
-    marginLeft: Dimensions.get('screen').width * 0.05,
+    marginLeft: Dimensions.get('screen').width * 0.12,
     marginTop: 15
   },
   logoutButton: {
@@ -48,7 +47,11 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   linkText: {
+<<<<<<< HEAD
     fontSize: responsiveFontSize(2.7),
+=======
+    fontSize: responsiveFontSize(2.3),
+>>>>>>> 9d3e08be1a0f67a94ae2c6bee08fcfab5e6d6b4a
     alignSelf: 'center',
     marginLeft: '4%',
     fontFamily: 'Lato-Bold',
