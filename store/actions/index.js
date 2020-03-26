@@ -601,7 +601,7 @@ export const postCampaignUpdate = campaignUpdate => dispatch => {
     type: `image/${fileType}`
   });
 
-  formData.append('update_description', campaignUpdate.update_description);
+  formData.append('description', campaignUpdate.description);
   formData.append('user_id', campaignUpdate.user_id);
   formData.append('id', campaignUpdate.id);
 

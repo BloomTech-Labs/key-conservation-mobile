@@ -156,13 +156,13 @@ const FeedUpdate = props => {
           />
         )}
         <View style={styles.campaignDescription}>
-          {toggled || data.update_description.length < 80 ? (
+          {toggled || data.description.length < 80 ? (
             <Text style={styles.campaignDescriptionText}>
-              {data.update_description}
+              {data.description}
             </Text>
           ) : (
             <Text style={styles.campaignDescriptionText}>
-              {shorten(data.update_description, 80)}
+              {shorten(data.description, 80)}
               &nbsp;
               <Text onPress={toggleText} style={styles.readMore}>
                 Read More
