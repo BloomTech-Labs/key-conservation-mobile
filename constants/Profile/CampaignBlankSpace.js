@@ -6,13 +6,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     width: '100%',
     height: '100%',
-    flex: 1
-  },
-  plusIcon: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 30,
-    paddingHorizontal: 60
+    paddingTop: 60
   },
   text: {
     fontFamily: 'Lato-Bold',
