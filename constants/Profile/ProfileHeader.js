@@ -28,8 +28,8 @@ export default StyleSheet.create({
   textContainer: {
     flex: 1,
     color: 'white',
-    marginLeft: 0,
-    marginTop: 15
+    marginLeft: 20,
+    marginTop: 35
   },
   headerTitleContainer: {
     position: 'absolute',

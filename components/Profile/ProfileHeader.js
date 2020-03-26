@@ -111,7 +111,7 @@ const ProfileHeader = forwardRef((props, ref) => {
       >
         <View style={styles.avatarContainer}>
           <Avatar
-            size={70}
+            size={90}
             rounded
             source={{
               uri: profile.profile_image || undefined
