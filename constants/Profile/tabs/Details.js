@@ -48,7 +48,7 @@ export default StyleSheet.create({
     fontFamily: 'Lato',
     color: '#3B3B3B',
   },
-  campMission: {
+  campaignMission: {
     backgroundColor: '#fff',
     padding: 25,
     borderRadius: 5,

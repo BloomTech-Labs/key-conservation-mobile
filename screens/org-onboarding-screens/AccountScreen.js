@@ -21,7 +21,7 @@ const AccountScreen = props => {
     facebook: '',
     instagram: '',
     twitter: '',
-    org_cta: ''
+    call_to_action: ''
   });
 
   const airtableState = props.navigation.getParam(
@@ -185,12 +185,12 @@ const AccountScreen = props => {
               <TextInput
                 style={styles.textAreaSm}
                 onChangeText={text =>
-                  handleChange({ ...values, org_cta: text })
+                  handleChange({ ...values, call_to_action: text })
                 }
                 placeholder='Enter URL'
                 type='url'
-                name='org_cta'
-                value={values.org_cta}
+                name='call_to_action'
+                value={values.call_to_action}
               />
             </View>
             <View style={styles.buttons}>

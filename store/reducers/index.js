@@ -243,12 +243,12 @@ const reducer = (state = initialState, action) => {
           )
         },
         allCampaigns: state.allCampaigns?.filter?.(
-          camp => camp.camp_id !== Number(action.payload)
+          campaign => campaign.id !== Number(action.payload)
         ),
         currentUserProfile: {
           ...state.currentUserProfile,
           campaigns: state.currentUserProfile.campaigns?.filter?.(
-            camp => camp.camp_id !== action.payload
+            campaign => campaign.id !== action.payload
           )
         }
       };
@@ -371,12 +371,12 @@ const reducer = (state = initialState, action) => {
           )
         },
         allCampaigns: state.allCampaigns?.filter?.(
-          update => update.update_id !== Number(action.payload)
+          update => update.id !== Number(action.payload)
         ),
         currentUserProfile: {
           ...state.currentUserProfile,
           campaigns: state.currentUserProfile.campaigns?.filter?.(
-            update => update.update_id !== Number(action.payload)
+            update => update.id !== Number(action.payload)
           )
         }
       };
@@ -425,7 +425,7 @@ const reducer = (state = initialState, action) => {
         selectedCampaign: {
           ...state.selectedCampaign,
           comments: state.selectedCampaign?.comments.filter(
-            c => c.comment_id != action.payload
+            c => c.id != action.payload
           )
         }
       };

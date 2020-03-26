@@ -12,9 +12,9 @@ import BackButton from '../components/BackButton';
 
 import DoneButton from '../components/DoneButton';
 
-import styles from '../constants/screens/EditCampScreen';
+import styles from '../constants/screens/EditCampaignScreen';
 
-class EditCampScreen extends React.Component {
+class EditCampaignScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Edit Campaign',
@@ -39,7 +39,7 @@ class EditCampScreen extends React.Component {
       this.props.navigation.getParam('selectedCampaign') || {};
 
     this.state = {
-      camp_desc: this.selectedCampaign.camp_desc
+      description: this.selectedCampaign.description
     };
   }
 
@@ -48,18 +48,18 @@ class EditCampScreen extends React.Component {
   }
 
   edit = async () => {
-    if (!this.state.camp_desc) {
+    if (!this.state.description) {
       return;
     } else {
       let changes = this.state;
-      await this.props.editCampaign(this.selectedCampaign.camp_id, changes);
+      await this.props.editCampaign(this.selectedCampaign.id, changes);
       this.props.navigation.goBack();
     }
   };
 
   clearState = () => {
     this.setState({
-      camp_name: this.selectedCampaign.camp_name
+      name: this.selectedCampaign.name
     });
   };
 
@@ -71,21 +71,21 @@ class EditCampScreen extends React.Component {
         />
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionHeader}>
-            Edit "{this.selectedCampaign.camp_name}"
+            Edit "{this.selectedCampaign.name}"
           </Text>
 
           <View style={styles.sections}>
             <Text style={styles.sectionsText}>Campaign Details</Text>
             <TextInput
               ref={input => {
-                this.campDetailsInput = input;
+                this.campaignDetailsInput = input;
               }}
               returnKeyType='next'
               placeholder={`What's the story?`}
               style={styles.inputContain2}
-              onChangeText={text => this.setState({ camp_desc: text })}
+              onChangeText={text => this.setState({ description: text })}
               multiline={true}
-              value={this.state.camp_desc}
+              value={this.state.description}
             />
           </View>
         </View>
@@ -97,4 +97,4 @@ class EditCampScreen extends React.Component {
 export default connect(null, {
   editCampaign,
   getCampaigns,
-})(EditCampScreen);
+})(EditCampaignScreen);

@@ -22,9 +22,8 @@ const TellAboutOrganizationScreen = props => {
     key: ''
   });
   const [state, setState] = useState({
-    org_name: '',
     name: '',
-    org_url_link: '',
+    link_url: '',
     profile_image:
       'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
     location: '',
@@ -57,8 +56,8 @@ const TellAboutOrganizationScreen = props => {
       [
         {
           fields: {
-            org_name: state.name,
-            website: state.org_link_url,
+            name: state.name,
+            website: state.link_url,
             phone: state.phone_number,
             address: state.location,
             country: state.country,
@@ -131,10 +130,10 @@ const TellAboutOrganizationScreen = props => {
               <Text style={styles.placeholderText}>Name</Text>
               <TextInput
                 style={styles.obTextInput}
-                onChangeText={text => setState({ ...state, org_name: text })}
-                value={state.org_name}
+                onChangeText={text => setState({ ...state, name: text })}
+                value={state.name}
               />
-              {state.org_name ? (
+              {state.name ? (
                 <View style={styles.aroundIcon}>
                   <CheckMark />
                 </View>
@@ -223,11 +222,11 @@ const TellAboutOrganizationScreen = props => {
               <TextInput
                 style={[styles.obTextInputBottom, styles.obTextInput]}
                 onChangeText={text =>
-                  setState({ ...state, org_link_url: text })
+                  setState({ ...state, link_url: text })
                 }
-                value={state.org_link_url}
+                value={state.link_url}
               />
-              {state.org_link_url ? (
+              {state.link_url ? (
                 <View style={styles.aroundIcon}>
                   <CheckMark />
                 </View>
@@ -245,8 +244,8 @@ const TellAboutOrganizationScreen = props => {
             </View>
 
             <View style={styles.buttons}>
-              {state.org_name === undefined ||
-              state.org_link_url === undefined ||
+              {state.name === undefined ||
+              state.link_url === undefined ||
               state.phone_number === undefined ||
               state.location === undefined ||
               state.country === undefined ||

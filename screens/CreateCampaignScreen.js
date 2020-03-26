@@ -19,12 +19,12 @@ import BackButton from '../components/BackButton';
 import { AmpEvent } from '../components/withAmplitude';
 import UploadMedia from '../components/UploadMedia';
 
-import styles from '../constants/screens/CreateCampScreen';
+import styles from '../constants/screens/CreateCampaignScreen';
 import CheckMark from '../assets/icons/checkmark-24.png';
 
 import Lightening from '../assets/jsicons/bottomnavigation/Lightening';
 
-class CreateCampScreen extends React.Component {
+class CreateCampaignScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'CREATE A CAMPAIGN',
@@ -69,10 +69,10 @@ class CreateCampScreen extends React.Component {
 
   state = {
     image: '',
-    users_id: this.props.currentUserProfile.id,
-    camp_name: '',
-    camp_desc: '',
-    camp_cta: '',
+    user_id: this.props.currentUserProfile.id,
+    name: '',
+    description: '',
+    call_to_action: '',
     urgency: null,
     loading: false
   };
@@ -96,31 +96,31 @@ class CreateCampScreen extends React.Component {
     });
     if (
       !this.state.image ||
-      !this.state.camp_name ||
-      !this.state.camp_desc ||
-      !this.state.camp_cta
+      !this.state.name ||
+      !this.state.description ||
+      !this.state.call_to_action
     ) {
       const errorMessage =
         'Form incomplete. Please include:' +
         (this.state.image ? '' : '\n    - Campaign Image') +
-        (this.state.camp_name ? '' : '\n    - Campaign Name') +
-        (this.state.camp_desc ? '' : '\n    - Campaign Details') +
-        (this.state.camp_cta ? '' : '\n    - Donation Link');
+        (this.state.name ? '' : '\n    - Campaign Name') +
+        (this.state.description ? '' : '\n    - Campaign Details') +
+        (this.state.call_to_action ? '' : '\n    - Donation Link');
       this.setState({
         loading: false
       });
       return Alert.alert('Error', errorMessage);
     } else {
-      const camp = {
-        users_id: this.props.currentUserProfile.id,
-        camp_name: this.state.camp_name,
-        camp_desc: this.state.camp_desc,
-        camp_cta: this.state.camp_cta,
+      const campaign = {
+        user_id: this.props.currentUserProfile.id,
+        name: this.state.name,
+        description: this.state.description,
+        call_to_action: this.state.call_to_action,
         urgency: this.state.urgency,
-        camp_img: this.state.image
+        image: this.state.image
       };
       this.props
-        .postCampaign(camp)
+        .postCampaign(campaign)
         .then(async res => {
           AmpEvent('Campaign Created');
           await this.setState({
@@ -140,11 +140,11 @@ class CreateCampScreen extends React.Component {
   clearState = () => {
     this.setState({
       loading: false,
-      users_id: this.props.currentUserProfile.id,
-      camp_img: '',
-      camp_name: '',
-      camp_desc: '',
-      camp_cta: '',
+      user_id: this.props.currentUserProfile.id,
+      image: '',
+      name: '',
+      description: '',
+      call_to_action: '',
       urgency: null
     });
   };
@@ -167,18 +167,18 @@ class CreateCampScreen extends React.Component {
             </View>
             <TextInput
               ref={input => {
-                this.campNameInput = input;
+                this.campaignNameInput = input;
               }}
               returnKeyType='next'
               placeholder='Name Campaign'
               style={styles.inputContain}
-              onChangeText={text => this.setState({ camp_name: text })}
+              onChangeText={text => this.setState({ name: text })}
               onSubmitEditing={() => {
                 if (Platform.OS === 'android') return;
                 this.campImgUrlInput.focus();
               }}
               blurOnSubmit={Platform.OS === 'android'}
-              value={this.state.camp_name}
+              value={this.state.name}
             />
           </View>
         </View>
@@ -194,14 +194,14 @@ class CreateCampScreen extends React.Component {
             </View>
             <TextInput
               ref={input => {
-                this.campDetailsInput = input;
+                this.campaignDetailsInput = input;
               }}
               returnKeyType='next'
               placeholder='Add campaign details and list of monetary needs.'
               style={styles.inputContain2}
-              onChangeText={text => this.setState({ camp_desc: text })}
+              onChangeText={text => this.setState({ description: text })}
               multiline={true}
-              value={this.state.camp_desc}
+              value={this.state.description}
             />
           </View>
         </View>
@@ -217,8 +217,8 @@ class CreateCampScreen extends React.Component {
             placeholder='Please include full URL'
             autoCapitalize='none'
             style={styles.inputContain}
-            onChangeText={text => this.setState({ camp_cta: text })}
-            value={this.state.camp_cta}
+            onChangeText={text => this.setState({ call_to_action: text })}
+            value={this.state.call_to_action}
           />
         </View>
         <View style={styles.sectionContainer}>
@@ -277,4 +277,4 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   postCampaign,
   getCampaigns
-})(CreateCampScreen);
+})(CreateCampaignScreen);

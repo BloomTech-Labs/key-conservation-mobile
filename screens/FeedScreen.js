@@ -81,31 +81,16 @@ class FeedScreen extends React.Component {
             {this.props.allCampaigns.length > 0 &&
               this.props.allCampaigns
                 .slice(0, this.state.campaignsVisible)
-                .map(camp => {
-                  if (camp.update_id) {
-                    return (
-                      <FeedUpdate
-                        key={`update${camp.update_id}`}
-                        data={camp}
-                        toggled={this.props.campaignsToggled.includes(
-                          `update${camp.update_id}`
-                        )}
-                        navigation={navigation}
-                      />
-                    );
-                  } else {
-                    return (
-                      <FeedCampaign
-                        key={camp.camp_id}
-                        data={camp}
-                        toggled={this.props.campaignsToggled.includes(
-                          camp.camp_id
-                        )}
-                        navigation={navigation}
-                      />
-                    );
-                  }
-                })}
+                .map(campaign =>
+                  <FeedCampaign
+                    key={campaign.id}
+                    data={campaign}
+                    toggled={this.props.campaignsToggled.includes(
+                      campaign.id
+                    )}
+                    navigation={navigation}
+                  />
+                )}
           </View>
           {this.state.campaignsVisible < this.props.allCampaigns.length && (
             <View style={styles.loadMoreView}>
