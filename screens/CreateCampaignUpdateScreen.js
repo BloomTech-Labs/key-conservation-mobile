@@ -99,7 +99,7 @@ class CreateCampaignUpdateScreen extends React.Component {
       const campaignUpdate = {
         description: this.state.description,
         user_id: this.props.currentUserProfile.id,
-        id: this.selectedCampaign.id,
+        campaign_id: this.selectedCampaign.id,
         image: this.state.image
       };
       this.postCampaignUpdate(campaignUpdate);

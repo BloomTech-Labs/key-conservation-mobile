@@ -603,7 +603,7 @@ export const postCampaignUpdate = campaignUpdate => dispatch => {
 
   formData.append('description', campaignUpdate.description);
   formData.append('user_id', campaignUpdate.user_id);
-  formData.append('id', campaignUpdate.id);
+  formData.append('campaign_id', campaignUpdate.campaign_id);
 
   return axiosWithAuth(dispatch, aaxios => {
     return aaxios
