@@ -487,7 +487,10 @@ export const postCampaign = campaign => dispatch => {
         }
       })
       .then(res => {
-        dispatch({ type: POST_CAMPAIGN_SUCCESS, payload: res.data.campaignUpdate });
+        dispatch({
+          type: POST_CAMPAIGN_SUCCESS,
+          payload: res.data.campaignUpdate
+        });
       })
       .catch(err => {
         dispatch({ type: POST_CAMPAIGN_ERROR, payload: err });
@@ -562,7 +565,10 @@ export const editCampaign = (id, changes) => dispatch => {
         }
       })
       .then(res => {
-        dispatch({ type: EDIT_CAMPAIGN_SUCCESS, payload: res.data.campaignUpdate });
+        dispatch({
+          type: EDIT_CAMPAIGN_SUCCESS,
+          payload: res.data.campaignUpdate
+        });
       })
       .catch(err => {
         dispatch({ type: EDIT_CAMPAIGN_ERROR, payload: err });
@@ -583,7 +589,7 @@ export const [
 export const postCampaignUpdate = campaignUpdate => dispatch => {
   dispatch({ type: POST_CAMPAIGN_UPDATE_START });
 
-  const uri = campaignUpdate.update_image;
+  const uri = campaignUpdate.image;
 
   let uriParts = uri.split('.');
   let fileType = uriParts[uriParts.length - 1];
@@ -636,11 +642,11 @@ export const editCampaignUpdate = (id, changes) => dispatch => {
   let formData = new FormData();
 
   let keys = Object.keys(changes).filter(key => {
-    return key !== 'update_image';
+    return key !== 'image';
   });
 
-  if (changes.update_image) {
-    const uri = changes.update_image;
+  if (changes.image) {
+    const uri = changes.image;
 
     let uriParts = uri.split('.');
     let fileType = uriParts[uriParts.length - 1];
@@ -928,30 +934,24 @@ export const getConnections = id => dispatch => {
 export const connectRequest = connected_id => dispatch => {
   return axiosWithAuth(dispatch, aaxios => {
     let url = `${seturl}users/connect/${connected_id}`;
-    return aaxios
-      .post(url)
-      .catch(err => {
-        return err.message;
-      });
+    return aaxios.post(url).catch(err => {
+      return err.message;
+    });
   });
 };
 export const editConnectStatus = (id, status) => dispatch => {
   return axiosWithAuth(dispatch, aaxios => {
-    return aaxios
-      .put(`${seturl}users/connect/${id}`, status)
-      .catch(err => {
-        return err.message;
-      });
+    return aaxios.put(`${seturl}users/connect/${id}`, status).catch(err => {
+      return err.message;
+    });
   });
 };
 
 export const deleteConnection = id => dispatch => {
   return axiosWithAuth(dispatch, aaxios => {
-    return aaxios
-      .delete(`${seturl}users/connect/${id}`)
-      .catch(err => {
-        console.log(err);
-        return err.message;
-      });
+    return aaxios.delete(`${seturl}users/connect/${id}`).catch(err => {
+      console.log(err);
+      return err.message;
+    });
   });
 };
