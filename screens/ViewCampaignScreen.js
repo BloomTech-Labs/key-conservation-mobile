@@ -163,7 +163,7 @@ class ViewCampaignScreen extends React.Component {
 
                   <View style={styles.campaignDescriptionContainer}>
                     <Text style={styles.campaignDescriptionName}>
-                      {this.props.selectedCampaign.campaign_name}
+                      {this.props.selectedCampaign.name}
                     </Text>
                     <Text style={styles.campaignDescription}>
                       {this.props.selectedCampaign.description}
@@ -276,7 +276,7 @@ class ViewCampaignScreen extends React.Component {
 
                   <View style={styles.campaignDescriptionContainer}>
                     <Text style={styles.campaignDescriptionName}>
-                      {this.props.selectedCampaign.campaign_name}
+                      {this.props.selectedCampaign.name}
                     </Text>
                     <Text style={styles.campaignDescription}>
                       {this.props.selectedCampaign.description}

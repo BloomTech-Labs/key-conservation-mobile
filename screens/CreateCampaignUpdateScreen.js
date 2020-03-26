@@ -62,7 +62,7 @@ class CreateCampaignUpdateScreen extends React.Component {
             <Text style={styles.goToCampaignText}>Post an update about</Text>
           </View>
           <Text style={styles.sectionsText}>
-            "{this.selectedCampaign.campaign_name}"
+            "{this.selectedCampaign.name}"
           </Text>
           <UploadMedia
             title='Upload update image'
