@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   title: {
-    fontSize: responsiveFontSize(3),
+    fontSize: responsiveFontSize(2.4),
     alignItems: 'center',
     marginLeft: 15,
     fontFamily: 'Lato-Bold',
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     flexDirection: 'row',
-    marginLeft: Dimensions.get('screen').width * 0.05,
+    marginLeft: Dimensions.get('screen').width * 0.12,
     marginTop: 15
   },
   logoutButton: {
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   linkText: {
-    fontSize: responsiveFontSize(3),
+    fontSize: responsiveFontSize(2.3),
     alignSelf: 'center',
     marginLeft: '4%',
     fontFamily: 'Lato-Bold',
