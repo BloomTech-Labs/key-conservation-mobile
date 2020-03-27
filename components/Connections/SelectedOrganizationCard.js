@@ -21,7 +21,7 @@ const OrganizationsCard = props => {
 
   useEffect(() => {
     getProfileData();
-  }, [])
+  }, []);
 
   useEffect(() => {
     getConnections();
@@ -48,20 +48,20 @@ const OrganizationsCard = props => {
       ) : (
         <View>
           {selectedUserConnections?.map(connection => (
-            <View style={styles.card} key={connection.id}>
+            <View style={styles.card} key={connection.connection_id}>
               <View
                 style={styles.peopleCardContainer}
-                key={connection.id}
+                key={connection.connection_id}
               >
-                <View style={styles.userInfo} key={connection.id}>
+                <View style={styles.userInfo} key={connection.connection_id}>
                   <View
                     style={styles.imageContainer}
-                    key={connection.id}
+                    key={connection.connection_id}
                   >
                     <Avatar
                       size={48}
                       rounded
-                      key={connection.id}
+                      key={connection.connection_id}
                       source={{
                         uri:
                           props.selectedProfile.id === connection.connector_id
@@ -71,24 +71,24 @@ const OrganizationsCard = props => {
                     />
                   </View>
                   <View>
-                  <TouchableOpacity
-                    onPress={() => {
+                    <TouchableOpacity
+                      onPress={() => {
                         props.selectedProfile.id === connection.connector_id
-                        ? props.navigation.push('Pro', {
-                            selectedProfile: connection.connected_id
-                          })
-                        : props.navigation.push('Pro', {
-                            selectedProfile: connection.connector_id
-                          })
-                    }}
-                  >
-                    <Text key={connection.id} style={styles.name}>
-                      {connection.connected_name === null
-                        ? '---'
-                        : props.selectedProfile.id === connection.connector_id
-                        ? connection.connected_name
-                        : connection.connector_name}
-                    </Text>
+                          ? props.navigation.push('Pro', {
+                              selectedProfile: connection.connected_id
+                            })
+                          : props.navigation.push('Pro', {
+                              selectedProfile: connection.connector_id
+                            });
+                      }}
+                    >
+                      <Text key={connection.connection_id} style={styles.name}>
+                        {connection.connected_name === null
+                          ? '---'
+                          : props.selectedProfile.id === connection.connector_id
+                          ? connection.connected_name
+                          : connection.connector_name}
+                      </Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -105,4 +105,6 @@ const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
   selectedProfile: state.selectedProfile
 });
-export default connect(mapStateToProps, { getConnections, getProfileData })(withNavigation(OrganizationsCard));
+export default connect(mapStateToProps, { getConnections, getProfileData })(
+  withNavigation(OrganizationsCard)
+);
