@@ -44,7 +44,7 @@ const FeedCampaign = props => {
 
   const actionSheetRef = useRef(null);
 
-  // console.log("PROPS FROM FEEDCAMPAIGN", props);
+  console.log('PROPS FROM FEEDCAMPAIGN', props);
 
   // old code for Bookmarks
   // useEffect(() => {
@@ -225,7 +225,7 @@ const FeedCampaign = props => {
       <View style={styles.container}>
         <LoadingOverlay
           loading={props.deleteBuffer.includes(data.id)}
-          backgroundColor='white'
+          backgroundColor="white"
         />
         <CampaignActionSheet
           ref={actionSheetRef}
@@ -244,13 +244,13 @@ const FeedCampaign = props => {
           leftAvatar={{ source: { uri: data.profile_image || undefined } }}
           rightElement={
             <TouchableOpacity onPress={showActionSheet}>
-              <Ellipse fill='#000' height='25' width='25' />
+              <Ellipse fill="#000" height="25" width="25" />
             </TouchableOpacity>
           }
           subtitle={
             <View style={{ flexDirection: 'row' }}>
               {data.location !== (undefined || null) ? (
-                <MapMarker fill='#505050' />
+                <MapMarker fill="#505050" />
               ) : null}
               <Text style={{ color: '#929292' }}>{data.location}</Text>
             </View>
@@ -287,7 +287,7 @@ const FeedCampaign = props => {
                 ) : null}
                 {loader ? (
                   <View style={styles.indicator}>
-                    <ActivityIndicator size='large' color='#00FF9D' />
+                    <ActivityIndicator size="large" color="#00FF9D" />
                   </View>
                 ) : null}
                 {props.isFocused ? (
@@ -301,7 +301,7 @@ const FeedCampaign = props => {
                     isMuted={false}
                     shouldPlay={true}
                     isLooping
-                    resizeMode='cover'
+                    resizeMode="cover"
                     onPlaybackStatusUpdate={onPlaybackStatusUpdate}
                     style={styles.campImgContain}
                   />
@@ -375,6 +375,7 @@ const FeedCampaign = props => {
     </View>
   );
 };
+
 const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile,
   currentUser: state.currentUser,

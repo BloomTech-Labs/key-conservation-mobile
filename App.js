@@ -28,7 +28,7 @@ function App(props) {
       if (action.key) {
         const key = action.key;
         if (key.search('id') === 0) {
-          return 'Unique screen - Campaign Post/Edit Profile/Detail screen';
+          return 'Unique screen - Camp Post/Edit Pro/Detail screen';
         } else {
           return action.key;
         }
@@ -53,9 +53,9 @@ function App(props) {
   } else {
     return (
       <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
+        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         {Platform.OS === 'android' && (
-          <StatusBar barStyle='light-content' translucent />
+          <StatusBar barStyle="light-content" translucent />
         )}
         <Provider store={store}>
           <MenuProvider>

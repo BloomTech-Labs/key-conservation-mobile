@@ -12,7 +12,7 @@ const Airtable = props => {
   );
 
   if (
-    props.name &&
+    props.org_name &&
     props.website &&
     props.address &&
     props.country !== null
