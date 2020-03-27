@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import X from '../assets/jsicons/miscIcons/X';
 
-const OrganizationOnboardCountries = props => {
+const OrgOnboardCountries = props => {
   const { name } = props;
 
   const removeSelected = name => {
@@ -47,4 +47,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default OrganizationOnboardCountries;
+export default OrgOnboardCountries;
