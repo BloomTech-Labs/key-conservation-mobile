@@ -36,7 +36,7 @@ export default {
     fontSize: 16,
     paddingLeft: 10
   },
-  campaignMissionText: {
+  campMissionText: {
     fontFamily: 'Lato',
     fontSize: 16,
     lineHeight: 19,
@@ -53,7 +53,7 @@ export default {
     borderRadius: 10,
     backgroundColor: 'white'
   },
-  campaignMission: {
+  campMission: {
     marginLeft: 15,
     marginRight: 15,
     width: deviceWidth / 2,
@@ -66,7 +66,7 @@ export default {
     marginTop: 20,
     paddingTop: 19
   },
-  campaignImageContainer: {
+  campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
     // resizeMode: 'contain',
     // height: deviceWidth <= 415 ? deviceWidth : 415
@@ -74,21 +74,21 @@ export default {
     height: deviceWidth,
     width: deviceWidth
   },
-  campaignDescriptionContainer: {
-    marginLeft: 15,
+  campDescContain: {
+    marginLeft: 10,
     padding: 15,
     marginTop: 10,
     marginRight: 10,
     borderRadius: 10,
     backgroundColor: 'white'
   },
-  campaignDescriptionName: {
+  campDescName: {
     fontFamily: 'Lato-Bold',
     fontSize: 18,
     lineHeight: 22,
     paddingBottom: 10
   },
-  campaignDescription: {
+  campDesc: {
     fontFamily: 'Lato',
     fontSize: 16,
     lineHeight: 19

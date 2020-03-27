@@ -14,6 +14,13 @@ export default {
     justifyContent: 'center',
     paddingBottom: 35
   },
+  feedContainer: {
+    flex: 1,
+    backgroundColor: '#fff'
+  },
+  searchIcon: {
+    marginRight: 20
+  },
   orgTitleView: {
     fontFamily: 'Lato-Bold',
     fontSize: 16
@@ -34,18 +41,18 @@ export default {
     fontFamily: 'Lato-Bold',
     fontSize: 18
   },
-  campaignDescription: {
+  campDesc: {
     fontFamily: 'Lato',
     marginLeft: 15,
     paddingTop: 15,
     marginRight: 15
   },
-  campaignDescriptionText: {
+  campDescText: {
     fontFamily: 'Lato',
     fontSize: 14,
     lineHeight: 19
   },
-  campaignDescriptionName: {
+  campDescName: {
     fontFamily: 'Lato',
     fontSize: 16
   },

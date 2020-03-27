@@ -2,12 +2,12 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 import {
   ConsNavigator,
-  SupporterNavigator,
+  SupNavigator,
   LoginStack,
   NameStack,
   LogoutStack,
   OrgOnboardStack,
-  AccountSettingsStack,
+  AccountSettingsStack
 } from './MainNavigation';
 import LoadingScreenMov from '../components/LoadingScreenMov';
 import LoadingScreen from '../screens/LoadingScreen';
@@ -25,9 +25,9 @@ export default createAppContainer(
       Vetting: VettingCheck,
       CreateAccount: NameStack,
       Conservationist: ConsNavigator,
-      Supporter: SupporterNavigator,
+      Supporter: SupNavigator,
       Logout: LogoutStack,
-      AccountSettings: AccountSettingsStack,
+      AccountSettings: AccountSettingsStack
     },
     {
       defaultNavigationOptions: {
