@@ -17,7 +17,7 @@ import { Alert } from 'react-native';
     ref={o => this.ActionSheet = o}
     admin={boolean}
     commentId={id}
-    campaign={object}                   // The campaign data
+    camp={object}                   // The campaign data
   />
 ...
 */
@@ -40,9 +40,9 @@ export default forwardRef((props, ref) => {
       return;
     }
 
-    if (typeof props.campaign?.id !== 'number') {
+    if (typeof props.camp?.camp_id !== 'number') {
       console.warn(
-        'CommentActionSheet: `campaign` property not found or invalid - action canceled'
+        'CommentActionSheet: `camp` property not found or invalid - action canceled'
       );
       return;
     }
