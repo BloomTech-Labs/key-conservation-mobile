@@ -27,12 +27,12 @@ const ConnectFurther = props => {
   const profile = props.profile;
   const myProfile = props.currentUserProfile.id === profile.id ? true : false;
 
-  const editRoute = profile.roles === 'supporter' ? 'EditSupporterProfile' : 'EditProfile';
+  const editRoute = profile.roles === 'supporter' ? 'EditSupPro' : 'EditPro';
 
   return (
     <View>
       <View style={styles.titleSection}>
-        <ConnectFurtherIcon width='30' height='30' />
+        <ConnectFurtherIcon width="30" height="30" />
         <Text style={styles.title}>Connect Further</Text>
       </View>
       <View style={styles.iconSection}>
@@ -44,7 +44,7 @@ const ConnectFurther = props => {
               (await Linking.openURL(`mailto:${profile.email}`));
           }}
         >
-          <Envelope fill='#323338' width='35' height='35' />
+          <Envelope fill="#323338" width="35" height="35" />
         </TouchableOpacity>
         {/* the following is ready to go for when linkedIn added to backend */}
         {/* {!profile.linkedin ? (
@@ -74,7 +74,7 @@ const ConnectFurther = props => {
               //   style={{ padding: 0, padding: 0 }}
               onPress={() => navigate(editRoute)}
             >
-              <IgAdd fill='#323338' width='35' height='35' />
+              <IgAdd fill="#323338" width="35" height="35" />
             </TouchableOpacity>
           ) : null
         ) : (
@@ -83,7 +83,7 @@ const ConnectFurther = props => {
             //   style={{ padding: 0, padding: 0 }}
             onPress={() => WebBrowser.openBrowserAsync(profile.instagram)}
           >
-            <Instagram fill='#323338' width='35' height='35' />
+            <Instagram fill="#323338" width="35" height="35" />
           </TouchableOpacity>
         )}
 
@@ -94,7 +94,7 @@ const ConnectFurther = props => {
               //   style={{ padding: 0, padding: 0 }}
               onPress={() => navigate(editRoute)}
             >
-              <FbAdd fill='#323338' width='35' height='35' />
+              <FbAdd fill="#323338" width="35" height="35" />
             </TouchableOpacity>
           ) : null
         ) : (
@@ -102,7 +102,7 @@ const ConnectFurther = props => {
             style={styles.iconWrap}
             onPress={() => WebBrowser.openBrowserAsync(profile.facebook)}
           >
-            <Facebook fill='#323338' width='35' height='35' />
+            <Facebook fill="#323338" width="35" height="35" />
           </TouchableOpacity>
         )}
 
@@ -113,7 +113,7 @@ const ConnectFurther = props => {
               //   style={{ padding: 0, padding: 0 }}
               onPress={() => navigate(editRoute)}
             >
-              <TwitterAdd fill='#323338' width='35' height='35' />
+              <TwitterAdd fill="#323338" width="35" height="35" />
             </TouchableOpacity>
           ) : null
         ) : (
@@ -121,7 +121,7 @@ const ConnectFurther = props => {
             style={styles.iconWrap}
             onPress={() => WebBrowser.openBrowserAsync(profile.twitter)}
           >
-            <Twitter fill='#323338' width='35' height='35' />
+            <Twitter fill="#323338" width="35" height="35" />
           </TouchableOpacity>
         )}
         {/* the following is ready to go for when gihub added to backend */}

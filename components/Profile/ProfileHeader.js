@@ -5,16 +5,9 @@ import { Avatar } from 'react-native-elements';
 import { AmpEvent } from '../withAmplitude';
 
 import styles from '../../constants/Profile/ProfileHeader';
-// import MapMarker from '../../assets/images/map-marker-alt-solid.png';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
 import { randomImage } from '../Animals/RandomImage';
 import ConnectionsHeader from '../Connections/ConnectionsHeader';
-
-// Social Media Icons
-import Envelope from '../../assets/jsicons/socialmedia/Envelope';
-import Instagram from '../../assets/jsicons/socialmedia/Instagram';
-import Twitter from '../../assets/jsicons/socialmedia/Twitter';
-import Facebook from '../../assets/jsicons/socialmedia/Facebook';
 
 import { useHeaderHeight } from 'react-navigation-stack';
 
@@ -28,9 +21,9 @@ const ProfileHeader = forwardRef((props, ref) => {
   let randomHeaderImage = useMemo(() => randomImage(), []);
 
   const WebsiteClick = async () => {
-    if (profile.link_url) {
-      (await WebBrowser.openBrowserAsync(profile.link_url)) &&
-        AmpEvent('Website Link Clicked', { name: profile.name });
+    if (profile.org_link_url && profile.org_link_url !== null) {
+      (await WebBrowser.openBrowserAsync(profile.org_link_url)) &&
+        AmpEvent('Website Link Clicked', { orgName: profile.name });
     }
   };
 
@@ -79,7 +72,7 @@ const ProfileHeader = forwardRef((props, ref) => {
     >
       <Animated.Image
         source={randomHeaderImage}
-        resizeMode='cover'
+        resizeMode="cover"
         style={{
           opacity: 0.6,
           height: 360,
@@ -128,14 +121,14 @@ const ProfileHeader = forwardRef((props, ref) => {
                   <MapMarker /> {profile.location}
                 </Text>
               )}
-              {profile.link_url || profile.link_url !== '' ? (
-                profile.link_text || profile.link_text !== '' ? (
+              {profile.org_link_url || profile.org_link_url !== '' ? (
+                profile.org_link_text || profile.org_link_text !== '' ? (
                   <Text style={styles.websiteText} onPress={WebsiteClick}>
-                    {profile.link_text}
+                    {profile.org_link_text}
                   </Text>
                 ) : (
                   <Text style={styles.websiteText} onPress={WebsiteClick}>
-                    {profile.link_url}
+                    {profile.org_link_url}
                   </Text>
                 )
               ) : null}
