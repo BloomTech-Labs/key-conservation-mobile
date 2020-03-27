@@ -19,9 +19,9 @@ import BackButton from '../components/BackButton';
 import Ellipse from '../assets/jsicons/Ellipse';
 import CampaignActionSheet from '../components/Reports/CampaignActionSheet';
 
-const deviceWidth = Dimensions.get('window').width;
+import styles from '../constants/screens/ViewCampUpdateScreen';
 
-class ViewCampaignUpdateScreen extends React.Component {
+class ViewCampUpdateScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Update',
@@ -37,7 +37,7 @@ class ViewCampaignUpdateScreen extends React.Component {
             padding: 16,
             paddingRight: 24
           }}
-          onPress={navigation.getParam('showCampaignUpdateOptions')}
+          onPress={navigation.getParam('showCampUpdateOptions')}
         >
           <Ellipse width="25" height="25" />
         </TouchableOpacity>
@@ -51,7 +51,7 @@ class ViewCampaignUpdateScreen extends React.Component {
 
   componentDidMount = () => {
     this.props.navigation.setParams({
-      showCampaignUpdateOptions: this.showActionSheet
+      showCampUpdateOptions: this.showActionSheet
     });
   };
 
@@ -64,7 +64,7 @@ class ViewCampaignUpdateScreen extends React.Component {
           update={this.props.selectedCampaign}
           isMine={
             this.props.currentUserProfile.admin ===
-            this.props.selectedCampaign.user_id
+            this.props.selectedCampaign.users_id
           }
           goBack
         />
@@ -88,7 +88,7 @@ class ViewCampaignUpdateScreen extends React.Component {
           this.props.navigation.state.params.media.includes('.mp4') ? (
             <Video
               source={{
-                uri: this.props.selectedCampaign.image
+                uri: this.props.selectedCampaign.update_img
               }}
               rate={1.0}
               volume={1.0}
@@ -98,16 +98,16 @@ class ViewCampaignUpdateScreen extends React.Component {
             />
           ) : (
             <Image
-              source={{ uri: this.props.selectedCampaign.image }}
+              source={{ uri: this.props.selectedCampaign.update_img }}
               style={styles.campImgContain}
             />
           )}
-          <View style={styles.campaignDescriptionContainer}>
-            <Text style={styles.campaignDescriptionName}>
-              {this.props.selectedCampaign.name}
+          <View style={styles.campDescContain}>
+            <Text style={styles.campDescName}>
+              {this.props.selectedCampaign.camp_name}
             </Text>
-            <Text style={styles.campaignDescriptionName}>
-              {this.props.selectedCampaign.description}
+            <Text style={styles.campDesc}>
+              {this.props.selectedCampaign.update_desc}
             </Text>
           </View>
           <View style={styles.ogBorder} />
@@ -132,15 +132,15 @@ class ViewCampaignUpdateScreen extends React.Component {
 
   goToProfile = () => {
     this.props.navigation.navigate('Pro', {
-      selectedProfile: this.props.selectedCampaign.user_id
+      selectedProfile: this.props.selectedCampaign.users_id
     });
   };
 
   goToCampaign = async () => {
     try {
-      await this.props.getCampaign(this.props.selectedCampaign.id);
-      this.props.navigation.navigate('Campaign', {
-        media: this.props.selectedCampaign.image
+      await this.props.getCampaign(this.props.selectedCampaign.camp_id);
+      this.props.navigation.navigate('Camp', {
+        media: this.props.selectedCampaign.camp_img
       });
     } catch (err) {
       console.log(err);
@@ -154,91 +154,4 @@ const mapStateToProps = state => ({
   currentUserProfile: state.currentUserProfile
 });
 
-const styles = StyleSheet.create({
-  touchableButton: {
-    paddingTop: 25,
-    paddingBottom: 25,
-    width: '100%',
-    height: 50
-  },
-  touchableView: {
-    backgroundColor: '#00FF9D',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-    height: 48,
-    width: 243
-  },
-  touchableText: {
-    fontFamily: 'Lato',
-    color: '#323338',
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    letterSpacing: 2,
-    fontSize: 16
-  },
-  ogPostButton: {
-    fontFamily: 'Lato-Bold',
-    width: '60%',
-    alignSelf: 'center'
-  },
-  supportMissionText: {
-    fontFamily: 'Lato-Bold',
-    fontSize: 16,
-    paddingLeft: 10
-  },
-  campaignMissionText: {
-    fontFamily: 'Lato',
-    fontSize: 16,
-    lineHeight: 19,
-    paddingTop: 10
-  },
-  campImgContain: {
-    /* Must have a Width && Height or it won't display anything! */
-    // resizeMode: 'contain',
-    // height: deviceWidth <= 415 ? deviceWidth : 415
-    flex: 1,
-    height: deviceWidth,
-    width: deviceWidth
-  },
-  campaignDescriptionContainer: {
-    marginLeft: 15,
-    paddingTop: 15,
-    marginRight: 15
-  },
-  campaignDescriptionName: {
-    fontFamily: 'Lato-Bold',
-    fontSize: 18,
-    lineHeight: 22,
-    paddingBottom: 10
-  },
-  campaignDescription: {
-    fontFamily: 'Lato',
-    fontSize: 16,
-    lineHeight: 19,
-    paddingBottom: 15
-  },
-  listName: {
-    fontFamily: 'Lato-Bold',
-    fontSize: 18,
-    lineHeight: 22
-  },
-  ogPostView: {
-    alignItems: 'center'
-  },
-  ogBorder: {
-    marginLeft: '16%',
-    marginRight: '16%',
-    marginTop: 20,
-    paddingTop: 19,
-    borderTopWidth: 2,
-    borderTopColor: '#eee'
-  },
-  whiteSpace: {
-    height: 40
-  }
-});
-
-export default connect(mapStateToProps, { getCampaign })(
-  ViewCampaignUpdateScreen
-);
+export default connect(mapStateToProps, { getCampaign })(ViewCampUpdateScreen);
