@@ -15,12 +15,12 @@ const PlacesAutocomplete = () => {
   return (
     <GooglePlacesAutocomplete
       style={styles.obTextInput}
-      placeholder='Search'
+      placeholder="Search"
       minLength={2} // minimum length of text to search
       autoFocus={false}
       returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
       keyboardAppearance={'light'} // Can be left out for default keyboardAppearance https://facebook.github.io/react-native/docs/textinput.html#keyboardappearance
-      listViewDisplayed='auto' // true/false/undefined
+      listViewDisplayed="auto" // true/false/undefined
       fetchDetails={true}
       renderDescription={row => row.description} // custom description render
       onPress={(data, details = null) => {
@@ -45,7 +45,7 @@ const PlacesAutocomplete = () => {
           color: '#1faadb'
         }
       }}
-      nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+      nearbyPlacesAPI="GooglePlacesSearch" // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
       GoogleReverseGeocodingQuery={
         {
           // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro

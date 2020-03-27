@@ -2,8 +2,9 @@ import React from 'react';
 import { View, Text } from 'react-native';
 
 import PlusSignCircle from '../../assets/jsicons/PlusSignCircle';
-import styles from '../../constants/Profile/CampaignBlankSpace';
-const CampaignBlankSpace = props => {
+import styles from '../../constants/Profile/CampBlankSpace';
+
+const CampBlankSpace = props => {
   return (
     <View style={styles.container}>
       <View style={styles.plusIcon}>
@@ -23,4 +24,4 @@ const CampaignBlankSpace = props => {
     </View>
   );
 };
-export default CampaignBlankSpace;
+export default CampBlankSpace;
