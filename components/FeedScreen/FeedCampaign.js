@@ -365,7 +365,7 @@ const FeedCampaign = props => {
                 top: -2,
                 right: 2
               }}
-              value={data.comments.length}
+              value={data.comments ? data.comments.length : 0}
             />
           </TouchableOpacity>
         </View>
