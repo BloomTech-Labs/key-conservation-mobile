@@ -25,13 +25,13 @@ import Ellipse from '../../assets/jsicons/Ellipse';
 import CommentIcon from '../../assets/jsicons/CommentIcon';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
 import CampaignActionSheet from '../Reports/CampaignActionSheet';
-import TakeActionCallToAction from '../TakeAction/TakeActionCallToAction';
+import TakeActionCta from '../TakeAction/TakeActionCta';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
 // Redux gave us a hard time on this project. We worked on comments first and when our commentOnCampaign action failed to trigger the re-render we expected, and when we couldn't solve the
 // issue in labs_help, we settled for in-component axios calls. Not elegant. Probably not super scalable—but it worked. Hopefully a more talented team can solve what we couldn't.
-// In the meantime, ViewCampaignScreen, ViewCampaignUpdateScreen, FeedCampaign, and FeedUpdate are all interconnected, sharing props (state, functions) via React-Navigation.
+// In the meantime, ViewCampScreen, ViewCampUpdateScreen, FeedCampaign, and FeedUpdate are all interconnected, sharing props (state, functions) via React-Navigation.
 
 const ViewportAwareVideo = Viewport.Aware(
   Viewport.WithPlaceholder(Video, Placeholder)
@@ -49,15 +49,15 @@ const FeedCampaign = props => {
   // old code for Bookmarks
   // useEffect(() => {
   //   const bookmarked = props.currentUserProfile.bookmarks.filter(
-  //     b => b.id === data.id
+  //    b => b.camp_id === data.camp_id
   //   );
   //   if (bookmarked.length > 0) {
   //     setUserBookmarked(true);
   //   }
   //   if (
-  //     data.image.includes('.mov') ||
-  //     data.image.includes('.mp3') ||
-  //     data.image.includes('.mp4')
+  //     data.camp_img.includes('.mov')
+  //     data.camp_img.includes('.mp3')
+  //     data.camp_img.includes('.mp4')
   //   ) {
   //     setUrgTop(3);
   //   }
@@ -141,27 +141,27 @@ const FeedCampaign = props => {
   const goToProfile = () => {
     AmpEvent('Select Profile from Campaign', {
       profile: data.name,
-      campaign: data.campaign_name
+      campaign: data.camp_name
     });
-    navigate('Profile', { selectedProfile: data.user_id });
+    navigate('Pro', { selectedProfile: data.users_id });
   };
 
   const goToCampaign = async () => {
-    await dispatch(getCampaign(data.id));
+    await dispatch(getCampaign(data.camp_id));
     AmpEvent('Select Profile from Campaign', {
-      campaign: data.campaign_name,
+      campaign: data.camp_name,
       profile: data.name
     });
-    navigate('Campaign', {
+    navigate('Camp', {
       // userBookmarked: userBookmarked,
       // addBookmark: addBookmark,
       // deleteBookmark: deleteBookmark,
-      media: data.image
+      media: data.camp_img
     });
   };
 
   const toggleText = () => {
-    dispatch(toggleCampaignText(data.id));
+    dispatch(toggleCampaignText(data.camp_id));
   };
 
   const onPlaybackStatusUpdate = status => {
@@ -175,10 +175,10 @@ const FeedCampaign = props => {
   // const addBookmark = () => {
   //   axios
   //     .post(
-  //       `${seturl}social/bookmark/${data.campaign_id}`,
+  //        `${seturl}social/bookmark/${data.camp_id}`,
   //       {
-  //         user_id: props.currentUserProfile.id,
-  //         campaign_id: data.campaign_id
+  //         users_id: props.currentUserProfile.id,
+  //         camp_id: data.camp_id
   //       },
   //       {
   //         headers: {
@@ -199,7 +199,7 @@ const FeedCampaign = props => {
   // const deleteBookmark = () => {
   //   axios
   //     .delete(
-  //       `${seturl}social/bookmark/${data.campaign_id}/${props.currentUserProfile.id}`,
+  //       `${seturl}social/bookmark/${data.camp_id}/${props.currentUserProfile.id}`,
   //       {
   //         headers: {
   //           Accept: 'application/json',
@@ -224,14 +224,14 @@ const FeedCampaign = props => {
     <View style={styles.mainContainer}>
       <View style={styles.container}>
         <LoadingOverlay
-          loading={props.deleteBuffer.includes(data.id)}
+          loading={props.deleteBuffer.includes(data.camp_id)}
           backgroundColor="white"
         />
         <CampaignActionSheet
           ref={actionSheetRef}
           admin={props.currentUserProfile.admin}
-          isMine={props.currentUserProfile.id === data.user_id}
-          campaign={data}
+          isMine={props.currentUserProfile.id === data.users_id}
+          camp={data}
         />
         <ListItem
           disabled={props.disableHeader}
@@ -256,17 +256,15 @@ const FeedCampaign = props => {
             </View>
           }
         />
-        <View style={styles.campaignDescription}>
-          {toggled || data.description.length < 80 ? (
+        <View style={styles.campDesc}>
+          {toggled || data.camp_desc.length < 80 ? (
             <View>
-              <Text style={styles.campaignDescriptionText}>
-                {data.description}
-              </Text>
+              <Text style={styles.campDescText}>{data.camp_desc}</Text>
               <Text style={styles.timeText}>{timeDiff}</Text>
             </View>
           ) : (
-            <Text style={styles.campaignDescriptionText}>
-              {shorten(data.description, 80)}
+            <Text style={styles.campDescText}>
+              {shorten(data.camp_desc, 80)}
               &nbsp;
               <Text onPress={toggleText} style={styles.readMore}>
                 Read More
@@ -276,9 +274,9 @@ const FeedCampaign = props => {
         </View>
         <View>
           <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
-            {data.image.includes('.mov') ||
-            data.image.includes('.mp3') ||
-            data.image.includes('.mp4') ? (
+            {data.camp_img.includes('.mov') ||
+            data.camp_img.includes('.mp3') ||
+            data.camp_img.includes('.mp4') ? (
               <View>
                 {data.urgency ? (
                   <View style={urgencyStyles}>
@@ -311,7 +309,7 @@ const FeedCampaign = props => {
               </View>
             ) : (
               <ImageBackground
-                source={{ uri: data.image }}
+                source={{ uri: data.camp_img }}
                 style={styles.campImgContain}
               >
                 {urgencyStatus ? (
@@ -369,7 +367,7 @@ const FeedCampaign = props => {
             />
           </TouchableOpacity>
         </View>
-        <TakeActionCallToAction donate={props.data} />
+        <TakeActionCta donate={props.data} />
       </View>
       <View style={styles.demarcation} />
     </View>
