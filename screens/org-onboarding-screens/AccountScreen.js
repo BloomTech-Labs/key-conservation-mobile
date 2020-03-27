@@ -21,7 +21,7 @@ const AccountScreen = props => {
     facebook: '',
     instagram: '',
     twitter: '',
-    call_to_action: ''
+    org_cta: ''
   });
 
   const airtableState = props.navigation.getParam(
@@ -48,14 +48,14 @@ const AccountScreen = props => {
             onButtonPress={() => {
               props.navigation.navigate('TellMore');
             }}
-            color='#000'
+            color="#000"
           />
         </View>
         <View style={styles.progressBar}>
           <ProgressBar
             progress={65}
             height={9}
-            backgroundColor='#D7FF44'
+            backgroundColor="#D7FF44"
             animated={false}
           />
           <Text style={styles.progressBarText}>65% Complete</Text>
@@ -63,7 +63,7 @@ const AccountScreen = props => {
       </View>
       <KeyboardAvoidingView
         style={styles.keyboardView}
-        behavior='padding'
+        behavior="padding"
         enabled
       >
         <ScrollView>
@@ -94,9 +94,9 @@ const AccountScreen = props => {
                 }
                 maxLength={150}
                 value={values.mini_bio}
-                placeholder='Brief Statement'
-                type='mini_bio'
-                name='mini_bio'
+                placeholder="Brief Statement"
+                type="mini_bio"
+                name="mini_bio"
                 required
               />
             </View>
@@ -111,9 +111,9 @@ const AccountScreen = props => {
                   handleChange({ ...values, about_us: text })
                 }
                 value={values.about_us}
-                placeholder='Your Mission'
-                type='about_us'
-                name='about_us'
+                placeholder="Your Mission"
+                type="about_us"
+                name="about_us"
                 required
               />
             </View>
@@ -130,9 +130,9 @@ const AccountScreen = props => {
                   handleChange({ ...values, species_and_habitats: text })
                 }
                 value={values.species_and_habitats}
-                placeholder='Add Species and Habitats'
-                type='species_and_habitats'
-                name='species_and_habitats'
+                placeholder="Add Species and Habitats"
+                type="species_and_habitats"
+                name="species_and_habitats"
                 required
               />
             </View>
@@ -146,9 +146,9 @@ const AccountScreen = props => {
                 onChangeText={text =>
                   handleChange({ ...values, facebook: text })
                 }
-                placeholder='Enter URL'
-                type='url'
-                name='facebook'
+                placeholder="Enter URL"
+                type="url"
+                name="facebook"
                 value={values.facebook}
               />
             </View>
@@ -159,10 +159,10 @@ const AccountScreen = props => {
                 onChangeText={text =>
                   handleChange({ ...values, instagram: text })
                 }
-                placeholder='Enter URL'
+                placeholder="Enter URL"
                 value={values.instagram}
-                type='url'
-                name='instagram'
+                type="url"
+                name="instagram"
               />
             </View>
             <View style={styles.inputBlockSm}>
@@ -172,10 +172,10 @@ const AccountScreen = props => {
                 onChangeText={text =>
                   handleChange({ ...values, twitter: text })
                 }
-                placeholder='Enter URL'
+                placeholder="Enter URL"
                 value={values.twitter}
-                type='url'
-                name='twitter'
+                type="url"
+                name="twitter"
               />
             </View>
             <View style={styles.inputBlockSm}>
@@ -185,17 +185,17 @@ const AccountScreen = props => {
               <TextInput
                 style={styles.textAreaSm}
                 onChangeText={text =>
-                  handleChange({ ...values, call_to_action: text })
+                  handleChange({ ...values, org_cta: text })
                 }
-                placeholder='Enter URL'
-                type='url'
-                name='call_to_action'
-                value={values.call_to_action}
+                placeholder="Enter URL"
+                type="url"
+                name="org_cta"
+                value={values.org_cta}
               />
             </View>
             <View style={styles.buttons}>
               <NavigateButton
-                label='Next'
+                label="Next"
                 onButtonPress={() => {
                   handleSubmit();
                 }}

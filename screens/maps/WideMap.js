@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import MapView, { Marker, Callout } from 'react-native-maps';
-//import { MapView, Marker, Callout } from 'expo';
-import { StyleSheet, View, Image, Dimensions, Text } from 'react-native';
+import { View, Image, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { getOrganizations } from '../../store/actions';
+
+import styles from '../../constants/Map/WideMap';
 
 const WideMap = ({ getOrganizations, coords, navigation }) => {
   useEffect(() => {
@@ -28,8 +29,8 @@ const WideMap = ({ getOrganizations, coords, navigation }) => {
         {coords.map(coordinate => {
           return (
             <Marker
-              key={coordinate.user_id}
-              pinColor='#00FF9D'
+              key={coordinate.users_id}
+              pinColor="#00FF9D"
               coordinate={{
                 latitude: coordinate.latitude,
                 longitude: coordinate.longitude
@@ -43,7 +44,7 @@ const WideMap = ({ getOrganizations, coords, navigation }) => {
                 style={styles.markerImg}
               />
               <Callout
-                onPress={() => goToProfile(coordinate.user_id)}
+                onPress={() => goToProfile(coordinate.users_id)}
                 style={styles.markerCallout}
               >
                 <Text style={styles.calloutOrgName}>{coordinate.name}</Text>
@@ -55,42 +56,12 @@ const WideMap = ({ getOrganizations, coords, navigation }) => {
     </View>
   );
 };
-const styles = StyleSheet.create({
-  mapStyle: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height
-  },
-  markerImg: {
-    height: 40,
-    width: 40,
-    borderRadius: 20,
-    borderWidth: 3,
-    borderColor: '#00FF9D',
-    padding: 3
-  },
-  markerCallout: {
-    width: 120
-  },
-  calloutOrgName: {
-    fontWeight: 'bold',
-    textAlign: 'center'
-  },
-  calloutButton: {
-    backgroundColor: '#00FF9D',
-    marginTop: 5,
-    borderRadius: 3,
-    paddingTop: 2,
-    paddingBottom: 2
-  },
-  calloutButtonText: {
-    textAlign: 'center'
-  }
-});
+
 const mapPropsToState = state => {
   const coords = state.filteredOrganization
     .map(org => {
       return {
-        user_id: org.user_id,
+        users_id: org.users_id,
         latitude: org.latitude,
         longitude: org.longitude,
         name: org.name,

@@ -35,7 +35,7 @@ const ReviewYourInfoScreen = props => {
     conservation_optimism: null,
     smartphone_access: null,
     smartphone_type: '',
-    link_url: '',
+    org_link_url: '',
     twitter: '',
     facebook: '',
     instagram: '',
@@ -47,7 +47,7 @@ const ReviewYourInfoScreen = props => {
     email: '',
     about_us: '',
     species_and_habitats: '',
-    call_to_action: '',
+    org_cta: '',
     mini_bio: '',
     profile_image: ''
   });
@@ -90,8 +90,8 @@ const ReviewYourInfoScreen = props => {
             multiple_projects: state.multiple_projects,
             smartphone_access: state.smartphone_access,
             smartphone_type: state.smartphone_type,
-            name: state.name,
-            website: state.link_url,
+            org_name: state.name,
+            website: state.org_link_url,
             phone: state.phone_number,
             address: state.location,
             country: state.country,
@@ -127,14 +127,14 @@ const ReviewYourInfoScreen = props => {
             onButtonPress={() => {
               props.navigation.navigate('VerifyDocumentation');
             }}
-            color='#000'
+            color="#000"
           />
         </View>
         <View style={styles.progressBar}>
           <ProgressBar
             progress={100}
             height={9}
-            backgroundColor='#D7FF44'
+            backgroundColor="#D7FF44"
             animated={false}
           />
           <Text style={styles.progressBarText}>100% Complete!</Text>
@@ -142,7 +142,7 @@ const ReviewYourInfoScreen = props => {
       </View>
       <KeyboardAvoidingView
         style={styles.keyboardView}
-        behavior='padding'
+        behavior="padding"
         enabled
       >
         <ScrollView style={styles.obBody}>
@@ -163,13 +163,13 @@ const ReviewYourInfoScreen = props => {
                   style={styles.editIcons}
                   onPress={() => setIsEditingBasicInfo(!isEditingBasicInfo)}
                 >
-                  <EditPencil width='23' height='23' />
+                  <EditPencil width="23" height="23" />
                 </TouchableOpacity>
               </View>
 
               <View style={styles.basicInfoRow}>
                 <Text style={styles.basicInfoRowTitle}>Name</Text>
-                <Text style={styles.obFieldName}>{state.name}</Text>
+                <Text style={styles.obFieldName}>{state.org_name}</Text>
               </View>
 
               <View style={styles.basicInfoRow}>
@@ -184,7 +184,7 @@ const ReviewYourInfoScreen = props => {
 
               <View style={styles.basicInfoRow}>
                 <Text style={styles.basicInfoRowTitle}>Website</Text>
-                <Text style={styles.obFieldName}>{state.link_url}</Text>
+                <Text style={styles.obFieldName}>{state.org_link_url}</Text>
               </View>
 
               <View style={styles.basicInfoRow}>
@@ -209,7 +209,7 @@ const ReviewYourInfoScreen = props => {
 
               <View style={styles.basicInfoRow}>
                 <Text style={styles.basicInfoRowTitle}>Donation Link</Text>
-                <Text style={styles.obFieldName}>{state.call_to_action}</Text>
+                <Text style={styles.obFieldName}>{state.org_cta}</Text>
               </View>
             </View>
           ) : (
@@ -256,9 +256,7 @@ const ReviewYourInfoScreen = props => {
                 <TextInput
                   style={[styles.obFieldName, styles.grayBackground]}
                   value={state.link_url}
-                  onChangeText={text =>
-                    setState({ ...state, link_url: text })
-                  }
+                  onChangeText={text => setState({ ...state, link_url: text })}
                 />
               </View>
               <View style={styles.basicInfoRow}>
@@ -304,7 +302,9 @@ const ReviewYourInfoScreen = props => {
                 <TextInput
                   style={[styles.obFieldName, styles.grayBackground]}
                   value={state.call_to_action}
-                  onChangeText={text => setState({ ...state, call_to_action: text })}
+                  onChangeText={text =>
+                    setState({ ...state, call_to_action: text })
+                  }
                 />
               </View>
             </View>
@@ -320,7 +320,7 @@ const ReviewYourInfoScreen = props => {
                   style={styles.editIcons}
                   onPress={() => setIsEditingOrgDetails(!isEditingOrgDetails)}
                 >
-                  <EditPencil width='23' height='23' />
+                  <EditPencil width="23" height="23" />
                 </TouchableOpacity>
               </View>
 
@@ -503,7 +503,7 @@ const ReviewYourInfoScreen = props => {
                     setIsEditingActivityQuest(!isEditingActivityQuest)
                   }
                 >
-                  <EditPencil width='23' height='23' />
+                  <EditPencil width="23" height="23" />
                 </TouchableOpacity>
               </View>
               <View>
@@ -593,7 +593,7 @@ const ReviewYourInfoScreen = props => {
             <View style={styles.UploadMediaButton}>
               <UploadMedia
                 circular
-                title='Change logo'
+                title="Change logo"
                 media={state.profile_image}
                 onChangeMedia={media => setState({ profile_image: media })}
               />
@@ -602,7 +602,7 @@ const ReviewYourInfoScreen = props => {
 
           <View style={styles.buttons}>
             <NavigateButton
-              label='Submit'
+              label="Submit"
               onButtonPress={async () => {
                 if (
                   state.name === undefined ||
