@@ -11,11 +11,11 @@ import { editProfileData, logout } from '../store/actions';
 import { AmpEvent } from '../components/withAmplitude';
 import LocationIQ from 'react-native-locationiq';
 
-import styles from '../constants/screens/EditProfileScreen';
+import styles from '../constants/screens/EditProScreen';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-class EditProfileScreen extends React.Component {
+class EditProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Edit Profile',
@@ -33,20 +33,20 @@ class EditProfileScreen extends React.Component {
   };
 
   state = {
-    name: this.props.currentUserProfile.name,
+    org_name: this.props.currentUserProfile.name,
     profile_image: this.props.currentUserProfile.profile_image,
     location: this.props.currentUserProfile.location,
     mini_bio: this.props.currentUserProfile.mini_bio,
     email: this.props.currentUserProfile.email,
-    link_url: this.props.currentUserProfile.link_url,
-    link_text: this.props.currentUserProfile.link_text,
+    org_link_url: this.props.currentUserProfile.org_link_url,
+    org_link_text: this.props.currentUserProfile.org_link_text,
     facebook: this.props.currentUserProfile.facebook,
     instagram: this.props.currentUserProfile.instagram,
     twitter: this.props.currentUserProfile.twitter,
     about_us: this.props.currentUserProfile.about_us,
     species_and_habitats: this.props.currentUserProfile.species_and_habitats,
     phone_number: this.props.currentUserProfile.phone_number,
-    call_to_action: this.props.currentUserProfile.call_to_action,
+    org_cta: this.props.currentUserProfile.org_cta,
     longitude: this.props.currentUserProfile.longitude,
     latitude: this.props.currentUserProfile.latitude
   };
@@ -65,14 +65,14 @@ class EditProfileScreen extends React.Component {
     const parseBE = JSON.parse(state);
     parseBE
       ? this.setState({
-          name: parseBE.name,
+          org_name: parseBE.org_name,
           phone_number: parseBE.phone,
           mini_bio: parseBE.mini_bio,
           about_us: parseBE.about_us,
           facebook: parseBE.facebook,
           instagram: parseBE.instagram,
           twitter: parseBE.twitter,
-          link_url: parseBE.website,
+          org_link_url: parseBE.website,
           location: parseBE.address + ', ' + parseBE.country
         })
       : null;
@@ -131,16 +131,16 @@ class EditProfileScreen extends React.Component {
                 ref={input => {
                   this.nameInput = input;
                 }}
-                returnKeyType='next'
+                returnKeyType="next"
                 style={styles.inputContain}
-                onChangeText={text => this.setState({ name: text })}
+                onChangeText={text => this.setState({ org_name: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
                   this.locationInput.focus();
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.name}
-                placeholder='Carribbean Sea Turtle Project'
+                value={this.state.org_name}
+                placeholder="Carribbean Sea Turtle Project"
               />
             </View>
             <View style={styles.sections}>
@@ -149,7 +149,7 @@ class EditProfileScreen extends React.Component {
                 ref={input => {
                   this.locationInput = input;
                 }}
-                returnKeyType='next'
+                returnKeyType="next"
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ location: text })}
                 onSubmitEditing={() => {
@@ -158,7 +158,7 @@ class EditProfileScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.location}
-                placeholder='St. George’s, Grenada'
+                placeholder="St. George’s, Grenada"
               />
             </View>
 
@@ -168,12 +168,12 @@ class EditProfileScreen extends React.Component {
                 ref={input => {
                   this.mini_bioInput = input;
                 }}
-                returnKeyType='next'
+                returnKeyType="next"
                 style={styles.inputContain2}
                 onChangeText={text => this.setState({ mini_bio: text })}
                 multiline={true}
                 value={this.state.mini_bio}
-                placeholder='We have been working to conserve the sea turtles that visit our shores and surrounding ocean for the past 30 years.'
+                placeholder="We have been working to conserve the sea turtles that visit our shores and surrounding ocean for the past 30 years."
               />
             </View>
 
@@ -183,9 +183,9 @@ class EditProfileScreen extends React.Component {
                 ref={input => {
                   this.emailInput = input;
                 }}
-                returnKeyType='next'
-                placeholder='Email'
-                keyboardType='email-address'
+                returnKeyType="next"
+                placeholder="Email"
+                keyboardType="email-address"
                 style={styles.inputContain}
                 onChangeText={text => this.setState({ email: text })}
                 onSubmitEditing={() => {
@@ -194,7 +194,7 @@ class EditProfileScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.email}
-                placeholder='hello@carribbeanseaturtle.org'
+                placeholder="hello@carribbeanseaturtle.org"
               />
             </View>
             <View style={styles.sections}>
@@ -203,12 +203,12 @@ class EditProfileScreen extends React.Component {
                 ref={input => {
                   this.about_usInput = input;
                 }}
-                returnKeyType='next'
+                returnKeyType="next"
                 style={styles.inputContain2}
                 onChangeText={text => this.setState({ about_us: text })}
                 multiline={true}
                 value={this.state.about_us}
-                placeholder='The Caribbean Sea Turtle Project is based in St. George, Grenada but we work all over the island. We have been working to conserve sea turtles that visit our shores... '
+                placeholder="The Caribbean Sea Turtle Project is based in St. George, Grenada but we work all over the island. We have been working to conserve sea turtles that visit our shores... "
               />
             </View>
             <View style={styles.sections}>
@@ -218,9 +218,11 @@ class EditProfileScreen extends React.Component {
                   media={this.state.profile_image}
                   size={128}
                   circular
-                  title='Upload a logo'
+                  title="Upload a logo"
                   removable
-                  onChangeMedia={media => this.setState({ profile_image: media })}
+                  onChangeMedia={media =>
+                    this.setState({ profile_image: media })
+                  }
                 />
               </View>
             </View>
@@ -234,18 +236,19 @@ class EditProfileScreen extends React.Component {
                 ref={input => {
                   this.link_urlInput = input;
                 }}
-                returnKeyType='next'
-                keyboardType='default'
+                returnKeyType="next"
+                keyboardType="default"
                 style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='Please include full URL'
-                onChangeText={text => this.setState({ link_url: text })}
+                autoCapitalize="none"
+                placeholder="Please include full URL"
+                onChangeText={text => this.setState({ org_link_url: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
                   this.orgLinkTextInput.focus();
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.link_url}
+                value={this.state.org_link_url}
+                placeholder="https://www.carribbbeanseaturtle.org"}
               />
             </View>
 
@@ -255,16 +258,16 @@ class EditProfileScreen extends React.Component {
                 ref={input => {
                   this.orgLinkTextInput = input;
                 }}
-                returnKeyType='next'
-                placeholder='How you wish your website to appear'
+                returnKeyType="next"
+                placeholder="How you wish your website to appear"
                 style={styles.inputContain}
-                onChangeText={text => this.setState({ link_text: text })}
+                onChangeText={text => this.setState({ org_link_text: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
                   this.orgCtaInput.focus();
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.link_text}
+                value={this.state.org_link_text}
               />
             </View>
 
@@ -272,21 +275,21 @@ class EditProfileScreen extends React.Component {
               <Text style={styles.sectionsText}>Donation Link</Text>
               <TextInput
                 ref={input => {
-                  this.callToActionInput = input;
+                  this.org_ctaInput = input;
                 }}
-                returnKeyType='next'
-                keyboardType='default'
+                returnKeyType="next"
+                keyboardType="default"
                 style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='Please include full URL'
-                onChangeText={text => this.setState({ call_to_action: text })}
+                autoCapitalize="none"
+                placeholder="Please include full URL"
+                onChangeText={text => this.setState({ org_cta: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
                   this.facebookInput.focus();
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
-                value={this.state.call_to_action}
-                placeholder='https://www.carribbbeanseaturtle.org/donate'
+                value={this.state.org_cta}
+                placeholder="https://www.carribbbeanseaturtle.org/donate"
               />
             </View>
 
@@ -296,11 +299,11 @@ class EditProfileScreen extends React.Component {
                 ref={input => {
                   this.phoneInput = input;
                 }}
-                returnKeyType='next'
-                keyboardType='default'
+                returnKeyType="next"
+                keyboardType="default"
                 style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='Please include full URL'
+                autoCapitalize="none"
+                placeholder="Please include full URL"
                 onChangeText={text => this.setState({ phone_number: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
@@ -308,7 +311,7 @@ class EditProfileScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.phone_number}
-                placeholder='9998884747'
+                placeholder="9998884747"
               />
             </View>
           </View>
@@ -320,11 +323,11 @@ class EditProfileScreen extends React.Component {
                 ref={input => {
                   this.facebookInput = input;
                 }}
-                returnKeyType='next'
-                keyboardType='default'
+                returnKeyType="next"
+                keyboardType="default"
                 style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='Please include full URL'
+                autoCapitalize="none"
+                placeholder="Please include full URL"
                 onChangeText={text => this.setState({ facebook: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
@@ -332,7 +335,7 @@ class EditProfileScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.facebook}
-                placeholder='www.facebook.com/CSTP'
+                placeholder="www.facebook.com/CSTP"
               />
             </View>
 
@@ -342,11 +345,11 @@ class EditProfileScreen extends React.Component {
                 ref={input => {
                   this.instagramInput = input;
                 }}
-                returnKeyType='next'
-                keyboardType='default'
+                returnKeyType="next"
+                keyboardType="default"
                 style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='Please include full URL'
+                autoCapitalize="none"
+                placeholder="Please include full URL"
                 onChangeText={text => this.setState({ instagram: text })}
                 onSubmitEditing={() => {
                   if (Platform.OS === 'android') return;
@@ -354,7 +357,7 @@ class EditProfileScreen extends React.Component {
                 }}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.instagram}
-                placeholder='www.instagram.com/CSTP'
+                placeholder="www.instagram.com/CSTP"
               />
             </View>
 
@@ -364,15 +367,15 @@ class EditProfileScreen extends React.Component {
                 ref={input => {
                   this.twitterInput = input;
                 }}
-                returnKeyType='done'
-                keyboardType='default'
+                returnKeyType="done"
+                keyboardType="default"
                 style={styles.inputContain}
-                autoCapitalize='none'
-                placeholder='Please include full URL'
+                autoCapitalize="none"
+                placeholder="Please include full URL"
                 onChangeText={text => this.setState({ twitter: text })}
                 blurOnSubmit={Platform.OS === 'android'}
                 value={this.state.twitter}
-                placeholder='www.twitter.com/CSTP'
+                placeholder="www.twitter.com/CSTP"
               />
             </View>
           </View>
@@ -383,10 +386,10 @@ class EditProfileScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  currentUserProfile: state.currentUserProfile,
+  currentUserProfile: state.currentUserProfile
 });
 
 export default connect(mapStateToProps, {
   editProfileData,
-  logout,
-})(EditProfileScreen);
+  logout
+})(EditProScreen);

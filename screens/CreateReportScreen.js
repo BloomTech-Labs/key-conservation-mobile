@@ -44,7 +44,7 @@ class CreateReportScreen extends Component {
       image: null,
       text_data: null,
       name: null,
-      description: null,
+      report_desc: null,
       reporting: false
     };
 
@@ -75,7 +75,7 @@ class CreateReportScreen extends Component {
         const {
           profile_image: image,
           name,
-          description: text_data
+          camp_desc: text_data
         } = this.props.selectedCampaign;
         this.setState({
           image,
@@ -102,10 +102,10 @@ class CreateReportScreen extends Component {
       case 'comments': {
         const {
           profile_image: image,
-          body: text_data,
+          comment_body: text_data,
           name
         } = this.props.selectedCampaign.comments.find(
-          com => com.id === this.props.navigation.getParam('id')
+          com => com.comment_id === this.props.navigation.getParam('id')
         );
         this.setState({
           image,
@@ -122,7 +122,7 @@ class CreateReportScreen extends Component {
     this.setState({ reporting: true });
     // Send the report here
     this.props
-      .createReport(this.type, this.id, this.state.description)
+      .createReport(this.type, this.id, this.state.report_desc)
       .then(err => {
         if (!err) {
           Alert.alert(
@@ -146,7 +146,7 @@ class CreateReportScreen extends Component {
     // component as a wrapping element.
     const PickerWrapper = Platform.select({
       ios: props => (
-        <Collapsible title={this.state.description} collapsed={true}>
+        <Collapsible title={this.state.report_desc} collapsed={true}>
           {props.children}
         </Collapsible>
       ),
@@ -176,9 +176,9 @@ class CreateReportScreen extends Component {
           <View style={styles.picker_container}>
             <PickerWrapper>
               <Picker
-                selectedValue={this.state.description}
+                selectedValue={this.state.report_desc}
                 onValueChange={(itemValue, itemIndex) =>
-                  this.setState({ description: itemValue })
+                  this.setState({ report_desc: itemValue })
                 }
               >
                 {this.REPORT_REASONS.map((reason, index) => (
@@ -189,9 +189,9 @@ class CreateReportScreen extends Component {
           </View>
           <TouchableOpacity
             onPress={this.submitReport}
-            disabled={!this.state.description}
+            disabled={!this.state.report_desc}
             style={
-              !this.state.description
+              !this.state.report_desc
                 ? {
                     ...styles.report_button,
                     backgroundColor: 'gray',
