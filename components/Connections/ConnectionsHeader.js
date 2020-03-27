@@ -9,7 +9,6 @@ import {
 } from '../../store/actions';
 import styles from '../../constants/Profile/ProfileHeader';
 
-
 const Connect = props => {
   const [connections, setConnections] = useState([]);
 
@@ -24,8 +23,7 @@ const Connect = props => {
   };
 
   useEffect(() => {
-    if (props.profileId)
-    getConnections();
+    if (props.profileId) getConnections();
   }, [props.profileId]);
 
   const connectRequest = () => {
@@ -46,14 +44,12 @@ const Connect = props => {
 
   const disconnect = () => {
     setConnections(
-      connections.filter?.(c => c.id !== myConnection.id)
+      connections.filter?.(c => c.connection_id !== myConnection.connection_id)
     );
-    props
-      .deleteConnection(myConnection.id, props.profileId)
-      .then(error => {
-        if (error) Alert.alert('Failed to remove connection');
-        getConnections();
-      });
+    props.deleteConnection(myConnection.connection_id, props.profileId)
+      if (error) Alert.alert('Failed to remove connection');
+      getConnections();
+    });
   };
 
   const promptDelete = () => {
@@ -101,10 +97,7 @@ const Connect = props => {
         style={styles.connectText}
         onPress={() => {
           props.profileId !== props.currentUserProfile.id
-            ? props.navigation.push(
-                'SelectedConnections',
-                (props = { props })
-              )
+            ? props.navigation.push('SelectedConnections', (props = { props }))
             : props.navigation.push('Connections', (props = { props }));
         }}
       >
@@ -129,7 +122,7 @@ const Connect = props => {
             }}
           >
             <Button
-              color='black'
+              color="black"
               title={buttonTitle}
               onPress={() => {
                 return isConnected
