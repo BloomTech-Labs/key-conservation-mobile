@@ -83,17 +83,17 @@ export default {
     fontFamily: 'Lato-Bold',
     fontSize: 18
   },
-  campaignDescription: {
+  campDesc: {
     marginLeft: 15,
     marginRight: 15,
     marginBottom: 15
   },
-  campaignDescriptionName: {
+  campDescName: {
     fontFamily: 'Lato-Bold',
     fontSize: 17,
     paddingBottom: 10
   },
-  campaignDescriptionText: {
+  campDescText: {
     fontFamily: 'Lato',
     fontSize: 16,
     lineHeight: 19

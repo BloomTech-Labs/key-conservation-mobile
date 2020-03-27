@@ -46,9 +46,9 @@ export default StyleSheet.create({
     flexWrap: 'nowrap',
     fontSize: 17,
     fontFamily: 'Lato',
-    color: '#3B3B3B',
+    color: '#3B3B3B'
   },
-  campaignMission: {
+  campMission: {
     backgroundColor: '#fff',
     padding: 25,
     borderRadius: 5,
