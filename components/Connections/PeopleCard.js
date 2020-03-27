@@ -32,10 +32,10 @@ const People = props => {
   const disconnect = () => {
     setConnections(
       connections.filter(
-        c => c.id !== myPendingConnection.id
+        c => c.connection_id !== myPendingConnection.connection_id
       )
     );
-    props.deleteConnection(myPendingConnection.id).then(error => {
+    props.deleteConnection(myPendingConnection.connection_id).then(error => {
       if (error) Alert.alert('Failed to Decline Connection');
       getConnections();
     });
@@ -59,11 +59,11 @@ const People = props => {
   const approveRequest = () => {
     setConnections(
       connections.filter(
-        c => c.id !== myPendingConnection.id
+        c => c.connection_id !== myPendingConnection.connection_id
       )
     );
     props
-      .editConnectStatus(myPendingConnection.id, {
+      .editConnectStatus(myPendingConnection.connection_id, {
         status: 'Connected'
       })
       .then(error => {
@@ -115,23 +115,23 @@ const People = props => {
             ) : (
               <View>
                 {currentUserPendingConnections?.map(connection => (
-                  <View style={styles.card} key={connection.id}>
+                  <View style={styles.card} key={connection.connection_id}>
                     <View
                       style={styles.peopleCardContainer}
-                      key={connection.id}
+                      key={connection.connection_id}
                     >
                       <View
                         style={styles.userInfo}
-                        key={connection.id}
+                        key={connection.connection_id}
                       >
                         <View
                           style={styles.imageContainer}
-                          key={connection.id}
+                          key={connection.connection_id}
                         >
                           <Avatar
                             size={48}
                             rounded
-                            key={connection.id}
+                            key={connection.connection_id}
                             source={{
                               uri:
                                 props.currentUserProfile.id ===
@@ -143,7 +143,7 @@ const People = props => {
                         </View>
                         <View>
                           <Text
-                            key={connection.id}
+                            key={connection.connection_id}
                             style={styles.name}
                           >
                             {connection.connector_name === null
@@ -176,23 +176,23 @@ const People = props => {
             ) : (
               <View>
                 {supCurrentUserConnections?.map(connection => (
-                  <View style={styles.card} key={connection.id}>
+                  <View style={styles.card} key={connection.connection_id}>
                     <View
                       style={styles.peopleCardContainer}
-                      key={connection.id}
+                      key={connection.connection_id}
                     >
                       <View
                         style={styles.userInfo}
-                        key={connection.id}
+                        key={connection.connection_id}
                       >
                         <View
                           style={styles.imageContainer}
-                          key={connection.id}
+                          key={connection.connection_id}
                         >
                           <Avatar
                             size={48}
                             rounded
-                            key={connection.id}
+                            key={connection.connection_id}
                             source={{
                               uri:
                                 props.currentUserProfile.id ===
@@ -215,7 +215,7 @@ const People = props => {
                           }}
                         >
                           <Text
-                            key={connection.id}
+                            key={connection.connection_id}
                             style={styles.name}
                           >
                             {connection.connector_name === null
@@ -241,19 +241,19 @@ const People = props => {
           ) : (
             <View>
               {orgCurrentUserConnections?.map(connection => (
-                <View style={styles.card} key={connection.id}>
+                <View style={styles.card} key={connection.connection_id}>
                   <View
                     style={styles.cardContainer}
-                    key={connection.id}
+                    key={connection.connection_id}
                   >
                     <View
                       style={styles.imageContainer}
-                      key={connection.id}
+                      key={connection.connection_id}
                     >
                       <Avatar
                         size={48}
                         rounded
-                        key={connection.id}
+                        key={connection.connection_id}
                         source={{
                           uri: connection.connector_avatar
                         }}
@@ -266,7 +266,7 @@ const People = props => {
                         })
                       }
                     >
-                      <Text key={connection.id} style={styles.name}>
+                      <Text key={connection.connection_id} style={styles.name}>
                         {connection.connector_name === null
                           ? '---'
                           : connection.connector_name}
