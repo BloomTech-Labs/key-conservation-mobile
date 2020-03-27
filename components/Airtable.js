@@ -21,7 +21,7 @@ const Airtable = props => {
       [
         {
           fields: {
-            name: props.name,
+            org_name: props.org_name,
             website: props.website,
             address: props.address,
             country: props.country,

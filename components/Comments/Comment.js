@@ -10,13 +10,13 @@ import Ellipse from '../../assets/jsicons/Ellipse';
 import CommentActionSheet from '../Reports/CommentActionSheet';
 import LoadingOverlay from '../LoadingOverlay';
 
-
 const Comment = props => {
-
   // This is so that the opacity of the comment will be
   // reduced when it is being deleting, or barely being posted
   // This is for a more streamlined user experience
-  const [loading, setLoading] = useState(props.comment.id ? '' : 'Posting...');
+  const [loading, setLoading] = useState(
+    props.comment.comment_id ? '' : 'Posting...'
+  );
 
   const actionSheetRef = useRef(null);
 
@@ -52,7 +52,7 @@ const Comment = props => {
 
   const goToCommenterProfile = () => {
     props.navigation.push('Pro', {
-      selectedProfile: props.comment.user_id
+      selectedProfile: props.comment.users_id
     });
   };
 
@@ -71,11 +71,11 @@ const Comment = props => {
       <View>
         <CommentActionSheet
           onDelete={(failed = false) => setLoading(failed ? '' : 'Deleting...')}
-          isMine={props.comment.user_id === props.currentUserProfile.id}
+          isMine={props.comment.users_id === props.currentUserProfile.id}
           admin={props.admin}
-          commentId={props.comment.id}
+          commentId={props.comment.comment_id}
           ref={actionSheetRef}
-          campaign={props.selectedCampaign}
+          camp={props.selectedCampaign}
         />
         <View style={styles.commentView}>
           <View style={styles.avatar}>
@@ -83,7 +83,7 @@ const Comment = props => {
               onPress={goToCommenterProfile}
               rounded
               containerStyle={
-                props.comment.user_id === props.selectedCampaign.user_id && {
+                props.comment.users_id === props.selectedCampaign.users_id && {
                   borderWidth: 1,
                   borderColor: '#00FF9D'
                 }
@@ -95,13 +95,13 @@ const Comment = props => {
           </View>
           <View style={styles.commentBody}>
             <Text style={styles.name}>{props.comment.name}</Text>
-            <Text>{props.comment.body}</Text>
+            <Text>{props.comment.comment_body}</Text>
           </View>
           <TouchableOpacity
             onPress={showActionSheet}
             style={styles.commentOptions}
           >
-            <Ellipse fill='#000' />
+            <Ellipse fill="#000" />
           </TouchableOpacity>
         </View>
         <View style={styles.interaction}>
