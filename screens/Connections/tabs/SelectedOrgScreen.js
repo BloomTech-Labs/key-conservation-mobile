@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
-import SelectedOrganizationsCard from '../../../components/Connections/SelectedOrganizationCard';
+import SelectedOrganizationsCard from '../../../components/Connections/SelectedOrgCard';
 
 const SelectedOrganizationsScreen = () => {
   return (

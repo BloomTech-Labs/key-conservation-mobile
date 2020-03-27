@@ -42,9 +42,9 @@ class AccountSettingsScreen extends React.Component {
 
   done = () => {
     if (this.state.roles === 'conservationist') {
-      this.props.navigation.navigate('MyProfile');
+      this.props.navigation.navigate('MyPro');
     } else {
-      this.props.navigation.navigate('MySupporterProfile');
+      this.props.navigation.navigate('MySupPro');
     }
   };
   viewReports = () => {
@@ -59,7 +59,6 @@ class AccountSettingsScreen extends React.Component {
     await SecureStorage.deleteItemAsync('accessToken', {});
     // await SecureStorage.deleteItemAsync("airtableKey", {}); // for development
     this.props.logout();
-
   };
 
   render() {

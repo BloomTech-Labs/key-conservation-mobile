@@ -25,11 +25,11 @@ PROPS FROM FEEDCAMPAIGN Object {
     "name": "RashaMoumneh",
   },
   "data": Object {
-    "call_to_action": "https://www.dionation.com",
-    "description": "Test campaign to see if I can access my own location and details from the feed.",
-    "id": 68,
-    "image": "https://keycontest.s3.amazonaws.com/files/1579885446564_photo.jpg",
-    "name": "Test campaign",
+    "camp_cta": "https://www.dionation.com",
+    "camp_desc": "Test campaign to see if I can access my own location and details from the feed.",
+    "camp_id": 68,
+    "camp_img": "https://keycontest.s3.amazonaws.com/files/1579885446564_photo.jpg",
+    "camp_name": "Test campaign",
     "comments": Array [],
     "created_at": "2020-01-24T17:04:09.164Z",
     "likes": Array [],
@@ -112,11 +112,11 @@ PROPS FROM FEEDCAMPAIGN Object {
     "name": "RashaMoumneh",
   },
   "data": Object {
-    "call_to_action": "https://www.keyconservation.org/donate",
-    "description": "We just got a call about a sea turtle nest that was laid too close to the sea and is now being washed away by the incoming tide. We need to relocate the nest to a safer area so we don’t lose the eggs! We need your help to fill our gas tank with more fuel so we can make across the island in time.",
-    "id": 16,
-    "image": "https://keycontest.s3.amazonaws.com/files/1567382674671_photo.jpg",
-    "name": "Sea turtle nest being washed away",
+    "camp_cta": "https://www.keyconservation.org/donate",
+    "camp_desc": "We just got a call about a sea turtle nest that was laid too close to the sea and is now being washed away by the incoming tide. We need to relocate the nest to a safer area so we don’t lose the eggs! We need your help to fill our gas tank with more fuel so we can make across the island in time.",
+    "camp_id": 16,
+    "camp_img": "https://keycontest.s3.amazonaws.com/files/1567382674671_photo.jpg",
+    "camp_name": "Sea turtle nest being washed away",
     "comments": Array [
       Object {
         "camp_id": 16,

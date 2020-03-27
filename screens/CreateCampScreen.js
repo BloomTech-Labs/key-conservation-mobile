@@ -19,12 +19,12 @@ import BackButton from '../components/BackButton';
 import { AmpEvent } from '../components/withAmplitude';
 import UploadMedia from '../components/UploadMedia';
 
-import styles from '../constants/screens/CreateCampaignScreen';
+import styles from '../constants/screens/CreateCampScreen';
 import CheckMark from '../assets/icons/checkmark-24.png';
 
 import Lightening from '../assets/jsicons/bottomnavigation/Lightening';
 
-class CreateCampaignScreen extends React.Component {
+class CreateCampScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'CREATE A CAMPAIGN',
@@ -35,8 +35,8 @@ class CreateCampaignScreen extends React.Component {
       headerLeft: () => (
         <BackButton
           navigation={navigation}
-          content='Cancel'
-          confirm='Are you sure you want to cancel? Any progress will be lost'
+          content="Cancel"
+          confirm="Are you sure you want to cancel? Any progress will be lost"
         />
       ),
       gestureEnabled: false
@@ -69,10 +69,10 @@ class CreateCampaignScreen extends React.Component {
 
   state = {
     image: '',
-    user_id: this.props.currentUserProfile.id,
-    name: '',
-    description: '',
-    call_to_action: '',
+    users_id: this.props.currentUserProfile.id,
+    camp_name: '',
+    camp_desc: '',
+    camp_cta: '',
     urgency: null,
     loading: false
   };
@@ -96,31 +96,31 @@ class CreateCampaignScreen extends React.Component {
     });
     if (
       !this.state.image ||
-      !this.state.name ||
-      !this.state.description ||
-      !this.state.call_to_action
+      !this.state.camp_name ||
+      !this.state.camp_desc ||
+      !this.state.camp_cta
     ) {
       const errorMessage =
         'Form incomplete. Please include:' +
         (this.state.image ? '' : '\n    - Campaign Image') +
-        (this.state.name ? '' : '\n    - Campaign Name') +
-        (this.state.description ? '' : '\n    - Campaign Details') +
-        (this.state.call_to_action ? '' : '\n    - Donation Link');
+        (this.state.camp_name ? '' : '\n    - Campaign Name') +
+        (this.state.camp_desc ? '' : '\n    - Campaign Details') +
+        (this.state.camp_cta ? '' : '\n    - Donation Link');
       this.setState({
         loading: false
       });
       return Alert.alert('Error', errorMessage);
     } else {
-      const campaign = {
-        user_id: this.props.currentUserProfile.id,
-        name: this.state.name,
-        description: this.state.description,
-        call_to_action: this.state.call_to_action,
+      const camp = {
+        users_id: this.props.currentUserProfile.id,
+        camp_name: this.state.camp_name,
+        camp_desc: this.state.camp_desc,
+        camp_cta: this.state.camp_cta,
         urgency: this.state.urgency,
-        image: this.state.image
+        camp_img: this.state.image
       };
       this.props
-        .postCampaign(campaign)
+        .postCampaign(camp)
         .then(async res => {
           AmpEvent('Campaign Created');
           await this.setState({
@@ -140,11 +140,11 @@ class CreateCampaignScreen extends React.Component {
   clearState = () => {
     this.setState({
       loading: false,
-      user_id: this.props.currentUserProfile.id,
-      image: '',
-      name: '',
-      description: '',
-      call_to_action: '',
+      users_id: this.props.currentUserProfile.id,
+      camp_img: '',
+      camp_name: '',
+      camp_desc: '',
+      camp_cta: '',
       urgency: null
     });
   };
@@ -153,7 +153,7 @@ class CreateCampaignScreen extends React.Component {
     if (this.state.loading === true) {
       return (
         <View style={styles.indicator}>
-          <ActivityIndicator size='large' color='#00FF9D' />
+          <ActivityIndicator size="large" color="#00FF9D" />
         </View>
       );
     }
@@ -163,22 +163,22 @@ class CreateCampaignScreen extends React.Component {
         <View style={styles.sectionContainer}>
           <View style={styles.horizontalContainer}>
             <View style={styles.iconContainer}>
-              <Lightening fill='#00FF9D' />
+              <Lightening fill="#00FF9D" />
             </View>
             <TextInput
               ref={input => {
                 this.campaignNameInput = input;
               }}
-              returnKeyType='next'
-              placeholder='Name Campaign'
+              returnKeyType="next"
+              placeholder="Name Campaign"
               style={styles.inputContain}
-              onChangeText={text => this.setState({ name: text })}
+              onChangeText={text => this.setState({ camp_name: text })}
               onSubmitEditing={() => {
                 if (Platform.OS === 'android') return;
                 this.campImgUrlInput.focus();
               }}
               blurOnSubmit={Platform.OS === 'android'}
-              value={this.state.name}
+              value={this.state.camp_name}
             />
           </View>
         </View>
@@ -187,21 +187,21 @@ class CreateCampaignScreen extends React.Component {
           <View style={styles.horizontalContainer}>
             <View style={styles.iconContainer}>
               <UploadMedia
-                title='Upload campaign image'
+                title="Upload campaign image"
                 media={this.state.image}
                 onChangeMedia={media => this.setState({ image: media })}
               />
             </View>
             <TextInput
               ref={input => {
-                this.campaignDetailsInput = input;
+                this.campDetailsInput = input;
               }}
-              returnKeyType='next'
-              placeholder='Add campaign details and list of monetary needs.'
+              returnKeyType="next"
+              placeholder="Add campaign details and list of monetary needs."
               style={styles.inputContain2}
-              onChangeText={text => this.setState({ description: text })}
+              onChangeText={text => this.setState({ camp_desc: text })}
               multiline={true}
-              value={this.state.description}
+              value={this.state.camp_desc}
             />
           </View>
         </View>
@@ -211,14 +211,14 @@ class CreateCampaignScreen extends React.Component {
             ref={input => {
               this.donationLinkInput = input;
             }}
-            returnKeyType='next'
-            placeholder='https://www.carribbeanseaturtle.com/donate'
-            keyboardType='default'
-            placeholder='Please include full URL'
-            autoCapitalize='none'
+            returnKeyType="next"
+            placeholder="https://www.carribbeanseaturtle.com/donate"
+            keyboardType="default"
+            placeholder="Please include full URL"
+            autoCapitalize="none"
             style={styles.inputContain}
-            onChangeText={text => this.setState({ call_to_action: text })}
-            value={this.state.call_to_action}
+            onChangeText={text => this.setState({ camp_cta: text })}
+            value={this.state.camp_cta}
           />
         </View>
         <View style={styles.sectionContainer}>
@@ -275,6 +275,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  postCampaign,
-  getCampaigns
-})(CreateCampaignScreen);
+  postCampaign
+})(CreateCampScreen);
