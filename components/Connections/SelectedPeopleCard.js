@@ -44,20 +44,20 @@ const PeopleCard = props => {
         ) : (
           <View>
             {selectedUserConnections?.map(connection => (
-              <View style={styles.card} key={connection.id}>
+              <View style={styles.card} key={connection.connection_id}>
                 <View
                   style={styles.peopleCardContainer}
-                  key={connection.id}
+                  key={connection.connection_id}
                 >
-                  <View style={styles.userInfo} key={connection.id}>
+                  <View style={styles.userInfo} key={connection.connection_id}>
                     <View
                       style={styles.imageContainer}
-                      key={connection.id}
+                      key={connection.connection_id}
                     >
                       <Avatar
                         size={48}
                         rounded
-                        key={connection.id}
+                        key={connection.connection_id}
                         source={{
                           uri:
                             props.selectedProfile.id === connection.connector_id
@@ -67,17 +67,17 @@ const PeopleCard = props => {
                       />
                     </View>
                     <TouchableOpacity
-                    onPress={() => {
+                      onPress={() => {
                         props.selectedProfile.id === connection.connector_id
-                        ? props.navigation.push('Pro', {
-                            selectedProfile: connection.connected_id
-                          })
-                        : props.navigation.push('Pro', {
-                            selectedProfile: connection.connector_id
-                          })
-                    }}
-                  >
-                      <Text key={connection.id} style={styles.name}>
+                          ? props.navigation.push('Pro', {
+                              selectedProfile: connection.connected_id
+                            })
+                          : props.navigation.push('Pro', {
+                              selectedProfile: connection.connector_id
+                            });
+                      }}
+                    >
+                      <Text key={connection.connection_id} style={styles.name}>
                         {connection.connected_name === null
                           ? '---'
                           : props.selectedProfile.id === connection.connector_id
