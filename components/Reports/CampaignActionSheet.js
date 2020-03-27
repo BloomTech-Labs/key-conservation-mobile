@@ -5,7 +5,11 @@ import { goBack, navigate } from '../../navigation/RootNavigator';
 
 import { useDispatch } from 'react-redux';
 
-import { deleteCampaign, deleteCampaignUpdate, setCampaign } from '../../store/actions';
+import {
+  deleteCampaign,
+  deleteCampaignUpdate,
+  setCampaign
+} from '../../store/actions';
 import { Alert } from 'react-native';
 
 // Usage:
@@ -16,7 +20,7 @@ import { Alert } from 'react-native';
   <ActionSheet
     ref={o => this.ActionSheet = o}
     admin={boolean}
-    campaign={object}                   // The campaign data
+    camp={object}                   // The campaign data
     OPTIONAL: goBack={boolean}      // Do we need to navigate back?
   />
 ...
@@ -33,18 +37,18 @@ export default forwardRef((props, ref) => {
   const dispatch = useDispatch();
 
   const report = () => {
-    const id = props.campaign?.id || props.update?.id;
+    const id = props.camp?.camp_id || props.update?.update_id;
 
-    if(typeof id === 'undefined') {
+    if (typeof id === 'undefined') {
       console.warn(
-        'CampaignActionSheet: `campaign` or `update` property missing or invalid - action canceled'
+        'CampaignActionSheet: `camp` or `update` property missing or invalid - action canceled'
       );
       return;
     }
 
-    dispatch(setCampaign(props.campaign || props.update));
-    
-    const type = props.campaign ? 'campaigns' : 'campaign_updates';
+    dispatch(setCampaign(props.camp || props.update));
+
+    const type = props.camp ? 'campaigns' : 'campaign_updates';
 
     // Take the user to a report screen
     navigate('CreateReport', {
@@ -53,18 +57,18 @@ export default forwardRef((props, ref) => {
     });
   };
 
-  const deleteCampaignOrUpdate = () => {
-    const id = props.campaign?.id || props.update?.id;
-    if(typeof id === 'undefined') {
+  const deleteCamp = () => {
+    const id = props.camp?.camp_id || props.update?.update_id;
+    if (typeof id === 'undefined') {
       console.warn(
-        'CampaignActionSheet: `campaign` or `update` property missing or invalid - action canceled'
+        'CampaignActionSheet: `camp` or `update` property missing or invalid - action canceled'
       );
       return;
     }
 
     let del;
 
-    if (props.campaign) {
+    if (props.camp) {
       del = deleteCampaign;
     } else if (props.update) {
       del = deleteCampaignUpdate;
@@ -76,23 +80,23 @@ export default forwardRef((props, ref) => {
     });
   };
 
-  const editCampaign = () => {
-    navigate('EditCampaign', {
-      selectedCampaign: props.campaign
-    })
-  }
+  const editCamp = () => {
+    navigate('EditCamp', {
+      selectedCampaign: props.camp
+    });
+  };
 
   const editUpdate = () => {
-    navigate('EditCampaignUpdate', {
+    navigate('EditCampUpdate', {
       selectedCampaign: props.update
-    })
-  }
+    });
+  };
 
   const postUpdate = () => {
-    navigate('CreateCampaignUpdate', {
-      selectedCampaign: props.campaign || props.update
-    })
-  }
+    navigate('CreateCampUpdate', {
+      selectedCampaign: props.camp || props.update
+    });
+  };
 
   // Options for actions to take on a campaign differ
   // for admins and regular users, so we use this
@@ -104,14 +108,14 @@ export default forwardRef((props, ref) => {
         cancelIndex: 3,
         destructiveIndex: 0,
         onPress: index => {
-          switch(index) {
+          switch (index) {
             case 0: {
-              deleteCampaignOrUpdate();
+              deleteCamp();
               break;
             }
             case 1: {
-              if(props.campaign) {
-                editCampaign();
+              if (props.camp) {
+                editCamp();
               } else if (props.update) {
                 editUpdate();
               }
@@ -133,7 +137,7 @@ export default forwardRef((props, ref) => {
         onPress: index => {
           switch (index) {
             case 0: {
-              deleteCampaignOrUpdate();
+              deleteCamp();
               break;
             }
             case 1: {
