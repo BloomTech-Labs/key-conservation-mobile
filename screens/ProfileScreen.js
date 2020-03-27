@@ -32,7 +32,7 @@ class ProfileScreen extends React.Component {
       this.props.navigation.getParam('selectedProfile') ||
       this.props.currentUserProfile.id;
     this.props.navigation.setParams({
-      showProfileScreenActions: this.showActionSheet,
+      showProScreenActions: this.showActionSheet,
       currentProfile: this.props.currentUserProfile
     });
 
@@ -85,8 +85,8 @@ class ProfileScreen extends React.Component {
 
     const editRoute =
       selectedProfile?.roles || currentProfile?.roles === 'supporter'
-        ? 'EditSupporterProfile'
-        : 'EditProfile';
+        ? 'EditSupPro'
+        : 'EditPro';
 
     const headerRight = () => {
       if (!selectedProfile) {
@@ -101,9 +101,9 @@ class ProfileScreen extends React.Component {
               padding: 16,
               paddingRight: 24
             }}
-            onPress={navigation.getParam('showProfileScreenActions')}
+            onPress={navigation.getParam('showProScreenActions')}
           >
-            <Ellipse width='25' height='25' />
+            <Ellipse width="25" height="25" />
           </TouchableOpacity>
         );
       }
@@ -199,7 +199,7 @@ class ProfileScreen extends React.Component {
             {this.state.loading ? (
               <ActivityIndicator
                 style={{ margin: 'auto', flex: 1 }}
-                size='large'
+                size="large"
               />
             ) : (
               <ProfileBody

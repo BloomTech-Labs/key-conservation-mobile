@@ -9,11 +9,11 @@ import UploadMedia from '../components/UploadMedia';
 import { editProfileData, logout } from '../store/actions';
 import { AmpEvent } from '../components/withAmplitude';
 
-import styles from '../constants/screens/EditSupporterProfileScreen';
+import styles from '../constants/screens/EditSupProScreen';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-class EditSupporterProfileScreen extends React.Component {
+class EditSupProScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Edit Profile',
@@ -31,7 +31,7 @@ class EditSupporterProfileScreen extends React.Component {
   };
 
   state = {
-    name: this.props.currentUserProfile.name,
+    sup_name: this.props.currentUserProfile.name,
     profile_image: this.props.currentUserProfile.profile_image,
     location: this.props.currentUserProfile.location,
     mini_bio: this.props.currentUserProfile.mini_bio,
@@ -77,16 +77,15 @@ class EditSupporterProfileScreen extends React.Component {
               ref={input => {
                 this.nameInput = input;
               }}
-              returnKeyType='next'
-              placeholder='John Doe'
+              returnKeyType="next"
+              placeholder="John Doe"
               style={styles.inputContain}
-              onChangeText={text => this.setState({ name: text })}
+              onChangeText={text => this.setState({ sup_name: text })}
               onSubmitEditing={() => {
                 if (Platform.OS === 'android') return;
                 this.locationInput.focus();
               }}
-              // blurOnSubmit={Platform.OS === 'android'}
-              value={this.state.name}
+              value={this.state.sup_name}
             />
           </View>
 
@@ -96,8 +95,8 @@ class EditSupporterProfileScreen extends React.Component {
               ref={input => {
                 this.locationInput = input;
               }}
-              returnKeyType='next'
-              placeholder='Miami, Flordia'
+              returnKeyType="next"
+              placeholder="Miami, Flordia"
               style={styles.inputContain}
               onChangeText={text => this.setState({ location: text })}
               onSubmitEditing={() => {
@@ -118,8 +117,8 @@ class EditSupporterProfileScreen extends React.Component {
               multiline={true}
               numberOfLines={5}
               maxLength={150}
-              returnKeyType='next'
-              placeholder='Tell us about yourself!'
+              returnKeyType="next"
+              placeholder="Tell us about yourself!"
               style={styles.bioInputContain}
               onChangeText={text => this.setState({ mini_bio: text })}
               onSubmitEditing={() => {
@@ -137,9 +136,9 @@ class EditSupporterProfileScreen extends React.Component {
               ref={input => {
                 this.emailInput = input;
               }}
-              returnKeyType='next'
-              placeholder='youremail@gmail.com'
-              keyboardType='email-address'
+              returnKeyType="next"
+              placeholder="youremail@gmail.com"
+              keyboardType="email-address"
               style={styles.inputContain}
               onChangeText={text => this.setState({ email: text })}
               onSubmitEditing={() => {
@@ -159,7 +158,7 @@ class EditSupporterProfileScreen extends React.Component {
                 onChangeMedia={media => this.setState({ profile_image: media })}
                 size={128}
                 circular
-                title='Upload photo'
+                title="Upload photo"
                 removable
               />
             </View>
@@ -173,11 +172,11 @@ class EditSupporterProfileScreen extends React.Component {
               ref={input => {
                 this.facebookInput = input;
               }}
-              returnKeyType='next'
-              placeholder='https://www.facebook.com/orgname'
-              keyboardType='default'
+              returnKeyType="next"
+              placeholder="https://www.facebook.com/orgname"
+              keyboardType="default"
               style={styles.inputContain}
-              autoCapitalize='none'
+              autoCapitalize="none"
               onChangeText={text => this.setState({ facebook: text })}
               onSubmitEditing={() => {
                 if (Platform.OS === 'android') return;
@@ -194,11 +193,11 @@ class EditSupporterProfileScreen extends React.Component {
               ref={input => {
                 this.instagramInput = input;
               }}
-              returnKeyType='next'
-              keyboardType='default'
+              returnKeyType="next"
+              keyboardType="default"
               style={styles.inputContain}
-              autoCapitalize='none'
-              placeholder='https://www.instagram.com/orgname'
+              autoCapitalize="none"
+              placeholder="https://www.instagram.com/orgname"
               onChangeText={text => this.setState({ instagram: text })}
               onSubmitEditing={() => {
                 if (Platform.OS === 'android') return;
@@ -215,11 +214,11 @@ class EditSupporterProfileScreen extends React.Component {
               ref={input => {
                 this.twitterInput = input;
               }}
-              returnKeyType='done'
-              keyboardType='default'
+              returnKeyType="done"
+              keyboardType="default"
               style={styles.inputContain}
-              autoCapitalize='none'
-              placeholder='https://www.twitter.com/orgname'
+              autoCapitalize="none"
+              placeholder="https://www.twitter.com/orgname"
               onChangeText={text => this.setState({ twitter: text })}
               // blurOnSubmit={true}
               value={this.state.twitter}
@@ -239,4 +238,4 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   editProfileData,
   logout
-})(EditSupporterProfileScreen);
+})(EditSupProScreen);

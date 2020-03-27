@@ -124,9 +124,9 @@ class LoadingScreen extends React.Component {
           if (this.props.firstLogin) {
             this.props.afterFirstLogin();
             if (roles === 'conservationist') {
-              this.props.navigation.navigate('EditProfile');
+              this.props.navigation.navigate('EditPro');
             } else {
-              this.props.navigation.navigate('EditSupporterProfile');
+              this.props.navigation.navigate('EditSupPro');
             }
           } else {
             this.props.navigation.navigate(
@@ -154,7 +154,7 @@ class LoadingScreen extends React.Component {
           style={styles.container}
         >
           <View style={styles.indicator}>
-            <ActivityIndicator size='large' color='white' />
+            <ActivityIndicator size="large" color="white" />
           </View>
         </ImageBackground>
       </>
