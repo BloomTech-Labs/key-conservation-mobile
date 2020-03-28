@@ -38,7 +38,7 @@ export default StyleSheet.create({
     flex: 1
   },
   commentOptions: {
-    transform: [{ rotate: '90deg' }],
+    transform: [{ rotate: '180deg' }],
     padding: 8,
     alignSelf: 'center'
   },
