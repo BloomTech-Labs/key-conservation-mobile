@@ -86,7 +86,7 @@ class CommentsView extends React.Component {
           <View style={styles.replyAvatar}>
             <Avatar
               rounded
-              size='medium'
+              size="large"
               source={{
                 uri: this.props.currentUserProfile.profile_image
               }}
@@ -94,7 +94,7 @@ class CommentsView extends React.Component {
           </View>
           <View style={styles.inputWrapper}>
             <TextInput
-              placeholder='Write a comment...'
+              placeholder="Write a comment..."
               onChangeText={text => this.setState({ comment: text })}
               style={styles.input}
               value={this.state.comment}
@@ -104,7 +104,7 @@ class CommentsView extends React.Component {
               ref={input => {
                 this.commentInput = input;
               }}
-              returnKeyType='send'
+              returnKeyType="send"
             />
             {this.state.comment === null || this.state.comment === '' ? (
               <TouchableOpacity>

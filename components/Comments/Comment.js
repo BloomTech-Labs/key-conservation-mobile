@@ -10,9 +10,7 @@ import Ellipse from '../../assets/jsicons/Ellipse';
 import CommentActionSheet from '../Reports/CommentActionSheet';
 import LoadingOverlay from '../LoadingOverlay';
 
-
 const Comment = props => {
-
   // This is so that the opacity of the comment will be
   // reduced when it is being deleting, or barely being posted
   // This is for a more streamlined user experience
@@ -81,6 +79,7 @@ const Comment = props => {
           <View style={styles.avatar}>
             <Avatar
               onPress={goToCommenterProfile}
+              size="large"
               rounded
               containerStyle={
                 props.comment.user_id === props.selectedCampaign.user_id && {
@@ -101,7 +100,7 @@ const Comment = props => {
             onPress={showActionSheet}
             style={styles.commentOptions}
           >
-            <Ellipse fill='#000' />
+            <Ellipse fill="#000" />
           </TouchableOpacity>
         </View>
         <View style={styles.interaction}>
