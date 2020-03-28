@@ -95,7 +95,7 @@ class CommentsView extends React.Component {
           <View style={styles.inputWrapper}>
             <TextInput
               placeholder="Write a comment..."
-              placeholderTextColor="black"
+              placeholderTextColor="#3B3B3B"
               onChangeText={text => this.setState({ comment: text })}
               style={styles.input}
               value={this.state.comment}
