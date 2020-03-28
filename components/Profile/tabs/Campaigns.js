@@ -19,14 +19,18 @@ const Campaigns = props => {
           <ComingSoon />
         </View>
       ) : profileData.campaigns?.length ? (
-        profileData.campaigns?.map(campaign =>
-          <FeedCampaign
-            disableHeader
-            key={campaign.id}
-            data={campaign}
-            toggled
-          />
-        )
+        profileData.campaigns?.map(campaign => {
+          if (campaign) {
+            return (
+                <FeedCampaign
+                    disableHeader
+                    key={campaign.id}
+                    data={campaign}
+                    toggled
+                />
+            )
+          }
+        })
       ) : (
         <View style={styles.container}>
           <CampaignBlankSpace />
