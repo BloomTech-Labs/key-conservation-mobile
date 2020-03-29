@@ -220,6 +220,15 @@ class ViewCampaignScreen extends React.Component {
                     }}
                     subtitle={this.props.selectedCampaign.location}
                   />
+                  <View style={styles.campaignDescriptionContainer}>
+                    <Text style={styles.campaignDescriptionName}>
+                      {this.props.selectedCampaign.name}
+                    </Text>
+                    <Text style={styles.campaignDescription}>
+                      {this.props.selectedCampaign.description}
+                    </Text>
+                    <Text style={styles.timeText}>{timeDiff}</Text>
+                  </View>
                   {this.props.navigation.state.params.media.includes('.mov') ||
                   this.props.navigation.state.params.media.includes('.mp3') ||
                   this.props.navigation.state.params.media.includes('.mp4') ? (
@@ -276,15 +285,6 @@ class ViewCampaignScreen extends React.Component {
                     </View>
                   </View>  */}
 
-                  <View style={styles.campaignDescriptionContainer}>
-                    <Text style={styles.campaignDescriptionName}>
-                      {this.props.selectedCampaign.name}
-                    </Text>
-                    <Text style={styles.campaignDescription}>
-                      {this.props.selectedCampaign.description}
-                    </Text>
-                    <Text style={styles.timeText}>{timeDiff}</Text>
-                  </View>
                   <View style={styles.commentsView}>
                     <CommentsView />
                   </View>
