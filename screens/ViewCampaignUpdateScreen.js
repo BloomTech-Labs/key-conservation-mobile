@@ -138,7 +138,7 @@ class ViewCampaignUpdateScreen extends React.Component {
 
   goToCampaign = async () => {
     try {
-      await this.props.getCampaign(this.props.selectedCampaign.id);
+      await this.props.getCampaign(this.props.selectedCampaign.campaign_id);
       this.props.navigation.navigate('Campaign', {
         media: this.props.selectedCampaign.image
       });
