@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
 
-import { getCampaign, toggleCampaignText } from '../../store/actions';
+import { getCampaign, toggleCampaignText, setCampaign } from '../../store/actions';
 import { AmpEvent } from '../withAmplitude';
 import LoadingOverlay from '../LoadingOverlay';
 
@@ -147,17 +147,22 @@ const FeedCampaign = props => {
   };
 
   const goToCampaign = async () => {
-    await dispatch(getCampaign(data.id));
     AmpEvent('Select Profile from Campaign', {
       campaign: data.campaign_name,
       profile: data.name
-    });
-    navigate('Campaign', {
-      // userBookmarked: userBookmarked,
-      // addBookmark: addBookmark,
-      // deleteBookmark: deleteBookmark,
-      media: data.image
-    });
+    })
+
+    if (data.campaign_id) {
+      await dispatch(setCampaign(data));
+      navigate('CampaignUpdate', {
+        media: data.image
+      });
+    } else {
+      await dispatch(getCampaign(data.id));
+      navigate('Campaign', {
+        media: data.image
+      });
+    }
   };
 
   const toggleText = () => {
