@@ -47,7 +47,7 @@ class ViewCampaignScreen extends React.Component {
           }}
           onPress={navigation.getParam('showCampaignOptions')}
         >
-          <Ellipse width='25' height='25' />
+          <Ellipse width="25" height="25" />
         </TouchableOpacity>
       )
     };
@@ -124,7 +124,7 @@ class ViewCampaignScreen extends React.Component {
           <KeyboardAvoidingView
             enabled
             keyboardVerticalOffset={86}
-            behavior='height'
+            behavior="height"
           >
             <Viewport.Tracker>
               <ScrollView>
@@ -153,7 +153,7 @@ class ViewCampaignScreen extends React.Component {
                       rate={1.0}
                       volume={1.0}
                       useNativeControls={true}
-                      resizeMode='cover'
+                      resizeMode="cover"
                       style={styles.campaignImageContainer}
                     />
                   ) : (
@@ -231,7 +231,7 @@ class ViewCampaignScreen extends React.Component {
                       volume={1.0}
                       isMuted={true}
                       useNativeControls={true}
-                      resizeMode='cover'
+                      resizeMode="cover"
                       style={styles.campaignImageContainer}
                     />
                   ) : (
@@ -292,7 +292,7 @@ class ViewCampaignScreen extends React.Component {
                   <View style={styles.donateView}>
                     <TakeActionCallToAction
                       donate={this.props.selectedCampaign}
-                      style={{ backgroundColor: '#ffffff' }}
+                      style={{ backgroundColor: '#f5f5f5' }}
                     />
                   </View>
 
