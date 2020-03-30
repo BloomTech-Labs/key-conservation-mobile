@@ -59,6 +59,7 @@ export default StyleSheet.create({
   },
   inputWrapper: {
     flexDirection: 'row',
+    justifyContent: 'center',
     height: '70%',
     marginLeft: 6,
     borderRadius: 5,
