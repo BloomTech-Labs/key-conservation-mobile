@@ -109,7 +109,7 @@ class ViewCampaignScreen extends React.Component {
     }
 
     return (
-      <View>
+      <View style={{ backgroundColor: '#F2F2FB' }}>
         <CampaignActionSheet
           admin={this.props.currentUserProfile.admin}
           campaign={this.props.selectedCampaign}
