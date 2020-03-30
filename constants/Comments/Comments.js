@@ -49,7 +49,6 @@ export default StyleSheet.create({
     fontFamily: 'Lato-Bold'
   },
   input: {
-    color: '#3B3B3B',
     minHeight: 40,
     borderRadius: 5,
     fontSize: 17,

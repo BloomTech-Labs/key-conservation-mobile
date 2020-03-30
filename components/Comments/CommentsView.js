@@ -72,6 +72,15 @@ class CommentsView extends React.Component {
               );
             })}
         </View>
+        {this.props.campaignComments?.length > this.state.commentsVisible && (
+          <View style={styles.moreContainer}>
+            <TouchableOpacity onPress={() => this.addMoreComments()}>
+              <View style={styles.more}>
+                <Text style={styles.moreText}>View More Comments</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        )}
         {/* View More Comments is visible if the length of campaignComments is greater than the value of commentsVisible */}
         {this.props.campaignComments?.length > this.state.commentsVisible && (
           <View style={styles.moreContainer}>
@@ -95,7 +104,7 @@ class CommentsView extends React.Component {
           <View style={styles.inputWrapper}>
             <TextInput
               placeholder="Write a comment..."
-              placeholderTextColor="black"
+              placeholderTextColor="#3B3B3B"
               onChangeText={text => this.setState({ comment: text })}
               style={styles.input}
               value={this.state.comment}

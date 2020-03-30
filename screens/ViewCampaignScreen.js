@@ -109,7 +109,7 @@ class ViewCampaignScreen extends React.Component {
     }
 
     return (
-      <View>
+      <View style={{ backgroundColor: '#F2F2FB' }}>
         <CampaignActionSheet
           admin={this.props.currentUserProfile.admin}
           campaign={this.props.selectedCampaign}
@@ -294,6 +294,10 @@ class ViewCampaignScreen extends React.Component {
                       donate={this.props.selectedCampaign}
                       style={{ backgroundColor: '#f5f5f5' }}
                     />
+                  </View>
+
+                  <View style={styles.commentsView}>
+                    <CommentsView />
                   </View>
 
                   <View style={styles.feedContainer}>
