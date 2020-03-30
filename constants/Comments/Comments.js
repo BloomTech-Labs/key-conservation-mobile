@@ -35,10 +35,11 @@ export default StyleSheet.create({
   },
   commentBody: {
     marginLeft: 7,
-    flex: 1
+    flex: 1,
+    backgroundColor: '#f5f5f5'
   },
   commentOptions: {
-    transform: [{ rotate: '90deg' }],
+    transform: [{ rotate: '180deg' }],
     padding: 8,
     alignSelf: 'center'
   },
@@ -48,7 +49,7 @@ export default StyleSheet.create({
     fontFamily: 'Lato-Bold'
   },
   input: {
-    color: 'grey',
+    color: '#3B3B3B',
     minHeight: 40,
     borderRadius: 5,
     fontSize: 17,
