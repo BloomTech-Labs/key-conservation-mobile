@@ -285,15 +285,15 @@ class ViewCampaignScreen extends React.Component {
                     </View>
                   </View>  */}
 
-                  <View style={styles.commentsView}>
-                    <CommentsView />
-                  </View>
-
                   <View style={styles.donateView}>
                     <TakeActionCallToAction
                       donate={this.props.selectedCampaign}
                       style={{ backgroundColor: '#f5f5f5' }}
                     />
+                  </View>
+
+                  <View style={styles.commentsView}>
+                    <CommentsView />
                   </View>
 
                   <View style={styles.feedContainer}>
