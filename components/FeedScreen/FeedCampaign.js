@@ -14,7 +14,11 @@ import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
 
-import { getCampaign, toggleCampaignText, setCampaign } from '../../store/actions';
+import {
+  getCampaign,
+  toggleCampaignText,
+  setCampaign
+} from '../../store/actions';
 import { AmpEvent } from '../withAmplitude';
 import LoadingOverlay from '../LoadingOverlay';
 
@@ -26,6 +30,8 @@ import CommentIcon from '../../assets/jsicons/CommentIcon';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
 import CampaignActionSheet from '../Reports/CampaignActionSheet';
 import TakeActionCallToAction from '../TakeAction/TakeActionCallToAction';
+
+import Emoji from '../FeedScreen/Emoji';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
@@ -150,7 +156,7 @@ const FeedCampaign = props => {
     AmpEvent('Select Profile from Campaign', {
       campaign: data.campaign_name,
       profile: data.name
-    })
+    });
 
     if (data.campaign_id) {
       await dispatch(setCampaign(data));
@@ -230,7 +236,7 @@ const FeedCampaign = props => {
       <View style={styles.container}>
         <LoadingOverlay
           loading={props.deleteBuffer.includes(data.id)}
-          backgroundColor='white'
+          backgroundColor="white"
         />
         <CampaignActionSheet
           ref={actionSheetRef}
@@ -249,13 +255,13 @@ const FeedCampaign = props => {
           leftAvatar={{ source: { uri: data.profile_image || undefined } }}
           rightElement={
             <TouchableOpacity onPress={showActionSheet}>
-              <Ellipse fill='#000' height='25' width='25' />
+              <Ellipse fill="#000" height="25" width="25" />
             </TouchableOpacity>
           }
           subtitle={
             <View style={{ flexDirection: 'row' }}>
               {data.location !== (undefined || null) ? (
-                <MapMarker fill='#505050' />
+                <MapMarker fill="#505050" />
               ) : null}
               <Text style={{ color: '#929292' }}>{data.location}</Text>
             </View>
@@ -292,7 +298,7 @@ const FeedCampaign = props => {
                 ) : null}
                 {loader ? (
                   <View style={styles.indicator}>
-                    <ActivityIndicator size='large' color='#00FF9D' />
+                    <ActivityIndicator size="large" color="#00FF9D" />
                   </View>
                 ) : null}
                 {props.isFocused ? (
@@ -306,7 +312,7 @@ const FeedCampaign = props => {
                     isMuted={false}
                     shouldPlay={true}
                     isLooping
-                    resizeMode='cover'
+                    resizeMode="cover"
                     onPlaybackStatusUpdate={onPlaybackStatusUpdate}
                     style={styles.campImgContain}
                   />
@@ -356,6 +362,7 @@ const FeedCampaign = props => {
 
         <View style={styles.commentContainer}>
           <TouchableOpacity style={styles.comments} onPress={goToCampaign}>
+            <Emoji />
             <CommentIcon />
             <Badge
               textStyle={{
