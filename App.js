@@ -53,9 +53,9 @@ function App(props) {
   } else {
     return (
       <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
+        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         {Platform.OS === 'android' && (
-          <StatusBar barStyle='light-content' translucent />
+          <StatusBar barStyle="light-content" translucent />
         )}
         <Provider store={store}>
           <MenuProvider>
@@ -77,7 +77,9 @@ async function loadResourcesAsync() {
     Asset.loadAsync([require('./assets/images/splash.png')]),
     Font.loadAsync({
       Lato: require('./assets/fonts/Lato/Lato-Regular.ttf'),
-      'Lato-Bold': require('./assets/fonts/Lato/Lato-Bold.ttf')
+      'Lato-Bold': require('./assets/fonts/Lato/Lato-Bold.ttf'),
+      Entypo: require('./assets/fonts/Entypo/Entypo.otf'),
+      Ionicons: require('./assets/fonts/Ion/ionicons.ttf')
     })
   ]);
 }

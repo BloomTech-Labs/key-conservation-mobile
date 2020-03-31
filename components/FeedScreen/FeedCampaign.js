@@ -361,8 +361,8 @@ const FeedCampaign = props => {
       </View>  */}
 
         <View style={styles.commentContainer}>
+          <Emoji />
           <TouchableOpacity style={styles.comments} onPress={goToCampaign}>
-            <Emoji />
             <CommentIcon />
             <Badge
               textStyle={{
