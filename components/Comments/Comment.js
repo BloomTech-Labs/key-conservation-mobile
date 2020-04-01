@@ -79,7 +79,7 @@ const Comment = props => {
           <View style={styles.avatar}>
             <Avatar
               onPress={goToCommenterProfile}
-              size="large"
+              size="medium"
               rounded
               containerStyle={
                 props.comment.user_id === props.selectedCampaign.user_id && {
