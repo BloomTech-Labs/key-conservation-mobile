@@ -36,7 +36,8 @@ export default StyleSheet.create({
   commentBody: {
     marginLeft: 7,
     flex: 1,
-    backgroundColor: '#f5f5f5'
+    backgroundColor: '#f5f5f5',
+    paddingLeft: 5
   },
   commentOptions: {
     transform: [{ rotate: '180deg' }],
