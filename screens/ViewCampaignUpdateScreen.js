@@ -83,6 +83,15 @@ class ViewCampaignUpdateScreen extends React.Component {
             }}
             subtitle={this.props.selectedCampaign.location}
           />
+          <View style={styles.campaignDescriptionContainer}>
+            <Text style={styles.campaignDescriptionName}>
+              {this.props.selectedCampaign.name}
+            </Text>
+            <Text style={styles.campaignDescriptionName}>
+              {this.props.selectedCampaign.description}
+            </Text>
+          </View>
+
           {this.props.navigation.state.params.media.includes('.mov') ||
           this.props.navigation.state.params.media.includes('.mp3') ||
           this.props.navigation.state.params.media.includes('.mp4') ? (
@@ -102,14 +111,7 @@ class ViewCampaignUpdateScreen extends React.Component {
               style={styles.campImgContain}
             />
           )}
-          <View style={styles.campaignDescriptionContainer}>
-            <Text style={styles.campaignDescriptionName}>
-              {this.props.selectedCampaign.name}
-            </Text>
-            <Text style={styles.campaignDescriptionName}>
-              {this.props.selectedCampaign.description}
-            </Text>
-          </View>
+
           <View style={styles.ogBorder} />
           <View style={styles.ogPostView}>
             <View style={styles.ogPostButton}>
