@@ -68,7 +68,9 @@ class ViewCampaignUpdateScreen extends React.Component {
                 onPress={this.goToProfile}
                 title={
                   <View>
-                    <Text style={styles.listName}>{this.props.data.name}</Text>
+                    <Text style={styles.listName}>
+                      {this.props.selectedCampaign.org_name}
+                    </Text>
                   </View>
                 }
                 leftAvatar={{

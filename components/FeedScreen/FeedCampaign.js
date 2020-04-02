@@ -68,7 +68,7 @@ const FeedCampaign = props => {
   // }, []);
 
   const dispatch = useDispatch();
-  const { data, toggled, currentUser } = props;
+  const { data, toggled } = props;
 
   const shorten = (string, cutoff) => {
     if (string.length < cutoff) {
@@ -247,7 +247,7 @@ const FeedCampaign = props => {
           onPress={goToProfile}
           title={
             <View style={styles.name}>
-              <Text style={styles.orgTitleView}>{data.name}</Text>
+              <Text style={styles.orgTitleView}>{data.org_name}</Text>
             </View>
           }
           leftAvatar={{ source: { uri: data.profile_image || undefined } }}
