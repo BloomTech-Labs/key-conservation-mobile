@@ -49,6 +49,16 @@ export default {
     letterSpacing: 5,
     color: 'black'
   },
+  commentsView: {
+    marginLeft: 15,
+    marginRight: 15,
+    fontSize: 14,
+    fontFamily: 'Lato',
+    marginTop: 20,
+    padding: 19,
+    borderRadius: 10,
+    backgroundColor: 'white'
+  },
   container: {
     overflow: 'hidden',
     width: '95%',

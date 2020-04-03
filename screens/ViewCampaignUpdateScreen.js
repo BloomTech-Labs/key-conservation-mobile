@@ -9,6 +9,7 @@ import moment from 'moment';
 import { getCampaign } from '../store/actions';
 import BackButton from '../components/BackButton';
 import Ellipse from '../assets/jsicons/Ellipse';
+import CommentsView from '../components/Comments/CommentsView';
 import CampaignActionSheet from '../components/Reports/CampaignActionSheet';
 import MapMarker from '../assets/jsicons/headerIcons/map-marker';
 
@@ -141,7 +142,6 @@ class ViewCampaignUpdateScreen extends React.Component {
                 </Text>
                 <Text style={styles.timeText}>{timeDiff}</Text>
               </View>
-
               {/* {this.props.navigation.state.params.media.includes('.mov') ||
               this.props.navigation.state.params.media.includes('.mp3') ||
               this.props.navigation.state.params.media.includes('.mp4') ? (
@@ -161,7 +161,6 @@ class ViewCampaignUpdateScreen extends React.Component {
                   style={styles.campImgContain}
                 />
               )} */}
-
               <View>
                 {this.props.navigation.state.params.media.includes('.mov') ||
                 this.props.navigation.state.params.media.includes('.mp3') ||
@@ -201,25 +200,22 @@ class ViewCampaignUpdateScreen extends React.Component {
                   </ImageBackground>
                 )}
               </View>
-
-              <View style={styles.ogBorder} />
-              <View style={styles.ogPostView}>
-                <View style={styles.ogPostButton}>
-                  <TouchableOpacity
-                    style={styles.touchableButton}
-                    // If these links are empty string and don't have an http:// or a https:// it will send you with unpromised rejections.
-                    onPress={this.goToCampaign}
-                  >
-                    <View style={styles.touchableView}>
-                      <Text style={styles.touchableText}>
-                        View Original Post
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
+              {/* // Comments will be added once BE and FE changes are planned out 
+              <View style={styles.commentsView}>
+                <CommentsView />
+              </View> 
+        
+              <TouchableOpacity
+                style={styles.touchableButton}
+                // If these links are empty string and don't have an http:// or a https:// it will send you with unpromised rejections.
+                onPress={this.goToCampaign}
+              >
+                <View style={styles.touchableView}>
+                  <Text style={styles.touchableText}>View Original Post</Text>
                 </View>
-              </View>
-              <View style={styles.whiteSpace} />
+              </TouchableOpacity> */}
             </View>
+            {/* <View style={styles.whiteSpace} /> </View> */}
           </View>
         </View>
       </ScrollView>
