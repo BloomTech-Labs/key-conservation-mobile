@@ -1,29 +1,34 @@
 import React from 'react';
-import { TextInput, Text, View, Alert, ActivityIndicator } from 'react-native';
+import {
+  TextInput,
+  Text,
+  View,
+  Alert,
+  ActivityIndicator,
+  TouchableOpacity
+} from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import styles from '../constants/screens/CreateCampaignScreen';
+import styles from '../constants/screens/CreateCampaignUpdateScreen';
 
 import { postCampaignUpdate, getProfileData } from '../store/actions';
 import BackButton from '../components/BackButton';
-import PublishButton from '../components/PublishButton';
 import UploadMedia from '../components/UploadMedia';
 
 class CreateCampaignUpdateScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Update Post',
+      title: 'UPDATE A CAMPAIGN',
       headerStyle: {
         backgroundColor: '#323338'
       },
       headerTintColor: '#fff',
-      headerLeft: () => <BackButton navigation={navigation} />,
-      headerRight: () => (
-        <PublishButton
+      headerLeft: () => (
+        <BackButton
           navigation={navigation}
-          pressAction={navigation.getParam('publish')}
+          confirm="Are you sure you want to cancel? Any progress will be lost"
         />
       )
     };
@@ -50,36 +55,60 @@ class CreateCampaignUpdateScreen extends React.Component {
     if (this.state.loading === true) {
       return (
         <View style={styles.indicator}>
-          <ActivityIndicator size='large' color='#00FF9D' />
+          <ActivityIndicator size="large" color="#00FF9D" />
         </View>
       );
     }
     return (
       <KeyboardAwareScrollView style={styles.container}>
         <NavigationEvents onDidBlur={this.clearState} />
-        <View style={styles.sectionContainer}>
-          <View style={styles.goToCampaignButton}>
-            <Text style={styles.goToCampaignText}>Post an update about</Text>
+        {/* <View style={styles.sectionContainer}>
+          <View style={styles.horizontalContainer}>
+            <Text style={styles.sectionsText}>Post an update about:</Text>
           </View>
-          <Text style={styles.sectionsText}>
+          <Text style={styles.subtitleText}>
             "{this.selectedCampaign.name}"
           </Text>
-          <UploadMedia
-            title='Upload update image'
-            media={this.state.image}
-            onChangeMedia={media => this.setState({ image: media })}
-          />
-          <TextInput
-            ref={input => {
-              this.campaignDetailsInput = input;
-            }}
-            returnKeyType='next'
-            placeholder='Write an update here to tell people what has happened since their donation.'
-            style={styles.inputContain2}
-            onChangeText={text => this.setState({ description: text })}
-            multiline={true}
-            value={this.state.description}
-          />
+        </View> */}
+        <View style={styles.sectionContainer}>
+          <View style={styles.horizontalContainer}>
+            <View style={styles.iconContainer}>
+              <UploadMedia
+                title="UPLOAD NEW IMAGE"
+                media={this.state.image}
+                onChangeMedia={media => this.setState({ image: media })}
+                style={styles.uploadMedia}
+              />
+            </View>
+            <View style={styles.textView}>
+              <Text style={styles.sectionsText}>Post an update about:</Text>
+              <Text style={styles.subtitleText}>
+                "{this.selectedCampaign.name}"
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View style={styles.sectionContainer}>
+          <View style={styles.horizontalContainer}>
+            <TextInput
+              ref={input => {
+                this.campaignDetailsInput = input;
+              }}
+              returnKeyType="next"
+              placeholder="Write an update here to tell people what has happened since their donation."
+              style={styles.inputContain2}
+              onChangeText={text => this.setState({ description: text })}
+              multiline={true}
+              value={this.state.description}
+            />
+          </View>
+        </View>
+        <View style={styles.sectionContainer}>
+          <TouchableOpacity onPress={this.publish}>
+            <View style={styles.publishButton}>
+              <Text style={styles.publishButtonText}>Publish Live</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </KeyboardAwareScrollView>
     );
