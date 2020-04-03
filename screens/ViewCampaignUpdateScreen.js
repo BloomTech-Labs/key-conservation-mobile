@@ -5,7 +5,7 @@ import { Video } from 'expo-av';
 import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
-
+import moment from 'moment';
 import { getCampaign } from '../store/actions';
 import BackButton from '../components/BackButton';
 import Ellipse from '../assets/jsicons/Ellipse';
@@ -48,7 +48,51 @@ class ViewCampaignUpdateScreen extends React.Component {
     });
   };
 
+  state = {
+    userBookmarked: this.props.navigation.state.params.userBookmarked
+  };
+
   render() {
+    let sortedUpdates = false;
+    if (
+      this.props.selectedCampaign.updates &&
+      this.props.selectedCampaign.updates.length
+    ) {
+      sortedUpdates = this.props.selectedCampaign.updates.sort(function(a, b) {
+        return moment(a.created_at) - moment(b.created_at);
+      });
+    }
+
+    const createdAt = this.props.selectedCampaign.created_at;
+    const currentTime = moment();
+    const postTime = moment(createdAt);
+    let timeDiff;
+    if (currentTime.diff(postTime, 'days') < 1) {
+      if (currentTime.diff(postTime, 'hours') < 1) {
+        if (currentTime.diff(postTime, 'minutes') < 1) {
+          timeDiff = 'just now';
+        } else {
+          if (currentTime.diff(postTime, 'minutes') === 1) {
+            timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO`;
+          } else {
+            timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`;
+          }
+        }
+      } else {
+        if (currentTime.diff(postTime, 'hours') === 1) {
+          timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO`;
+        } else {
+          timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`;
+        }
+      }
+    } else {
+      if (currentTime.diff(postTime, 'days') === 1) {
+        timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO`;
+      } else {
+        timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
+      }
+    }
+
     return (
       <ScrollView>
         <View style={styles.mainContainer}>
@@ -95,6 +139,7 @@ class ViewCampaignUpdateScreen extends React.Component {
                 <Text style={styles.campaignDescription}>
                   {this.props.selectedCampaign.description}
                 </Text>
+                <Text style={styles.timeText}>{timeDiff}</Text>
               </View>
 
               {this.props.navigation.state.params.media.includes('.mov') ||
@@ -146,18 +191,18 @@ class ViewCampaignUpdateScreen extends React.Component {
       selectedProfile: this.props.selectedCampaign.user_id
     });
   };
-
-  goToCampaign = async () => {
-    try {
-      await this.props.getCampaign(this.props.selectedCampaign.campaign_id);
-      this.props.navigation.navigate('Campaign', {
-        media: this.props.selectedCampaign.image
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
 }
+
+// goToCampaign = async () => {
+//   try {
+//     await this.props.getCampaign(this.props.selectedCampaign.campaign_id);
+//     this.props.navigation.navigate('Campaign', {
+//       media: this.props.selectedCampaign.image
+//     });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
 const mapStateToProps = state => ({
   selectedCampaign: state.selectedCampaign,
