@@ -121,6 +121,8 @@ const FeedCampaign = props => {
     urgencyColor = 'rgba(255,199,0,0.6)';
   } else if (data.urgency === 'Longterm') {
     urgencyColor = 'rgba(0,255,157,0.6)';
+  } else if (data.urgency === 'Update') {
+    urgencyColor = 'rgba(202,255,0, 0.7)';
   } else {
     urgencyColor = 'none';
   }

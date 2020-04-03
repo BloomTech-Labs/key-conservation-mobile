@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { Text, TouchableOpacity, ImageBackground } from 'react-native';
 import { View } from 'react-native-animatable';
 import { Video } from 'expo-av';
 import { ListItem } from 'react-native-elements';
@@ -142,7 +142,7 @@ class ViewCampaignUpdateScreen extends React.Component {
                 <Text style={styles.timeText}>{timeDiff}</Text>
               </View>
 
-              {this.props.navigation.state.params.media.includes('.mov') ||
+              {/* {this.props.navigation.state.params.media.includes('.mov') ||
               this.props.navigation.state.params.media.includes('.mp3') ||
               this.props.navigation.state.params.media.includes('.mp4') ? (
                 <Video
@@ -160,7 +160,47 @@ class ViewCampaignUpdateScreen extends React.Component {
                   source={{ uri: this.props.selectedCampaign.image }}
                   style={styles.campImgContain}
                 />
-              )}
+              )} */}
+
+              <View>
+                {this.props.navigation.state.params.media.includes('.mov') ||
+                this.props.navigation.state.params.media.includes('.mp3') ||
+                this.props.navigation.state.params.media.includes('.mp4') ? (
+                  <View>
+                    {loader ? (
+                      <View style={styles.indicator}>
+                        <ActivityIndicator size="large" color="#00FF9D" />
+                      </View>
+                    ) : null}
+                    <View style={styles.updateBar}>
+                      <Text style={styles.updateBarText}>UPDATE</Text>
+                    </View>
+                    {props.isFocused ? (
+                      <Video
+                        source={{
+                          uri: this.props.selectedCampaign.image
+                        }}
+                        rate={1.0}
+                        volume={1.0}
+                        useNativeControls={true}
+                        resizeMode="contain"
+                        style={styles.campImgContain}
+                      />
+                    ) : (
+                      <View style={styles.campImgContain} />
+                    )}
+                  </View>
+                ) : (
+                  <ImageBackground
+                    source={{ uri: this.props.selectedCampaign.image }}
+                    style={styles.campImgContain}
+                  >
+                    <View style={styles.updateBar}>
+                      <Text style={styles.updateBarText}>UPDATE</Text>
+                    </View>
+                  </ImageBackground>
+                )}
+              </View>
 
               <View style={styles.ogBorder} />
               <View style={styles.ogPostView}>

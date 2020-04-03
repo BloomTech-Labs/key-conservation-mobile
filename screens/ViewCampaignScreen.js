@@ -27,8 +27,6 @@ import TakeActionCallToAction from '../components/TakeAction/TakeActionCallToAct
 // issue in labs_help, we settled for in-component axios calls. Not elegant. Probably not super scalable—but it worked. Hopefully a more talented team can solve what we couldn't.
 // In the meantime, ViewCampaignScreen, ViewCampaignUpdateScreen, FeedCampaign, and FeedUpdate are all interconnected, sharing props (state, functions) via React-Navigation.
 
-// const { data } = props;
-
 class ViewCampaignScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
