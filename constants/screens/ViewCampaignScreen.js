@@ -100,8 +100,9 @@ export default {
     fontWeight: 'bold'
   },
   donateView: {
+    marginTop: 10,
     alignItems: 'center',
-    marginBottom: 50
+    marginBottom: 10
   },
   whiteSpace: {
     height: 40

@@ -142,25 +142,6 @@ class ViewCampaignUpdateScreen extends React.Component {
                 </Text>
                 <Text style={styles.timeText}>{timeDiff}</Text>
               </View>
-              {/* {this.props.navigation.state.params.media.includes('.mov') ||
-              this.props.navigation.state.params.media.includes('.mp3') ||
-              this.props.navigation.state.params.media.includes('.mp4') ? (
-                <Video
-                  source={{
-                    uri: this.props.selectedCampaign.image
-                  }}
-                  rate={1.0}
-                  volume={1.0}
-                  useNativeControls={true}
-                  resizeMode="contain"
-                  style={styles.campImgContain}
-                />
-              ) : (
-                <Image
-                  source={{ uri: this.props.selectedCampaign.image }}
-                  style={styles.campImgContain}
-                />
-              )} */}
               <View>
                 {this.props.navigation.state.params.media.includes('.mov') ||
                 this.props.navigation.state.params.media.includes('.mp3') ||
@@ -203,9 +184,9 @@ class ViewCampaignUpdateScreen extends React.Component {
               {/* // Comments will be added once BE and FE changes are planned out 
               <View style={styles.commentsView}>
                 <CommentsView />
-              </View> 
-        
-              <TouchableOpacity
+              </View> */}
+
+              {/* <TouchableOpacity
                 style={styles.touchableButton}
                 // If these links are empty string and don't have an http:// or a https:// it will send you with unpromised rejections.
                 onPress={this.goToCampaign}
