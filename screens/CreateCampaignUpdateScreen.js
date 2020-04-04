@@ -16,19 +16,21 @@ import styles from '../constants/screens/CreateCampaignUpdateScreen';
 import { postCampaignUpdate, getProfileData } from '../store/actions';
 import BackButton from '../components/BackButton';
 import UploadMedia from '../components/UploadMedia';
+import PublishButton from '../components/PublishButton';
 
 class CreateCampaignUpdateScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'UPDATE A CAMPAIGN',
+      title: 'Update Post',
       headerStyle: {
         backgroundColor: '#323338'
       },
       headerTintColor: '#fff',
-      headerLeft: () => (
-        <BackButton
+      headerLeft: () => <BackButton navigation={navigation} />,
+      headerRight: () => (
+        <PublishButton
           navigation={navigation}
-          confirm="Are you sure you want to cancel? Any progress will be lost"
+          pressAction={navigation.getParam('publish')}
         />
       )
     };
@@ -62,14 +64,6 @@ class CreateCampaignUpdateScreen extends React.Component {
     return (
       <KeyboardAwareScrollView style={styles.container}>
         <NavigationEvents onDidBlur={this.clearState} />
-        {/* <View style={styles.sectionContainer}>
-          <View style={styles.horizontalContainer}>
-            <Text style={styles.sectionsText}>Post an update about:</Text>
-          </View>
-          <Text style={styles.subtitleText}>
-            "{this.selectedCampaign.name}"
-          </Text>
-        </View> */}
         <View style={styles.sectionContainer}>
           <View style={styles.horizontalContainer}>
             <View style={styles.iconContainer}>
@@ -103,13 +97,13 @@ class CreateCampaignUpdateScreen extends React.Component {
             />
           </View>
         </View>
-        <View style={styles.sectionContainer}>
+        {/* <View style={styles.sectionContainer}>
           <TouchableOpacity onPress={this.publish}>
             <View style={styles.publishButton}>
               <Text style={styles.publishButtonText}>Publish Live</Text>
             </View>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </KeyboardAwareScrollView>
     );
   }
