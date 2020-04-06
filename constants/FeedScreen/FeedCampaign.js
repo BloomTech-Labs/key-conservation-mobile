@@ -18,8 +18,7 @@ export default {
   },
   mainContainer: {
     flex: 1,
-    backgroundColor: '#F2F2FB',
-    paddingTop: 5
+    backgroundColor: '#F2F2FB'
   },
 
   container: {
@@ -30,8 +29,7 @@ export default {
     backgroundColor: 'white',
     paddingTop: 7,
     paddingBottom: 20,
-    borderRadius: 10,
-    marginTop: 5
+    borderRadius: 10
   },
   orgTitleView: {
     fontFamily: 'Lato-Bold',
