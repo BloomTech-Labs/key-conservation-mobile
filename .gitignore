@@ -97,7 +97,9 @@ RNTester/Pods/*
 /schema-rncore.json
 
 # VSCode Config Files
-.vscode
+.vscode/*
+# exclude settings.json from .gitignore
+!.vscode/settings.json
 .vs
 
 # Expo Local Config Files
