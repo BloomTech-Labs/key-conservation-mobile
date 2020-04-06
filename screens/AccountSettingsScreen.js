@@ -59,7 +59,6 @@ class AccountSettingsScreen extends React.Component {
     await SecureStorage.deleteItemAsync('accessToken', {});
     // await SecureStorage.deleteItemAsync("airtableKey", {}); // for development
     this.props.logout();
-
   };
 
   render() {

@@ -28,8 +28,6 @@ export default StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     flexDirection: 'row',
-    borderBottomColor: '#eee',
-    borderBottomWidth: 1,
     marginBottom: 2,
     paddingBottom: 20
   },
@@ -41,12 +39,12 @@ export default StyleSheet.create({
     fontFamily: 'Lato-Bold'
   },
   body: {
-    marginTop: 10,
+    marginBottom: 20,
     flexDirection: 'column',
     flexWrap: 'nowrap',
     fontSize: 17,
     fontFamily: 'Lato',
-    color: '#3B3B3B',
+    color: '#3B3B3B'
   },
   campaignMission: {
     backgroundColor: '#fff',
@@ -71,12 +69,30 @@ export default StyleSheet.create({
   donateButton: {
     alignItems: 'center',
     width: '100%',
-    marginTop: 24
+    marginTop: 10,
+    marginBottom: 50,
+    backgroundColor: 'limegreen',
+    padding: 10,
+    borderRadius: 5
   },
   donateText: {
-    marginTop: 10,
-    fontSize: 15,
+    fontSize: 25,
     textAlign: 'center',
-    fontFamily: 'Lato-Bold'
+    fontFamily: 'Lato-Bold',
+    textTransform: 'uppercase',
+    color: '#3b3b3b'
+  },
+  addProjectsButton: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: '#f5f5f5',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 20
+  },
+  buttonText: {
+    fontFamily: 'Lato-Bold',
+    color: '#3b3b3b',
+    textTransform: 'uppercase'
   }
 });

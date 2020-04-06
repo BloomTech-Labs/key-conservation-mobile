@@ -27,11 +27,7 @@ const OrganizationsCard = props => {
   }, []);
 
   const disconnect = () => {
-    setConnections(
-      connections.filter(
-        c => c.id !== myPendingConnection.id
-      )
-    );
+    setConnections(connections.filter(c => c.id !== myPendingConnection.id));
     props.deleteConnection(myPendingConnection.id).then(error => {
       if (error) Alert.alert('Failed to decline connection');
       getConnections();
@@ -85,6 +81,11 @@ const OrganizationsCard = props => {
       {props.currentUserProfile.roles === 'conservationist' ? (
         <View>
           <View style={styles.mainContainer}>
+            <View>
+              <TouchableOpacity style={styles.addProjectsButton}>
+                <Text style={styles.buttonText}>Add Projects</Text>
+              </TouchableOpacity>
+            </View>
             {currentUserPendingConnections?.length === 0 ? (
               <Text style={styles.noConnections}>No Pending Connections</Text>
             ) : (
@@ -95,14 +96,8 @@ const OrganizationsCard = props => {
                       style={styles.peopleCardContainer}
                       key={connection.id}
                     >
-                      <View
-                        style={styles.userInfo}
-                        key={connection.id}
-                      >
-                        <View
-                          style={styles.imageContainer}
-                          key={connection.id}
-                        >
+                      <View style={styles.userInfo} key={connection.id}>
+                        <View style={styles.imageContainer} key={connection.id}>
                           <Avatar
                             size={48}
                             rounded
@@ -117,10 +112,7 @@ const OrganizationsCard = props => {
                           />
                         </View>
                         <View>
-                          <Text
-                            key={connection.id}
-                            style={styles.name}
-                          >
+                          <Text key={connection.id} style={styles.name}>
                             {connection.connector_name === null
                               ? '---'
                               : connection.connector_name}{' '}
@@ -153,14 +145,8 @@ const OrganizationsCard = props => {
                       style={styles.peopleCardContainer}
                       key={connection.id}
                     >
-                      <View
-                        style={styles.userInfo}
-                        key={connection.id}
-                      >
-                        <View
-                          style={styles.imageContainer}
-                          key={connection.id}
-                        >
+                      <View style={styles.userInfo} key={connection.id}>
+                        <View style={styles.imageContainer} key={connection.id}>
                           <Avatar
                             size={48}
                             rounded
@@ -186,10 +172,7 @@ const OrganizationsCard = props => {
                                 });
                           }}
                         >
-                          <Text
-                            key={connection.id}
-                            style={styles.name}
-                          >
+                          <Text key={connection.id} style={styles.name}>
                             {connection.connected_name === null
                               ? '---'
                               : props.currentUserProfile.id ===
@@ -214,14 +197,8 @@ const OrganizationsCard = props => {
             <View>
               {supCurrentUserConnections?.map(connection => (
                 <View style={styles.card} key={connection.id}>
-                  <View
-                    style={styles.cardContainer}
-                    key={connection.id}
-                  >
-                    <View
-                      style={styles.imageContainer}
-                      key={connection.id}
-                    >
+                  <View style={styles.cardContainer} key={connection.id}>
+                    <View style={styles.imageContainer} key={connection.id}>
                       <Avatar
                         size={48}
                         rounded

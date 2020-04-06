@@ -26,11 +26,15 @@ const BackButton = props => {
 
   return (
     <TouchableOpacity onPress={handlePress} style={styles.container}>
-      <Text style={{
-        fontFamily: 'Lato',
-        color: 'white',
-        fontSize: 16
-      }}>{props.content || <LongArrowLeft style={styles.outline} />}</Text>
+      <Text
+        style={{
+          fontFamily: 'Lato',
+          color: 'white',
+          fontSize: 16
+        }}
+      >
+        {props.content || <LongArrowLeft style={styles.outline} />}
+      </Text>
     </TouchableOpacity>
   );
 };

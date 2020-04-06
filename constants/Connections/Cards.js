@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   mainContainer: {
     width: '95%',
-    backgroundColor: 'white',
+    backgroundColor: '#f2f2fb',
     alignSelf: 'center',
     padding: 10,
     marginTop: 10,
@@ -51,6 +51,14 @@ const styles = StyleSheet.create({
   buttonText: {
     fontFamily: 'Lato-Bold',
     fontSize: 18
+  },
+  addProjectsButton: {
+    flexDirection: 'row',
+    backgroundColor: '#f5f5f5',
+    padding: 10,
+    marginBottom: 10,
+    justifyContent: 'center',
+    borderRadius: 5
   }
 });
 
