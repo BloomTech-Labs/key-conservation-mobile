@@ -20,7 +20,6 @@ export default {
     flex: 1,
     backgroundColor: '#F2F2FB'
   },
-
   container: {
     overflow: 'hidden',
     width: '95%',

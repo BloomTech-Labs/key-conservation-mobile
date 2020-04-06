@@ -183,7 +183,7 @@ const FeedUpdate = props => {
                     </View>
                   ) : null}
                   <View style={styles.updateBar}>
-                    <Text style={styles.updateBarText}>UPDATE 1</Text>
+                    <Text style={styles.updateBarText}>UPDATE</Text>
                   </View>
                   {props.isFocused ? (
                     <ViewportAwareVideo
@@ -210,7 +210,7 @@ const FeedUpdate = props => {
                   style={styles.campImgContain}
                 >
                   <View style={styles.updateBar}>
-                    <Text style={styles.updateBarText}>UPDATE 2</Text>
+                    <Text style={styles.updateBarText}>UPDATE</Text>
                   </View>
                 </ImageBackground>
               )}
@@ -227,7 +227,7 @@ const FeedUpdate = props => {
                     </View>
                   ) : null}
                   <View style={styles.updateBar}>
-                    <Text style={styles.updateBarText}>UPDATE 3</Text>
+                    <Text style={styles.updateBarText}>UPDATE</Text>
                   </View>
                   {props.isFocused ? (
                     <ViewportAwareVideo
@@ -254,7 +254,7 @@ const FeedUpdate = props => {
                   style={styles.campImgContain}
                 >
                   <View style={styles.updateBar}>
-                    <Text style={styles.updateBarText}>UPDATE 4</Text>
+                    <Text style={styles.updateBarText}>UPDATE</Text>
                   </View>
                 </ImageBackground>
               )}
