@@ -76,7 +76,7 @@
     "react-native-version-check-expo": "^3.4.0",
     "react-native-video": "^5.0.2",
     "react-native-web": "^0.11.7",
-    "react-navigation": "^4.0.10",
+    "react-navigation": "4.0.10",
     "react-navigation-stack": "^2.0.16",
     "react-navigation-tabs": "^2.7.0",
     "react-redux": "^7.1.0",

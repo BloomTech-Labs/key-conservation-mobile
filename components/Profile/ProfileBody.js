@@ -12,13 +12,13 @@ export default React.forwardRef((props, ref) => {
   const routes =
     props.profile.roles === 'supporter'
       ? [
-        { key: 'campaigns', title: 'Profile' },
-        { key: 'details', title: 'Details' }
-      ]
+          { key: 'campaigns', title: 'Profile' },
+          { key: 'details', title: 'Details' }
+        ]
       : [
-        { key: 'campaigns', title: 'Campaigns' },
-        { key: 'details', title: 'Details' }
-      ];
+          { key: 'campaigns', title: 'Campaigns' },
+          { key: 'details', title: 'Details' }
+        ];
 
   // If the profile in questions is an organization and has a location,
   // insert a tab in index 1 (in the middle as per designs)
@@ -41,9 +41,9 @@ export default React.forwardRef((props, ref) => {
 
     const translateY = props.contentPaddingTop
       ? props.scrollY.interpolate({
-        inputRange: [0, distance, distance * 2],
-        outputRange: [0, 0, distance]
-      })
+          inputRange: [0, distance, distance * 2],
+          outputRange: [0, 0, distance]
+        })
       : 0;
 
     return (

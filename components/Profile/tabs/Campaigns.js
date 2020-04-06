@@ -22,12 +22,12 @@ const Campaigns = props => {
         profileData.campaigns?.map(campaign => {
           if (campaign) {
             return (
-              <FeedCampaign
-                disableHeader
-                key={campaign.id}
-                data={campaign}
-                toggled
-              />
+                <FeedCampaign
+                    disableHeader
+                    key={campaign.id}
+                    data={campaign}
+                    toggled
+                />
             )
           }
         })
