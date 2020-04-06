@@ -23,7 +23,7 @@ import LoadingOverlay from '../LoadingOverlay';
 import Ellipse from '../../assets/jsicons/Ellipse';
 import CampaignActionSheet from '../Reports/CampaignActionSheet';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
-import styles from '../../constants/FeedScreen/FeedCampaign';
+import styles from '../../constants/FeedScreen/FeedUpdate';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
@@ -183,7 +183,7 @@ const FeedUpdate = props => {
                     </View>
                   ) : null}
                   <View style={styles.updateBar}>
-                    <Text style={styles.updateBarText}>UPDATE</Text>
+                    <Text style={styles.updateBarText}>UPDATE 1</Text>
                   </View>
                   {props.isFocused ? (
                     <ViewportAwareVideo
@@ -210,7 +210,7 @@ const FeedUpdate = props => {
                   style={styles.campImgContain}
                 >
                   <View style={styles.updateBar}>
-                    <Text style={styles.updateBarText}>UPDATE</Text>
+                    <Text style={styles.updateBarText}>UPDATE 2</Text>
                   </View>
                 </ImageBackground>
               )}
@@ -227,7 +227,7 @@ const FeedUpdate = props => {
                     </View>
                   ) : null}
                   <View style={styles.updateBar}>
-                    <Text style={styles.updateBarText}>UPDATE</Text>
+                    <Text style={styles.updateBarText}>UPDATE 3</Text>
                   </View>
                   {props.isFocused ? (
                     <ViewportAwareVideo
@@ -254,7 +254,7 @@ const FeedUpdate = props => {
                   style={styles.campImgContain}
                 >
                   <View style={styles.updateBar}>
-                    <Text style={styles.updateBarText}>UPDATE</Text>
+                    <Text style={styles.updateBarText}>UPDATE 4</Text>
                   </View>
                 </ImageBackground>
               )}

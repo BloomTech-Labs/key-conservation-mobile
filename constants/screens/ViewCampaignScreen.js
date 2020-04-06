@@ -135,5 +135,8 @@ export default {
     marginLeft: 0,
     marginRight: 15,
     marginTop: 15
+  },
+  feedContainer: {
+    marginBottom: 30
   }
 };
