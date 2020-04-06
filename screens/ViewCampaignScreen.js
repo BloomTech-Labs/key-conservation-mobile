@@ -27,8 +27,6 @@ import TakeActionCallToAction from '../components/TakeAction/TakeActionCallToAct
 // issue in labs_help, we settled for in-component axios calls. Not elegant. Probably not super scalable—but it worked. Hopefully a more talented team can solve what we couldn't.
 // In the meantime, ViewCampaignScreen, ViewCampaignUpdateScreen, FeedCampaign, and FeedUpdate are all interconnected, sharing props (state, functions) via React-Navigation.
 
-// const { data } = props;
-
 class ViewCampaignScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -47,7 +45,7 @@ class ViewCampaignScreen extends React.Component {
           }}
           onPress={navigation.getParam('showCampaignOptions')}
         >
-          <Ellipse width='25' height='25' />
+          <Ellipse width="25" height="25" />
         </TouchableOpacity>
       )
     };
@@ -124,7 +122,7 @@ class ViewCampaignScreen extends React.Component {
           <KeyboardAvoidingView
             enabled
             keyboardVerticalOffset={86}
-            behavior='height'
+            behavior="height"
           >
             <Viewport.Tracker>
               <ScrollView>
@@ -134,7 +132,7 @@ class ViewCampaignScreen extends React.Component {
                     title={
                       <View>
                         <Text style={styles.listName}>
-                          {this.props.selectedCampaign.name}
+                          {this.props.selectedCampaign.org_name}
                         </Text>
                       </View>
                     }
@@ -153,7 +151,7 @@ class ViewCampaignScreen extends React.Component {
                       rate={1.0}
                       volume={1.0}
                       useNativeControls={true}
-                      resizeMode='cover'
+                      resizeMode="cover"
                       style={styles.campaignImageContainer}
                     />
                   ) : (
@@ -165,7 +163,7 @@ class ViewCampaignScreen extends React.Component {
 
                   <View style={styles.campaignDescriptionContainer}>
                     <Text style={styles.campaignDescriptionName}>
-                      {this.props.selectedCampaign.name}
+                      {this.props.selectedCampaign.org_name}
                     </Text>
                     <Text style={styles.campaignDescription}>
                       {this.props.selectedCampaign.description}
@@ -211,7 +209,7 @@ class ViewCampaignScreen extends React.Component {
                     title={
                       <View>
                         <Text style={styles.listName}>
-                          {this.props.selectedCampaign.name}
+                          {this.props.selectedCampaign.org_name}
                         </Text>
                       </View>
                     }
@@ -231,7 +229,7 @@ class ViewCampaignScreen extends React.Component {
                       volume={1.0}
                       isMuted={true}
                       useNativeControls={true}
-                      resizeMode='cover'
+                      resizeMode="cover"
                       style={styles.campaignImageContainer}
                     />
                   ) : (

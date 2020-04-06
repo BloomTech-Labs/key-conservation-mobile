@@ -7,8 +7,7 @@ export default {
     paddingTop: 25,
     paddingBottom: 25,
     width: '100%',
-    height: 50,
-    alignItems: 'center'
+    height: 50
   },
   touchableView: {
     backgroundColor: '#00FF9D',
@@ -19,29 +18,36 @@ export default {
     width: 243
   },
   touchableText: {
-    fontFamily: 'Lato-Bold',
+    fontFamily: 'Lato',
     color: '#323338',
     textTransform: 'uppercase',
+    fontWeight: 'bold',
     letterSpacing: 2,
     fontSize: 16
   },
-  donateButton: {
-    width: '60%',
-    alignSelf: 'center',
+  mainContainer: {
+    flex: 1,
+    backgroundColor: '#F2F2FB',
+    paddingTop: 5
+  },
+  updateBar: {
+    backgroundColor: 'rgba(202,255,0, 0.7)',
+    height: 37,
+    width: '100%',
+    position: 'absolute',
+    zIndex: 1,
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
     justifyContent: 'center',
     alignItems: 'center'
   },
-  supportMissionText: {
+  updateBarText: {
     fontFamily: 'Lato-Bold',
     fontSize: 16,
-    paddingLeft: 10
-  },
-  campaignMissionText: {
-    fontFamily: 'Lato',
-    fontSize: 16,
-    lineHeight: 19,
-    paddingTop: 10,
-    textAlign: 'center'
+    letterSpacing: 5,
+    color: 'black'
   },
   commentsView: {
     marginLeft: 15,
@@ -53,38 +59,50 @@ export default {
     borderRadius: 10,
     backgroundColor: 'white'
   },
-  campaignMission: {
-    marginLeft: 15,
-    marginRight: 15,
-    width: deviceWidth / 2,
-    fontFamily: 'Lato',
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    alignItems: 'center',
+  container: {
+    overflow: 'hidden',
+    width: '95%',
     justifyContent: 'center',
-    fontSize: 16,
-    marginTop: 20,
-    paddingTop: 19
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    paddingTop: 7,
+    paddingBottom: 20,
+    borderRadius: 10,
+    marginTop: 5
   },
-  campaignImageContainer: {
+  ogPostButton: {
+    fontFamily: 'Lato-Bold',
+    width: '60%',
+    alignSelf: 'center'
+  },
+  supportMissionText: {
+    fontFamily: 'Lato-Bold',
+    fontSize: 16,
+    paddingLeft: 10
+  },
+  campaignMissionText: {
+    fontFamily: 'Lato',
+    fontSize: 16,
+    lineHeight: 19,
+    paddingTop: 10
+  },
+  campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
-    // resizeMode: 'contain',
-    // height: deviceWidth <= 415 ? deviceWidth : 415
+    width: '100%',
     flex: 1,
     height: deviceWidth,
-    width: deviceWidth
+    marginTop: 3
   },
   campaignDescriptionContainer: {
     marginLeft: 15,
-    padding: 15,
-    marginTop: 10,
+    paddingBottom: 15,
     marginRight: 10,
     borderRadius: 10,
     backgroundColor: 'white'
   },
   campaignDescriptionName: {
     fontFamily: 'Lato-Bold',
-    fontSize: 18,
+    fontSize: 17,
     lineHeight: 22,
     paddingBottom: 10
   },
@@ -97,12 +115,12 @@ export default {
     fontFamily: 'Lato-Bold',
     fontSize: 18,
     lineHeight: 22,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    paddingBottom: 3
   },
   donateView: {
-    marginTop: 10,
     alignItems: 'center',
-    marginBottom: 10
+    marginBottom: 50
   },
   whiteSpace: {
     height: 40
