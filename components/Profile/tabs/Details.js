@@ -22,7 +22,9 @@ const Details = props => {
               <Text style={styles.title}>{'About Us'}</Text>
             </View>
             <Text style={styles.body}>{profile.about_us}</Text>
+          </View>
 
+          <View style={styles.sections}>
             <View style={styles.iconWrap}>
               <RocketIcon />
               <Text style={styles.title}>{'Support Our Mission'}</Text>
@@ -35,6 +37,9 @@ const Details = props => {
             <TouchableOpacity style={styles.donateButton}>
               <Text style={styles.donateText}>Donate</Text>
             </TouchableOpacity>
+          </View>
+
+          <View style={styles.sections}>
             <View style={styles.iconWrap}>
               <BranchIcon />
               <Text style={styles.title}>
@@ -50,7 +55,9 @@ const Details = props => {
             <TouchableOpacity style={styles.addProjectsButton}>
               <Text style={styles.buttonText}>Add Projects</Text>
             </TouchableOpacity>
+          </View>
 
+          <View style={styles.sections}>
             <View style={styles.iconWrap}>
               <HandshakeIcon />
               <Text style={styles.title}>{'Our Partners'}</Text>

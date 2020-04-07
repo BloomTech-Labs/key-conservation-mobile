@@ -70,13 +70,13 @@ export default StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     marginTop: 10,
-    marginBottom: 50,
-    backgroundColor: 'limegreen',
+    marginBottom: 30,
+    backgroundColor: '#23ff9d',
     padding: 10,
     borderRadius: 5
   },
   donateText: {
-    fontSize: 25,
+    fontSize: 18,
     textAlign: 'center',
     fontFamily: 'Lato-Bold',
     textTransform: 'uppercase',
