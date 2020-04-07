@@ -18,7 +18,8 @@ import styles from '../../constants/Comments/Comments';
 class CommentsView extends React.Component {
   state = {
     comment: '',
-    commentsVisible: 3
+    commentsVisible: 3,
+    height: 40
   };
 
   bufferedComment = null;
@@ -106,6 +107,7 @@ class CommentsView extends React.Component {
                 this.commentInput = input;
               }}
               returnKeyType="send"
+              multiline
             />
             {this.state.comment === null || this.state.comment === '' ? (
               <TouchableOpacity>

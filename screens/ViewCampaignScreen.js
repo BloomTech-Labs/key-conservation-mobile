@@ -108,28 +108,6 @@ class ViewCampaignScreen extends React.Component {
     }
 
     return (
-<<<<<<< HEAD
-      <View style={{ backgroundColor: '#F2F2FB' }}>
-        <CampaignActionSheet
-          admin={this.props.currentUserProfile.admin}
-          campaign={this.props.selectedCampaign}
-          ref={o => (this.ActionSheet = o)}
-          isMine={
-            this.props.currentUserProfile.admin ===
-            this.props.selectedCampaign.user_id
-          }
-          goBack
-        />
-        {Platform.OS === 'android' ? (
-          <KeyboardAvoidingView
-            enabled
-            keyboardVerticalOffset={86}
-            behavior="height"
-          >
-            <Viewport.Tracker>
-              <ScrollView>
-                <View>
-=======
       <View style={styles.mainContainer}>
         <View style={styles.container}>
           <CampaignActionSheet
@@ -232,7 +210,6 @@ class ViewCampaignScreen extends React.Component {
             <KeyboardAwareScrollView extraScrollHeight={50}>
               <Viewport.Tracker>
                 <ScrollView>
->>>>>>> d60449e64bbe4892f8053399aaf008742a113b06
                   <ListItem
                     onPress={this.goToProfile}
                     title={
@@ -268,66 +245,6 @@ class ViewCampaignScreen extends React.Component {
                     </Text>
                     <Text style={styles.timeText}>{timeDiff}</Text>
                   </View>
-<<<<<<< HEAD
-
-                  <View style={styles.commentsView}>
-                    <CommentsView />
-                  </View>
-
-                  <View style={styles.donateView}>
-                    <TakeActionCallToAction
-                      donate={this.props.selectedCampaign}
-                      style={{ backgroundColor: '#ffffff' }}
-                    />
-                  </View>
-
-                  <View style={styles.feedContainer}>
-                    {sortedUpdates !== false &&
-                      sortedUpdates.map(update => (
-                        <FeedUpdate
-                          key={`update${update.id}`}
-                          data={update}
-                          toggled
-                          hideName
-                          navigation={this.props.navigation}
-                          fromCampaignScreen={true}
-                        />
-                      ))}
-                  </View>
-                </View>
-              </ScrollView>
-            </Viewport.Tracker>
-          </KeyboardAvoidingView>
-        ) : (
-          <KeyboardAwareScrollView extraScrollHeight={50}>
-            <Viewport.Tracker>
-              <ScrollView>
-                <View>
-                  <ListItem
-                    onPress={this.goToProfile}
-                    title={
-                      <View>
-                        <Text style={styles.listName}>
-                          {this.props.selectedCampaign.org_name}
-                        </Text>
-                      </View>
-                    }
-                    leftAvatar={{
-                      source: { uri: this.props.selectedCampaign.profile_image }
-                    }}
-                    subtitle={this.props.selectedCampaign.location}
-                  />
-                  <View style={styles.campaignDescriptionContainer}>
-                    <Text style={styles.campaignDescriptionName}>
-                      {this.props.selectedCampaign.name}
-                    </Text>
-                    <Text style={styles.campaignDescription}>
-                      {this.props.selectedCampaign.description}
-                    </Text>
-                    <Text style={styles.timeText}>{timeDiff}</Text>
-                  </View>
-=======
->>>>>>> d60449e64bbe4892f8053399aaf008742a113b06
                   {this.props.navigation.state.params.media.includes('.mov') ||
                   this.props.navigation.state.params.media.includes('.mp3') ||
                   this.props.navigation.state.params.media.includes('.mp4') ? (
@@ -384,36 +301,15 @@ class ViewCampaignScreen extends React.Component {
                     </View>
                   </View>  */}
 
-<<<<<<< HEAD
-=======
                   <View style={styles.commentsView}>
                     <CommentsView />
                   </View>
 
->>>>>>> d60449e64bbe4892f8053399aaf008742a113b06
                   <View style={styles.donateView}>
                     <TakeActionCallToAction
                       donate={this.props.selectedCampaign}
                       style={{ backgroundColor: '#f5f5f5' }}
                     />
-                  </View>
-
-                  <View style={styles.commentsView}>
-                    <CommentsView />
-                  </View>
-
-                  <View style={styles.feedContainer}>
-                    {sortedUpdates !== false &&
-                      sortedUpdates.map(update => (
-                        <FeedUpdate
-                          key={`update${update.id}`}
-                          data={update}
-                          toggled
-                          hideName
-                          navigation={this.props.navigation}
-                          fromCampaignScreen={true}
-                        />
-                      ))}
                   </View>
                 </ScrollView>
               </Viewport.Tracker>
