@@ -89,11 +89,11 @@ class ProfileScreen extends React.Component {
 
 
   startGettingProfiles = () => {
-      this.refreshInterval = setInterval(() => this.updateCampaigns(), 5000);
+    this.refreshInterval = setInterval(() => this.updateCampaigns(), 5000);
   };
 
   stopGettingProfiles = () => {
-      clearInterval(this.refreshInterval);
+    clearInterval(this.refreshInterval);
   };
 
   componentDidMount = () => {
