@@ -23,7 +23,7 @@ import LoadingOverlay from '../LoadingOverlay';
 import Ellipse from '../../assets/jsicons/Ellipse';
 import CampaignActionSheet from '../Reports/CampaignActionSheet';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
-import styles from '../../constants/FeedScreen/FeedCampaign';
+import styles from '../../constants/FeedScreen/FeedUpdate';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
