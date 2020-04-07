@@ -39,7 +39,7 @@ export default StyleSheet.create({
     fontFamily: 'Lato-Bold'
   },
   body: {
-    marginBottom: 20,
+    marginBottom: 8,
     flexDirection: 'column',
     flexWrap: 'nowrap',
     fontSize: 17,
@@ -70,7 +70,6 @@ export default StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     marginTop: 10,
-    marginBottom: 30,
     backgroundColor: '#23ff9d',
     padding: 10,
     borderRadius: 5
@@ -87,8 +86,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#f5f5f5',
     borderRadius: 5,
-    padding: 10,
-    marginBottom: 20
+    padding: 10
   },
   buttonText: {
     fontFamily: 'Lato-Bold',
