@@ -30,25 +30,25 @@ export default {
     backgroundColor: '#F2F2FB',
     paddingTop: 5
   },
-  // updateBar: {
-  //   backgroundColor: 'rgba(202,255,0, 0.7)',
-  //   height: 37,
-  //   width: '100%',
-  //   position: 'absolute',
-  //   zIndex: 1,
-  //   top: 0,
-  //   right: 0,
-  //   bottom: 0,
-  //   left: 0,
-  //   justifyContent: 'center',
-  //   alignItems: 'center'
-  // },
-  // updateBarText: {
-  //   fontFamily: 'Lato-Bold',
-  //   fontSize: 16,
-  //   letterSpacing: 5,
-  //   color: 'black'
-  // },
+  updateBar: {
+    backgroundColor: 'rgba(202,255,0, 0.7)',
+    height: 37,
+    width: '100%',
+    position: 'absolute',
+    zIndex: 1,
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  updateBarText: {
+    fontFamily: 'Lato-Bold',
+    fontSize: 16,
+    letterSpacing: 5,
+    color: 'black'
+  },
   commentsView: {
     marginLeft: 15,
     marginRight: 15,
@@ -75,7 +75,7 @@ export default {
     width: '60%',
     alignSelf: 'center'
   },
-  campaignImageContainer: {
+  campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
     width: '100%',
     flex: 1,

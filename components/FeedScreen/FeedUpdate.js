@@ -23,7 +23,7 @@ import LoadingOverlay from '../LoadingOverlay';
 import Ellipse from '../../assets/jsicons/Ellipse';
 import CampaignActionSheet from '../Reports/CampaignActionSheet';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
-import styles from '../../constants/FeedScreen/FeedCampaign';
+import styles from '../../constants/FeedScreen/FeedUpdate';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
@@ -127,11 +127,10 @@ const FeedUpdate = props => {
         />
         {props.hideName === undefined && (
           <ListItem
-            disabled={props.disableHeader}
             onPress={goToProfile}
             title={
               <View>
-                <Text style={styles.orgTitleView}>{data.name}</Text>
+                <Text style={styles.orgTitleView}>{data.org_name}</Text>
               </View>
             }
             leftAvatar={{ source: { uri: data.profile_image } }}
