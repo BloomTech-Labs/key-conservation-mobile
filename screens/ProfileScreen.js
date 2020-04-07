@@ -72,8 +72,14 @@ class ProfileScreen extends React.Component {
         this.profileId,
         null,
       );
-      if(updatedUser.campaigns.length !== this.state.user.campaigns.length){
-        this.initProfileData();
+      if(this.state.user.roles === 'conservationist') {
+        if (updatedUser.campaigns.length !== this.state.user.campaigns.length) {
+          this.initProfileData();
+        }
+      }else if(this.state.user.roles === 'supporter'){
+        if (updatedUser.bookmarks.length !== this.state.user.bookmarks.length) {
+          this.initProfileData();
+        }
       }
     } catch (err) {
       console.log(err);
