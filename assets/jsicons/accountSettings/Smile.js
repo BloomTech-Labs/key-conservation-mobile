@@ -26,7 +26,7 @@ export default function Smile() {
 </g>
 </svg>`;
 
-  const Smile = () => <SvgXml xml={smile} width='33' height='33' />;
+  const Smile = () => <SvgXml xml={smile} width="33" height="33" />;
 
   return <Smile />;
 }
