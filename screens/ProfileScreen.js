@@ -100,6 +100,7 @@ class ProfileScreen extends React.Component {
 
   componentWillUnmount() {
     this._sub.remove();
+    clearInterval(this.refreshInterval);
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -159,6 +160,7 @@ class ProfileScreen extends React.Component {
 
   componentWillUnmount() {
     this.props.navigation.setParams({ selectedProfile: null });
+    clearInterval(this.refreshInterval);
   }
 
   handleHeaderScale = (height, headerHeight) => {
