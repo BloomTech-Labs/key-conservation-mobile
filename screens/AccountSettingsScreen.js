@@ -8,9 +8,9 @@ import * as SecureStorage from 'expo-secure-store';
 
 import { logout } from '../store/actions';
 import BackButtonHeader from '../components/BackButtonHeader';
-import LogoutSymbol from '../assets/jsicons/KeyCon/LogoutSymbol';
+import LogoutSymbol from '../assets/jsicons/accountSettings/LogoutSymbol';
 import styles from '../constants/screens/AccountSettingsScreen';
-import Smile from '../assets/jsicons/bottomnavigation/Smile';
+import Smile from '../assets/jsicons/accountSettings/Smile';
 
 class AccountSettingsScreen extends React.Component {
   state = {
@@ -59,7 +59,6 @@ class AccountSettingsScreen extends React.Component {
     await SecureStorage.deleteItemAsync('accessToken', {});
     // await SecureStorage.deleteItemAsync("airtableKey", {}); // for development
     this.props.logout();
-
   };
 
   render() {

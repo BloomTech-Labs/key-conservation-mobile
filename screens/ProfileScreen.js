@@ -72,8 +72,14 @@ class ProfileScreen extends React.Component {
         this.profileId,
         null,
       );
-      if(updatedUser.campaigns.length !== this.state.user.campaigns.length){
-        this.initProfileData();
+      if(this.state.user.roles === 'conservationist') {
+        if (updatedUser.campaigns.length !== this.state.user.campaigns.length) {
+          this.initProfileData();
+        }
+      }else if(this.state.user.roles === 'supporter'){
+        if (updatedUser.bookmarks.length !== this.state.user.bookmarks.length) {
+          this.initProfileData();
+        }
       }
     } catch (err) {
       console.log(err);
@@ -100,6 +106,7 @@ class ProfileScreen extends React.Component {
 
   componentWillUnmount() {
     this._sub.remove();
+    clearInterval(this.refreshInterval);
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -159,6 +166,7 @@ class ProfileScreen extends React.Component {
 
   componentWillUnmount() {
     this.props.navigation.setParams({ selectedProfile: null });
+    clearInterval(this.refreshInterval);
   }
 
   handleHeaderScale = (height, headerHeight) => {

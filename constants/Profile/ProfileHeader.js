@@ -22,14 +22,14 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     paddingTop: 10,
-    paddingBottom: 30,
+    // paddingBottom: 30,
     flexWrap: 'wrap'
   },
   textContainer: {
     flex: 1,
     color: 'white',
-    marginLeft: 0,
-    marginTop: 15
+    marginLeft: 5,
+    marginTop: 25
   },
   headerTitleContainer: {
     position: 'absolute',
@@ -52,16 +52,16 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   bioContainer: {
-    marginTop: 25,
-    marginBottom: 25,
+    marginTop: 15,
+    marginBottom: 15,
     width: '100%',
-    paddingLeft: 40,
-    paddingRight: 40
+    paddingLeft: 30,
+    paddingRight: 30
   },
   bioText: {
     color: 'white',
     textAlign: 'center',
-    fontFamily: 'Lato',
+    fontFamily: 'Lato-Bold',
     fontSize: 17
   },
   org: {
@@ -115,8 +115,8 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: '#eee',
-    marginTop: 12,
-    marginBottom: 12,
+    marginTop: 10,
+    marginBottom: 10,
     flex: 1
   },
   CampaignButton: {
@@ -127,7 +127,7 @@ export default StyleSheet.create({
   },
   buttonContainer: {
     paddingHorizontal: 30,
-    borderLeftWidth: 1,
+    borderLeftWidth: 2,
     borderColor: 'white',
     width: '45%'
   },
@@ -144,7 +144,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     alignItems: 'center',
-    marginTop: 15
+    marginTop: 10
   },
   connectText: {
     color: 'white',
