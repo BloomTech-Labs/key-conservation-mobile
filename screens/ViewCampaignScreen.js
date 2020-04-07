@@ -308,8 +308,22 @@ class ViewCampaignScreen extends React.Component {
                   <View style={styles.donateView}>
                     <TakeActionCallToAction
                       donate={this.props.selectedCampaign}
-                      style={{ backgroundColor: '#f5f5f5' }}
+                      style={{ backgroundColor: '#ffffff' }}
                     />
+                  </View>
+
+                  <View style={styles.feedContainer}>
+                    {sortedUpdates !== false &&
+                      sortedUpdates.map(update => (
+                        <FeedUpdate
+                          key={`update${update.id}`}
+                          data={update}
+                          toggled
+                          hideName
+                          navigation={this.props.navigation}
+                          fromCampaignScreen={true}
+                        />
+                      ))}
                   </View>
                 </ScrollView>
               </Viewport.Tracker>
