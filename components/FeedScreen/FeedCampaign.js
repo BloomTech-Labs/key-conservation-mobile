@@ -14,7 +14,11 @@ import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
 
-import { getCampaign, toggleCampaignText } from '../../store/actions';
+import {
+  getCampaign,
+  toggleCampaignText,
+  setCampaign
+} from '../../store/actions';
 import { AmpEvent } from '../withAmplitude';
 import LoadingOverlay from '../LoadingOverlay';
 
@@ -117,6 +121,8 @@ const FeedCampaign = props => {
     urgencyColor = 'rgba(255,199,0,0.6)';
   } else if (data.urgency === 'Longterm') {
     urgencyColor = 'rgba(0,255,157,0.6)';
+  } else if (data.urgency === 'Update') {
+    urgencyColor = 'rgba(202,255,0, 0.7)';
   } else {
     urgencyColor = 'none';
   }
@@ -147,17 +153,22 @@ const FeedCampaign = props => {
   };
 
   const goToCampaign = async () => {
-    await dispatch(getCampaign(data.id));
     AmpEvent('Select Profile from Campaign', {
       campaign: data.campaign_name,
       profile: data.name
     });
-    navigate('Campaign', {
-      // userBookmarked: userBookmarked,
-      // addBookmark: addBookmark,
-      // deleteBookmark: deleteBookmark,
-      media: data.image
-    });
+
+    if (data.campaign_id) {
+      await dispatch(setCampaign(data));
+      navigate('CampaignUpdate', {
+        media: data.image
+      });
+    } else {
+      await dispatch(getCampaign(data.id));
+      navigate('Campaign', {
+        media: data.image
+      });
+    }
   };
 
   const toggleText = () => {
@@ -225,7 +236,7 @@ const FeedCampaign = props => {
       <View style={styles.container}>
         <LoadingOverlay
           loading={props.deleteBuffer.includes(data.id)}
-          backgroundColor='white'
+          backgroundColor="white"
         />
         <CampaignActionSheet
           ref={actionSheetRef}
@@ -238,19 +249,19 @@ const FeedCampaign = props => {
           onPress={goToProfile}
           title={
             <View style={styles.name}>
-              <Text style={styles.orgTitleView}>{data.name}</Text>
+              <Text style={styles.orgTitleView}>{data.org_name}</Text>
             </View>
           }
           leftAvatar={{ source: { uri: data.profile_image || undefined } }}
           rightElement={
             <TouchableOpacity onPress={showActionSheet}>
-              <Ellipse fill='#000' height='25' width='25' />
+              <Ellipse fill="#000" height="25" width="25" />
             </TouchableOpacity>
           }
           subtitle={
             <View style={{ flexDirection: 'row' }}>
               {data.location !== (undefined || null) ? (
-                <MapMarker fill='#505050' />
+                <MapMarker fill="#505050" />
               ) : null}
               <Text style={{ color: '#929292' }}>{data.location}</Text>
             </View>
@@ -287,7 +298,7 @@ const FeedCampaign = props => {
                 ) : null}
                 {loader ? (
                   <View style={styles.indicator}>
-                    <ActivityIndicator size='large' color='#00FF9D' />
+                    <ActivityIndicator size="large" color="#00FF9D" />
                   </View>
                 ) : null}
                 {props.isFocused ? (
@@ -301,7 +312,7 @@ const FeedCampaign = props => {
                     isMuted={false}
                     shouldPlay={true}
                     isLooping
-                    resizeMode='cover'
+                    resizeMode="cover"
                     onPlaybackStatusUpdate={onPlaybackStatusUpdate}
                     style={styles.campImgContain}
                   />
@@ -365,7 +376,7 @@ const FeedCampaign = props => {
                 top: -2,
                 right: 2
               }}
-              value={data.comments.length}
+              value={data.comments ? data.comments.length : 0}
             />
           </TouchableOpacity>
         </View>

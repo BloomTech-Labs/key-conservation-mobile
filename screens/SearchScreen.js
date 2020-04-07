@@ -27,7 +27,7 @@ const KEYS_TO_FILTERS = [
   'name',
   'location',
   'data',
-  'update_description'
+  'description'
 ];
 
 class SearchScreen extends React.Component {
@@ -64,7 +64,7 @@ class SearchScreen extends React.Component {
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
     );
     return (
-      <KeyboardAvoidingView behavior='height' enabled>
+      <KeyboardAvoidingView behavior="height" enabled>
         <NavigationEvents
           onDidFocus={this.startGettingCampaigns}
           onDidBlur={this.stopGettingCampaigns}
@@ -96,7 +96,7 @@ class SearchScreen extends React.Component {
                   justifyContent: 'center'
                 }}
               >
-                <ChevronLeftWhite fill='#fff' width='25' height='25' />
+                <ChevronLeftWhite fill="#fff" width="25" height="25" />
               </TouchableOpacity>
             }
             centerComponent={
@@ -107,7 +107,7 @@ class SearchScreen extends React.Component {
                 searchIcon={false}
                 cancelIcon={false}
                 onCancel={true}
-                placeholder='Search ...'
+                placeholder="Search ..."
                 containerStyle={{
                   backgroundColor: 'transparent',
                   borderTopWidth: 0,
@@ -130,13 +130,13 @@ class SearchScreen extends React.Component {
             }
           />
           {this.props.allCampaigns.length > 0 &&
-            filteredCampaigns.map(campaign =>
+            filteredCampaigns.map(campaign => (
               <FeedCampaign
                 key={campaign.id}
                 data={campaign}
                 navigation={navigation}
               />
-            )}
+            ))}
         </ScrollView>
       </KeyboardAvoidingView>
     );

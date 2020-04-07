@@ -1,15 +1,22 @@
 import React from 'react';
-import { TextInput, Text, View, Alert, ActivityIndicator } from 'react-native';
+import {
+  TextInput,
+  Text,
+  View,
+  Alert,
+  ActivityIndicator,
+  TouchableOpacity
+} from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import styles from '../constants/screens/CreateCampaignScreen';
+import styles from '../constants/screens/CreateCampaignUpdateScreen';
 
 import { postCampaignUpdate, getProfileData } from '../store/actions';
 import BackButton from '../components/BackButton';
-import PublishButton from '../components/PublishButton';
 import UploadMedia from '../components/UploadMedia';
+import PublishButton from '../components/PublishButton';
 
 class CreateCampaignUpdateScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -50,7 +57,7 @@ class CreateCampaignUpdateScreen extends React.Component {
     if (this.state.loading === true) {
       return (
         <View style={styles.indicator}>
-          <ActivityIndicator size='large' color='#00FF9D' />
+          <ActivityIndicator size="large" color="#00FF9D" />
         </View>
       );
     }
@@ -58,29 +65,45 @@ class CreateCampaignUpdateScreen extends React.Component {
       <KeyboardAwareScrollView style={styles.container}>
         <NavigationEvents onDidBlur={this.clearState} />
         <View style={styles.sectionContainer}>
-          <View style={styles.goToCampaignButton}>
-            <Text style={styles.goToCampaignText}>Post an update about</Text>
+          <View style={styles.horizontalContainer}>
+            <View style={styles.iconContainer}>
+              <UploadMedia
+                title="UPLOAD NEW IMAGE"
+                media={this.state.image}
+                onChangeMedia={media => this.setState({ image: media })}
+                style={styles.uploadMedia}
+              />
+            </View>
+            <View style={styles.textView}>
+              <Text style={styles.sectionsText}>Post an update about:</Text>
+              <Text style={styles.subtitleText}>
+                "{this.selectedCampaign.name}"
+              </Text>
+            </View>
           </View>
-          <Text style={styles.sectionsText}>
-            "{this.selectedCampaign.name}"
-          </Text>
-          <UploadMedia
-            title='Upload update image'
-            media={this.state.image}
-            onChangeMedia={media => this.setState({ image: media })}
-          />
-          <TextInput
-            ref={input => {
-              this.campaignDetailsInput = input;
-            }}
-            returnKeyType='next'
-            placeholder='Write an update here to tell people what has happened since their donation.'
-            style={styles.inputContain2}
-            onChangeText={text => this.setState({ description: text })}
-            multiline={true}
-            value={this.state.description}
-          />
         </View>
+        <View style={styles.sectionContainer}>
+          <View style={styles.horizontalContainer}>
+            <TextInput
+              ref={input => {
+                this.campaignDetailsInput = input;
+              }}
+              returnKeyType="next"
+              placeholder="Write an update here to tell people what has happened since their donation."
+              style={styles.inputContain2}
+              onChangeText={text => this.setState({ description: text })}
+              multiline={true}
+              value={this.state.description}
+            />
+          </View>
+        </View>
+        {/* <View style={styles.sectionContainer}>
+          <TouchableOpacity onPress={this.publish}>
+            <View style={styles.publishButton}>
+              <Text style={styles.publishButtonText}>Publish Live</Text>
+            </View>
+          </TouchableOpacity>
+        </View> */}
       </KeyboardAwareScrollView>
     );
   }
@@ -99,7 +122,7 @@ class CreateCampaignUpdateScreen extends React.Component {
       const campaignUpdate = {
         description: this.state.description,
         user_id: this.props.currentUserProfile.id,
-        id: this.selectedCampaign.id,
+        campaign_id: this.selectedCampaign.id,
         image: this.state.image
       };
       this.postCampaignUpdate(campaignUpdate);

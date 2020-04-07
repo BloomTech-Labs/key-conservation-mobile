@@ -34,7 +34,7 @@ class EditCampaignUpdateScreen extends React.Component {
       this.props.navigation.getParam('selectedCampaign') || {};
 
     this.state = {
-      update_description: this.selectedCampaign.update_description
+      description: this.selectedCampaign.description
     };
   }
 
@@ -44,15 +44,12 @@ class EditCampaignUpdateScreen extends React.Component {
 
   edit = async () => {
     let changes = this.state;
-    await this.props.editCampaignUpdate(
-      this.selectedCampaign.id,
-      changes
-    );
+    await this.props.editCampaignUpdate(this.selectedCampaign.id, changes);
     this.props.navigation.goBack();
   };
   clearState = () => {
     this.setState({
-      update_description: this.selectedCampaign.update_description
+      description: this.selectedCampaign.description
     });
   };
   render() {
@@ -69,12 +66,12 @@ class EditCampaignUpdateScreen extends React.Component {
               ref={input => {
                 this.campaignDetailsInput = input;
               }}
-              returnKeyType='next'
-              placeholder='Write an update here to tell people what has happened since their donation.'
+              returnKeyType="next"
+              placeholder="Write an update here to tell people what has happened since their donation."
               style={styles.inputContain2}
-              onChangeText={text => this.setState({ update_description: text })}
+              onChangeText={text => this.setState({ description: text })}
               multiline={true}
-              value={this.state.update_description}
+              value={this.state.description}
             />
           </View>
         </View>

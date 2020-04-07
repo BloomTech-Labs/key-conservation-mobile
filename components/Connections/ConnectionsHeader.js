@@ -38,9 +38,10 @@ const Connect = props => {
           props.profileData?.roles === 'supporter' ? 'Pending' : 'Following'
       }
     ]);
-    props.connectRequest(props.profileId).then(error => {
-      if (error) Alert.alert(error.message);
+    props.connectRequest(props.profileId).then(() => {
       getConnections();
+    }).catch(error => {
+      Alert.alert(error.message);
     });
   };
 
@@ -50,10 +51,11 @@ const Connect = props => {
     );
     props
       .deleteConnection(myConnection.id, props.profileId)
-      .then(error => {
-        if (error) Alert.alert('Failed to remove connection');
+      .then(() => {
         getConnections();
-      });
+      }).catch(() => {
+        Alert.alert('Failed to remove connection');
+    });
   };
 
   const promptDelete = () => {

@@ -45,7 +45,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 2,
     marginHorizontal: Dimensions.get('screen').height * 0.07,
-    left: Dimensions.get('screen').height * 0.03
+    left: Dimensions.get('screen').height * 0.03,
+    marginTop: Dimensions.get('screen').height * 0.05
   },
   text: {
     justifyContent: 'flex-start',

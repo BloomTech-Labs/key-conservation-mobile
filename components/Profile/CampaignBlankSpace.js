@@ -15,6 +15,7 @@ const CampaignBlankSpace = props => {
           </Text>
         ) : (
           <Text style={styles.text}>
+            {' '}
             This organization has not posted any campaigns yet.
           </Text>
         )}

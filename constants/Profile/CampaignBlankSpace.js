@@ -6,21 +6,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     width: '100%',
     height: '100%',
-    flex: 1
-  },
-  plusIcon: {
+    flex: 1,
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 30,
-    paddingHorizontal: 60
+    justifyContent: 'center'
   },
   text: {
     fontFamily: 'Lato-Bold',
     fontSize: 20,
     textAlign: 'center',
     alignSelf: 'center',
-    paddingTop: 10,
+    paddingTop: 15,
     color: '#505050'
+  },
+  plusIcon: {
+    alignItems: 'center'
   }
 });
 
