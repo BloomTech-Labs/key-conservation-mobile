@@ -75,17 +75,6 @@ export default {
     width: '60%',
     alignSelf: 'center'
   },
-  supportMissionText: {
-    fontFamily: 'Lato-Bold',
-    fontSize: 16,
-    paddingLeft: 10
-  },
-  campaignMissionText: {
-    fontFamily: 'Lato',
-    fontSize: 16,
-    lineHeight: 19,
-    paddingTop: 10
-  },
   campImgContain: {
     /* Must have a Width && Height or it won't display anything! */
     width: '100%',

@@ -2,10 +2,6 @@ import { Dimensions } from 'react-native';
 
 const deviceWidth = Dimensions.get('window').width;
 export default {
-  feedContainer: {
-    flex: 1,
-    backgroundColor: '#fff'
-  },
   name: {
     flexDirection: 'row'
   },
@@ -18,7 +14,8 @@ export default {
   },
   mainContainer: {
     flex: 1,
-    backgroundColor: '#F2F2FB'
+    backgroundColor: '#F2F2FB',
+    marginBottom: 20
   },
   container: {
     overflow: 'hidden',
@@ -145,7 +142,7 @@ export default {
     color: 'white'
   },
   demarcation: {
-    marginTop: 5
+    marginTop: 50
   },
   subtitleText: {
     color: '#929292'
