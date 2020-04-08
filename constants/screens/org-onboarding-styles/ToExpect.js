@@ -2,18 +2,21 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 
 export default StyleSheet.create({
+  mainContainer: {
+    backgroundColor: '#fff',
+  },
   arrowView: {
     zIndex: 3,
     padding: '2.5%',
     top: '2.5%',
     alignSelf: 'flex-start',
-    left: '1.5%'
+    left: '1.5%',
   },
   obBody: {
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    height: Dimensions.get('window').height * 0.97
+    height: 720,
   },
   obTitle: {
     color: '#000000',
@@ -22,9 +25,9 @@ export default StyleSheet.create({
     fontSize: responsiveFontSize(3),
     lineHeight: 38,
     marginLeft: '8%',
-    marginTop: '12%',
+    marginTop: '5%',
     marginBottom: '2%',
-    marginRight: '7%'
+    marginRight: '7%',
   },
   contentWrapper: {
     display: 'flex',
@@ -32,10 +35,10 @@ export default StyleSheet.create({
     marginRight: '5%',
     flexWrap: 'nowrap',
     flexDirection: 'row',
-    marginTop: '5%'
+    marginTop: '5%',
   },
   iconWrapper: {
-    marginTop: '2.5%'
+    marginTop: '2.5%',
   },
   obSubtitle: {
     color: '#000000',
@@ -46,7 +49,7 @@ export default StyleSheet.create({
     marginLeft: '5%',
     marginTop: '2%',
     marginBottom: '2%',
-    marginRight: '7%'
+    marginRight: '7%',
   },
   obText: {
     color: '#000000',
@@ -57,10 +60,10 @@ export default StyleSheet.create({
     marginLeft: '5%',
     marginTop: '2%',
     marginBottom: '2%',
-    marginRight: '7%'
+    marginRight: '7%',
   },
-
   buttons: {
-    alignItems: 'flex-end'
-  }
+    alignItems: 'flex-end',
+    backgroundColor: '#fff',
+  },
 });

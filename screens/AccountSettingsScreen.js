@@ -15,19 +15,19 @@ import Smile from '../assets/jsicons/accountSettings/Smile';
 class AccountSettingsScreen extends React.Component {
   state = {
     result: null,
-    roles: ''
+    roles: '',
   };
 
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'ACCOUNT SETTINGS',
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: '#323338',
       },
       headerTintColor: '#fff',
       headerLeft: () => (
         <BackButtonHeader pressAction={navigation.getParam('done')} />
-      )
+      ),
     };
   };
   getRole = async () => {
@@ -82,10 +82,6 @@ class AccountSettingsScreen extends React.Component {
           </View>
         )}
         <View style={styles.sections}>
-          <View style={styles.iconWrap}>
-            <Smile />
-            <Text style={styles.title}>Log Out Of Your Profile</Text>
-          </View>
           <TouchableOpacity style={styles.linkWrap} onPress={this.logoutPress}>
             <View style={styles.logoutButton}>
               <LogoutSymbol />
@@ -98,8 +94,8 @@ class AccountSettingsScreen extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  currentUserProfile: state.currentUserProfile
+const mapStateToProps = (state) => ({
+  currentUserProfile: state.currentUserProfile,
 });
 
 export default connect(mapStateToProps, { logout })(AccountSettingsScreen);
