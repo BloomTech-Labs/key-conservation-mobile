@@ -7,7 +7,7 @@ export default {
     paddingTop: 25,
     paddingBottom: 25,
     width: '100%',
-    height: 50
+    height: 50,
   },
   touchableView: {
     backgroundColor: '#00FF9D',
@@ -15,7 +15,7 @@ export default {
     justifyContent: 'center',
     borderRadius: 5,
     height: 48,
-    width: 243
+    width: 243,
   },
   touchableText: {
     fontFamily: 'Lato',
@@ -23,12 +23,12 @@ export default {
     textTransform: 'uppercase',
     fontWeight: 'bold',
     letterSpacing: 2,
-    fontSize: 16
+    fontSize: 16,
   },
   mainContainer: {
     flex: 1,
     backgroundColor: '#F2F2FB',
-    paddingTop: 5
+    paddingTop: 5,
   },
   // updateBar: {
   //   backgroundColor: 'rgba(202,255,0, 0.7)',
@@ -50,14 +50,11 @@ export default {
   //   color: 'black'
   // },
   commentsView: {
-    marginLeft: 15,
-    marginRight: 15,
     fontSize: 14,
     fontFamily: 'Lato',
-    marginTop: 20,
     padding: 19,
     borderRadius: 10,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   container: {
     overflow: 'hidden',
@@ -66,81 +63,81 @@ export default {
     alignSelf: 'center',
     backgroundColor: 'white',
     paddingTop: 7,
-    paddingBottom: 20,
+    paddingBottom: 10,
     borderRadius: 10,
-    marginTop: 5
+    marginTop: 5,
   },
   ogPostButton: {
     fontFamily: 'Lato-Bold',
     width: '60%',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   campaignImageContainer: {
     /* Must have a Width && Height or it won't display anything! */
     width: '100%',
     flex: 1,
     height: deviceWidth,
-    marginTop: 3
+    marginTop: 3,
   },
   campaignDescriptionContainer: {
     marginLeft: 15,
     paddingBottom: 15,
     marginRight: 10,
     borderRadius: 10,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   campaignDescriptionName: {
     fontFamily: 'Lato-Bold',
     fontSize: 17,
     lineHeight: 22,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   campaignDescription: {
     fontFamily: 'Lato',
     fontSize: 16,
-    lineHeight: 19
+    lineHeight: 19,
   },
   listName: {
     fontFamily: 'Lato-Bold',
     fontSize: 18,
     lineHeight: 22,
     fontWeight: 'bold',
-    paddingBottom: 3
+    paddingBottom: 3,
   },
   donateView: {
     alignItems: 'center',
-    marginBottom: 50
+    marginTop: 5,
   },
   whiteSpace: {
-    height: 40
+    height: 40,
   },
   icon: {
     fontSize: 28,
     marginTop: 15,
     marginLeft: 15,
-    marginRight: 15
+    marginRight: 15,
   },
   iconRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 15
+    marginTop: 15,
   },
   bookmarks: {
-    marginHorizontal: 15
+    marginHorizontal: 15,
   },
   bookmarkOutline: {
     fontSize: 28,
-    color: 'black'
+    color: 'black',
   },
   bookmarkFill: {
     fontSize: 30,
-    color: '#00FF9D'
+    color: '#00FF9D',
   },
   timeText: {
     color: '#929292',
     fontSize: 10,
     marginLeft: 0,
     marginRight: 15,
-    marginTop: 15
-  }
+    marginTop: 15,
+  },
 };
