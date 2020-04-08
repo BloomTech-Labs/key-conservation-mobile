@@ -20,7 +20,7 @@ export default StyleSheet.create({
     fontFamily: 'Lato',
     minHeight: '100%',
     paddingTop: 10,
-    marginLeft: 5,
+    marginLeft: 7,
   },
   replyView: {
     flexDirection: 'row',
@@ -53,13 +53,13 @@ export default StyleSheet.create({
     fontFamily: 'Lato-Bold',
   },
   input: {
+    justifyContent: 'center',
     minHeight: 40,
     borderRadius: 5,
     fontSize: 16,
-    marginLeft: 5,
     marginRight: 5,
     marginBottom: 20,
-    paddingTop: 10,
+    paddingTop: 12,
     width: '75%',
   },
   inputWrapper: {
