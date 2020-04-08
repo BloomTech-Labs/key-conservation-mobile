@@ -4,7 +4,7 @@ import {
   TouchableOpacity,
   Image,
   KeyboardAvoidingView,
-  Platform
+  Platform,
 } from 'react-native';
 import { View } from 'react-native-animatable';
 import { Video } from 'expo-av';
@@ -33,7 +33,7 @@ class ViewCampaignScreen extends React.Component {
     return {
       title: 'Campaign',
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: '#323338',
       },
       headerTintColor: '#fff',
       headerLeft: () => <BackButton navigation={navigation} popToTop />,
@@ -42,24 +42,24 @@ class ViewCampaignScreen extends React.Component {
           style={{
             transform: [{ rotate: '90deg' }],
             padding: 16,
-            paddingRight: 24
+            paddingRight: 24,
           }}
           onPress={navigation.getParam('showCampaignOptions')}
         >
           <Ellipse width="25" height="25" />
         </TouchableOpacity>
-      )
+      ),
     };
   };
 
   componentDidMount() {
     this.props.navigation.setParams({
-      showCampaignOptions: this.showActionSheet
+      showCampaignOptions: this.showActionSheet,
     });
   }
 
   state = {
-    userBookmarked: this.props.navigation.state.params.userBookmarked
+    userBookmarked: this.props.navigation.state.params.userBookmarked,
   };
 
   showActionSheet = () => {
@@ -72,7 +72,7 @@ class ViewCampaignScreen extends React.Component {
       this.props.selectedCampaign.updates &&
       this.props.selectedCampaign.updates.length
     ) {
-      sortedUpdates = this.props.selectedCampaign.updates.sort(function(a, b) {
+      sortedUpdates = this.props.selectedCampaign.updates.sort(function (a, b) {
         return moment(a.created_at) - moment(b.created_at);
       });
     }
@@ -113,7 +113,7 @@ class ViewCampaignScreen extends React.Component {
           <CampaignActionSheet
             admin={this.props.currentUserProfile.admin}
             campaign={this.props.selectedCampaign}
-            ref={o => (this.ActionSheet = o)}
+            ref={(o) => (this.ActionSheet = o)}
             isMine={
               this.props.currentUserProfile.admin ===
               this.props.selectedCampaign.user_id
@@ -140,8 +140,8 @@ class ViewCampaignScreen extends React.Component {
                       }
                       leftAvatar={{
                         source: {
-                          uri: this.props.selectedCampaign.profile_image
-                        }
+                          uri: this.props.selectedCampaign.profile_image,
+                        },
                       }}
                       subtitle={this.props.selectedCampaign.location}
                     />
@@ -154,7 +154,7 @@ class ViewCampaignScreen extends React.Component {
                     ) ? (
                       <Video
                         source={{
-                          uri: this.props.selectedCampaign.image
+                          uri: this.props.selectedCampaign.image,
                         }}
                         rate={1.0}
                         volume={1.0}
@@ -191,7 +191,7 @@ class ViewCampaignScreen extends React.Component {
 
                     <View style={styles.feedContainer}>
                       {sortedUpdates !== false &&
-                        sortedUpdates.map(update => (
+                        sortedUpdates.map((update) => (
                           <FeedUpdate
                             key={`update${update.id}`}
                             data={update}
@@ -221,8 +221,8 @@ class ViewCampaignScreen extends React.Component {
                     }
                     leftAvatar={{
                       source: {
-                        uri: this.props.selectedCampaign.profile_image
-                      }
+                        uri: this.props.selectedCampaign.profile_image,
+                      },
                     }}
                     subtitle={
                       <View style={{ flexDirection: 'row' }}>
@@ -250,7 +250,7 @@ class ViewCampaignScreen extends React.Component {
                   this.props.navigation.state.params.media.includes('.mp4') ? (
                     <Video
                       source={{
-                        uri: this.props.selectedCampaign.image
+                        uri: this.props.selectedCampaign.image,
                       }}
                       rate={1.0}
                       volume={1.0}
@@ -308,13 +308,12 @@ class ViewCampaignScreen extends React.Component {
                   <View style={styles.donateView}>
                     <TakeActionCallToAction
                       donate={this.props.selectedCampaign}
-                      style={{ backgroundColor: '#ffffff' }}
                     />
                   </View>
 
                   <View style={styles.feedContainer}>
                     {sortedUpdates !== false &&
-                      sortedUpdates.map(update => (
+                      sortedUpdates.map((update) => (
                         <FeedUpdate
                           key={`update${update.id}`}
                           data={update}
@@ -338,7 +337,7 @@ class ViewCampaignScreen extends React.Component {
   addBookmark = () => {
     this.setState({
       ...this.state,
-      userBookmarked: true
+      userBookmarked: true,
     });
     this.props.navigation.state.params.addBookmark();
   };
@@ -346,23 +345,23 @@ class ViewCampaignScreen extends React.Component {
   deleteBookmark = () => {
     this.setState({
       ...this.state,
-      userBookmarked: false
+      userBookmarked: false,
     });
     this.props.navigation.state.params.deleteBookmark();
   };
 
   goToProfile = () => {
     this.props.navigation.navigate('Pro', {
-      selectedProfile: this.props.selectedCampaign.user_id
+      selectedProfile: this.props.selectedCampaign.user_id,
     });
   };
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   selectedCampaign: state.selectedCampaign,
   currentUser: state.currentUser,
   currentUserProfile: state.currentUserProfile,
-  token: state.token
+  token: state.token,
 });
 
 export default connect(mapStateToProps)(ViewCampaignScreen);
