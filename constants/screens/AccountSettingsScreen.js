@@ -6,53 +6,47 @@ const styles = StyleSheet.create({
   backArrowTouch: {
     zIndex: 300,
     padding: 12,
-    color: '#fff'
+    color: '#fff',
   },
   scrollBG: {
     backgroundColor: '#F2F2FB',
     height: Dimensions.get('screen').height * 0.9,
-    width: Dimensions.get('screen').width
+    width: Dimensions.get('screen').width,
   },
   sections: {
-    margin: Dimensions.get('screen').width * 0.02,
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 10,
+    paddingBottom: 10,
     backgroundColor: '#fff',
-    padding: Dimensions.get('screen').width * 0.04,
     borderRadius: 5,
-    fontSize: 15
+    fontSize: 15,
   },
   iconWrap: {
     flexWrap: 'wrap',
     alignItems: 'center',
     flexDirection: 'row',
     paddingBottom: Dimensions.get('screen').width * 0.05,
-    justifyContent: 'center'
-  },
-  title: {
-    fontSize: responsiveFontSize(2.9),
-    marginLeft: 15,
-    fontFamily: 'Lato-Bold',
-    color: '#323338'
+    justifyContent: 'center',
   },
   linkWrap: {
     flexWrap: 'wrap',
     alignItems: 'center',
     flexDirection: 'row',
-    marginLeft: Dimensions.get('screen').width * 0.12,
-    marginTop: 15
+    marginTop: 15,
   },
   logoutButton: {
-    backgroundColor: '#F2F2FB',
+    backgroundColor: '#fff',
     paddingHorizontal: 10,
     paddingVertical: 5,
-    borderRadius: 5
+    borderRadius: 5,
   },
   linkText: {
-    fontSize: responsiveFontSize(2.7),
+    fontSize: 20,
     alignSelf: 'center',
-    marginLeft: '4%',
+    marginLeft: '2%',
     fontFamily: 'Lato-Bold',
-    marginTop: '4%',
-    color: '#323338'
+    color: '#323338',
   },
   buttonContainer: {
     width: '30%',
@@ -64,7 +58,7 @@ const styles = StyleSheet.create({
     marginRight: '35%',
     borderRadius: 4,
     backgroundColor: '#00FF9D',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   buttonText: {
     fontFamily: 'Lato-Bold',
@@ -73,8 +67,8 @@ const styles = StyleSheet.create({
     color: 'black',
     justifyContent: 'center',
     alignItems: 'center',
-    fontSize: 16
-  }
+    fontSize: 16,
+  },
 });
 
 export default styles;
