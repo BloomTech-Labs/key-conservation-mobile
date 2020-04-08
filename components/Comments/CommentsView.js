@@ -18,7 +18,8 @@ import styles from '../../constants/Comments/Comments';
 class CommentsView extends React.Component {
   state = {
     comment: '',
-    commentsVisible: 3
+    commentsVisible: 3,
+    height: 40
   };
 
   bufferedComment = null;
@@ -57,15 +58,6 @@ class CommentsView extends React.Component {
     return (
       <KeyboardAvoidingView>
         {/* Displays latest comment unless the user is viewing all the campaign comments. */}
-        {this.props.campaignComments?.length > this.state.commentsVisible && (
-          <View style={styles.moreContainer}>
-            <TouchableOpacity onPress={() => this.addMoreComments()}>
-              <View style={styles.more}>
-                <Text style={styles.moreText}>View More Comments</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        )}
         <View style={{ flex: 1, flexDirection: 'column-reverse' }}>
           {[this.bufferedComment, ...this.props.campaignComments]
             ?.filter(com => com !== null)
@@ -81,12 +73,21 @@ class CommentsView extends React.Component {
               );
             })}
         </View>
+        {this.props.campaignComments?.length > this.state.commentsVisible && (
+          <View style={styles.moreContainer}>
+            <TouchableOpacity onPress={() => this.addMoreComments()}>
+              <View style={styles.more}>
+                <Text style={styles.moreText}>View More Comments</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        )}
         {/* View More Comments is visible if the length of campaignComments is greater than the value of commentsVisible */}
         <View style={styles.replyView}>
           <View style={styles.replyAvatar}>
             <Avatar
               rounded
-              size='medium'
+              size="medium"
               source={{
                 uri: this.props.currentUserProfile.profile_image
               }}
@@ -94,7 +95,8 @@ class CommentsView extends React.Component {
           </View>
           <View style={styles.inputWrapper}>
             <TextInput
-              placeholder='Write a comment...'
+              placeholder="Write a comment..."
+              placeholderTextColor="#3B3B3B"
               onChangeText={text => this.setState({ comment: text })}
               style={styles.input}
               value={this.state.comment}
@@ -104,7 +106,8 @@ class CommentsView extends React.Component {
               ref={input => {
                 this.commentInput = input;
               }}
-              returnKeyType='send'
+              returnKeyType="send"
+              multiline
             />
             {this.state.comment === null || this.state.comment === '' ? (
               <TouchableOpacity>
