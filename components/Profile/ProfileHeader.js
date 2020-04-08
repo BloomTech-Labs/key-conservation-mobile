@@ -5,16 +5,9 @@ import { Avatar } from 'react-native-elements';
 import { AmpEvent } from '../withAmplitude';
 
 import styles from '../../constants/Profile/ProfileHeader';
-// import MapMarker from '../../assets/images/map-marker-alt-solid.png';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
 import { randomImage } from '../Animals/RandomImage';
 import ConnectionsHeader from '../Connections/ConnectionsHeader';
-
-// Social Media Icons
-import Envelope from '../../assets/jsicons/socialmedia/Envelope';
-import Instagram from '../../assets/jsicons/socialmedia/Instagram';
-import Twitter from '../../assets/jsicons/socialmedia/Twitter';
-import Facebook from '../../assets/jsicons/socialmedia/Facebook';
 
 import { useHeaderHeight } from 'react-navigation-stack';
 
@@ -79,7 +72,7 @@ const ProfileHeader = forwardRef((props, ref) => {
     >
       <Animated.Image
         source={randomHeaderImage}
-        resizeMode='cover'
+        resizeMode="cover"
         style={{
           opacity: 0.6,
           height: 360,
@@ -111,7 +104,7 @@ const ProfileHeader = forwardRef((props, ref) => {
       >
         <View style={styles.avatarContainer}>
           <Avatar
-            size={90}
+            size={80}
             rounded
             source={{
               uri: profile.profile_image || undefined
