@@ -26,11 +26,11 @@ export default StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     marginTop: 10,
-    paddingTop: 10,
+    paddingTop: 8,
   },
   name: {
     paddingBottom: 3,
-    marginTop: 5,
+    marginTop: 3,
     fontFamily: 'Lato-Bold',
   },
   commentBody: {
@@ -41,6 +41,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     paddingTop: 3,
     paddingBottom: 5,
+    paddingRight: 5,
   },
   commentOptions: {
     transform: [{ rotate: '180deg' }],
@@ -60,7 +61,7 @@ export default StyleSheet.create({
     marginRight: 5,
     marginBottom: 20,
     paddingTop: 12,
-    width: '75%',
+    width: '78%',
   },
   inputWrapper: {
     flexDirection: 'row',
