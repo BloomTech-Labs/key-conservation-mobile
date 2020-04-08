@@ -35,7 +35,6 @@ export default StyleSheet.create({
     marginHorizontal: '7%',
     flexWrap: 'wrap',
     flexDirection: 'row',
-    height: Dimensions.get('window').height * 0.19,
     justifyContent: 'flex-start',
   },
   iconWrapper: {

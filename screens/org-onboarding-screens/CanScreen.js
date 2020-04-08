@@ -52,7 +52,6 @@ const CanScreen = (props) => {
                 <CheckMark height="27" width="27" />
               </View>
               <Text style={styles.obText}>
-                {/* <Text style={[styles.obText, styles.obTextBottom]}> */}
                 Provide a way to connect with your local community and visitors
                 about real-time events and ways to get involved.
               </Text>
