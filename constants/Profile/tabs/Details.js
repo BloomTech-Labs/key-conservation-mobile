@@ -83,7 +83,8 @@ export default StyleSheet.create({
     color: '#3b3b3b'
   },
   addProjectsButton: {
-    flexDirection: 'row',
+    flexDirection: 'column',
+    alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#f5f5f5',
     borderRadius: 5,
@@ -93,6 +94,11 @@ export default StyleSheet.create({
   buttonText: {
     fontFamily: 'Lato-Bold',
     color: '#3b3b3b',
-    textTransform: 'uppercase'
+    marginTop: 15
+  },
+  ProjectPartnerSection: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flexWrap: 'wrap'
   }
 });

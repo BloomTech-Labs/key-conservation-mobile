@@ -8,6 +8,7 @@ import ConnectFurther from '../ConnectFurther';
 import HandshakeIcon from '../../../assets/jsicons/detailAboutUs/Handshake';
 import RocketIcon from '../../../assets/jsicons/detailAboutUs/Rocket';
 import BranchIcon from '../../../assets/jsicons/detailAboutUs/Branch';
+import PlusSignCircle from '../../../assets/jsicons/PlusSignCircle';
 
 const Details = props => {
   const { profile } = props;
@@ -47,10 +48,12 @@ const Details = props => {
               on the ground can better share the work they are doing in the
               field.
             </Text>
-            <TouchableOpacity style={styles.addProjectsButton}>
-              <Text style={styles.buttonText}>Add Projects</Text>
-            </TouchableOpacity>
-
+            <View style={styles.ProjectPartnerSection}>
+              <TouchableOpacity style={styles.addProjectsButton}>
+                <PlusSignCircle />
+                <Text style={styles.buttonText}>Add a Project</Text>
+              </TouchableOpacity>
+            </View>
             <View style={styles.iconWrap}>
               <HandshakeIcon />
               <Text style={styles.title}>{'Our Partners'}</Text>
@@ -60,9 +63,12 @@ const Details = props => {
               with in order to spread awareness and raise the resources needed
               to achieve our mission.
             </Text>
-            <TouchableOpacity style={styles.addProjectsButton}>
-              <Text style={styles.buttonText}>Add Partners</Text>
-            </TouchableOpacity>
+            <View style={styles.ProjectPartnerSection}>
+              <TouchableOpacity style={styles.addProjectsButton}>
+                <PlusSignCircle />
+                <Text style={styles.buttonText}>Add a Partner</Text>
+              </TouchableOpacity>
+            </View>
           </View>
           {/* Species and Habitats is a feature not yet in place */}
           {/* <View style={styles.sections}>
