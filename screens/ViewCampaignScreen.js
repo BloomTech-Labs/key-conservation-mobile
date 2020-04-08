@@ -179,14 +179,14 @@ class ViewCampaignScreen extends React.Component {
                       <Text style={styles.timeText}>{timeDiff}</Text>
                     </View>
 
-                    <View style={styles.commentsView}>
-                      <CommentsView />
-                    </View>
-
                     <View style={styles.donateView}>
                       <TakeActionCallToAction
                         donate={this.props.selectedCampaign}
                       />
+                    </View>
+
+                    <View style={styles.commentsView}>
+                      <CommentsView />
                     </View>
 
                     <View style={styles.feedContainer}>
@@ -301,14 +301,14 @@ class ViewCampaignScreen extends React.Component {
                     </View>
                   </View>  */}
 
-                  <View style={styles.commentsView}>
-                    <CommentsView />
-                  </View>
-
                   <View style={styles.donateView}>
                     <TakeActionCallToAction
                       donate={this.props.selectedCampaign}
                     />
+                  </View>
+
+                  <View style={styles.commentsView}>
+                    <CommentsView />
                   </View>
 
                   <View style={styles.feedContainer}>

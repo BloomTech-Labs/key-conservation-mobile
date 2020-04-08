@@ -50,11 +50,8 @@ export default {
   //   color: 'black'
   // },
   commentsView: {
-    marginLeft: 15,
-    marginRight: 15,
     fontSize: 14,
     fontFamily: 'Lato',
-    marginTop: 20,
     padding: 19,
     borderRadius: 10,
     backgroundColor: 'white',
@@ -109,7 +106,7 @@ export default {
   },
   donateView: {
     alignItems: 'center',
-    marginBottom: 50,
+    marginTop: 5,
   },
   whiteSpace: {
     height: 40,
