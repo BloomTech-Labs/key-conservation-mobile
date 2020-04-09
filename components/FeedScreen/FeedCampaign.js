@@ -3,7 +3,7 @@ import {
   Text,
   ImageBackground,
   ActivityIndicator,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 import { View } from 'react-native-animatable';
@@ -17,7 +17,7 @@ import { Viewport } from '@skele/components';
 import {
   getCampaign,
   toggleCampaignText,
-  setCampaign
+  setCampaign,
 } from '../../store/actions';
 import { AmpEvent } from '../withAmplitude';
 import LoadingOverlay from '../LoadingOverlay';
@@ -41,7 +41,7 @@ const ViewportAwareVideo = Viewport.Aware(
   Viewport.WithPlaceholder(Video, Placeholder)
 );
 
-const FeedCampaign = props => {
+const FeedCampaign = (props) => {
   // const [userBookmarked, setUserBookmarked] = useState(false);
   const [urgTop, setUrgTop] = useState(0);
   const [loader, setLoader] = useState(true);
@@ -141,32 +141,32 @@ const FeedCampaign = props => {
     top: urgTop,
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 1
+    zIndex: 1,
   };
 
   const goToProfile = () => {
     AmpEvent('Select Profile from Campaign', {
-      profile: data.name,
-      campaign: data.campaign_name
+      profile: data.org_name,
+      campaign: data.campaign_name,
     });
-    navigate('Profile', { selectedProfile: data.user_id });
+    navigate('Pro', { selectedProfile: data.user_id });
   };
 
   const goToCampaign = async () => {
     AmpEvent('Select Profile from Campaign', {
       campaign: data.campaign_name,
-      profile: data.name
+      profile: data.org_name,
     });
 
     if (data.campaign_id) {
       await dispatch(setCampaign(data));
       navigate('CampaignUpdate', {
-        media: data.image
+        media: data.image,
       });
     } else {
       await dispatch(getCampaign(data.id));
       navigate('Campaign', {
-        media: data.image
+        media: data.image,
       });
     }
   };
@@ -175,7 +175,7 @@ const FeedCampaign = props => {
     dispatch(toggleCampaignText(data.id));
   };
 
-  const onPlaybackStatusUpdate = status => {
+  const onPlaybackStatusUpdate = (status) => {
     if (status.isBuffering && !status.isPlaying) {
       setLoader(true);
     } else {
@@ -304,7 +304,7 @@ const FeedCampaign = props => {
                 {props.isFocused ? (
                   <ViewportAwareVideo
                     source={{
-                      uri: data.image
+                      uri: data.image,
                     }}
                     retainOnceInViewport={false}
                     preTriggerRatio={-0.1}
@@ -366,15 +366,15 @@ const FeedCampaign = props => {
             <Badge
               textStyle={{
                 color: 'black',
-                fontSize: 15
+                fontSize: 15,
               }}
               badgeStyle={{
-                backgroundColor: '#CAFF03'
+                backgroundColor: '#CAFF03',
               }}
               containerStyle={{
                 position: 'absolute',
                 top: -2,
-                right: 2
+                right: 2,
               }}
               value={data.comments ? data.comments.length : 0}
             />
@@ -386,14 +386,14 @@ const FeedCampaign = props => {
     </View>
   );
 };
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentUserProfile: state.currentUserProfile,
   currentUser: state.currentUser,
   token: state.token,
-  deleteBuffer: state.pending.deleteCampaign
+  deleteBuffer: state.pending.deleteCampaign,
 });
 export default connect(mapStateToProps, {
   getCampaign,
-  toggleCampaignText
+  toggleCampaignText,
 })(withNavigationFocus(FeedCampaign));
 // withNavigationFocus unmounts video and prevents audio playing across the navigation stack
