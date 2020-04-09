@@ -12,7 +12,7 @@ const HeyThereScreen = (props) => {
 
   return (
     <ImageBackground
-      source={require('../../assets/images/onboarding/sg2.png')}
+      source={require('../../assets/images/onboarding/wsonboard.png')}
       style={{ width: '100%', height: '100%' }}
     >
       <View style={styles.arrowView}>
