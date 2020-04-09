@@ -39,12 +39,14 @@ import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import ConnectionsScreen from '../screens/Connections/ConnectionsScreen';
 import SelectedConnectionsScreen from '../screens/Connections/SelectedConnectionsScreen';
+import SkillRequestScreen from '../screens/SkillRequestScreen';
 
 //icon imports
 
 import Lightening from '../assets/jsicons/bottomnavigation/Lightening';
 import Globe from '../assets/jsicons/bottomnavigation/Globe';
 import Smile from '../assets/jsicons/bottomnavigation/Smile';
+import Sync from '../assets/jsicons/bottomnavigation/Sync';
 
 export const OrgOnboardStack = createStackNavigator(
   {
@@ -114,6 +116,33 @@ const FeedStack = createStackNavigator(
     }
   }
 );
+
+const SkillRequestsStack = createStackNavigator(
+  //TODO add the rest of skill request screens for conservationists here
+  {
+    SkillImpactRequest: SkillRequestScreen,
+  },
+  {
+    navigationOptions: {
+      tabBarLabel: 'Skilled Impact Requests',
+      tabBarIcon: ({ focused }) => <Sync />
+    }
+  }
+);
+
+const SupporterSkillRequestsStack = createStackNavigator(
+  //TODO add the rest of skill request screens for supporters here
+  {
+    SkillImpactRequest: SkillRequestScreen,
+  },
+  {
+    navigationOptions: {
+      tabBarLabel: 'Skilled Impact Requests',
+      tabBarIcon: ({ focused }) => <Sync />
+    }
+  }
+);
+
 
 export const AccountSettingsStack = createStackNavigator({
   AccountSettings: AccountSettingsScreen,
@@ -206,6 +235,10 @@ export const ConsNavigator = createBottomTabNavigator(
       screen: FeedStack,
       path: ''
     },
+    SkillRequestsStack:{
+      screen: SkillRequestsStack,
+      path: ''
+    },
     MapStack: {
       screen: MapStack
     },
@@ -238,6 +271,10 @@ export const SupporterNavigator = createBottomTabNavigator(
   {
     FeedStack: {
       screen: FeedStack,
+      path: ''
+    },
+    SupporterSkillRequestsStack:{
+      screen: SupporterSkillRequestsStack,
       path: ''
     },
     MapStack: {
