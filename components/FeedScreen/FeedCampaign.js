@@ -252,14 +252,17 @@ const FeedCampaign = (props) => {
               <Text style={styles.orgTitleView}>{data.org_name}</Text>
             </View>
           }
-          leftAvatar={{ source: { uri: data.profile_image || undefined } }}
+          leftAvatar={{
+            source: { uri: data.profile_image || undefined },
+            size: 'medium',
+          }}
           rightElement={
             <TouchableOpacity onPress={showActionSheet}>
               <Ellipse fill="#000" height="25" width="25" />
             </TouchableOpacity>
           }
           subtitle={
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row', marginLeft: -10 }}>
               {data.location !== (undefined || null) ? (
                 <MapMarker fill="#505050" />
               ) : null}
