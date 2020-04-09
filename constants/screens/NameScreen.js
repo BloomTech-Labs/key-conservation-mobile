@@ -5,14 +5,14 @@ export default {
     paddingLeft: '3%',
     paddingRight: '3%',
     flex: 1,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   Card: {
     marginTop: 20,
     backgroundColor: '#fff',
     width: '100%',
     padding: 25,
-    borderRadius: 10
+    borderRadius: 10,
   },
   inputContain: {
     borderWidth: 2,
@@ -22,10 +22,10 @@ export default {
     width: '100%',
     height: 50,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   inputText: {
-    fontSize: 22
+    fontSize: 22,
   },
   touchableButton: {
     marginBottom: 100,
@@ -34,7 +34,7 @@ export default {
     width: '100%',
     height: 50,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   touchableView: {
     width: 282,
@@ -43,7 +43,7 @@ export default {
     backgroundColor: '#00FF9D',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   touchableText: {
     fontFamily: 'Lato-Bold',
@@ -51,10 +51,10 @@ export default {
     fontStyle: 'normal',
     fontSize: 18,
     lineHeight: 25,
-    color: '#000000'
+    color: '#000000',
   },
   textContainer: {
-    marginBottom: '5%'
+    marginBottom: '5%',
   },
   obText: {
     color: '#000000',
@@ -64,7 +64,7 @@ export default {
     marginLeft: '5%',
     marginTop: '2%',
     marginBottom: '2%',
-    marginRight: '7%'
+    marginRight: '7%',
   },
   obTitle: {
     color: '#000000',
@@ -78,7 +78,7 @@ export default {
     flexWrap: 'wrap',
     flexDirection: 'row',
     flex: 1,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   obSubTitle: {
     color: '#000000',
@@ -92,12 +92,12 @@ export default {
     flexWrap: 'wrap',
     flexDirection: 'row',
     flex: 1,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   obBody: {
     flex: 1,
     justifyContent: 'center',
-    marginTop: '10%'
+    marginTop: '10%',
   },
   obFwdContainer: {
     width: 282,
@@ -107,7 +107,7 @@ export default {
     borderRadius: 20,
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   obFwdBtnText: {
     fontFamily: 'Lato-Bold',
@@ -115,6 +115,6 @@ export default {
     letterSpacing: 2,
     fontSize: 18,
     lineHeight: 25,
-    color: '#000000'
-  }
+    color: '#000000',
+  },
 };

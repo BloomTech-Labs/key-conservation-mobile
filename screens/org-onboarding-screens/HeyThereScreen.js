@@ -7,12 +7,12 @@ import { useDispatch } from 'react-redux';
 import NavigateButton from './formElement/NavigateButton';
 import NavigateBack from './formElement/NavigateBack.js';
 
-const HeyThereScreen = props => {
+const HeyThereScreen = (props) => {
   const dispatch = useDispatch();
 
   return (
     <ImageBackground
-      source={require('../../assets/images/onboarding/sg2.png')}
+      source={require('../../assets/images/onboarding/wsonboard.png')}
       style={{ width: '100%', height: '100%' }}
     >
       <View style={styles.arrowView}>
@@ -20,7 +20,7 @@ const HeyThereScreen = props => {
           onButtonPress={() => {
             dispatch(logout());
           }}
-          color='#FFF'
+          color="#FFF"
         />
       </View>
       <View style={styles.obBody}>
@@ -40,8 +40,8 @@ const HeyThereScreen = props => {
           onButtonPress={() => {
             props.navigation.navigate('ToExpect');
           }}
-          color='white'
-          label='Next'
+          color="white"
+          label="Next"
         />
       </View>
     </ImageBackground>
