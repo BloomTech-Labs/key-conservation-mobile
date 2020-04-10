@@ -39,7 +39,7 @@ import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import ConnectionsScreen from '../screens/Connections/ConnectionsScreen';
 import SelectedConnectionsScreen from '../screens/Connections/SelectedConnectionsScreen';
-import SkillRequestScreen from '../screens/SkillRequestScreen';
+import SkillImpactScreen from '../screens/SkillImpactScreen';
 
 //icon imports
 
@@ -117,27 +117,27 @@ const FeedStack = createStackNavigator(
   }
 );
 
-const SkillRequestsStack = createStackNavigator(
+const SkillImpactStack = createStackNavigator(
   //TODO add the rest of skill request screens for conservationists here
   {
-    SkillImpactRequest: SkillRequestScreen,
+    SkillImpact: SkillImpactScreen,
   },
   {
     navigationOptions: {
-      tabBarLabel: 'Skilled Impact Requests',
+      tabBarLabel: 'Skilled Impact',
       tabBarIcon: ({ focused }) => <Sync />
     }
   }
 );
 
-const SupporterSkillRequestsStack = createStackNavigator(
+const SupporterSkillImpactStack = createStackNavigator(
   //TODO add the rest of skill request screens for supporters here
   {
-    SkillImpactRequest: SkillRequestScreen,
+    SkillImpact: SkillImpactScreen,
   },
   {
     navigationOptions: {
-      tabBarLabel: 'Skilled Impact Requests',
+      tabBarLabel: 'Skilled Impact',
       tabBarIcon: ({ focused }) => <Sync />
     }
   }
@@ -235,8 +235,8 @@ export const ConsNavigator = createBottomTabNavigator(
       screen: FeedStack,
       path: ''
     },
-    SkillRequestsStack:{
-      screen: SkillRequestsStack,
+    SkillImpactStack:{
+      screen: SkillImpactStack,
       path: ''
     },
     MapStack: {
@@ -273,8 +273,8 @@ export const SupporterNavigator = createBottomTabNavigator(
       screen: FeedStack,
       path: ''
     },
-    SupporterSkillRequestsStack:{
-      screen: SupporterSkillRequestsStack,
+    SupporterSkillImpactStack:{
+      screen: SupporterSkillImpactStack,
       path: ''
     },
     MapStack: {

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 
-class SkillRequestScreen extends Component {
+class SkillImpactScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     //TODO use navigations to establish stack navigation logic
     return {
-      title: 'Skill Impact Requests',
+      title: 'Skill Impact',
       headerStyle: {
         backgroundColor: '#323338'
       },
@@ -35,4 +35,4 @@ class SkillRequestScreen extends Component {
 }
 
 
-export default SkillRequestScreen;
+export default SkillImpactScreen;
