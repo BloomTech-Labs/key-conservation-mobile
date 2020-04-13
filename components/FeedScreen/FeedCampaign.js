@@ -30,6 +30,7 @@ import CommentIcon from '../../assets/jsicons/CommentIcon';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
 import CampaignActionSheet from '../Reports/CampaignActionSheet';
 import TakeActionCallToAction from '../TakeAction/TakeActionCallToAction';
+import Bookmark from '../../assets/jsicons/miscIcons/Bookmark';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
@@ -363,25 +364,33 @@ const FeedCampaign = (props) => {
         </View>
       </View>  */}
 
-        <View style={styles.commentContainer}>
-          <TouchableOpacity style={styles.comments} onPress={goToCampaign}>
-            <CommentIcon />
-            <Badge
-              textStyle={{
-                color: 'black',
-                fontSize: 15,
-              }}
-              badgeStyle={{
-                backgroundColor: '#CAFF03',
-              }}
-              containerStyle={{
-                position: 'absolute',
-                top: -2,
-                right: 2,
-              }}
-              value={data.comments ? data.comments.length : 0}
-            />
-          </TouchableOpacity>
+        <View style={styles.campaignControls}>
+          <View style={styles.campaignControlsLeft}>
+            {/* emojis go here */}
+          </View>
+          <View style={styles.campaignControlsRight}>
+            <TouchableOpacity style={styles.comments}>
+              <Bookmark />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.comments} onPress={goToCampaign}>
+              <CommentIcon />
+              <Badge
+                textStyle={{
+                  color: 'black',
+                  fontSize: 15,
+                }}
+                badgeStyle={{
+                  backgroundColor: '#CAFF03',
+                }}
+                containerStyle={{
+                  position: 'absolute',
+                  top: 2,
+                  right: 5,
+                }}
+                value={data.comments ? data.comments.length : 0}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
         <TakeActionCallToAction donate={props.data} />
       </View>

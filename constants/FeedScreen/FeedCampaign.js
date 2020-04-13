@@ -124,10 +124,11 @@ export default {
     fontSize: 14,
     lineHeight: 16,
     justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#F5F5F5',
     alignSelf: 'flex-end',
-    paddingVertical: 4,
-    paddingHorizontal: 10,
+    paddingVertical: 6,
+    paddingHorizontal: 25,
   },
   readMore: {
     color: '#929292',
@@ -150,5 +151,16 @@ export default {
   },
   subtitleText: {
     color: '#929292',
+  },
+  campaignControls: {
+    flexDirection: 'row',
+  },
+  campaignControlsLeft: {
+    flexDirection: 'row',
+    flex: 2,
+  },
+  campaignControlsRight: {
+    flexDirection: 'row',
+    flex: 1,
   },
 };
