@@ -3,14 +3,14 @@ export default {
     width: '100%',
     height: '100%',
     alignItems: 'center',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
 
   welcomeText: {
     color: 'white',
-    marginBottom: 400,
+    marginTop: 30,
     fontSize: 30,
-    fontFamily: 'Lato-Bold'
+    fontFamily: 'Lato-Bold',
   },
 
   bigButton: {
@@ -20,12 +20,12 @@ export default {
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 200
+    marginBottom: 200,
   },
 
   buttonText: {
     fontFamily: 'Lato-Bold',
     fontStyle: 'normal',
-    color: '#000000'
-  }
+    color: '#000000',
+  },
 };

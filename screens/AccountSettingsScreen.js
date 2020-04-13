@@ -8,26 +8,26 @@ import * as SecureStorage from 'expo-secure-store';
 
 import { logout } from '../store/actions';
 import BackButtonHeader from '../components/BackButtonHeader';
-import LogoutSymbol from '../assets/jsicons/KeyCon/LogoutSymbol';
+import LogoutSymbol from '../assets/jsicons/accountSettings/LogoutSymbol';
 import styles from '../constants/screens/AccountSettingsScreen';
-import Smile from '../assets/jsicons/bottomnavigation/Smile';
+import Smile from '../assets/jsicons/accountSettings/Smile';
 
 class AccountSettingsScreen extends React.Component {
   state = {
     result: null,
-    roles: ''
+    roles: '',
   };
 
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'ACCOUNT SETTINGS',
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: '#323338',
       },
       headerTintColor: '#fff',
       headerLeft: () => (
         <BackButtonHeader pressAction={navigation.getParam('done')} />
-      )
+      ),
     };
   };
   getRole = async () => {
@@ -59,7 +59,6 @@ class AccountSettingsScreen extends React.Component {
     await SecureStorage.deleteItemAsync('accessToken', {});
     // await SecureStorage.deleteItemAsync("airtableKey", {}); // for development
     this.props.logout();
-
   };
 
   render() {
@@ -83,10 +82,6 @@ class AccountSettingsScreen extends React.Component {
           </View>
         )}
         <View style={styles.sections}>
-          <View style={styles.iconWrap}>
-            <Smile />
-            <Text style={styles.title}>Log Out Of Your Profile</Text>
-          </View>
           <TouchableOpacity style={styles.linkWrap} onPress={this.logoutPress}>
             <View style={styles.logoutButton}>
               <LogoutSymbol />
@@ -99,8 +94,8 @@ class AccountSettingsScreen extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  currentUserProfile: state.currentUserProfile
+const mapStateToProps = (state) => ({
+  currentUserProfile: state.currentUserProfile,
 });
 
 export default connect(mapStateToProps, { logout })(AccountSettingsScreen);

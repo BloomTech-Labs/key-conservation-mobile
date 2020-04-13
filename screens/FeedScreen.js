@@ -92,10 +92,9 @@ class FeedScreen extends React.Component {
                         )}
                         navigation={navigation}
                       />
-                    )
+                    );
                   }
-                }
-                )}
+                })}
           </View>
           {this.state.campaignsVisible < this.props.allCampaigns.length && (
             <View style={styles.loadMoreView}>

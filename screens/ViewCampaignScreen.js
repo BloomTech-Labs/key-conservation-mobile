@@ -4,7 +4,7 @@ import {
   TouchableOpacity,
   Image,
   KeyboardAvoidingView,
-  Platform
+  Platform,
 } from 'react-native';
 import { View } from 'react-native-animatable';
 import { Video } from 'expo-av';
@@ -22,19 +22,18 @@ import styles from '../constants/screens/ViewCampaignScreen';
 import Ellipse from '../assets/jsicons/Ellipse';
 import CampaignActionSheet from '../components/Reports/CampaignActionSheet';
 import TakeActionCallToAction from '../components/TakeAction/TakeActionCallToAction';
+import MapMarker from '../assets/jsicons/headerIcons/map-marker';
 
 // Redux gave us a hard time on this project. We worked on comments first and when our commentOnCampaign action failed to trigger the re-render we expected, and when we couldn't solve the
 // issue in labs_help, we settled for in-component axios calls. Not elegant. Probably not super scalable—but it worked. Hopefully a more talented team can solve what we couldn't.
 // In the meantime, ViewCampaignScreen, ViewCampaignUpdateScreen, FeedCampaign, and FeedUpdate are all interconnected, sharing props (state, functions) via React-Navigation.
-
-// const { data } = props;
 
 class ViewCampaignScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Campaign',
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: '#323338',
       },
       headerTintColor: '#fff',
       headerLeft: () => <BackButton navigation={navigation} popToTop />,
@@ -43,24 +42,24 @@ class ViewCampaignScreen extends React.Component {
           style={{
             transform: [{ rotate: '90deg' }],
             padding: 16,
-            paddingRight: 24
+            paddingRight: 24,
           }}
           onPress={navigation.getParam('showCampaignOptions')}
         >
-          <Ellipse width='25' height='25' />
+          <Ellipse width="25" height="25" />
         </TouchableOpacity>
-      )
+      ),
     };
   };
 
   componentDidMount() {
     this.props.navigation.setParams({
-      showCampaignOptions: this.showActionSheet
+      showCampaignOptions: this.showActionSheet,
     });
   }
 
   state = {
-    userBookmarked: this.props.navigation.state.params.userBookmarked
+    userBookmarked: this.props.navigation.state.params.userBookmarked,
   };
 
   showActionSheet = () => {
@@ -73,7 +72,7 @@ class ViewCampaignScreen extends React.Component {
       this.props.selectedCampaign.updates &&
       this.props.selectedCampaign.updates.length
     ) {
-      sortedUpdates = this.props.selectedCampaign.updates.sort(function(a, b) {
+      sortedUpdates = this.props.selectedCampaign.updates.sort(function (a, b) {
         return moment(a.created_at) - moment(b.created_at);
       });
     }
@@ -109,60 +108,134 @@ class ViewCampaignScreen extends React.Component {
     }
 
     return (
-      <View>
-        <CampaignActionSheet
-          admin={this.props.currentUserProfile.admin}
-          campaign={this.props.selectedCampaign}
-          ref={o => (this.ActionSheet = o)}
-          isMine={
-            this.props.currentUserProfile.admin ===
-            this.props.selectedCampaign.user_id
-          }
-          goBack
-        />
-        {Platform.OS === 'android' ? (
-          <KeyboardAvoidingView
-            enabled
-            keyboardVerticalOffset={86}
-            behavior='height'
-          >
-            <Viewport.Tracker>
-              <ScrollView>
-                <View>
+      <View style={styles.mainContainer}>
+        <View style={styles.container}>
+          <CampaignActionSheet
+            admin={this.props.currentUserProfile.admin}
+            campaign={this.props.selectedCampaign}
+            ref={(o) => (this.ActionSheet = o)}
+            isMine={
+              this.props.currentUserProfile.admin ===
+              this.props.selectedCampaign.user_id
+            }
+            goBack
+          />
+          {Platform.OS === 'android' ? (
+            <KeyboardAvoidingView
+              enabled
+              keyboardVerticalOffset={86}
+              behavior="height"
+            >
+              <Viewport.Tracker>
+                <ScrollView>
+                  <View>
+                    <ListItem
+                      onPress={this.goToProfile}
+                      title={
+                        <View>
+                          <Text style={styles.listName}>
+                            {this.props.selectedCampaign.org_name}
+                          </Text>
+                        </View>
+                      }
+                      leftAvatar={{
+                        source: {
+                          uri: this.props.selectedCampaign.profile_image,
+                        },
+                      }}
+                      subtitle={this.props.selectedCampaign.location}
+                    />
+                    {this.props.navigation.state.params.media.includes(
+                      '.mov'
+                    ) ||
+                    this.props.navigation.state.params.media.includes('.mp3') ||
+                    this.props.navigation.state.params.media.includes(
+                      '.mp4'
+                    ) ? (
+                      <Video
+                        source={{
+                          uri: this.props.selectedCampaign.image,
+                        }}
+                        rate={1.0}
+                        volume={1.0}
+                        useNativeControls={true}
+                        resizeMode="cover"
+                        style={styles.campaignImageContainer}
+                      />
+                    ) : (
+                      <Image
+                        source={{ uri: this.props.selectedCampaign.image }}
+                        style={styles.campaignImageContainer}
+                      />
+                    )}
+
+                    <View style={styles.campaignDescriptionContainer}>
+                      <Text style={styles.campaignDescriptionName}>
+                        {this.props.selectedCampaign.org_name}
+                      </Text>
+                      <Text style={styles.campaignDescription}>
+                        {this.props.selectedCampaign.description}
+                      </Text>
+                      <Text style={styles.timeText}>{timeDiff}</Text>
+                    </View>
+
+                    <View style={styles.donateView}>
+                      <TakeActionCallToAction
+                        donate={this.props.selectedCampaign}
+                      />
+                    </View>
+
+                    <View style={styles.commentsView}>
+                      <CommentsView />
+                    </View>
+
+                    <View style={styles.feedContainer}>
+                      {sortedUpdates !== false &&
+                        sortedUpdates.map((update) => (
+                          <FeedUpdate
+                            key={`update${update.id}`}
+                            data={update}
+                            toggled
+                            hideName
+                            navigation={this.props.navigation}
+                            fromCampaignScreen={true}
+                          />
+                        ))}
+                    </View>
+                  </View>
+                </ScrollView>
+              </Viewport.Tracker>
+            </KeyboardAvoidingView>
+          ) : (
+            <KeyboardAwareScrollView extraScrollHeight={50}>
+              <Viewport.Tracker>
+                <ScrollView>
                   <ListItem
                     onPress={this.goToProfile}
                     title={
                       <View>
                         <Text style={styles.listName}>
-                          {this.props.selectedCampaign.name}
+                          {this.props.selectedCampaign.org_name}
                         </Text>
                       </View>
                     }
                     leftAvatar={{
-                      source: { uri: this.props.selectedCampaign.profile_image }
+                      source: {
+                        uri: this.props.selectedCampaign.profile_image,
+                      },
                     }}
-                    subtitle={this.props.selectedCampaign.location}
+                    subtitle={
+                      <View style={{ flexDirection: 'row' }}>
+                        {this.props.selectedCampaign.location !==
+                        (undefined || null) ? (
+                          <MapMarker fill="#505050" />
+                        ) : null}
+                        <Text style={{ color: '#929292' }}>
+                          {this.props.selectedCampaign.location}
+                        </Text>
+                      </View>
+                    }
                   />
-                  {this.props.navigation.state.params.media.includes('.mov') ||
-                  this.props.navigation.state.params.media.includes('.mp3') ||
-                  this.props.navigation.state.params.media.includes('.mp4') ? (
-                    <Video
-                      source={{
-                        uri: this.props.selectedCampaign.image
-                      }}
-                      rate={1.0}
-                      volume={1.0}
-                      useNativeControls={true}
-                      resizeMode='cover'
-                      style={styles.campaignImageContainer}
-                    />
-                  ) : (
-                    <Image
-                      source={{ uri: this.props.selectedCampaign.image }}
-                      style={styles.campaignImageContainer}
-                    />
-                  )}
-
                   <View style={styles.campaignDescriptionContainer}>
                     <Text style={styles.campaignDescriptionName}>
                       {this.props.selectedCampaign.name}
@@ -172,66 +245,18 @@ class ViewCampaignScreen extends React.Component {
                     </Text>
                     <Text style={styles.timeText}>{timeDiff}</Text>
                   </View>
-
-                  <View style={styles.commentsView}>
-                    <CommentsView />
-                  </View>
-
-                  <View style={styles.donateView}>
-                    <TakeActionCallToAction
-                      donate={this.props.selectedCampaign}
-                      style={{ backgroundColor: '#ffffff' }}
-                    />
-                  </View>
-
-                  <View style={styles.feedContainer}>
-                    {sortedUpdates !== false &&
-                      sortedUpdates.map(update => (
-                        <FeedUpdate
-                          key={`update${update.id}`}
-                          data={update}
-                          toggled
-                          hideName
-                          navigation={this.props.navigation}
-                          fromCampaignScreen={true}
-                        />
-                      ))}
-                  </View>
-                </View>
-              </ScrollView>
-            </Viewport.Tracker>
-          </KeyboardAvoidingView>
-        ) : (
-          <KeyboardAwareScrollView extraScrollHeight={50}>
-            <Viewport.Tracker>
-              <ScrollView>
-                <View>
-                  <ListItem
-                    onPress={this.goToProfile}
-                    title={
-                      <View>
-                        <Text style={styles.listName}>
-                          {this.props.selectedCampaign.name}
-                        </Text>
-                      </View>
-                    }
-                    leftAvatar={{
-                      source: { uri: this.props.selectedCampaign.profile_image }
-                    }}
-                    subtitle={this.props.selectedCampaign.location}
-                  />
                   {this.props.navigation.state.params.media.includes('.mov') ||
                   this.props.navigation.state.params.media.includes('.mp3') ||
                   this.props.navigation.state.params.media.includes('.mp4') ? (
                     <Video
                       source={{
-                        uri: this.props.selectedCampaign.image
+                        uri: this.props.selectedCampaign.image,
                       }}
                       rate={1.0}
                       volume={1.0}
                       isMuted={true}
                       useNativeControls={true}
-                      resizeMode='cover'
+                      resizeMode="cover"
                       style={styles.campaignImageContainer}
                     />
                   ) : (
@@ -276,29 +301,19 @@ class ViewCampaignScreen extends React.Component {
                     </View>
                   </View>  */}
 
-                  <View style={styles.campaignDescriptionContainer}>
-                    <Text style={styles.campaignDescriptionName}>
-                      {this.props.selectedCampaign.name}
-                    </Text>
-                    <Text style={styles.campaignDescription}>
-                      {this.props.selectedCampaign.description}
-                    </Text>
-                    <Text style={styles.timeText}>{timeDiff}</Text>
+                  <View style={styles.donateView}>
+                    <TakeActionCallToAction
+                      donate={this.props.selectedCampaign}
+                    />
                   </View>
+
                   <View style={styles.commentsView}>
                     <CommentsView />
                   </View>
 
-                  <View style={styles.donateView}>
-                    <TakeActionCallToAction
-                      donate={this.props.selectedCampaign}
-                      style={{ backgroundColor: '#ffffff' }}
-                    />
-                  </View>
-
                   <View style={styles.feedContainer}>
                     {sortedUpdates !== false &&
-                      sortedUpdates.map(update => (
+                      sortedUpdates.map((update) => (
                         <FeedUpdate
                           key={`update${update.id}`}
                           data={update}
@@ -309,12 +324,12 @@ class ViewCampaignScreen extends React.Component {
                         />
                       ))}
                   </View>
-                </View>
-              </ScrollView>
-            </Viewport.Tracker>
-          </KeyboardAwareScrollView>
-        )}
-        {/* Two different views to support iOS keyboard awareness for an input inside a child component */}
+                </ScrollView>
+              </Viewport.Tracker>
+            </KeyboardAwareScrollView>
+          )}
+          {/* Two different views to support iOS keyboard awareness for an input inside a child component */}
+        </View>
       </View>
     );
   }
@@ -322,7 +337,7 @@ class ViewCampaignScreen extends React.Component {
   addBookmark = () => {
     this.setState({
       ...this.state,
-      userBookmarked: true
+      userBookmarked: true,
     });
     this.props.navigation.state.params.addBookmark();
   };
@@ -330,23 +345,23 @@ class ViewCampaignScreen extends React.Component {
   deleteBookmark = () => {
     this.setState({
       ...this.state,
-      userBookmarked: false
+      userBookmarked: false,
     });
     this.props.navigation.state.params.deleteBookmark();
   };
 
   goToProfile = () => {
     this.props.navigation.navigate('Pro', {
-      selectedProfile: this.props.selectedCampaign.user_id
+      selectedProfile: this.props.selectedCampaign.user_id,
     });
   };
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   selectedCampaign: state.selectedCampaign,
   currentUser: state.currentUser,
   currentUserProfile: state.currentUserProfile,
-  token: state.token
+  token: state.token,
 });
 
 export default connect(mapStateToProps)(ViewCampaignScreen);

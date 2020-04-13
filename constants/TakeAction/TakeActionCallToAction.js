@@ -9,7 +9,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    fontSize: 18
+    fontSize: 18,
   },
   buttonTouch: {
     width: '95%',
@@ -18,21 +18,20 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
-    fontSize: 18,
     textAlign: 'center',
     shadowColor: 'rgba(0, 0, 0, 0.15)',
     shadowOffset: {
-      height: 4
+      height: 4,
     },
     shadowRadius: 5,
-    shadowOpacity: 10
+    shadowOpacity: 10,
   },
   text: {
     color: '#323339',
     textTransform: 'uppercase',
-    letterSpacing: 2,
-    fontSize: 15,
+    letterSpacing: 1.8,
+    fontSize: 17,
     textAlign: 'center',
-    fontFamily: 'Lato-Bold'
-  }
+    fontFamily: 'Lato-Bold',
+  },
 });
