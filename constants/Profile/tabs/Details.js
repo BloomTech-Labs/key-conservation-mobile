@@ -4,7 +4,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F2F2FB',
-    paddingHorizontal: 8
+    paddingHorizontal: 8,
   },
   sections: {
     marginTop: 8,
@@ -12,7 +12,7 @@ export default StyleSheet.create({
     width: '100%',
     padding: 16,
     borderRadius: 5,
-    fontSize: 15
+    fontSize: 15,
   },
   SocialContainer: {
     flexDirection: 'row',
@@ -22,7 +22,7 @@ export default StyleSheet.create({
     paddingBottom: 10,
     justifyContent: 'space-around',
     position: 'absolute',
-    bottom: 0
+    bottom: 0,
   },
   iconWrap: {
     flexWrap: 'wrap',
@@ -31,14 +31,14 @@ export default StyleSheet.create({
     borderBottomColor: '#eee',
     borderBottomWidth: 1,
     marginBottom: 2,
-    paddingBottom: 20
+    paddingBottom: 20,
   },
   title: {
     fontSize: 18,
     color: '#3B3B3B',
     alignSelf: 'center',
     paddingLeft: 10,
-    fontFamily: 'Lato-Bold'
+    fontFamily: 'Lato-Bold',
   },
   body: {
     marginTop: 10,
@@ -60,23 +60,42 @@ export default StyleSheet.create({
     justifyContent: 'center',
     fontSize: 15,
     marginTop: 8,
-    marginBottom: 8
+    marginBottom: 8,
   },
   donateTitle: {
     fontSize: 18,
     textAlign: 'center',
     marginLeft: 10,
-    fontFamily: 'Lato-Bold'
+    fontFamily: 'Lato-Bold',
   },
   donateButton: {
     alignItems: 'center',
     width: '100%',
-    marginTop: 24
+    marginTop: 24,
   },
   donateText: {
     marginTop: 10,
     fontSize: 15,
     textAlign: 'center',
-    fontFamily: 'Lato-Bold'
-  }
+    fontFamily: 'Lato-Bold',
+  },
+  addProjectsButton: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#f5f5f5',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 20,
+  },
+  buttonText: {
+    fontFamily: 'Lato-Bold',
+    color: '#3b3b3b',
+    marginTop: 15,
+  },
+  ProjectPartnerSection: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+  },
 });
