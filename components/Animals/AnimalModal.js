@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Modal, View, TouchableOpacity, Text } from 'react-native';
 
 //import icons

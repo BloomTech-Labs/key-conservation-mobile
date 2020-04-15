@@ -42,6 +42,7 @@ export default StyleSheet.create({
   },
   body: {
     marginTop: 10,
+    marginBottom: 30,
     flexDirection: 'column',
     flexWrap: 'nowrap',
     fontSize: 17,
@@ -71,13 +72,18 @@ export default StyleSheet.create({
   donateButton: {
     alignItems: 'center',
     width: '100%',
-    marginTop: 24,
+    marginTop: 10,
+    marginBottom: 50,
+    backgroundColor: 'limegreen',
+    padding: 10,
+    borderRadius: 5,
   },
   donateText: {
-    marginTop: 10,
-    fontSize: 15,
+    fontSize: 25,
     textAlign: 'center',
     fontFamily: 'Lato-Bold',
+    textTransform: 'uppercase',
+    color: '#3b3b3b'
   },
   addProjectsButton: {
     flexDirection: 'column',

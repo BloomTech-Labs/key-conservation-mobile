@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
-import { TouchableOpacity } from 'react-native';
+import { TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import styles from '../../../constants/Profile/tabs/Details';
 
 import FileIcon from '../../../assets/jsicons/detailAboutUs/File';
@@ -10,11 +10,14 @@ import RocketIcon from '../../../assets/jsicons/detailAboutUs/Rocket';
 import BranchIcon from '../../../assets/jsicons/detailAboutUs/Branch';
 import PlusSignCircle from '../../../assets/jsicons/PlusSignCircle';
 
-// For connecting Partners
-import { getConnections } from '../../../store/actions';
+import PartnersModal from '../../Partners/PartnersModal';
+
+import SearchBar from '../../Partners/SearchBar';
 
 const Details = (props) => {
   const { profile } = props;
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -67,8 +70,22 @@ const Details = (props) => {
               to achieve our mission.
             </Text>
             <View style={styles.ProjectPartnerSection}>
-              <TouchableOpacity style={styles.addProjectsButton}>
+              {/* <PartnersModal
+                  setIsModalVisible={setIsModalVisible}
+                  isModalVisible={isModalVisible}
+                /> */}
+              <TouchableOpacity
+                style={styles.addProjectsButton}
+                onPress={() => {
+                  setIsModalVisible(true);
+                }}
+              >
                 <PlusSignCircle />
+                {/* <PartnersModal
+                  setIsModalVisible={setIsModalVisible}
+                  isModalVisible={isModalVisible}
+                /> */}
+
                 <Text style={styles.buttonText}>Add a Partner</Text>
               </TouchableOpacity>
             </View>
