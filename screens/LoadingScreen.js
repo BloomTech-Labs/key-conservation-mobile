@@ -6,7 +6,7 @@ import {
   getLoadingData,
   getProfileData,
   afterFirstLogin,
-  logout
+  logout,
 } from '../store/actions';
 // import Constants from 'expo-constants';
 // import * as WebBrowser from 'expo-web-browser';
@@ -17,11 +17,11 @@ class LoadingScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: ''
+      email: '',
     };
   }
 
-  logoutPress = async props => {
+  logoutPress = async (props) => {
     this.props.logout();
 
     // const logoutURL = "https://key-conservation.auth0.com/v2/logout?federated";
@@ -34,7 +34,7 @@ class LoadingScreen extends React.Component {
     this.props.navigation.navigate('Logout');
   };
 
-  getAirtable = key => {
+  getAirtable = (key) => {
     if (!key) {
       console.log('no key.');
       return null;
@@ -48,11 +48,11 @@ class LoadingScreen extends React.Component {
         .select({
           maxRecords: 20,
           view: 'Grid view',
-          filterByFormula: `{email} = \'${this.state.email}\'`
+          filterByFormula: `{email} = \'${this.state.email}\'`,
         })
         .eachPage(
           function page(records, fetchNextPage) {
-            records.forEach(function(record) {
+            records.forEach(function (record) {
               this.checkAirtable(record);
             });
           },
@@ -154,7 +154,7 @@ class LoadingScreen extends React.Component {
           style={styles.container}
         >
           <View style={styles.indicator}>
-            <ActivityIndicator size='large' color='white' />
+            <ActivityIndicator size="large" color="white" />
           </View>
         </ImageBackground>
       </>
@@ -162,19 +162,19 @@ class LoadingScreen extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   error: state.error,
   currentUserProfile: state.currentUserProfile,
   userId: state.currentUserProfile.id,
   firstLogin: state.firstLogin,
   userRole: state.currentUserProfile.roles,
   profileReset: state.profileReset,
-  userRegistered: state.userRegistered
+  userRegistered: state.userRegistered,
 });
 
 export default connect(mapStateToProps, {
   getLoadingData,
   getProfileData,
   afterFirstLogin,
-  logout
+  logout,
 })(LoadingScreen);
