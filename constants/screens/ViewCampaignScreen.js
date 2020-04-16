@@ -50,9 +50,10 @@ export default {
   //   color: 'black'
   // },
   commentsView: {
+    width: '100%',
     fontSize: 14,
     fontFamily: 'Lato',
-    padding: 19,
+    paddingLeft: 15,
     borderRadius: 10,
     backgroundColor: 'white',
   },
