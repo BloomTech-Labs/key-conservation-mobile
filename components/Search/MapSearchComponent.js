@@ -11,19 +11,19 @@ import Sliders from '../../assets/jsicons/mapIcons/Sliders';
 import CheckActive from '../../assets/jsicons/mapIcons/check-active';
 import CheckInactive from '../../assets/jsicons/mapIcons/check-inactive';
 
-const MapSearchBarComponent = props => {
+const MapSearchBarComponent = (props) => {
   const [selectionOptions, setSelectedOptions] = useState([
     {
       label: 'Location',
       field: 'location',
-      checked: true
+      checked: true,
     },
     {
       label: 'Organization',
       field: 'name',
       query: '',
-      checked: false
-    }
+      checked: false,
+    },
     // species and habitats to be used in future product cycle
     // {
     // 	label:'Species and Habitats',
@@ -38,7 +38,9 @@ const MapSearchBarComponent = props => {
     locationQuery: '',
     shouldOpenFilter: false,
     shouldShowSearch: true,
-    message: 'Please enter to search'
+    message: 'Please enter to search',
+    latitude: 0,
+    longitude: 0,
   });
 
   // Clean up when navigate to a different screen
@@ -47,7 +49,7 @@ const MapSearchBarComponent = props => {
       ...state,
       query: '',
       shouldOpenFilter: false,
-      shouldShowSearch: true
+      shouldShowSearch: true,
     });
   }, [!props.isFocused]);
 
@@ -57,12 +59,12 @@ const MapSearchBarComponent = props => {
   };
 
   // Handler for option section changes
-  const handleFieldChange = field => {
-    selectionOptions.forEach(option => {
+  const handleFieldChange = (field) => {
+    selectionOptions.forEach((option) => {
       option.checked = false;
     });
 
-    const oldIndex = selectionOptions.findIndex(option => {
+    const oldIndex = selectionOptions.findIndex((option) => {
       return option.field === field;
     });
 
@@ -72,7 +74,7 @@ const MapSearchBarComponent = props => {
     const newArr = [
       ...selectionOptions.slice(0, oldIndex),
       updatedItem,
-      ...selectionOptions.slice(oldIndex + 1, selectionOptions.length)
+      ...selectionOptions.slice(oldIndex + 1, selectionOptions.length),
     ];
 
     setSelectedOptions([...newArr]);
@@ -83,11 +85,25 @@ const MapSearchBarComponent = props => {
   };
 
   // Handler for text field value changes
-  const handleQueryChange = (query = state.query) => {
+  async function handleQueryChange(query = state.query) {
     // console.log('query', query);
     setState({ ...state, query: query });
     props.setMapSearchQuery(query, state.field);
-  };
+
+    // Google Places API iOS
+    const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyDNSJvHyNd-86fimhQLo_ivS0hF_S4n1U0&input=${query}&location=${latitude}, ${longitude}&radius=2000`;
+
+    try {
+      const result = await fetch(apiUrl);
+      const json = await result.json();
+      console.log(json);
+    } catch (err) {
+      console.log(
+        err,
+        'This is the asyn await error on the google places api on the MapsSearchComponent Screen'
+      );
+    }
+  }
 
   const handleInputBlur = () => {
     // console.log('handleInputBlur');
@@ -103,15 +119,15 @@ const MapSearchBarComponent = props => {
     setState({ ...state, shouldShowSearch: false });
   };
 
-  const doSearch = field => {
+  const doSearch = (field) => {
     props.setMapSearchQuery(state.query, field);
   };
 
-  const openFilter = e => {
+  const openFilter = (e) => {
     setState({ ...state, shouldOpenFilter: !state.shouldOpenFilter });
   };
 
-  const renderSearchIcon = stateProps => {
+  const renderSearchIcon = (stateProps) => {
     if (stateProps) {
       return (
         <TouchableOpacity style={[styles.searchButton]}>
@@ -121,7 +137,7 @@ const MapSearchBarComponent = props => {
     }
   };
 
-  const renderClearIcon = stateProps => {
+  const renderClearIcon = (stateProps) => {
     if (stateProps) {
       return (
         <TouchableOpacity style={styles.clearButton} onPress={handleClearText}>
@@ -139,13 +155,13 @@ const MapSearchBarComponent = props => {
             <TextInput
               style={[
                 styles.searchInput,
-                { paddingLeft: state.shouldShowSearch ? 50 : 16 }
+                { paddingLeft: state.shouldShowSearch ? 50 : 16 },
               ]}
               value={state.query}
-              placeholder='See dropdown for options'
+              placeholder="See dropdown for options"
               onFocus={() => handleInputFocus()}
               onBlur={() => handleInputBlur()}
-              onChangeText={query => handleQueryChange(query)}
+              onChangeText={(query) => handleQueryChange(query)}
             />
             {renderSearchIcon(state.shouldShowSearch)}
             {renderClearIcon(state.query)}
@@ -160,7 +176,7 @@ const MapSearchBarComponent = props => {
         <View
           style={[styles.selectionRow, state.shouldOpenFilter && styles.show]}
         >
-          {selectionOptions.map(option => {
+          {selectionOptions.map((option) => {
             return (
               <TouchableOpacity
                 key={option.field}
@@ -185,7 +201,7 @@ const MapSearchBarComponent = props => {
   );
 };
 
-const mapPropsToState = state => {
+const mapPropsToState = (state) => {
   let message = '';
   // Get filtered organization records
   const filteredOrganization = state.filteredOrganization;
@@ -199,11 +215,11 @@ const mapPropsToState = state => {
 
   return {
     organizations: state.filteredOrganization,
-    message: message
+    message: message,
   };
 };
 
 export default connect(mapPropsToState, {
   getOrganizations,
-  setMapSearchQuery
+  setMapSearchQuery,
 })(withNavigationFocus(MapSearchBarComponent));
