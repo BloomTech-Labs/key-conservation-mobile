@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, Component } from 'react';
 import {
   Text,
   ImageBackground,
@@ -30,6 +30,9 @@ import CommentIcon from '../../assets/jsicons/CommentIcon';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
 import CampaignActionSheet from '../Reports/CampaignActionSheet';
 import TakeActionCallToAction from '../TakeAction/TakeActionCallToAction';
+
+import { SafeAreaView, StyleSheet, Text} from 'react-native'; 
+import PickerModal from 'rn-slack-emoji-picker';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
