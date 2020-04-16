@@ -34,6 +34,7 @@ export default StyleSheet.create({
   },
   commentBody: {
     marginLeft: 7,
+    marginTop: 3,
     flex: 1,
     backgroundColor: '#f5f5f5',
     paddingLeft: 5,
@@ -63,6 +64,7 @@ export default StyleSheet.create({
     width: '78%',
   },
   inputWrapper: {
+    marginTop: 3,
     flexDirection: 'row',
     justifyContent: 'center',
     height: '70%',

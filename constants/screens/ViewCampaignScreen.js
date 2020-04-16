@@ -108,6 +108,7 @@ export default {
   donateView: {
     alignItems: 'center',
     marginTop: 5,
+    paddingBottom: 8,
   },
   whiteSpace: {
     height: 40,
