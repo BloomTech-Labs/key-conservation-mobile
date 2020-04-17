@@ -231,7 +231,7 @@ const FeedCampaign = (props) => {
   // };
 
   const showActionSheet = () => {
-    actionSheetRef.current?.show();
+    actionSheetRef.current && show();
   };
 
   return (
