@@ -30,7 +30,8 @@ import CommentIcon from '../../assets/jsicons/CommentIcon';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
 import CampaignActionSheet from '../Reports/CampaignActionSheet';
 import TakeActionCallToAction from '../TakeAction/TakeActionCallToAction';
-import EmojiSelector, { Categories } from 'react-native-emoji-selector';
+// import EmojiSelector, { Categories } from 'react-native-emoji-selector';
+import SmileSelector from './SmileSelector';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
@@ -365,12 +366,11 @@ const FeedCampaign = (props) => {
       </View>  */}
 
         <View style={styles.commentContainer}>
+          <TouchableOpacity>
+            <SmileSelector />
+          </TouchableOpacity>
+
           <TouchableOpacity style={styles.comments} onPress={goToCampaign}>
-            <EmojiSelector
-              category={Categories.emotion}
-              onEmojiSelected={(emoji) => console.log(emoji)}
-              placeholder="Search..."
-            />
             <CommentIcon />
             <Badge
               textStyle={{
