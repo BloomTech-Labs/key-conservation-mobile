@@ -11,10 +11,10 @@ import Animals from '../Animals/Animals';
 //import styles
 import styles from '../../constants/Animals/AnimalModal';
 
-const AnimalModal = props => {
+const AnimalModal = (props) => {
   return (
     <Modal
-      animationType='fade'
+      animationType="fade"
       transparent={true}
       visible={props.isModalVisible}
       onRequestClose={() => props.setIsModalVisible(!props.isModalVisible)}

@@ -12,16 +12,13 @@ import PlusSignCircle from '../../../assets/jsicons/PlusSignCircle';
 
 import PartnersModal from '../../Partners/PartnersModal';
 
-import SearchBar from '../../Partners/SearchBar';
-
 const Details = (props) => {
   const { profile } = props;
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isPartnersModalVisible, setIsPartnersModalVisible] = useState(false);
 
   return (
     <View style={styles.container}>
-     
       {profile.roles !== 'supporter' && (
         <View>
           <View style={styles.sections}>
@@ -71,14 +68,15 @@ const Details = (props) => {
               to achieve our mission.
             </Text>
             <View style={styles.ProjectPartnerSection}>
-              <PartnersModal
-                  setIsModalVisible={setIsModalVisible}
-                  isModalVisible={isModalVisible}
-                />
+              {/* <PartnersModal
+                setIsPartnersModalVisible={setIsPartnersModalVisible}
+                isPartnersModalVisible={isPartnersModalVisible}
+              /> */}
               <TouchableOpacity
                 style={styles.addProjectsButton}
                 onPress={() => {
-                  setIsModalVisible(true);
+                  setIsPartnersModalVisible(true);
+                  console.log('plus clicked');
                 }}
               >
                 <PlusSignCircle />
@@ -86,10 +84,6 @@ const Details = (props) => {
                     setIsModalVisible={setIsModalVisible}
                     isModalVisible={isModalVisible}
                   /> */}
-                {/* <PartnersModal
-                  setIsModalVisible={setIsModalVisible}
-                  isModalVisible={isModalVisible}
-                /> */}
 
                 <Text style={styles.buttonText}>Add a Partner</Text>
               </TouchableOpacity>

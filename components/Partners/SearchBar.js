@@ -8,7 +8,7 @@ const SearchBar = () => {
   return (
     <View style={styles.background}>
       <Search />
-      <TextInput>Search</TextInput>
+      <TextInput></TextInput>
     </View>
   );
 };
