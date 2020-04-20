@@ -366,7 +366,10 @@ const FeedCampaign = (props) => {
 
         <View style={styles.commentContainer}>
           <TouchableOpacity style={styles.comments} onPress={goToCampaign}>
-            <EmojiSelector onEmojiSelected={(emoji) => console.log(emoji)} />
+            <EmojiSelector
+              onEmojiSelected={(emoji) => console.log(emoji)}
+              placeholder="Search..."
+            />
             <CommentIcon />
             <Badge
               textStyle={{
