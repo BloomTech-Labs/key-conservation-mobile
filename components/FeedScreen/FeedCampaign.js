@@ -30,6 +30,7 @@ import CommentIcon from '../../assets/jsicons/CommentIcon';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
 import CampaignActionSheet from '../Reports/CampaignActionSheet';
 import TakeActionCallToAction from '../TakeAction/TakeActionCallToAction';
+import EmojiSelector from 'react-native-emoji-selector';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
@@ -365,6 +366,7 @@ const FeedCampaign = (props) => {
 
         <View style={styles.commentContainer}>
           <TouchableOpacity style={styles.comments} onPress={goToCampaign}>
+            <EmojiSelector onEmojiSelected={(emoji) => console.log(emoji)} />
             <CommentIcon />
             <Badge
               textStyle={{
