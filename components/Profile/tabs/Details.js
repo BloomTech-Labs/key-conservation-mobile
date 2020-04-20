@@ -21,6 +21,7 @@ const Details = (props) => {
 
   return (
     <View style={styles.container}>
+     
       {profile.roles !== 'supporter' && (
         <View>
           <View style={styles.sections}>
@@ -70,10 +71,10 @@ const Details = (props) => {
               to achieve our mission.
             </Text>
             <View style={styles.ProjectPartnerSection}>
-              {/* <PartnersModal
+              <PartnersModal
                   setIsModalVisible={setIsModalVisible}
                   isModalVisible={isModalVisible}
-                /> */}
+                />
               <TouchableOpacity
                 style={styles.addProjectsButton}
                 onPress={() => {
@@ -81,6 +82,10 @@ const Details = (props) => {
                 }}
               >
                 <PlusSignCircle />
+                {/* <PartnersModal
+                    setIsModalVisible={setIsModalVisible}
+                    isModalVisible={isModalVisible}
+                  /> */}
                 {/* <PartnersModal
                   setIsModalVisible={setIsModalVisible}
                   isModalVisible={isModalVisible}

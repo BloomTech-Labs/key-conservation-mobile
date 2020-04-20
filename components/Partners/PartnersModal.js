@@ -7,6 +7,7 @@ import SearchBar from '../../components/Partners/SearchBar';
 // For connecting Partners
 import { getConnections } from '../../store/actions';
 
+import styles from '../../constants/Partners/PartnerModal';
 const PartnersModal = (props) => {
   //   const [partners, setPartners] = useState([]);
 
@@ -31,7 +32,8 @@ const PartnersModal = (props) => {
       visible={props.isModalVisable}
       onRequestClose={() => props.setIsModalVisible(!props.isModalVisable)}
     >
-      <View>
+      <View style={styles.modalContainer}>
+        
         <SearchBar />
         {/* {props.currentUserProfile.roles === 'conservationists'} */}
         <View>
