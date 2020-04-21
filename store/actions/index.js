@@ -52,9 +52,9 @@ const axiosWithAuth = (dispatch, req) => {
 // url for heroku staging vs production server
 // comment out either server depending on testing needs
 // production
-const seturl = 'https://key-conservation.herokuapp.com/api/';
+// const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
-// const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
@@ -951,5 +951,87 @@ export const deleteConnection = (id) => (dispatch) => {
       console.log(err);
       return err.message;
     });
+  });
+};
+
+export const [
+  ADD_BOOKMARK_LOADING,
+  ADD_BOOKMARK_SUCCESS,
+  ADD_BOOKMARK_ERROR,
+  REMOVE_BOOKMARK_LOADING,
+  REMOVE_BOOKMARK_SUCCESS,
+  REMOVE_BOOKMARK_ERROR,
+  FETCH_BOOKMARKS_LOADING,
+  FETCH_BOOKMARKS_SUCCESS,
+  FETCH_BOOKMARKS_ERROR,
+] = [
+  'ADD_BOOKMARK_LOADING',
+  'ADD_BOOKMARK_SUCCESS',
+  'ADD_BOOKMARK_ERROR',
+  'REMOVE_BOOKMARK_LOADING',
+  'REMOVE_BOOKMARK_SUCCESS',
+  'REMOVE_BOOKMARK_ERROR',
+  'FETCH_BOOKMARKS_LOADING',
+  'FETCH_BOOKMARKS_SUCCESS',
+  'FETCH_BOOKMARKS_ERROR',
+];
+
+export const addBookmark = (user_profile_id, campaign_id) => (dispatch) => {
+  return axiosWithAuth(dispatch, (aaxios) => {
+    dispatch({ type: ADD_BOOKMARK_LOADING });
+    return aaxios
+      .post(`${seturl}social/bookmark/${campaign_id}`, {
+        user_id: user_profile_id,
+        campaign_id: campaign_id,
+      })
+      .then((res) => {
+        dispatch({ type: ADD_BOOKMARK_SUCCESS, payload: campaign_id });
+      })
+      .catch((err) => {
+        dispatch({
+          type: ADD_BOOKMARK_ERROR,
+          payload: 'Failed to save bookmark',
+        });
+        console.error(err);
+      });
+  });
+};
+
+export const removeBookmark = (user_profile_id, campaign_id) => (dispatch) => {
+  return axiosWithAuth(dispatch, (aaxios) => {
+    dispatch({ type: REMOVE_BOOKMARK_LOADING });
+    return aaxios
+      .delete(`${seturl}social/bookmark/${campaign_id}/${user_profile_id}`)
+      .then((res) => {
+        dispatch({ type: REMOVE_BOOKMARK_SUCCESS, payload: campaign_id });
+      })
+      .catch((err) => {
+        dispatch({
+          type: REMOVE_BOOKMARK_ERROR,
+          payload: 'Failed to save bookmark',
+        });
+        console.error(err);
+      });
+  });
+};
+
+export const fetchBookmarks = (user_profile_id) => (dispatch) => {
+  return axiosWithAuth(dispatch, (aaxios) => {
+    dispatch({ type: FETCH_BOOKMARKS_LOADING });
+    return aaxios
+      .get(`${seturl}social/bookmark/${user_profile_id}`)
+      .then((res) => {
+        dispatch({
+          type: FETCH_BOOKMARKS_SUCCESS,
+          payload: res.data.map((campaign) => campaign.id),
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: FETCH_BOOKMARKS_ERROR,
+          payload: 'Failed to save bookmark',
+        });
+        console.error(err);
+      });
   });
 };
