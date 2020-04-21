@@ -2,18 +2,21 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 
 export default StyleSheet.create({
+  mainContainer: {
+    backgroundColor: '#fff',
+  },
   arrowView: {
     zIndex: 3,
     padding: '2.5%',
     top: '2.5%',
     alignSelf: 'flex-start',
-    left: '1.5%'
+    left: '1.5%',
   },
   obBody: {
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    height: Dimensions.get('window').height * 0.9
+    height: Dimensions.get('window').height * 0.9,
   },
   obTitle: {
     flex: 0,
@@ -23,10 +26,10 @@ export default StyleSheet.create({
     lineHeight: 38,
     marginHorizontal: '7%',
     marginTop: '15%',
-    marginBottom: '5%'
+    marginBottom: '5%',
   },
   highlight: {
-    backgroundColor: '#f66767'
+    backgroundColor: '#f66767',
   },
   contentWrapper: {
     flex: 0,
@@ -34,10 +37,10 @@ export default StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     margin: '3%',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
   },
   iconWrapper: {
-    marginTop: '3%'
+    marginTop: '3%',
   },
 
   obText: {
@@ -51,13 +54,14 @@ export default StyleSheet.create({
     lineHeight: 25,
     marginLeft: '3%',
     marginBottom: '2%',
-    marginTop: '2%'
+    marginTop: '2%',
   },
   obTextBottom: {
-    marginBottom: '7%'
+    marginBottom: '7%',
   },
   buttons: {
+    backgroundColor: '#fff',
     flex: 0,
-    alignItems: 'flex-end'
-  }
+    alignItems: 'flex-end',
+  },
 });

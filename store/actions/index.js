@@ -23,18 +23,18 @@ import JwtDecode from 'jwt-decode';
 // // user's token will be included in the header
 const axiosWithAuth = (dispatch, req) => {
   return SecureStore.getItemAsync('accessToken')
-    .then(token => {
+    .then((token) => {
       // Create request with auth header
       const instance = axios.create({
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
       // Response interceptor to check whether or not
       // to log the user out
       instance.interceptors.response.use(
-        response => response,
-        error => {
+        (response) => response,
+        (error) => {
           if (error.response?.data?.logout) {
             dispatch(logout(error.response.data.message));
           }
@@ -44,7 +44,7 @@ const axiosWithAuth = (dispatch, req) => {
 
       return req(instance);
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
     });
 };
@@ -52,14 +52,14 @@ const axiosWithAuth = (dispatch, req) => {
 // url for heroku staging vs production server
 // comment out either server depending on testing needs
 // production
-// const seturl = 'https://key-conservation.herokuapp.com/api/';
+const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
-const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+// const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
   // If they already include it it will be ignored. and if it is capital "Https || Http" it will become lowercase.
-  keys.forEach(key => {
+  keys.forEach((key) => {
     if (
       object[key] &&
       object[key] !== null &&
@@ -76,17 +76,17 @@ const filterUrls = (keys, object) => {
 export const [LOGIN_START, LOGIN_ERROR, LOGIN_SUCCESS] = [
   'LOGIN_START',
   'LOGIN_ERROR',
-  'LOGIN_SUCCESS'
+  'LOGIN_SUCCESS',
 ];
 
 export const loginStart = () => ({
-  type: LOGIN_START
+  type: LOGIN_START,
 });
-export const loginError = error => ({
+export const loginError = (error) => ({
   type: LOGIN_ERROR,
-  payload: error
+  payload: error,
 });
-export const loginSuccess = (credentials, role) => async dispatch => {
+export const loginSuccess = (credentials, role) => async (dispatch) => {
   await SecureStore.setItemAsync('accessToken', credentials.idToken);
 
   const decoded = JwtDecode(credentials.idToken);
@@ -99,19 +99,19 @@ export const loginSuccess = (credentials, role) => async dispatch => {
     .then(() => {
       navigate('Loading');
       dispatch({
-        type: LOGIN_SUCCESS
+        type: LOGIN_SUCCESS,
       });
     })
     .catch(() => {
       dispatch({
-        type: LOGIN_ERROR
+        type: LOGIN_ERROR,
       });
     });
 };
 
 export const LOGOUT = 'LOGOUT';
 
-export const logout = (message = '') => async dispatch => {
+export const logout = (message = '') => async (dispatch) => {
   await SecureStore.deleteItemAsync('sub', {});
   await SecureStore.deleteItemAsync('email', {});
   await SecureStore.deleteItemAsync('roles', {});
@@ -127,28 +127,28 @@ export const logout = (message = '') => async dispatch => {
 
   dispatch({
     type: LOGOUT,
-    payload: message
+    payload: message,
   });
 };
 
 export const AFTER_FIRST_LOGIN = 'AFTER_FIRST_LOGIN';
 
 export const afterFirstLogin = () => ({
-  type: AFTER_FIRST_LOGIN
+  type: AFTER_FIRST_LOGIN,
 });
 
 export const getAirtableKey = () => {
-  axiosWithAuth(null, aaxios => {
+  axiosWithAuth(null, (aaxios) => {
     aaxios
       .get(`${seturl}airtable`)
-      .then(async response => {
+      .then(async (response) => {
         await SecureStore.setItemAsync(
           'airtableKey',
           response.data.airtable_key
         );
         return response.data.airtable_key;
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   });
 };
 
@@ -156,7 +156,7 @@ export const getAirtableKey = () => {
 // Data comes in as a table name and an ID
 // So this function allows for the dynamic request of any
 // type of report
-export const getCustomById = (table_name, id) => dispatch => {
+export const getCustomById = (table_name, id) => (dispatch) => {
   let url = `${seturl}`;
 
   switch (table_name) {
@@ -180,7 +180,7 @@ export const getCustomById = (table_name, id) => dispatch => {
     }
   }
 
-  return axiosWithAuth(dispatch, aaxios => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios.get(`${url}/${id}`);
   });
 };
@@ -194,16 +194,16 @@ export const [
   GET_AUTH_START,
   GET_AUTH_USER,
   GET_AUTH_REGISTER,
-  GET_AUTH_ERROR
+  GET_AUTH_ERROR,
 ] = ['GET_AUTH_START', 'GET_AUTH_USER', 'GET_AUTH_REGISTER', 'GET_AUTH_ERROR'];
 
-export const getLoadingData = sub => dispatch => {
+export const getLoadingData = (sub) => (dispatch) => {
   let url = `${seturl}users/subcheck/${sub}`;
 
-  return axiosWithAuth(dispatch, aaxios => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .get(url)
-      .then(response => {
+      .then((response) => {
         let dbCheck = response.data.check.subCheck;
         if (dbCheck === true) {
           dispatch({ type: GET_AUTH_USER, payload: dbCheck });
@@ -211,7 +211,7 @@ export const getLoadingData = sub => dispatch => {
           dispatch({ type: GET_AUTH_REGISTER, payload: dbCheck });
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         dispatch({ type: GET_AUTH_ERROR, payload: error.message });
       });
@@ -221,7 +221,7 @@ export const getLoadingData = sub => dispatch => {
 export const [GET_PROFILE_START, GET_PROFILE_ERROR, GET_PROFILE_SUCCESS] = [
   'GET_PROFILE_START',
   'GET_PROFILE_ERROR',
-  'GET_PROFILE_SUCCESS'
+  'GET_PROFILE_SUCCESS',
 ];
 
 export const getProfileData = (
@@ -229,7 +229,7 @@ export const getProfileData = (
   sub,
   myProfile = false,
   noDispatch = false
-) => dispatch => {
+) => (dispatch) => {
   {
     !noDispatch && dispatch({ type: GET_PROFILE_START });
   }
@@ -238,31 +238,31 @@ export const getProfileData = (
   if (id) url = `${seturl}users/${id}`;
   else if (sub) url = `${seturl}users/sub/${sub}`;
 
-  return axiosWithAuth(dispatch, aaxios => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .get(url)
-      .then(res => {
+      .then((res) => {
         user = res.data.user;
         {
           !noDispatch &&
             dispatch({
               type: GET_PROFILE_SUCCESS,
-              payload: { user, myProfile }
+              payload: { user, myProfile },
             });
         }
         return user;
       })
-      .catch(err => {
+      .catch((err) => {
         if (noDispatch) {
           return err.message;
         } else {
-          dispatch =>
+          (dispatch) =>
             Promise.all([
               SecureStore.deleteItemAsync('sub', {}),
               SecureStore.deleteItemAsync('email', {}),
               SecureStore.deleteItemAsync('roles', {}),
               SecureStore.deleteItemAsync('id', {}),
-              SecureStore.deleteItemAsync('accessToken', {})
+              SecureStore.deleteItemAsync('accessToken', {}),
             ]).then(
               dispatch({ type: GET_PROFILE_ERROR, payload: err.message })
             );
@@ -274,10 +274,10 @@ export const getProfileData = (
 export const [EDIT_PROFILE_START, EDIT_PROFILE_ERROR, EDIT_PROFILE_SUCCESS] = [
   'EDIT_PROFILE_START',
   'EDIT_PROFILE_ERROR',
-  'EDIT_PROFILE_SUCCESS'
+  'EDIT_PROFILE_SUCCESS',
 ];
 
-export const editProfileData = (id, changes) => dispatch => {
+export const editProfileData = (id, changes) => (dispatch) => {
   dispatch({ type: EDIT_PROFILE_START });
 
   const filteredChanges = filterUrls(
@@ -287,7 +287,7 @@ export const editProfileData = (id, changes) => dispatch => {
 
   let formData = new FormData();
 
-  let keys = Object.keys(filteredChanges).filter(key => {
+  let keys = Object.keys(filteredChanges).filter((key) => {
     return key !== 'profile_image';
   });
 
@@ -300,28 +300,28 @@ export const editProfileData = (id, changes) => dispatch => {
     formData.append('photo', {
       uri,
       name: `photo.${fileType}`,
-      type: `image/${fileType}`
+      type: `image/${fileType}`,
     });
   }
 
-  keys.forEach(key => {
+  keys.forEach((key) => {
     if (filteredChanges[key] !== null) {
       formData.append(key, filteredChanges[key]);
     }
   });
 
-  return axiosWithAuth(dispatch, aaxios => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .put(`${seturl}users/${id}`, formData, {
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       })
-      .then(res => {
+      .then((res) => {
         dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.user });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         dispatch({ type: EDIT_PROFILE_ERROR, payload: err });
       });
@@ -331,10 +331,10 @@ export const editProfileData = (id, changes) => dispatch => {
 export const [POST_USER_START, POST_USER_ERROR, POST_USER_SUCCESS] = [
   'POST_USER_START',
   'POST_USER_ERROR',
-  'POST_USER_SUCCESS'
+  'POST_USER_SUCCESS',
 ];
 
-export const postUser = user => dispatch => {
+export const postUser = (user) => (dispatch) => {
   dispatch({ type: POST_USER_START });
 
   const filteredPost = filterUrls(
@@ -344,7 +344,7 @@ export const postUser = user => dispatch => {
 
   let formData = {};
 
-  let keys = Object.keys(filteredPost).filter(key => {
+  let keys = Object.keys(filteredPost).filter((key) => {
     return key !== 'profile_image';
   });
 
@@ -355,15 +355,15 @@ export const postUser = user => dispatch => {
     formData.photo = {
       uri,
       name: `photo.${fileType}`,
-      type: `image/${fileType}`
+      type: `image/${fileType}`,
     };
   }
 
-  keys.forEach(key => {
+  keys.forEach((key) => {
     if (filteredPost[key] !== null) {
       formData = {
         ...formData,
-        [key]: filteredPost[key]
+        [key]: filteredPost[key],
       };
       console.log('formData from foreach', formData);
       return formData;
@@ -372,13 +372,13 @@ export const postUser = user => dispatch => {
 
   console.log('formData', formData);
 
-  return axiosWithAuth(dispatch, aaxios => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .post(`${seturl}users`, formData)
-      .then(res => {
+      .then((res) => {
         dispatch({ type: POST_USER_SUCCESS, payload: res.data.user });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err.response, 'err in postUser');
         dispatch({ type: POST_USER_ERROR, payload: err });
       });
@@ -388,32 +388,32 @@ export const postUser = user => dispatch => {
 export const [
   GET_CAMPAIGNS_START,
   GET_CAMPAIGNS_ERROR,
-  GET_CAMPAIGNS_SUCCESS
+  GET_CAMPAIGNS_SUCCESS,
 ] = ['GET_CAMPAIGNS_START', 'GET_CAMPAIGNS_ERROR', 'GET_CAMPAIGNS_SUCCESS'];
 
-export const getCampaigns = () => dispatch => {
+export const getCampaigns = () => (dispatch) => {
   dispatch({ type: GET_CAMPAIGNS_START });
   let campaigns;
-  return axiosWithAuth(dispatch, aaxios => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .get(`${seturl}campaigns`)
-      .then(res => {
+      .then((res) => {
         campaigns = res.data.campaigns;
         return aaxios
           .get(`${seturl}updates`)
-          .then(res => {
+          .then((res) => {
             campaigns = campaigns.concat(res.data.campaignUpdate);
             dispatch({
               type: GET_CAMPAIGNS_SUCCESS,
-              payload: campaigns
+              payload: campaigns,
             });
           })
-          .catch(err => {
+          .catch((err) => {
             console.log(err);
             dispatch({ type: GET_CAMPAIGNS_ERROR, payload: err });
           });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err.response);
         dispatch({ type: GET_CAMPAIGNS_ERROR, payload: err });
       });
@@ -423,19 +423,19 @@ export const getCampaigns = () => dispatch => {
 export const [GET_CAMPAIGN_START, GET_CAMPAIGN_ERROR, GET_CAMPAIGN_SUCCESS] = [
   'GET_CAMPAIGN_START',
   'GET_CAMPAIGN_ERROR',
-  'GET_CAMPAIGN_SUCCESS'
+  'GET_CAMPAIGN_SUCCESS',
 ];
 
-export const getCampaign = id => dispatch => {
+export const getCampaign = (id) => (dispatch) => {
   dispatch({ type: GET_CAMPAIGN_START });
 
-  return axiosWithAuth(dispatch, aaxios => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .get(`${seturl}campaigns/${id}`)
-      .then(res => {
+      .then((res) => {
         dispatch({ type: GET_CAMPAIGN_SUCCESS, payload: res.data.campaign });
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch({ type: GET_CAMPAIGN_ERROR, payload: err });
       });
   });
@@ -443,20 +443,20 @@ export const getCampaign = id => dispatch => {
 
 export const SET_CAMPAIGN = 'SET_CAMPAIGN';
 
-export const setCampaign = campaign => {
+export const setCampaign = (campaign) => {
   return {
     type: SET_CAMPAIGN,
-    payload: campaign
+    payload: campaign,
   };
 };
 
 export const [
   POST_CAMPAIGN_START,
   POST_CAMPAIGN_ERROR,
-  POST_CAMPAIGN_SUCCESS
+  POST_CAMPAIGN_SUCCESS,
 ] = ['POST_CAMPAIGN_START', 'POST_CAMPAIGN_ERROR', 'POST_CAMPAIGN_SUCCESS'];
 
-export const postCampaign = campaign => dispatch => {
+export const postCampaign = (campaign) => (dispatch) => {
   dispatch({ type: POST_CAMPAIGN_START });
 
   const filteredCampaign = filterUrls(['call_to_action'], campaign);
@@ -470,7 +470,7 @@ export const postCampaign = campaign => dispatch => {
   formData.append('photo', {
     uri,
     name: `photo.${fileType}`,
-    type: `image/${fileType}`
+    type: `image/${fileType}`,
   });
   formData.append('call_to_action', filteredCampaign.call_to_action);
   formData.append('description', filteredCampaign.description);
@@ -478,21 +478,21 @@ export const postCampaign = campaign => dispatch => {
   formData.append('user_id', filteredCampaign.user_id);
   formData.append('urgency', filteredCampaign.urgency);
 
-  return axiosWithAuth(dispatch, aaxios => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .post(`${seturl}campaigns`, formData, {
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       })
-      .then(res => {
+      .then((res) => {
         dispatch({
           type: POST_CAMPAIGN_SUCCESS,
-          payload: res.data.campaignUpdate
+          payload: res.data.campaignUpdate,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch({ type: POST_CAMPAIGN_ERROR, payload: err });
       });
   });
@@ -501,23 +501,23 @@ export const postCampaign = campaign => dispatch => {
 export const [
   DELETE_CAMPAIGN_START,
   DELETE_CAMPAIGN_ERROR,
-  DELETE_CAMPAIGN_SUCCESS
+  DELETE_CAMPAIGN_SUCCESS,
 ] = [
   'DELETE_CAMPAIGN_START',
   'DELETE_CAMPAIGN_ERROR',
-  'DELETE_CAMPAIGN_SUCCESS'
+  'DELETE_CAMPAIGN_SUCCESS',
 ];
 
-export const deleteCampaign = id => dispatch => {
+export const deleteCampaign = (id) => (dispatch) => {
   dispatch({ type: DELETE_CAMPAIGN_START, payload: id });
 
-  return axiosWithAuth(dispatch, aaxios => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .delete(`${seturl}campaigns/${id}`)
-      .then(res => {
+      .then((res) => {
         dispatch({ type: DELETE_CAMPAIGN_SUCCESS, payload: res.data });
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch({ type: DELETE_CAMPAIGN_ERROR, payload: err });
         return { error: err, id };
       });
@@ -527,15 +527,15 @@ export const deleteCampaign = id => dispatch => {
 export const [
   EDIT_CAMPAIGN_START,
   EDIT_CAMPAIGN_ERROR,
-  EDIT_CAMPAIGN_SUCCESS
+  EDIT_CAMPAIGN_SUCCESS,
 ] = ['EDIT_CAMPAIGN_START', 'EDIT_CAMPAIGN_ERROR', 'EDIT_CAMPAIGN_SUCCESS'];
 
-export const editCampaign = (id, changes) => dispatch => {
+export const editCampaign = (id, changes) => (dispatch) => {
   dispatch({ type: EDIT_CAMPAIGN_START });
 
   let formData = new FormData();
 
-  let keys = Object.keys(changes).filter(key => {
+  let keys = Object.keys(changes).filter((key) => {
     return key !== 'image';
   });
 
@@ -548,29 +548,29 @@ export const editCampaign = (id, changes) => dispatch => {
     formData.append('photo', {
       uri,
       name: `photo.${fileType}`,
-      type: `image/${fileType}`
+      type: `image/${fileType}`,
     });
   }
 
-  keys.forEach(key => {
+  keys.forEach((key) => {
     formData.append(key, changes[key]);
   });
 
-  return axiosWithAuth(dispatch, aaxios => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .put(`${seturl}campaigns/${id}`, formData, {
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       })
-      .then(res => {
+      .then((res) => {
         dispatch({
           type: EDIT_CAMPAIGN_SUCCESS,
-          payload: res.data.campaignUpdate
+          payload: res.data.campaignUpdate,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch({ type: EDIT_CAMPAIGN_ERROR, payload: err });
       });
   });
@@ -579,14 +579,14 @@ export const editCampaign = (id, changes) => dispatch => {
 export const [
   POST_CAMPAIGN_UPDATE_START,
   POST_CAMPAIGN_UPDATE_ERROR,
-  POST_CAMPAIGN_UPDATE_SUCCESS
+  POST_CAMPAIGN_UPDATE_SUCCESS,
 ] = [
   'POST_CAMPAIGN_UPDATE_START',
   'POST_CAMPAIGN_UPDATE_ERROR',
-  'POST_CAMPAIGN_UPDATE_SUCCESS'
+  'POST_CAMPAIGN_UPDATE_SUCCESS',
 ];
 
-export const postCampaignUpdate = campaignUpdate => dispatch => {
+export const postCampaignUpdate = (campaignUpdate) => (dispatch) => {
   dispatch({ type: POST_CAMPAIGN_UPDATE_START });
 
   const uri = campaignUpdate.image;
@@ -598,28 +598,28 @@ export const postCampaignUpdate = campaignUpdate => dispatch => {
   formData.append('photo', {
     uri,
     name: `photo.${fileType}`,
-    type: `image/${fileType}`
+    type: `image/${fileType}`,
   });
 
   formData.append('description', campaignUpdate.description);
   formData.append('user_id', campaignUpdate.user_id);
   formData.append('campaign_id', campaignUpdate.campaign_id);
 
-  return axiosWithAuth(dispatch, aaxios => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .post(`${seturl}updates`, formData, {
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       })
-      .then(res => {
+      .then((res) => {
         dispatch({
           type: POST_CAMPAIGN_UPDATE_SUCCESS,
-          payload: res.data.campaignUpdate
+          payload: res.data.campaignUpdate,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch({ type: POST_CAMPAIGN_UPDATE_ERROR, payload: err });
         return err;
       });
@@ -629,19 +629,19 @@ export const postCampaignUpdate = campaignUpdate => dispatch => {
 export const [
   EDIT_CAMPAIGN_UPDATE_START,
   EDIT_CAMPAIGN_UPDATE_ERROR,
-  EDIT_CAMPAIGN_UPDATE_SUCCESS
+  EDIT_CAMPAIGN_UPDATE_SUCCESS,
 ] = [
   'EDIT_CAMPAIGN_UPDATE_START',
   'EDIT_CAMPAIGN_UPDATE_ERROR',
-  'EDIT_CAMPAIGN_UPDATE_SUCCESS'
+  'EDIT_CAMPAIGN_UPDATE_SUCCESS',
 ];
 
-export const editCampaignUpdate = (id, changes) => dispatch => {
+export const editCampaignUpdate = (id, changes) => (dispatch) => {
   dispatch({ type: EDIT_CAMPAIGN_UPDATE_START });
 
   let formData = new FormData();
 
-  let keys = Object.keys(changes).filter(key => {
+  let keys = Object.keys(changes).filter((key) => {
     return key !== 'image';
   });
 
@@ -654,29 +654,29 @@ export const editCampaignUpdate = (id, changes) => dispatch => {
     formData.append('photo', {
       uri,
       name: `photo.${fileType}`,
-      type: `image/${fileType}`
+      type: `image/${fileType}`,
     });
   }
 
-  keys.forEach(key => {
+  keys.forEach((key) => {
     formData.append(key, changes[key]);
   });
 
-  return axiosWithAuth(dispatch, aaxios => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .put(`${seturl}updates/${id}`, formData, {
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       })
-      .then(res => {
+      .then((res) => {
         dispatch({
           type: EDIT_CAMPAIGN_UPDATE_SUCCESS,
-          payload: res.data.campaignUpdate
+          payload: res.data.campaignUpdate,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch({ type: EDIT_CAMPAIGN_UPDATE_ERROR, payload: err });
       });
   });
@@ -685,24 +685,24 @@ export const editCampaignUpdate = (id, changes) => dispatch => {
 export const [
   DELETE_CAMPAIGN_UPDATE_START,
   DELETE_CAMPAIGN_UPDATE_ERROR,
-  DELETE_CAMPAIGN_UPDATE_SUCCESS
+  DELETE_CAMPAIGN_UPDATE_SUCCESS,
 ] = [
   'DELETE_CAMPAIGN_UPDATE_START',
   'DELETE_CAMPAIGN_UPDATE_ERROR',
-  'DELETE_CAMPAIGN_UPDATE_SUCCESS'
+  'DELETE_CAMPAIGN_UPDATE_SUCCESS',
 ];
 
-export const deleteCampaignUpdate = id => dispatch => {
+export const deleteCampaignUpdate = (id) => (dispatch) => {
   console.log('deleting campaign update');
   dispatch({ type: DELETE_CAMPAIGN_UPDATE_START, payload: id });
-  return axiosWithAuth(dispatch, aaxios => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .delete(`${seturl}updates/${id}`)
-      .then(res => {
+      .then((res) => {
         console.log('success in actions', res.data);
         dispatch({ type: DELETE_CAMPAIGN_UPDATE_SUCCESS, payload: res.data });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         dispatch({ type: DELETE_CAMPAIGN_UPDATE_ERROR, payload: err });
         return { error: err, id };
@@ -712,32 +712,32 @@ export const deleteCampaignUpdate = id => dispatch => {
 
 export const TOGGLE_CAMPAIGN_TEXT = 'TOGGLE_CAMPAIGN_TEXT';
 
-export const toggleCampaignText = id => ({
+export const toggleCampaignText = (id) => ({
   type: TOGGLE_CAMPAIGN_TEXT,
-  payload: id
+  payload: id,
 });
 
 export const [
   POST_COMMENT_START,
   POST_COMMENT_ERROR,
   POST_COMMENT_SUCCESS,
-  REFETCH_ALL_COMMENTS
+  REFETCH_ALL_COMMENTS,
 ] = ['POST_COMMENT_START', 'POST_COMMENT_ERROR', 'POST_COMMENT_SUCCESS'];
 
-export const commentOnCampaign = (id, body) => dispatch => {
+export const commentOnCampaign = (id, body) => (dispatch) => {
   dispatch({ type: POST_COMMENT_START });
 
-  return axiosWithAuth(dispatch, aaxios => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .post(`${seturl}comments/${id}`, {
-        body: body
+        body: body,
       })
-      .then(res => {
+      .then((res) => {
         console.log('res', res);
         dispatch({ type: POST_COMMENT_SUCCESS, payload: res.data.data });
         return aaxios.get(`${seturl}comments/${id}`);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         dispatch({ type: POST_COMMENT_ERROR, payload: err });
       });
@@ -747,27 +747,27 @@ export const commentOnCampaign = (id, body) => dispatch => {
 export const [
   DELETE_COMMENT_START,
   DELETE_COMMENT_ERROR,
-  DELETE_COMMENT_SUCCESS
+  DELETE_COMMENT_SUCCESS,
 ] = ['DELETE_COMMENT_START', 'DELETE_COMMENT_ERROR', 'DELETE_COMMENT_SUCCESS'];
 
-export const deleteComment = id => dispatch => {
+export const deleteComment = (id) => (dispatch) => {
   dispatch({ type: DELETE_COMMENT_START });
 
-  return axiosWithAuth(dispatch, aaxios => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .delete(`${seturl}comments/com/${id}`)
-      .then(res => {
+      .then((res) => {
         dispatch({ type: DELETE_COMMENT_SUCCESS, payload: res.data.data });
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch({ type: DELETE_COMMENT_ERROR, payload: err });
         return err;
       });
   });
 };
 
-export const addLike = (id, userId) => dispatch => {
-  return axiosWithAuth(dispatch, aaxios => {
+export const addLike = (id, userId) => (dispatch) => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .post(`${seturl}social/likes/${id}`, { user_id: userId, id: id })
       .then(console.log('word'));
@@ -777,24 +777,24 @@ export const addLike = (id, userId) => dispatch => {
 export const [
   GET_ORGANIZATIONS_STARTED,
   GET_ORGANIZATIONS_SUCCESS,
-  GET_ORGANIZATIONS_ERROR
+  GET_ORGANIZATIONS_ERROR,
 ] = [
   'GET_ORGANIZATIONS_STARTED',
   'GET_ORGANIZATIONS_SUCCESS',
-  'GET_ORGANIZATIONS_ERROR'
+  'GET_ORGANIZATIONS_ERROR',
 ];
 
-export const getOrganizations = () => dispatch => {
+export const getOrganizations = () => (dispatch) => {
   dispatch({ type: GET_ORGANIZATIONS_STARTED });
   let url = `${seturl}maps`;
 
-  return axiosWithAuth(dispatch, aaxios => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .get(url)
-      .then(response => {
+      .then((response) => {
         dispatch({ type: GET_ORGANIZATIONS_SUCCESS, payload: response.data });
       })
-      .catch(error => {
+      .catch((error) => {
         dispatch({ type: GET_ORGANIZATIONS_ERROR, payload: error.message });
       });
   });
@@ -802,33 +802,33 @@ export const getOrganizations = () => dispatch => {
 
 export const [SET_MAP_SEARCH_QUERY] = ['SET_MAP_SEARCH_QUERY'];
 
-export const setMapSearchQuery = (query, field) => dispatch => {
+export const setMapSearchQuery = (query, field) => (dispatch) => {
   dispatch({ type: SET_MAP_SEARCH_QUERY, payload: { query, field } });
 };
 
 export const [GET_REPORTS_START, GET_REPORTS_SUCCESS, GET_REPORTS_ERROR] = [
   'GET_REPORTS_START',
   'GET_REPORTS_SUCCESS',
-  'GET_REPORTS_ERROR'
+  'GET_REPORTS_ERROR',
 ];
 
 export const [
   ARCHIVE_REPORT_START,
   ARCHIVE_REPORT_SUCCESS,
-  ARCHIVE_REPORT_ERROR
+  ARCHIVE_REPORT_ERROR,
 ] = ['ARCHIVE_REPORT_START', 'ARCHIVE_REPORT_SUCCESS', 'ARCHIVE_REPORT_ERROR'];
 
-export const archiveReport = id => dispatch => {
+export const archiveReport = (id) => (dispatch) => {
   dispatch({ type: ARCHIVE_REPORT_START });
   let url = `${seturl}reports/archive/${id}`;
 
-  return axiosWithAuth(dispatch, aaxios => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .post(url)
-      .then(res => {
+      .then((res) => {
         dispatch({ type: ARCHIVE_REPORT_SUCCESS });
       })
-      .catch(err => {
+      .catch((err) => {
         const error = err.error || err.message;
         console.log(error);
         dispatch({ type: ARCHIVE_REPORT_SUCCESS, payload: error });
@@ -836,21 +836,19 @@ export const archiveReport = id => dispatch => {
   });
 };
 
-export const getReports = (
-  page = 0,
-  type = 'all',
-  archive = false
-) => dispatch => {
+export const getReports = (page = 0, type = 'all', archive = false) => (
+  dispatch
+) => {
   dispatch({ type: GET_REPORTS_START });
   let url = `${seturl}reports?page=${page}&type=${type}&archive=${archive}`;
 
-  return axiosWithAuth(dispatch, aaxios => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .get(url)
-      .then(res => {
+      .then((res) => {
         dispatch({ type: GET_REPORTS_SUCCESS, payload: res.data });
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch({ type: GET_REPORTS_ERROR, payload: err.message });
       });
   });
@@ -859,7 +857,7 @@ export const getReports = (
 export const [GET_REPORT_START, GET_REPORT_SUCCESS, GET_REPORT_ERROR] = [
   'GET_REPORT_START',
   'GET_REPORT_SUCCESS',
-  'GET_REPORT_ERROR'
+  'GET_REPORT_ERROR',
 ];
 
 export const CLEAR_REPORT_ERROR = 'CLEAR_REPORT_ERROR';
@@ -868,88 +866,88 @@ export const clearReportError = () => {
   return { type: CLEAR_REPORT_ERROR };
 };
 
-export const getReport = id => dispatch => {
+export const getReport = (id) => (dispatch) => {
   dispatch({ type: GET_REPORT_START });
   let url = `${seturl}reports/${id}`;
 
   console.log(`getting report ${id}`);
 
-  return axiosWithAuth(dispatch, aaxios => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .get(url)
-      .then(res => {
+      .then((res) => {
         dispatch({ type: GET_REPORT_SUCCESS, payload: res?.data });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         dispatch({ type: GET_REPORT_ERROR, payload: err.message });
       });
   });
 };
 
-export const deactivateUser = id => dispatch => {
+export const deactivateUser = (id) => (dispatch) => {
   let url = `${seturl}users/deactivate/${id}`;
 
-  return axiosWithAuth(dispatch, aaxios => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .post(url, {})
-      .then(res => {
+      .then((res) => {
         console.log('Deactivated successfully');
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         return err.message;
       });
   });
 };
 
-export const createReport = (postType, postId, desc) => dispatch => {
-  return axiosWithAuth(dispatch, aaxios => {
+export const createReport = (postType, postId, desc) => (dispatch) => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     let url = `${seturl}reports`;
     return aaxios
       .post(url, { postType, postId, desc })
-      .then(res => {
+      .then((res) => {
         console.log('Report Successful');
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         return err.message;
       });
   });
 };
 
-export const getConnections = id => dispatch => {
-  return axiosWithAuth(dispatch, aaxios => {
+export const getConnections = (id) => (dispatch) => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .get(`${seturl}users/connect/${id}`)
-      .then(res => {
+      .then((res) => {
         return res.data;
       })
-      .catch(err => {
+      .catch((err) => {
         return err.message;
       });
   });
 };
 
-export const connectRequest = connected_id => dispatch => {
-  return axiosWithAuth(dispatch, aaxios => {
+export const connectRequest = (connected_id) => (dispatch) => {
+  return axiosWithAuth(dispatch, (aaxios) => {
     let url = `${seturl}users/connect/${connected_id}`;
-    return aaxios.post(url).catch(err => {
+    return aaxios.post(url).catch((err) => {
       return err.message;
     });
   });
 };
-export const editConnectStatus = (id, status) => dispatch => {
-  return axiosWithAuth(dispatch, aaxios => {
-    return aaxios.put(`${seturl}users/connect/${id}`, status).catch(err => {
+export const editConnectStatus = (id, status) => (dispatch) => {
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios.put(`${seturl}users/connect/${id}`, status).catch((err) => {
       return err.message;
     });
   });
 };
 
-export const deleteConnection = id => dispatch => {
-  return axiosWithAuth(dispatch, aaxios => {
-    return aaxios.delete(`${seturl}users/connect/${id}`).catch(err => {
+export const deleteConnection = (id) => (dispatch) => {
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios.delete(`${seturl}users/connect/${id}`).catch((err) => {
       console.log(err);
       return err.message;
     });

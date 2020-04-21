@@ -17,7 +17,7 @@ import UserActionSheet from '../components/Reports/UserActionSheet';
 import SettingsButton from '../components/SettingsButton';
 import EditButton from '../components/EditButton';
 import ProfileBody from '../components/Profile/ProfileBody';
-import { withNavigationFocus } from 'react-navigation';
+import { NavigationEvents, withNavigationFocus } from 'react-navigation';
 
 class ProfileScreen extends React.Component {
   constructor(props) {
@@ -66,9 +66,38 @@ class ProfileScreen extends React.Component {
     }
   };
 
+  updateCampaigns = async() =>{
+    try {
+      const updatedUser = await this.props.getProfileData(
+        this.profileId,
+        null,
+      );
+      if(this.state.user.roles === 'conservationist') {
+        if (updatedUser.campaigns.length !== this.state.user.campaigns.length) {
+          this.initProfileData();
+        }
+      }else if(this.state.user.roles === 'supporter'){
+        if (updatedUser.bookmarks.length !== this.state.user.bookmarks.length) {
+          this.initProfileData();
+        }
+      }
+    } catch (err) {
+      console.log(err);
+      Alert.alert('Error', 'Failed to retrieve user profile');
+    }
+  };
+
+
+  startGettingProfiles = () => {
+    this.refreshInterval = setInterval(() => this.updateCampaigns(), 5000);
+  };
+
+  stopGettingProfiles = () => {
+    clearInterval(this.refreshInterval);
+  };
+
   componentDidMount = () => {
     this.initProfileData();
-
     this._sub = this.props.navigation.addListener(
       'didFocus',
       this.initProfileData
@@ -77,6 +106,7 @@ class ProfileScreen extends React.Component {
 
   componentWillUnmount() {
     this._sub.remove();
+    clearInterval(this.refreshInterval);
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -136,6 +166,7 @@ class ProfileScreen extends React.Component {
 
   componentWillUnmount() {
     this.props.navigation.setParams({ selectedProfile: null });
+    clearInterval(this.refreshInterval);
   }
 
   handleHeaderScale = (height, headerHeight) => {
@@ -149,6 +180,7 @@ class ProfileScreen extends React.Component {
       animate: animate
     });
   };
+
 
   render() {
     const { navigation } = this.props;
@@ -195,6 +227,10 @@ class ProfileScreen extends React.Component {
               admin={this.props.admin}
               userId={profileData.id}
               ref={o => (this.UserActionSheet = o)}
+            />
+            <NavigationEvents
+              onDidFocus={this.startGettingProfiles}
+              onDidBlur={this.stopGettingProfiles}
             />
             {this.state.loading ? (
               <ActivityIndicator

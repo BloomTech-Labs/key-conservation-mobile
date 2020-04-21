@@ -10,9 +10,7 @@ import Ellipse from '../../assets/jsicons/Ellipse';
 import CommentActionSheet from '../Reports/CommentActionSheet';
 import LoadingOverlay from '../LoadingOverlay';
 
-
-const Comment = props => {
-
+const Comment = (props) => {
   // This is so that the opacity of the comment will be
   // reduced when it is being deleting, or barely being posted
   // This is for a more streamlined user experience
@@ -52,7 +50,7 @@ const Comment = props => {
 
   const goToCommenterProfile = () => {
     props.navigation.push('Pro', {
-      selectedProfile: props.comment.user_id
+      selectedProfile: props.comment.user_id,
     });
   };
 
@@ -65,7 +63,7 @@ const Comment = props => {
       pointerEvents={loading ? 'none' : 'auto'}
       style={{
         ...styles.commentWrapper,
-        opacity: loading ? 0.4 : 1
+        opacity: loading ? 0.4 : 1,
       }}
     >
       <View>
@@ -81,15 +79,16 @@ const Comment = props => {
           <View style={styles.avatar}>
             <Avatar
               onPress={goToCommenterProfile}
+              size="medium"
               rounded
               containerStyle={
                 props.comment.user_id === props.selectedCampaign.user_id && {
                   borderWidth: 1,
-                  borderColor: '#00FF9D'
+                  borderColor: '#00FF9D',
                 }
               }
               source={{
-                uri: props.comment.profile_image
+                uri: props.comment.profile_image,
               }}
             />
           </View>
@@ -101,7 +100,7 @@ const Comment = props => {
             onPress={showActionSheet}
             style={styles.commentOptions}
           >
-            <Ellipse fill='#000' />
+            <Ellipse fill="#000" />
           </TouchableOpacity>
         </View>
         <View style={styles.interaction}>
@@ -112,9 +111,9 @@ const Comment = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   selectedProfile: state.selectedProfile,
-  admin: state.currentUserProfile.admin
+  admin: state.currentUserProfile.admin,
 });
 
 export default connect(mapStateToProps)(withNavigation(Comment));
