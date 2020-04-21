@@ -39,7 +39,8 @@ import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import ConnectionsScreen from '../screens/Connections/ConnectionsScreen';
 import SelectedConnectionsScreen from '../screens/Connections/SelectedConnectionsScreen';
-import SkillImpactScreen from '../screens/SkillImpactScreen';
+import OrgSkillImpactScreen from '../screens/org-skillimpact-screen/OrgSkillImpactScreen';
+import SupporterSkillImpactScreen from '../screens/supporter-skillimpact-screen/SupporterSkillImpactScreen';
 
 //icon imports
 
@@ -120,7 +121,7 @@ const FeedStack = createStackNavigator(
 const SkillImpactStack = createStackNavigator(
   //TODO add the rest of skill request screens for conservationists here
   {
-    SkillImpact: SkillImpactScreen,
+    SkillImpact: OrgSkillImpactScreen,
   },
   {
     navigationOptions: {
@@ -133,7 +134,7 @@ const SkillImpactStack = createStackNavigator(
 const SupporterSkillImpactStack = createStackNavigator(
   //TODO add the rest of skill request screens for supporters here
   {
-    SkillImpact: SkillImpactScreen,
+    SkillImpact: SupporterSkillImpactScreen,
   },
   {
     navigationOptions: {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 
-class SkillImpactScreen extends Component {
+class OrgSkillImpactScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     //TODO use navigations to establish stack navigation logic
     return {
@@ -35,4 +35,4 @@ class SkillImpactScreen extends Component {
 }
 
 
-export default SkillImpactScreen;
+export default OrgSkillImpactScreen;
