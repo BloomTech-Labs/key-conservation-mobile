@@ -12,9 +12,6 @@ export default StyleSheet.create({
   },
   contentContainer: {
     position: 'absolute',
-    // Hardcoding for android because there is a React Native bug preventing
-    // string values for transforms to work
-    // transform: [{ translateY: Platform.OS === 'android' ? -50 : '-50%' }],
     left: 0,
     right: 0,
     flex: 1,
@@ -22,7 +19,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     paddingTop: 10,
-    // paddingBottom: 30,
     flexWrap: 'wrap'
   },
   headerImageContainer: {
