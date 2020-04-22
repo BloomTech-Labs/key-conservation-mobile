@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import styles from '../../constants/SkilledImpact/OrgSkilledImpactScreen';
 import OrgSkilledImpactHeader from '../../components/SkilledImpact/OrgSkilledImpactHeader';
-import ProfileHeader from '../../components/Profile/ProfileHeader';
+import OrgSkilledImpactBody from '../../components/SkilledImpact/OrgSkilledImpactBody';
 
 class OrgSkillImpactScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -34,11 +35,11 @@ class OrgSkillImpactScreen extends Component {
   render() {
     //TODO view to be implemented
     return (
-      <View>
+      <View style={styles.container}>
         <OrgSkilledImpactHeader/>
+        <OrgSkilledImpactBody/>
       </View>
     );
-
   }
 }
 
