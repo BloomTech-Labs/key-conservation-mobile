@@ -315,10 +315,13 @@ const FeedCampaign = (props) => {
                     props.data.campaign_id || props.data.comments[0].campaign_id
                   );
                   updateBookmarkIcon();
-                  console.log('REMOVE');
                 }}
               >
-                <BookmarkSolid />
+                {props.bookmarks.loading ? (
+                  <ActivityIndicator size="large" color="#ADADAD" />
+                ) : (
+                  <BookmarkSolid />
+                )}
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
@@ -334,10 +337,13 @@ const FeedCampaign = (props) => {
                     // this is a bug or the intentional behavior - worth looking into maybe?
                   );
                   updateBookmarkIcon();
-                  console.log('ADD');
                 }}
               >
-                <Bookmark />
+                {props.bookmarks.loading ? (
+                  <ActivityIndicator size="large" color="#ADADAD" />
+                ) : (
+                  <Bookmark />
+                )}
               </TouchableOpacity>
             )}
 
