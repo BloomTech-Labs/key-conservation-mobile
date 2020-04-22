@@ -129,6 +129,7 @@ export default {
     alignSelf: 'flex-end',
     paddingVertical: 6,
     paddingHorizontal: 25,
+    height: 48,
   },
   readMore: {
     color: '#929292',
