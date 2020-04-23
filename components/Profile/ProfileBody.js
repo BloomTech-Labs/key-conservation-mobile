@@ -7,18 +7,22 @@ import styles from '../../constants/Profile/ProfileBody';
 import Details from './tabs/Details';
 import Campaigns from './tabs/Campaigns';
 import Location from './tabs/Location';
+import Saved from './tabs/Saved';
 
 export default React.forwardRef((props, ref) => {
   const routes =
     props.profile.roles === 'supporter'
       ? [
           { key: 'campaigns', title: 'Profile' },
-          { key: 'details', title: 'Details' }
+          { key: 'details', title: 'Details' },
         ]
       : [
           { key: 'campaigns', title: 'Campaigns' },
-          { key: 'details', title: 'Details' }
+          { key: 'details', title: 'Details' },
+          { key: 'saved', title: 'Saved' },
         ];
+
+  // [ { key: 'saved', title: 'Saved' }]
 
   // If the profile in questions is an organization and has a location,
   // insert a tab in index 1 (in the middle as per designs)
@@ -28,12 +32,12 @@ export default React.forwardRef((props, ref) => {
 
   const [state, setState] = useState({
     index: 0,
-    routes
+    routes,
   });
 
-  const handleIndexChange = index => {
+  const handleIndexChange = (index) => {
     props.scrollToMaximizeContent(index === state.index);
-    setState(prevState => ({ ...prevState, index }));
+    setState((prevState) => ({ ...prevState, index }));
   };
 
   const renderTabBar = ({ navigationState }) => {
@@ -42,7 +46,7 @@ export default React.forwardRef((props, ref) => {
     const translateY = props.contentPaddingTop
       ? props.scrollY.interpolate({
           inputRange: [0, distance, distance * 2],
-          outputRange: [0, 0, distance]
+          outputRange: [0, 0, distance],
         })
       : 0;
 
@@ -59,7 +63,7 @@ export default React.forwardRef((props, ref) => {
                 backgroundColor: 'white',
                 borderBottomColor: `rgba(0, 255, 157, ${
                   state.index === i ? 1 : 0
-                })`
+                })`,
               }}
               onPress={() => handleIndexChange(i)}
             >
@@ -76,14 +80,15 @@ export default React.forwardRef((props, ref) => {
   const renderScene = SceneMap({
     campaigns: () => <Campaigns profile={props.profile} />,
     location: () => <Location profile={props.profile} />,
-    details: () => <Details profile={props.profile} />
+    details: () => <Details profile={props.profile} />,
+    saved: () => <Saved profile={props.profile} />,
   });
 
   return (
     <TabView
       sceneContainerStyle={{
         flex: 1,
-        paddingTop: 48
+        paddingTop: 48,
       }}
       navigationState={state}
       renderScene={renderScene}

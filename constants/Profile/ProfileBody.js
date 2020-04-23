@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   tabBar: {
     left: 0,
@@ -10,7 +10,7 @@ export default StyleSheet.create({
     zIndex: 100,
     flexDirection: 'row',
     position: 'absolute',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   tabItem: {
     flex: 1,
@@ -18,6 +18,7 @@ export default StyleSheet.create({
     color: 'black',
     borderBottomWidth: 3,
     borderBottomColor: 'white',
-    padding: 12
-  }
+    paddingHorizontal: 5, // Changed from padding: 12 until get subnav setup
+    paddingVertical: 12,
+  },
 });
