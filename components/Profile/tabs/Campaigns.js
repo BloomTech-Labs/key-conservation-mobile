@@ -7,7 +7,7 @@ import FeedUpdate from '../../FeedScreen/FeedUpdate';
 import FeedCampaign from '../../FeedScreen/FeedCampaign';
 
 import CampaignBlankSpace from '../CampaignBlankSpace';
-import ComingSoon from '../../Profile/ComingSoon';
+import CampaignList from './CampaignList';
 
 const Campaigns = (props) => {
   const profileData = props.profile;
@@ -16,7 +16,7 @@ const Campaigns = (props) => {
     <View>
       {profileData?.roles === 'supporter' ? (
         <View style={styles.container}>
-          <ComingSoon />
+          <CampaignList></CampaignList>
         </View>
       ) : profileData.campaigns?.length ? (
         profileData.campaigns?.map((campaign) => {
