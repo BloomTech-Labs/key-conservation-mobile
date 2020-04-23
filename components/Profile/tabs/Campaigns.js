@@ -22,13 +22,8 @@ const Campaigns = (props) => {
         profileData.campaigns?.map((campaign) => {
           if (campaign) {
             return (
-              <View style={styles.currentCampaigns}>
-                <FeedCampaign
-                  disableHeader
-                  key={campaign.id}
-                  data={campaign}
-                  toggled
-                />
+              <View style={styles.currentCampaigns} key={campaign.id}>
+                <FeedCampaign disableHeader data={campaign} toggled />
               </View>
             );
           }
