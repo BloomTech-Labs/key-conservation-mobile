@@ -50,6 +50,7 @@ const initialState = {
   },
   bookmarks: {
     loading: false,
+    loadingCampaigns: false,
     error: null,
     campaignIDs: [],
     campaigns: [],
@@ -57,6 +58,8 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
+  console.log(action.type);
+
   switch (action.type) {
     case actions.LOGIN_START:
       return {
@@ -614,7 +617,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         bookmarks: {
           ...state.bookmarks,
-          loading: true,
+          loadingCampaigns: true,
           error: null,
         },
       };
@@ -623,7 +626,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         bookmarks: {
           ...state.bookmarks,
-          loading: false,
+          loadingCampaigns: false,
           error: null,
           campaigns: action.payload,
         },
@@ -633,7 +636,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         bookmarks: {
           ...state.bookmarks,
-          loading: false,
+          loadingCampaigns: false,
           error: action.payload,
           campaigns: [],
         },

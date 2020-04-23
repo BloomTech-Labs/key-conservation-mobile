@@ -10,11 +10,11 @@ import { fetchBookmarkedCampaigns } from '../../../store/actions';
 const CampaignList = ({ bookmarks, fetchBookmarkedCampaigns }) => {
   useEffect(() => {
     fetchBookmarkedCampaigns(bookmarks.campaignIDs);
-  }, []);
+  }, [bookmarks.campaignIDs]);
 
   return (
     <>
-      {bookmarks.loading ? (
+      {bookmarks.loadingCampaigns ? (
         <ActivityIndicator
           size="large"
           color="#ADADAD"
