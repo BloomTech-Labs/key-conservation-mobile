@@ -977,8 +977,8 @@ export const [
 ];
 
 export const addBookmark = (user_profile_id, campaign_id) => (dispatch) => {
+  dispatch({ type: ADD_BOOKMARK_LOADING });
   return axiosWithAuth(dispatch, (aaxios) => {
-    dispatch({ type: ADD_BOOKMARK_LOADING });
     return aaxios
       .post(`${seturl}social/bookmark/${campaign_id}`, {
         user_id: user_profile_id,
@@ -998,8 +998,8 @@ export const addBookmark = (user_profile_id, campaign_id) => (dispatch) => {
 };
 
 export const removeBookmark = (user_profile_id, campaign_id) => (dispatch) => {
+  dispatch({ type: REMOVE_BOOKMARK_LOADING });
   return axiosWithAuth(dispatch, (aaxios) => {
-    dispatch({ type: REMOVE_BOOKMARK_LOADING });
     return aaxios
       .delete(`${seturl}social/bookmark/${campaign_id}/${user_profile_id}`)
       .then((res) => {
@@ -1016,8 +1016,8 @@ export const removeBookmark = (user_profile_id, campaign_id) => (dispatch) => {
 };
 
 export const fetchBookmarks = (user_profile_id) => (dispatch) => {
+  dispatch({ type: FETCH_BOOKMARKS_LOADING });
   return axiosWithAuth(dispatch, (aaxios) => {
-    dispatch({ type: FETCH_BOOKMARKS_LOADING });
     return aaxios
       .get(`${seturl}social/bookmark/${user_profile_id}`)
       .then((res) => {
@@ -1033,5 +1033,44 @@ export const fetchBookmarks = (user_profile_id) => (dispatch) => {
         });
         console.error(err);
       });
+  });
+};
+
+export const [
+  GET_BOOKMARKED_CAMPAIGNS_LOADING,
+  GET_BOOKMARKED_CAMPAIGNS_SUCCESS,
+  GET_BOOKMARKED_CAMPAIGNS_ERROR,
+] = [
+  'GET_BOOKMARKED_CAMPAIGNS_LOADING',
+  'GET_BOOKMARKED_CAMPAIGNS_SUCCESS',
+  'GET_BOOKMARKED_CAMPAIGNS_ERROR',
+];
+
+export const fetchBookmarkedCampaigns = (bookmarkedIDs) => async (dispatch) => {
+  dispatch({ type: GET_BOOKMARKED_CAMPAIGNS_LOADING });
+  let campaigns = [];
+
+  await Promise.all(
+    bookmarkedIDs.map((id) => {
+      return axiosWithAuth(dispatch, (aaxios) => {
+        return aaxios
+          .get(`${seturl}campaigns/${id}`)
+          .then((res) => {
+            campaigns.push(res.data.campaign);
+          })
+          .catch((err) => {
+            dispatch({
+              type: GET_BOOKMARKED_CAMPAIGNS_ERROR,
+              payload: 'Failed to retrieve saved campaigns',
+            });
+            console.error(err);
+          });
+      });
+    })
+  );
+
+  dispatch({
+    type: GET_BOOKMARKED_CAMPAIGNS_SUCCESS,
+    payload: campaigns,
   });
 };

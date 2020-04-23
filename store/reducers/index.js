@@ -51,7 +51,8 @@ const initialState = {
   bookmarks: {
     loading: false,
     error: null,
-    savedBookmarks: [],
+    campaignIDs: [],
+    campaigns: [],
   },
 };
 
@@ -570,8 +571,8 @@ const reducer = (state = initialState, action) => {
           loading: false,
           error: null,
           // de-dupe bookmarks using sets
-          savedBookmarks: [
-            ...new Set([...state.bookmarks.savedBookmarks, action.payload]),
+          campaignIDs: [
+            ...new Set([...state.bookmarks.campaignIDs, action.payload]),
           ],
         },
       };
@@ -582,7 +583,7 @@ const reducer = (state = initialState, action) => {
           ...state.bookmarks,
           loading: false,
           errors: null,
-          savedBookmarks: state.bookmarks.savedBookmarks.filter(
+          campaignIDs: state.bookmarks.campaignIDs.filter(
             (bookmark) => bookmark !== action.payload
           ),
         },
@@ -594,7 +595,7 @@ const reducer = (state = initialState, action) => {
           ...state.bookmarks,
           loading: false,
           error: null,
-          savedBookmarks: action.payload,
+          campaignIDs: action.payload,
         },
       };
     case actions.ADD_BOOKMARK_FAILURE:
@@ -606,6 +607,35 @@ const reducer = (state = initialState, action) => {
           ...state.bookmarks,
           loading: false,
           error: action.payload,
+        },
+      };
+    case actions.GET_BOOKMARKED_CAMPAIGNS_LOADING:
+      return {
+        ...state,
+        bookmarks: {
+          ...state.bookmarks,
+          loading: true,
+          error: null,
+        },
+      };
+    case actions.GET_BOOKMARKED_CAMPAIGNS_SUCCESS:
+      return {
+        ...state,
+        bookmarks: {
+          ...state.bookmarks,
+          loading: false,
+          error: null,
+          campaigns: action.payload,
+        },
+      };
+    case actions.GET_BOOKMARKED_CAMPAIGNS_ERROR:
+      return {
+        ...state,
+        bookmarks: {
+          ...state.bookmarks,
+          loading: false,
+          error: action.payload,
+          campaigns: [],
         },
       };
     default:
