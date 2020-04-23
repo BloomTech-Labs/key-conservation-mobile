@@ -5,9 +5,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F2F2FB',
     padding: Dimensions.get('screen').width * 0.03,
-    height: Dimensions.get('screen').height * 0.45,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   currentCampaigns: {
     marginTop: 10,
