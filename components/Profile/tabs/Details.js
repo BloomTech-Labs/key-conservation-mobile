@@ -68,6 +68,9 @@ const Details = (props) => {
               to achieve our mission.
             </Text>
             <View style={styles.ProjectPartnerSection}>
+              {/* Code below commented out because by default the modal displays
+              for some reason...working on it. */}
+
               {/* <PartnersModal
                 setIsPartnersModalVisible={setIsPartnersModalVisible}
                 isPartnersModalVisible={isPartnersModalVisible}
@@ -80,7 +83,7 @@ const Details = (props) => {
                 }}
               >
                 <PlusSignCircle />
-                
+
                 {/* <PartnersModal
                 setIsPartnersModalVisible={setIsPartnersModalVisible}
                 isPartnersModalVisible={isPartnersModalVisible}
