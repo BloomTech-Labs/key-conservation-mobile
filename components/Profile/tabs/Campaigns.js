@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import { connect } from 'react-redux';
 
 import styles from '../../../constants/Profile/tabs/Campaigns';
 
@@ -8,6 +9,7 @@ import FeedCampaign from '../../FeedScreen/FeedCampaign';
 
 import CampaignBlankSpace from '../CampaignBlankSpace';
 import CampaignList from './CampaignList';
+import NoSavedPosts from '../../Profile/NoSavedPosts';
 
 const Campaigns = (props) => {
   const profileData = props.profile;
@@ -16,7 +18,7 @@ const Campaigns = (props) => {
     <View>
       {profileData?.roles === 'supporter' ? (
         <View style={styles.container}>
-          <CampaignList></CampaignList>
+          {props.bookmarks.length ? <CampaignList /> : <NoSavedPosts />}
         </View>
       ) : profileData.campaigns?.length ? (
         profileData.campaigns?.map((campaign) => {
@@ -37,4 +39,10 @@ const Campaigns = (props) => {
   );
 };
 
-export default Campaigns;
+const mapStateToProps = (state) => {
+  return {
+    bookmarks: state.bookmarks.campaignIDs,
+  };
+};
+
+export default connect(mapStateToProps, {})(Campaigns);
