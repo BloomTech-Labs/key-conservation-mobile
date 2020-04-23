@@ -52,17 +52,20 @@ const FeedCampaign = (props) => {
   const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
-    props.fetchBookmarks(props.currentUserProfile.id);
+    // prevent re-fetching unecessarily on profiles
+    if (props.displayOn !== 'profile') {
+      props.fetchBookmarks(props.currentUserProfile.id);
+    }
   }, []);
 
   useEffect(() => {
     setBookmark();
-  }, [props.bookmarks]);
+  }, [props.bookmarks.campaignIDs]);
 
   const setBookmark = () => {
     const thisCampaign =
       props.data.campaign_id || props.data.comments[0].campaign_id;
-    const isSaved = props.bookmarks.savedBookmarks.filter(
+    const isSaved = props.bookmarks.campaignIDs.filter(
       (bookmark) => bookmark === thisCampaign
     );
     setIsSaved(isSaved.length > 0);
