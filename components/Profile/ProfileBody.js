@@ -15,12 +15,12 @@ export default React.forwardRef((props, ref) => {
       ? [
           { key: 'campaigns', title: 'Profile' },
           { key: 'details', title: 'Details' },
-          { key: 'saved', title: 'Saved' },
+          
         ]
       : [
           { key: 'campaigns', title: 'Campaigns' },
           { key: 'details', title: 'Details' },
-          { key: 'saved', title: 'Saved' },
+          
         ];
 
   // [ { key: 'saved', title: 'Saved' }]
@@ -82,7 +82,7 @@ export default React.forwardRef((props, ref) => {
     campaigns: () => <Campaigns profile={props.profile} />,
     location: () => <Location profile={props.profile} />,
     details: () => <Details profile={props.profile} />,
-    saved: () => <Saved profile={props.profile} />,
+    
   });
 
   return (

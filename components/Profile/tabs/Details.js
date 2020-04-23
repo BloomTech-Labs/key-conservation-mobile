@@ -84,11 +84,6 @@ const Details = (props) => {
               >
                 <PlusSignCircle />
 
-                {/* <PartnersModal
-                setIsPartnersModalVisible={setIsPartnersModalVisible}
-                isPartnersModalVisible={isPartnersModalVisible}
-              /> */}
-
                 <Text style={styles.buttonText}>Add a Partner</Text>
               </TouchableOpacity>
             </View>
