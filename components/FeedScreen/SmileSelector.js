@@ -7,7 +7,7 @@ import {
   Text,
 } from 'react-native';
 import EmojiSelector, { Categories } from 'react-native-emoji-selector';
-import CheckMark from '../../assets/jsicons/miscIcons/CheckMark';
+import PlusSignCircle from '../../assets/jsicons/PlusSignCircle';
 
 const SmileSelector = (props) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -21,7 +21,7 @@ const SmileSelector = (props) => {
           setIsVisible(!isVisible);
         }}
       >
-        <CheckMark />
+        <PlusSignCircle />
       </TouchableOpacity>
 
       <View style={styles.display}>
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   display: {
-    flexWrap:'wrap', 
+    flexWrap: 'wrap',
     margin: 24,
     alignItems: 'center',
     justifyContent: 'center',
