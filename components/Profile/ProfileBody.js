@@ -7,23 +7,21 @@ import styles from '../../constants/Profile/ProfileBody';
 import Details from './tabs/Details';
 import Campaigns from './tabs/Campaigns';
 import Location from './tabs/Location';
-import Saved from './tabs/Saved';
+
 
 export default React.forwardRef((props, ref) => {
   const routes =
     props.profile.roles === 'supporter'
       ? [
-          { key: 'campaigns', title: 'Profile' },
+          { key: 'campaigns', title: 'My Campaigns' },
           { key: 'details', title: 'Details' },
-          
         ]
       : [
           { key: 'campaigns', title: 'Campaigns' },
           { key: 'details', title: 'Details' },
-          
         ];
 
-  // [ { key: 'saved', title: 'Saved' }]
+  
 
   // If the profile in questions is an organization and has a location,
   // insert a tab in index 1 (in the middle as per designs)
@@ -82,7 +80,6 @@ export default React.forwardRef((props, ref) => {
     campaigns: () => <Campaigns profile={props.profile} />,
     location: () => <Location profile={props.profile} />,
     details: () => <Details profile={props.profile} />,
-    
   });
 
   return (
