@@ -953,3 +953,124 @@ export const deleteConnection = (id) => (dispatch) => {
     });
   });
 };
+
+export const [
+  ADD_BOOKMARK_LOADING,
+  ADD_BOOKMARK_SUCCESS,
+  ADD_BOOKMARK_ERROR,
+  REMOVE_BOOKMARK_LOADING,
+  REMOVE_BOOKMARK_SUCCESS,
+  REMOVE_BOOKMARK_ERROR,
+  FETCH_BOOKMARKS_LOADING,
+  FETCH_BOOKMARKS_SUCCESS,
+  FETCH_BOOKMARKS_ERROR,
+] = [
+  'ADD_BOOKMARK_LOADING',
+  'ADD_BOOKMARK_SUCCESS',
+  'ADD_BOOKMARK_ERROR',
+  'REMOVE_BOOKMARK_LOADING',
+  'REMOVE_BOOKMARK_SUCCESS',
+  'REMOVE_BOOKMARK_ERROR',
+  'FETCH_BOOKMARKS_LOADING',
+  'FETCH_BOOKMARKS_SUCCESS',
+  'FETCH_BOOKMARKS_ERROR',
+];
+
+export const addBookmark = (user_profile_id, campaign_id) => (dispatch) => {
+  dispatch({ type: ADD_BOOKMARK_LOADING });
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .post(`${seturl}social/bookmark/${campaign_id}`, {
+        user_id: user_profile_id,
+        campaign_id: campaign_id,
+      })
+      .then((res) => {
+        dispatch({ type: ADD_BOOKMARK_SUCCESS, payload: campaign_id });
+      })
+      .catch((err) => {
+        dispatch({
+          type: ADD_BOOKMARK_ERROR,
+          payload: 'Failed to save bookmark',
+        });
+        console.error(err);
+      });
+  });
+};
+
+export const removeBookmark = (user_profile_id, campaign_id) => (dispatch) => {
+  dispatch({ type: REMOVE_BOOKMARK_LOADING });
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .delete(`${seturl}social/bookmark/${campaign_id}/${user_profile_id}`)
+      .then((res) => {
+        dispatch({ type: REMOVE_BOOKMARK_SUCCESS, payload: campaign_id });
+      })
+      .catch((err) => {
+        dispatch({
+          type: REMOVE_BOOKMARK_ERROR,
+          payload: 'Failed to save bookmark',
+        });
+        console.error(err);
+      });
+  });
+};
+
+export const fetchBookmarks = (user_profile_id) => (dispatch) => {
+  dispatch({ type: FETCH_BOOKMARKS_LOADING });
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .get(`${seturl}social/bookmark/${user_profile_id}`)
+      .then((res) => {
+        dispatch({
+          type: FETCH_BOOKMARKS_SUCCESS,
+          payload: res.data.map((campaign) => campaign.id),
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: FETCH_BOOKMARKS_ERROR,
+          payload: 'Failed to save bookmark',
+        });
+        console.error(err);
+      });
+  });
+};
+
+export const [
+  GET_BOOKMARKED_CAMPAIGNS_LOADING,
+  GET_BOOKMARKED_CAMPAIGNS_SUCCESS,
+  GET_BOOKMARKED_CAMPAIGNS_ERROR,
+] = [
+  'GET_BOOKMARKED_CAMPAIGNS_LOADING',
+  'GET_BOOKMARKED_CAMPAIGNS_SUCCESS',
+  'GET_BOOKMARKED_CAMPAIGNS_ERROR',
+];
+
+export const fetchBookmarkedCampaigns = (bookmarkedIDs) => async (dispatch) => {
+  dispatch({ type: GET_BOOKMARKED_CAMPAIGNS_LOADING });
+  let campaigns = [];
+
+  await Promise.all(
+    bookmarkedIDs.map((id) => {
+      return axiosWithAuth(dispatch, (aaxios) => {
+        return aaxios
+          .get(`${seturl}campaigns/${id}`)
+          .then((res) => {
+            campaigns.push(res.data.campaign);
+          })
+          .catch((err) => {
+            dispatch({
+              type: GET_BOOKMARKED_CAMPAIGNS_ERROR,
+              payload: 'Failed to retrieve saved campaigns',
+            });
+            console.error(err);
+          });
+      });
+    })
+  );
+
+  dispatch({
+    type: GET_BOOKMARKED_CAMPAIGNS_SUCCESS,
+    payload: campaigns,
+  });
+};

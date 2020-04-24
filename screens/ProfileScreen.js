@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  ScrollView,
-  ActivityIndicator,
-  Alert,
-  View,
-  Animated
-} from 'react-native';
+import { ActivityIndicator, Alert, View, Animated } from 'react-native';
 import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
 import { getProfileData, createReport } from '../store/actions';
@@ -26,14 +20,14 @@ class ProfileScreen extends React.Component {
       error: '',
       loading: true,
       user: {},
-      scrollY: 0
+      scrollY: 0,
     };
     this.profileId =
       this.props.navigation.getParam('selectedProfile') ||
       this.props.currentUserProfile.id;
     this.props.navigation.setParams({
       showProfileScreenActions: this.showActionSheet,
-      currentProfile: this.props.currentUserProfile
+      currentProfile: this.props.currentUserProfile,
     });
 
     this.headerOnScroll = React.createRef();
@@ -54,29 +48,26 @@ class ProfileScreen extends React.Component {
       );
       this.setState({
         user,
-        loading: false
+        loading: false,
       });
     } catch (err) {
       console.log(err);
       Alert.alert('Error', 'Failed to retrieve user profile');
       this.setState({
         loading: false,
-        error: 'Failed to retrieve user profile'
+        error: 'Failed to retrieve user profile',
       });
     }
   };
 
-  updateCampaigns = async() =>{
+  updateCampaigns = async () => {
     try {
-      const updatedUser = await this.props.getProfileData(
-        this.profileId,
-        null,
-      );
-      if(this.state.user.roles === 'conservationist') {
+      const updatedUser = await this.props.getProfileData(this.profileId, null);
+      if (this.state.user.roles === 'conservationist') {
         if (updatedUser.campaigns.length !== this.state.user.campaigns.length) {
           this.initProfileData();
         }
-      }else if(this.state.user.roles === 'supporter'){
+      } else if (this.state.user.roles === 'supporter') {
         if (updatedUser.bookmarks.length !== this.state.user.bookmarks.length) {
           this.initProfileData();
         }
@@ -86,7 +77,6 @@ class ProfileScreen extends React.Component {
       Alert.alert('Error', 'Failed to retrieve user profile');
     }
   };
-
 
   startGettingProfiles = () => {
     this.refreshInterval = setInterval(() => this.updateCampaigns(), 5000);
@@ -129,11 +119,11 @@ class ProfileScreen extends React.Component {
             style={{
               transform: [{ rotate: '90deg' }],
               padding: 16,
-              paddingRight: 24
+              paddingRight: 24,
             }}
             onPress={navigation.getParam('showProfileScreenActions')}
           >
-            <Ellipse width='25' height='25' />
+            <Ellipse width="25" height="25" />
           </TouchableOpacity>
         );
       }
@@ -156,7 +146,7 @@ class ProfileScreen extends React.Component {
       headerTransparent: true,
       title: '',
       headerLeft,
-      headerRight
+      headerRight,
     };
   };
 
@@ -177,10 +167,9 @@ class ProfileScreen extends React.Component {
     this.scrollView.current?.getNode().scrollTo({
       x: 0,
       y: this.state.contentPaddingTop - this.state.headerHeight,
-      animate: animate
+      animate: animate,
     });
   };
-
 
   render() {
     const { navigation } = this.props;
@@ -206,11 +195,11 @@ class ProfileScreen extends React.Component {
           <Animated.ScrollView
             showsVerticalScrollIndicator={false}
             style={{
-              height: '100%'
+              height: '100%',
             }}
             contentContainerStyle={{
               flex: this.state.loading ? 1 : 0,
-              paddingTop: this.state.contentPaddingTop
+              paddingTop: this.state.contentPaddingTop,
             }}
             stickyHeaderIndices={[0]}
             scrollEventThrottle={12}
@@ -219,14 +208,14 @@ class ProfileScreen extends React.Component {
               [{ nativeEvent: { contentOffset: { y: this.scrollY } } }],
               {
                 useNativeDriver: true,
-                listener: event => this.headerOnScroll.current?.(event)
+                listener: (event) => this.headerOnScroll.current?.(event),
               }
             )}
           >
             <UserActionSheet
               admin={this.props.admin}
               userId={profileData.id}
-              ref={o => (this.UserActionSheet = o)}
+              ref={(o) => (this.UserActionSheet = o)}
             />
             <NavigationEvents
               onDidFocus={this.startGettingProfiles}
@@ -235,7 +224,7 @@ class ProfileScreen extends React.Component {
             {this.state.loading ? (
               <ActivityIndicator
                 style={{ margin: 'auto', flex: 1 }}
-                size='large'
+                size="large"
               />
             ) : (
               <ProfileBody
@@ -255,9 +244,9 @@ class ProfileScreen extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentUserProfile: state.currentUserProfile,
-  admin: state.currentUserProfile.admin
+  admin: state.currentUserProfile.admin,
 });
 
 export default connect(mapStateToProps, { getProfileData, createReport })(
