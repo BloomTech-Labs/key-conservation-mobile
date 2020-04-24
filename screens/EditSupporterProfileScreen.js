@@ -13,6 +13,8 @@ import styles from '../constants/screens/EditSupporterProfileScreen';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
+import SkillSelect from '../components/SkillSelect';
+
 class EditSupporterProfileScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -39,7 +41,8 @@ class EditSupporterProfileScreen extends React.Component {
     facebook: this.props.currentUserProfile.facebook,
     instagram: this.props.currentUserProfile.instagram,
     twitter: this.props.currentUserProfile.twitter,
-    species_and_habitats: this.props.currentUserProfile.species_and_habitats
+    species_and_habitats: this.props.currentUserProfile.species_and_habitats,
+    skills: this.props.currentUserProfile.skills
   };
 
   componentDidMount() {
@@ -164,6 +167,16 @@ class EditSupporterProfileScreen extends React.Component {
               />
             </View>
           </View>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionHeader}>Skilled Impact</Text>
+          <Text style={styles.sectionsText}>Select the skills you currently have and want to use to help conservationists.</Text>
+          <Text style={styles.sectionSubText}>You can add more details later</Text>
+          <SkillSelect
+            skills={this.state.skills}
+            enableOtherSkills={true}
+            onSkillsChanged={skills => this.setState({ skills: skills })}
+          />
         </View>
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionHeader}>Linked Accounts</Text>
