@@ -1,57 +1,8 @@
 import React from 'react';
 import { Text, TouchableOpacity, View, TextInput } from 'react-native';
 
-import styles from '../constants/SkillSelect';
-
-const Skills = {
-  ACCOUNTING: 'Accounting',
-  ARCHITECTURE: 'Architecture',
-  AUTO: 'Auto',
-  APP_DEVELOPMENT: 'App Development',
-  ART: 'Art',
-  AVIATION: 'Aviation',
-  BOATING: 'Boating',
-  BUSINESS_DEVELOPMENT: 'Business Development',
-  COMMUNICATION: 'Communication',
-  COMMUNITY_LIAISON: 'Community Liaison',
-  CONSTRUCTION: 'Construction',
-  CRAFT: 'Craft',
-  CULINARY: 'Culinary',
-  DATA_ANALYSIS: 'Data Analysis',
-  DATABASE_MANAGEMENT: 'Database Management',
-  DIVING: 'Diving',
-  DRONE: 'Drone',
-  ELECTRICITY: 'Electricity',
-  ENGINEERING: 'Engineering',
-  ENTREPRENEURSHIP: 'Entrepreneurship',
-  FINANCE: 'Finance',
-  FUNDRAISING: 'Fundraising',
-  GAMING: 'Gaming',
-  GRAPHIC_DESIGN: 'Graphic Design',
-  HOSPITALITY: 'Hospitality',
-  HUMAN_RESOURCES: 'Human Resources',
-  INFORMATION_TECHNOLOGY: 'Information Technology',
-  LANDSCAPE: 'Landscape',
-  LEGAL: 'Legal',
-  MANAGEMENT: 'Management',
-  MARKETING: 'Marketing',
-  MEDICAL: 'Medical',
-  MUSICAL: 'Musical',
-  PHOTOGRAPHY: 'Photography',
-  PLUMBING: 'Plumbing',
-  PUBLIC_RELATIONS: 'Public Relations',
-  RENEWABLE_ENERGY: 'Renewable Energy ',
-  RESEARCH: 'Research',
-  SOCIAL_MEDIA: 'Social Media',
-  STRATEGY_CONSULTING: 'Strategy Consulting',
-  TAXI: 'Taxi',
-  TRANSLATION: 'Translation',
-  VETERINARY_SERVICES: 'Veterinary Services',
-  VIDEOGRAPHY: 'Videography',
-  WEB_DESIGN: 'Web Design',
-  WEB_DEVELOPMENT: 'Web Development',
-  WRITING: 'Writing',
-}
+import styles from '../constants/SkillSelect/SkillSelect';
+import Skills from '../constants/SkillSelect/Skills';
 
 const SkillButton = props => {
   const { skill, selected, onPress } = props;
@@ -101,17 +52,10 @@ class SkillSelect extends React.Component {
         <Text style={styles.otherSkillText}>Are we missing a skill you'd like to give? Let us know here and we will consider it for our next update!</Text>
       </View>
       <TextInput
-        // ref={input => {
-        //   this.otherSkillInput = input;
-        // }}
         returnKeyType='next'
         placeholder='Hula Dancing'
         style={styles.inputField}
         onChangeText={text => this.setState({ otherSkill: text })}
-        // onSubmitEditing={() => {
-        //   if (Platform.OS === 'android') return;
-        //   this.otherSkillInput.focus();
-        // }}
         value={this.state.otherSkill}
       />
     </View>;
