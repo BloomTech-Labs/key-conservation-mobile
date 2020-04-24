@@ -16,7 +16,7 @@ export default React.forwardRef((props, ref) => {
           { key: 'details', title: 'Details' }
         ]
       : [
-          { key: 'campaigns', title: 'My Campaigns' },
+          { key: 'campaigns', title: 'Campaigns' },
           { key: 'details', title: 'Details' }
         ];
 
