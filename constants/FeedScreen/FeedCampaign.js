@@ -28,7 +28,7 @@ export default {
     alignSelf: 'center',
     backgroundColor: 'white',
     paddingTop: 7,
-    paddingBottom: 20,
+    paddingBottom: 10,
     borderRadius: 10,
   },
   orgTitleView: {
@@ -148,7 +148,7 @@ export default {
     color: 'white',
   },
   demarcation: {
-    marginTop: 5,
+    marginTop: 10,
   },
   subtitleText: {
     color: '#929292',
