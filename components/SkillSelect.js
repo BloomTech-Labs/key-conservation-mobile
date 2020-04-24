@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity, View, TextInput } from 'react-native';
 
 import styles from '../constants/SkillSelect/SkillSelect';
-import Skills from '../constants/SkillSelect/Skills';
+import Skills from '../constants/Skills';
 
 const SkillButton = props => {
   const { skill, selected, onPress } = props;
