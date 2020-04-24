@@ -29,7 +29,7 @@ const SmileSelector = (props) => {
           return (
             <Text
               key={i}
-              style={{ fontSize: 64, backgroundColor: 'transparent' }}
+              style={{ fontSize: 30, backgroundColor: 'transparent' }}
             >
               {e}
             </Text>
@@ -55,12 +55,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    
   },
   display: {
     flexWrap: 'wrap',
-    margin: 24,
+    margin: 5,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
