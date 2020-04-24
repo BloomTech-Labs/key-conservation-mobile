@@ -5,7 +5,7 @@ import escapeRegExp from 'escape-string-regexp';
 function filterSearch(query, key, arr) {
   if (query === '') return arr;
   const match = new RegExp(query, 'i');
-  return arr.filter(obj => match.test(obj[key.toLowerCase()]));
+  return arr.filter((obj) => match.test(obj[key.toLowerCase()]));
 }
 
 import * as actions from '../actions';
@@ -15,22 +15,22 @@ const initialState = {
   pending: {
     updateProfile: false,
     deleteCampaignUpdate: [],
-    deleteCampaign: []
+    deleteCampaign: [],
   },
   currentUser: {
     sub: '',
     role: '',
     email: '',
     name: '',
-    token: ''
+    token: '',
   },
   currentUserProfile: {
     campaigns: [],
-    connections: []
+    connections: [],
   },
   selectedProfile: {
     campaigns: [],
-    connections: []
+    connections: [],
   },
   selectedCampaign: {},
   allCampaigns: [],
@@ -46,8 +46,15 @@ const initialState = {
     currentReport: null,
     data: null,
     loading: false,
-    error: ''
-  }
+    error: '',
+  },
+  bookmarks: {
+    loading: false,
+    loadingCampaigns: false,
+    error: null,
+    campaignIDs: [],
+    campaigns: [],
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -56,64 +63,64 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, login: true },
-        error: ''
+        error: '',
       };
     case actions.LOGIN_ERROR:
       return {
         ...state,
         pending: { ...state.pending, login: false },
-        error: action.payload
+        error: action.payload,
       };
     case actions.LOGIN_SUCCESS:
       return {
         ...state,
         pending: { ...state.pending, login: false },
-        error: ''
+        error: '',
       };
     //Amplitude.logEventWithProperties('logged in', currentUser);
 
     case actions.LOGOUT:
       return {
         ...initialState,
-        error: action.payload
+        error: action.payload,
       };
     case actions.AFTER_FIRST_LOGIN:
       return {
         ...state,
-        firstLogin: false
+        firstLogin: false,
       };
     case actions.GET_AUTH_START:
       return {
-        ...state
+        ...state,
       };
     case actions.GET_AUTH_USER:
       return {
         ...state,
-        userRegistered: true
+        userRegistered: true,
       };
     case actions.GET_AUTH_REGISTER:
       return {
         ...state,
-        userRegistered: false
+        userRegistered: false,
       };
     case actions.GET_AUTH_ERROR:
       return {
         ...state,
         pending: { ...state.pending, getAuth: false },
-        error: action.payload
+        error: action.payload,
       };
     case actions.GET_PROFILE_START:
       return {
         ...state,
         pending: { ...state.pending, getProfile: true },
         error: '',
-        profileReset: false
+        profileReset: false,
       };
     case actions.GET_PROFILE_SUCCESS:
       let { user } = action.payload;
       // console.log("GOT PROFILE")
       if (user.campaigns) {
-        user.campaigns.sort(function(a, b) {
+        user.campaigns.sort(function (a, b) {
           return moment(b.created_at) - moment(a.created_at);
         });
       }
@@ -122,14 +129,14 @@ const reducer = (state = initialState, action) => {
           ...state,
           pending: { ...state.pending, getProfile: false },
           currentUserProfile: user,
-          profileReset: false
+          profileReset: false,
         };
       } else {
         return {
           ...state,
           pending: { ...state.pending, getProfile: false },
           selectedProfile: user,
-          profileReset: false
+          profileReset: false,
         };
       }
     case actions.GET_PROFILE_ERROR:
@@ -137,31 +144,31 @@ const reducer = (state = initialState, action) => {
         ...state,
         pending: { ...state.pending, getProfile: false },
         error: action.payload,
-        profileReset: true
+        profileReset: true,
       };
     case actions.EDIT_PROFILE_START:
       return {
         ...state,
         pending: { ...state.pending, updateProfile: true },
-        error: ''
+        error: '',
       };
     case actions.EDIT_PROFILE_SUCCESS:
       return {
         ...state,
         pending: { ...state.pending, updateProfile: false },
-        currentUserProfile: action.payload
+        currentUserProfile: action.payload,
       };
     case actions.EDIT_PROFILE_ERROR:
       return {
         ...state,
         pending: { ...state.pending, updateProfile: false },
-        error: action.payload
+        error: action.payload,
       };
     case actions.POST_USER_START:
       return {
         ...state,
         pending: { ...state.pending, postUser: true },
-        error: ''
+        error: '',
       };
     case actions.POST_USER_SUCCESS:
       SecureStore.setItemAsync('id', `${action.payload.id}`);
@@ -170,68 +177,68 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, postUser: false },
         currentUserProfile: action.payload,
         firstLogin: true,
-        error: ''
+        error: '',
       };
     case actions.POST_USER_ERROR:
       return {
         ...state,
         pending: { ...state.pending, postUser: false },
-        error: action.payload
+        error: action.payload,
       };
     case actions.GET_CAMPAIGNS_START:
       return {
         ...state,
         pending: { ...state.pending, getCampaigns: true },
-        error: ''
+        error: '',
       };
     case actions.GET_CAMPAIGNS_SUCCESS:
       const campaigns = action.payload;
-      campaigns.sort(function(a, b) {
+      campaigns.sort(function (a, b) {
         return moment(b.created_at) - moment(a.created_at);
       });
       return {
         ...state,
         pending: { ...state.pending, getCampaigns: false },
-        allCampaigns: campaigns
+        allCampaigns: campaigns,
       };
     case actions.GET_CAMPAIGNS_ERROR:
       return {
         ...state,
         pending: { ...state.pending, getCampaigns: false },
-        error: action.payload
+        error: action.payload,
       };
     case actions.GET_CAMPAIGN_START:
       return {
         ...state,
         pending: { ...state.pending, getCampaign: true },
-        error: ''
+        error: '',
       };
     case actions.GET_CAMPAIGN_SUCCESS:
       const campaign = action.payload;
       return {
         ...state,
         pending: { ...state.pending, getCampaign: false },
-        selectedCampaign: campaign
+        selectedCampaign: campaign,
       };
     case actions.GET_CAMPAIGN_ERROR:
       return {
         ...state,
         pending: { ...state.pending, getCampaign: false },
-        error: action.payload
+        error: action.payload,
       };
     case actions.SET_CAMPAIGN:
       return {
         ...state,
-        selectedCampaign: action.payload
+        selectedCampaign: action.payload,
       };
     case actions.DELETE_CAMPAIGN_START:
       return {
         ...state,
         pending: {
           ...state.pending,
-          deleteCampaign: [...state.pending.deleteCampaign, action.payload]
+          deleteCampaign: [...state.pending.deleteCampaign, action.payload],
         },
-        error: ''
+        error: '',
       };
     case actions.DELETE_CAMPAIGN_SUCCESS:
       return {
@@ -239,18 +246,18 @@ const reducer = (state = initialState, action) => {
         pending: {
           ...state.pending,
           deleteCampaign: state.pending.deleteCampaign.filter(
-            id => id !== action.payload
-          )
+            (id) => id !== action.payload
+          ),
         },
         allCampaigns: state.allCampaigns?.filter?.(
-          campaign => campaign.id !== Number(action.payload)
+          (campaign) => campaign.id !== Number(action.payload)
         ),
         currentUserProfile: {
           ...state.currentUserProfile,
           campaigns: state.currentUserProfile.campaigns?.filter?.(
-            campaign => campaign.id !== action.payload
-          )
-        }
+            (campaign) => campaign.id !== action.payload
+          ),
+        },
       };
     case actions.DELETE_CAMPAIGN_ERROR:
       return {
@@ -258,16 +265,16 @@ const reducer = (state = initialState, action) => {
         pending: {
           ...state.pending,
           deleteCampaign: state.pending.deleteCampaign.filter(
-            id => id !== action.payload.id
-          )
+            (id) => id !== action.payload.id
+          ),
         },
-        error: action.payload.error
+        error: action.payload.error,
       };
     case actions.POST_CAMPAIGN_START:
       return {
         ...state,
         pending: { ...state.pending, postCampaign: true },
-        error: ''
+        error: '',
       };
     case actions.POST_CAMPAIGN_SUCCESS:
       return {
@@ -278,39 +285,39 @@ const reducer = (state = initialState, action) => {
           ...state.currentUserProfile,
           campaigns: [
             ...(state.currentUserProfile?.campaigns || []),
-            action.payload
-          ]
-        }
+            action.payload,
+          ],
+        },
       };
     case actions.POST_CAMPAIGN_ERROR:
       return {
         ...state,
         pending: { ...state.pending, postCampaign: false },
-        error: action.payload
+        error: action.payload,
       };
     case actions.EDIT_CAMPAIGN_START:
       return {
         ...state,
         pending: { ...state.pending, editCampaign: true },
-        error: ''
+        error: '',
       };
     case actions.EDIT_CAMPAIGN_SUCCESS:
       return {
         ...state,
         pending: { ...state.pending, editCampaign: false },
-        selectedCampaign: action.payload
+        selectedCampaign: action.payload,
       };
     case actions.EDIT_CAMPAIGN_ERROR:
       return {
         ...state,
         pending: { ...state.pending, editCampaign: false },
-        error: action.payload
+        error: action.payload,
       };
     case actions.POST_CAMPAIGN_UPDATE_START:
       return {
         ...state,
         pending: { ...state.pending, postCampaignUpdate: true },
-        error: ''
+        error: '',
       };
     case actions.POST_CAMPAIGN_UPDATE_SUCCESS:
       return {
@@ -321,33 +328,33 @@ const reducer = (state = initialState, action) => {
           ...state.currentUserProfile,
           campaigns: [
             ...(state.currentUserProfile?.campaigns || []),
-            action.payload
-          ]
-        }
+            action.payload,
+          ],
+        },
       };
     case actions.POST_CAMPAIGN_UPDATE_ERROR:
       return {
         ...state,
         pending: { ...state.pending, postCampaignUpdate: false },
-        error: action.payload
+        error: action.payload,
       };
     case actions.EDIT_CAMPAIGN_UPDATE_START:
       return {
         ...state,
         pending: { ...state.pending, editCampaignUpdate: true },
-        error: ''
+        error: '',
       };
     case actions.EDIT_CAMPAIGN_UPDATE_SUCCESS:
       return {
         ...state,
         pending: { ...state.pending, editCampaignUpdate: false },
-        selectedCampaign: action.payload
+        selectedCampaign: action.payload,
       };
     case actions.EDIT_CAMPAIGN_UPDATE_ERROR:
       return {
         ...state,
         pending: { ...state.pending, editCampaignUpdate: false },
-        error: action.payload
+        error: action.payload,
       };
     case actions.DELETE_CAMPAIGN_UPDATE_START:
       return {
@@ -356,10 +363,10 @@ const reducer = (state = initialState, action) => {
           ...state.pending,
           deleteCampaignUpdate: [
             ...state.pending.deleteCampaignUpdate,
-            action.payload
-          ]
+            action.payload,
+          ],
         },
-        error: ''
+        error: '',
       };
     case actions.DELETE_CAMPAIGN_UPDATE_SUCCESS:
       return {
@@ -367,18 +374,18 @@ const reducer = (state = initialState, action) => {
         pending: {
           ...state.pending,
           deleteCampaignUpdate: state.pending.deleteCampaignUpdate.filter(
-            id => id !== Number(action.payload)
-          )
+            (id) => id !== Number(action.payload)
+          ),
         },
         allCampaigns: state.allCampaigns?.filter?.(
-          update => update.id !== Number(action.payload)
+          (update) => update.id !== Number(action.payload)
         ),
         currentUserProfile: {
           ...state.currentUserProfile,
           campaigns: state.currentUserProfile.campaigns?.filter?.(
-            update => update.id !== Number(action.payload)
-          )
-        }
+            (update) => update.id !== Number(action.payload)
+          ),
+        },
       };
     case actions.DELETE_CAMPAIGN_UPDATE_ERROR:
       return {
@@ -386,38 +393,38 @@ const reducer = (state = initialState, action) => {
         pending: {
           ...state.pending,
           deleteCampaignUpdate: state.pending.deleteCampaignUpdate.filter(
-            id => id !== Number(action.payload.id)
-          )
+            (id) => id !== Number(action.payload.id)
+          ),
         },
-        error: action.payload.error
+        error: action.payload.error,
       };
     case actions.TOGGLE_CAMPAIGN_TEXT:
       return {
         ...state,
-        campaignsToggled: [...state.campaignsToggled, action.payload]
+        campaignsToggled: [...state.campaignsToggled, action.payload],
       };
     case actions.POST_COMMENT_START:
       return {
         ...state,
-        error: ''
+        error: '',
       };
     case actions.POST_COMMENT_SUCCESS:
       return {
         ...state,
         selectedCampaign: {
           ...state.selectedCampaign,
-          comments: action.payload
-        }
+          comments: action.payload,
+        },
       };
     case actions.POST_COMMENT_ERROR:
       return {
         ...state,
-        error: action.payload
+        error: action.payload,
       };
     case actions.DELETE_COMMENT_START:
       return {
         ...state,
-        error: ''
+        error: '',
       };
     case actions.DELETE_COMMENT_SUCCESS:
       return {
@@ -425,23 +432,23 @@ const reducer = (state = initialState, action) => {
         selectedCampaign: {
           ...state.selectedCampaign,
           comments: state.selectedCampaign?.comments.filter(
-            c => c.id != action.payload
-          )
-        }
+            (c) => c.id != action.payload
+          ),
+        },
       };
     case actions.DELETE_COMMENT_ERROR:
       return {
         ...state,
-        error: action.payload
+        error: action.payload,
       };
     case actions.GET_ORGANIZATIONS_STARTED:
       return {
         ...state,
-        error: ''
+        error: '',
       };
     case actions.GET_ORGANIZATIONS_SUCCESS:
       const organizationWithCoords = action.payload.filter(
-        coords => coords.latitude && coords.longitude !== null
+        (coords) => coords.latitude && coords.longitude !== null
       );
 
       return {
@@ -449,12 +456,12 @@ const reducer = (state = initialState, action) => {
         organizations: action.payload,
         organizationWithCoords: organizationWithCoords,
         filteredOrganization: organizationWithCoords,
-        error: ''
+        error: '',
       };
     case actions.GET_ORGANIZATIONS_ERROR:
       return {
         ...state,
-        error: action.payload
+        error: action.payload,
       };
     case actions.SET_MAP_SEARCH_QUERY:
       const query = action.payload['query'];
@@ -465,7 +472,7 @@ const reducer = (state = initialState, action) => {
           query,
           key,
           state.organizationWithCoords
-        )
+        ),
       };
     case actions.GET_REPORTS_START:
       return {
@@ -473,8 +480,8 @@ const reducer = (state = initialState, action) => {
         reports: {
           ...state.reports,
           loading: true,
-          error: ''
-        }
+          error: '',
+        },
       };
     case actions.GET_REPORTS_SUCCESS:
       return {
@@ -482,8 +489,8 @@ const reducer = (state = initialState, action) => {
         reports: {
           ...state.reports,
           data: action.payload,
-          loading: false
-        }
+          loading: false,
+        },
       };
     case actions.GET_REPORTS_ERROR:
       return {
@@ -491,8 +498,8 @@ const reducer = (state = initialState, action) => {
         reports: {
           ...state.reports,
           loading: false,
-          error: action.payload
-        }
+          error: action.payload,
+        },
       };
     case actions.GET_REPORT_START:
       return {
@@ -500,8 +507,8 @@ const reducer = (state = initialState, action) => {
         reports: {
           ...state.reports,
           loading: true,
-          error: ''
-        }
+          error: '',
+        },
       };
     case actions.GET_REPORT_SUCCESS:
       return {
@@ -509,8 +516,8 @@ const reducer = (state = initialState, action) => {
         reports: {
           ...state.reports,
           loading: false,
-          currentReport: action.payload
-        }
+          currentReport: action.payload,
+        },
       };
     case actions.GET_REPORT_ERROR:
       return {
@@ -518,8 +525,8 @@ const reducer = (state = initialState, action) => {
         reports: {
           ...state.reports,
           loading: false,
-          error: action.payload
-        }
+          error: action.payload,
+        },
       };
     case actions.ARCHIVE_REPORT_START:
       return {
@@ -527,16 +534,16 @@ const reducer = (state = initialState, action) => {
         reports: {
           ...state.reports,
           loading: true,
-          error: ''
-        }
+          error: '',
+        },
       };
     case actions.ARCHIVE_REPORT_SUCCESS:
       return {
         ...state,
         reports: {
           ...state.reports,
-          loading: false
-        }
+          loading: false,
+        },
       };
     case actions.ARCHIVE_REPORT_ERROR:
       return {
@@ -544,8 +551,93 @@ const reducer = (state = initialState, action) => {
         reports: {
           ...state.reports,
           loading: false,
-          error: action.payload
-        }
+          error: action.payload,
+        },
+      };
+    case actions.ADD_BOOKMARK_LOADING:
+    case actions.REMOVE_BOOKMARK_LOADING:
+    case actions.FETCH_BOOKMARKS_LOADING:
+      return {
+        ...state,
+        bookmarks: {
+          ...state.bookmarks,
+          loading: true,
+        },
+      };
+    case actions.ADD_BOOKMARK_SUCCESS:
+      return {
+        ...state,
+        bookmarks: {
+          ...state.bookmarks,
+          loading: false,
+          error: null,
+          // de-dupe bookmarks using sets
+          campaignIDs: [
+            ...new Set([...state.bookmarks.campaignIDs, action.payload]),
+          ],
+        },
+      };
+    case actions.REMOVE_BOOKMARK_SUCCESS:
+      return {
+        ...state,
+        bookmarks: {
+          ...state.bookmarks,
+          loading: false,
+          errors: null,
+          campaignIDs: state.bookmarks.campaignIDs.filter(
+            (bookmark) => bookmark !== action.payload
+          ),
+        },
+      };
+    case actions.FETCH_BOOKMARKS_SUCCESS:
+      return {
+        ...state,
+        bookmarks: {
+          ...state.bookmarks,
+          loading: false,
+          error: null,
+          campaignIDs: action.payload,
+        },
+      };
+    case actions.ADD_BOOKMARK_FAILURE:
+    case actions.REMOVE_BOOKMARK_FAILURE:
+    case actions.FETCH_BOOKMARK_FAILURE:
+      return {
+        ...state,
+        bookmarks: {
+          ...state.bookmarks,
+          loading: false,
+          error: action.payload,
+        },
+      };
+    case actions.GET_BOOKMARKED_CAMPAIGNS_LOADING:
+      return {
+        ...state,
+        bookmarks: {
+          ...state.bookmarks,
+          loadingCampaigns: true,
+          error: null,
+        },
+      };
+    case actions.GET_BOOKMARKED_CAMPAIGNS_SUCCESS:
+      return {
+        ...state,
+        bookmarks: {
+          ...state.bookmarks,
+          loadingCampaigns: false,
+          error: null,
+          campaigns: action.payload,
+        },
+      };
+    case actions.GET_BOOKMARKED_CAMPAIGNS_ERROR:
+      return {
+        ...state,
+        bookmarks: {
+          ...state.bookmarks,
+          loadingCampaigns: false,
+          error: action.payload,
+          campaigns: [],
+        },
       };
     default:
       return state;
