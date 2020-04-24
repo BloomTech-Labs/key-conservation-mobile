@@ -307,7 +307,11 @@ const FeedCampaign = (props) => {
 
         <View style={styles.campaignControls}>
           <View style={styles.campaignControlsLeft}>
-            {/* emojis go here */}
+            <TouchableOpacity
+              style={{ marginLeft: 8, marginBottom: -65, paddingTop: 15 }}
+            >
+              <SmileSelector />
+            </TouchableOpacity>
           </View>
           <View style={styles.campaignControlsRight}>
             {isSaved ? (
@@ -351,10 +355,10 @@ const FeedCampaign = (props) => {
               </TouchableOpacity>
             )}
 
-        <View style={styles.commentContainer}>
+            {/* <View style={styles.commentContainer}>
           <TouchableOpacity style={{marginLeft: 8, marginBottom: - 65, paddingTop:30}}>
             <SmileSelector />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
             <TouchableOpacity style={styles.comments} onPress={goToCampaign}>
               <CommentIcon />
@@ -374,15 +378,16 @@ const FeedCampaign = (props) => {
                 value={data.comments ? data.comments.length : 0}
               />
             </TouchableOpacity>
+            {/* </View> */}
           </View>
-
         </View>
         <TakeActionCallToAction donate={props.data} />
+        <View style={styles.demarcation} />
       </View>
-      <View style={styles.demarcation} />
     </View>
   );
 };
+
 const mapStateToProps = (state) => ({
   currentUserProfile: state.currentUserProfile,
   currentUser: state.currentUser,
@@ -390,6 +395,7 @@ const mapStateToProps = (state) => ({
   deleteBuffer: state.pending.deleteCampaign,
   bookmarks: state.bookmarks,
 });
+
 export default connect(mapStateToProps, {
   getCampaign,
   toggleCampaignText,
