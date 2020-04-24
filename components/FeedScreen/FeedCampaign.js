@@ -33,6 +33,7 @@ import CommentIcon from '../../assets/jsicons/CommentIcon';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
 import CampaignActionSheet from '../Reports/CampaignActionSheet';
 import TakeActionCallToAction from '../TakeAction/TakeActionCallToAction';
+import SmileSelector from './SmileSelector';
 import Bookmark from '../../assets/jsicons/miscIcons/Bookmark';
 import BookmarkSolid from '../../assets/jsicons/miscIcons/BookmarkSolid';
 
@@ -306,7 +307,11 @@ const FeedCampaign = (props) => {
 
         <View style={styles.campaignControls}>
           <View style={styles.campaignControlsLeft}>
-            {/* emojis go here */}
+            <TouchableOpacity
+              style={{ marginLeft: 8, marginBottom: -65, paddingTop: 15 }}
+            >
+              <SmileSelector />
+            </TouchableOpacity>
           </View>
           <View style={styles.campaignControlsRight}>
             {isSaved ? (
@@ -350,6 +355,11 @@ const FeedCampaign = (props) => {
               </TouchableOpacity>
             )}
 
+            {/* <View style={styles.commentContainer}>
+          <TouchableOpacity style={{marginLeft: 8, marginBottom: - 65, paddingTop:30}}>
+            <SmileSelector />
+          </TouchableOpacity> */}
+
             <TouchableOpacity style={styles.comments} onPress={goToCampaign}>
               <CommentIcon />
               <Badge
@@ -368,14 +378,16 @@ const FeedCampaign = (props) => {
                 value={data.comments ? data.comments.length : 0}
               />
             </TouchableOpacity>
+            {/* </View> */}
           </View>
         </View>
         <TakeActionCallToAction donate={props.data} />
+        <View style={styles.demarcation} />
       </View>
-      <View style={styles.demarcation} />
     </View>
   );
 };
+
 const mapStateToProps = (state) => ({
   currentUserProfile: state.currentUserProfile,
   currentUser: state.currentUser,
@@ -383,6 +395,7 @@ const mapStateToProps = (state) => ({
   deleteBuffer: state.pending.deleteCampaign,
   bookmarks: state.bookmarks,
 });
+
 export default connect(mapStateToProps, {
   getCampaign,
   toggleCampaignText,
