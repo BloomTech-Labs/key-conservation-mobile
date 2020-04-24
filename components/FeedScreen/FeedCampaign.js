@@ -355,11 +355,6 @@ const FeedCampaign = (props) => {
               </TouchableOpacity>
             )}
 
-            {/* <View style={styles.commentContainer}>
-          <TouchableOpacity style={{marginLeft: 8, marginBottom: - 65, paddingTop:30}}>
-            <SmileSelector />
-          </TouchableOpacity> */}
-
             <TouchableOpacity style={styles.comments} onPress={goToCampaign}>
               <CommentIcon />
               <Badge
@@ -378,7 +373,6 @@ const FeedCampaign = (props) => {
                 value={data.comments ? data.comments.length : 0}
               />
             </TouchableOpacity>
-            {/* </View> */}
           </View>
         </View>
         <TakeActionCallToAction donate={props.data} />
