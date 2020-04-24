@@ -56,7 +56,15 @@ export default {
   sectionsText: {
     fontFamily: 'Lato-Bold',
     fontSize: 20,
-    marginBottom: 5
+    marginBottom: 5,
+    width: '100%'
+  },
+  sectionSubText: {
+    fontFamily: 'Lato',
+    fontSize: 15,
+    marginBottom: 5,
+    opacity: .35,
+    width: '100%'
   },
   logoutSection: {
     justifyContent: 'flex-start',
