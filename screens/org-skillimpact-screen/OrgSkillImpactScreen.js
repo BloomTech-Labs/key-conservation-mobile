@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import styles from '../../constants/SkilledImpact/OrgSkilledImpactScreen';
+import OrgSkilledImpactHeader from '../../components/SkilledImpact/OrgSkilledImpactHeader';
+import OrgSkilledImpactBody from '../../components/SkilledImpact/OrgSkilledImpactBody';
 
 class OrgSkillImpactScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     //TODO use navigations to establish stack navigation logic
     return {
-      title: 'Skill Impact',
+      title: 'OUR SKILLED IMPACT',
       headerStyle: {
         backgroundColor: '#323338'
       },
@@ -16,6 +19,12 @@ class OrgSkillImpactScreen extends Component {
   constructor(props) {
     //TODO props edits and states
     super(props);
+    this.state = {
+      error: '',
+      loading: true,
+      user: {},
+      scrollY: 0
+    };
   }
 
   componentDidMount() {
@@ -26,11 +35,11 @@ class OrgSkillImpactScreen extends Component {
   render() {
     //TODO view to be implemented
     return (
-      <View>
-
+      <View style={styles.container}>
+        <OrgSkilledImpactHeader/>
+        <OrgSkilledImpactBody/>
       </View>
     );
-
   }
 }
 
