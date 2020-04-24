@@ -7,7 +7,7 @@ const ComingSoon = () => {
   return (
     <View style={styles.container}>
       <KeyIconGray />
-      <Text style={styles.text}>More exciting features to come!</Text>
+      <Text style={styles.text}>This user has not saved any campaigns yet.</Text>
     </View>
   );
 };
