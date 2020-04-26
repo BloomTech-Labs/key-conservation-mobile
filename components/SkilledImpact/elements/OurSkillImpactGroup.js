@@ -1,11 +1,9 @@
-import React, { forwardRef } from 'react';
-import { View, Text, TouchableOpacity, Switch, Linking, Animated, Alert } from 'react-native';
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import styles from '../../../constants/SkilledImpact/OrgSkilledImpactBody';
 import ShieldWithCheckMark from '../../../assets/jsicons/miscIcons/ShieldWithCheckMark';
 import ChevronBottom from '../../../assets/jsicons/miscIcons/ChevronBottom';
 import ChevronRight from '../../../assets/jsicons/miscIcons/ChevronRight';
-import { Avatar } from 'react-native-elements';
-import * as moment from 'moment';
 
 class OurSkillImpactGroup extends React.Component {
   constructor(props) {

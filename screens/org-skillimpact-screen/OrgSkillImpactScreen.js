@@ -4,8 +4,7 @@ import styles from '../../constants/SkilledImpact/OrgSkilledImpactScreen';
 import OrgSkilledImpactHeader from '../../components/SkilledImpact/OrgSkilledImpactHeader';
 import OrgSkilledImpactBody from '../../components/SkilledImpact/OrgSkilledImpactBody';
 import { connect } from 'react-redux';
-import { createReport, getProfileData } from '../../store/actions';
-import { withNavigationFocus } from "react-navigation";
+import {  getProfileData } from '../../store/actions';
 
 class OrgSkillImpactScreen extends Component {
   static navigationOptions = ({ navigation }) => {

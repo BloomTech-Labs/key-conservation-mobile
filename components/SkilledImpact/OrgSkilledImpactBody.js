@@ -1,9 +1,5 @@
-import React, { forwardRef } from 'react';
-import { View, Text, TouchableOpacity, Switch, Linking, Animated, Alert } from 'react-native';
-import Expand from 'react-native-simple-expand';
-import Sync from '../../assets/jsicons/bottomnavigation/Sync';
-import ChevronRight from '../../assets/jsicons/miscIcons/ChevronRight';
-import ChevronBottom from '../../assets/jsicons/miscIcons/ChevronBottom';
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import styles from '../../constants/SkilledImpact/OrgSkilledImpactBody';
 import SkillContent from './elements/SkillContent';
 import CampaignContent from './elements/CampaignContent';

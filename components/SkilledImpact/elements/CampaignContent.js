@@ -1,5 +1,5 @@
-import React, { forwardRef } from 'react';
-import { View, Text, TouchableOpacity, Switch, Linking, Animated, Alert } from 'react-native';
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import styles from '../../../constants/SkilledImpact/OrgSkilledImpactBody';
 import Lightening from '../../../assets/jsicons/bottomnavigation/Lightening';
 import ChevronBottom from '../../../assets/jsicons/miscIcons/ChevronBottom';
@@ -21,10 +21,6 @@ class CampaignContent extends React.Component {
 
   skillExpand = () =>{
     this.setState({skillExpand: !this.state.skillExpand})
-  };
-
-  toggleReachMeSwitch = () =>{
-    this.setState({isReachable: !this.state.isReachable})
   };
 
   render() {
