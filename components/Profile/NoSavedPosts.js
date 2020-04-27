@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 
 import KeyIconGray from '../../assets/jsicons/KeyCon/KeyIconGray';
 import styles from '../../constants/Profile/CampaignBlankSpace';
-const ComingSoon = () => {
+const NoSavedPosts = () => {
   return (
     <View style={styles.container}>
       <KeyIconGray />
@@ -11,4 +11,4 @@ const ComingSoon = () => {
     </View>
   );
 };
-export default ComingSoon;
+export default NoSavedPosts;
