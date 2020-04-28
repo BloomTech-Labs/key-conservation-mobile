@@ -33,8 +33,6 @@ const SmileSelector = (props) => {
     }
   };
 
-  console.log(emoji);
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.displayedEmojiWrapper}>
@@ -89,6 +87,7 @@ const SmileSelector = (props) => {
             placeholder="Search..."
             showHistory={true}
             columns={8}
+            theme="#00FF9D"
           />
         )}
       </View>
