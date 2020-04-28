@@ -163,5 +163,6 @@ export default {
   campaignControlsRight: {
     flexDirection: 'row',
     flex: 1,
+    alignSelf: 'flex-start',
   },
 };
