@@ -122,7 +122,6 @@ export default StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#f5f5f5',
     borderRadius: 5,
     padding: 10,
     marginBottom: 20,
