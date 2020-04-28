@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import { TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 import styles from '../../../constants/Profile/tabs/Details';
 
 import FileIcon from '../../../assets/jsicons/detailAboutUs/File';
@@ -9,10 +10,12 @@ import HandshakeIcon from '../../../assets/jsicons/detailAboutUs/Handshake';
 import RocketIcon from '../../../assets/jsicons/detailAboutUs/Rocket';
 import BranchIcon from '../../../assets/jsicons/detailAboutUs/Branch';
 import PlusSignCircle from '../../../assets/jsicons/PlusSignCircle';
+import TakeAction from '../../../components/TakeAction/TakeActionCallToAction';
 
 import PartnersModal from '../../Partners/PartnersModal';
 
 const Details = (props) => {
+  const { data } = props;
   const { profile } = props;
 
   const [isPartnersModalVisible, setIsPartnersModalVisible] = useState(false);
@@ -37,10 +40,12 @@ const Details = (props) => {
               organization. Your donation will be used to support our team, our
               daily activities and research.
             </Text>
-            <TouchableOpacity style={styles.donateButton}>
-              <Text style={styles.donateText}>Donate</Text>
-            </TouchableOpacity>
-            <View style={styles.iconWrap}>
+            {/* // April 2020: Props needs to pass properly for donate button */}
+            {/* <View>
+              <TakeAction donate={props.data} />
+            </View> */}
+            {/* // April 2020: Projects will be added at a later time */}
+            {/* <View style={styles.iconWrap}>
               <BranchIcon />
               <Text style={styles.title}>
                 {'Projects Within Our Organization'}
@@ -57,7 +62,7 @@ const Details = (props) => {
                 <PlusSignCircle />
                 <Text style={styles.buttonText}>Add a Project</Text>
               </TouchableOpacity>
-            </View>
+            </View> */}
             <View style={styles.iconWrap}>
               <HandshakeIcon />
               <Text style={styles.title}>{'Our Partners'}</Text>
@@ -111,4 +116,8 @@ const Details = (props) => {
   );
 };
 
-export default Details;
+const mapStateToProps = (state) => ({
+  currentUserProfile: state.currentUserProfile,
+});
+
+export default connect(mapStateToProps, {})(Details);
