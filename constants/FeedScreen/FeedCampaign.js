@@ -159,6 +159,7 @@ export default {
   campaignControlsLeft: {
     flexDirection: 'row',
     flex: 2,
+    
   },
   campaignControlsRight: {
     flexDirection: 'row',

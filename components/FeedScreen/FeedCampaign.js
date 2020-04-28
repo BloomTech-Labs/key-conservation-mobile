@@ -376,6 +376,7 @@ const FeedCampaign = (props) => {
           </View>
         </View>
         <TakeActionCallToAction donate={props.data} />
+
         <View style={styles.demarcation} />
       </View>
     </View>

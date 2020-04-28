@@ -5,6 +5,7 @@ import {
   StyleSheet,
   SafeAreaView,
   Text,
+  FlatList,
 } from 'react-native';
 import EmojiSelector, { Categories } from 'react-native-emoji-selector';
 import PlusSignCircle from '../../assets/jsicons/PlusSignCircle';
@@ -29,7 +30,7 @@ const SmileSelector = (props) => {
           return (
             <Text
               key={i}
-              style={{ fontSize: 30, backgroundColor: 'transparent' }}
+              style={{ fontSize: 20, backgroundColor: 'transparent' }}
             >
               {e}
             </Text>
@@ -55,16 +56,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'flex-start',
-    
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   display: {
     flexWrap: 'wrap',
-    margin: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginLeft: 10,
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
     flexDirection: 'row',
+    
   },
 });
 
