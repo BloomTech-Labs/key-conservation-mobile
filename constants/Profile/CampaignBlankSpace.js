@@ -1,15 +1,15 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     borderRadius: 5,
     backgroundColor: '#FFF',
     width: '100%',
-    height: '100%',
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    padding: 20,
   },
   text: {
     fontFamily: 'Lato-Bold',
@@ -17,11 +17,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     alignSelf: 'center',
     paddingTop: 15,
-    color: '#505050'
+    color: '#505050',
   },
   plusIcon: {
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 });
 
 export default styles;

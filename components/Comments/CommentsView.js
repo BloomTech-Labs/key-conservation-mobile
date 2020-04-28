@@ -5,7 +5,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
-  Platform
+  Platform,
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -19,7 +19,7 @@ class CommentsView extends React.Component {
   state = {
     comment: '',
     commentsVisible: 3,
-    height: 40
+    height: 40,
   };
 
   bufferedComment = null;
@@ -31,7 +31,7 @@ class CommentsView extends React.Component {
   addMoreComments = () => {
     this.setState({
       ...this.state,
-      commentsVisible: this.state.commentsVisible + 9
+      commentsVisible: this.state.commentsVisible + 9,
     });
   };
 
@@ -45,12 +45,12 @@ class CommentsView extends React.Component {
     this.bufferedComment = {
       profile_image: this.props.currentUserProfile.profile_image,
       name: this.props.currentUserProfile.name,
-      body: this.state.comment
+      body: this.state.comment,
     };
 
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       comment: '',
-      commentsVisible: prevState.commentsVisible + 1
+      commentsVisible: prevState.commentsVisible + 1,
     }));
   };
 
@@ -60,9 +60,9 @@ class CommentsView extends React.Component {
         {/* Displays latest comment unless the user is viewing all the campaign comments. */}
         <View style={{ flex: 1, flexDirection: 'column-reverse' }}>
           {[this.bufferedComment, ...this.props.campaignComments]
-            ?.filter(com => com !== null)
+            ?.filter((com) => com !== null)
             .slice(0, this.state.commentsVisible)
-            .map(comment => {
+            .map((comment) => {
               return (
                 <Comment
                   key={comment.id}
@@ -77,7 +77,7 @@ class CommentsView extends React.Component {
           <View style={styles.moreContainer}>
             <TouchableOpacity onPress={() => this.addMoreComments()}>
               <View style={styles.more}>
-                <Text style={styles.moreText}>View More Comments</Text>
+                <Text style={styles.moreText}>View more comments</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -89,7 +89,7 @@ class CommentsView extends React.Component {
               rounded
               size="medium"
               source={{
-                uri: this.props.currentUserProfile.profile_image
+                uri: this.props.currentUserProfile.profile_image,
               }}
             />
           </View>
@@ -97,13 +97,13 @@ class CommentsView extends React.Component {
             <TextInput
               placeholder="Write a comment..."
               placeholderTextColor="#3B3B3B"
-              onChangeText={text => this.setState({ comment: text })}
+              onChangeText={(text) => this.setState({ comment: text })}
               style={styles.input}
               value={this.state.comment}
               textAlignVertical={'center'}
               onSubmitEditing={this.postComment}
               blurOnSubmit={Platform.OS === 'android'}
-              ref={input => {
+              ref={(input) => {
                 this.commentInput = input;
               }}
               returnKeyType="send"
@@ -125,13 +125,13 @@ class CommentsView extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentUserProfile: state.currentUserProfile,
   selectedCampaign: state.selectedCampaign,
-  campaignComments: state.selectedCampaign.comments
+  campaignComments: state.selectedCampaign.comments,
 });
 
 export default connect(mapStateToProps, {
   commentOnCampaign,
-  getCampaign
+  getCampaign,
 })(CommentsView);
