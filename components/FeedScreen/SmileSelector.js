@@ -5,6 +5,7 @@ import {
   StyleSheet,
   SafeAreaView,
   Text,
+  Dimensions,
 } from 'react-native';
 import EmojiSelector, { Categories } from 'react-native-emoji-selector';
 import PlusSignCircle from '../../assets/jsicons/PlusSignCircle';
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    width: 360,
+    width: Dimensions.get('window').width - 30,
   },
   display: {
     flexWrap: 'wrap',
