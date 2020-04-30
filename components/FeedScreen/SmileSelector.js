@@ -37,14 +37,15 @@ const SmileSelector = (props) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.displayedEmojiWrapper}>
         <TouchableOpacity
+          style={styles.plusButton}
           onPress={() => {
             setIsVisible(!isVisible);
           }}
         >
           <SvgUri
             fill='#323339'
-            width='27'
-            height='27'
+            width='30'
+            height='30'
             source={require('../../assets/icons/plus-solid.svg')}
           />
         </TouchableOpacity>
@@ -67,7 +68,7 @@ const SmileSelector = (props) => {
                         fontSize: 14,
                       }}
                       badgeStyle={{
-                        backgroundColor: '#CAFF03',
+                        backgroundColor: '#D7FF43',
                       }}
                       containerStyle={{
                         position: 'absolute',
@@ -126,6 +127,17 @@ const styles = StyleSheet.create({
     marginTop: 5,
     padding: 1,
   },
+
+  plusButton: {
+    marginLeft: 7,
+    marginTop: 3,
+    backgroundColor: '#f5f5f5',
+    paddingLeft: 5,
+    borderRadius: 10,
+    paddingTop: 3,
+    paddingBottom: 5,
+    paddingRight: 5,
+  }
 });
 
 export default SmileSelector;
