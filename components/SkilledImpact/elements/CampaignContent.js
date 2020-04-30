@@ -25,6 +25,7 @@ class CampaignContent extends React.Component {
 
   render() {
     const campaignList = this.state.campaigns;
+
     return (
       <View style={styles.itemContainers}>
         <TouchableOpacity style={styles.itemTitleRow} onPress={this.skillExpand}>
@@ -47,14 +48,14 @@ class CampaignContent extends React.Component {
                         size={65}
                         rounded
                         source={{
-                          uri: campaign.profile_image || undefined
+                          uri: campaign.image || undefined
                         }}
                       />
                     </View>
                       <View style={styles.campaignRightContainer}>
                         <View style={styles.campaignRow}>
                         <Text style={styles.campaignOrganizationName}>
-                          {campaign.org_name}
+                          {campaign.name}
                         </Text>
                           <View style={styles.chevronArrowContainer}>
                           <ChevronRight />

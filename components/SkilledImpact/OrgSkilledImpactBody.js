@@ -18,6 +18,7 @@ class OrgSkilledImpactBody extends React.Component {
   render() {
     const skillsList = this.state.skills;
     const campaignList = this.state.userData.campaigns;
+    const isAcceptingHelp = this.state.userData.accepting_help_requests;
     return (
       <View style={styles.container}>
         <View style={styles.itemContainers}>
@@ -27,7 +28,9 @@ class OrgSkilledImpactBody extends React.Component {
             </TouchableOpacity>
           </View>
         </View>
-        <SkillContent skills={skillsList}/>
+        <SkillContent skills={skillsList}
+          isAcceptingHelp={isAcceptingHelp}
+        />
         <CampaignContent campaigns={campaignList}/>
         <OurSkillImpactGroup />
       </View>

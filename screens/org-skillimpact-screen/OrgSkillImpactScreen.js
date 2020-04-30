@@ -35,10 +35,6 @@ class OrgSkillImpactScreen extends Component {
   }
 
 
-  componentWillMount(){
-
-  }
-
   componentDidMount = () => {
     //TODO when the screen is loaded
     this.initProfileData();
@@ -47,10 +43,6 @@ class OrgSkillImpactScreen extends Component {
       this.initProfileData
     );
   };
-
-  componentWillUnmount() {
-    this._sub.remove();
-  }
 
   initProfileData = async () => {
     try {

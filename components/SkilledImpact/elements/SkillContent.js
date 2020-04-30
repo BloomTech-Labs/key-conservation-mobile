@@ -11,7 +11,7 @@ class SkillContent extends React.Component {
     super(props);
     this.state = {
       skillExpand: true,
-      isReachable: true,
+      isReachable: props.isAcceptingHelp,
       skills: props.skills
     };
   }
@@ -21,7 +21,7 @@ class SkillContent extends React.Component {
   };
 
   toggleReachMeSwitch = () =>{
-    this.setState({isReachable: !this.state.isReachable})
+    //TODO: api request to change the switch state.
   };
 
   render() {
