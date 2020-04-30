@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   plusButton: {
+    justifyContent: 'center',
     marginRight: 3,
     margin: 1,
     marginTop: 0,
