@@ -10,6 +10,7 @@ import {
 import EmojiSelector, { Categories } from 'react-native-emoji-selector';
 import SvgUri from 'react-native-svg-uri';
 import { Badge } from 'react-native-elements';
+import PlusSign from '../../assets/jsicons/Comments/PlusSign';
 
 const SmileSelector = (props) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -42,12 +43,13 @@ const SmileSelector = (props) => {
             setIsVisible(!isVisible);
           }}
         >
-          <SvgUri
+          {/* <SvgUri
             fill='#323339'
             width='30'
             height='30'
             source={require('../../assets/icons/plus-solid.svg')}
-          />
+          /> */}
+          <PlusSign />
         </TouchableOpacity>
 
         <View style={styles.display}>
@@ -114,7 +116,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-
   },
   displayedEmojiWrapper: {
     flexDirection: 'row',
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
     paddingTop: 3,
     paddingBottom: 5,
     paddingRight: 5,
-  }
+  },
 });
 
 export default SmileSelector;
