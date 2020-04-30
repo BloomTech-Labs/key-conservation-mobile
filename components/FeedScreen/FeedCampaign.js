@@ -308,7 +308,7 @@ const FeedCampaign = (props) => {
         <View style={styles.campaignControls}>
           <View style={styles.campaignControlsLeft}>
             <TouchableOpacity
-              style={{ marginLeft: 8, marginBottom: -65, paddingTop: 15 }}
+              style={{ marginLeft: 8, marginBottom: -60, paddingTop: 10 }}
             >
               <SmileSelector />
             </TouchableOpacity>
@@ -367,8 +367,8 @@ const FeedCampaign = (props) => {
                 }}
                 containerStyle={{
                   position: 'absolute',
-                  top: 2,
-                  right: 5,
+                  top: -6,
+                  right: -3,
                 }}
                 value={data.comments ? data.comments.length : 0}
               />

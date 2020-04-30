@@ -8,7 +8,6 @@ import {
   Dimensions,
 } from 'react-native';
 import EmojiSelector, { Categories } from 'react-native-emoji-selector';
-import SvgUri from 'react-native-svg-uri';
 import { Badge } from 'react-native-elements';
 import PlusSign from '../../assets/jsicons/Comments/PlusSign';
 
@@ -43,22 +42,22 @@ const SmileSelector = (props) => {
             setIsVisible(!isVisible);
           }}
         >
-          {/* <SvgUri
-            fill='#323339'
-            width='30'
-            height='30'
-            source={require('../../assets/icons/plus-solid.svg')}
-          /> */}
           <PlusSign />
         </TouchableOpacity>
 
         <View style={styles.display}>
           {emoji.map((e, i) => {
-            if (i < 7) {
+            if (i < 3) {
               return (
                 <View key={i} style={styles.emojiContainer}>
                   <Text
-                    style={{ fontSize: 20, backgroundColor: 'transparent' }}
+                    style={{
+                      fontSize: 28,
+                      backgroundColor: 'transparent',
+                      paddingBottom: 3,
+                      paddingRight: 3,
+                      paddingLeft: 3,
+                    }}
                   >
                     {e.emoji}
                   </Text>
@@ -67,15 +66,15 @@ const SmileSelector = (props) => {
                     <Badge
                       textStyle={{
                         color: 'black',
-                        fontSize: 14,
+                        fontSize: 15,
                       }}
                       badgeStyle={{
                         backgroundColor: '#D7FF43',
                       }}
                       containerStyle={{
                         position: 'absolute',
-                        top: -8,
-                        right: -8,
+                        top: -6,
+                        right: -3,
                       }}
                       value={e.count}
                     />
@@ -125,19 +124,20 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: '#F5F5F5',
     margin: 1,
-    marginTop: 5,
-    padding: 1,
+    marginTop: 0,
+    marginRight: 3,
+    padding: 5,
   },
-
   plusButton: {
-    marginLeft: 7,
-    marginTop: 3,
+    marginRight: 3,
+    margin: 1,
+    marginTop: 0,
+    paddingTop: 5,
     backgroundColor: '#f5f5f5',
     paddingLeft: 5,
-    borderRadius: 10,
-    paddingTop: 3,
-    paddingBottom: 5,
     paddingRight: 5,
+    paddingBottom: 5,
+    borderRadius: 12,
   },
 });
 
