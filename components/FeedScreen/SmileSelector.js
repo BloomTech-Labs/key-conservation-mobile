@@ -89,7 +89,7 @@ const SmileSelector = (props) => {
       <View>
         {isVisible && (
           <EmojiSelector
-            category={Categories.emotion}
+            category={Categories.nature}
             onEmojiSelected={(e) => setEmojis(e)}
             placeholder="Search..."
             showHistory={true}
