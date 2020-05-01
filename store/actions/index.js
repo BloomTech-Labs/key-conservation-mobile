@@ -54,7 +54,8 @@ const axiosWithAuth = (dispatch, req) => {
 // production
 // const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
-const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+// const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+const seturl = 'http://192.168.1.143:8000/api/';
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
@@ -1074,3 +1075,37 @@ export const fetchBookmarkedCampaigns = (bookmarkedIDs) => async (dispatch) => {
     payload: campaigns,
   });
 };
+
+// Get emoji reactions for a specific post
+export const getEmojiReactions = (tableName, postId) => (dispatch) => {
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .put(`${seturl}emojis`, { tableName: tableName, postId: postId })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+        throw new Error(err.message);
+      });
+  });
+};
+
+// Post emoji reaction on a specific post
+export const postEmojiReaction = (tableName, postId, emoji) => (dispatch) => {
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .post(`${seturl}emojis`, { tableName, postId, emoji })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+        throw new Error(err.message);
+      });
+  });
+};
+
+// TODO: Add removing an emoji
+
+// TODO: Add getting emoji reaction details (User names and avatars for each emoji)

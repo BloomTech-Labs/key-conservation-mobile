@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   TouchableOpacity,
   View,
@@ -10,26 +10,71 @@ import {
 import EmojiSelector, { Categories } from 'react-native-emoji-selector';
 import { Badge } from 'react-native-elements';
 import PlusSign from '../../assets/jsicons/Comments/PlusSign';
+import { ActivityIndicator } from 'react-native';
+import { getEmojiReactions, postEmojiReaction } from '../../store/actions';
+import { connect } from 'react-redux';
 
 const SmileSelector = (props) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [emoji, setEmoji] = useState([]);
+  const [emoji, setEmoji] = useState({});
+  const [activeEmoji, setActiveEmoji] = useState();
+  const [loading, setLoading] = useState(true);
 
-  const setEmojis = (reaction) => {
-    // check if the pressed emoji exists in the array of emojis for this post
-    const existing = emoji.filter((e) => e.emoji === reaction);
+  const init = async () => {
+    try {
+      const emojiReactions = await props.getEmojiReactions(
+        props.tableName,
+        props.postId
+      );
 
-    // if the emoji already exists, increment it's count property
-    if (existing.length) {
-      const updated = emoji.map((e) => {
-        if (e.emoji === reaction) {
-          return { ...e, count: e.count + 1 };
-        } else return e;
+      const reactions = {};
+
+      emojiReactions.forEach((emote) => {
+        if (emote.user_id === props.currentUserProfile.id) {
+          setActiveEmoji(emote.emoji);
+        }
+
+        reactions[emote.emoji] = reactions[emote.emoji] || 0;
+        reactions[emote.emoji] += 1;
       });
-      setEmoji(updated);
-    } else {
-      // otherwise add it to the array and initialize it's count to 1
-      setEmoji([...emoji, { emoji: reaction, count: 1 }]);
+
+      setEmoji(reactions);
+
+      setLoading(false);
+    } catch (err) {
+      // console.log(err);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  const setEmojis = async (reaction) => {
+    setIsVisible(false);
+
+    // If emoji exists, we get the count, if not
+    // it is 0
+    const count = emoji[reaction] || 0;
+
+    const oldActiveEmoji = activeEmoji;
+
+    setEmoji({
+      ...emoji,
+      [reaction]: count + 1,
+    });
+
+    setActiveEmoji(reaction);
+
+    try {
+      await props.postEmojiReaction(props.tableName, props.postId, reaction);
+    } catch (err) {
+      setEmoji({
+        ...emoji,
+        [reaction]: count,
+      });
+      setActiveEmoji(oldActiveEmoji);
     }
   };
 
@@ -38,18 +83,32 @@ const SmileSelector = (props) => {
       <View style={styles.displayedEmojiWrapper}>
         <TouchableOpacity
           style={styles.plusButton}
+          disabled={loading}
           onPress={() => {
             setIsVisible(!isVisible);
           }}
         >
-          <PlusSign />
+          {loading ? (
+            <ActivityIndicator
+              size="large"
+              style={{ paddingLeft: 2, paddingTop: 2 }}
+            />
+          ) : (
+            <PlusSign />
+          )}
         </TouchableOpacity>
 
         <View style={styles.display}>
-          {emoji.map((e, i) => {
+          {Object.entries(emoji).map(([emote, count], i) => {
             if (i < 3) {
+              let style = styles.emojiContainer;
+
+              if (emote === activeEmoji) {
+                style = styles.emojiContainerActive;
+              }
+
               return (
-                <View key={i} style={styles.emojiContainer}>
+                <View key={i} style={style}>
                   <Text
                     style={{
                       fontSize: 28,
@@ -59,10 +118,10 @@ const SmileSelector = (props) => {
                       paddingLeft: 3,
                     }}
                   >
-                    {e.emoji}
+                    {emote}
                   </Text>
 
-                  {e.count > 1 && (
+                  {count > 1 && (
                     <Badge
                       textStyle={{
                         color: 'black',
@@ -76,7 +135,7 @@ const SmileSelector = (props) => {
                         top: -6,
                         right: -3,
                       }}
-                      value={e.count}
+                      value={count}
                     />
                   )}
                 </View>
@@ -128,8 +187,19 @@ const styles = StyleSheet.create({
     marginRight: 3,
     padding: 5,
   },
+  emojiContainerActive: {
+    justifyContent: 'center',
+    borderRadius: 12,
+    borderWidth: 2,
+    backgroundColor: '#00FF9D',
+    margin: 1,
+    marginTop: 0,
+    marginRight: 3,
+    padding: 3,
+  },
   plusButton: {
     justifyContent: 'center',
+    alignItems: 'center',
     marginRight: 3,
     margin: 1,
     marginTop: 0,
@@ -139,7 +209,16 @@ const styles = StyleSheet.create({
     paddingRight: 5,
     paddingBottom: 5,
     borderRadius: 12,
+    width: 48,
+    height: 48,
   },
 });
 
-export default SmileSelector;
+const mapStateToProps = (state) => ({
+  currentUserProfile: state.currentUserProfile,
+});
+
+export default connect(mapStateToProps, {
+  getEmojiReactions,
+  postEmojiReaction,
+})(SmileSelector);
