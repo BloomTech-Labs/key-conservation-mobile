@@ -11,7 +11,11 @@ import EmojiSelector, { Categories } from 'react-native-emoji-selector';
 import { Badge } from 'react-native-elements';
 import PlusSign from '../../assets/jsicons/Comments/PlusSign';
 import { ActivityIndicator } from 'react-native';
-import { getEmojiReactions, postEmojiReaction } from '../../store/actions';
+import {
+  getEmojiReactions,
+  postEmojiReaction,
+  removeEmojiReaction,
+} from '../../store/actions';
 import { connect } from 'react-redux';
 
 const SmileSelector = (props) => {
@@ -31,7 +35,7 @@ const SmileSelector = (props) => {
 
       emojiReactions.forEach((emote) => {
         if (emote.user_id === props.currentUserProfile.id) {
-          setActiveEmoji(emote.emoji);
+          setActiveEmoji(emote);
         }
 
         reactions[emote.emoji] = reactions[emote.emoji] || 0;
@@ -52,29 +56,96 @@ const SmileSelector = (props) => {
   }, []);
 
   const setEmojis = async (reaction) => {
+    if (activeEmoji?.emoji === reaction) {
+      // We already used this reaction
+      return;
+    }
+
     setIsVisible(false);
 
     // If emoji exists, we get the count, if not
     // it is 0
     const count = emoji[reaction] || 0;
 
+    // We store previous state to restore it
+    // if the network request fails
     const oldActiveEmoji = activeEmoji;
+    const oldEmoji = emoji;
 
-    setEmoji({
+    const updated = {
       ...emoji,
       [reaction]: count + 1,
+    };
+
+    if (oldActiveEmoji) {
+      updated[oldActiveEmoji.emoji] = emoji[oldActiveEmoji.emoji] - 1;
+
+      // Zero occurences or less, remove from array
+      if (updated[oldActiveEmoji.emoji] <= 0) {
+        delete updated[oldActiveEmoji.emoji];
+      }
+    }
+
+    setEmoji(updated);
+
+    setActiveEmoji({
+      emoji: reaction,
     });
 
-    setActiveEmoji(reaction);
+    try {
+      setLoading(true);
+      const [newReaction] = await props.postEmojiReaction(
+        props.tableName,
+        props.postId,
+        reaction
+      );
+
+      setActiveEmoji(newReaction);
+    } catch (err) {
+      setEmoji(oldEmoji);
+      setActiveEmoji(oldActiveEmoji);
+    }
+
+    setLoading(false);
+  };
+
+  const unsetActiveEmoji = async () => {
+    console.log('unsetting');
+    const updates = {
+      ...emoji,
+      [activeEmoji.emoji]: emoji[activeEmoji.emoji] - 1,
+    };
+
+    if (updates[activeEmoji.emoji] <= 0) {
+      delete updates[activeEmoji.emoji];
+    }
+
+    const oldEmoji = emoji;
+    const oldActiveEmoji = activeEmoji;
+
+    setEmoji(updates);
+    setActiveEmoji(undefined);
 
     try {
-      await props.postEmojiReaction(props.tableName, props.postId, reaction);
+      setLoading(true);
+      await props.removeEmojiReaction(oldActiveEmoji.id);
     } catch (err) {
-      setEmoji({
-        ...emoji,
-        [reaction]: count,
-      });
+      console.log(err);
+
+      setEmoji(oldEmoji);
       setActiveEmoji(oldActiveEmoji);
+    }
+
+    setLoading(false);
+  };
+
+  const handleEmojiPress = (emoji) => {
+    if (emoji === activeEmoji?.emoji) {
+      // Remove the emoji
+      unsetActiveEmoji();
+    } else {
+      // Add the emoji
+      setEmojis(emoji);
     }
   };
 
@@ -103,12 +174,23 @@ const SmileSelector = (props) => {
             if (i < 3) {
               let style = styles.emojiContainer;
 
-              if (emote === activeEmoji) {
+              if (emote === activeEmoji?.emoji) {
                 style = styles.emojiContainerActive;
               }
 
+              if (loading) {
+                style = {
+                  ...style,
+                  backgroundColor: 'gray',
+                };
+              }
+
               return (
-                <View key={i} style={style}>
+                <TouchableOpacity
+                  key={i}
+                  style={style}
+                  onPress={() => handleEmojiPress(emote)}
+                >
                   <Text
                     style={{
                       fontSize: 28,
@@ -138,7 +220,7 @@ const SmileSelector = (props) => {
                       value={count}
                     />
                   )}
-                </View>
+                </TouchableOpacity>
               );
             }
           })}
@@ -221,4 +303,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getEmojiReactions,
   postEmojiReaction,
+  removeEmojiReaction,
 })(SmileSelector);

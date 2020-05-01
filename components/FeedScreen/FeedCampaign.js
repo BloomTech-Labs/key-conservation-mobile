@@ -303,14 +303,12 @@ const FeedCampaign = (props) => {
 
         <View style={styles.campaignControls}>
           <View style={styles.campaignControlsLeft}>
-            <TouchableOpacity
-              style={{ marginLeft: 8, marginBottom: -60, paddingTop: 10 }}
-            >
+            <View style={{ marginLeft: 8, marginBottom: -60, paddingTop: 10 }}>
               <SmileSelector
                 tableName="campaigns"
                 postId={data.campaign_id || data.id}
               />
-            </TouchableOpacity>
+            </View>
           </View>
           <View style={styles.campaignControlsRight}>
             {isSaved ? (

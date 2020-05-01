@@ -54,8 +54,8 @@ const axiosWithAuth = (dispatch, req) => {
 // production
 // const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
-// const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
-const seturl = 'http://192.168.1.143:8000/api/';
+const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+// const seturl = 'http://192.168.1.143:8000/api/';
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
@@ -1107,5 +1107,17 @@ export const postEmojiReaction = (tableName, postId, emoji) => (dispatch) => {
 };
 
 // TODO: Add removing an emoji
+export const removeEmojiReaction = (reactionId) => (dispatch) => {
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .delete(`${seturl}emojis/${reactionId}`)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        throw new Error(err.message);
+      });
+  });
+};
 
 // TODO: Add getting emoji reaction details (User names and avatars for each emoji)
