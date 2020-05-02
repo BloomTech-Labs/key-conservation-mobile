@@ -24,7 +24,7 @@
     "expo-analytics-amplitude": "~8.0.0",
     "expo-asset": "~8.0.0",
     "expo-av": "^8.0.0",
-    "expo-cli": "^3.18.6",
+    "expo-cli": "^3.20.1",
     "expo-constants": "~8.0.0",
     "expo-document-picker": "~8.0.0",
     "expo-font": "~8.0.0",
