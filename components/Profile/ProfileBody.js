@@ -12,7 +12,7 @@ export default React.forwardRef((props, ref) => {
   const routes =
     props.profile.roles === 'supporter'
       ? [
-          { key: 'campaigns', title: 'Profile' },
+          { key: 'campaigns', title: 'My Campaigns' },
           { key: 'details', title: 'Details' }
         ]
       : [

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Text,
   ImageBackground,
@@ -18,6 +18,9 @@ import {
   getCampaign,
   toggleCampaignText,
   setCampaign,
+  addBookmark,
+  removeBookmark,
+  fetchBookmarks,
 } from '../../store/actions';
 import { AmpEvent } from '../withAmplitude';
 import LoadingOverlay from '../LoadingOverlay';
@@ -30,6 +33,9 @@ import CommentIcon from '../../assets/jsicons/CommentIcon';
 import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
 import CampaignActionSheet from '../Reports/CampaignActionSheet';
 import TakeActionCallToAction from '../TakeAction/TakeActionCallToAction';
+import SmileSelector from './SmileSelector';
+import Bookmark from '../../assets/jsicons/miscIcons/Bookmark';
+import BookmarkSolid from '../../assets/jsicons/miscIcons/BookmarkSolid';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
@@ -42,30 +48,31 @@ const ViewportAwareVideo = Viewport.Aware(
 );
 
 const FeedCampaign = (props) => {
-  // const [userBookmarked, setUserBookmarked] = useState(false);
   const [urgTop, setUrgTop] = useState(0);
   const [loader, setLoader] = useState(true);
+  const [isSaved, setIsSaved] = useState(false);
+
+  useEffect(() => {
+    // prevent re-fetching unecessarily on profiles
+    if (props.displayOn !== 'profile') {
+      props.fetchBookmarks(props.currentUserProfile.id);
+    }
+  }, []);
+
+  useEffect(() => {
+    setBookmark();
+  }, [props.bookmarks.campaignIDs]);
+
+  const setBookmark = () => {
+    const thisCampaign =
+      props.data.campaign_id || props.data.comments[0].campaign_id;
+    const isSaved = props.bookmarks.campaignIDs.filter(
+      (bookmark) => bookmark === thisCampaign
+    );
+    setIsSaved(isSaved.length > 0);
+  };
 
   const actionSheetRef = useRef(null);
-
-  // console.log("PROPS FROM FEEDCAMPAIGN", props);
-
-  // old code for Bookmarks
-  // useEffect(() => {
-  //   const bookmarked = props.currentUserProfile.bookmarks.filter(
-  //     b => b.id === data.id
-  //   );
-  //   if (bookmarked.length > 0) {
-  //     setUserBookmarked(true);
-  //   }
-  //   if (
-  //     data.image.includes('.mov') ||
-  //     data.image.includes('.mp3') ||
-  //     data.image.includes('.mp4')
-  //   ) {
-  //     setUrgTop(3);
-  //   }
-  // }, []);
 
   const dispatch = useDispatch();
   const { data, toggled } = props;
@@ -183,52 +190,12 @@ const FeedCampaign = (props) => {
     }
   };
 
-  // const addBookmark = () => {
-  //   axios
-  //     .post(
-  //       `${seturl}social/bookmark/${data.campaign_id}`,
-  //       {
-  //         user_id: props.currentUserProfile.id,
-  //         campaign_id: data.campaign_id
-  //       },
-  //       {
-  //         headers: {
-  //           Accept: 'application/json',
-  //           Authorization: `Bearer ${props.token}`,
-  //           'Content-Type': 'application/json'
-  //         }
-  //       }
-  //     )
-  //     .then(res => {
-  //       setUserBookmarked(true);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // };
-
-  // const deleteBookmark = () => {
-  //   axios
-  //     .delete(
-  //       `${seturl}social/bookmark/${data.campaign_id}/${props.currentUserProfile.id}`,
-  //       {
-  //         headers: {
-  //           Accept: 'application/json',
-  //           Authorization: `Bearer ${props.token}`,
-  //           'Content-Type': 'application/json'
-  //         }
-  //       }
-  //     )
-  //     .then(res => {
-  //       setUserBookmarked(false);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // };
-
   const showActionSheet = () => {
     actionSheetRef.current?.show();
+  };
+
+  const updateBookmarkIcon = () => {
+    setBookmark();
   };
 
   return (
@@ -338,65 +305,96 @@ const FeedCampaign = (props) => {
           </TouchableOpacity>
         </View>
 
-        {/* <View style={styles.bookmarks}>
-          <View style={!userBookmarked ? { zIndex: 1 } : { zIndex: -1 }}>
-            <FontAwesome
-              onPress={() => addBookmark()}
-              name="bookmark-o"
-              style={styles.bookmarkOutline}
-            />
+        <View style={styles.campaignControls}>
+          <View style={styles.campaignControlsLeft}>
+            <TouchableOpacity
+              style={{ marginLeft: 8, marginBottom: -65, paddingTop: 15 }}
+            >
+              <SmileSelector />
+            </TouchableOpacity>
           </View>
-          <View
-            animation={userBookmarked ? 'zoomIn' : 'zoomOut'}
-            style={
-              (userBookmarked ? { zIndex: 1 } : { zIndex: -1 },
-              { marginTop: -28.75, marginLeft: -1.25 })
-            }
-            duration={300}
-          >
-            <FontAwesome
-              onPress={() => deleteBookmark()}
-              name="bookmark"
-              style={styles.bookmarkFill}
-            />
-          </View>
-        </View>
-      </View>  */}
+          <View style={styles.campaignControlsRight}>
+            {isSaved ? (
+              <TouchableOpacity
+                style={styles.comments}
+                onPress={() => {
+                  props.removeBookmark(
+                    props.currentUserProfile.id,
+                    props.data.campaign_id || props.data.comments[0].campaign_id
+                  );
+                  updateBookmarkIcon();
+                }}
+              >
+                {props.bookmarks.loading ? (
+                  <ActivityIndicator size="large" color="#ADADAD" />
+                ) : (
+                  <BookmarkSolid />
+                )}
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={styles.comments}
+                onPress={() => {
+                  props.addBookmark(
+                    props.currentUserProfile.id,
+                    props.data.campaign_id || props.data.comments[0].campaign_id
+                    // the OR condition above accounts for the fact that some campaigns
+                    // don't appear to have an ID in the (top-level) object returned from the API.
+                    // Those without a top-level ID have the campaign ID referenced in their
+                    // comments, so we can grab the ID from there. it's unclear to me if
+                    // this is a bug or the intentional behavior - worth looking into maybe?
+                  );
+                  updateBookmarkIcon();
+                }}
+              >
+                {props.bookmarks.loading ? (
+                  <ActivityIndicator size="large" color="#ADADAD" />
+                ) : (
+                  <Bookmark />
+                )}
+              </TouchableOpacity>
+            )}
 
-        <View style={styles.commentContainer}>
-          <TouchableOpacity style={styles.comments} onPress={goToCampaign}>
-            <CommentIcon />
-            <Badge
-              textStyle={{
-                color: 'black',
-                fontSize: 15,
-              }}
-              badgeStyle={{
-                backgroundColor: '#CAFF03',
-              }}
-              containerStyle={{
-                position: 'absolute',
-                top: -2,
-                right: 2,
-              }}
-              value={data.comments ? data.comments.length : 0}
-            />
-          </TouchableOpacity>
+            <TouchableOpacity style={styles.comments} onPress={goToCampaign}>
+              <CommentIcon />
+              <Badge
+                textStyle={{
+                  color: 'black',
+                  fontSize: 15,
+                }}
+                badgeStyle={{
+                  backgroundColor: '#CAFF03',
+                }}
+                containerStyle={{
+                  position: 'absolute',
+                  top: 2,
+                  right: 5,
+                }}
+                value={data.comments ? data.comments.length : 0}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
         <TakeActionCallToAction donate={props.data} />
+        <View style={styles.demarcation} />
       </View>
-      <View style={styles.demarcation} />
     </View>
   );
 };
+
 const mapStateToProps = (state) => ({
   currentUserProfile: state.currentUserProfile,
   currentUser: state.currentUser,
   token: state.token,
   deleteBuffer: state.pending.deleteCampaign,
+  bookmarks: state.bookmarks,
 });
+
 export default connect(mapStateToProps, {
   getCampaign,
   toggleCampaignText,
+  addBookmark,
+  removeBookmark,
+  fetchBookmarks,
 })(withNavigationFocus(FeedCampaign));
 // withNavigationFocus unmounts video and prevents audio playing across the navigation stack
