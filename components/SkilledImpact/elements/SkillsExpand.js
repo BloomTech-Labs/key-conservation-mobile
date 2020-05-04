@@ -1,42 +1,61 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Switch } from 'react-native';
+import { View, Text, TouchableOpacity, Switch, Alert } from 'react-native';
 import styles from '../../../constants/SkilledImpact/OrgSkilledImpactBody';
 import Sync from '../../../assets/jsicons/bottomnavigation/Sync';
 import ChevronBottom from '../../../assets/jsicons/miscIcons/ChevronBottom';
 import ChevronRight from '../../../assets/jsicons/miscIcons/ChevronRight';
+import { editProfileData } from '../../../store/actions';
+import { connect } from 'react-redux';
 
-class SkillContent extends React.Component {
+class SkillsExpand extends React.Component {
   constructor(props) {
     //TODO props edits and states
     super(props);
     this.state = {
-      skillExpand: true,
-      isReachable: props.isAcceptingHelp,
+      expanded: true,
+      acceptingHelp: props.isAcceptingHelp,
       skills: props.skills
     };
   }
 
-  skillExpand = () =>{
-    this.setState({skillExpand: !this.state.skillExpand})
+  toggleExpand = () =>{
+    this.setState({expanded: !this.state.expanded})
   };
 
-  toggleReachMeSwitch = () =>{
+  toggleAcceptingHelpSwitch = async () =>{
     //TODO: api request to change the switch state.
+    try {
+     await this.props.editProfileData(
+        this.props.currentUserProfile.id,
+        {accepting_help_requests: !this.state.acceptingHelp,
+          profile_image:this.props.currentUserProfile.profile_image}
+      );
+      this.setState({
+        acceptingHelp: !this.state.acceptingHelp
+      });
+    } catch (err) {
+      console.log(err);
+      Alert.alert('Error', 'Failed to change accepting help status');
+      this.setState({
+        loading: false,
+        error: 'Failed to change accepting help status'
+      });
+    }
   };
 
   render() {
     return (
       <View style={styles.itemContainers}>
-        <TouchableOpacity style={styles.itemTitleRow} onPress={this.skillExpand}>
+        <TouchableOpacity style={styles.itemTitleRow} onPress={this.toggleExpand}>
           <Sync/>
           <Text style={styles.itemTitleText}>
             Our Skills
           </Text>
           <View style={styles.chevronArrowContainer}>
-            {this.state.skillExpand ? <ChevronBottom/>:<ChevronRight/>}
+            {this.state.expanded ? <ChevronBottom/>:<ChevronRight/>}
           </View>
         </TouchableOpacity>
-        {this.state.skillExpand ? (
+        {this.state.expanded ? (
           <View style={styles.itemContentBody}>
               <View style={styles.itemContentRows}>
                 {this.state.skills.map((skill, i) => {
@@ -64,10 +83,10 @@ class SkillContent extends React.Component {
                 <Switch
                   style={styles.reachMeSwitch}
                   trackColor={{ false: "#767577", true: "#30d985" }}
-                  thumbColor={this.state.isReachable ? "#fffeff" : "#f4f3f4"}
+                  thumbColor={this.state.acceptingHelp ? "#fffeff" : "#f4f3f4"}
                   ios_backgroundColor="#3e3e3e"
-                  onValueChange={this.toggleReachMeSwitch}
-                  value={this.state.isReachable}
+                  onValueChange={this.toggleAcceptingHelpSwitch}
+                  value={this.state.acceptingHelp}
                 />
               </View>
             </View>
@@ -77,4 +96,10 @@ class SkillContent extends React.Component {
   }
 }
 
-export default SkillContent;
+const mapStateToProps = state => ({
+  currentUserProfile: state.currentUserProfile,
+});
+
+export default connect(mapStateToProps, {
+  editProfileData,
+})(SkillsExpand);

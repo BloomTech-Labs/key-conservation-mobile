@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from '../../constants/SkilledImpact/OrgSkilledImpactBody';
-import SkillContent from './elements/SkillContent';
-import CampaignContent from './elements/CampaignContent';
-import OurSkillImpactGroup from './elements/OurSkillImpactGroup';
+import SkillsExpand from './elements/SkillsExpand';
+import CampaignExpand from './elements/CampaignExpand';
+import OurSkillImpactGroupExpand from './elements/OurSkillImpactGroupExpand';
 
 class OrgSkilledImpactBody extends React.Component {
   constructor(props) {
@@ -11,12 +11,11 @@ class OrgSkilledImpactBody extends React.Component {
     super(props);
     this.state = {
       userData: props.userData,
-      skills: props.skills
     };
   }
 
   render() {
-    const skillsList = this.state.skills;
+    const skillsList = this.state.userData.skills;
     const campaignList = this.state.userData.campaigns;
     const isAcceptingHelp = this.state.userData.accepting_help_requests;
     return (
@@ -28,11 +27,12 @@ class OrgSkilledImpactBody extends React.Component {
             </TouchableOpacity>
           </View>
         </View>
-        <SkillContent skills={skillsList}
+        <SkillsExpand
+          skills={skillsList}
           isAcceptingHelp={isAcceptingHelp}
         />
-        <CampaignContent campaigns={campaignList}/>
-        <OurSkillImpactGroup />
+        <CampaignExpand campaigns={campaignList}/>
+        <OurSkillImpactGroupExpand />
       </View>
     );
   }

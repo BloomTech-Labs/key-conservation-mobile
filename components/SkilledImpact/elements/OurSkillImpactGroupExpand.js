@@ -5,32 +5,32 @@ import ShieldWithCheckMark from '../../../assets/jsicons/miscIcons/ShieldWithChe
 import ChevronBottom from '../../../assets/jsicons/miscIcons/ChevronBottom';
 import ChevronRight from '../../../assets/jsicons/miscIcons/ChevronRight';
 
-class OurSkillImpactGroup extends React.Component {
+class OurSkillImpactGroupExpand extends React.Component {
   constructor(props) {
     //TODO props edits and states
     super(props);
     this.state = {
-      skillExpand: true,
+      expanded: true,
     };
   }
 
-  skillExpand = () =>{
-    this.setState({skillExpand: !this.state.skillExpand})
+  toggleExpand = () =>{
+    this.setState({expanded: !this.state.expanded})
   };
 
   render() {
     return (
       <View style={styles.itemContainers}>
-        <TouchableOpacity style={styles.itemTitleRow} onPress={this.skillExpand}>
+        <TouchableOpacity style={styles.itemTitleRow} onPress={this.toggleExpand}>
           <ShieldWithCheckMark/>
           <Text style={styles.itemTitleText}>
             Our Skilled Impact Groups
           </Text>
           <View style={styles.chevronArrowContainer}>
-            {this.state.skillExpand ? <ChevronBottom/>:<ChevronRight/>}
+            {this.state.expanded ? <ChevronBottom/>:<ChevronRight/>}
           </View>
         </TouchableOpacity>
-        {this.state.skillExpand ? (
+        {this.state.expanded ? (
           <View style={styles.itemContentBody}>
 
           </View>
@@ -41,4 +41,4 @@ class OurSkillImpactGroup extends React.Component {
   }
 }
 
-export default OurSkillImpactGroup;
+export default OurSkillImpactGroupExpand;
