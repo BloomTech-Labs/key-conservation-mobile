@@ -310,7 +310,7 @@ const FeedCampaign = (props) => {
           <View style={styles.campaignControlsRight}>
             {isSaved ? (
               <TouchableOpacity
-                style={styles.comments}
+                style={styles.rightSection}
                 onPress={() => {
                   props.removeBookmark(
                     props.currentUserProfile.id,
@@ -327,7 +327,7 @@ const FeedCampaign = (props) => {
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
-                style={styles.comments}
+                style={styles.rightSection}
                 onPress={() => {
                   props.addBookmark(
                     props.currentUserProfile.id,
@@ -349,7 +349,10 @@ const FeedCampaign = (props) => {
               </TouchableOpacity>
             )}
 
-            <TouchableOpacity style={styles.comments} onPress={goToCampaign}>
+            <TouchableOpacity
+              style={styles.rightSection}
+              onPress={goToCampaign}
+            >
               <CommentIcon />
               <Badge
                 textStyle={{

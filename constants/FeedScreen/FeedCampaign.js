@@ -115,10 +115,10 @@ export default {
     letterSpacing: 5,
     color: 'black',
   },
-  comments: {
+  rightSection: {
     flex: 1,
     borderRadius: 12,
-    marginTop: 10,
+    marginTop: 12,
     marginRight: 3,
     fontFamily: 'Lato',
     fontSize: 14,

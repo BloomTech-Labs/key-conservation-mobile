@@ -188,7 +188,7 @@ const SmileSelector = (props) => {
                 >
                   <Text
                     style={{
-                      fontSize: 28,
+                      fontSize: 27,
                       backgroundColor: 'transparent',
                       paddingBottom: 3,
                       paddingRight: 3,
@@ -262,18 +262,16 @@ const styles = StyleSheet.create({
     margin: 1,
     marginTop: 0,
     marginRight: 3,
-    padding: 5,
+    padding: 4,
   },
   emojiContainerActive: {
     justifyContent: 'center',
     borderRadius: 12,
-    borderWidth: 2,
-    borderColor: 'rgba(202,255,0, 0.7)',
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#E0DFDF',
     margin: 1,
     marginTop: 0,
     marginRight: 3,
-    padding: 3,
+    padding: 4,
   },
   plusButton: {
     justifyContent: 'center',
@@ -281,14 +279,11 @@ const styles = StyleSheet.create({
     marginRight: 3,
     margin: 1,
     marginTop: 0,
-    paddingTop: 5,
+    padding: 4,
     backgroundColor: '#f5f5f5',
-    paddingLeft: 5,
-    paddingRight: 5,
-    paddingBottom: 5,
     borderRadius: 12,
-    width: 48,
-    height: 48,
+    width: 40,
+    height: 45,
   },
 });
 
