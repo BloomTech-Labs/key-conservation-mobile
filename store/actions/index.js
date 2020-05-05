@@ -55,6 +55,7 @@ const axiosWithAuth = (dispatch, req) => {
 // const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
 const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+// const seturl = 'http://192.168.1.146:8000/api/';
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
@@ -1074,3 +1075,35 @@ export const fetchBookmarkedCampaigns = (bookmarkedIDs) => async (dispatch) => {
     payload: campaigns,
   });
 };
+
+// Get emoji reactions for a specific post
+export const getCampaignPostReactions = (postId) => (dispatch) => {
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .get(`${seturl}campaigns/${postId}/reactions`)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+        throw new Error(err.message);
+      });
+  });
+};
+
+// Post emoji reaction on a specific post
+export const setCampaignPostReaction = (postId, emoji = '') => (dispatch) => {
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .put(`${seturl}campaigns/${postId}/reactions`, { emoji })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err.message);
+        throw new Error(err.message);
+      });
+  });
+};
+
+// TODO: Add getting emoji reaction details (User names and avatars for each emoji)

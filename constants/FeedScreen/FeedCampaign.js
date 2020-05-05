@@ -115,11 +115,11 @@ export default {
     letterSpacing: 5,
     color: 'black',
   },
-  comments: {
+  rightSection: {
     flex: 1,
     borderRadius: 12,
-    marginTop: 10,
-    marginRight: 10,
+    marginTop: 12,
+    marginRight: 3,
     fontFamily: 'Lato',
     fontSize: 14,
     lineHeight: 16,
@@ -127,9 +127,12 @@ export default {
     alignItems: 'center',
     backgroundColor: '#F5F5F5',
     alignSelf: 'flex-end',
-    paddingVertical: 6,
-    paddingHorizontal: 25,
-    height: 48,
+    paddingTop: 10,
+    paddingLeft: 0,
+    paddingRight: 0,
+    paddingBottom: 10,
+    width: '100%',
+    height: 42,
   },
   readMore: {
     color: '#929292',
@@ -163,5 +166,7 @@ export default {
   campaignControlsRight: {
     flexDirection: 'row',
     flex: 1,
+    alignSelf: 'flex-start',
+    paddingRight: 6,
   },
 };

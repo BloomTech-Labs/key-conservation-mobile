@@ -39,10 +39,6 @@ import BookmarkSolid from '../../assets/jsicons/miscIcons/BookmarkSolid';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
-// Redux gave us a hard time on this project. We worked on comments first and when our commentOnCampaign action failed to trigger the re-render we expected, and when we couldn't solve the
-// issue in labs_help, we settled for in-component axios calls. Not elegant. Probably not super scalable—but it worked. Hopefully a more talented team can solve what we couldn't.
-// In the meantime, ViewCampaignScreen, ViewCampaignUpdateScreen, FeedCampaign, and FeedUpdate are all interconnected, sharing props (state, functions) via React-Navigation.
-
 const ViewportAwareVideo = Viewport.Aware(
   Viewport.WithPlaceholder(Video, Placeholder)
 );
@@ -65,7 +61,7 @@ const FeedCampaign = (props) => {
 
   const setBookmark = () => {
     const thisCampaign =
-      props.data.campaign_id || props.data.comments[0].campaign_id;
+      props.data.campaign_id || props.data?.comments[0]?.campaign_id;
     const isSaved = props.bookmarks.campaignIDs.filter(
       (bookmark) => bookmark === thisCampaign
     );
@@ -307,16 +303,14 @@ const FeedCampaign = (props) => {
 
         <View style={styles.campaignControls}>
           <View style={styles.campaignControlsLeft}>
-            <TouchableOpacity
-              style={{ marginLeft: 8, marginBottom: -65, paddingTop: 15 }}
-            >
-              <SmileSelector />
-            </TouchableOpacity>
+            <View style={{ marginLeft: 8, marginBottom: -60, paddingTop: 10 }}>
+              <SmileSelector postId={data.campaign_id || data.id} />
+            </View>
           </View>
           <View style={styles.campaignControlsRight}>
             {isSaved ? (
               <TouchableOpacity
-                style={styles.comments}
+                style={styles.rightSection}
                 onPress={() => {
                   props.removeBookmark(
                     props.currentUserProfile.id,
@@ -333,7 +327,7 @@ const FeedCampaign = (props) => {
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
-                style={styles.comments}
+                style={styles.rightSection}
                 onPress={() => {
                   props.addBookmark(
                     props.currentUserProfile.id,
@@ -355,7 +349,10 @@ const FeedCampaign = (props) => {
               </TouchableOpacity>
             )}
 
-            <TouchableOpacity style={styles.comments} onPress={goToCampaign}>
+            <TouchableOpacity
+              style={styles.rightSection}
+              onPress={goToCampaign}
+            >
               <CommentIcon />
               <Badge
                 textStyle={{
@@ -367,8 +364,8 @@ const FeedCampaign = (props) => {
                 }}
                 containerStyle={{
                   position: 'absolute',
-                  top: 2,
-                  right: 5,
+                  top: -6,
+                  right: -3,
                 }}
                 value={data.comments ? data.comments.length : 0}
               />
