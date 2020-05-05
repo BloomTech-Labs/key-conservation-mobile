@@ -6,7 +6,7 @@
     "sdkVersion": "36.0.0",
     "scheme": "keyconservation",
     "platforms": ["ios", "android"],
-    "version": "5.1.0",
+    "version": "5.2.0",
     "orientation": "portrait",
     "icon": "./assets/images/keyapplogo.png",
     "splash": {
@@ -19,7 +19,7 @@
     "assetBundlePatterns": ["**/*"],
     "android": {
       "package": "com.kc.keyconservation",
-      "versionCode": 15,
+      "versionCode": 16,
       "config": {
         "googleMaps": {
           "apiKey": "process.env.REACT_APP_GOOGLE_MAPS_API_KEY"
@@ -36,11 +36,11 @@
           }
         ]
       },
-      "buildNumber": "16",
+      "buildNumber": "17",
       "supportsTablet": true,
       "bundleIdentifier": "com.kc.keyconservation"
     },
-    "description": "The Key Conservation App\n\nVersion 4.2.0",
+    "description": "The Key Conservation App\n\nVersion 5.2.0",
     "githubUrl": "https://github.com/Lambda-School-Labs/key-conservation-mobile"
   }
 }
