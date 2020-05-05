@@ -55,7 +55,7 @@ const axiosWithAuth = (dispatch, req) => {
 // const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
 const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
-// const seturl = 'http://192.168.1.143:8000/api/';
+// const seturl = 'http://192.168.1.146:8000/api/';
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
@@ -1077,10 +1077,10 @@ export const fetchBookmarkedCampaigns = (bookmarkedIDs) => async (dispatch) => {
 };
 
 // Get emoji reactions for a specific post
-export const getEmojiReactions = (tableName, postId) => (dispatch) => {
+export const getCampaignPostReactions = (postId) => (dispatch) => {
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .put(`${seturl}emojis`, { tableName: tableName, postId: postId })
+      .get(`${seturl}campaigns/${postId}/reactions`)
       .then((res) => {
         return res.data;
       })
@@ -1092,29 +1092,15 @@ export const getEmojiReactions = (tableName, postId) => (dispatch) => {
 };
 
 // Post emoji reaction on a specific post
-export const postEmojiReaction = (tableName, postId, emoji) => (dispatch) => {
+export const setCampaignPostReaction = (postId, emoji = '') => (dispatch) => {
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .post(`${seturl}emojis`, { tableName, postId, emoji })
+      .put(`${seturl}campaigns/${postId}/reactions`, { emoji })
       .then((res) => {
         return res.data;
       })
       .catch((err) => {
-        console.log(err);
-        throw new Error(err.message);
-      });
-  });
-};
-
-// TODO: Add removing an emoji
-export const removeEmojiReaction = (reactionId) => (dispatch) => {
-  return axiosWithAuth(dispatch, (aaxios) => {
-    return aaxios
-      .delete(`${seturl}emojis/${reactionId}`)
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
+        console.log(err.message);
         throw new Error(err.message);
       });
   });

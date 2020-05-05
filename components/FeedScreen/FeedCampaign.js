@@ -304,10 +304,7 @@ const FeedCampaign = (props) => {
         <View style={styles.campaignControls}>
           <View style={styles.campaignControlsLeft}>
             <View style={{ marginLeft: 8, marginBottom: -60, paddingTop: 10 }}>
-              <SmileSelector
-                tableName="campaigns"
-                postId={data.campaign_id || data.id}
-              />
+              <SmileSelector postId={data.campaign_id || data.id} />
             </View>
           </View>
           <View style={styles.campaignControlsRight}>
