@@ -245,10 +245,10 @@ export const getProfileData = (
         user = res.data.user;
         {
           !noDispatch &&
-          dispatch({
-            type: GET_PROFILE_SUCCESS,
-            payload: { user, myProfile },
-          });
+            dispatch({
+              type: GET_PROFILE_SUCCESS,
+              payload: { user, myProfile },
+            });
         }
         return user;
       })
