@@ -82,7 +82,7 @@ class OrgSkillImpactScreen extends React.Component {
           {!this.state.loading ? (
           <OrgSkilledImpactBody
             skills={this.skills}
-            userData={this.state.user}
+            userData={userData}
           />
             ):(
               <ActivityIndicator

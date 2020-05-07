@@ -1,23 +1,13 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from '../../../constants/SkilledImpact/OrgSkilledImpactBody';
-import Lightening from '../../../assets/jsicons/bottomnavigation/Lightening';
-import ChevronBottom from '../../../assets/jsicons/miscIcons/ChevronBottom';
 import ChevronRight from '../../../assets/jsicons/miscIcons/ChevronRight';
 import { Avatar } from 'react-native-elements';
 import * as moment from 'moment';
 
-class CampaignContent extends React.Component {
-  constructor(props) {
-    //TODO props edits and states
-    super(props);
-    this.state = {
-      campaign: props.campaign
-    };
-  }
+export default React.forwardRef((props, ref) => {
+   const campaign = props.campaign;
 
-  render() {
-    const campaign = this.state.campaign;
     return (
       <View style={styles.itemContentRows}>
         <View style={styles.avatarImageContainer}>
@@ -59,7 +49,5 @@ class CampaignContent extends React.Component {
         </View>
       </View>
     );
-  }
-}
 
-export default CampaignContent;
+});

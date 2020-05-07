@@ -1,38 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Switch, Alert } from 'react-native';
 import styles from '../../../constants/SkilledImpact/OrgSkilledImpactBody';
 import Sync from '../../../assets/jsicons/bottomnavigation/Sync';
 import ChevronBottom from '../../../assets/jsicons/miscIcons/ChevronBottom';
 import ChevronRight from '../../../assets/jsicons/miscIcons/ChevronRight';
 import { editProfileData } from '../../../store/actions';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import { withNavigationFocus } from "react-navigation";
 
-class SkillsExpand extends React.Component {
-  constructor(props) {
-    //TODO props edits and states
-    super(props);
-    this.state = {
-      expanded: true,
-      acceptingHelp: props.isAcceptingHelp,
-      skills: props.skills
-    };
-  }
+const SkillsExpand = (props) => {
+  const [expanded, setExpand] = useState(true);
+  const [acceptingHelp, setAcceptingHelp] = useState(props.isAcceptingHelp);
 
-  toggleExpand = () =>{
-    this.setState({expanded: !this.state.expanded})
+  const dispatch = useDispatch();
+  const skills = props.skills;
+
+  const toggleExpand = () =>{
+    setExpand(!expanded)
   };
 
-  toggleAcceptingHelpSwitch = async () =>{
+  const toggleAcceptingHelpSwitch = async () =>{
     //TODO: api request to change the switch state.
     try {
-     await this.props.editProfileData(
-        this.props.currentUserProfile.id,
-        {accepting_help_requests: !this.state.acceptingHelp,
-          profile_image:this.props.currentUserProfile.profile_image}
-      );
-      this.setState({
-        acceptingHelp: !this.state.acceptingHelp
-      });
+     await dispatch(editProfileData(
+        props.userData.id,
+        {accepting_help_requests: !props.isAcceptingHelp,
+          profile_image:props.userData.profile_image}
+      ));
+      setAcceptingHelp(!acceptingHelp);
     } catch (err) {
       console.log(err);
       Alert.alert('Error', 'Failed to change accepting help status');
@@ -43,22 +38,21 @@ class SkillsExpand extends React.Component {
     }
   };
 
-  render() {
     return (
       <View style={styles.itemContainers}>
-        <TouchableOpacity style={styles.itemTitleRow} onPress={this.toggleExpand}>
+        <TouchableOpacity style={styles.itemTitleRow} onPress={toggleExpand}>
           <Sync/>
           <Text style={styles.itemTitleText}>
             Our Skills
           </Text>
           <View style={styles.chevronArrowContainer}>
-            {this.state.expanded ? <ChevronBottom/>:<ChevronRight/>}
+            {expanded ? <ChevronBottom/>:<ChevronRight/>}
           </View>
         </TouchableOpacity>
-        {this.state.expanded ? (
+        {expanded ? (
           <View style={styles.itemContentBody}>
               <View style={styles.itemContentRows}>
-                {this.state.skills.map((skill, i) => {
+                {skills.map((skill, i) => {
                   if(skill) {
                     return (
                       <TouchableOpacity key={i} style={styles.skillsButton}>
@@ -83,23 +77,22 @@ class SkillsExpand extends React.Component {
                 <Switch
                   style={styles.reachMeSwitch}
                   trackColor={{ false: "#767577", true: "#30d985" }}
-                  thumbColor={this.state.acceptingHelp ? "#fffeff" : "#f4f3f4"}
+                  thumbColor={acceptingHelp ? "#fffeff" : "#f4f3f4"}
                   ios_backgroundColor="#3e3e3e"
-                  onValueChange={this.toggleAcceptingHelpSwitch}
-                  value={this.state.acceptingHelp}
+                  onValueChange={toggleAcceptingHelpSwitch}
+                  value={acceptingHelp}
                 />
               </View>
             </View>
         ) : null}
       </View>
     );
-  }
+
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentUserProfile: state.currentUserProfile,
 });
-
 export default connect(mapStateToProps, {
-  editProfileData,
+  editProfileData
 })(SkillsExpand);

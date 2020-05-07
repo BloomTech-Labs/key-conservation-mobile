@@ -32,7 +32,9 @@ class OurSkillImpactGroupExpand extends React.Component {
         </TouchableOpacity>
         {this.state.expanded ? (
           <View style={styles.itemContentBody}>
-
+            <View style={styles.itemFooterRow}>
+              <Text style={styles.itemTitleText}>More Exciting Features To Come!</Text>
+            </View>
           </View>
         ) : null}
       </View>

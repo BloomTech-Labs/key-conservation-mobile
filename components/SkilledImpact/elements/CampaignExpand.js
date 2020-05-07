@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from '../../../constants/SkilledImpact/OrgSkilledImpactBody';
 import Lightening from '../../../assets/jsicons/bottomnavigation/Lightening';
@@ -6,34 +6,27 @@ import ChevronBottom from '../../../assets/jsicons/miscIcons/ChevronBottom';
 import ChevronRight from '../../../assets/jsicons/miscIcons/ChevronRight';
 import CampaignContent from './CampaignContent';
 
-class CampaignExpand extends React.Component {
-  constructor(props) {
-    //TODO props edits and states
-    super(props);
-    this.state = {
-      expanded: true,
-      campaigns: props.campaigns
-    };
-  }
+export default React.forwardRef((props, ref) => {
+  const [expanded, setExpand] = useState(true);
 
-  toggleExpand = () =>{
-    this.setState({expanded: !this.state.expanded})
+  const campaignList = props.campaigns;
+
+  const toggleExpand = () =>{
+    setExpand(!expanded);
   };
 
-  render() {
-    const campaignList = this.state.campaigns;
     return (
       <View style={styles.itemContainers}>
-        <TouchableOpacity style={styles.itemTitleRow} onPress={this.toggleExpand}>
+        <TouchableOpacity style={styles.itemTitleRow} onPress={toggleExpand}>
           <Lightening/>
           <Text style={styles.itemTitleText}>
             Current Campaigns
           </Text>
           <View style={styles.chevronArrowContainer}>
-            {this.state.expanded ? <ChevronBottom/>:<ChevronRight/>}
+            {expanded ? <ChevronBottom/>:<ChevronRight/>}
           </View>
         </TouchableOpacity>
-        {this.state.expanded ? (
+        {expanded ? (
           <View style={styles.itemContentBody}>
               {campaignList.map((campaign, keyIndex)=>{
                 if(campaign){
@@ -50,7 +43,5 @@ class CampaignExpand extends React.Component {
       </View>
 
     );
-  }
-}
 
-export default CampaignExpand;
+});
