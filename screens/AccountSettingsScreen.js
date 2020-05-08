@@ -3,14 +3,11 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
 import * as SecureStorage from 'expo-secure-store';
-// import * as WebBrowser from 'expo-web-browser';
-// import Constants from 'expo-constants';
 
 import { logout } from '../store/actions';
 import BackButtonHeader from '../components/BackButtonHeader';
 import LogoutSymbol from '../assets/jsicons/accountSettings/LogoutSymbol';
 import styles from '../constants/screens/AccountSettingsScreen';
-import Smile from '../assets/jsicons/accountSettings/Smile';
 
 class AccountSettingsScreen extends React.Component {
   state = {
@@ -66,10 +63,7 @@ class AccountSettingsScreen extends React.Component {
       <ScrollView contentContainerStyle={styles.scrollBG}>
         {this.props.currentUserProfile.admin && (
           <View style={styles.sections}>
-            <View style={styles.iconWrap}>
-              <Smile />
-              <Text style={styles.title}>Admin Controls</Text>
-            </View>
+            <Text style={styles.title}>Admin Control Panel</Text>
             <TouchableOpacity
               style={styles.linkWrap}
               onPress={this.viewReports}

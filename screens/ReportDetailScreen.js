@@ -20,15 +20,15 @@ class ReportDetailScreen extends Component {
     return {
       title: 'Report Details',
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: '#323338',
       },
       headerTintColor: '#fff',
-      headerLeft: () => <BackButton navigation={navigation} />
+      headerLeft: () => <BackButton navigation={navigation} />,
     };
   };
 
   state = {
-    currentUser: null
+    currentUser: null,
   };
 
   componentDidUpdate() {
@@ -44,14 +44,14 @@ class ReportDetailScreen extends Component {
           false,
           true
         )
-        .then(res => {
+        .then((res) => {
           this.setState({ currentUser: res });
         });
     }
   }
 
   deactivateUser = () => {
-    this.props.deactivateUser(this.state.currentUser.id).then(error => {
+    this.props.deactivateUser(this.state.currentUser.id).then((error) => {
       if (error) Alert.alert(error);
       else {
         this.props.navigation.goBack(null);
@@ -67,18 +67,18 @@ class ReportDetailScreen extends Component {
         {
           text: 'Deactivate',
           style: 'destructive',
-          onPress: this.deactivateUser
+          onPress: this.deactivateUser,
         },
-        { text: 'Cancel', style: 'cancel' }
+        { text: 'Cancel', style: 'cancel' },
       ]
     );
   };
 
-  goToProfile = id => {
+  goToProfile = (id) => {
     if (!id) return;
 
-    this.props.navigation.navigate('ProDetails', {
-      selectedProfile: id
+    this.props.navigation.navigate('ProfileDetails', {
+      selectedProfile: id,
     });
   };
 
@@ -96,7 +96,7 @@ class ReportDetailScreen extends Component {
               <Image
                 style={styles.user_image}
                 source={{
-                  uri: this.state.currentUser?.profile_image
+                  uri: this.state.currentUser?.profile_image,
                 }}
               />
             </View>
@@ -107,7 +107,7 @@ class ReportDetailScreen extends Component {
               <Text style={styles.user_detail}>
                 {1 +
                   this.props.currentReport?.other_reports?.filter(
-                    r => !r.is_archived
+                    (r) => !r.is_archived
                   ).length || '---'}{' '}
                 ACTIVE REPORTS
               </Text>
@@ -116,7 +116,7 @@ class ReportDetailScreen extends Component {
               </Text>
             </View>
             <View style={styles.arrow_icon_container}>
-              <ChevronLeft fill='#000' width='20' height='20' />
+              <ChevronLeft fill="#000" width="20" height="20" />
             </View>
           </TouchableOpacity>
           <TouchableOpacity
@@ -141,7 +141,7 @@ class ReportDetailScreen extends Component {
                 <Text style={styles.other_section_header}>
                   Other reports on this user
                 </Text>
-                {this.props.currentReport?.other_reports.map(report => {
+                {this.props.currentReport?.other_reports.map((report) => {
                   return (
                     <ReportDetailCard
                       goToProfile={this.goToProfile}
@@ -162,13 +162,13 @@ class ReportDetailScreen extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   loading: state.reports.loading,
   currentReport: state.reports.currentReport,
-  currentUserProfile: state.currentUserProfile
+  currentUserProfile: state.currentUserProfile,
 });
 
 export default connect(mapStateToProps, {
   deactivateUser,
-  getProfileData
+  getProfileData,
 })(ReportDetailScreen);
