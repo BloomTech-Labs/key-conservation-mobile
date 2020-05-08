@@ -511,27 +511,30 @@ export const postCampaign = (campaign) => (dispatch) => {
   });
 };
 
-export const [
-  DELETE_CAMPAIGN_START,
-  DELETE_CAMPAIGN_ERROR,
-  DELETE_CAMPAIGN_SUCCESS,
-] = [
-  'DELETE_CAMPAIGN_START',
-  'DELETE_CAMPAIGN_ERROR',
-  'DELETE_CAMPAIGN_SUCCESS',
+export const [DELETE_POST_START, DELETE_POST_ERROR, DELETE_POST_SUCCESS] = [
+  'DELETE_POST_START',
+  'DELETE_POST_ERROR',
+  'DELETE_POST_SUCCESS',
 ];
 
-export const deleteCampaign = (id) => (dispatch) => {
-  dispatch({ type: DELETE_CAMPAIGN_START, payload: id });
+export const deleteCampaignPost = (id) => (dispatch) => {
+  dispatch({ type: DELETE_POST_START, payload: id });
 
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .delete(`${seturl}campaigns/${id}`)
+      .delete(`${seturl}posts/${id}`)
       .then((res) => {
-        dispatch({ type: DELETE_CAMPAIGN_SUCCESS, payload: res.data });
+        dispatch({ type: DELETE_POST_SUCCESS, payload: id });
       })
       .catch((err) => {
-        dispatch({ type: DELETE_CAMPAIGN_ERROR, payload: err });
+        console.log(err.response);
+        dispatch({
+          type: DELETE_POST_ERROR,
+          payload: {
+            error: err.message,
+            id,
+          },
+        });
         return { error: err, id };
       });
   });
@@ -691,34 +694,6 @@ export const editCampaignUpdate = (id, changes) => (dispatch) => {
       })
       .catch((err) => {
         dispatch({ type: EDIT_CAMPAIGN_UPDATE_ERROR, payload: err });
-      });
-  });
-};
-
-export const [
-  DELETE_CAMPAIGN_UPDATE_START,
-  DELETE_CAMPAIGN_UPDATE_ERROR,
-  DELETE_CAMPAIGN_UPDATE_SUCCESS,
-] = [
-  'DELETE_CAMPAIGN_UPDATE_START',
-  'DELETE_CAMPAIGN_UPDATE_ERROR',
-  'DELETE_CAMPAIGN_UPDATE_SUCCESS',
-];
-
-export const deleteCampaignUpdate = (id) => (dispatch) => {
-  console.log('deleting campaign update');
-  dispatch({ type: DELETE_CAMPAIGN_UPDATE_START, payload: id });
-  return axiosWithAuth(dispatch, (aaxios) => {
-    return aaxios
-      .delete(`${seturl}updates/${id}`)
-      .then((res) => {
-        console.log('success in actions', res.data);
-        dispatch({ type: DELETE_CAMPAIGN_UPDATE_SUCCESS, payload: res.data });
-      })
-      .catch((err) => {
-        console.log(err);
-        dispatch({ type: DELETE_CAMPAIGN_UPDATE_ERROR, payload: err });
-        return { error: err, id };
       });
   });
 };

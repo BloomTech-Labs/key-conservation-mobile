@@ -197,7 +197,7 @@ const CampaignPost = (props) => {
           ref={actionSheetRef}
           admin={props.currentUserProfile.admin}
           isMine={props.currentUserProfile.id === data.user_id}
-          campaign={data}
+          post={data}
         />
         <ListItem
           disabled={props.disableHeader}
@@ -375,7 +375,7 @@ const mapStateToProps = (state) => ({
   currentUserProfile: state.currentUserProfile,
   currentUser: state.currentUser,
   token: state.token,
-  deleteBuffer: state.pending.deleteCampaign,
+  deleteBuffer: state.pending.deletePost,
   bookmarks: state.bookmarks,
 });
 

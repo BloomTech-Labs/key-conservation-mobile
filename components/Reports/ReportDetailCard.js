@@ -17,12 +17,11 @@ import {
   getCustomById,
   getCampaign,
   deleteComment,
-  deleteCampaign,
-  deleteCampaignUpdate,
+  deleteCampaignPost,
   clearReportError,
   archiveReport,
   getProfileData,
-  getReports
+  getReports,
 } from '../../store/actions';
 import LoadingOverlay from '../LoadingOverlay';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
@@ -35,7 +34,7 @@ class ReportDetailCard extends Component {
     this.state = {
       postText: '',
       postImage: '',
-      isUser: undefined
+      isUser: undefined,
     };
   }
 
@@ -50,7 +49,7 @@ class ReportDetailCard extends Component {
           this.props.currentReport.table_name,
           this.props.currentReport.post_id
         )
-        .then(res => {
+        .then((res) => {
           if (!res) return;
 
           switch (this.props.currentReport.table_name) {
@@ -76,12 +75,12 @@ class ReportDetailCard extends Component {
             }
           }
         })
-        .then(campaign => {
+        .then((campaign) => {
           if (campaign?.data) {
             this.setState({ postImage: campaign.data.campaign.image });
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err.message);
           Alert.alert('An error ocurred when we tried to get some data');
         });
@@ -98,17 +97,17 @@ class ReportDetailCard extends Component {
         break;
       }
       case 'campaigns': {
-        del = this.props.deleteCampaign;
+        del = this.props.deleteCampaignPost;
         break;
       }
       case 'campaign_updates': {
-        del = this.props.deleteCampaignUpdate;
+        del = this.props.deleteCampaignPost;
         break;
       }
     }
 
     del(this.props.currentReport.post_id)
-      .then(err => {
+      .then((err) => {
         console.log('delete', err);
         if (err) throw new Error(err || '');
       })
@@ -116,7 +115,7 @@ class ReportDetailCard extends Component {
         this.props.getReports();
         this.props.navigation.goBack(null);
       })
-      .catch(error => {
+      .catch((error) => {
         Alert.alert(
           `Failed to delete ${this.type.toLowerCase()}`,
           error.msg || '',
@@ -131,7 +130,7 @@ class ReportDetailCard extends Component {
       `Are you sure you want to delete this post? This will add a strike on this user's record and cannot be undone`,
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'Delete Post', style: 'destructive', onPress: this.deletePost }
+        { text: 'Delete Post', style: 'destructive', onPress: this.deletePost },
       ]
     );
   };
@@ -149,7 +148,7 @@ class ReportDetailCard extends Component {
       `Are you sure you want to archive this report? It may still be viewed in the Archived reports tab`,
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'Archive', style: 'default', onPress: this.archiveReport }
+        { text: 'Archive', style: 'default', onPress: this.archiveReport },
       ]
     );
   };
@@ -168,8 +167,9 @@ class ReportDetailCard extends Component {
 
     return (
       <Collapsible
-        title={`${this.type || '---'} #${this.props.currentReport.post_id ||
-          '---'}`}
+        title={`${this.type || '---'} #${
+          this.props.currentReport.post_id || '---'
+        }`}
         collapsed={this.props.collapsed}
         right={
           <View style={styles.report_count}>
@@ -251,8 +251,8 @@ class ReportDetailCard extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  reportError: state.reports.error
+const mapStateToProps = (state) => ({
+  reportError: state.reports.error,
 });
 
 //make this component available to the app
@@ -260,10 +260,9 @@ export default connect(mapStateToProps, {
   getCustomById,
   getCampaign,
   deleteComment,
-  deleteCampaign,
-  deleteCampaignUpdate,
+  deleteCampaignPost,
   clearReportError,
   archiveReport,
   getProfileData,
-  getReports
+  getReports,
 })(ReportDetailCard);

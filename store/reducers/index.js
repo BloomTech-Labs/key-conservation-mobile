@@ -16,8 +16,7 @@ const initialState = {
     getFeed: false,
     getCampaign: false,
     updateProfile: false,
-    deleteCampaignUpdate: [],
-    deleteCampaign: [],
+    deletePost: [], // An array of currently deleting posts
   },
   currentUser: {
     sub: '',
@@ -229,21 +228,21 @@ const reducer = (state = initialState, action) => {
         ...state,
         selectedCampaign: action.payload,
       };
-    case actions.DELETE_CAMPAIGN_START:
+    case actions.DELETE_POST_START:
       return {
         ...state,
         pending: {
           ...state.pending,
-          deleteCampaign: [...state.pending.deleteCampaign, action.payload],
+          deletePost: [...state.pending.deletePost, action.payload],
         },
         error: '',
       };
-    case actions.DELETE_CAMPAIGN_SUCCESS:
+    case actions.DELETE_POST_SUCCESS:
       return {
         ...state,
         pending: {
           ...state.pending,
-          deleteCampaign: state.pending.deleteCampaign.filter(
+          deletePost: state.pending.deletePost.filter(
             (id) => id !== action.payload
           ),
         },
@@ -257,12 +256,12 @@ const reducer = (state = initialState, action) => {
           ),
         },
       };
-    case actions.DELETE_CAMPAIGN_ERROR:
+    case actions.DELETE_POST_ERROR:
       return {
         ...state,
         pending: {
           ...state.pending,
-          deleteCampaign: state.pending.deleteCampaign.filter(
+          deletePost: state.pending.deletePost.filter(
             (id) => id !== action.payload.id
           ),
         },
@@ -353,48 +352,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         pending: { ...state.pending, editCampaignUpdate: false },
         error: action.payload,
-      };
-    case actions.DELETE_CAMPAIGN_UPDATE_START:
-      return {
-        ...state,
-        pending: {
-          ...state.pending,
-          deleteCampaignUpdate: [
-            ...state.pending.deleteCampaignUpdate,
-            action.payload,
-          ],
-        },
-        error: '',
-      };
-    case actions.DELETE_CAMPAIGN_UPDATE_SUCCESS:
-      return {
-        ...state,
-        pending: {
-          ...state.pending,
-          deleteCampaignUpdate: state.pending.deleteCampaignUpdate.filter(
-            (id) => id !== Number(action.payload)
-          ),
-        },
-        allCampaigns: state.allCampaigns?.filter?.(
-          (update) => update.id !== Number(action.payload)
-        ),
-        currentUserProfile: {
-          ...state.currentUserProfile,
-          campaigns: state.currentUserProfile.campaigns?.filter?.(
-            (update) => update.id !== Number(action.payload)
-          ),
-        },
-      };
-    case actions.DELETE_CAMPAIGN_UPDATE_ERROR:
-      return {
-        ...state,
-        pending: {
-          ...state.pending,
-          deleteCampaignUpdate: state.pending.deleteCampaignUpdate.filter(
-            (id) => id !== Number(action.payload.id)
-          ),
-        },
-        error: action.payload.error,
       };
     case actions.TOGGLE_CAMPAIGN_TEXT:
       return {

@@ -5,8 +5,7 @@ import { goBack, navigate } from '../../navigation/RootNavigator';
 
 import { useDispatch } from 'react-redux';
 
-import { deleteCampaign, deleteCampaignUpdate, setCampaign } from '../../store/actions';
-import { Alert } from 'react-native';
+import { deleteCampaignPost, setCampaign } from '../../store/actions';
 
 // Usage:
 
@@ -16,7 +15,7 @@ import { Alert } from 'react-native';
   <ActionSheet
     ref={o => this.ActionSheet = o}
     admin={boolean}
-    campaign={object}                   // The campaign data
+    post={object}                   // The campaign post data
     OPTIONAL: goBack={boolean}      // Do we need to navigate back?
   />
 ...
@@ -35,7 +34,7 @@ export default forwardRef((props, ref) => {
   const report = () => {
     const id = props.campaign?.id || props.update?.id;
 
-    if(typeof id === 'undefined') {
+    if (typeof id === 'undefined') {
       console.warn(
         'CampaignActionSheet: `campaign` or `update` property missing or invalid - action canceled'
       );
@@ -43,56 +42,47 @@ export default forwardRef((props, ref) => {
     }
 
     dispatch(setCampaign(props.campaign || props.update));
-    
+
     const type = props.campaign ? 'campaigns' : 'campaign_updates';
 
     // Take the user to a report screen
     navigate('CreateReport', {
       type,
-      id
+      id,
     });
   };
 
-  const deleteCampaignOrUpdate = () => {
-    const id = props.campaign?.id || props.update?.id;
-    if(typeof id === 'undefined') {
+  const deletePost = () => {
+    const id = props.post?.id;
+    if (typeof id === 'undefined') {
       console.warn(
-        'CampaignActionSheet: `campaign` or `update` property missing or invalid - action canceled'
+        'CampaignActionSheet: `post` property missing or invalid - action canceled'
       );
       return;
     }
 
-    let del;
-
-    if (props.campaign) {
-      del = deleteCampaign;
-    } else if (props.update) {
-      del = deleteCampaignUpdate;
-    }
-
-    dispatch(del(id)).finally(() => {
-      Alert.alert('Deleted successfully!');
+    dispatch(deleteCampaignPost(id)).finally(() => {
       if (props.goBack) goBack();
     });
   };
 
   const editCampaign = () => {
     navigate('EditCampaign', {
-      selectedCampaign: props.campaign
-    })
-  }
+      selectedCampaign: props.campaign,
+    });
+  };
 
   const editUpdate = () => {
     navigate('EditCampaignUpdate', {
-      selectedCampaign: props.update
-    })
-  }
+      selectedCampaign: props.update,
+    });
+  };
 
   const postUpdate = () => {
     navigate('CreateCampaignUpdate', {
-      selectedCampaign: props.campaign || props.update
-    })
-  }
+      selectedCampaign: props.campaign || props.update,
+    });
+  };
 
   // Options for actions to take on a campaign differ
   // for admins and regular users, so we use this
@@ -103,14 +93,14 @@ export default forwardRef((props, ref) => {
         options: ['Delete', 'Edit', 'Post Update', 'Cancel'],
         cancelIndex: 3,
         destructiveIndex: 0,
-        onPress: index => {
-          switch(index) {
+        onPress: (index) => {
+          switch (index) {
             case 0: {
-              deleteCampaignOrUpdate();
+              deletePost();
               break;
             }
             case 1: {
-              if(props.campaign) {
+              if (props.campaign) {
                 editCampaign();
               } else if (props.update) {
                 editUpdate();
@@ -122,7 +112,7 @@ export default forwardRef((props, ref) => {
               break;
             }
           }
-        }
+        },
       }
     : props.admin
     ? {
@@ -130,10 +120,10 @@ export default forwardRef((props, ref) => {
         options: ['Delete', 'Report', 'Cancel'],
         cancelIndex: 2,
         destructiveIndex: 0,
-        onPress: index => {
+        onPress: (index) => {
           switch (index) {
             case 0: {
-              deleteCampaignOrUpdate();
+              deletePost();
               break;
             }
             case 1: {
@@ -141,21 +131,21 @@ export default forwardRef((props, ref) => {
               break;
             }
           }
-        }
+        },
       }
     : {
         title: 'Actions',
         options: ['Report', 'Cancel'],
         cancelIndex: 1,
         destructiveIndex: 0,
-        onPress: index => {
+        onPress: (index) => {
           switch (index) {
             case 0: {
               report();
               break;
             }
           }
-        }
+        },
       };
 
   return (

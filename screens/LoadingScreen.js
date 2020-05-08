@@ -66,6 +66,17 @@ class LoadingScreen extends React.Component {
     }
   };
 
+  checkAirtable = (record) => {
+    // console.log("record: " + record.isVetting);
+    //console.log("LoadingScreen checkAirtable activated.");
+    if (record.fields.isVetting === true) {
+      this.props.navigation.navigate('Vetting');
+    } else {
+      // if in vetting process, sends them back to VettingCheck, otherwise component runs as usual.
+      return null;
+    }
+  };
+
   async componentDidMount() {
     const sub = await SecureStore.getItemAsync('sub', {});
     const roles = await SecureStore.getItemAsync('roles', {});
@@ -81,17 +92,6 @@ class LoadingScreen extends React.Component {
     this.setState({ email: email });
 
     roles === 'conservationist' ? this.getAirtable(key) : null;
-
-    checkAirtable = (record, props) => {
-      // console.log("record: " + record.isVetting);
-      //console.log("LoadingScreen checkAirtable activated.");
-      if (record.fields.isVetting === true) {
-        this.props.navigation.navigate('Vetting');
-      } else {
-        // if in vetting process, sends them back to VettingCheck, otherwise component runs as usual.
-        return null;
-      }
-    };
 
     if (
       isVetting === 'true' &&
