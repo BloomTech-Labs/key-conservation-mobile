@@ -60,6 +60,41 @@ class ViewCampaignScreen extends React.Component {
   };
 
   render() {
+    //// All styles for the urgency bar
+    let urgencyColor;
+    if (this.props.selectedCampaign.is_update) {
+      urgencyColor = 'rgba(202,255,0, 0.7)';
+    } else if (this.props.selectedCampaign.urgency === 'Critical') {
+      urgencyColor = 'rgba(227,16,89,0.6)';
+    } else if (this.props.selectedCampaign.urgency === 'Urgent') {
+      urgencyColor = 'rgba(255,199,0,0.6)';
+    } else if (this.props.selectedCampaign.urgency === 'Longterm') {
+      urgencyColor = 'rgba(0,255,157,0.6)';
+    } else {
+      urgencyColor = 'none';
+    }
+
+    let urgencyStatus;
+    if (
+      this.props.selectedCampaign.is_update ||
+      !this.props.selectedCampaign.urgency ||
+      this.props.selectedCampaign.urgency == 'null'
+    ) {
+      urgencyStatus = 'Update';
+    } else {
+      urgencyStatus = this.props.selectedCampaign.urgency.toUpperCase();
+    }
+
+    const urgencyStyles = {
+      backgroundColor: urgencyColor,
+      height: 37,
+      width: '100%',
+      position: 'absolute',
+      justifyContent: 'center',
+      alignItems: 'center',
+      zIndex: 1,
+    };
+
     const createdAt = this.props.selectedCampaign.created_at;
     const timeDiff = createdAt ? moment(createdAt).fromNow() : '...';
 
