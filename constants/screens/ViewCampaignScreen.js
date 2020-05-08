@@ -30,25 +30,12 @@ export default {
     backgroundColor: '#F2F2FB',
     paddingTop: 5,
   },
-  // updateBar: {
-  //   backgroundColor: 'rgba(202,255,0, 0.7)',
-  //   height: 37,
-  //   width: '100%',
-  //   position: 'absolute',
-  //   zIndex: 1,
-  //   top: 0,
-  //   right: 0,
-  //   bottom: 0,
-  //   left: 0,
-  //   justifyContent: 'center',
-  //   alignItems: 'center'
-  // },
-  // updateBarText: {
-  //   fontFamily: 'Lato-Bold',
-  //   fontSize: 16,
-  //   letterSpacing: 5,
-  //   color: 'black'
-  // },
+  urgencyBarText: {
+    fontFamily: 'Lato-Bold',
+    fontSize: 16,
+    letterSpacing: 5,
+    color: 'white',
+  },
   commentsView: {
     width: '100%',
     fontSize: 14,

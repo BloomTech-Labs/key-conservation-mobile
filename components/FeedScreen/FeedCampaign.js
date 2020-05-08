@@ -163,7 +163,7 @@ const FeedCampaign = (props) => {
 
     if (data.campaign_id) {
       await dispatch(setCampaign(data));
-      navigate('CampaignUpdate', {
+      navigate('Campaign', {
         media: data.image,
       });
     } else {
