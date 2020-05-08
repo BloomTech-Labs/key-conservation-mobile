@@ -386,41 +386,6 @@ export const postUser = (user) => (dispatch) => {
   });
 };
 
-export const [
-  GET_CAMPAIGNS_START,
-  GET_CAMPAIGNS_ERROR,
-  GET_CAMPAIGNS_SUCCESS,
-] = ['GET_CAMPAIGNS_START', 'GET_CAMPAIGNS_ERROR', 'GET_CAMPAIGNS_SUCCESS'];
-
-export const getCampaigns = () => (dispatch) => {
-  dispatch({ type: GET_CAMPAIGNS_START });
-  let campaigns;
-  return axiosWithAuth(dispatch, (aaxios) => {
-    return aaxios
-      .get(`${seturl}campaigns`)
-      .then((res) => {
-        campaigns = res.data.campaigns;
-        return aaxios
-          .get(`${seturl}updates`)
-          .then((res) => {
-            campaigns = campaigns.concat(res.data.campaignUpdate);
-            dispatch({
-              type: GET_CAMPAIGNS_SUCCESS,
-              payload: campaigns,
-            });
-          })
-          .catch((err) => {
-            console.log(err);
-            dispatch({ type: GET_CAMPAIGNS_ERROR, payload: err });
-          });
-      })
-      .catch((err) => {
-        console.log(err.response);
-        dispatch({ type: GET_CAMPAIGNS_ERROR, payload: err });
-      });
-  });
-};
-
 export const [GET_FEED_START, GET_FEED_SUCCESS, GET_FEED_ERROR] = [
   'GET_FEED_START',
   'GET_FEED_SUCCESS',

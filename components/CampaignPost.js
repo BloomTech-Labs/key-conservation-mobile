@@ -20,21 +20,21 @@ import {
   addBookmark,
   removeBookmark,
   fetchBookmarks,
-} from '../../store/actions';
-import { AmpEvent } from '../withAmplitude';
-import LoadingOverlay from '../LoadingOverlay';
+} from '../store/actions';
+import { AmpEvent } from './withAmplitude';
+import LoadingOverlay from './LoadingOverlay';
 
-import { navigate } from '../../navigation/RootNavigator';
+import { navigate } from '../navigation/RootNavigator';
 
-import styles from '../../constants/FeedScreen/FeedCampaign';
-import Ellipse from '../../assets/jsicons/Ellipse';
-import CommentIcon from '../../assets/jsicons/CommentIcon';
-import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
-import CampaignActionSheet from '../Reports/CampaignActionSheet';
-import TakeActionCallToAction from '../TakeAction/TakeActionCallToAction';
-import SmileSelector from './SmileSelector';
-import Bookmark from '../../assets/jsicons/miscIcons/Bookmark';
-import BookmarkSolid from '../../assets/jsicons/miscIcons/BookmarkSolid';
+import styles from '../constants/CampaignPost';
+import Ellipse from '../assets/jsicons/Ellipse';
+import CommentIcon from '../assets/jsicons/CommentIcon';
+import MapMarker from '../assets/jsicons/headerIcons/map-marker';
+import CampaignActionSheet from './Reports/CampaignActionSheet';
+import TakeActionCallToAction from './TakeAction/TakeActionCallToAction';
+import SmileSelector from './FeedScreen/SmileSelector';
+import Bookmark from '../assets/jsicons/miscIcons/Bookmark';
+import BookmarkSolid from '../assets/jsicons/miscIcons/BookmarkSolid';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
@@ -42,7 +42,7 @@ const ViewportAwareVideo = Viewport.Aware(
   Viewport.WithPlaceholder(Video, Placeholder)
 );
 
-const FeedCampaign = (props) => {
+const CampaignPost = (props) => {
   const [urgTop, setUrgTop] = useState(0);
   const [loader, setLoader] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
@@ -384,5 +384,5 @@ export default connect(mapStateToProps, {
   addBookmark,
   removeBookmark,
   fetchBookmarks,
-})(withNavigationFocus(FeedCampaign));
+})(withNavigationFocus(CampaignPost));
 // withNavigationFocus unmounts video and prevents audio playing across the navigation stack

@@ -41,7 +41,7 @@ class CommentsView extends React.Component {
 
   postComment = () => {
     this.props.commentOnCampaign(
-      this.props.selectedCampaign.id,
+      this.props.selectedCampaign.campaign_id,
       this.state.comment.trim()
     );
 
@@ -59,7 +59,6 @@ class CommentsView extends React.Component {
   };
 
   render() {
-    console.log('trying to render comments', this.props.campaignComments);
     return (
       <KeyboardAvoidingView>
         {/* Displays latest comment unless the user is viewing all the campaign comments. */}

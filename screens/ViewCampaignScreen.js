@@ -1,16 +1,14 @@
 import React from 'react';
-import { Text, TouchableOpacity, Image, Platform } from 'react-native';
+import { Text, TouchableOpacity, Image } from 'react-native';
 import { View } from 'react-native-animatable';
 import { Video } from 'expo-av';
 import { ListItem } from 'react-native-elements';
-import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
 import { getCampaignPost } from '../store/actions';
 import moment from 'moment';
 import { Viewport } from '@skele/components';
 
 import BackButton from '../components/BackButton';
-import FeedUpdate from '../components/FeedScreen/FeedUpdate';
 import CommentsView from '../components/Comments/CommentsView';
 import styles from '../constants/screens/ViewCampaignScreen';
 import Ellipse from '../assets/jsicons/Ellipse';

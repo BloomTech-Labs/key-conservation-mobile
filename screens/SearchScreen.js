@@ -11,7 +11,7 @@ import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import { getCampaigns } from '../store/actions';
 
-import FeedCampaign from '../components/FeedScreen/FeedCampaign';
+import CampaignPost from '../components/CampaignPost';
 
 import { Header, SearchBar } from 'react-native-elements';
 import { createFilter } from 'react-native-search-filter';
@@ -129,7 +129,7 @@ class SearchScreen extends React.Component {
           />
           {this.props.allCampaigns.length > 0 &&
             filteredCampaigns.map((campaign) => (
-              <FeedCampaign
+              <CampaignPost
                 key={campaign.id}
                 data={campaign}
                 navigation={navigation}

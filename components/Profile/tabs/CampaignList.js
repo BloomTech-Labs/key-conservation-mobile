@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { View, ActivityIndicator, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 
-import FeedCampaign from '../../FeedScreen/FeedCampaign';
+import CampaignPost from '../../CampaignPost';
 import styles from '../../../constants/Profile/tabs/Campaigns';
 
 import { fetchBookmarkedCampaigns } from '../../../store/actions';
@@ -23,7 +23,7 @@ const CampaignList = ({ bookmarks, fetchBookmarkedCampaigns }) => {
       ) : (
         bookmarks.campaigns.map((campaign) => (
           <View key={campaign.id} style={styles.currentCampaigns}>
-            <FeedCampaign
+            <CampaignPost
               displayOn="profile"
               key={campaign.id}
               data={campaign}

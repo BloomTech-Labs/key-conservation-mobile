@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import { ScrollView, NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import { getFeed } from '../store/actions';
-import FeedCampaign from '../components/FeedScreen/FeedCampaign';
+import CampaignPost from '../components/CampaignPost';
 import styles from '../constants/screens/FeedScreen';
 import { Viewport } from '@skele/components';
 import AddCampaignHeader from '../components/FeedScreen/AddCampaignHeader';
@@ -93,7 +93,7 @@ class FeedScreen extends React.Component {
               this.props.allCampaigns.map((campaign) => {
                 if (campaign) {
                   return (
-                    <FeedCampaign
+                    <CampaignPost
                       key={campaign.id}
                       data={campaign}
                       toggled={this.props.campaignsToggled.includes(
