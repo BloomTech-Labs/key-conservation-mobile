@@ -61,22 +61,22 @@ export const OrgOnboardStack = createStackNavigator(
     ThankYou: ThankYouScreen,
     ReviewYourInfo: ReviewYourInfoScreen,
     AccountScreen: AccountScreen,
-    Welcome: WelcomeScreen
+    Welcome: WelcomeScreen,
   },
   {
-    headerMode: 'none'
+    headerMode: 'none',
   }
 );
 
 const MapStack = createStackNavigator(
   {
-    MapHome: WideMapScreen
+    MapHome: WideMapScreen,
   },
   {
     navigationOptions: {
       tabBarLabel: 'Map',
-      tabBarIcon: ({ focused }) => <Globe />
-    }
+      tabBarIcon: ({ focused }) => <Globe />,
+    },
   }
 );
 
@@ -86,15 +86,15 @@ const FeedStack = createStackNavigator(
     Search: {
       screen: SearchScreen,
       navigationOptions: {
-        headerShown: false
-      }
+        headerShown: false,
+      },
     },
     Pro: {
       screen: ProfileScreen,
       navigationOptions: {
         headerTransparent: true,
-        headerTintColor: '#fff'
-      }
+        headerTintColor: '#fff',
+      },
     },
     Connections: { screen: ConnectionsScreen },
     SelectedConnections: { screen: SelectedConnectionsScreen },
@@ -105,13 +105,13 @@ const FeedStack = createStackNavigator(
     EditCampaign: EditCampaignScreen,
     EditCampaignUpdate: EditCampaignUpdateScreen,
     CreateCampaign: CreateCampaignScreen,
-    CreateCampaignUpdate: CreateCampaignUpdateScreen
+    CreateCampaignUpdate: CreateCampaignUpdateScreen,
   },
   {
     navigationOptions: {
       tabBarLabel: 'Feed',
-      tabBarIcon: ({ focused }) => <Lightening />
-    }
+      tabBarIcon: ({ focused }) => <Lightening />,
+    },
   }
 );
 
@@ -119,36 +119,35 @@ export const AccountSettingsStack = createStackNavigator({
   AccountSettings: AccountSettingsScreen,
   AdminScreen: AdminReportScreen,
   ReportScreen: ReportDetailScreen,
-  SupporterProfileDetails: ProfileScreen,
   ProfileDetails: ProfileScreen,
   Connections: ConnectionsScreen,
-  SelectedConnections: SelectedConnectionsScreen
+  SelectedConnections: SelectedConnectionsScreen,
 });
 
 const MyProStack = createStackNavigator(
   {
     Pro: {
-      screen: ProfileScreen
+      screen: ProfileScreen,
     },
     MyPro: {
-      screen: ProfileScreen
+      screen: ProfileScreen,
     },
     EditProfile: {
       screen: EditProfileScreen,
-      navigationOptions: { title: 'Edit Profile' }
+      navigationOptions: { title: 'Edit Profile' },
     },
     Campaign: ViewCampaignScreen,
     EditCampaign: EditCampaignScreen,
     CampaignUpdate: ViewCampaignUpdateScreen,
     CreateCampaignUpdate: CreateCampaignUpdateScreen,
     EditCampaignUpdate: EditCampaignUpdateScreen,
-    CreateReport: CreateReportScreen
+    CreateReport: CreateReportScreen,
   },
   {
     navigationOptions: {
       tabBarLabel: 'My Profile',
-      tabBarIcon: ({ focused }) => <Smile />
-    }
+      tabBarIcon: ({ focused }) => <Smile />,
+    },
   }
 );
 
@@ -156,16 +155,16 @@ const SupporterProfileStack = createStackNavigator(
   {
     MySupporterProfile: { screen: ProfileScreen },
     EditSupporterProfile: { screen: EditSupporterProfileScreen },
-    Connections: { screen: ConnectionsScreen }
+    Connections: { screen: ConnectionsScreen },
   },
   {
     navigationOptions: {
       tabBarLabel: 'My Profile',
       tabBarIcon: ({ focused }) => <Smile />,
       transitionSpec: {
-        duration: 0
-      }
-    }
+        duration: 0,
+      },
+    },
   }
 );
 
@@ -177,26 +176,26 @@ export const NameStack = createStackNavigator({
       title: 'Sign Up',
       headerStyle: {
         borderWidth: 2,
-        backgroundColor: '#323338'
-      }
-    }
-  }
+        backgroundColor: '#323338',
+      },
+    },
+  },
 });
 
 export const LoginStack = createStackNavigator(
   {
     Login: { screen: LoginScreen },
-    ResetPassword: { screen: ResetPasswordScreen }
+    ResetPassword: { screen: ResetPasswordScreen },
   },
   {
-    headerMode: 'none'
+    headerMode: 'none',
   }
 );
 
 export const LogoutStack = createStackNavigator(
   { Logout: LogoutScreen },
   {
-    headerMode: 'none'
+    headerMode: 'none',
   }
 );
 
@@ -204,15 +203,15 @@ export const ConsNavigator = createBottomTabNavigator(
   {
     FeedStack: {
       screen: FeedStack,
-      path: ''
+      path: '',
     },
     MapStack: {
-      screen: MapStack
+      screen: MapStack,
     },
     MyProStack: {
       screen: MyProStack,
-      path: ''
-    }
+      path: '',
+    },
   },
   {
     tabBarOptions: {
@@ -220,7 +219,7 @@ export const ConsNavigator = createBottomTabNavigator(
       showLabel: false,
       activeBackgroundColor: '#EAEAEA',
       style: {
-        borderTopColor: 'transparent'
+        borderTopColor: 'transparent',
       },
       tabStyle: {
         borderRightColor: '#EAEAEA',
@@ -228,9 +227,9 @@ export const ConsNavigator = createBottomTabNavigator(
         borderRightHeight: 10,
         borderLeftColor: '#EAEAEA',
         borderLeftWidth: 1,
-        borderLeftHeight: 10
-      }
-    }
+        borderLeftHeight: 10,
+      },
+    },
   }
 );
 
@@ -238,15 +237,15 @@ export const SupporterNavigator = createBottomTabNavigator(
   {
     FeedStack: {
       screen: FeedStack,
-      path: ''
+      path: '',
     },
     MapStack: {
-      screen: MapStack
+      screen: MapStack,
     },
     SupporterProfileStack: {
       screen: SupporterProfileStack,
-      path: ''
-    }
+      path: '',
+    },
   },
   {
     tabBarOptions: {
@@ -254,7 +253,7 @@ export const SupporterNavigator = createBottomTabNavigator(
       showIcon: true,
       activeBackgroundColor: '#EAEAEA',
       style: {
-        borderTopColor: 'transparent'
+        borderTopColor: 'transparent',
       },
       tabStyle: {
         borderRightColor: '#EAEAEA',
@@ -262,8 +261,8 @@ export const SupporterNavigator = createBottomTabNavigator(
         borderRightHeight: 10,
         borderLeftColor: '#EAEAEA',
         borderLeftWidth: 1,
-        borderLeftHeight: 10
-      }
-    }
+        borderLeftHeight: 10,
+      },
+    },
   }
 );
