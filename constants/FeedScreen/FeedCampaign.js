@@ -30,6 +30,7 @@ export default {
     paddingTop: 7,
     paddingBottom: 10,
     borderRadius: 10,
+    marginTop: 10,
   },
   orgTitleView: {
     fontFamily: 'Lato-Bold',
