@@ -25,7 +25,6 @@ const CampaignList = ({ bookmarks, fetchBookmarkedCampaigns }) => {
           <View key={campaign.id} style={styles.currentCampaigns}>
             <FeedCampaign
               displayOn="profile"
-              disableHeader
               key={campaign.id}
               data={campaign}
               toggled
