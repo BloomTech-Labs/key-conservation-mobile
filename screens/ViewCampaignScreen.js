@@ -3,6 +3,7 @@ import {
   Text,
   TouchableOpacity,
   Image,
+  ImageBackground,
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
@@ -163,10 +164,14 @@ class ViewCampaignScreen extends React.Component {
                         style={styles.campaignImageContainer}
                       />
                     ) : (
-                      <Image
+                      <ImageBackground
                         source={{ uri: this.props.selectedCampaign.image }}
-                        style={styles.campaignImageContainer}
-                      />
+                        style={styles.campImgContain}
+                      >
+                        <View style={styles.updateBar}>
+                          <Text style={styles.updateBarText}>YO</Text>
+                        </View>
+                      </ImageBackground>
                     )}
 
                     <View style={styles.campaignDescriptionContainer}>
@@ -260,10 +265,14 @@ class ViewCampaignScreen extends React.Component {
                       style={styles.campaignImageContainer}
                     />
                   ) : (
-                    <Image
+                    <ImageBackground
                       source={{ uri: this.props.selectedCampaign.image }}
                       style={styles.campaignImageContainer}
-                    />
+                    >
+                      <View>
+                        <Text>YO</Text>
+                      </View>
+                    </ImageBackground>
                   )}
 
                   <View style={styles.donateView}>
