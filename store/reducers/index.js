@@ -13,6 +13,8 @@ import * as actions from '../actions';
 const initialState = {
   error: '',
   pending: {
+    getFeed: false,
+    getCampaign: false,
     updateProfile: false,
     deleteCampaignUpdate: [],
     deleteCampaign: [],
@@ -185,27 +187,23 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, postUser: false },
         error: action.payload,
       };
-    case actions.GET_CAMPAIGNS_START:
+    case actions.GET_FEED_START:
       return {
         ...state,
-        pending: { ...state.pending, getCampaigns: true },
-        error: '',
+        pending: { ...state.pending, getFeed: true },
+        errors: { ...state.errors, getFeed: '' },
       };
-    case actions.GET_CAMPAIGNS_SUCCESS:
-      const campaigns = action.payload;
-      campaigns.sort(function (a, b) {
-        return moment(b.created_at) - moment(a.created_at);
-      });
+    case actions.GET_FEED_SUCCESS:
       return {
         ...state,
-        pending: { ...state.pending, getCampaigns: false },
-        allCampaigns: campaigns,
+        pending: { ...state.pending, getFeed: false },
+        allCampaigns: action.payload,
       };
-    case actions.GET_CAMPAIGNS_ERROR:
+    case actions.GET_FEED_ERROR:
       return {
         ...state,
-        pending: { ...state.pending, getCampaigns: false },
-        error: action.payload,
+        pending: { ...state.pending, getFeed: false },
+        errors: { ...state.errors, getFeed: action.payload },
       };
     case actions.GET_CAMPAIGN_START:
       return {

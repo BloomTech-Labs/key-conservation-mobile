@@ -3,8 +3,6 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 
 import styles from '../../../constants/Profile/tabs/Campaigns';
-
-import FeedUpdate from '../../FeedScreen/FeedUpdate';
 import FeedCampaign from '../../FeedScreen/FeedCampaign';
 
 import CampaignBlankSpace from '../CampaignBlankSpace';

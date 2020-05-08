@@ -15,7 +15,6 @@ import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
 
 import {
-  getCampaign,
   toggleCampaignText,
   setCampaign,
   addBookmark,
@@ -118,20 +117,20 @@ const FeedCampaign = (props) => {
 
   //// All styles for the urgency bar
   let urgencyColor;
-  if (data.urgency === 'Critical') {
+  if (data.is_update || data.urgency == 'null') {
+    urgencyColor = 'rgba(202,255,0, 0.7)';
+  } else if (data.urgency === 'Critical') {
     urgencyColor = 'rgba(227,16,89,0.6)';
   } else if (data.urgency === 'Urgent') {
     urgencyColor = 'rgba(255,199,0,0.6)';
   } else if (data.urgency === 'Longterm') {
     urgencyColor = 'rgba(0,255,157,0.6)';
-  } else if (data.urgency === 'Update') {
-    urgencyColor = 'rgba(202,255,0, 0.7)';
   } else {
     urgencyColor = 'none';
   }
   let urgencyStatus;
   if (!data.urgency || data.urgency == 'null') {
-    urgencyStatus = '';
+    urgencyStatus = 'Update';
   } else {
     urgencyStatus = data.urgency.toUpperCase();
   }
@@ -161,17 +160,10 @@ const FeedCampaign = (props) => {
       profile: data.org_name,
     });
 
-    if (data.campaign_id) {
-      await dispatch(setCampaign(data));
-      navigate('CampaignUpdate', {
-        media: data.image,
-      });
-    } else {
-      await dispatch(getCampaign(data.id));
-      navigate('Campaign', {
-        media: data.image,
-      });
-    }
+    dispatch(setCampaign(data));
+    navigate('Campaign', {
+      userBookmarked: data.userBookmarked,
+    });
   };
 
   const toggleText = () => {
@@ -388,7 +380,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  getCampaign,
   toggleCampaignText,
   addBookmark,
   removeBookmark,

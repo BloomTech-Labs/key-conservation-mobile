@@ -10,7 +10,7 @@ import {
 import { Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
 
-import { commentOnCampaign, getCampaign } from '../../store/actions';
+import { commentOnCampaign } from '../../store/actions';
 import Comment from './Comment';
 
 import styles from '../../constants/Comments/Comments';
@@ -55,6 +55,7 @@ class CommentsView extends React.Component {
   };
 
   render() {
+    console.log('trying to render comments', this.props.campaignComments);
     return (
       <KeyboardAvoidingView>
         {/* Displays latest comment unless the user is viewing all the campaign comments. */}
@@ -128,10 +129,9 @@ class CommentsView extends React.Component {
 const mapStateToProps = (state) => ({
   currentUserProfile: state.currentUserProfile,
   selectedCampaign: state.selectedCampaign,
-  campaignComments: state.selectedCampaign.comments,
+  campaignComments: state.selectedCampaign.comments || [],
 });
 
 export default connect(mapStateToProps, {
   commentOnCampaign,
-  getCampaign,
 })(CommentsView);

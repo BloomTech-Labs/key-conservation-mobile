@@ -54,8 +54,8 @@ const axiosWithAuth = (dispatch, req) => {
 // production
 // const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
-const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
-// const seturl = 'http://192.168.1.146:8000/api/';
+// const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+const seturl = 'http://192.168.1.146:8000/api/';
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
@@ -421,12 +421,59 @@ export const getCampaigns = () => (dispatch) => {
   });
 };
 
+export const [GET_FEED_START, GET_FEED_SUCCESS, GET_FEED_ERROR] = [
+  'GET_FEED_START',
+  'GET_FEED_SUCCESS',
+  'GET_FEED_ERROR',
+];
+
+export const getFeed = (startAt = 0, size = 8) => (dispatch) => {
+  dispatch({ type: GET_FEED_START });
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .get(`${seturl}feed`)
+      .then((res) => {
+        dispatch({
+          type: GET_FEED_SUCCESS,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log("It's this one");
+        dispatch({
+          type: GET_FEED_ERROR,
+          payload: err.response,
+        });
+      });
+  });
+};
+
+export const [GET_POST_START, GET_POST_SUCCESS, GET_POST_ERROR] = [
+  'GET_POST_START',
+  'GET_POST_SUCCESS',
+  'GET_POST_ERROR',
+];
+export const getCampaignPost = (id) => (dispatch) => {
+  dispatch({ type: GET_POST_START });
+
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .get(`${seturl}feed/post/${id}`)
+      .then((res) => {
+        dispatch({ type: GET_REPORTS_SUCCESS, payload: res.data });
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch({ type: GET_REPORTS_ERROR, payload: err.response });
+      });
+  });
+};
+
 export const [GET_CAMPAIGN_START, GET_CAMPAIGN_ERROR, GET_CAMPAIGN_SUCCESS] = [
   'GET_CAMPAIGN_START',
   'GET_CAMPAIGN_ERROR',
   'GET_CAMPAIGN_SUCCESS',
 ];
-
 export const getCampaign = (id) => (dispatch) => {
   dispatch({ type: GET_CAMPAIGN_START });
 
@@ -1032,7 +1079,6 @@ export const fetchBookmarks = (user_profile_id) => (dispatch) => {
           type: FETCH_BOOKMARKS_ERROR,
           payload: 'Failed to save bookmark',
         });
-        console.error(err);
       });
   });
 };

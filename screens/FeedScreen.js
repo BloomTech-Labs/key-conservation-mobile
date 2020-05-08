@@ -2,22 +2,22 @@ import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { ScrollView, NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
-import { getCampaigns } from '../store/actions';
+import { getFeed } from '../store/actions';
 import FeedCampaign from '../components/FeedScreen/FeedCampaign';
-import FeedUpdate from '../components/FeedScreen/FeedUpdate';
 import styles from '../constants/screens/FeedScreen';
-import { AmpInit } from '../components/withAmplitude';
 import { Viewport } from '@skele/components';
 import AddCampaignHeader from '../components/FeedScreen/AddCampaignHeader';
 
 import Search from '../assets/jsicons/SearchIcon';
+
+const WEBSOCKET_URL = 'ws://192.168.1.146:8080';
 
 class FeedScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'LIVE Feed',
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: '#323338',
       },
       headerTintColor: '#fff',
       headerLeft: () => <View />,
@@ -29,42 +29,57 @@ class FeedScreen extends React.Component {
             height: 45,
             justifyContent: 'center',
             alignItems: 'flex-end',
-            marginRight: 15
+            marginRight: 15,
           }}
         >
           <Search />
         </TouchableOpacity>
-      )
+      ),
     };
   };
 
   state = {
-    campaignsVisible: 8
+    campaignsVisible: 8,
+    webSocketStatus: 'Nothing so far',
   };
 
   componentDidMount() {
+    this.props.getFeed();
     this.props.navigation.setParams({
-      roles: this.props.currentUserProfile.roles
+      roles: this.props.currentUserProfile.roles,
     });
+
+    // Establish WebSocket connection for new incoming
+    // posts
+    const connection = new WebSocket(WEBSOCKET_URL);
+
+    connection.onopen = () => {
+      connection.send('hey there');
+    };
+
+    connection.onmessage = (e) => {
+      this.setState({ webSocketStatus: e.data });
+      console.log(e.data);
+    };
+
+    connection.onerror = (e) => {
+      console.log('Error occurred trying to connect to WebSocket', e);
+    };
   }
 
-  startGettingCampaigns = () => {
-    this.props.getCampaigns();
-    this.refreshInterval = setInterval(() => this.props.getCampaigns(), 10000);
-  };
-
-  stopGettingCampaigns = () => {
-    clearInterval(this.refreshInterval);
-  };
-
   addMoreCampaigns = () => {
-    this.setState({
-      campaignsVisible: this.state.campaignsVisible + 8
-    });
+    // this.setState({
+    //   campaignsVisible: this.state.campaignsVisible + 8,
+    // });
   };
 
   render() {
     const { navigation } = this.props;
+    // return (
+    //   <View>
+    //     <Text>{this.state.webSocketStatus}</Text>
+    //   </View>
+    // );
     return (
       <Viewport.Tracker>
         <ScrollView scrollEventThrottle={16} stickyHeaderIndices={[0]}>
@@ -74,29 +89,23 @@ class FeedScreen extends React.Component {
             ) : null}
           </View>
           <View style={styles.feedContainer}>
-            <NavigationEvents
-              onDidFocus={this.startGettingCampaigns}
-              onDidBlur={this.stopGettingCampaigns}
-            />
             {this.props.allCampaigns.length > 0 &&
-              this.props.allCampaigns
-                .slice(0, this.state.campaignsVisible)
-                .map(campaign => {
-                  if (campaign) {
-                    return (
-                      <FeedCampaign
-                        key={campaign.id}
-                        data={campaign}
-                        toggled={this.props.campaignsToggled.includes(
-                          campaign.id
-                        )}
-                        navigation={navigation}
-                      />
-                    );
-                  }
-                })}
+              this.props.allCampaigns.map((campaign) => {
+                if (campaign) {
+                  return (
+                    <FeedCampaign
+                      key={campaign.id}
+                      data={campaign}
+                      toggled={this.props.campaignsToggled.includes(
+                        campaign.id
+                      )}
+                      navigation={navigation}
+                    />
+                  );
+                }
+              })}
           </View>
-          {this.state.campaignsVisible < this.props.allCampaigns.length && (
+          {/* {this.state.campaignsVisible < this.props.allCampaigns.length && (
             <View style={styles.loadMoreView}>
               <TouchableOpacity
                 onPress={this.addMoreCampaigns}
@@ -105,17 +114,17 @@ class FeedScreen extends React.Component {
                 <Text style={styles.loadMoreText}>View More Campaigns</Text>
               </TouchableOpacity>
             </View>
-          )}
+          )} */}
         </ScrollView>
       </Viewport.Tracker>
     );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   allCampaigns: state.allCampaigns,
   currentUserProfile: state.currentUserProfile,
-  campaignsToggled: state.campaignsToggled
+  campaignsToggled: state.campaignsToggled,
 });
 
-export default connect(mapStateToProps, { getCampaigns })(FeedScreen);
+export default connect(mapStateToProps, { getFeed })(FeedScreen);
