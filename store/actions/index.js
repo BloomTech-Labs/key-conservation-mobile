@@ -601,62 +601,6 @@ export const postCampaignUpdate = (campaignUpdate) => (dispatch) => {
   });
 };
 
-export const [
-  EDIT_CAMPAIGN_UPDATE_START,
-  EDIT_CAMPAIGN_UPDATE_ERROR,
-  EDIT_CAMPAIGN_UPDATE_SUCCESS,
-] = [
-  'EDIT_CAMPAIGN_UPDATE_START',
-  'EDIT_CAMPAIGN_UPDATE_ERROR',
-  'EDIT_CAMPAIGN_UPDATE_SUCCESS',
-];
-
-export const editCampaignUpdate = (id, changes) => (dispatch) => {
-  dispatch({ type: EDIT_CAMPAIGN_UPDATE_START });
-
-  let formData = new FormData();
-
-  let keys = Object.keys(changes).filter((key) => {
-    return key !== 'image';
-  });
-
-  if (changes.image) {
-    const uri = changes.image;
-
-    let uriParts = uri.split('.');
-    let fileType = uriParts[uriParts.length - 1];
-
-    formData.append('photo', {
-      uri,
-      name: `photo.${fileType}`,
-      type: `image/${fileType}`,
-    });
-  }
-
-  keys.forEach((key) => {
-    formData.append(key, changes[key]);
-  });
-
-  return axiosWithAuth(dispatch, (aaxios) => {
-    return aaxios
-      .put(`${seturl}updates/${id}`, formData, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      .then((res) => {
-        dispatch({
-          type: EDIT_CAMPAIGN_UPDATE_SUCCESS,
-          payload: res.data.campaignUpdate,
-        });
-      })
-      .catch((err) => {
-        dispatch({ type: EDIT_CAMPAIGN_UPDATE_ERROR, payload: err });
-      });
-  });
-};
-
 export const TOGGLE_CAMPAIGN_TEXT = 'TOGGLE_CAMPAIGN_TEXT';
 
 export const toggleCampaignText = (id) => ({
@@ -731,14 +675,6 @@ export const deleteComment = (id) => (dispatch) => {
         dispatch({ type: DELETE_COMMENT_ERROR, payload: err });
         return err;
       });
-  });
-};
-
-export const addLike = (id, userId) => (dispatch) => {
-  return axiosWithAuth(dispatch, (aaxios) => {
-    return aaxios
-      .post(`${seturl}social/likes/${id}`, { user_id: userId, id: id })
-      .then(console.log('word'));
   });
 };
 

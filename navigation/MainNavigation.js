@@ -27,7 +27,6 @@ import ViewCampaignScreen from '../screens/ViewCampaignScreen';
 import EditCampaignScreen from '../screens/EditCampaignScreen';
 import EditSupporterProfileScreen from '../screens/EditSupporterProfileScreen';
 import CreateCampaignUpdateScreen from '../screens/CreateCampaignUpdateScreen';
-import EditCampaignUpdateScreen from '../screens/EditCampaignUpdateScreen';
 import AccountSettingsScreen from '../screens/AccountSettingsScreen';
 import WideMapScreen from '../screens/maps/WideMapScreen';
 import AdminReportScreen from '../screens/AdminReportScreen';
@@ -101,7 +100,6 @@ const FeedStack = createStackNavigator(
     SupporterProfile: ProfileScreen,
     CreateReport: CreateReportScreen,
     EditCampaign: EditCampaignScreen,
-    EditCampaignUpdate: EditCampaignUpdateScreen,
     CreateCampaign: CreateCampaignScreen,
     CreateCampaignUpdate: CreateCampaignUpdateScreen,
   },
@@ -137,7 +135,6 @@ const MyProStack = createStackNavigator(
     Campaign: ViewCampaignScreen,
     EditCampaign: EditCampaignScreen,
     CreateCampaignUpdate: CreateCampaignUpdateScreen,
-    EditCampaignUpdate: EditCampaignUpdateScreen,
     CreateReport: CreateReportScreen,
   },
   {

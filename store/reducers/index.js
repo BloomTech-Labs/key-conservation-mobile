@@ -342,24 +342,6 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, postCampaignUpdate: false },
         error: action.payload,
       };
-    case actions.EDIT_CAMPAIGN_UPDATE_START:
-      return {
-        ...state,
-        pending: { ...state.pending, editCampaignUpdate: true },
-        error: '',
-      };
-    case actions.EDIT_CAMPAIGN_UPDATE_SUCCESS:
-      return {
-        ...state,
-        pending: { ...state.pending, editCampaignUpdate: false },
-        selectedCampaign: action.payload,
-      };
-    case actions.EDIT_CAMPAIGN_UPDATE_ERROR:
-      return {
-        ...state,
-        pending: { ...state.pending, editCampaignUpdate: false },
-        error: action.payload,
-      };
     case actions.TOGGLE_CAMPAIGN_TEXT:
       return {
         ...state,
