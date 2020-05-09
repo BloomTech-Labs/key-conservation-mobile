@@ -39,7 +39,7 @@ const Campaigns = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    bookmarks: state.bookmarks.campaignIDs,
+    bookmarks: state.bookmarks,
   };
 };
 

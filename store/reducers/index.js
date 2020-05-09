@@ -12,10 +12,17 @@ import * as actions from '../actions';
 
 const initialState = {
   error: '',
+  errors: {
+    getFeed: '',
+    getCampaign: '',
+    updateProfile: '',
+    bookmarks: '',
+  },
   pending: {
     getFeed: false,
     getCampaign: false,
     updateProfile: false,
+    bookmarks: false,
     deletePost: [], // An array of currently deleting posts
   },
   currentUser: {
@@ -49,13 +56,7 @@ const initialState = {
     loading: false,
     error: '',
   },
-  bookmarks: {
-    loading: false,
-    loadingCampaigns: false,
-    error: null,
-    campaignIDs: [],
-    campaigns: [],
-  },
+  bookmarks: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -113,29 +114,35 @@ const reducer = (state = initialState, action) => {
     case actions.GET_PROFILE_START:
       return {
         ...state,
-        pending: { ...state.pending, getProfile: true },
+        pending: { ...state.pending, getProfile: true, bookmarks: true },
         error: '',
         profileReset: false,
       };
     case actions.GET_PROFILE_SUCCESS:
       let { user } = action.payload;
-      // console.log("GOT PROFILE")
-      if (user.campaigns) {
-        user.campaigns.sort(function (a, b) {
-          return moment(b.created_at) - moment(a.created_at);
-        });
-      }
       if (action.payload.myProfile) {
         return {
           ...state,
-          pending: { ...state.pending, getProfile: false },
+          pending: {
+            ...state.pending,
+            getProfile: false,
+            bookmarks: false,
+          },
+          errors: {
+            bookmarks: '',
+          },
+          bookmarks: user.bookmarks,
           currentUserProfile: user,
           profileReset: false,
         };
       } else {
         return {
           ...state,
-          pending: { ...state.pending, getProfile: false },
+          pending: {
+            ...state.pending,
+            getProfile: false,
+            bookmarks: false,
+          },
           selectedProfile: user,
           profileReset: false,
         };
@@ -531,88 +538,104 @@ const reducer = (state = initialState, action) => {
         },
       };
     case actions.ADD_BOOKMARK_LOADING:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          bookmarks: true,
+        },
+        errors: {
+          ...state.errors,
+          bookmarks: '',
+        },
+      };
     case actions.REMOVE_BOOKMARK_LOADING:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          bookmarks: true,
+        },
+        errors: {
+          ...state.errors,
+          bookmarks: '',
+        },
+      };
     case actions.FETCH_BOOKMARKS_LOADING:
       return {
         ...state,
-        bookmarks: {
-          ...state.bookmarks,
-          loading: true,
+        pending: {
+          ...state.pending,
+          bookmarks: true,
+        },
+        errors: {
+          ...state.errors,
+          bookmarks: '',
         },
       };
     case actions.ADD_BOOKMARK_SUCCESS:
       return {
         ...state,
-        bookmarks: {
-          ...state.bookmarks,
-          loading: false,
-          error: null,
-          // de-dupe bookmarks using sets
-          campaignIDs: [
-            ...new Set([...state.bookmarks.campaignIDs, action.payload]),
-          ],
+        pending: {
+          ...state.pending,
+          bookmarks: false,
         },
+        bookmarks: [...new Set([...state.bookmarks, action.payload])],
       };
     case actions.REMOVE_BOOKMARK_SUCCESS:
       return {
         ...state,
-        bookmarks: {
-          ...state.bookmarks,
-          loading: false,
-          errors: null,
-          campaignIDs: state.bookmarks.campaignIDs.filter(
-            (bookmark) => bookmark !== action.payload
-          ),
+        pending: {
+          ...state.pending,
+          bookmarks: false,
         },
+        bookmarks: state.bookmarks.filter(
+          (bookmark) => bookmark.campaign_id !== action.payload
+        ),
       };
     case actions.FETCH_BOOKMARKS_SUCCESS:
       return {
         ...state,
-        bookmarks: {
-          ...state.bookmarks,
-          loading: false,
-          error: null,
-          campaignIDs: action.payload,
+        pending: {
+          ...state.pending,
+          bookmarks: false,
         },
+        bookmarks: action.payload,
       };
     case actions.ADD_BOOKMARK_FAILURE:
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          bookmarks: action.payload,
+        },
+        pending: {
+          ...state.pending,
+          bookmarks: false,
+        },
+      };
     case actions.REMOVE_BOOKMARK_FAILURE:
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          bookmarks: action.payload,
+        },
+        pending: {
+          ...state.pending,
+          bookmarks: false,
+        },
+      };
     case actions.FETCH_BOOKMARK_FAILURE:
       return {
         ...state,
-        bookmarks: {
-          ...state.bookmarks,
-          loading: false,
-          error: action.payload,
+        errors: {
+          ...state.errors,
+          bookmarks: action.payload,
         },
-      };
-    case actions.GET_BOOKMARKED_CAMPAIGNS_LOADING:
-      return {
-        ...state,
-        bookmarks: {
-          ...state.bookmarks,
-          loadingCampaigns: true,
-          error: null,
-        },
-      };
-    case actions.GET_BOOKMARKED_CAMPAIGNS_SUCCESS:
-      return {
-        ...state,
-        bookmarks: {
-          ...state.bookmarks,
-          loadingCampaigns: false,
-          error: null,
-          campaigns: action.payload,
-        },
-      };
-    case actions.GET_BOOKMARKED_CAMPAIGNS_ERROR:
-      return {
-        ...state,
-        bookmarks: {
-          ...state.bookmarks,
-          loadingCampaigns: false,
-          error: action.payload,
-          campaigns: [],
+        pending: {
+          ...state.pending,
+          bookmarks: false,
         },
       };
     default:

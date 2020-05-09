@@ -53,7 +53,8 @@ export default forwardRef((props, ref) => {
   };
 
   const deletePost = () => {
-    const id = props.post?.id;
+    const id = post?.id;
+    console.log(props.post);
     if (typeof id === 'undefined') {
       console.warn(
         'CampaignActionSheet: `post` property missing or invalid - action canceled'
@@ -68,85 +69,109 @@ export default forwardRef((props, ref) => {
 
   const editCampaign = () => {
     navigate('EditCampaign', {
-      selectedCampaign: props.campaign,
+      selectedCampaign: props.post,
     });
   };
 
   const editUpdate = () => {
     navigate('EditCampaignUpdate', {
-      selectedCampaign: props.update,
+      selectedCampaign: props.post,
     });
   };
 
   const postUpdate = () => {
     navigate('CreateCampaignUpdate', {
-      selectedCampaign: props.campaign || props.update,
+      selectedCampaign: props.post,
     });
   };
 
   // Options for actions to take on a campaign differ
   // for admins and regular users, so we use this
   // constant to initialize those options
-  const ACTIONSHEET_OPTIONS = props.isMine
-    ? {
-        title: 'Actions',
-        options: ['Delete', 'Edit', 'Post Update', 'Cancel'],
-        cancelIndex: 3,
-        destructiveIndex: 0,
-        onPress: (index) => {
-          switch (index) {
-            case 0: {
-              deletePost();
-              break;
-            }
-            case 1: {
-              if (props.campaign) {
-                editCampaign();
-              } else if (props.update) {
-                editUpdate();
+  const ACTIONSHEET_OPTIONS =
+    props.isMine && props.post?.is_update
+      ? {
+          title: 'Actions',
+          options: ['Delete', 'Edit', 'Cancel'],
+          cancelIndex: 2,
+          destructiveIndex: 0,
+          onPress: (index) => {
+            switch (index) {
+              case 0: {
+                deletePost();
+                break;
               }
-              break;
+              case 1: {
+                if (props.campaign) {
+                  editCampaign();
+                } else if (props.update) {
+                  editUpdate();
+                }
+                break;
+              }
             }
-            case 2: {
-              postUpdate();
-              break;
+          },
+        }
+      : props.isMine
+      ? {
+          title: 'Actions',
+          options: ['Delete', 'Edit', 'Post Update', 'Cancel'],
+          cancelIndex: 3,
+          destructiveIndex: 0,
+          onPress: (index) => {
+            switch (index) {
+              case 0: {
+                deletePost();
+                break;
+              }
+              case 1: {
+                if (props.campaign) {
+                  editCampaign();
+                } else if (props.update) {
+                  editUpdate();
+                }
+                break;
+              }
+              case 2: {
+                postUpdate();
+                break;
+              }
             }
-          }
-        },
-      }
-    : props.admin
-    ? {
-        title: 'Admin Controls',
-        options: ['Delete', 'Report', 'Cancel'],
-        cancelIndex: 2,
-        destructiveIndex: 0,
-        onPress: (index) => {
-          switch (index) {
-            case 0: {
-              deletePost();
-              break;
+          },
+        }
+      : props.admin
+      ? {
+          title: 'Admin Controls',
+          options: ['Delete', 'Report', 'Cancel'],
+          cancelIndex: 2,
+          destructiveIndex: 0,
+          onPress: (index) => {
+            switch (index) {
+              case 0: {
+                deletePost();
+                break;
+              }
+              case 1: {
+                report();
+                break;
+              }
             }
-            case 1: {
-              report();
-              break;
+          },
+        }
+      : {
+          title: 'Actions',
+          options: ['Report', 'Cancel'],
+          cancelIndex: 1,
+          destructiveIndex: 0,
+          onPress: (index) => {
+            switch (index) {
+              case 0: {
+                report();
+                break;
+              }
             }
-          }
-        },
-      }
-    : {
-        title: 'Actions',
-        options: ['Report', 'Cancel'],
-        cancelIndex: 1,
-        destructiveIndex: 0,
-        onPress: (index) => {
-          switch (index) {
-            case 0: {
-              report();
-              break;
-            }
-          }
-        },
-      };
+          },
+        };
 
   return (
     <ActionSheet

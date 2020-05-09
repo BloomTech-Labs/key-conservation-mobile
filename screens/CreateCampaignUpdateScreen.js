@@ -5,7 +5,7 @@ import {
   View,
   Alert,
   ActivityIndicator,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -23,7 +23,7 @@ class CreateCampaignUpdateScreen extends React.Component {
     return {
       title: 'Update Post',
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: '#323338',
       },
       headerTintColor: '#fff',
       headerLeft: () => <BackButton navigation={navigation} />,
@@ -32,7 +32,7 @@ class CreateCampaignUpdateScreen extends React.Component {
           navigation={navigation}
           pressAction={navigation.getParam('publish')}
         />
-      )
+      ),
     };
   };
 
@@ -46,12 +46,69 @@ class CreateCampaignUpdateScreen extends React.Component {
   state = {
     image: '',
     description: '',
-    loading: false
+    loading: false,
   };
 
   componentDidMount() {
+    console.log(this.selectedCampaign);
     this.props.navigation.setParams({ publish: this.publish });
   }
+
+  publish = async () => {
+    if (!this.state.image || !this.state.description) {
+      const errorMessage =
+        'Form incomplete. Please include:' +
+        (this.state.image ? '' : '\n    - Update Image') +
+        (this.state.description ? '' : '\n    - Update Details');
+      return Alert.alert('Error', errorMessage);
+    } else {
+      this.setState({
+        loading: true,
+      });
+      const campaignUpdate = {
+        description: this.state.description,
+        campaign_id:
+          this.selectedCampaign.campaign_id || this.selectedCampaign.id,
+        image: this.state.image,
+      };
+      this.postCampaignUpdate(campaignUpdate);
+    }
+  };
+
+  postCampaignUpdate = (campaignUpdate) => {
+    if (
+      this.state.image.includes('.mov') ||
+      this.state.image.includes('.mp3') ||
+      this.state.image.includes('.mp4')
+    ) {
+      Alert.alert("We're uploading your video!");
+    }
+
+    this.props.postCampaignUpdate(campaignUpdate).then((err) => {
+      if (err) {
+        this.setState({
+          ...this.state,
+          loading: false,
+        });
+        console.log(err);
+        Alert.alert('Error', 'Failed to post campaign update');
+      } else {
+        this.props.getProfileData(this.props.currentUserProfile.id, null, true);
+        this.setState({
+          ...this.state,
+          loading: false,
+        });
+        this.props.navigation.goBack();
+      }
+    });
+  };
+
+  clearState = () => {
+    this.setState({
+      description: '',
+      image: '',
+    });
+  };
 
   render() {
     if (this.state.loading === true) {
@@ -70,7 +127,7 @@ class CreateCampaignUpdateScreen extends React.Component {
               <UploadMedia
                 title="UPLOAD NEW IMAGE"
                 media={this.state.image}
-                onChangeMedia={media => this.setState({ image: media })}
+                onChangeMedia={(media) => this.setState({ image: media })}
                 style={styles.uploadMedia}
               />
             </View>
@@ -85,13 +142,13 @@ class CreateCampaignUpdateScreen extends React.Component {
         <View style={styles.sectionContainer}>
           <View style={styles.horizontalContainer}>
             <TextInput
-              ref={input => {
+              ref={(input) => {
                 this.campaignDetailsInput = input;
               }}
               returnKeyType="next"
               placeholder="Write an update here to tell people what has happened since their donation."
               style={styles.inputContain2}
-              onChangeText={text => this.setState({ description: text })}
+              onChangeText={(text) => this.setState({ description: text })}
               multiline={true}
               value={this.state.description}
             />
@@ -107,67 +164,11 @@ class CreateCampaignUpdateScreen extends React.Component {
       </KeyboardAwareScrollView>
     );
   }
-
-  publish = async () => {
-    if (!this.state.image || !this.state.description) {
-      const errorMessage =
-        'Form incomplete. Please include:' +
-        (this.state.image ? '' : '\n    - Update Image') +
-        (this.state.description ? '' : '\n    - Update Details');
-      return Alert.alert('Error', errorMessage);
-    } else {
-      this.setState({
-        loading: true
-      });
-      const campaignUpdate = {
-        description: this.state.description,
-        user_id: this.props.currentUserProfile.id,
-        campaign_id: this.selectedCampaign.id,
-        image: this.state.image
-      };
-      this.postCampaignUpdate(campaignUpdate);
-    }
-  };
-
-  postCampaignUpdate = campaignUpdate => {
-    if (
-      this.state.image.includes('.mov') ||
-      this.state.image.includes('.mp3') ||
-      this.state.image.includes('.mp4')
-    ) {
-      Alert.alert("We're uploading your video!");
-    }
-
-    this.props.postCampaignUpdate(campaignUpdate).then(err => {
-      if (err) {
-        this.setState({
-          ...this.state,
-          loading: false
-        });
-        console.log(err);
-        Alert.alert('Error', 'Failed to post campaign update');
-      } else {
-        this.props.getProfileData(this.props.currentUserProfile.id, null, true);
-        this.setState({
-          ...this.state,
-          loading: false
-        });
-        this.props.navigation.goBack();
-      }
-    });
-  };
-
-  clearState = () => {
-    this.setState({
-      description: '',
-      image: ''
-    });
-  };
 }
-const mapStateToProps = state => ({
-  currentUserProfile: state.currentUserProfile
+const mapStateToProps = (state) => ({
+  currentUserProfile: state.currentUserProfile,
 });
 export default connect(mapStateToProps, {
   postCampaignUpdate,
-  getProfileData
+  getProfileData,
 })(CreateCampaignUpdateScreen);

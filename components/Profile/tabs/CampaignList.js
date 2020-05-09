@@ -1,17 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, ActivityIndicator, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 
 import CampaignPost from '../../CampaignPost';
 import styles from '../../../constants/Profile/tabs/Campaigns';
 
-import { fetchBookmarkedCampaigns } from '../../../store/actions';
-
-const CampaignList = ({ bookmarks, fetchBookmarkedCampaigns }) => {
-  useEffect(() => {
-    fetchBookmarkedCampaigns(bookmarks.campaignIDs);
-  }, [bookmarks.campaignIDs]);
-
+const CampaignList = ({ bookmarks }) => {
   return (
     <>
       {bookmarks.loadingCampaigns ? (
@@ -21,7 +15,7 @@ const CampaignList = ({ bookmarks, fetchBookmarkedCampaigns }) => {
           style={{ marginTop: Dimensions.get('screen').height * 0.175 }}
         />
       ) : (
-        bookmarks.campaigns.map((campaign) => (
+        bookmarks.map((campaign) => (
           <View key={campaign.id} style={styles.currentCampaigns}>
             <CampaignPost
               displayOn="profile"
@@ -43,6 +37,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { fetchBookmarkedCampaigns })(
-  CampaignList
-);
+export default connect(mapStateToProps, {})(CampaignList);

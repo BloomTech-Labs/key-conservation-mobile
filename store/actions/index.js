@@ -619,16 +619,19 @@ export const postCampaignUpdate = (campaignUpdate) => (dispatch) => {
 
   formData.append('description', campaignUpdate.description);
   formData.append('user_id', campaignUpdate.user_id);
-  formData.append('campaign_id', campaignUpdate.campaign_id);
 
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .post(`${seturl}updates`, formData, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+      .post(
+        `${seturl}campaigns/update/${campaignUpdate.campaign_id}`,
+        formData,
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      )
       .then((res) => {
         dispatch({
           type: POST_CAMPAIGN_UPDATE_SUCCESS,
@@ -985,16 +988,13 @@ export const [
   'FETCH_BOOKMARKS_ERROR',
 ];
 
-export const addBookmark = (user_profile_id, campaign_id) => (dispatch) => {
+export const addBookmark = (campaign) => (dispatch) => {
   dispatch({ type: ADD_BOOKMARK_LOADING });
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .post(`${seturl}social/bookmark/${campaign_id}`, {
-        user_id: user_profile_id,
-        campaign_id: campaign_id,
-      })
+      .post(`${seturl}social/bookmark/${campaign.campaign_id}`)
       .then((res) => {
-        dispatch({ type: ADD_BOOKMARK_SUCCESS, payload: campaign_id });
+        dispatch({ type: ADD_BOOKMARK_SUCCESS, payload: campaign });
       })
       .catch((err) => {
         dispatch({
@@ -1006,12 +1006,12 @@ export const addBookmark = (user_profile_id, campaign_id) => (dispatch) => {
   });
 };
 
-export const removeBookmark = (user_profile_id, campaign_id) => (dispatch) => {
+export const removeBookmark = (campaign_id) => (dispatch) => {
   dispatch({ type: REMOVE_BOOKMARK_LOADING });
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .delete(`${seturl}social/bookmark/${campaign_id}/${user_profile_id}`)
-      .then((res) => {
+      .delete(`${seturl}social/bookmark/${campaign_id}`)
+      .then(() => {
         dispatch({ type: REMOVE_BOOKMARK_SUCCESS, payload: campaign_id });
       })
       .catch((err) => {
@@ -1024,62 +1024,25 @@ export const removeBookmark = (user_profile_id, campaign_id) => (dispatch) => {
   });
 };
 
-export const fetchBookmarks = (user_profile_id) => (dispatch) => {
+export const fetchBookmarks = () => (dispatch) => {
   dispatch({ type: FETCH_BOOKMARKS_LOADING });
+  console.log('getting bookmarks');
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .get(`${seturl}social/bookmark/${user_profile_id}`)
+      .get(`${seturl}social/bookmark/`)
       .then((res) => {
         dispatch({
           type: FETCH_BOOKMARKS_SUCCESS,
-          payload: res.data.map((campaign) => campaign.id),
+          payload: res.data,
         });
       })
       .catch((err) => {
+        console.log('failed', err);
         dispatch({
           type: FETCH_BOOKMARKS_ERROR,
           payload: 'Failed to save bookmark',
         });
       });
-  });
-};
-
-export const [
-  GET_BOOKMARKED_CAMPAIGNS_LOADING,
-  GET_BOOKMARKED_CAMPAIGNS_SUCCESS,
-  GET_BOOKMARKED_CAMPAIGNS_ERROR,
-] = [
-  'GET_BOOKMARKED_CAMPAIGNS_LOADING',
-  'GET_BOOKMARKED_CAMPAIGNS_SUCCESS',
-  'GET_BOOKMARKED_CAMPAIGNS_ERROR',
-];
-
-export const fetchBookmarkedCampaigns = (bookmarkedIDs) => async (dispatch) => {
-  dispatch({ type: GET_BOOKMARKED_CAMPAIGNS_LOADING });
-  let campaigns = [];
-
-  await Promise.all(
-    bookmarkedIDs.map((id) => {
-      return axiosWithAuth(dispatch, (aaxios) => {
-        return aaxios
-          .get(`${seturl}campaigns/${id}`)
-          .then((res) => {
-            campaigns.push(res.data.campaign);
-          })
-          .catch((err) => {
-            dispatch({
-              type: GET_BOOKMARKED_CAMPAIGNS_ERROR,
-              payload: 'Failed to retrieve saved campaigns',
-            });
-            console.error(err);
-          });
-      });
-    })
-  );
-
-  dispatch({
-    type: GET_BOOKMARKED_CAMPAIGNS_SUCCESS,
-    payload: campaigns,
   });
 };
 

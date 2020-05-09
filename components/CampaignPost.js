@@ -43,26 +43,20 @@ const ViewportAwareVideo = Viewport.Aware(
 );
 
 const CampaignPost = (props) => {
+  const { data, toggled } = props;
+
   const [urgTop, setUrgTop] = useState(0);
   const [loader, setLoader] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
-    // prevent re-fetching unecessarily on profiles
-    if (props.displayOn !== 'profile') {
-      props.fetchBookmarks(props.currentUserProfile.id);
-    }
-  }, []);
-
-  useEffect(() => {
     setBookmark();
-  }, [props.bookmarks.campaignIDs]);
+  }, [props.bookmarks]);
 
   const setBookmark = () => {
-    const thisCampaign =
-      props.data.campaign_id || props.data?.comments[0]?.campaign_id;
-    const isSaved = props.bookmarks.campaignIDs.filter(
-      (bookmark) => bookmark === thisCampaign
+    const thisCampaign = data?.campaign_id;
+    const isSaved = props.bookmarks.filter(
+      (bookmark) => bookmark.campaign_id === thisCampaign
     );
     setIsSaved(isSaved.length > 0);
   };
@@ -70,9 +64,13 @@ const CampaignPost = (props) => {
   const actionSheetRef = useRef(null);
 
   const dispatch = useDispatch();
-  const { data, toggled } = props;
 
   const shorten = (string, cutoff) => {
+    if (!string) {
+      console.warn('Tried to shorten nothing');
+      return;
+    }
+
     if (string.length < cutoff) {
       return string;
     } else {
@@ -129,8 +127,8 @@ const CampaignPost = (props) => {
     urgencyColor = 'none';
   }
   let urgencyStatus;
-  if (!data.urgency || data.urgency == 'null') {
-    urgencyStatus = 'Update';
+  if (data.is_update || !data.urgency || data.urgency == 'null') {
+    urgencyStatus = 'UPDATE';
   } else {
     urgencyStatus = data.urgency.toUpperCase();
   }
@@ -226,7 +224,7 @@ const CampaignPost = (props) => {
           }
         />
         <View style={styles.campaignDescription}>
-          {toggled || data.description.length < 80 ? (
+          {toggled || data.description?.length < 80 ? (
             <View>
               <Text style={styles.campaignDescriptionText}>
                 {data.description}
@@ -245,9 +243,9 @@ const CampaignPost = (props) => {
         </View>
         <View>
           <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
-            {data.image.includes('.mov') ||
-            data.image.includes('.mp3') ||
-            data.image.includes('.mp4') ? (
+            {data.image?.includes('.mov') ||
+            data.image?.includes('.mp3') ||
+            data.image?.includes('.mp4') ? (
               <View>
                 {data.urgency ? (
                   <View style={urgencyStyles}>
@@ -305,13 +303,13 @@ const CampaignPost = (props) => {
                 style={styles.rightSection}
                 onPress={() => {
                   props.removeBookmark(
-                    props.currentUserProfile.id,
-                    props.data.campaign_id || props.data.comments[0].campaign_id
+                    props.data.campaign_id ||
+                      props.data?.comments[0].campaign_id
                   );
                   updateBookmarkIcon();
                 }}
               >
-                {props.bookmarks.loading ? (
+                {props.bookmarksLoading ? (
                   <ActivityIndicator size="large" color="#ADADAD" />
                 ) : (
                   <BookmarkSolid />
@@ -321,9 +319,9 @@ const CampaignPost = (props) => {
               <TouchableOpacity
                 style={styles.rightSection}
                 onPress={() => {
+                  console.log(props.data.campaign_id);
                   props.addBookmark(
-                    props.currentUserProfile.id,
-                    props.data.campaign_id || props.data.comments[0].campaign_id
+                    props.data
                     // the OR condition above accounts for the fact that some campaigns
                     // don't appear to have an ID in the (top-level) object returned from the API.
                     // Those without a top-level ID have the campaign ID referenced in their
@@ -333,7 +331,7 @@ const CampaignPost = (props) => {
                   updateBookmarkIcon();
                 }}
               >
-                {props.bookmarks.loading ? (
+                {props.bookmarksLoading ? (
                   <ActivityIndicator size="large" color="#ADADAD" />
                 ) : (
                   <Bookmark />
@@ -377,6 +375,8 @@ const mapStateToProps = (state) => ({
   token: state.token,
   deleteBuffer: state.pending.deletePost,
   bookmarks: state.bookmarks,
+  bookmarksLoading: state.pending.bookmarks,
+  bookmarksError: state.errors.bookmarks,
 });
 
 export default connect(mapStateToProps, {
