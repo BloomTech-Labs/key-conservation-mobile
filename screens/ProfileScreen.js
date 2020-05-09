@@ -78,14 +78,6 @@ class ProfileScreen extends React.Component {
     }
   };
 
-  startGettingProfiles = () => {
-    this.refreshInterval = setInterval(() => this.updateCampaigns(), 5000);
-  };
-
-  stopGettingProfiles = () => {
-    clearInterval(this.refreshInterval);
-  };
-
   componentDidMount = () => {
     this.initProfileData();
     this._sub = this.props.navigation.addListener(
@@ -96,7 +88,6 @@ class ProfileScreen extends React.Component {
 
   componentWillUnmount() {
     this._sub.remove();
-    clearInterval(this.refreshInterval);
   }
 
   static navigationOptions = ({ navigation }) => {

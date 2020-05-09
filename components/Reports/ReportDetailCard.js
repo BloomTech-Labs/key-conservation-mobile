@@ -15,7 +15,6 @@ import { shorten } from '../../util';
 
 import {
   getCustomById,
-  getCampaign,
   deleteComment,
   deleteCampaignPost,
   clearReportError,
@@ -258,7 +257,6 @@ const mapStateToProps = (state) => ({
 //make this component available to the app
 export default connect(mapStateToProps, {
   getCustomById,
-  getCampaign,
   deleteComment,
   deleteCampaignPost,
   clearReportError,

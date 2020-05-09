@@ -434,26 +434,6 @@ export const getCampaignPost = (id) => (dispatch) => {
   });
 };
 
-export const [GET_CAMPAIGN_START, GET_CAMPAIGN_ERROR, GET_CAMPAIGN_SUCCESS] = [
-  'GET_CAMPAIGN_START',
-  'GET_CAMPAIGN_ERROR',
-  'GET_CAMPAIGN_SUCCESS',
-];
-export const getCampaign = (id) => (dispatch) => {
-  dispatch({ type: GET_CAMPAIGN_START });
-
-  return axiosWithAuth(dispatch, (aaxios) => {
-    return aaxios
-      .get(`${seturl}campaigns/${id}`)
-      .then((res) => {
-        dispatch({ type: GET_CAMPAIGN_SUCCESS, payload: res.data.campaign });
-      })
-      .catch((err) => {
-        dispatch({ type: GET_CAMPAIGN_ERROR, payload: err });
-      });
-  });
-};
-
 export const SET_CAMPAIGN = 'SET_CAMPAIGN';
 
 export const setCampaign = (campaign) => {
@@ -546,38 +526,14 @@ export const [
   EDIT_CAMPAIGN_SUCCESS,
 ] = ['EDIT_CAMPAIGN_START', 'EDIT_CAMPAIGN_ERROR', 'EDIT_CAMPAIGN_SUCCESS'];
 
-export const editCampaign = (id, changes) => (dispatch) => {
+export const editCampaignPost = (id, changes) => (dispatch) => {
   dispatch({ type: EDIT_CAMPAIGN_START });
-
-  let formData = new FormData();
-
-  let keys = Object.keys(changes).filter((key) => {
-    return key !== 'image';
-  });
-
-  if (changes.image) {
-    const uri = changes.image;
-
-    let uriParts = uri.split('.');
-    let fileType = uriParts[uriParts.length - 1];
-
-    formData.append('photo', {
-      uri,
-      name: `photo.${fileType}`,
-      type: `image/${fileType}`,
-    });
-  }
-
-  keys.forEach((key) => {
-    formData.append(key, changes[key]);
-  });
 
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .put(`${seturl}campaigns/${id}`, formData, {
+      .put(`${seturl}posts/${id}`, changes, {
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'multipart/form-data',
         },
       })
       .then((res) => {

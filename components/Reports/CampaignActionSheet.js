@@ -67,14 +67,14 @@ export default forwardRef((props, ref) => {
     });
   };
 
-  const editCampaign = () => {
-    navigate('EditCampaign', {
-      selectedCampaign: props.post,
-    });
-  };
+  // const editCampaign = () => {
+  //   navigate('EditCampaign', {
+  //     selectedCampaign: props.post,
+  //   });
+  // };
 
-  const editUpdate = () => {
-    navigate('EditCampaignUpdate', {
+  const editPost = () => {
+    navigate('EditCampaign', {
       selectedCampaign: props.post,
     });
   };
@@ -102,11 +102,7 @@ export default forwardRef((props, ref) => {
                 break;
               }
               case 1: {
-                if (props.campaign) {
-                  editCampaign();
-                } else if (props.update) {
-                  editUpdate();
-                }
+                editPost();
                 break;
               }
             }
@@ -125,11 +121,7 @@ export default forwardRef((props, ref) => {
                 break;
               }
               case 1: {
-                if (props.campaign) {
-                  editCampaign();
-                } else if (props.update) {
-                  editUpdate();
-                }
+                editPost();
                 break;
               }
               case 2: {
