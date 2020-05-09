@@ -404,10 +404,12 @@ export const getFeed = (startAt = 0, size = 8) => (dispatch) => {
         });
       })
       .catch((err) => {
-        console.log("It's this one");
+        console.log(err.response.data);
         dispatch({
           type: GET_FEED_ERROR,
-          payload: err.response,
+          payload:
+            err.response?.data?.message ||
+            'An error occurred while retrieving the feed.',
         });
       });
   });
@@ -423,7 +425,7 @@ export const getCampaignPost = (id) => (dispatch) => {
 
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .get(`${seturl}feed/post/${id}`)
+      .get(`${seturl}posts/${id}`)
       .then((res) => {
         dispatch({ type: GET_REPORTS_SUCCESS, payload: res.data });
       })

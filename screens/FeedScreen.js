@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, Button } from 'react-native';
 import { ScrollView, NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import { getFeed } from '../store/actions';
@@ -9,6 +9,7 @@ import { Viewport } from '@skele/components';
 import AddCampaignHeader from '../components/FeedScreen/AddCampaignHeader';
 
 import Search from '../assets/jsicons/SearchIcon';
+import LoadingOverlay from '../components/LoadingOverlay';
 
 const WEBSOCKET_URL = 'ws://192.168.1.146:8080';
 
@@ -82,40 +83,54 @@ class FeedScreen extends React.Component {
     // );
     return (
       <Viewport.Tracker>
-        <ScrollView scrollEventThrottle={16} stickyHeaderIndices={[0]}>
-          <View>
-            {this.props.currentUserProfile.roles === 'conservationist' ? (
-              <AddCampaignHeader profile={this.props.currentUserProfile} />
-            ) : null}
-          </View>
-          <View style={styles.feedContainer}>
-            {this.props.allCampaigns.length > 0 &&
-              this.props.allCampaigns.map((campaign) => {
-                if (campaign) {
-                  return (
-                    <CampaignPost
-                      key={campaign.id}
-                      data={campaign}
-                      toggled={this.props.campaignsToggled.includes(
-                        campaign.id
-                      )}
-                      navigation={navigation}
-                    />
-                  );
-                }
-              })}
-          </View>
-          {/* {this.state.campaignsVisible < this.props.allCampaigns.length && (
-            <View style={styles.loadMoreView}>
-              <TouchableOpacity
-                onPress={this.addMoreCampaigns}
-                style={styles.loadMoreTouchable}
-              >
-                <Text style={styles.loadMoreText}>View More Campaigns</Text>
-              </TouchableOpacity>
+        <View style={{ flex: 1 }}>
+          <LoadingOverlay loading={this.props.loading} />
+          {this.props.feedError ? (
+            <View style={styles.errorContainer}>
+              <Text style={styles.errorText}>{this.props.feedError}</Text>
+              <Button title="Retry" onPress={this.props.getFeed} />
             </View>
-          )} */}
-        </ScrollView>
+          ) : (
+            <ScrollView scrollEventThrottle={16} stickyHeaderIndices={[0]}>
+              <>
+                <View>
+                  {this.props.currentUserProfile.roles === 'conservationist' ? (
+                    <AddCampaignHeader
+                      profile={this.props.currentUserProfile}
+                    />
+                  ) : null}
+                </View>
+                <View style={styles.feedContainer}>
+                  {this.props.allCampaigns.length > 0 &&
+                    this.props.allCampaigns.map((campaign) => {
+                      if (campaign) {
+                        return (
+                          <CampaignPost
+                            key={campaign.id}
+                            data={campaign}
+                            toggled={this.props.campaignsToggled.includes(
+                              campaign.id
+                            )}
+                            navigation={navigation}
+                          />
+                        );
+                      }
+                    })}
+                </View>
+              </>
+            </ScrollView>
+            // {/* {this.state.campaignsVisible < this.props.allCampaigns.length && (
+            //   <View style={styles.loadMoreView}>
+            //     <TouchableOpacity
+            //       onPress={this.addMoreCampaigns}
+            //       style={styles.loadMoreTouchable}
+            //     >
+            //       <Text style={styles.loadMoreText}>View More Campaigns</Text>
+            //     </TouchableOpacity>
+            //   </View>
+            // )} */}
+          )}
+        </View>
       </Viewport.Tracker>
     );
   }
@@ -125,6 +140,8 @@ const mapStateToProps = (state) => ({
   allCampaigns: state.allCampaigns,
   currentUserProfile: state.currentUserProfile,
   campaignsToggled: state.campaignsToggled,
+  loading: state.pending.getFeed,
+  feedError: state.errors.getFeed,
 });
 
 export default connect(mapStateToProps, { getFeed })(FeedScreen);
