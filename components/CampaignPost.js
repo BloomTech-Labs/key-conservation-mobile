@@ -35,6 +35,7 @@ import TakeActionCallToAction from './TakeAction/TakeActionCallToAction';
 import SmileSelector from './FeedScreen/SmileSelector';
 import Bookmark from '../assets/jsicons/miscIcons/Bookmark';
 import BookmarkSolid from '../assets/jsicons/miscIcons/BookmarkSolid';
+import { shorten } from '../util';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
@@ -64,24 +65,6 @@ const CampaignPost = (props) => {
   const actionSheetRef = useRef(null);
 
   const dispatch = useDispatch();
-
-  const shorten = (string, cutoff) => {
-    if (!string) {
-      console.warn('Tried to shorten nothing');
-      return;
-    }
-
-    if (string.length < cutoff) {
-      return string;
-    } else {
-      let end = cutoff;
-      const avoidChars = [' ', ',', '.', '!'];
-      while (avoidChars.includes(string.charAt(end)) && end >= cutoff - 10) {
-        end--;
-      }
-      return `${string.substring(0, end)}...`;
-    }
-  };
 
   const createdAt = data.created_at;
   const timeDiff = moment(createdAt).fromNow();
@@ -212,7 +195,6 @@ const CampaignPost = (props) => {
               <Text style={styles.campaignDescriptionText}>
                 {data.description}
               </Text>
-              <Text style={styles.timeText}>{timeDiff}</Text>
             </View>
           ) : (
             <Text style={styles.campaignDescriptionText}>
@@ -223,6 +205,7 @@ const CampaignPost = (props) => {
               </Text>
             </Text>
           )}
+          <Text style={styles.timeText}>{timeDiff}</Text>
         </View>
         <View>
           <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>

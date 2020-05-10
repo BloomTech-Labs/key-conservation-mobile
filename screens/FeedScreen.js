@@ -92,32 +92,28 @@ class FeedScreen extends React.Component {
             </View>
           ) : (
             <ScrollView scrollEventThrottle={16} stickyHeaderIndices={[0]}>
-              <>
-                <View>
-                  {this.props.currentUserProfile.roles === 'conservationist' ? (
-                    <AddCampaignHeader
-                      profile={this.props.currentUserProfile}
-                    />
-                  ) : null}
-                </View>
-                <View style={styles.feedContainer}>
-                  {this.props.allCampaigns.length > 0 &&
-                    this.props.allCampaigns.map((campaign) => {
-                      if (campaign) {
-                        return (
-                          <CampaignPost
-                            key={campaign.id}
-                            data={campaign}
-                            toggled={this.props.campaignsToggled.includes(
-                              campaign.id
-                            )}
-                            navigation={navigation}
-                          />
-                        );
-                      }
-                    })}
-                </View>
-              </>
+              <View>
+                {this.props.currentUserProfile.roles === 'conservationist' ? (
+                  <AddCampaignHeader profile={this.props.currentUserProfile} />
+                ) : null}
+              </View>
+              <View style={styles.feedContainer}>
+                {this.props.allCampaigns.length > 0 &&
+                  this.props.allCampaigns.map((campaign) => {
+                    if (campaign) {
+                      return (
+                        <CampaignPost
+                          key={campaign.id}
+                          data={campaign}
+                          toggled={this.props.campaignsToggled.includes(
+                            campaign.id
+                          )}
+                          navigation={navigation}
+                        />
+                      );
+                    }
+                  })}
+              </View>
             </ScrollView>
             // {/* {this.state.campaignsVisible < this.props.allCampaigns.length && (
             //   <View style={styles.loadMoreView}>
