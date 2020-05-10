@@ -152,6 +152,10 @@ const CampaignPost = (props) => {
     navigate('Pro', { selectedProfile: data.user_id });
   };
 
+  const checkOnPress = () => {
+    console.log('YUP');
+  };
+
   const goToCampaign = async () => {
     AmpEvent('Select Profile from Campaign', {
       campaign: data.campaign_name,
@@ -298,46 +302,48 @@ const CampaignPost = (props) => {
             </View>
           </View>
           <View style={styles.campaignControlsRight}>
-            {isSaved ? (
-              <TouchableOpacity
-                style={styles.rightSection}
-                onPress={() => {
-                  props.removeBookmark(
-                    props.data.campaign_id ||
-                      props.data?.comments[0].campaign_id
-                  );
-                  updateBookmarkIcon();
-                }}
-              >
-                {props.bookmarksLoading ? (
-                  <ActivityIndicator size="large" color="#ADADAD" />
-                ) : (
-                  <BookmarkSolid />
-                )}
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                style={styles.rightSection}
-                onPress={() => {
-                  console.log(props.data.campaign_id);
-                  props.addBookmark(
-                    props.data
-                    // the OR condition above accounts for the fact that some campaigns
-                    // don't appear to have an ID in the (top-level) object returned from the API.
-                    // Those without a top-level ID have the campaign ID referenced in their
-                    // comments, so we can grab the ID from there. it's unclear to me if
-                    // this is a bug or the intentional behavior - worth looking into maybe?
-                  );
-                  updateBookmarkIcon();
-                }}
-              >
-                {props.bookmarksLoading ? (
-                  <ActivityIndicator size="large" color="#ADADAD" />
-                ) : (
-                  <Bookmark />
-                )}
-              </TouchableOpacity>
-            )}
+            {props.currentUserProfile.roles === 'supporter' ? (
+              isSaved ? (
+                <TouchableOpacity
+                  style={styles.rightSection}
+                  onPress={() => {
+                    props.removeBookmark(
+                      props.data.campaign_id ||
+                        props.data?.comments[0].campaign_id
+                    );
+                    updateBookmarkIcon();
+                  }}
+                >
+                  {props.bookmarksLoading ? (
+                    <ActivityIndicator size="large" color="#ADADAD" />
+                  ) : (
+                    <BookmarkSolid />
+                  )}
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={styles.rightSection}
+                  onPress={() => {
+                    console.log(props.data.campaign_id);
+                    props.addBookmark(
+                      props.data
+                      // the OR condition above accounts for the fact that some campaigns
+                      // don't appear to have an ID in the (top-level) object returned from the API.
+                      // Those without a top-level ID have the campaign ID referenced in their
+                      // comments, so we can grab the ID from there. it's unclear to me if
+                      // this is a bug or the intentional behavior - worth looking into maybe?
+                    );
+                    updateBookmarkIcon();
+                  }}
+                >
+                  {props.bookmarksLoading ? (
+                    <ActivityIndicator size="large" color="#ADADAD" />
+                  ) : (
+                    <Bookmark />
+                  )}
+                </TouchableOpacity>
+              )
+            ) : null}
 
             <TouchableOpacity
               style={styles.rightSection}
