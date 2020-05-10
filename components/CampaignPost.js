@@ -84,34 +84,7 @@ const CampaignPost = (props) => {
   };
 
   const createdAt = data.created_at;
-  const currentTime = moment();
-  const postTime = moment(createdAt);
-  let timeDiff;
-  if (currentTime.diff(postTime, 'days') < 1) {
-    if (currentTime.diff(postTime, 'hours') < 1) {
-      if (currentTime.diff(postTime, 'minutes') < 1) {
-        timeDiff = 'just now';
-      } else {
-        if (currentTime.diff(postTime, 'minutes') === 1) {
-          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO`;
-        } else {
-          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`;
-        }
-      }
-    } else {
-      if (currentTime.diff(postTime, 'hours') === 1) {
-        timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO`;
-      } else {
-        timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`;
-      }
-    }
-  } else {
-    if (currentTime.diff(postTime, 'days') === 1) {
-      timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO`;
-    } else {
-      timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
-    }
-  }
+  const timeDiff = moment(createdAt).fromNow();
 
   //// All styles for the urgency bar
   let urgencyColor;
