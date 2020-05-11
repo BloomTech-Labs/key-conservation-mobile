@@ -18,6 +18,7 @@ const initialState = {
     updateProfile: '',
     bookmarks: '',
   },
+  newPostQueue: [],
   pending: {
     getFeed: false,
     getCampaign: false,
@@ -619,6 +620,13 @@ const reducer = (state = initialState, action) => {
           ...state.pending,
           bookmarks: false,
         },
+      };
+    case actions.QUEUE_NEW_POSTS:
+      return {
+        ...state,
+        newPostQueue: [action.payload, ...state.newPostQueue],
+        //TODO: Remove this debug code below
+        allCampaigns: [action.payload, ...state.allCampaigns],
       };
     default:
       return state;

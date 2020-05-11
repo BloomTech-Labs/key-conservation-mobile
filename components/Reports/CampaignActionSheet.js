@@ -53,8 +53,7 @@ export default forwardRef((props, ref) => {
   };
 
   const deletePost = () => {
-    const id = post?.id;
-    console.log(props.post);
+    const id = props.post?.id;
     if (typeof id === 'undefined') {
       console.warn(
         'CampaignActionSheet: `post` property missing or invalid - action canceled'

@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, Button } from 'react-native';
 import { ScrollView, NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
-import { getFeed } from '../store/actions';
+import { getFeed, queueNewPosts } from '../store/actions';
 import CampaignPost from '../components/CampaignPost';
 import styles from '../constants/screens/FeedScreen';
 import { Viewport } from '@skele/components';
@@ -10,8 +10,7 @@ import AddCampaignHeader from '../components/FeedScreen/AddCampaignHeader';
 
 import Search from '../assets/jsicons/SearchIcon';
 import LoadingOverlay from '../components/LoadingOverlay';
-
-const WEBSOCKET_URL = 'ws://192.168.1.146:8080';
+import WebSocketManager from '../websockets/WebSocketManager';
 
 class FeedScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -50,22 +49,19 @@ class FeedScreen extends React.Component {
       roles: this.props.currentUserProfile.roles,
     });
 
-    // Establish WebSocket connection for new incoming
-    // posts
-    const connection = new WebSocket(WEBSOCKET_URL);
+    WebSocketManager()
+      .getInstance()
+      .subscribe('feed', this.props.queueNewPosts);
+  }
 
-    connection.onopen = () => {
-      connection.send('hey there');
-    };
+  componentDidUpdate() {
+    if (!WebSocketManager().getInstance().connected) {
+      WebSocketManager().getInstance().reconnect;
+    }
+  }
 
-    connection.onmessage = (e) => {
-      this.setState({ webSocketStatus: e.data });
-      console.log(e.data);
-    };
-
-    connection.onerror = (e) => {
-      console.log('Error occurred trying to connect to WebSocket', e);
-    };
+  componentWillUnmount() {
+    WebSocketManager().getInstance().unsubscribe('feed');
   }
 
   addMoreCampaigns = () => {
@@ -140,4 +136,4 @@ const mapStateToProps = (state) => ({
   feedError: state.errors.getFeed,
 });
 
-export default connect(mapStateToProps, { getFeed })(FeedScreen);
+export default connect(mapStateToProps, { getFeed, queueNewPosts })(FeedScreen);

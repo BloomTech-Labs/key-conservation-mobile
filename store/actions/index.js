@@ -970,4 +970,13 @@ export const setCampaignPostReaction = (postId, emoji = '') => (dispatch) => {
   });
 };
 
+export const QUEUE_NEW_POSTS = 'QUEUE_NEW_POSTS';
+
+export const queueNewPosts = (data) => (dispatch) => {
+  dispatch({
+    type: QUEUE_NEW_POSTS,
+    payload: data,
+  });
+};
+
 // TODO: Add getting emoji reaction details (User names and avatars for each emoji)
