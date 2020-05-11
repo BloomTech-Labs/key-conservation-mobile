@@ -177,7 +177,16 @@ const CampaignPost = (props) => {
           }}
           rightElement={
             <TouchableOpacity onPress={showActionSheet}>
-              <Ellipse fill="#000" height="25" width="25" />
+              <View
+                style={{
+                  height: 25,
+                  width: 40,
+                  paddingRight: 5,
+                  alignItems: 'flex-end',
+                }}
+              >
+                <Ellipse fill="#000" height="25" width="25" />
+              </View>
             </TouchableOpacity>
           }
           subtitle={

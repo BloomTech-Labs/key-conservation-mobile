@@ -58,6 +58,10 @@ class FeedScreen extends React.Component {
     if (!WebSocketManager().getInstance().connected) {
       WebSocketManager().getInstance().reconnect;
     }
+
+    if (this.props.allCampaigns.length <= 3) {
+      this.props.getFeed();
+    }
   }
 
   componentWillUnmount() {
