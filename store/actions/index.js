@@ -777,6 +777,67 @@ export const getCampaignComments = (id) => (dispatch) => {
 };
 
 export const [
+  GET_CAMPAIGNS_BY_SKILL_START,
+  GET_CAMPAIGNS_BY_SKILL_ERROR,
+  GET_CAMPAIGNS_BY_SKILL_SUCCESS,
+] = [
+  'GET_CAMPAIGNS_BY_SKILL_START',
+  'GET_CAMPAIGNS_BY_SKILL_ERROR',
+  'GET_CAMPAIGNS_BY_SKILL_SUCCESS',
+];
+
+export const getCampaignsBySkill = (skill) => (dispatch) => {
+  dispatch({ type: GET_CAMPAIGNS_BY_SKILL_START });
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .get(`${seturl}campaigns/?skill=${skill}`)
+      .then((res) => {
+        dispatch({
+          type: GET_CAMPAIGNS_BY_SKILL_SUCCESS,
+          payload: res.data.campaigns,
+        });
+      })
+      .catch((err) => {
+        dispatch({ type: GET_CAMPAIGNS_BY_SKILL_ERROR, payload: err });
+      });
+  });
+};
+
+export const [
+  GET_APPLICATIONS_BY_USER_START,
+  GET_APPLICATIONS_BY_USER_ERROR,
+  GET_APPLICATIONS_BY_USER_SUCCESS,
+] = [
+  'GET_APPLICATIONS_BY_USER_START',
+  'GET_APPLICATIONS_BY_USER_ERROR',
+  'GET_APPLICATIONS_BY_USER_SUCCESS',
+];
+
+export const getApplicationsByUser = (userId) => (dispatch) => {
+  dispatch({ type: GET_APPLICATIONS_BY_USER_START });
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .get(`${seturl}users/${userId}/submissions`)
+      .then((res) => {
+        dispatch({
+          type: GET_APPLICATIONS_BY_USER_SUCCESS,
+          payload: res.data.submissions,
+        });
+      })
+      .catch((err) => {
+        dispatch({ type: GET_APPLICATIONS_BY_USER_ERROR, payload: err });
+      });
+  });
+};
+
+export const TOGGLE_CAMPAIGN_TEXT = 'TOGGLE_CAMPAIGN_TEXT';
+
+export const toggleCampaignText = (id) => ({
+  type: TOGGLE_CAMPAIGN_TEXT,
+  payload: id,
+});
+
+export const [
   POST_COMMENT_START,
   POST_COMMENT_ERROR,
   POST_COMMENT_SUCCESS,
