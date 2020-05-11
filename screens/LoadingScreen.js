@@ -34,6 +34,17 @@ class LoadingScreen extends React.Component {
     this.props.navigation.navigate('Logout');
   };
 
+  checkAirtable = (record) => {
+    // console.log("record: " + record.isVetting);
+    //console.log("LoadingScreen checkAirtable activated.");
+    if (record?.fields?.isVetting) {
+      this.props.navigation.navigate('Vetting');
+    } else {
+      // if in vetting process, sends them back to VettingCheck, otherwise component runs as usual.
+      return null;
+    }
+  };
+
   getAirtable = (key) => {
     if (!key) {
       console.log('no key.');
@@ -51,12 +62,10 @@ class LoadingScreen extends React.Component {
           filterByFormula: `{email} = \'${this.state.email}\'`,
         })
         .eachPage(
-          function page(records, fetchNextPage) {
-            records.forEach(function (record) {
-              this.checkAirtable(record);
-            });
+          (records, fetchNextPage) => {
+            records.forEach(this.checkAirtable.bind(this, records));
           },
-          function done(err) {
+          (err) => {
             if (err) {
               console.error(err);
               return;
@@ -81,17 +90,6 @@ class LoadingScreen extends React.Component {
     this.setState({ email: email });
 
     roles === 'conservationist' ? this.getAirtable(key) : null;
-
-    checkAirtable = (record, props) => {
-      // console.log("record: " + record.isVetting);
-      //console.log("LoadingScreen checkAirtable activated.");
-      if (record.fields.isVetting === true) {
-        this.props.navigation.navigate('Vetting');
-      } else {
-        // if in vetting process, sends them back to VettingCheck, otherwise component runs as usual.
-        return null;
-      }
-    };
 
     if (
       isVetting === 'true' &&

@@ -12,10 +12,19 @@ import * as actions from '../actions';
 
 const initialState = {
   error: '',
+  errors: {
+    getFeed: '',
+    getCampaign: '',
+    updateProfile: '',
+    bookmarks: '',
+  },
+  newPostQueue: [],
   pending: {
+    getFeed: false,
+    getCampaign: false,
     updateProfile: false,
-    deleteCampaignUpdate: [],
-    deleteCampaign: [],
+    bookmarks: false,
+    deletePost: [], // An array of currently deleting posts
   },
   currentUser: {
     sub: '',
@@ -48,13 +57,7 @@ const initialState = {
     loading: false,
     error: '',
   },
-  bookmarks: {
-    loading: false,
-    loadingCampaigns: false,
-    error: null,
-    campaignIDs: [],
-    campaigns: [],
-  },
+  bookmarks: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -112,29 +115,35 @@ const reducer = (state = initialState, action) => {
     case actions.GET_PROFILE_START:
       return {
         ...state,
-        pending: { ...state.pending, getProfile: true },
+        pending: { ...state.pending, getProfile: true, bookmarks: true },
         error: '',
         profileReset: false,
       };
     case actions.GET_PROFILE_SUCCESS:
       let { user } = action.payload;
-      // console.log("GOT PROFILE")
-      if (user.campaigns) {
-        user.campaigns.sort(function (a, b) {
-          return moment(b.created_at) - moment(a.created_at);
-        });
-      }
       if (action.payload.myProfile) {
         return {
           ...state,
-          pending: { ...state.pending, getProfile: false },
+          pending: {
+            ...state.pending,
+            getProfile: false,
+            bookmarks: false,
+          },
+          errors: {
+            bookmarks: '',
+          },
+          bookmarks: user.bookmarks,
           currentUserProfile: user,
           profileReset: false,
         };
       } else {
         return {
           ...state,
-          pending: { ...state.pending, getProfile: false },
+          pending: {
+            ...state.pending,
+            getProfile: false,
+            bookmarks: false,
+          },
           selectedProfile: user,
           profileReset: false,
         };
@@ -185,27 +194,29 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, postUser: false },
         error: action.payload,
       };
-    case actions.GET_CAMPAIGNS_START:
+    case actions.GET_FEED_START:
       return {
         ...state,
-        pending: { ...state.pending, getCampaigns: true },
-        error: '',
+        pending: { ...state.pending, getFeed: true },
+        errors: { ...state.errors, getFeed: '' },
       };
-    case actions.GET_CAMPAIGNS_SUCCESS:
-      const campaigns = action.payload;
-      campaigns.sort(function (a, b) {
-        return moment(b.created_at) - moment(a.created_at);
-      });
+    case actions.GET_FEED_SUCCESS:
       return {
         ...state,
-        pending: { ...state.pending, getCampaigns: false },
-        allCampaigns: campaigns,
+        pending: { ...state.pending, getFeed: false },
+        allCampaigns: action.payload,
       };
-    case actions.GET_CAMPAIGNS_ERROR:
+    case actions.EXPAND_FEED_SUCCESS:
       return {
         ...state,
-        pending: { ...state.pending, getCampaigns: false },
-        error: action.payload,
+        pending: { ...state.pending, getFeed: false },
+        allCampaigns: [...state.allCampaigns, ...action.payload],
+      };
+    case actions.GET_FEED_ERROR:
+      return {
+        ...state,
+        pending: { ...state.pending, getFeed: false },
+        errors: { ...state.errors, getFeed: action.payload },
       };
     case actions.GET_CAMPAIGN_START:
       return {
@@ -231,21 +242,21 @@ const reducer = (state = initialState, action) => {
         ...state,
         selectedCampaign: action.payload,
       };
-    case actions.DELETE_CAMPAIGN_START:
+    case actions.DELETE_POST_START:
       return {
         ...state,
         pending: {
           ...state.pending,
-          deleteCampaign: [...state.pending.deleteCampaign, action.payload],
+          deletePost: [...state.pending.deletePost, action.payload],
         },
         error: '',
       };
-    case actions.DELETE_CAMPAIGN_SUCCESS:
+    case actions.DELETE_POST_SUCCESS:
       return {
         ...state,
         pending: {
           ...state.pending,
-          deleteCampaign: state.pending.deleteCampaign.filter(
+          deletePost: state.pending.deletePost.filter(
             (id) => id !== action.payload
           ),
         },
@@ -259,12 +270,12 @@ const reducer = (state = initialState, action) => {
           ),
         },
       };
-    case actions.DELETE_CAMPAIGN_ERROR:
+    case actions.DELETE_POST_ERROR:
       return {
         ...state,
         pending: {
           ...state.pending,
-          deleteCampaign: state.pending.deleteCampaign.filter(
+          deletePost: state.pending.deletePost.filter(
             (id) => id !== action.payload.id
           ),
         },
@@ -338,70 +349,31 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, postCampaignUpdate: false },
         error: action.payload,
       };
-    case actions.EDIT_CAMPAIGN_UPDATE_START:
-      return {
-        ...state,
-        pending: { ...state.pending, editCampaignUpdate: true },
-        error: '',
-      };
-    case actions.EDIT_CAMPAIGN_UPDATE_SUCCESS:
-      return {
-        ...state,
-        pending: { ...state.pending, editCampaignUpdate: false },
-        selectedCampaign: action.payload,
-      };
-    case actions.EDIT_CAMPAIGN_UPDATE_ERROR:
-      return {
-        ...state,
-        pending: { ...state.pending, editCampaignUpdate: false },
-        error: action.payload,
-      };
-    case actions.DELETE_CAMPAIGN_UPDATE_START:
-      return {
-        ...state,
-        pending: {
-          ...state.pending,
-          deleteCampaignUpdate: [
-            ...state.pending.deleteCampaignUpdate,
-            action.payload,
-          ],
-        },
-        error: '',
-      };
-    case actions.DELETE_CAMPAIGN_UPDATE_SUCCESS:
-      return {
-        ...state,
-        pending: {
-          ...state.pending,
-          deleteCampaignUpdate: state.pending.deleteCampaignUpdate.filter(
-            (id) => id !== Number(action.payload)
-          ),
-        },
-        allCampaigns: state.allCampaigns?.filter?.(
-          (update) => update.id !== Number(action.payload)
-        ),
-        currentUserProfile: {
-          ...state.currentUserProfile,
-          campaigns: state.currentUserProfile.campaigns?.filter?.(
-            (update) => update.id !== Number(action.payload)
-          ),
-        },
-      };
-    case actions.DELETE_CAMPAIGN_UPDATE_ERROR:
-      return {
-        ...state,
-        pending: {
-          ...state.pending,
-          deleteCampaignUpdate: state.pending.deleteCampaignUpdate.filter(
-            (id) => id !== Number(action.payload.id)
-          ),
-        },
-        error: action.payload.error,
-      };
     case actions.TOGGLE_CAMPAIGN_TEXT:
       return {
         ...state,
         campaignsToggled: [...state.campaignsToggled, action.payload],
+      };
+    case actions.GET_COMMENTS_START:
+      return {
+        ...state,
+        pending: { ...state.pending, getComments: true },
+        errors: { ...state.errors, getComments: '' },
+      };
+    case actions.GET_COMMENTS_SUCCESS:
+      return {
+        ...state,
+        pending: { ...state.pending, getComments: false },
+        selectedCampaign: {
+          ...state.selectedCampaign,
+          comments: action.payload,
+        },
+      };
+    case actions.GET_COMMENTS_ERROR:
+      return {
+        ...state,
+        pending: { ...state.pending, getComments: false },
+        errors: { ...state.errors, getComments: action.payload },
       };
     case actions.POST_COMMENT_START:
       return {
@@ -555,89 +527,117 @@ const reducer = (state = initialState, action) => {
         },
       };
     case actions.ADD_BOOKMARK_LOADING:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          bookmarks: true,
+        },
+        errors: {
+          ...state.errors,
+          bookmarks: '',
+        },
+      };
     case actions.REMOVE_BOOKMARK_LOADING:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          bookmarks: true,
+        },
+        errors: {
+          ...state.errors,
+          bookmarks: '',
+        },
+      };
     case actions.FETCH_BOOKMARKS_LOADING:
       return {
         ...state,
-        bookmarks: {
-          ...state.bookmarks,
-          loading: true,
+        pending: {
+          ...state.pending,
+          bookmarks: true,
+        },
+        errors: {
+          ...state.errors,
+          bookmarks: '',
         },
       };
     case actions.ADD_BOOKMARK_SUCCESS:
       return {
         ...state,
-        bookmarks: {
-          ...state.bookmarks,
-          loading: false,
-          error: null,
-          // de-dupe bookmarks using sets
-          campaignIDs: [
-            ...new Set([...state.bookmarks.campaignIDs, action.payload]),
-          ],
+        pending: {
+          ...state.pending,
+          bookmarks: false,
         },
+        bookmarks: [...new Set([...state.bookmarks, action.payload])],
       };
     case actions.REMOVE_BOOKMARK_SUCCESS:
       return {
         ...state,
-        bookmarks: {
-          ...state.bookmarks,
-          loading: false,
-          errors: null,
-          campaignIDs: state.bookmarks.campaignIDs.filter(
-            (bookmark) => bookmark !== action.payload
-          ),
+        pending: {
+          ...state.pending,
+          bookmarks: false,
         },
+        bookmarks: state.bookmarks.filter(
+          (bookmark) => bookmark.campaign_id !== action.payload
+        ),
       };
     case actions.FETCH_BOOKMARKS_SUCCESS:
       return {
         ...state,
-        bookmarks: {
-          ...state.bookmarks,
-          loading: false,
-          error: null,
-          campaignIDs: action.payload,
+        pending: {
+          ...state.pending,
+          bookmarks: false,
         },
+        bookmarks: action.payload,
       };
     case actions.ADD_BOOKMARK_FAILURE:
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          bookmarks: action.payload,
+        },
+        pending: {
+          ...state.pending,
+          bookmarks: false,
+        },
+      };
     case actions.REMOVE_BOOKMARK_FAILURE:
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          bookmarks: action.payload,
+        },
+        pending: {
+          ...state.pending,
+          bookmarks: false,
+        },
+      };
     case actions.FETCH_BOOKMARK_FAILURE:
       return {
         ...state,
-        bookmarks: {
-          ...state.bookmarks,
-          loading: false,
-          error: action.payload,
+        errors: {
+          ...state.errors,
+          bookmarks: action.payload,
+        },
+        pending: {
+          ...state.pending,
+          bookmarks: false,
         },
       };
-    case actions.GET_BOOKMARKED_CAMPAIGNS_LOADING:
+    case actions.APPEND_TO_FEED:
       return {
         ...state,
-        bookmarks: {
-          ...state.bookmarks,
-          loadingCampaigns: true,
-          error: null,
-        },
+        allCampaigns: [...action.payload.slice(1), ...state.allCampaigns],
       };
-    case actions.GET_BOOKMARKED_CAMPAIGNS_SUCCESS:
+    case actions.QUEUE_NEW_POSTS:
       return {
         ...state,
-        bookmarks: {
-          ...state.bookmarks,
-          loadingCampaigns: false,
-          error: null,
-          campaigns: action.payload,
-        },
-      };
-    case actions.GET_BOOKMARKED_CAMPAIGNS_ERROR:
-      return {
-        ...state,
-        bookmarks: {
-          ...state.bookmarks,
-          loadingCampaigns: false,
-          error: action.payload,
-          campaigns: [],
-        },
+        newPostQueue: [action.payload, ...state.newPostQueue],
+        //TODO: Remove this debug code below
+        allCampaigns: [action.payload, ...state.allCampaigns],
       };
     default:
       return state;

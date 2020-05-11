@@ -3,9 +3,7 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 
 import styles from '../../../constants/Profile/tabs/Campaigns';
-
-import FeedUpdate from '../../FeedScreen/FeedUpdate';
-import FeedCampaign from '../../FeedScreen/FeedCampaign';
+import CampaignPost from '../../CampaignPost';
 
 import CampaignBlankSpace from '../CampaignBlankSpace';
 import CampaignList from './CampaignList';
@@ -25,7 +23,7 @@ const Campaigns = (props) => {
           if (campaign) {
             return (
               <View style={styles.currentCampaigns} key={campaign.id}>
-                <FeedCampaign disableHeader data={campaign} toggled />
+                <CampaignPost disableHeader data={campaign} toggled />
               </View>
             );
           }
@@ -41,7 +39,7 @@ const Campaigns = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    bookmarks: state.bookmarks.campaignIDs,
+    bookmarks: state.bookmarks,
   };
 };
 

@@ -10,7 +10,7 @@ import {
 import { Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
 
-import { commentOnCampaign, getCampaign } from '../../store/actions';
+import { commentOnCampaign, getCampaignComments } from '../../store/actions';
 import Comment from './Comment';
 
 import styles from '../../constants/Comments/Comments';
@@ -23,6 +23,10 @@ class CommentsView extends React.Component {
   };
 
   bufferedComment = null;
+
+  componentDidMount() {
+    this.props.getCampaignComments(this.props.selectedCampaign.campaign_id);
+  }
 
   componentDidUpdate() {
     this.bufferedComment = null;
@@ -37,7 +41,7 @@ class CommentsView extends React.Component {
 
   postComment = () => {
     this.props.commentOnCampaign(
-      this.props.selectedCampaign.id,
+      this.props.selectedCampaign.campaign_id,
       this.state.comment.trim()
     );
 
@@ -128,10 +132,10 @@ class CommentsView extends React.Component {
 const mapStateToProps = (state) => ({
   currentUserProfile: state.currentUserProfile,
   selectedCampaign: state.selectedCampaign,
-  campaignComments: state.selectedCampaign.comments,
+  campaignComments: state.selectedCampaign.comments || [],
 });
 
 export default connect(mapStateToProps, {
   commentOnCampaign,
-  getCampaign,
+  getCampaignComments,
 })(CommentsView);

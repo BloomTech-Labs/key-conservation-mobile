@@ -3,12 +3,10 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { useDispatch } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import styles from '../../constants/Comments/Comments';
 import Ellipse from '../../assets/jsicons/Ellipse';
 import CommentActionSheet from '../Reports/CommentActionSheet';
-import LoadingOverlay from '../LoadingOverlay';
 
 const Comment = (props) => {
   // This is so that the opacity of the comment will be

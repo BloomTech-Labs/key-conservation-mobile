@@ -15,27 +15,27 @@ import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
 
 import {
-  getCampaign,
   toggleCampaignText,
   setCampaign,
   addBookmark,
   removeBookmark,
   fetchBookmarks,
-} from '../../store/actions';
-import { AmpEvent } from '../withAmplitude';
-import LoadingOverlay from '../LoadingOverlay';
+} from '../store/actions';
+import { AmpEvent } from './withAmplitude';
+import LoadingOverlay from './LoadingOverlay';
 
-import { navigate } from '../../navigation/RootNavigator';
+import { navigate } from '../navigation/RootNavigator';
 
-import styles from '../../constants/FeedScreen/FeedCampaign';
-import Ellipse from '../../assets/jsicons/Ellipse';
-import CommentIcon from '../../assets/jsicons/CommentIcon';
-import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
-import CampaignActionSheet from '../Reports/CampaignActionSheet';
-import TakeActionCallToAction from '../TakeAction/TakeActionCallToAction';
-import SmileSelector from './SmileSelector';
-import Bookmark from '../../assets/jsicons/miscIcons/Bookmark';
-import BookmarkSolid from '../../assets/jsicons/miscIcons/BookmarkSolid';
+import styles from '../constants/CampaignPost';
+import Ellipse from '../assets/jsicons/Ellipse';
+import CommentIcon from '../assets/jsicons/CommentIcon';
+import MapMarker from '../assets/jsicons/headerIcons/map-marker';
+import CampaignActionSheet from './Reports/CampaignActionSheet';
+import TakeActionCallToAction from './TakeAction/TakeActionCallToAction';
+import SmileSelector from './FeedScreen/SmileSelector';
+import Bookmark from '../assets/jsicons/miscIcons/Bookmark';
+import BookmarkSolid from '../assets/jsicons/miscIcons/BookmarkSolid';
+import { shorten } from '../util';
 
 const Placeholder = () => <View style={styles.campImgContain} />;
 
@@ -43,27 +43,21 @@ const ViewportAwareVideo = Viewport.Aware(
   Viewport.WithPlaceholder(Video, Placeholder)
 );
 
-const FeedCampaign = (props) => {
+const CampaignPost = (props) => {
+  const { data, toggled } = props;
+
   const [urgTop, setUrgTop] = useState(0);
   const [loader, setLoader] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
-    // prevent re-fetching unecessarily on profiles
-    if (props.displayOn !== 'profile') {
-      props.fetchBookmarks(props.currentUserProfile.id);
-    }
-  }, []);
-
-  useEffect(() => {
     setBookmark();
-  }, [props.bookmarks.campaignIDs]);
+  }, [props.bookmarks]);
 
   const setBookmark = () => {
-    const thisCampaign =
-      props.data.campaign_id || props.data?.comments[0]?.campaign_id;
-    const isSaved = props.bookmarks.campaignIDs.filter(
-      (bookmark) => bookmark === thisCampaign
+    const thisCampaign = data?.campaign_id;
+    const isSaved = props.bookmarks.filter(
+      (bookmark) => bookmark.campaign_id === thisCampaign
     );
     setIsSaved(isSaved.length > 0);
   };
@@ -71,67 +65,26 @@ const FeedCampaign = (props) => {
   const actionSheetRef = useRef(null);
 
   const dispatch = useDispatch();
-  const { data, toggled } = props;
-
-  const shorten = (string, cutoff) => {
-    if (string.length < cutoff) {
-      return string;
-    } else {
-      let end = cutoff;
-      const avoidChars = [' ', ',', '.', '!'];
-      while (avoidChars.includes(string.charAt(end)) && end >= cutoff - 10) {
-        end--;
-      }
-      return `${string.substring(0, end)}...`;
-    }
-  };
 
   const createdAt = data.created_at;
-  const currentTime = moment();
-  const postTime = moment(createdAt);
-  let timeDiff;
-  if (currentTime.diff(postTime, 'days') < 1) {
-    if (currentTime.diff(postTime, 'hours') < 1) {
-      if (currentTime.diff(postTime, 'minutes') < 1) {
-        timeDiff = 'just now';
-      } else {
-        if (currentTime.diff(postTime, 'minutes') === 1) {
-          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO`;
-        } else {
-          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`;
-        }
-      }
-    } else {
-      if (currentTime.diff(postTime, 'hours') === 1) {
-        timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO`;
-      } else {
-        timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`;
-      }
-    }
-  } else {
-    if (currentTime.diff(postTime, 'days') === 1) {
-      timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO`;
-    } else {
-      timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
-    }
-  }
+  const timeDiff = moment(createdAt).fromNow();
 
   //// All styles for the urgency bar
   let urgencyColor;
-  if (data.urgency === 'Critical') {
+  if (data.is_update || data.urgency == 'null') {
+    urgencyColor = 'rgba(202,255,0, 0.7)';
+  } else if (data.urgency === 'Critical') {
     urgencyColor = 'rgba(227,16,89,0.6)';
   } else if (data.urgency === 'Urgent') {
     urgencyColor = 'rgba(255,199,0,0.6)';
   } else if (data.urgency === 'Longterm') {
     urgencyColor = 'rgba(0,255,157,0.6)';
-  } else if (data.urgency === 'Update') {
-    urgencyColor = 'rgba(202,255,0, 0.7)';
   } else {
     urgencyColor = 'none';
   }
   let urgencyStatus;
-  if (!data.urgency || data.urgency == 'null') {
-    urgencyStatus = '';
+  if (data.is_update || !data.urgency || data.urgency == 'null') {
+    urgencyStatus = 'UPDATE';
   } else {
     urgencyStatus = data.urgency.toUpperCase();
   }
@@ -155,8 +108,14 @@ const FeedCampaign = (props) => {
     navigate('Pro', { selectedProfile: data.user_id });
   };
 
-  const checkOnPress = () => {
-    console.log('YUP');
+  const handleBookmarkPressed = () => {
+    if (isSaved) {
+      props.removeBookmark(props.data.campaign_id);
+    } else {
+      props.addBookmark(props.data);
+    }
+
+    updateBookmarkIcon();
   };
 
   const goToCampaign = async () => {
@@ -165,17 +124,10 @@ const FeedCampaign = (props) => {
       profile: data.org_name,
     });
 
-    if (data.campaign_id) {
-      await dispatch(setCampaign(data));
-      navigate('Campaign', {
-        media: data.image,
-      });
-    } else {
-      await dispatch(getCampaign(data.id));
-      navigate('Campaign', {
-        media: data.image,
-      });
-    }
+    dispatch(setCampaign(data));
+    navigate('Campaign', {
+      userBookmarked: data.userBookmarked,
+    });
   };
 
   const toggleText = () => {
@@ -209,7 +161,7 @@ const FeedCampaign = (props) => {
           ref={actionSheetRef}
           admin={props.currentUserProfile.admin}
           isMine={props.currentUserProfile.id === data.user_id}
-          campaign={data}
+          post={data}
         />
         <ListItem
           disabled={props.disableHeader}
@@ -225,7 +177,16 @@ const FeedCampaign = (props) => {
           }}
           rightElement={
             <TouchableOpacity onPress={showActionSheet}>
-              <Ellipse fill="#000" height="25" width="25" />
+              <View
+                style={{
+                  height: 25,
+                  width: 40,
+                  paddingRight: 5,
+                  alignItems: 'flex-end',
+                }}
+              >
+                <Ellipse fill="#000" height="25" width="25" />
+              </View>
             </TouchableOpacity>
           }
           subtitle={
@@ -238,12 +199,11 @@ const FeedCampaign = (props) => {
           }
         />
         <View style={styles.campaignDescription}>
-          {toggled || data.description.length < 80 ? (
+          {toggled || data.description?.length < 80 ? (
             <View>
               <Text style={styles.campaignDescriptionText}>
                 {data.description}
               </Text>
-              <Text style={styles.timeText}>{timeDiff}</Text>
             </View>
           ) : (
             <Text style={styles.campaignDescriptionText}>
@@ -254,12 +214,13 @@ const FeedCampaign = (props) => {
               </Text>
             </Text>
           )}
+          <Text style={styles.timeText}>{timeDiff}</Text>
         </View>
         <View>
           <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
-            {data.image.includes('.mov') ||
-            data.image.includes('.mp3') ||
-            data.image.includes('.mp4') ? (
+            {data.image?.includes('.mov') ||
+            data.image?.includes('.mp3') ||
+            data.image?.includes('.mp4') ? (
               <View>
                 {data.urgency ? (
                   <View style={urgencyStyles}>
@@ -313,48 +274,18 @@ const FeedCampaign = (props) => {
           </View>
           <View style={styles.campaignControlsRight}>
             {props.currentUserProfile.roles === 'supporter' ? (
-              isSaved ? (
-                <TouchableOpacity
-                  style={styles.rightSection}
-                  onPress={() => {
-                    props.removeBookmark(
-                      props.currentUserProfile.id,
-                      props.data.campaign_id ||
-                        props.data.comments[0].campaign_id
-                    );
-                    updateBookmarkIcon();
-                  }}
-                >
-                  {props.bookmarks.loading ? (
-                    <ActivityIndicator size="large" color="#ADADAD" />
-                  ) : (
-                    <BookmarkSolid />
-                  )}
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity
-                  style={styles.rightSection}
-                  onPress={() => {
-                    props.addBookmark(
-                      props.currentUserProfile.id,
-                      props.data.campaign_id ||
-                        props.data.comments[0].campaign_id
-                      // the OR condition above accounts for the fact that some campaigns
-                      // don't appear to have an ID in the (top-level) object returned from the API.
-                      // Those without a top-level ID have the campaign ID referenced in their
-                      // comments, so we can grab the ID from there. it's unclear to me if
-                      // this is a bug or the intentional behavior - worth looking into maybe?
-                    );
-                    updateBookmarkIcon();
-                  }}
-                >
-                  {props.bookmarks.loading ? (
-                    <ActivityIndicator size="large" color="#ADADAD" />
-                  ) : (
-                    <Bookmark />
-                  )}
-                </TouchableOpacity>
-              )
+              <TouchableOpacity
+                style={styles.rightSection}
+                onPress={handleBookmarkPressed}
+              >
+                {props.bookmarksLoading ? (
+                  <ActivityIndicator size="large" color="#ADADAD" />
+                ) : isSaved ? (
+                  <BookmarkSolid />
+                ) : (
+                  <Bookmark />
+                )}
+              </TouchableOpacity>
             ) : null}
 
             <TouchableOpacity
@@ -391,15 +322,16 @@ const mapStateToProps = (state) => ({
   currentUserProfile: state.currentUserProfile,
   currentUser: state.currentUser,
   token: state.token,
-  deleteBuffer: state.pending.deleteCampaign,
+  deleteBuffer: state.pending.deletePost,
   bookmarks: state.bookmarks,
+  bookmarksLoading: state.pending.bookmarks,
+  bookmarksError: state.errors.bookmarks,
 });
 
 export default connect(mapStateToProps, {
-  getCampaign,
   toggleCampaignText,
   addBookmark,
   removeBookmark,
   fetchBookmarks,
-})(withNavigationFocus(FeedCampaign));
+})(withNavigationFocus(CampaignPost));
 // withNavigationFocus unmounts video and prevents audio playing across the navigation stack

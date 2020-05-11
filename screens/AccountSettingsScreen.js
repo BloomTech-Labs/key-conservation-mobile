@@ -23,7 +23,7 @@ class AccountSettingsScreen extends React.Component {
       },
       headerTintColor: '#fff',
       headerLeft: () => (
-        <BackButtonHeader pressAction={navigation.getParam('done')} />
+        <BackButtonHeader pressAction={() => navigation.navigate('MyPro')} />
       ),
     };
   };
@@ -37,13 +37,6 @@ class AccountSettingsScreen extends React.Component {
     this.getRole();
   }
 
-  done = () => {
-    if (this.state.roles === 'conservationist') {
-      this.props.navigation.navigate('MyProfile');
-    } else {
-      this.props.navigation.navigate('MySupporterProfile');
-    }
-  };
   viewReports = () => {
     this.props.navigation.navigate('AdminScreen');
   };

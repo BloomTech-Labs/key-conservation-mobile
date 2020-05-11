@@ -52,9 +52,9 @@ const axiosWithAuth = (dispatch, req) => {
 // url for heroku staging vs production server
 // comment out either server depending on testing needs
 // production
-const seturl = 'https://key-conservation.herokuapp.com/api/';
+// const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
-// const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 // const seturl = 'http://192.168.1.146:8000/api/';
 
 const filterUrls = (keys, object) => {
@@ -387,57 +387,79 @@ export const postUser = (user) => (dispatch) => {
 };
 
 export const [
-  GET_CAMPAIGNS_START,
-  GET_CAMPAIGNS_ERROR,
-  GET_CAMPAIGNS_SUCCESS,
-] = ['GET_CAMPAIGNS_START', 'GET_CAMPAIGNS_ERROR', 'GET_CAMPAIGNS_SUCCESS'];
+  GET_FEED_START,
+  EXPAND_FEED_SUCCESS,
+  GET_FEED_SUCCESS,
+  GET_FEED_ERROR,
+] = [
+  'GET_FEED_START',
+  'GET_FEED_SUCCESS',
+  'EXPAND_FEED_SUCCESS',
+  'GET_FEED_ERROR',
+];
 
-export const getCampaigns = () => (dispatch) => {
-  dispatch({ type: GET_CAMPAIGNS_START });
-  let campaigns;
+export const getFeed = (startAt = 0, size = 8) => (dispatch) => {
+  dispatch({ type: GET_FEED_START });
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .get(`${seturl}campaigns`)
+      .get(`${seturl}feed?startAt=${startAt}&size=${startAt + size}`)
       .then((res) => {
-        campaigns = res.data.campaigns;
-        return aaxios
-          .get(`${seturl}updates`)
-          .then((res) => {
-            campaigns = campaigns.concat(res.data.campaignUpdate);
-            dispatch({
-              type: GET_CAMPAIGNS_SUCCESS,
-              payload: campaigns,
-            });
-          })
-          .catch((err) => {
-            console.log(err);
-            dispatch({ type: GET_CAMPAIGNS_ERROR, payload: err });
-          });
+        dispatch({
+          type: startAt > 0 ? EXPAND_FEED_SUCCESS : GET_FEED_SUCCESS,
+          payload: res.data,
+        });
       })
       .catch((err) => {
-        console.log(err.response);
-        dispatch({ type: GET_CAMPAIGNS_ERROR, payload: err });
+        console.log(err.response.data);
+        dispatch({
+          type: GET_FEED_ERROR,
+          payload:
+            err.response?.data?.message ||
+            'An error occurred while retrieving the feed.',
+        });
       });
   });
 };
 
-export const [GET_CAMPAIGN_START, GET_CAMPAIGN_ERROR, GET_CAMPAIGN_SUCCESS] = [
-  'GET_CAMPAIGN_START',
-  'GET_CAMPAIGN_ERROR',
-  'GET_CAMPAIGN_SUCCESS',
-];
+export const APPEND_TO_FEED = 'APPEND_TO_FEED';
 
-export const getCampaign = (id) => (dispatch) => {
-  dispatch({ type: GET_CAMPAIGN_START });
+export const refreshFeed = (createdAt) => (dispatch) => {
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .get(`${seturl}feed?date=${createdAt}`)
+      .then((res) => {
+        dispatch({
+          type: APPEND_TO_FEED,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch({
+          type: GET_FEED_ERROR,
+          payload: err.response?.data?.message || 'Failed to refresh feed',
+        });
+      });
+  });
+};
+
+export const [GET_POST_START, GET_POST_SUCCESS, GET_POST_ERROR] = [
+  'GET_POST_START',
+  'GET_POST_SUCCESS',
+  'GET_POST_ERROR',
+];
+export const getCampaignPost = (id) => (dispatch) => {
+  dispatch({ type: GET_POST_START });
 
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .get(`${seturl}campaigns/${id}`)
+      .get(`${seturl}posts/${id}`)
       .then((res) => {
-        dispatch({ type: GET_CAMPAIGN_SUCCESS, payload: res.data.campaign });
+        dispatch({ type: GET_REPORTS_SUCCESS, payload: res.data });
       })
       .catch((err) => {
-        dispatch({ type: GET_CAMPAIGN_ERROR, payload: err });
+        console.log(err);
+        dispatch({ type: GET_REPORTS_ERROR, payload: err.response });
       });
   });
 };
@@ -499,27 +521,30 @@ export const postCampaign = (campaign) => (dispatch) => {
   });
 };
 
-export const [
-  DELETE_CAMPAIGN_START,
-  DELETE_CAMPAIGN_ERROR,
-  DELETE_CAMPAIGN_SUCCESS,
-] = [
-  'DELETE_CAMPAIGN_START',
-  'DELETE_CAMPAIGN_ERROR',
-  'DELETE_CAMPAIGN_SUCCESS',
+export const [DELETE_POST_START, DELETE_POST_ERROR, DELETE_POST_SUCCESS] = [
+  'DELETE_POST_START',
+  'DELETE_POST_ERROR',
+  'DELETE_POST_SUCCESS',
 ];
 
-export const deleteCampaign = (id) => (dispatch) => {
-  dispatch({ type: DELETE_CAMPAIGN_START, payload: id });
+export const deleteCampaignPost = (id) => (dispatch) => {
+  dispatch({ type: DELETE_POST_START, payload: id });
 
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .delete(`${seturl}campaigns/${id}`)
+      .delete(`${seturl}posts/${id}`)
       .then((res) => {
-        dispatch({ type: DELETE_CAMPAIGN_SUCCESS, payload: res.data });
+        dispatch({ type: DELETE_POST_SUCCESS, payload: id });
       })
       .catch((err) => {
-        dispatch({ type: DELETE_CAMPAIGN_ERROR, payload: err });
+        console.log(err.response);
+        dispatch({
+          type: DELETE_POST_ERROR,
+          payload: {
+            error: err.message,
+            id,
+          },
+        });
         return { error: err, id };
       });
   });
@@ -531,38 +556,14 @@ export const [
   EDIT_CAMPAIGN_SUCCESS,
 ] = ['EDIT_CAMPAIGN_START', 'EDIT_CAMPAIGN_ERROR', 'EDIT_CAMPAIGN_SUCCESS'];
 
-export const editCampaign = (id, changes) => (dispatch) => {
+export const editCampaignPost = (id, changes) => (dispatch) => {
   dispatch({ type: EDIT_CAMPAIGN_START });
-
-  let formData = new FormData();
-
-  let keys = Object.keys(changes).filter((key) => {
-    return key !== 'image';
-  });
-
-  if (changes.image) {
-    const uri = changes.image;
-
-    let uriParts = uri.split('.');
-    let fileType = uriParts[uriParts.length - 1];
-
-    formData.append('photo', {
-      uri,
-      name: `photo.${fileType}`,
-      type: `image/${fileType}`,
-    });
-  }
-
-  keys.forEach((key) => {
-    formData.append(key, changes[key]);
-  });
 
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .put(`${seturl}campaigns/${id}`, formData, {
+      .put(`${seturl}posts/${id}`, changes, {
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'multipart/form-data',
         },
       })
       .then((res) => {
@@ -604,16 +605,19 @@ export const postCampaignUpdate = (campaignUpdate) => (dispatch) => {
 
   formData.append('description', campaignUpdate.description);
   formData.append('user_id', campaignUpdate.user_id);
-  formData.append('campaign_id', campaignUpdate.campaign_id);
 
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .post(`${seturl}updates`, formData, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+      .post(
+        `${seturl}campaigns/update/${campaignUpdate.campaign_id}`,
+        formData,
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      )
       .then((res) => {
         dispatch({
           type: POST_CAMPAIGN_UPDATE_SUCCESS,
@@ -627,96 +631,33 @@ export const postCampaignUpdate = (campaignUpdate) => (dispatch) => {
   });
 };
 
-export const [
-  EDIT_CAMPAIGN_UPDATE_START,
-  EDIT_CAMPAIGN_UPDATE_ERROR,
-  EDIT_CAMPAIGN_UPDATE_SUCCESS,
-] = [
-  'EDIT_CAMPAIGN_UPDATE_START',
-  'EDIT_CAMPAIGN_UPDATE_ERROR',
-  'EDIT_CAMPAIGN_UPDATE_SUCCESS',
-];
-
-export const editCampaignUpdate = (id, changes) => (dispatch) => {
-  dispatch({ type: EDIT_CAMPAIGN_UPDATE_START });
-
-  let formData = new FormData();
-
-  let keys = Object.keys(changes).filter((key) => {
-    return key !== 'image';
-  });
-
-  if (changes.image) {
-    const uri = changes.image;
-
-    let uriParts = uri.split('.');
-    let fileType = uriParts[uriParts.length - 1];
-
-    formData.append('photo', {
-      uri,
-      name: `photo.${fileType}`,
-      type: `image/${fileType}`,
-    });
-  }
-
-  keys.forEach((key) => {
-    formData.append(key, changes[key]);
-  });
-
-  return axiosWithAuth(dispatch, (aaxios) => {
-    return aaxios
-      .put(`${seturl}updates/${id}`, formData, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      .then((res) => {
-        dispatch({
-          type: EDIT_CAMPAIGN_UPDATE_SUCCESS,
-          payload: res.data.campaignUpdate,
-        });
-      })
-      .catch((err) => {
-        dispatch({ type: EDIT_CAMPAIGN_UPDATE_ERROR, payload: err });
-      });
-  });
-};
-
-export const [
-  DELETE_CAMPAIGN_UPDATE_START,
-  DELETE_CAMPAIGN_UPDATE_ERROR,
-  DELETE_CAMPAIGN_UPDATE_SUCCESS,
-] = [
-  'DELETE_CAMPAIGN_UPDATE_START',
-  'DELETE_CAMPAIGN_UPDATE_ERROR',
-  'DELETE_CAMPAIGN_UPDATE_SUCCESS',
-];
-
-export const deleteCampaignUpdate = (id) => (dispatch) => {
-  console.log('deleting campaign update');
-  dispatch({ type: DELETE_CAMPAIGN_UPDATE_START, payload: id });
-  return axiosWithAuth(dispatch, (aaxios) => {
-    return aaxios
-      .delete(`${seturl}updates/${id}`)
-      .then((res) => {
-        console.log('success in actions', res.data);
-        dispatch({ type: DELETE_CAMPAIGN_UPDATE_SUCCESS, payload: res.data });
-      })
-      .catch((err) => {
-        console.log(err);
-        dispatch({ type: DELETE_CAMPAIGN_UPDATE_ERROR, payload: err });
-        return { error: err, id };
-      });
-  });
-};
-
 export const TOGGLE_CAMPAIGN_TEXT = 'TOGGLE_CAMPAIGN_TEXT';
 
 export const toggleCampaignText = (id) => ({
   type: TOGGLE_CAMPAIGN_TEXT,
   payload: id,
 });
+
+export const [GET_COMMENTS_START, GET_COMMENTS_SUCCESS, GET_COMMENTS_ERROR] = [
+  'GET_COMMENTS_START',
+  'GET_COMMENTS_SUCCESS',
+  'GET_COMMENTS_ERROR',
+];
+
+export const getCampaignComments = (id) => (dispatch) => {
+  dispatch({ type: GET_COMMENTS_START });
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .get(`${seturl}comments/${id}`)
+      .then((res) => {
+        dispatch({ type: GET_COMMENTS_SUCCESS, payload: res.data.data });
+      })
+      .catch((err) => {
+        console.log(err.message);
+        dispatch({ type: GET_COMMENTS_ERROR, payload: err.response });
+      });
+  });
+};
 
 export const [
   POST_COMMENT_START,
@@ -764,14 +705,6 @@ export const deleteComment = (id) => (dispatch) => {
         dispatch({ type: DELETE_COMMENT_ERROR, payload: err });
         return err;
       });
-  });
-};
-
-export const addLike = (id, userId) => (dispatch) => {
-  return axiosWithAuth(dispatch, (aaxios) => {
-    return aaxios
-      .post(`${seturl}social/likes/${id}`, { user_id: userId, id: id })
-      .then(console.log('word'));
   });
 };
 
@@ -977,16 +910,13 @@ export const [
   'FETCH_BOOKMARKS_ERROR',
 ];
 
-export const addBookmark = (user_profile_id, campaign_id) => (dispatch) => {
+export const addBookmark = (campaign) => (dispatch) => {
   dispatch({ type: ADD_BOOKMARK_LOADING });
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .post(`${seturl}social/bookmark/${campaign_id}`, {
-        user_id: user_profile_id,
-        campaign_id: campaign_id,
-      })
+      .post(`${seturl}social/bookmark/${campaign.campaign_id}`)
       .then((res) => {
-        dispatch({ type: ADD_BOOKMARK_SUCCESS, payload: campaign_id });
+        dispatch({ type: ADD_BOOKMARK_SUCCESS, payload: campaign });
       })
       .catch((err) => {
         dispatch({
@@ -998,12 +928,12 @@ export const addBookmark = (user_profile_id, campaign_id) => (dispatch) => {
   });
 };
 
-export const removeBookmark = (user_profile_id, campaign_id) => (dispatch) => {
+export const removeBookmark = (campaign_id) => (dispatch) => {
   dispatch({ type: REMOVE_BOOKMARK_LOADING });
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .delete(`${seturl}social/bookmark/${campaign_id}/${user_profile_id}`)
-      .then((res) => {
+      .delete(`${seturl}social/bookmark/${campaign_id}`)
+      .then(() => {
         dispatch({ type: REMOVE_BOOKMARK_SUCCESS, payload: campaign_id });
       })
       .catch((err) => {
@@ -1016,63 +946,25 @@ export const removeBookmark = (user_profile_id, campaign_id) => (dispatch) => {
   });
 };
 
-export const fetchBookmarks = (user_profile_id) => (dispatch) => {
+export const fetchBookmarks = () => (dispatch) => {
   dispatch({ type: FETCH_BOOKMARKS_LOADING });
+  console.log('getting bookmarks');
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .get(`${seturl}social/bookmark/${user_profile_id}`)
+      .get(`${seturl}social/bookmark/`)
       .then((res) => {
         dispatch({
           type: FETCH_BOOKMARKS_SUCCESS,
-          payload: res.data.map((campaign) => campaign.id),
+          payload: res.data,
         });
       })
       .catch((err) => {
+        console.log('failed', err);
         dispatch({
           type: FETCH_BOOKMARKS_ERROR,
           payload: 'Failed to save bookmark',
         });
-        console.error(err);
       });
-  });
-};
-
-export const [
-  GET_BOOKMARKED_CAMPAIGNS_LOADING,
-  GET_BOOKMARKED_CAMPAIGNS_SUCCESS,
-  GET_BOOKMARKED_CAMPAIGNS_ERROR,
-] = [
-  'GET_BOOKMARKED_CAMPAIGNS_LOADING',
-  'GET_BOOKMARKED_CAMPAIGNS_SUCCESS',
-  'GET_BOOKMARKED_CAMPAIGNS_ERROR',
-];
-
-export const fetchBookmarkedCampaigns = (bookmarkedIDs) => async (dispatch) => {
-  dispatch({ type: GET_BOOKMARKED_CAMPAIGNS_LOADING });
-  let campaigns = [];
-
-  await Promise.all(
-    bookmarkedIDs.map((id) => {
-      return axiosWithAuth(dispatch, (aaxios) => {
-        return aaxios
-          .get(`${seturl}campaigns/${id}`)
-          .then((res) => {
-            campaigns.push(res.data.campaign);
-          })
-          .catch((err) => {
-            dispatch({
-              type: GET_BOOKMARKED_CAMPAIGNS_ERROR,
-              payload: 'Failed to retrieve saved campaigns',
-            });
-            console.error(err);
-          });
-      });
-    })
-  );
-
-  dispatch({
-    type: GET_BOOKMARKED_CAMPAIGNS_SUCCESS,
-    payload: campaigns,
   });
 };
 
@@ -1103,6 +995,15 @@ export const setCampaignPostReaction = (postId, emoji = '') => (dispatch) => {
         console.log(err.message);
         throw new Error(err.message);
       });
+  });
+};
+
+export const QUEUE_NEW_POSTS = 'QUEUE_NEW_POSTS';
+
+export const queueNewPosts = (data) => (dispatch) => {
+  dispatch({
+    type: QUEUE_NEW_POSTS,
+    payload: data,
   });
 };
 

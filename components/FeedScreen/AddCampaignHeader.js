@@ -5,7 +5,7 @@ import { Avatar } from 'react-native-elements';
 import PlusLightening from '../../assets/jsicons/headerIcons/plusLightening';
 import { withNavigation } from 'react-navigation';
 
-const AddCampaignHeader = props => {
+const AddCampaignHeader = (props) => {
   return (
     <TouchableOpacity
       style={styles.container}
@@ -13,13 +13,14 @@ const AddCampaignHeader = props => {
       onPress={() => {
         props.navigation.navigate('CreateCampaign');
       }}
+      disabled={props.disabled}
     >
       <View style={styles.avatarContainer}>
         <Avatar
           size={48}
           rounded
           source={{
-            uri: props.profile.profile_image
+            uri: props.profile.profile_image,
           }}
         />
       </View>
