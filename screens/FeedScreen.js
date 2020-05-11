@@ -84,7 +84,6 @@ class FeedScreen extends React.Component {
     return (
       <Viewport.Tracker>
         <View style={{ flex: 1 }}>
-          <LoadingOverlay loading={this.props.loading} />
           {this.props.feedError ? (
             <View style={styles.errorContainer}>
               <Text style={styles.errorText}>{this.props.feedError}</Text>
@@ -94,10 +93,14 @@ class FeedScreen extends React.Component {
             <ScrollView scrollEventThrottle={16} stickyHeaderIndices={[0]}>
               <View>
                 {this.props.currentUserProfile.roles === 'conservationist' ? (
-                  <AddCampaignHeader profile={this.props.currentUserProfile} />
+                  <AddCampaignHeader
+                    profile={this.props.currentUserProfile}
+                    disabled={this.props.loading}
+                  />
                 ) : null}
               </View>
               <View style={styles.feedContainer}>
+                <LoadingOverlay loading={this.props.loading} />
                 {this.props.allCampaigns.length > 0 &&
                   this.props.allCampaigns.map((campaign) => {
                     if (campaign) {
