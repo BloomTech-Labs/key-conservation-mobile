@@ -2,8 +2,9 @@ import { StyleSheet, Platform } from 'react-native';
 
 export default StyleSheet.create({
   container: {
-    flex: 2,
-    marginTop: 240,
+    marginTop: 210,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
   itemContainers: {
     width: '95%',
@@ -110,6 +111,11 @@ export default StyleSheet.create({
     shadowRadius: 5,
     shadowOpacity: 10,
   },
+  skillsContainer: {
+    width: 300,
+    marginBottom: 10,
+    marginLeft: 10,
+  },
   skillsButton: {
     height: 34,
     backgroundColor: '#31ffa5',
@@ -128,6 +134,24 @@ export default StyleSheet.create({
     },
     shadowRadius: 5,
     shadowOpacity: 10,
+  },
+  skillsContactContainer: {
+    flexDirection: 'row',
+  },
+  campaignContainer: {
+    marginLeft: -8,
+  },
+  innerCampaignContainer: {
+    marginLeft: 20,
+  },
+  groupContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 10,
+  },
+  applicationContainer: {
+    marginBottom: 10,
+    marginLeft: -10,
   },
   buttonText: {
     color: '#323339',
