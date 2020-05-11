@@ -206,6 +206,12 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, getFeed: false },
         allCampaigns: action.payload,
       };
+    case actions.EXPAND_FEED_SUCCESS:
+      return {
+        ...state,
+        pending: { ...state.pending, getFeed: false },
+        allCampaigns: [...state.allCampaigns, ...action.payload],
+      };
     case actions.GET_FEED_ERROR:
       return {
         ...state,

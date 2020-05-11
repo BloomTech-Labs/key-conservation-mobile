@@ -1,16 +1,30 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, Button } from 'react-native';
-import { ScrollView, NavigationEvents } from 'react-navigation';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Button,
+  ActivityIndicator,
+} from 'react-native';
+import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
 import { getFeed, queueNewPosts } from '../store/actions';
 import CampaignPost from '../components/CampaignPost';
 import styles from '../constants/screens/FeedScreen';
 import { Viewport } from '@skele/components';
 import AddCampaignHeader from '../components/FeedScreen/AddCampaignHeader';
+import FeedLoading from '../components/FeedScreen/FeedLoading';
 
 import Search from '../assets/jsicons/SearchIcon';
-import LoadingOverlay from '../components/LoadingOverlay';
 import WebSocketManager from '../websockets/WebSocketManager';
+
+const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+  const paddingToBottom = 48;
+  return (
+    layoutMeasurement.height + contentOffset.y >=
+    contentSize.height - paddingToBottom
+  );
+};
 
 class FeedScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -37,6 +51,20 @@ class FeedScreen extends React.Component {
       ),
     };
   };
+
+  state = {
+    gettingMorePosts: false,
+  };
+
+  onScrollToBottom = ({ nativeEvent }) => {
+    if (isCloseToBottom(nativeEvent) && !this.state.gettingMorePosts) {
+      this.setState({ gettingMorePosts: true });
+      this.props.getFeed(this.props.allCampaigns.length).finally(() => {
+        this.setState({ gettingMorePosts: false });
+      });
+    }
+  };
+
   componentDidMount() {
     this.props.getFeed();
     this.props.navigation.setParams({
@@ -73,44 +101,46 @@ class FeedScreen extends React.Component {
               <Button title="Retry" onPress={this.props.getFeed} />
             </View>
           ) : (
-            <ScrollView scrollEventThrottle={16} stickyHeaderIndices={[0]}>
-              <View>
-                {this.props.currentUserProfile.roles === 'conservationist' ? (
-                  <AddCampaignHeader
-                    profile={this.props.currentUserProfile}
-                    disabled={this.props.loading}
+            <View style={{ flex: 1 }}>
+              <ScrollView
+                scrollEventThrottle={16}
+                stickyHeaderIndices={[0]}
+                onScroll={this.onScrollToBottom}
+              >
+                <View>
+                  {this.props.currentUserProfile.roles === 'conservationist' ? (
+                    <AddCampaignHeader
+                      profile={this.props.currentUserProfile}
+                      disabled={this.props.loading}
+                    />
+                  ) : null}
+                </View>
+                <View style={styles.feedContainer}>
+                  {this.props.allCampaigns.length > 0 &&
+                    this.props.allCampaigns.map((campaign) => {
+                      if (campaign) {
+                        return (
+                          <CampaignPost
+                            key={campaign.id}
+                            data={campaign}
+                            toggled={this.props.campaignsToggled.includes(
+                              campaign.id
+                            )}
+                            navigation={navigation}
+                          />
+                        );
+                      }
+                    })}
+                </View>
+                <View style={{ padding: 24 }}>
+                  <ActivityIndicator
+                    size="large"
+                    style={{ opacity: this.state.gettingMorePosts }}
                   />
-                ) : null}
-              </View>
-              <View style={styles.feedContainer}>
-                <LoadingOverlay loading={this.props.loading} />
-                {this.props.allCampaigns.length > 0 &&
-                  this.props.allCampaigns.map((campaign) => {
-                    if (campaign) {
-                      return (
-                        <CampaignPost
-                          key={campaign.id}
-                          data={campaign}
-                          toggled={this.props.campaignsToggled.includes(
-                            campaign.id
-                          )}
-                          navigation={navigation}
-                        />
-                      );
-                    }
-                  })}
-              </View>
-            </ScrollView>
-            // {/* {this.state.campaignsVisible < this.props.allCampaigns.length && (
-            //   <View style={styles.loadMoreView}>
-            //     <TouchableOpacity
-            //       onPress={this.addMoreCampaigns}
-            //       style={styles.loadMoreTouchable}
-            //     >
-            //       <Text style={styles.loadMoreText}>View More Campaigns</Text>
-            //     </TouchableOpacity>
-            //   </View>
-            // )} */}
+                </View>
+              </ScrollView>
+              <FeedLoading loading={this.props.allCampaigns.length === 0} />
+            </View>
           )}
         </View>
       </Viewport.Tracker>

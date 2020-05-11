@@ -386,9 +386,15 @@ export const postUser = (user) => (dispatch) => {
   });
 };
 
-export const [GET_FEED_START, GET_FEED_SUCCESS, GET_FEED_ERROR] = [
+export const [
+  GET_FEED_START,
+  EXPAND_FEED_SUCCESS,
+  GET_FEED_SUCCESS,
+  GET_FEED_ERROR,
+] = [
   'GET_FEED_START',
   'GET_FEED_SUCCESS',
+  'EXPAND_FEED_SUCCESS',
   'GET_FEED_ERROR',
 ];
 
@@ -396,10 +402,10 @@ export const getFeed = (startAt = 0, size = 8) => (dispatch) => {
   dispatch({ type: GET_FEED_START });
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .get(`${seturl}feed`)
+      .get(`${seturl}feed?startAt=${startAt}&size=${startAt + size}`)
       .then((res) => {
         dispatch({
-          type: GET_FEED_SUCCESS,
+          type: startAt > 0 ? EXPAND_FEED_SUCCESS : GET_FEED_SUCCESS,
           payload: res.data,
         });
       })
