@@ -37,12 +37,6 @@ class FeedScreen extends React.Component {
       ),
     };
   };
-
-  state = {
-    campaignsVisible: 8,
-    webSocketStatus: 'Nothing so far',
-  };
-
   componentDidMount() {
     this.props.getFeed();
     this.props.navigation.setParams({
@@ -68,19 +62,8 @@ class FeedScreen extends React.Component {
     WebSocketManager().getInstance().unsubscribe('feed');
   }
 
-  addMoreCampaigns = () => {
-    // this.setState({
-    //   campaignsVisible: this.state.campaignsVisible + 8,
-    // });
-  };
-
   render() {
     const { navigation } = this.props;
-    // return (
-    //   <View>
-    //     <Text>{this.state.webSocketStatus}</Text>
-    //   </View>
-    // );
     return (
       <Viewport.Tracker>
         <View style={{ flex: 1 }}>
