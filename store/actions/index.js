@@ -54,8 +54,8 @@ const axiosWithAuth = (dispatch, req) => {
 // production
 // const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
-// const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
-const seturl = 'http://192.168.1.146:8000/api/';
+const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+// const seturl = 'http://192.168.1.146:8000/api/';
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
@@ -416,6 +416,28 @@ export const getFeed = (startAt = 0, size = 8) => (dispatch) => {
           payload:
             err.response?.data?.message ||
             'An error occurred while retrieving the feed.',
+        });
+      });
+  });
+};
+
+export const APPEND_TO_FEED = 'APPEND_TO_FEED';
+
+export const refreshFeed = (createdAt) => (dispatch) => {
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .get(`${seturl}feed?date=${createdAt}`)
+      .then((res) => {
+        dispatch({
+          type: APPEND_TO_FEED,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch({
+          type: GET_FEED_ERROR,
+          payload: err.response?.data?.message || 'Failed to refresh feed',
         });
       });
   });

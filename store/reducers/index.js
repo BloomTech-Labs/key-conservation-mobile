@@ -627,6 +627,11 @@ const reducer = (state = initialState, action) => {
           bookmarks: false,
         },
       };
+    case actions.APPEND_TO_FEED:
+      return {
+        ...state,
+        allCampaigns: [...action.payload.slice(1), ...state.allCampaigns],
+      };
     case actions.QUEUE_NEW_POSTS:
       return {
         ...state,

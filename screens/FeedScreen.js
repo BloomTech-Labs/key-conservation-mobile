@@ -5,10 +5,11 @@ import {
   TouchableOpacity,
   Button,
   ActivityIndicator,
+  RefreshControl,
 } from 'react-native';
 import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
-import { getFeed, queueNewPosts } from '../store/actions';
+import { getFeed, queueNewPosts, refreshFeed } from '../store/actions';
 import CampaignPost from '../components/CampaignPost';
 import styles from '../constants/screens/FeedScreen';
 import { Viewport } from '@skele/components';
@@ -54,6 +55,16 @@ class FeedScreen extends React.Component {
 
   state = {
     gettingMorePosts: false,
+    refreshing: false,
+  };
+
+  onRefresh = () => {
+    this.setState({ refreshing: true });
+    this.props
+      .refreshFeed(this.props.allCampaigns[0].created_at)
+      .finally(() => {
+        this.setState({ refreshing: false });
+      });
   };
 
   onScrollToBottom = ({ nativeEvent }) => {
@@ -104,9 +115,13 @@ class FeedScreen extends React.Component {
             <View style={{ flex: 1 }}>
               <ScrollView
                 scrollEventThrottle={16}
-                stickyHeaderIndices={[0]}
+                stickyHeaderIndices={[1]}
                 onScroll={this.onScrollToBottom}
               >
+                <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={this.onRefresh}
+                />
                 <View>
                   {this.props.currentUserProfile.roles === 'conservationist' ? (
                     <AddCampaignHeader
@@ -156,4 +171,8 @@ const mapStateToProps = (state) => ({
   feedError: state.errors.getFeed,
 });
 
-export default connect(mapStateToProps, { getFeed, queueNewPosts })(FeedScreen);
+export default connect(mapStateToProps, {
+  getFeed,
+  queueNewPosts,
+  refreshFeed,
+})(FeedScreen);
