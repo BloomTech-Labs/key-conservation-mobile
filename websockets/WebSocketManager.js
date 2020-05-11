@@ -25,6 +25,8 @@ class WebSocketManager {
 
   connected = false;
 
+  reconnecting = false;
+
   message;
 
   constructor(loggerEnabled = false) {
@@ -74,6 +76,7 @@ class WebSocketManager {
   }
 
   reconnect() {
+    if (this.reconnecting) return;
     if (!this.connected) {
       this.logMessage(`Reconnecting...`);
       this.socket = new WebSocket(SECURE_WEBSOCKET_URL);
