@@ -402,6 +402,7 @@ export const getCampaigns = () => (dispatch) => {
         return aaxios
           .get(`${seturl}updates`)
           .then((res) => {
+            //console.log(res.data.campaignUpdate);
             campaigns = campaigns.concat(res.data.campaignUpdate);
             dispatch({
               type: GET_CAMPAIGNS_SUCCESS,
@@ -706,6 +707,60 @@ export const deleteCampaignUpdate = (id) => (dispatch) => {
         console.log(err);
         dispatch({ type: DELETE_CAMPAIGN_UPDATE_ERROR, payload: err });
         return { error: err, id };
+      });
+  });
+};
+
+export const [
+  GET_CAMPAIGNS_BY_SKILL_START,
+  GET_CAMPAIGNS_BY_SKILL_ERROR,
+  GET_CAMPAIGNS_BY_SKILL_SUCCESS,
+] = [
+  'GET_CAMPAIGNS_BY_SKILL_START',
+  'GET_CAMPAIGNS_BY_SKILL_ERROR',
+  'GET_CAMPAIGNS_BY_SKILL_SUCCESS',
+];
+
+export const getCampaignsBySkill = (skill) => (dispatch) => {
+  dispatch({ type: GET_CAMPAIGNS_BY_SKILL_START });
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .get(`${seturl}campaigns/?skill=${skill}`)
+      .then((res) => {
+        dispatch({
+          type: GET_CAMPAIGNS_BY_SKILL_SUCCESS,
+          payload: res.data.campaigns,
+        });
+      })
+      .catch((err) => {
+        dispatch({ type: GET_CAMPAIGNS_BY_SKILL_ERROR, payload: err });
+      });
+  });
+};
+
+export const [
+  GET_APPLICATIONS_BY_USER_START,
+  GET_APPLICATIONS_BY_USER_ERROR,
+  GET_APPLICATIONS_BY_USER_SUCCESS,
+] = [
+  'GET_APPLICATIONS_BY_USER_START',
+  'GET_APPLICATIONS_BY_USER_ERROR',
+  'GET_APPLICATIONS_BY_USER_SUCCESS',
+];
+
+export const getApplicationsByUser = (userId) => (dispatch) => {
+  dispatch({ type: GET_APPLICATIONS_BY_USER_START });
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .get(`${seturl}users/${userId}/submissions`)
+      .then((res) => {
+        dispatch({
+          type: GET_APPLICATIONS_BY_USER_SUCCESS,
+          payload: res.data.submissions,
+        });
+      })
+      .catch((err) => {
+        dispatch({ type: GET_APPLICATIONS_BY_USER_ERROR, payload: err });
       });
   });
 };

@@ -55,6 +55,7 @@ const initialState = {
     campaignIDs: [],
     campaigns: [],
   },
+  submissions: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -224,6 +225,25 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getCampaign: false },
+        error: action.payload,
+      };
+    case actions.GET_CAMPAIGNS_BY_SKILL_START:
+      return {
+        ...state,
+        pending: { ...state.pending, getCampaignsBySkill: true },
+        error: '',
+      };
+    case actions.GET_CAMPAIGNS_BY_SKILL_SUCCESS:
+      const campaignsBySkill = action.payload;
+      return {
+        ...state,
+        pending: { ...state.pending, getCampaignsBySkill: false },
+        allCampaigns: campaignsBySkill,
+      };
+    case actions.GET_CAMPAIGNS_BY_SKILL_ERROR:
+      return {
+        ...state,
+        pending: { ...state.pending, getCampaignsBySkill: false },
         error: action.payload,
       };
     case actions.SET_CAMPAIGN:
@@ -638,6 +658,25 @@ const reducer = (state = initialState, action) => {
           error: action.payload,
           campaigns: [],
         },
+      };
+    case actions.GET_APPLICATIONS_BY_USER_START:
+      return {
+        ...state,
+        pending: { ...state.pending, getApplicationsByUser: true },
+        error: '',
+      };
+    case actions.GET_APPLICATIONS_BY_USER_SUCCESS:
+      const submissions = action.payload;
+      return {
+        ...state,
+        pending: { ...state.pending, getApplicationsByUser: false },
+        submissions,
+      };
+    case actions.GET_APPLICATIONS_BY_USER_ERROR:
+      return {
+        ...state,
+        pending: { ...state.pending, getApplicationsByUser: false },
+        error: action.payload,
       };
     default:
       return state;
