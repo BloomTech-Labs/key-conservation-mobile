@@ -209,7 +209,7 @@ const SmileSelector = (props) => {
                       }}
                       containerStyle={{
                         position: 'absolute',
-                        top: -6,
+                        top: -8,
                         right: -3,
                       }}
                       value={count}

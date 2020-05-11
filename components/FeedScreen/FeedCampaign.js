@@ -372,7 +372,7 @@ const FeedCampaign = (props) => {
                 }}
                 containerStyle={{
                   position: 'absolute',
-                  top: -6,
+                  top: -8,
                   right: -3,
                 }}
                 value={data.comments ? data.comments.length : 0}
