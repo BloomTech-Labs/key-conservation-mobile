@@ -998,12 +998,21 @@ export const setCampaignPostReaction = (postId, emoji = '') => (dispatch) => {
   });
 };
 
-export const QUEUE_NEW_POSTS = 'QUEUE_NEW_POSTS';
+export const [QUEUE_NEW_POSTS, DEQUEUE_NEW_POSTS] = [
+  'QUEUE_NEW_POSTS',
+  'DEQUEUE_NEW_POSTS',
+];
 
 export const queueNewPosts = (data) => (dispatch) => {
   dispatch({
     type: QUEUE_NEW_POSTS,
     payload: data,
+  });
+};
+
+export const dequeueNewPosts = () => (dispatch) => {
+  dispatch({
+    type: DEQUEUE_NEW_POSTS,
   });
 };
 

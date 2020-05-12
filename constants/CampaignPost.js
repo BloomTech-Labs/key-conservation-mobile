@@ -20,8 +20,12 @@ export default {
   mainContainer: {
     flex: 1,
     backgroundColor: '#F2F2FB',
+    height: 0,
   },
   container: {
+    flex: 1,
+    position: 'absolute',
+    top: 0,
     overflow: 'hidden',
     width: '95%',
     justifyContent: 'center',

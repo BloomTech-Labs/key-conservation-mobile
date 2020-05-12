@@ -4,6 +4,7 @@ import {
   ImageBackground,
   ActivityIndicator,
   TouchableOpacity,
+  Animated,
 } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 import { View } from 'react-native-animatable';
@@ -68,6 +69,17 @@ const CampaignPost = (props) => {
 
   const createdAt = data.created_at;
   const timeDiff = moment(createdAt).fromNow();
+
+  const [animation] = useState(new Animated.Value(0));
+
+  const animateIn = Animated.timing(animation, {
+    toValue: 1,
+    duration: 200,
+  });
+
+  useEffect(() => {
+    animateIn.start();
+  }, [animation]);
 
   //// All styles for the urgency bar
   let urgencyColor;
@@ -150,8 +162,15 @@ const CampaignPost = (props) => {
     setBookmark();
   };
 
+  const height = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 650],
+  });
+
   return (
-    <View style={styles.mainContainer}>
+    <Animated.View
+      style={[styles.mainContainer, { height, opacity: animation }]}
+    >
       <View style={styles.container}>
         <LoadingOverlay
           loading={props.deleteBuffer.includes(data.id)}
@@ -314,7 +333,7 @@ const CampaignPost = (props) => {
         <TakeActionCallToAction donate={props.data} />
         <View style={styles.demarcation} />
       </View>
-    </View>
+    </Animated.View>
   );
 };
 
