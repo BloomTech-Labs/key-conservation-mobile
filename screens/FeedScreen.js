@@ -45,6 +45,8 @@ class FeedScreen extends React.Component {
   constructor(props) {
     super(props);
 
+    this.scrollOffset = 0;
+
     this.scrollView = React.createRef();
   }
 
@@ -113,8 +115,6 @@ class FeedScreen extends React.Component {
     }
   };
 
-  onMomentumScrollBegin = () => {};
-
   onScroll = ({ nativeEvent }) => {
     if (isCloseToBottom(nativeEvent) && !this.state.gettingMorePosts) {
       this.setState({ gettingMorePosts: true });
@@ -155,7 +155,6 @@ class FeedScreen extends React.Component {
       this.state.showNewPostsButton === false
     ) {
       if (this.state.isAtTop) {
-        console.log('dequeue....');
         this.onGetNewPosts();
       } else {
         this.setState({ showNewPostsButton: true });
@@ -190,7 +189,6 @@ class FeedScreen extends React.Component {
                 stickyHeaderIndices={[1]}
                 onScroll={this.onScroll}
                 onScrollToTop={this.onScrollToTop}
-                onMomentumScrollBegin={this.onMomentumScrollBegin}
               >
                 <RefreshControl
                   refreshing={this.state.refreshing}
