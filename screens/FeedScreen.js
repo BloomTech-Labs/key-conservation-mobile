@@ -45,8 +45,6 @@ class FeedScreen extends React.Component {
   constructor(props) {
     super(props);
 
-    this.scrollOffset = 0;
-
     this.scrollView = React.createRef();
   }
 
