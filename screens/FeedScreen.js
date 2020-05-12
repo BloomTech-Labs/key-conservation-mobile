@@ -65,6 +65,9 @@ class FeedScreen extends React.Component {
       .finally(() => {
         this.setState({ refreshing: false });
       });
+    if (!WebSocketManager().getInstance().connected) {
+      WebSocketManager().getInstance().reconnect();
+    }
   };
 
   onScrollToBottom = ({ nativeEvent }) => {
@@ -89,7 +92,7 @@ class FeedScreen extends React.Component {
 
   componentDidUpdate() {
     if (!WebSocketManager().getInstance().connected) {
-      WebSocketManager().getInstance().reconnect;
+      WebSocketManager().getInstance().reconnect();
     }
 
     if (this.props.allCampaigns.length <= 3) {
@@ -104,15 +107,15 @@ class FeedScreen extends React.Component {
   render() {
     const { navigation } = this.props;
     return (
-      <Viewport.Tracker>
-        <View style={{ flex: 1 }}>
-          {this.props.feedError ? (
-            <View style={styles.errorContainer}>
-              <Text style={styles.errorText}>{this.props.feedError}</Text>
-              <Button title="Retry" onPress={this.props.getFeed} />
-            </View>
-          ) : (
-            <View style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
+        {this.props.feedError ? (
+          <View style={styles.errorContainer}>
+            <Text style={styles.errorText}>{this.props.feedError}</Text>
+            <Button title="Retry" onPress={this.props.getFeed} />
+          </View>
+        ) : (
+          <View style={{ flex: 1 }}>
+            <Viewport.Tracker>
               <ScrollView
                 scrollEventThrottle={16}
                 stickyHeaderIndices={[1]}
@@ -154,11 +157,11 @@ class FeedScreen extends React.Component {
                   />
                 </View>
               </ScrollView>
-              <FeedLoading loading={this.props.allCampaigns.length === 0} />
-            </View>
-          )}
-        </View>
-      </Viewport.Tracker>
+            </Viewport.Tracker>
+            <FeedLoading loading={this.props.allCampaigns.length === 0} />
+          </View>
+        )}
+      </View>
     );
   }
 }

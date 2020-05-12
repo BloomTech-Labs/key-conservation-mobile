@@ -1,5 +1,5 @@
-// const SECURE_WEBSOCKET_URL = `ws://192.168.1.146:8000`;
-const SECURE_WEBSOCKET_URL = `https://key-conservation-staging.herkouapp.com`;
+import { seturl } from '../store/actions';
+const SECURE_WEBSOCKET_URL = seturl;
 
 export default function () {
   var singleton;
@@ -53,6 +53,7 @@ class WebSocketManager {
 
     this.socket.onmessage = (e) => {
       const message = JSON.parse(e.data);
+      this.logMessage(e.data);
       this.handleDispatchMessage(message);
     };
   }
