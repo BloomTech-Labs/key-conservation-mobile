@@ -22,7 +22,7 @@ YellowBox.ignoreWarnings([
 export default App;
 
 // initialize WebSocketManager
-WebSocketManager().getInstance();
+WebSocketManager().getInstance().setLoggerEnabled(false);
 
 function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);

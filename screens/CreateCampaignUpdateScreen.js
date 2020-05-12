@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  TextInput,
-  Text,
-  View,
-  Alert,
-  ActivityIndicator,
-  TouchableOpacity,
-} from 'react-native';
+import { TextInput, Text, View, Alert, ActivityIndicator } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -50,7 +43,6 @@ class CreateCampaignUpdateScreen extends React.Component {
   };
 
   componentDidMount() {
-    console.log(this.selectedCampaign);
     this.props.navigation.setParams({ publish: this.publish });
   }
 

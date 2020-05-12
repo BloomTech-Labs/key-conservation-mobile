@@ -291,7 +291,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, postCampaign: false },
-        allCampaigns: [action.payload, ...(state.allCampaigns || [])],
         currentUserProfile: {
           ...state.currentUserProfile,
           campaigns: [
@@ -334,7 +333,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, postCampaignUpdate: false },
-        allCampaigns: [action.payload, ...(state.allCampaigns || [])],
         currentUserProfile: {
           ...state.currentUserProfile,
           campaigns: [
