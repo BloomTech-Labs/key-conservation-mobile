@@ -629,13 +629,18 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         allCampaigns: [...action.payload.slice(1), ...state.allCampaigns],
+        newPostQueue: [],
       };
     case actions.QUEUE_NEW_POSTS:
       return {
         ...state,
         newPostQueue: [action.payload, ...state.newPostQueue],
-        //TODO: Remove this debug code below
-        allCampaigns: [action.payload, ...state.allCampaigns],
+      };
+    case actions.DEQUEUE_NEW_POSTS:
+      return {
+        ...state,
+        allCampaigns: [...state.newPostQueue, ...state.allCampaigns],
+        newPostQueue: [],
       };
     default:
       return state;

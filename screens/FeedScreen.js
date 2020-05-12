@@ -9,7 +9,12 @@ import {
 } from 'react-native';
 import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
-import { getFeed, queueNewPosts, refreshFeed } from '../store/actions';
+import {
+  getFeed,
+  queueNewPosts,
+  refreshFeed,
+  dequeueNewPosts,
+} from '../store/actions';
 import CampaignPost from '../components/CampaignPost';
 import styles from '../constants/screens/FeedScreen';
 import { Viewport } from '@skele/components';
@@ -18,6 +23,7 @@ import FeedLoading from '../components/FeedScreen/FeedLoading';
 
 import Search from '../assets/jsicons/SearchIcon';
 import WebSocketManager from '../websockets/WebSocketManager';
+import NewPostsButton from '../components/FeedScreen/NewPostsButton';
 
 const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
   const paddingToBottom = 48;
@@ -27,7 +33,21 @@ const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
   );
 };
 
+const isCloseToTop = ({ contentOffset, contentSize }) => {
+  const paddingToTop = 50;
+
+  return (
+    contentOffset.y < contentSize.height - (contentSize.height - paddingToTop)
+  );
+};
+
 class FeedScreen extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.scrollView = React.createRef();
+  }
+
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'LIVE Feed',
@@ -56,26 +76,57 @@ class FeedScreen extends React.Component {
   state = {
     gettingMorePosts: false,
     refreshing: false,
+    showNewPostsButton: false,
+    isAtTop: true,
   };
 
   onRefresh = () => {
+    if (this.props.newPostQueue.length > 0) {
+      this.onGetNewPosts();
+    }
+
+    let created_at = this.props.allCampaigns[0]?.created_at;
+
+    if (this.props.newPostQueue.length > 0) {
+      created_at = this.props.newPostQueue[0].created_at;
+    }
+
     this.setState({ refreshing: true });
-    this.props
-      .refreshFeed(this.props.allCampaigns[0].created_at)
-      .finally(() => {
-        this.setState({ refreshing: false });
-      });
+    this.props.refreshFeed(created_at).finally(() => {
+      this.setState({ refreshing: false });
+    });
     if (!WebSocketManager().getInstance().connected) {
       WebSocketManager().getInstance().reconnect();
     }
   };
 
-  onScrollToBottom = ({ nativeEvent }) => {
+  onGetNewPosts = () => {
+    this.setState({ showNewPostsButton: false });
+    this.scrollView?.scrollTo?.({ x: 0, y: 0, animated: true });
+    if (!this.props.loading) this.props.dequeueNewPosts();
+  };
+
+  onScrollToTop = () => {
+    if (this.state.showNewPostsButton && !this.props.loading) {
+      this.setState({ showNewPostsButton: false });
+      this.props.dequeueNewPosts();
+    }
+  };
+
+  onMomentumScrollBegin = () => {};
+
+  onScroll = ({ nativeEvent }) => {
     if (isCloseToBottom(nativeEvent) && !this.state.gettingMorePosts) {
       this.setState({ gettingMorePosts: true });
       this.props.getFeed(this.props.allCampaigns.length).finally(() => {
         this.setState({ gettingMorePosts: false });
       });
+    }
+
+    if (isCloseToTop(nativeEvent)) {
+      this.setState({ isAtTop: true });
+    } else {
+      this.setState({ isAtTop: false });
     }
   };
 
@@ -98,6 +149,23 @@ class FeedScreen extends React.Component {
     if (this.props.allCampaigns.length <= 3) {
       this.props.getFeed();
     }
+
+    if (
+      this.props.newPostQueue.length > 0 &&
+      this.state.showNewPostsButton === false
+    ) {
+      if (this.state.isAtTop) {
+        console.log('dequeue....');
+        this.onGetNewPosts();
+      } else {
+        this.setState({ showNewPostsButton: true });
+      }
+    } else if (
+      this.props.newPostQueue.length === 0 &&
+      this.state.showNewPostsButton === true
+    ) {
+      this.setState({ showNewPostsButton: false });
+    }
   }
 
   componentWillUnmount() {
@@ -117,9 +185,12 @@ class FeedScreen extends React.Component {
           <View style={{ flex: 1 }}>
             <Viewport.Tracker>
               <ScrollView
+                ref={(r) => (this.scrollView = r)}
                 scrollEventThrottle={16}
                 stickyHeaderIndices={[1]}
-                onScroll={this.onScrollToBottom}
+                onScroll={this.onScroll}
+                onScrollToTop={this.onScrollToTop}
+                onMomentumScrollBegin={this.onMomentumScrollBegin}
               >
                 <RefreshControl
                   refreshing={this.state.refreshing}
@@ -132,6 +203,10 @@ class FeedScreen extends React.Component {
                       disabled={this.props.loading}
                     />
                   ) : null}
+                  <NewPostsButton
+                    show={this.state.showNewPostsButton}
+                    onPress={this.onGetNewPosts}
+                  />
                 </View>
                 <View style={styles.feedContainer}>
                   {this.props.allCampaigns.length > 0 &&
@@ -172,10 +247,12 @@ const mapStateToProps = (state) => ({
   campaignsToggled: state.campaignsToggled,
   loading: state.pending.getFeed,
   feedError: state.errors.getFeed,
+  newPostQueue: state.newPostQueue,
 });
 
 export default connect(mapStateToProps, {
   getFeed,
   queueNewPosts,
   refreshFeed,
+  dequeueNewPosts,
 })(FeedScreen);
