@@ -182,6 +182,8 @@ class FeedScreen extends React.Component {
           <View style={{ flex: 1 }}>
             <Viewport.Tracker>
               <ScrollView
+                overScrollMode={'always'}
+                scrollToOverflowEnabled={true}
                 ref={(r) => (this.scrollView = r)}
                 scrollEventThrottle={16}
                 stickyHeaderIndices={[1]}
@@ -224,7 +226,7 @@ class FeedScreen extends React.Component {
                 <View style={{ padding: 24 }}>
                   <ActivityIndicator
                     size="large"
-                    style={{ opacity: this.state.gettingMorePosts }}
+                    style={{ opacity: this.state.gettingMorePosts ? 1 : 0 }}
                   />
                 </View>
               </ScrollView>
