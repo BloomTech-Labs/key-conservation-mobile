@@ -6,6 +6,14 @@ import { navigate } from '../../navigation/RootNavigator';
 import { Alert } from 'react-native';
 import JwtDecode from 'jwt-decode';
 
+// For canceling requests
+const CancelToken = axios.CancelToken;
+const source = CancelToken.source();
+
+// All our cancel functions will be stored here
+// by eligible action creators
+let cancellables = {};
+
 // // This is defined here to prevent
 // // any un
 
@@ -475,12 +483,28 @@ export const setCampaign = (campaign) => {
 
 export const [
   POST_CAMPAIGN_START,
+  POST_CAMPAIGN_PROGRESS,
   POST_CAMPAIGN_ERROR,
   POST_CAMPAIGN_SUCCESS,
-] = ['POST_CAMPAIGN_START', 'POST_CAMPAIGN_ERROR', 'POST_CAMPAIGN_SUCCESS'];
+  POST_CAMPAIGN_CANCEL,
+] = [
+  'POST_CAMPAIGN_START',
+  'POST_CAMPAIGN_PROGRESS',
+  'POST_CAMPAIGN_ERROR',
+  'POST_CAMPAIGN_SUCCESS',
+  'POST_CAMPAIGN_CANCEL',
+];
 
 export const postCampaign = (campaign) => (dispatch) => {
-  dispatch({ type: POST_CAMPAIGN_START });
+  const id = `${campaign.name}${Math.random() * 1000}`;
+
+  dispatch({
+    type: POST_CAMPAIGN_START,
+    payload: {
+      id,
+      campaign,
+    },
+  });
 
   const filteredCampaign = filterUrls(['call_to_action'], campaign);
 
@@ -508,15 +532,48 @@ export const postCampaign = (campaign) => (dispatch) => {
           Accept: 'application/json',
           'Content-Type': 'multipart/form-data',
         },
+        onUploadProgress: (progressEvent) => {
+          const { loaded, total } = progressEvent;
+
+          dispatch({
+            type: POST_CAMPAIGN_PROGRESS,
+            payload: {
+              id,
+              progress: (loaded / total) * 100,
+            },
+          });
+        },
+        cancelToken: new CancelToken((c) => {
+          cancellables[id] = c;
+        }),
       })
       .then((res) => {
         dispatch({
           type: POST_CAMPAIGN_SUCCESS,
-          payload: res.data.campaignUpdate,
+          payload: {
+            id,
+            campaign: res.data.campaignUpdate,
+          },
         });
       })
       .catch((err) => {
-        dispatch({ type: POST_CAMPAIGN_ERROR, payload: err });
+        if (axios.isCancel(err)) {
+          dispatch({
+            type: POST_CAMPAIGN_CANCEL,
+            payload: id,
+          });
+        } else {
+          dispatch({
+            type: POST_CAMPAIGN_ERROR,
+            payload: {
+              error: err,
+              id,
+            },
+          });
+        }
+      })
+      .finally(() => {
+        delete cancellables[id];
       });
   });
 };
@@ -580,16 +637,28 @@ export const editCampaignPost = (id, changes) => (dispatch) => {
 
 export const [
   POST_CAMPAIGN_UPDATE_START,
+  POST_CAMPAIGN_UPDATE_PROGRESS,
   POST_CAMPAIGN_UPDATE_ERROR,
   POST_CAMPAIGN_UPDATE_SUCCESS,
+  POST_CAMPAIGN_UPDATE_CANCEL,
 ] = [
   'POST_CAMPAIGN_UPDATE_START',
+  'POST_CAMPAIGN_UPDATE_PROGRESS',
   'POST_CAMPAIGN_UPDATE_ERROR',
   'POST_CAMPAIGN_UPDATE_SUCCESS',
+  'POST_CAMPAIGN_UPDATE_CANCEL',
 ];
 
 export const postCampaignUpdate = (campaignUpdate) => (dispatch) => {
-  dispatch({ type: POST_CAMPAIGN_UPDATE_START });
+  const id = `${campaignUpdate.description}${Math.random() * 1000}`;
+
+  dispatch({
+    type: POST_CAMPAIGN_UPDATE_START,
+    payload: {
+      id,
+      campaignUpdate,
+    },
+  });
 
   const uri = campaignUpdate.image;
 
@@ -616,17 +685,49 @@ export const postCampaignUpdate = (campaignUpdate) => (dispatch) => {
             Accept: 'application/json',
             'Content-Type': 'multipart/form-data',
           },
+          onUploadProgress: (progressEvent) => {
+            const { loaded, total } = progressEvent;
+            dispatch({
+              type: POST_CAMPAIGN_UPDATE_PROGRESS,
+              payload: {
+                id,
+                progress: (loaded / total) * 100,
+              },
+            });
+          },
+          cancelToken: new CancelToken((c) => {
+            cancellables[id] = c;
+          }),
         }
       )
       .then((res) => {
         dispatch({
           type: POST_CAMPAIGN_UPDATE_SUCCESS,
-          payload: res.data.campaignUpdate,
+          payload: {
+            id,
+            campaignUpdate: res.data.campaignUpdate,
+          },
         });
       })
       .catch((err) => {
-        dispatch({ type: POST_CAMPAIGN_UPDATE_ERROR, payload: err });
-        return err;
+        if (axios.isCancel(err)) {
+          dispatch({
+            type: POST_CAMPAIGN_UPDATE_CANCEL,
+            payload: id,
+          });
+        } else {
+          dispatch({
+            type: POST_CAMPAIGN_UPDATE_ERROR,
+            payload: {
+              error: err,
+              id,
+            },
+          });
+          return err;
+        }
+      })
+      .finally(() => {
+        delete cancellables[id];
       });
   });
 };
@@ -1014,6 +1115,30 @@ export const dequeueNewPosts = () => (dispatch) => {
   dispatch({
     type: DEQUEUE_NEW_POSTS,
   });
+};
+
+export const cancelUploadPost = (queueId) => (dispatch) => {
+  if (cancellables[queueId]) {
+    cancellables[queueId]();
+    delete cancellables[queueId];
+  }
+};
+
+const RETRY_UPLOAD_POST = 'RETRY_UPLOAD_POST';
+
+export const retryUploadPost = (queueId, data) => (dispatch) => {
+  // If a post in the upload queue fails to upload, this is the
+  // action dispatched to retry
+  dispatch({
+    type: RETRY_UPLOAD_POST,
+    id: queueId,
+  });
+
+  if (data.is_update) {
+    dispatch(postCampaignUpdate(data));
+  } else {
+    dispatch(postCampaign(data));
+  }
 };
 
 // TODO: Add getting emoji reaction details (User names and avatars for each emoji)

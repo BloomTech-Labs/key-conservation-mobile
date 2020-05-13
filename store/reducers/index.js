@@ -1,6 +1,4 @@
 import * as SecureStore from 'expo-secure-store';
-import moment from 'moment';
-import escapeRegExp from 'escape-string-regexp';
 
 function filterSearch(query, key, arr) {
   if (query === '') return arr;
@@ -19,6 +17,7 @@ const initialState = {
     bookmarks: '',
   },
   newPostQueue: [],
+  postUploadQueue: {},
   pending: {
     getFeed: false,
     getCampaign: false,
@@ -285,17 +284,36 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, postCampaign: true },
+        postUploadQueue: {
+          ...state.postUploadQueue,
+          [action.payload.id]: action.payload.campaign,
+        },
         error: '',
+      };
+    case actions.POST_CAMPAIGN_PROGRESS:
+      return {
+        ...state,
+        postUploadQueue: {
+          ...state.postUploadQueue,
+          [action.payload.id]: {
+            ...state.postUploadQueue[action.payload.id],
+            progress: action.payload.progress,
+          },
+        },
       };
     case actions.POST_CAMPAIGN_SUCCESS:
       return {
         ...state,
         pending: { ...state.pending, postCampaign: false },
+        postUploadQueue: removeFromUploadQueue(
+          state.postUploadQueue,
+          action.payload.id
+        ),
         currentUserProfile: {
           ...state.currentUserProfile,
           campaigns: [
             ...(state.currentUserProfile?.campaigns || []),
-            action.payload,
+            action.payload.campaign,
           ],
         },
       };
@@ -303,7 +321,23 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, postCampaign: false },
-        error: action.payload,
+        postUploadQueue: {
+          ...state.postUploadQueue,
+          [action.payload.id]: {
+            ...state.postUploadQueue[action.payload.id],
+            status: 'Failed',
+          },
+        },
+        error: action.payload.error,
+      };
+    case actions.POST_CAMPAIGN_CANCEL:
+      return {
+        ...state,
+        pending: { ...state.pending, postCampaign: false },
+        postUploadQueue: removeFromUploadQueue(
+          state.postUploadQueue,
+          action.payload
+        ),
       };
     case actions.EDIT_CAMPAIGN_START:
       return {
@@ -326,18 +360,40 @@ const reducer = (state = initialState, action) => {
     case actions.POST_CAMPAIGN_UPDATE_START:
       return {
         ...state,
+        postUploadQueue: {
+          ...state.postUploadQueue,
+          [action.payload.id]: {
+            ...action.payload.campaignUpdate,
+            isUpdate: true,
+          },
+        },
         pending: { ...state.pending, postCampaignUpdate: true },
         error: '',
+      };
+    case actions.POST_CAMPAIGN_UPDATE_PROGRESS:
+      return {
+        ...state,
+        postUploadQueue: {
+          ...state.postUploadQueue,
+          [action.payload.id]: {
+            ...state.postUploadQueue[action.payload.id],
+            progress: action.payload.progress,
+          },
+        },
       };
     case actions.POST_CAMPAIGN_UPDATE_SUCCESS:
       return {
         ...state,
         pending: { ...state.pending, postCampaignUpdate: false },
+        postUploadQueue: removeFromUploadQueue(
+          state.postUploadQueue,
+          action.payload.id
+        ),
         currentUserProfile: {
           ...state.currentUserProfile,
           campaigns: [
             ...(state.currentUserProfile?.campaigns || []),
-            action.payload,
+            action.payload.campaignUpdate,
           ],
         },
       };
@@ -345,7 +401,23 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, postCampaignUpdate: false },
-        error: action.payload,
+        postUploadQueue: {
+          ...state.postUploadQueue,
+          [action.payload.id]: {
+            ...state.postUploadQueue[action.payload.id],
+            status: 'Failed',
+          },
+        },
+        error: action.payload.error,
+      };
+    case actions.POST_CAMPAIGN_UPDATE_CANCEL:
+      return {
+        ...state,
+        pending: { ...state.pending, postCampaignUpdate: false },
+        postUploadQueue: removeFromUploadQueue(
+          state.postUploadQueue,
+          action.payload
+        ),
       };
     case actions.TOGGLE_CAMPAIGN_TEXT:
       return {
@@ -645,6 +717,14 @@ const reducer = (state = initialState, action) => {
     default:
       return state;
   }
+};
+
+const removeFromUploadQueue = (queue, id) => {
+  const newQueue = Object.create(queue);
+
+  delete newQueue[id];
+
+  return newQueue;
 };
 
 export default reducer;
