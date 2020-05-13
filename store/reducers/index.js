@@ -700,7 +700,7 @@ const reducer = (state = initialState, action) => {
     case actions.APPEND_TO_FEED:
       return {
         ...state,
-        allCampaigns: [...action.payload.slice(1), ...state.allCampaigns],
+        allCampaigns: [...action.payload, ...state.allCampaigns.slice(1)],
         newPostQueue: [],
       };
     case actions.QUEUE_NEW_POSTS:
@@ -713,6 +713,14 @@ const reducer = (state = initialState, action) => {
         ...state,
         allCampaigns: [...state.newPostQueue, ...state.allCampaigns],
         newPostQueue: [],
+      };
+    case actions.REMOVE_FROM_UPLOAD_QUEUE:
+      return {
+        ...state,
+        postUploadQueue: removeFromUploadQueue(
+          state.postUploadQueue,
+          action.payload
+        ),
       };
     default:
       return state;

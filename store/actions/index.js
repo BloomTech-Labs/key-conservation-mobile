@@ -1117,14 +1117,21 @@ export const dequeueNewPosts = () => (dispatch) => {
   });
 };
 
+export const REMOVE_FROM_UPLOAD_QUEUE = 'REMOVE_FROM_UPLOAD_QUEUE';
+
 export const cancelUploadPost = (queueId) => (dispatch) => {
   if (cancellables[queueId]) {
     cancellables[queueId]();
     delete cancellables[queueId];
+  } else {
+    dispatch({
+      type: REMOVE_FROM_UPLOAD_QUEUE,
+      payload: queueId,
+    });
   }
 };
 
-const RETRY_UPLOAD_POST = 'RETRY_UPLOAD_POST';
+export const RETRY_UPLOAD_POST = 'RETRY_UPLOAD_POST';
 
 export const retryUploadPost = (queueId, data) => (dispatch) => {
   // If a post in the upload queue fails to upload, this is the

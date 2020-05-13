@@ -61,7 +61,7 @@ class UploadQueueCard extends Component {
             </Text>
           </View>
           <View style={styles.rightContainer}>
-            <ActivityIndicator />
+            {data?.status === 'Failed' ? null : <ActivityIndicator />}
             <Text style={styles.text}>{data?.status || 'Posting...'}</Text>
             <TouchableOpacity onPress={this.handleCancel.bind(this)}>
               <X />
@@ -69,7 +69,14 @@ class UploadQueueCard extends Component {
           </View>
         </View>
         <View style={styles.progressBar}>
-          <View style={{ ...styles.fill, width: `${data?.progress || 0}%` }} />
+          <View
+            style={{
+              ...styles.fill,
+              width: `${data?.progress || 0}%`,
+              backgroundColor:
+                data?.status === 'Failed' ? 'crimson' : 'rgba(202,255,0, 1)',
+            }}
+          />
         </View>
       </View>
     );
