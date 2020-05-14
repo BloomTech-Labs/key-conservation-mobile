@@ -168,9 +168,10 @@ const CampaignPost = (props) => {
   });
 
   return (
-    <Animated.View
-      style={[styles.mainContainer, { height, opacity: animation }]}
-    >
+    // <Animated.View
+    //   style={[styles.mainContainer, { height, opacity: animation }]}
+    // >
+    <View style={styles.mainContainer}>
       <View style={styles.container}>
         <LoadingOverlay
           loading={props.deleteBuffer.includes(data.id)}
@@ -333,7 +334,8 @@ const CampaignPost = (props) => {
         <TakeActionCallToAction donate={props.data} />
         <View style={styles.demarcation} />
       </View>
-    </Animated.View>
+    </View>
+    // </Animated.View>
   );
 };
 
