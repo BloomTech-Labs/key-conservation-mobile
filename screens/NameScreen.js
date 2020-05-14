@@ -17,7 +17,7 @@ class NameScreen extends React.Component {
     nameInput: '',
     error: '',
     result: null,
-    id: ''
+    id: '',
   };
 
   async componentDidMount() {
@@ -32,17 +32,17 @@ class NameScreen extends React.Component {
         {
           id: this.state.id,
           fields: {
-            isVetting: false
-          }
-        }
+            isVetting: false,
+          },
+        },
       ],
-      function(err, records) {
+      function (err, records) {
         if (err) {
           console.error(err);
           return;
         }
         // this.navOverride();
-        records.forEach(function(record) {
+        records.forEach(function (record) {
           console.log(record.getId());
         });
       }
@@ -60,13 +60,13 @@ class NameScreen extends React.Component {
     if (name.length > 4) {
       console.log('sub', sub);
       this.setState({
-        error: ''
+        error: '',
       });
       let user = {
         name: name,
         sub: sub,
         roles: role,
-        email: email
+        email: email,
       };
       console.log('supporter', user);
       await this.props.postUser(user);
@@ -74,10 +74,10 @@ class NameScreen extends React.Component {
       this.state.id ? this.updateAirtable() : null; // Checks if organization with an airtable ID, if not then has to be a supporter.
       setTimeout(() => {
         this.navigate();
-      }, 3000);
+      }, 1500);
     } else {
       this.setState({
-        error: 'Name is required to be at least 5 characters'
+        error: 'Name is required to be at least 5 characters',
       });
     }
   };
@@ -101,10 +101,10 @@ class NameScreen extends React.Component {
             </View>
             <View style={styles.inputContain}>
               <TextInput
-                returnKeyType='go'
-                placeholder='Bird Rescue Tennessee'
+                returnKeyType="go"
+                placeholder="Bird Rescue Tennessee"
                 style={styles.inputText}
-                onChangeText={text => this.setState({ nameInput: text })}
+                onChangeText={(text) => this.setState({ nameInput: text })}
                 value={this.state.nameInput}
                 required
               />
@@ -149,11 +149,11 @@ class NameScreen extends React.Component {
 }
 
 NameScreen.navigationOptions = {
-  title: 'Sign Up'
+  title: 'Sign Up',
 };
 
-const mapStateToProps = state => ({
-  error: state.error
+const mapStateToProps = (state) => ({
+  error: state.error,
 });
 
 export default connect(mapStateToProps, { postUser, logout })(NameScreen);

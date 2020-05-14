@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
   RefreshControl,
 } from 'react-native';
-import { ScrollView } from 'react-navigation';
+import { ScrollView, FlatList } from 'react-navigation';
 import { connect } from 'react-redux';
 import {
   getFeed,
@@ -196,55 +196,43 @@ class FeedScreen extends React.Component {
         ) : (
           <View style={{ flex: 1 }}>
             <Viewport.Tracker>
-              <ScrollView
-                overScrollMode={'always'}
-                scrollToOverflowEnabled={true}
-                ref={(r) => (this.scrollView = r)}
-                scrollEventThrottle={16}
-                stickyHeaderIndices={[1]}
+              <FlatList
+                onRefresh={this.onRefresh}
+                refreshing={this.state.refreshing}
                 onScroll={this.onScroll}
                 onScrollToTop={this.onScrollToTop}
-              >
-                <RefreshControl
-                  refreshing={this.state.refreshing}
-                  onRefresh={this.onRefresh}
-                />
-                <View>
-                  {this.props.currentUserProfile.roles === 'conservationist' ? (
+                ref={this.scrollView}
+                scrollEventThrottle={16}
+                data={this.props.allCampaigns}
+                renderItem={({ item: campaign }) => {
+                  return (
+                    <CampaignPost
+                      key={campaign.id}
+                      data={campaign}
+                      toggled={this.props.campaignsToggled.includes(
+                        campaign.id
+                      )}
+                      navigation={navigation}
+                    />
+                  );
+                }}
+                ListHeaderComponent={
+                  this.props.currentUserProfile.roles === 'conservationist' ? (
                     <AddCampaignHeader
                       profile={this.props.currentUserProfile}
                       disabled={this.props.loading}
                     />
-                  ) : null}
-                  <NewPostsButton
-                    show={this.state.showNewPostsButton}
-                    onPress={this.onGetNewPosts}
-                  />
-                </View>
-                <View style={styles.feedContainer}>
-                  {this.props.allCampaigns.length > 0 &&
-                    this.props.allCampaigns.map((campaign) => {
-                      if (campaign) {
-                        return (
-                          <CampaignPost
-                            key={campaign.id}
-                            data={campaign}
-                            toggled={this.props.campaignsToggled.includes(
-                              campaign.id
-                            )}
-                            navigation={navigation}
-                          />
-                        );
-                      }
-                    })}
-                </View>
-                <View style={{ padding: 24 }}>
-                  <ActivityIndicator
-                    size="large"
-                    style={{ opacity: this.state.gettingMorePosts ? 1 : 0 }}
-                  />
-                </View>
-              </ScrollView>
+                  ) : null
+                }
+                ListFooterComponent={
+                  <View style={{ padding: 24 }}>
+                    <ActivityIndicator
+                      size="large"
+                      style={{ opacity: this.state.gettingMorePosts ? 1 : 0 }}
+                    />
+                  </View>
+                }
+              />
             </Viewport.Tracker>
             <FeedLoading loading={this.props.allCampaigns.length === 0} />
           </View>
