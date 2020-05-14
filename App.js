@@ -22,11 +22,11 @@ YellowBox.ignoreWarnings([
 export default App;
 
 // initialize WebSocketManager
-WebSocketManager().getInstance().setLoggerEnabled(false);
 
 function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
+  WebSocketManager().getInstance().setLoggerEnabled(true);
   const handleNavigationChange = (prevState, newState, action) => {
     routeSupply = () => {
       if (action.key) {

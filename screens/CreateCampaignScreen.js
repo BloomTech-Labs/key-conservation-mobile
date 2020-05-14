@@ -6,17 +6,15 @@ import {
   Platform,
   Alert,
   Image,
-  ActivityIndicator,
   TouchableWithoutFeedback,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import { postCampaign, getCampaigns } from '../store/actions';
+import { postCampaign } from '../store/actions';
 import BackButton from '../components/BackButton';
-import { AmpEvent } from '../components/withAmplitude';
 import UploadMedia from '../components/UploadMedia';
 
 import styles from '../constants/screens/CreateCampaignScreen';
@@ -29,17 +27,17 @@ class CreateCampaignScreen extends React.Component {
     return {
       title: 'CREATE A CAMPAIGN',
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: '#323338',
       },
       headerTintColor: '#fff',
       headerLeft: () => (
         <BackButton
           navigation={navigation}
-          content='Cancel'
-          confirm='Are you sure you want to cancel? Any progress will be lost'
+          content="Cancel"
+          confirm="Are you sure you want to cancel? Any progress will be lost"
         />
       ),
-      gestureEnabled: false
+      gestureEnabled: false,
     };
   };
 
@@ -51,19 +49,19 @@ class CreateCampaignScreen extends React.Component {
         title: 'Critical',
         description:
           'Dire consequences may occur of no immediate support is made available',
-        color: '#E31059'
+        color: '#E31059',
       },
       {
         title: 'Urgent',
         description:
           'Immediate support needed, although situation is not critical',
-        color: '#FFC700'
+        color: '#FFC700',
       },
       {
         title: 'Longterm',
         description: 'Support is needed over a longer period of time',
-        color: '#00FF9D'
-      }
+        color: '#00FF9D',
+      },
     ];
   }
 
@@ -74,26 +72,21 @@ class CreateCampaignScreen extends React.Component {
     description: '',
     call_to_action: '',
     urgency: null,
-    loading: false
   };
 
-  setUrgency = urgencyLevel => {
+  setUrgency = (urgencyLevel) => {
     if (this.state.urgency === urgencyLevel) {
       this.setState({
-        urgency: null
+        urgency: null,
       });
     } else {
       this.setState({
-        urgency: urgencyLevel
+        urgency: urgencyLevel,
       });
     }
   };
 
-  publish = async () => {
-    this.setState({
-      ...this.state,
-      loading: true
-    });
+  publish = () => {
     if (
       !this.state.image ||
       !this.state.name ||
@@ -106,9 +99,6 @@ class CreateCampaignScreen extends React.Component {
         (this.state.name ? '' : '\n    - Campaign Name') +
         (this.state.description ? '' : '\n    - Campaign Details') +
         (this.state.call_to_action ? '' : '\n    - Donation Link');
-      this.setState({
-        loading: false
-      });
       return Alert.alert('Error', errorMessage);
     } else {
       const campaign = {
@@ -117,62 +107,41 @@ class CreateCampaignScreen extends React.Component {
         description: this.state.description,
         call_to_action: this.state.call_to_action,
         urgency: this.state.urgency,
-        image: this.state.image
+        image: this.state.image,
       };
-      this.props
-        .postCampaign(campaign)
-        .then(async res => {
-          AmpEvent('Campaign Created');
-          await this.setState({
-            loading: false
-          });
-          this.props.navigation.navigate('Home');
-        })
-        .catch(err => {
-          this.setState({
-            loading: false
-          });
-          console.log(err);
-        });
+      this.props.postCampaign(campaign);
+      this.props.navigation.goBack();
     }
   };
 
   clearState = () => {
     this.setState({
-      loading: false,
       user_id: this.props.currentUserProfile.id,
       image: '',
       name: '',
       description: '',
       call_to_action: '',
-      urgency: null
+      urgency: null,
     });
   };
 
   render() {
-    if (this.state.loading === true) {
-      return (
-        <View style={styles.indicator}>
-          <ActivityIndicator size='large' color='#00FF9D' />
-        </View>
-      );
-    }
     return (
       <KeyboardAwareScrollView contentContainerStyle={styles.container}>
         <NavigationEvents onDidBlur={this.clearState} />
         <View style={styles.sectionContainer}>
           <View style={styles.horizontalContainer}>
             <View style={styles.iconContainer}>
-              <Lightening fill='#00FF9D' />
+              <Lightening fill="#00FF9D" />
             </View>
             <TextInput
-              ref={input => {
+              ref={(input) => {
                 this.campaignNameInput = input;
               }}
-              returnKeyType='next'
-              placeholder='Name Campaign'
+              returnKeyType="next"
+              placeholder="Name Campaign"
               style={styles.inputContain}
-              onChangeText={text => this.setState({ name: text })}
+              onChangeText={(text) => this.setState({ name: text })}
               onSubmitEditing={() => {
                 if (Platform.OS === 'android') return;
                 this.campImgUrlInput.focus();
@@ -187,19 +156,19 @@ class CreateCampaignScreen extends React.Component {
           <View style={styles.horizontalContainer}>
             <View style={styles.iconContainer}>
               <UploadMedia
-                title='Upload campaign image'
+                title="Upload campaign image"
                 media={this.state.image}
-                onChangeMedia={media => this.setState({ image: media })}
+                onChangeMedia={(media) => this.setState({ image: media })}
               />
             </View>
             <TextInput
-              ref={input => {
+              ref={(input) => {
                 this.campaignDetailsInput = input;
               }}
-              returnKeyType='next'
-              placeholder='Add campaign details and list of monetary needs.'
+              returnKeyType="next"
+              placeholder="Add campaign details and list of monetary needs."
               style={styles.inputContain2}
-              onChangeText={text => this.setState({ description: text })}
+              onChangeText={(text) => this.setState({ description: text })}
               multiline={true}
               value={this.state.description}
             />
@@ -208,16 +177,16 @@ class CreateCampaignScreen extends React.Component {
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionsText}>Donation Link</Text>
           <TextInput
-            ref={input => {
+            ref={(input) => {
               this.donationLinkInput = input;
             }}
-            returnKeyType='next'
-            placeholder='https://www.carribbeanseaturtle.com/donate'
-            keyboardType='default'
-            placeholder='Please include full URL'
-            autoCapitalize='none'
+            returnKeyType="next"
+            placeholder="https://www.carribbeanseaturtle.com/donate"
+            keyboardType="default"
+            placeholder="Please include full URL"
+            autoCapitalize="none"
             style={styles.inputContain}
-            onChangeText={text => this.setState({ call_to_action: text })}
+            onChangeText={(text) => this.setState({ call_to_action: text })}
             value={this.state.call_to_action}
           />
         </View>
@@ -237,7 +206,7 @@ class CreateCampaignScreen extends React.Component {
                     <Text
                       style={{
                         ...styles.urgencyLevelTitle,
-                        color: urgency.color
+                        color: urgency.color,
                       }}
                     >
                       {urgency.title}
@@ -268,13 +237,12 @@ class CreateCampaignScreen extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentUserProfile: state.currentUserProfile,
   allCampaigns: state.allCampaigns,
-  token: state.token
+  token: state.token,
 });
 
 export default connect(mapStateToProps, {
   postCampaign,
-  getCampaigns
 })(CreateCampaignScreen);

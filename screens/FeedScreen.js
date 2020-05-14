@@ -103,7 +103,9 @@ class FeedScreen extends React.Component {
   onGetNewPosts = () => {
     this.setState({ showNewPostsButton: false });
     this.scrollView?.scrollTo?.({ x: 0, y: 0, animated: true });
-    if (!this.props.loading) this.props.dequeueNewPosts();
+    if (!this.props.loading) {
+      this.props.dequeueNewPosts();
+    }
   };
 
   onScrollToTop = () => {
