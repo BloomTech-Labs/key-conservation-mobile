@@ -698,9 +698,14 @@ const reducer = (state = initialState, action) => {
         },
       };
     case actions.APPEND_TO_FEED:
+      const newCampaigns =
+        action.payload.length > 0
+          ? [...action.payload, ...state.allCampaigns.slice(1)]
+          : [...state.allCampaigns];
+
       return {
         ...state,
-        allCampaigns: [...action.payload, ...state.allCampaigns.slice(1)],
+        allCampaigns: newCampaigns,
         newPostQueue: [],
       };
     case actions.QUEUE_NEW_POSTS:
