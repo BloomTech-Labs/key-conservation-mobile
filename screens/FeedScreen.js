@@ -118,9 +118,13 @@ class FeedScreen extends React.Component {
   onScroll = ({ nativeEvent }) => {
     if (isCloseToBottom(nativeEvent) && !this.state.gettingMorePosts) {
       this.setState({ gettingMorePosts: true });
-      this.props.getFeed(this.props.allCampaigns.length).finally(() => {
-        this.setState({ gettingMorePosts: false });
-      });
+      this.props
+        .getFeed(
+          this.props.allCampaigns.length + this.props.newPostQueue.length
+        )
+        .finally(() => {
+          this.setState({ gettingMorePosts: false });
+        });
     }
 
     if (isCloseToTop(nativeEvent)) {
