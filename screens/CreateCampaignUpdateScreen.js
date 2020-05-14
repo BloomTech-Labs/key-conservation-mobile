@@ -1,12 +1,12 @@
 import React from 'react';
-import { TextInput, Text, View, Alert, ActivityIndicator } from 'react-native';
+import { TextInput, Text, View, Alert } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import styles from '../constants/screens/CreateCampaignUpdateScreen';
 
-import { postCampaignUpdate, getProfileData } from '../store/actions';
+import { postCampaignUpdate } from '../store/actions';
 import BackButton from '../components/BackButton';
 import UploadMedia from '../components/UploadMedia';
 import PublishButton from '../components/PublishButton';
@@ -39,7 +39,6 @@ class CreateCampaignUpdateScreen extends React.Component {
   state = {
     image: '',
     description: '',
-    loading: false,
   };
 
   componentDidMount() {
@@ -54,45 +53,16 @@ class CreateCampaignUpdateScreen extends React.Component {
         (this.state.description ? '' : '\n    - Update Details');
       return Alert.alert('Error', errorMessage);
     } else {
-      this.setState({
-        loading: true,
-      });
       const campaignUpdate = {
         description: this.state.description,
         campaign_id:
           this.selectedCampaign.campaign_id || this.selectedCampaign.id,
         image: this.state.image,
       };
-      this.postCampaignUpdate(campaignUpdate);
-    }
-  };
+      this.props.postCampaignUpdate(campaignUpdate);
 
-  postCampaignUpdate = (campaignUpdate) => {
-    if (
-      this.state.image.includes('.mov') ||
-      this.state.image.includes('.mp3') ||
-      this.state.image.includes('.mp4')
-    ) {
-      Alert.alert("We're uploading your video!");
+      this.props.navigation.goBack();
     }
-
-    this.props.postCampaignUpdate(campaignUpdate).then((err) => {
-      if (err) {
-        this.setState({
-          ...this.state,
-          loading: false,
-        });
-        console.log(err);
-        Alert.alert('Error', 'Failed to post campaign update');
-      } else {
-        this.props.getProfileData(this.props.currentUserProfile.id, null, true);
-        this.setState({
-          ...this.state,
-          loading: false,
-        });
-        this.props.navigation.goBack();
-      }
-    });
   };
 
   clearState = () => {
@@ -103,13 +73,6 @@ class CreateCampaignUpdateScreen extends React.Component {
   };
 
   render() {
-    if (this.state.loading === true) {
-      return (
-        <View style={styles.indicator}>
-          <ActivityIndicator size="large" color="#00FF9D" />
-        </View>
-      );
-    }
     return (
       <KeyboardAwareScrollView style={styles.container}>
         <NavigationEvents onDidBlur={this.clearState} />
@@ -146,13 +109,6 @@ class CreateCampaignUpdateScreen extends React.Component {
             />
           </View>
         </View>
-        {/* <View style={styles.sectionContainer}>
-          <TouchableOpacity onPress={this.publish}>
-            <View style={styles.publishButton}>
-              <Text style={styles.publishButtonText}>Publish Live</Text>
-            </View>
-          </TouchableOpacity>
-        </View> */}
       </KeyboardAwareScrollView>
     );
   }
@@ -162,5 +118,4 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps, {
   postCampaignUpdate,
-  getProfileData,
 })(CreateCampaignUpdateScreen);
