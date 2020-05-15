@@ -66,10 +66,10 @@ class CommentsView extends React.Component {
           {[this.bufferedComment, ...this.props.campaignComments]
             ?.filter((com) => com !== null)
             .slice(0, this.state.commentsVisible)
-            .map((comment) => {
+            .map((comment, index) => {
               return (
                 <Comment
-                  key={comment.id}
+                  key={index}
                   comment={comment}
                   currentUserProfile={this.props.currentUserProfile}
                   selectedCampaign={this.props.selectedCampaign}
