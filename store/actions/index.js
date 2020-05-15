@@ -97,7 +97,6 @@ export const loginError = (error) => ({
 });
 export const loginSuccess = (credentials, role) => async (dispatch) => {
   await SecureStore.setItemAsync('accessToken', credentials.idToken);
-
   const decoded = JwtDecode(credentials.idToken);
 
   await SecureStore.setItemAsync('sub', decoded.sub);
@@ -246,7 +245,6 @@ export const getProfileData = (
   let user, url;
   if (id) url = `${seturl}users/${id}`;
   else if (sub) url = `${seturl}users/sub/${sub}`;
-
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .get(url)
@@ -829,13 +827,6 @@ export const getApplicationsByUser = (userId) => (dispatch) => {
       });
   });
 };
-
-export const TOGGLE_CAMPAIGN_TEXT = 'TOGGLE_CAMPAIGN_TEXT';
-
-export const toggleCampaignText = (id) => ({
-  type: TOGGLE_CAMPAIGN_TEXT,
-  payload: id,
-});
 
 export const [
   POST_COMMENT_START,
