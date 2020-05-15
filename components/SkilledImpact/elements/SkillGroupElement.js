@@ -6,18 +6,9 @@ class SkillGroupElement extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Avatar
-          size={95}
-          rounded
-          source={{
-            uri: this.props.image || undefined,
-          }}
-        />
-
+        <Avatar size={95} rounded source={this.props.image} />
         <Text style={styles.skillGroupTitle}>Skilled Impact:</Text>
-        <Text style={styles.skillGroupName}>
-          {this.props.name.substring(0, 4)}
-        </Text>
+        <Text style={styles.skillGroupName}>{this.props.name}</Text>
       </View>
     );
   }

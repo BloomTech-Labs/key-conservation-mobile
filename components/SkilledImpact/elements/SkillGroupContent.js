@@ -19,6 +19,13 @@ class SkillGroupContent extends React.Component {
     this.setState({ expanded: !this.state.expanded });
   };
 
+  toTitleCase = (str) => {
+    return str
+      .split('_')
+      .map((w) => w[0].toUpperCase() + w.substr(1).toLowerCase())
+      .join(' ');
+  };
+
   render() {
     return (
       <View style={styles.itemContainers}>
@@ -37,12 +44,11 @@ class SkillGroupContent extends React.Component {
             <View style={styles.itemContentRows}>
               {this.state.skillGroups.map((skillGroup, i) => {
                 if (skillGroup) {
+                  const skill = this.toTitleCase(skillGroup);
+                  // require image based on skill here
+                  const image = require(`../../../assets/images/SkilledImpact/Skills_Logos/Drone.png`);
                   return (
-                    <SkillGroupElement
-                      key={i}
-                      image={skillGroup.campaigns.profile_image}
-                      name={skillGroup.skills[i]}
-                    />
+                    <SkillGroupElement key={i} image={image} name={skill} />
                   );
                 }
               })}
