@@ -6,7 +6,6 @@ import {
   getCampaignsBySkill,
   getProfileData,
   getApplicationsByUser,
-  getCampaigns,
 } from '../../store/actions';
 import { connect } from 'react-redux';
 import SupporterSkilledImpactHeader from '../../components/SkilledImpact/SupporterSkilledImpactHeader';
@@ -26,9 +25,14 @@ class SupporterSkillImpactScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: null,
+      campaigns: [],
+      submissions: [],
+      skills: [],
+      userId: 0,
+      isAcceptingHelp: false,
       loading: true,
     };
+    this.initProfileData = this.initProfileData.bind(this);
   }
 
   componentDidMount() {
@@ -39,18 +43,25 @@ class SupporterSkillImpactScreen extends Component {
     try {
       const userId = await SecureStore.getItemAsync('id', {});
       await this.props.getProfileData(userId, null, true);
-      const { skills } = this.currentUserProfile;
-      await this.props.getCampaignsBySkill(skills);
+      let { skills, accepting_help_requests } = this.props.currentUserProfile;
+      // Placeholder for skills, remove once Skills Creation screen is made
+      if (!skills) {
+        skills = ['ARCHITECTURE', 'DRONE'];
+      }
+      skills.forEach(async (skill) => {
+        await this.props.getCampaignsBySkill(skill);
+        this.setState({
+          campaigns: this.state.campaigns.concat(this.props.campaignsBySkill),
+        });
+      });
+
       await this.props.getApplicationsByUser(userId);
 
-      const data = {
-        campaigns: this.props.allCampaigns,
+      this.setState({
         submissions: this.props.submissions,
         skills,
-      };
-
-      this.setState({
-        data,
+        isAcceptingHelp: accepting_help_requests,
+        userId,
         loading: false,
       });
     } catch (err) {
@@ -64,7 +75,7 @@ class SupporterSkillImpactScreen extends Component {
   };
 
   render() {
-    const data = this.state.data;
+    const data = this.state;
     if (!this.state.loading && Object.keys(data).length !== 0) {
       return (
         <ScrollView contentContainerStyle={styles.container}>
@@ -86,7 +97,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  allCampaigns: state.allCampaigns,
+  campaignsBySkill: state.campaignsBySkill,
   submissions: state.submissions,
   currentUserProfile: state.currentUserProfile,
 });
@@ -94,6 +105,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getProfileData,
   getCampaignsBySkill,
-  getCampaigns,
   getApplicationsByUser,
 })(SupporterSkillImpactScreen);

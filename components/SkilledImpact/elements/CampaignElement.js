@@ -35,6 +35,11 @@ class CampaignElement extends Component {
             </View>
           </View>
           <View style={styles.campaignRow}>
+            <View style={styles.skillTag}>
+              <Text style={styles.mediumButtonText}>
+                {this.props.campaign.skill}
+              </Text>
+            </View>
             {this.props.campaign.is_deactivated ? (
               <View style={styles.closeTag}>
                 <Text style={styles.closeText}>CLOSE</Text>

@@ -1,17 +1,21 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Switch } from 'react-native';
-import styles from '../../../constants/SkilledImpact/OrgSkilledImpactBody';
+import styles from '../../../constants/SkilledImpact/SupporterSkilledImpactBody';
 import Sync from '../../../assets/jsicons/bottomnavigation/Sync';
 import ChevronBottom from '../../../assets/jsicons/miscIcons/ChevronBottom';
 import ChevronRight from '../../../assets/jsicons/miscIcons/ChevronRight';
+
+import { editProfileData } from '../../../store/actions';
+import { connect } from 'react-redux';
 
 class SkillContent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       expanded: true,
-      isReachable: props.isAcceptingHelp,
+      isAcceptingHelp: props.isAcceptingHelp,
       skills: props.skills,
+      userId: props.userId,
     };
   }
 
@@ -19,8 +23,22 @@ class SkillContent extends React.Component {
     this.setState({ expanded: !this.state.expanded });
   };
 
-  toggleReachMeSwitch = () => {
-    //TODO: api request to change the switch state.
+  toggleAcceptingHelpSwitch = async () => {
+    try {
+      await editProfileData(this.state.userId, {
+        accepting_help_requests: !this.state.isAcceptingHelp,
+      });
+      this.setState({
+        isAcceptingHelp: !this.state.isAcceptingHelp,
+      });
+    } catch (err) {
+      console.log(err);
+      Alert.alert('Error', 'Failed to change accepting help status');
+      this.setState({
+        loading: false,
+        error: 'Failed to change accepting help status',
+      });
+    }
   };
 
   render() {
@@ -55,16 +73,16 @@ class SkillContent extends React.Component {
             </View>
             <View style={styles.itemFooterRow}>
               <Text style={styles.reachMeText}>
-                Other Conservation organizations and Researchers can contact me
-                about our skills
+                Conservation organizations and Researchers can contact me about
+                my skills
               </Text>
               <Switch
                 style={styles.reachMeSwitch}
                 trackColor={{ false: '#767577', true: '#30d985' }}
-                thumbColor={this.state.isReachable ? '#fffeff' : '#f4f3f4'}
+                thumbColor={this.state.isAcceptingHelp ? '#fffeff' : '#f4f3f4'}
                 ios_backgroundColor="#3e3e3e"
-                onValueChange={this.toggleReachMeSwitch}
-                value={this.state.isReachable}
+                onValueChange={this.toggleAcceptingHelpSwitch}
+                value={this.state.isAcceptingHelp}
               />
             </View>
           </View>
@@ -73,5 +91,9 @@ class SkillContent extends React.Component {
     );
   }
 }
-
-export default SkillContent;
+const mapStateToProps = (state) => ({
+  currentUserProfile: state.currentUserProfile,
+});
+export default connect(mapStateToProps, {
+  editProfileData,
+})(SkillContent);

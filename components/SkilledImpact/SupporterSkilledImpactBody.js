@@ -11,6 +11,7 @@ class SupporterSkilledImpactBody extends Component {
     super(props);
     this.state = {
       isEnabled: false,
+      isAcceptingHelp: props.data.isAcceptingHelp,
       campaigns: props.data.campaigns,
       submissions: props.data.submissions,
       skills: props.data.skills,
@@ -26,15 +27,14 @@ class SupporterSkilledImpactBody extends Component {
 
   render() {
     return (
-      <View style={styles.body}>
-        <SkillContent skills={this.state.skills} isAcceptingHelp={true} />
-        <CampaignContent campaigns={this.state.campaigns} />
-        <SkillGroupContent
-          skillGroups={{
-            skills: this.state.skills,
-            campaigns: this.state.campaigns,
-          }}
+      <View style={styles.container}>
+        <SkillContent
+          skills={this.state.skills}
+          isAcceptingHelp={this.state.isAcceptingHelp}
+          userId={this.state.userId}
         />
+        <CampaignContent campaigns={this.state.campaigns} />
+        <SkillGroupContent skillGroups={this.state.skills} />
         <ApplicationContent submissions={this.state.submissions} />
       </View>
     );
