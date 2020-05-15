@@ -37,6 +37,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignContent: 'stretch',
+    marginBottom: 10,
     paddingLeft: 15,
     paddingRight: 15,
     paddingTop: 10,
@@ -50,7 +51,7 @@ export default StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15,
     paddingTop: 10,
-    paddingBottom: 10,
+    paddingBottom: 15,
   },
   itemTitleText: {
     fontSize: 17,
@@ -162,10 +163,12 @@ export default StyleSheet.create({
   },
   reachMeText: {
     color: '#323339',
-    width: '70%',
+    width: '80%',
+    flexDirection: 'row',
   },
   reachMeSwitch: {
     marginLeft: 'auto',
+    alignSelf: 'flex-start',
   },
   avatarImageContainer: {
     alignSelf: 'flex-start',
