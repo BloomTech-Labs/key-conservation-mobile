@@ -717,7 +717,10 @@ const reducer = (state = initialState, action) => {
     case actions.DEQUEUE_NEW_POSTS:
       return {
         ...state,
-        allCampaigns: [...state.newPostQueue, ...state.allCampaigns],
+        allCampaigns: mergePosts([
+          ...state.newPostQueue,
+          ...state.allCampaigns,
+        ]),
         newPostQueue: [],
       };
     case actions.REMOVE_FROM_UPLOAD_QUEUE:
