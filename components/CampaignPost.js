@@ -331,7 +331,7 @@ const CampaignPost = (props) => {
             </TouchableOpacity>
           </View>
         </View>
-        <TakeActionCallToAction donate={props.data} />
+        <TakeActionCallToAction data={props.data} />
         <View style={styles.demarcation} />
       </View>
     </View>
