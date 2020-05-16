@@ -1,26 +1,17 @@
 import { seturl } from '../store/actions';
 const SECURE_WEBSOCKET_URL = seturl;
 
-export default (function () {
-  var singleton;
+export default class WebSocketManager {
+  static singleton = null;
 
-  function createInstance() {
-    let instance = new WebSocketManager();
-    singleton = instance;
-    return instance;
+  static getInstance() {
+    if (WebSocketManager.singleton == null) {
+      WebSocketManager.singleton = new WebSocketManager();
+    }
+
+    return this.singleton;
   }
 
-  return Object.freeze({
-    getInstance: function () {
-      if (!singleton) {
-        singleton = createInstance();
-      }
-      return singleton;
-    },
-  });
-})();
-
-class WebSocketManager {
   socket;
 
   subscriptions = {};
