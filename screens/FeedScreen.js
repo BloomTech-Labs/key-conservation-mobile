@@ -101,10 +101,10 @@ class FeedScreen extends React.Component {
 
   onGetNewPosts = () => {
     this.setState({ showNewPostsButton: false });
-    this.scrollView?.scrollTo?.({ x: 0, y: 0, animated: true });
     if (!this.props.loading) {
       this.props.dequeueNewPosts();
     }
+    this.scrollView?.current?.scrollToOffset?.({ x: 0, y: 0, animated: true });
   };
 
   onScrollToTop = () => {
@@ -209,14 +209,27 @@ class FeedScreen extends React.Component {
                     />
                   );
                 }}
+                stickyHeaderIndices={[0]}
                 ListHeaderComponent={
-                  this.props.currentUserProfile.roles === 'conservationist' ? (
-                    <AddCampaignHeader
-                      profile={this.props.currentUserProfile}
-                      disabled={this.props.loading}
-                    />
-                  ) : null
+                  <View style={{ flex: 1, zIndex: 99 }}>
+                    {this.props.currentUserProfile.roles ===
+                    'conservationist' ? (
+                      <AddCampaignHeader
+                        profile={this.props.currentUserProfile}
+                        disabled={this.props.loading}
+                      />
+                    ) : null}
+                    <View style={{ flex: 1 }}>
+                      <NewPostsButton
+                        show={this.state.showNewPostsButton}
+                        onPress={this.onGetNewPosts}
+                      />
+                    </View>
+                  </View>
                 }
+                ListHeaderComponentStyle={{
+                  zIndex: 99,
+                }}
                 ListFooterComponent={
                   <View style={{ padding: 24 }}>
                     <ActivityIndicator
