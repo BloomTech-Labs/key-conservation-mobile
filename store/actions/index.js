@@ -417,8 +417,6 @@ export const [
 ];
 
 export const getFeed = (startAt = undefined, size = 8) => (dispatch) => {
-  console.log(startAt, size);
-
   const now = new Date(Date.now()).toISOString();
 
   if (!startAt) {
