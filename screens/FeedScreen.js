@@ -94,8 +94,8 @@ class FeedScreen extends React.Component {
     this.props.refreshFeed(created_at).finally(() => {
       this.setState({ refreshing: false });
     });
-    if (!WebSocketManager().getInstance().connected) {
-      WebSocketManager().getInstance().reconnect();
+    if (!WebSocketManager.getInstance().connected) {
+      WebSocketManager.getInstance().reconnect();
     }
   };
 
@@ -104,7 +104,7 @@ class FeedScreen extends React.Component {
     if (!this.props.loading) {
       this.props.dequeueNewPosts();
     }
-    this.scrollView?.current?.scrollToOffset?.({ x: 0, y: 0, animated: true });
+    this.scrollView?.scrollToOffset?.({ offset: 0, animated: true });
   };
 
   onScrollToTop = () => {
@@ -141,14 +141,12 @@ class FeedScreen extends React.Component {
       roles: this.props.currentUserProfile.roles,
     });
 
-    WebSocketManager()
-      .getInstance()
-      .subscribe('feed', this.props.queueNewPosts);
+    WebSocketManager.getInstance().subscribe('feed', this.props.queueNewPosts);
   }
 
   componentDidUpdate() {
-    if (!WebSocketManager().getInstance().connected) {
-      WebSocketManager().getInstance().reconnect();
+    if (!WebSocketManager.getInstance().connected) {
+      WebSocketManager.getInstance().reconnect();
     }
 
     if (
@@ -169,7 +167,7 @@ class FeedScreen extends React.Component {
   }
 
   componentWillUnmount() {
-    WebSocketManager().getInstance().unsubscribe('feed');
+    WebSocketManager.getInstance().unsubscribe('feed');
   }
 
   render() {
@@ -193,7 +191,7 @@ class FeedScreen extends React.Component {
                 refreshing={this.state.refreshing}
                 onScroll={this.onScroll}
                 onScrollToTop={this.onScrollToTop}
-                ref={this.scrollView}
+                ref={(r) => (this.scrollView = r)}
                 scrollEventThrottle={16}
                 data={this.props.allCampaigns}
                 keyExtractor={(item) => String(item.id)}

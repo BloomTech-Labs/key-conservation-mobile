@@ -26,7 +26,7 @@ export default App;
 function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
-  WebSocketManager().getInstance().setLoggerEnabled(true);
+  WebSocketManager.getInstance().setLoggerEnabled(true);
   const handleNavigationChange = (prevState, newState, action) => {
     routeSupply = () => {
       if (action.key) {
