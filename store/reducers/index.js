@@ -209,13 +209,21 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getFeed: false },
-        allCampaigns: [...state.allCampaigns, ...action.payload],
+        allCampaigns: Array.from(
+          new Set([...state.allCampaigns, ...action.payload].map((s) => s.id))
+        ).map((id) => {
+          const data = [...state.allCampaigns, ...action.payload].find(
+            (s) => s.id === id
+          );
+          return data;
+        }),
       };
     case actions.GET_FEED_ERROR:
       return {
         ...state,
         pending: { ...state.pending, getFeed: false },
         errors: { ...state.errors, getFeed: action.payload },
+        allCampaigns: [],
       };
     case actions.GET_CAMPAIGN_START:
       return {
