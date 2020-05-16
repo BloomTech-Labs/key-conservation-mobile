@@ -12,11 +12,13 @@ export default class NewPostsButton extends Component {
     this.animation = new Animated.Value(0);
 
     this.animateIn = Animated.timing(this.animation, {
+      useNativeDriver: true,
       toValue: 1,
       duration: 200,
     });
 
     this.animateOut = Animated.timing(this.animation, {
+      useNativeDriver: true,
       toValue: 0,
       duration: 200,
     });
@@ -38,14 +40,14 @@ export default class NewPostsButton extends Component {
       outputRange: [0, 1],
     });
 
-    const top = this.animation.interpolate({
+    const translateY = this.animation.interpolate({
       inputRange: [0, 1],
-      outputRange: [20, 80],
+      outputRange: [-40, 0],
     });
 
     return (
       <Animated.View
-        style={[styles.container, { top, opacity }]}
+        style={[styles.container, { transform: [{ translateY }], opacity }]}
         pointerEvents={this.props.show ? 'auto' : 'none'}
       >
         <TouchableOpacity
@@ -64,7 +66,7 @@ export default class NewPostsButton extends Component {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: 80,
+    top: 20,
     left: SCREEN_WIDTH / 2 - 64,
     width: 128,
     padding: 12,
@@ -79,7 +81,7 @@ const styles = StyleSheet.create({
       height: 2,
       width: 2,
     },
-    zIndex: 50,
+    zIndex: 99,
   },
   button: {
     flex: 1,

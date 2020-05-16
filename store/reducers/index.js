@@ -209,14 +209,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getFeed: false },
-        allCampaigns: Array.from(
-          new Set([...state.allCampaigns, ...action.payload].map((s) => s.id))
-        ).map((id) => {
-          const data = [...state.allCampaigns, ...action.payload].find(
-            (s) => s.id === id
-          );
-          return data;
-        }),
+        allCampaigns: mergePosts([...action.payload, ...state.allCampaigns]),
       };
     case actions.GET_FEED_ERROR:
       return {
@@ -708,7 +701,7 @@ const reducer = (state = initialState, action) => {
     case actions.APPEND_TO_FEED:
       const newCampaigns =
         action.payload.length > 0
-          ? [...action.payload, ...state.allCampaigns.slice(1)]
+          ? mergePosts([...action.payload, ...state.allCampaigns])
           : [...state.allCampaigns];
 
       return {
@@ -746,6 +739,17 @@ const removeFromUploadQueue = (queue, id) => {
   delete newQueue[id];
 
   return newQueue;
+};
+
+const mergePosts = (posts) => {
+  const sortedPosts = Array.from(posts).sort(
+    (a, b) =>
+      new Date(a.created_at).getTime() < new Date(b.created_at).getTime()
+  );
+
+  return Array.from(new Set(sortedPosts.map((s) => s.id))).map((id) =>
+    sortedPosts.find((s) => s.id === id)
+  );
 };
 
 export default reducer;

@@ -42,9 +42,11 @@ class AddCampaignHeader extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <Animated.View stlye={{ flex }}>
-          {Object.entries(this.props.uploadQueue).map(([key, value]) => (
-            <UploadQueueCard key={key} id={key} post={value} />
-          ))}
+          {Object.entries(this.props.uploadQueue)
+            .sort(([_a, a], [_b, b]) => a.id > b.id)
+            .map(([key, value]) => (
+              <UploadQueueCard key={key} id={key} post={value} />
+            ))}
           {/* <UploadQueueCard
             post={{
               image:
