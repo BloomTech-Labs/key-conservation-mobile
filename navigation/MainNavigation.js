@@ -122,8 +122,8 @@ const SkillImpactStack = createStackNavigator(
   {
     navigationOptions: {
       tabBarLabel: 'Skilled Impact',
-      tabBarIcon: ({ focused }) => <Sync />
-    }
+      tabBarIcon: ({ focused }) => <Sync />,
+    },
   }
 );
 
@@ -135,11 +135,10 @@ const SupporterSkillImpactStack = createStackNavigator(
   {
     navigationOptions: {
       tabBarLabel: 'Skilled Impact',
-      tabBarIcon: ({ focused }) => <Sync />
-    }
+      tabBarIcon: ({ focused }) => <Sync />,
+    },
   }
 );
-
 
 export const AccountSettingsStack = createStackNavigator({
   AccountSettings: AccountSettingsScreen,
@@ -229,9 +228,9 @@ export const ConsNavigator = createBottomTabNavigator(
       screen: FeedStack,
       path: '',
     },
-    SkillImpactStack:{
+    SkillImpactStack: {
       screen: SkillImpactStack,
-      path: ''
+      path: '',
     },
     MapStack: {
       screen: MapStack,
@@ -267,9 +266,9 @@ export const SupporterNavigator = createBottomTabNavigator(
       screen: FeedStack,
       path: '',
     },
-    SupporterSkillImpactStack:{
+    SupporterSkillImpactStack: {
       screen: SupporterSkillImpactStack,
-      path: ''
+      path: '',
     },
     MapStack: {
       screen: MapStack,
