@@ -1,32 +1,21 @@
 import React from 'react';
-import {
-  Text,
-  TouchableOpacity,
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
+import { Text, TouchableOpacity, Image } from 'react-native';
 import { View } from 'react-native-animatable';
 import { Video } from 'expo-av';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ListItem } from 'react-native-elements';
-import { ScrollView } from 'react-navigation';
 import { connect } from 'react-redux';
+import { getCampaignPost } from '../store/actions';
 import moment from 'moment';
 import { Viewport } from '@skele/components';
 
 import BackButton from '../components/BackButton';
-import FeedUpdate from '../components/FeedScreen/FeedUpdate';
 import CommentsView from '../components/Comments/CommentsView';
 import styles from '../constants/screens/ViewCampaignScreen';
 import Ellipse from '../assets/jsicons/Ellipse';
 import CampaignActionSheet from '../components/Reports/CampaignActionSheet';
 import TakeActionCallToAction from '../components/TakeAction/TakeActionCallToAction';
 import MapMarker from '../assets/jsicons/headerIcons/map-marker';
-
-// Redux gave us a hard time on this project. We worked on comments first and when our commentOnCampaign action failed to trigger the re-render we expected, and when we couldn't solve the
-// issue in labs_help, we settled for in-component axios calls. Not elegant. Probably not super scalable—but it worked. Hopefully a more talented team can solve what we couldn't.
-// In the meantime, ViewCampaignScreen, ViewCampaignUpdateScreen, FeedCampaign, and FeedUpdate are all interconnected, sharing props (state, functions) via React-Navigation.
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 class ViewCampaignScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -53,13 +42,15 @@ class ViewCampaignScreen extends React.Component {
   };
 
   componentDidMount() {
+    console.log('getting post id: ', this.props.selectedCampaign.id);
+    this.props.getCampaignPost(this.props.selectedCampaign.id);
     this.props.navigation.setParams({
       showCampaignOptions: this.showActionSheet,
     });
   }
 
   state = {
-    userBookmarked: this.props.navigation.state.params.userBookmarked,
+    userBookmarked: this.props.selectedCampaign.userBookmarked,
   };
 
   showActionSheet = () => {
@@ -67,268 +58,137 @@ class ViewCampaignScreen extends React.Component {
   };
 
   render() {
-    let sortedUpdates = false;
-    if (
-      this.props.selectedCampaign.updates &&
-      this.props.selectedCampaign.updates.length
-    ) {
-      sortedUpdates = this.props.selectedCampaign.updates.sort(function (a, b) {
-        return moment(a.created_at) - moment(b.created_at);
-      });
+    //// All styles for the urgency bar
+    let urgencyColor;
+    if (this.props.selectedCampaign.is_update) {
+      urgencyColor = 'rgba(202,255,0, 0.7)';
+    } else if (this.props.selectedCampaign.urgency === 'Critical') {
+      urgencyColor = 'rgba(227,16,89,0.6)';
+    } else if (this.props.selectedCampaign.urgency === 'Urgent') {
+      urgencyColor = 'rgba(255,199,0,0.6)';
+    } else if (this.props.selectedCampaign.urgency === 'Longterm') {
+      urgencyColor = 'rgba(0,255,157,0.6)';
+    } else {
+      urgencyColor = 'none';
     }
 
-    const createdAt = this.props.selectedCampaign.created_at;
-    const currentTime = moment();
-    const postTime = moment(createdAt);
-    let timeDiff;
-    if (currentTime.diff(postTime, 'days') < 1) {
-      if (currentTime.diff(postTime, 'hours') < 1) {
-        if (currentTime.diff(postTime, 'minutes') < 1) {
-          timeDiff = 'just now';
-        } else {
-          if (currentTime.diff(postTime, 'minutes') === 1) {
-            timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO`;
-          } else {
-            timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`;
-          }
-        }
-      } else {
-        if (currentTime.diff(postTime, 'hours') === 1) {
-          timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO`;
-        } else {
-          timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`;
-        }
-      }
+    let urgencyStatus;
+    if (
+      this.props.selectedCampaign.is_update ||
+      !this.props.selectedCampaign.urgency ||
+      this.props.selectedCampaign.urgency == 'null'
+    ) {
+      urgencyStatus = 'Update';
     } else {
-      if (currentTime.diff(postTime, 'days') === 1) {
-        timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO`;
-      } else {
-        timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
-      }
+      urgencyStatus = this.props.selectedCampaign.urgency.toUpperCase();
     }
+
+    const urgencyStyles = {
+      backgroundColor: urgencyColor,
+      height: 37,
+      width: '100%',
+      position: 'absolute',
+      justifyContent: 'center',
+      alignItems: 'center',
+      zIndex: 1,
+    };
+
+    const createdAt = this.props.selectedCampaign.created_at;
+    const timeDiff = createdAt ? moment(createdAt).fromNow() : '...';
 
     return (
       <View style={styles.mainContainer}>
         <View style={styles.container}>
-          <CampaignActionSheet
-            admin={this.props.currentUserProfile.admin}
-            campaign={this.props.selectedCampaign}
-            ref={(o) => (this.ActionSheet = o)}
-            isMine={
-              this.props.currentUserProfile.admin ===
-              this.props.selectedCampaign.user_id
-            }
-            goBack
-          />
-          {Platform.OS === 'android' ? (
-            <KeyboardAvoidingView
-              enabled
-              keyboardVerticalOffset={86}
-              behavior="height"
-            >
-              <Viewport.Tracker>
-                <ScrollView>
-                  <View>
-                    <ListItem
-                      onPress={this.goToProfile}
-                      title={
-                        <View>
-                          <Text style={styles.listName}>
-                            {this.props.selectedCampaign.org_name}
-                          </Text>
-                        </View>
-                      }
-                      leftAvatar={{
-                        source: {
-                          uri: this.props.selectedCampaign.profile_image,
-                        },
-                      }}
-                      subtitle={this.props.selectedCampaign.location}
-                    />
-                    {this.props.navigation.state.params.media.includes(
-                      '.mov'
-                    ) ||
-                    this.props.navigation.state.params.media.includes('.mp3') ||
-                    this.props.navigation.state.params.media.includes(
-                      '.mp4'
-                    ) ? (
-                      <Video
-                        source={{
-                          uri: this.props.selectedCampaign.image,
-                        }}
-                        rate={1.0}
-                        volume={1.0}
-                        useNativeControls={true}
-                        resizeMode="cover"
-                        style={styles.campaignImageContainer}
-                      />
-                    ) : (
-                      <Image
-                        source={{ uri: this.props.selectedCampaign.image }}
-                        style={styles.campaignImageContainer}
-                      />
-                    )}
-
-                    <View style={styles.campaignDescriptionContainer}>
-                      <Text style={styles.campaignDescriptionName}>
+          {!this.props.loading ? (
+            <CampaignActionSheet
+              admin={this.props.currentUserProfile.admin}
+              campaign={this.props.selectedCampaign}
+              ref={(o) => (this.ActionSheet = o)}
+              isMine={
+                this.props.currentUserProfile.admin ===
+                this.props.selectedCampaign.user_id
+              }
+              goBack
+            />
+          ) : null}
+          <KeyboardAwareScrollView
+            extraScrollHeight={50}
+            enableOnAndroid={false}
+          >
+            <Viewport.Tracker>
+              <View>
+                <ListItem
+                  onPress={this.goToProfile}
+                  title={
+                    <View>
+                      <Text style={styles.listName}>
                         {this.props.selectedCampaign.org_name}
                       </Text>
-                      <Text style={styles.campaignDescription}>
-                        {this.props.selectedCampaign.description}
+                    </View>
+                  }
+                  leftAvatar={{
+                    source: {
+                      uri: this.props.selectedCampaign.profile_image || '',
+                    },
+                  }}
+                  subtitle={
+                    <View style={{ flexDirection: 'row' }}>
+                      {this.props.selectedCampaign.location !==
+                      (undefined || null) ? (
+                        <MapMarker fill="#505050" />
+                      ) : null}
+                      <Text style={{ color: '#929292' }}>
+                        {this.props.selectedCampaign.location}
                       </Text>
-                      <Text style={styles.timeText}>{timeDiff}</Text>
                     </View>
-
-                    <View style={styles.donateView}>
-                      <TakeActionCallToAction
-                        donate={this.props.selectedCampaign}
-                      />
-                    </View>
-
-                    <View style={styles.commentsView}>
-                      <CommentsView />
-                    </View>
-
-                    <View style={styles.feedContainer}>
-                      {sortedUpdates !== false &&
-                        sortedUpdates.map((update) => (
-                          <FeedUpdate
-                            key={`update${update.id}`}
-                            data={update}
-                            toggled
-                            hideName
-                            navigation={this.props.navigation}
-                            fromCampaignScreen={true}
-                          />
-                        ))}
-                    </View>
-                  </View>
-                </ScrollView>
-              </Viewport.Tracker>
-            </KeyboardAvoidingView>
-          ) : (
-            <KeyboardAwareScrollView extraScrollHeight={50}>
-              <Viewport.Tracker>
-                <ScrollView>
-                  <ListItem
-                    onPress={this.goToProfile}
-                    title={
-                      <View>
-                        <Text style={styles.listName}>
-                          {this.props.selectedCampaign.org_name}
-                        </Text>
-                      </View>
-                    }
-                    leftAvatar={{
-                      source: {
-                        uri: this.props.selectedCampaign.profile_image,
-                      },
+                  }
+                />
+                <View style={styles.campaignDescriptionContainer}>
+                  <Text style={styles.campaignDescriptionName}>
+                    {this.props.selectedCampaign.name}
+                  </Text>
+                  <Text style={styles.campaignDescription}>
+                    {this.props.selectedCampaign.description}
+                  </Text>
+                  <Text style={styles.timeText}>{timeDiff}</Text>
+                </View>
+                {this.props.selectedCampaign.image.includes('.mov') ||
+                this.props.selectedCampaign.image.includes('.mp3') ||
+                this.props.selectedCampaign.image.includes('.mp4') ? (
+                  <Video
+                    source={{
+                      uri: this.props.selectedCampaign.image,
                     }}
-                    subtitle={
-                      <View style={{ flexDirection: 'row' }}>
-                        {this.props.selectedCampaign.location !==
-                        (undefined || null) ? (
-                          <MapMarker fill="#505050" />
-                        ) : null}
-                        <Text style={{ color: '#929292' }}>
-                          {this.props.selectedCampaign.location}
-                        </Text>
-                      </View>
-                    }
+                    rate={1.0}
+                    volume={1.0}
+                    isMuted={true}
+                    useNativeControls={true}
+                    resizeMode="cover"
+                    style={styles.campaignImageContainer}
                   />
-                  <View style={styles.campaignDescriptionContainer}>
-                    <Text style={styles.campaignDescriptionName}>
-                      {this.props.selectedCampaign.name}
-                    </Text>
-                    <Text style={styles.campaignDescription}>
-                      {this.props.selectedCampaign.description}
-                    </Text>
-                    <Text style={styles.timeText}>{timeDiff}</Text>
-                  </View>
-                  {this.props.navigation.state.params.media.includes('.mov') ||
-                  this.props.navigation.state.params.media.includes('.mp3') ||
-                  this.props.navigation.state.params.media.includes('.mp4') ? (
-                    <Video
-                      source={{
-                        uri: this.props.selectedCampaign.image,
-                      }}
-                      rate={1.0}
-                      volume={1.0}
-                      isMuted={true}
-                      useNativeControls={true}
-                      resizeMode="cover"
-                      style={styles.campaignImageContainer}
-                    />
+                ) : (
+                  <Image
+                    source={{ uri: this.props.selectedCampaign.image }}
+                    style={styles.campaignImageContainer}
+                  />
+                )}
+
+                <View style={styles.donateView}>
+                  <TakeActionCallToAction
+                    donate={this.props.selectedCampaign}
+                  />
+                </View>
+
+                <View style={styles.commentsView}>
+                  {this.props.loading ? (
+                    <Text>Comments loading...</Text>
                   ) : (
-                    <Image
-                      source={{ uri: this.props.selectedCampaign.image }}
-                      style={styles.campaignImageContainer}
-                    />
-                  )}
-
-                  {/* <View style={styles.bookmarks}>
-                      <View
-                        style={
-                          !this.state.userBookmarked
-                            ? { zIndex: 1 }
-                            : { zIndex: -1 }
-                        }
-                      >
-                        <FontAwesome
-                          onPress={() => this.addBookmark()}
-                          name='bookmark-o'
-                          style={styles.bookmarkOutline}
-                        />
-                      </View>
-                      <View
-                        animation={
-                          this.state.userBookmarked ? "zoomIn" : "zoomOut"
-                        }
-                        style={
-                          (this.state.userBookmarked
-                            ? { zIndex: 1 }
-                            : { zIndex: -1 },
-                          { marginTop: -28.75, marginLeft: -1.25 })
-                        }
-                        duration={300}
-                      >
-                        <FontAwesome
-                          onPress={() => this.deleteBookmark()}
-                          name='bookmark'
-                          style={styles.bookmarkFill}
-                        />
-                      </View>
-                    </View>
-                  </View>  */}
-
-                  <View style={styles.donateView}>
-                    <TakeActionCallToAction
-                      donate={this.props.selectedCampaign}
-                    />
-                  </View>
-
-                  <View style={styles.commentsView}>
                     <CommentsView />
-                  </View>
-
-                  <View style={styles.feedContainer}>
-                    {sortedUpdates !== false &&
-                      sortedUpdates.map((update) => (
-                        <FeedUpdate
-                          key={`update${update.id}`}
-                          data={update}
-                          toggled
-                          hideName
-                          navigation={this.props.navigation}
-                          fromCampaignScreen={true}
-                        />
-                      ))}
-                  </View>
-                </ScrollView>
-              </Viewport.Tracker>
-            </KeyboardAwareScrollView>
-          )}
-          {/* Two different views to support iOS keyboard awareness for an input inside a child component */}
+                  )}
+                </View>
+              </View>
+            </Viewport.Tracker>
+          </KeyboardAwareScrollView>
         </View>
       </View>
     );
@@ -358,10 +218,13 @@ class ViewCampaignScreen extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  loading: state.pending.getCampaign,
   selectedCampaign: state.selectedCampaign,
   currentUser: state.currentUser,
   currentUserProfile: state.currentUserProfile,
   token: state.token,
 });
 
-export default connect(mapStateToProps)(ViewCampaignScreen);
+export default connect(mapStateToProps, { getCampaignPost })(
+  ViewCampaignScreen
+);

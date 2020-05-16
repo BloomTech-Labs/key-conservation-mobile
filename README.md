@@ -1,6 +1,6 @@
 # Key Conservation
 
-Current version: 4.2.0. This app is in Beta for iOS and Android.
+Current version: 5.2.0. This app is in Beta for iOS and Android.
 
 [Key Conservation PVD](https://www.notion.so/Key-Conservation-9de81dcdeca546ba85509f2982d211cc)
 
@@ -13,9 +13,21 @@ Current version: 4.2.0. This app is in Beta for iOS and Android.
 [![Maintainability](https://api.codeclimate.com/v1/badges/334bb92955b642b45954/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/key-conservation-mobile/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/key-conservation-mobile/test_coverage)
 
-# Contributors
+## Contributors
 
-### Labs 22 - (Current) Fifth Product Cycle
+### Labs 24 - Sixth Product Cycle
+
+#### Team Lead:
+
+(coming soon)
+
+#### React Native Developers:
+
+(coming soon)
+
+## Previous Labs Teams Who Contributed To This Project
+
+### Labs 22 - Fifth Product Cycle
 
 #### Team Lead:
 
@@ -30,8 +42,6 @@ Jess Novak - [GitHub](https://github.com/meowyadoin) | [LinkedIn](https://www.li
 Alex Gohorel - [GitHub](https://github.com/agohorel) | [LinkedIn](https://www.linkedin.com/in/alex-gohorel-86348b186/)
 
 Robert Stepanov - [GitHub](https://github.com/robertstepanov) | [LinkedIn](https://www.linkedin.com/in/robert-stepanov-7b7739aa/)
-
-## Previous Labs Teams Who Contributed To This Project
 
 ### Labs 20 - Fourth Product Cycle
 

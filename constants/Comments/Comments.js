@@ -4,15 +4,13 @@ export default StyleSheet.create({
   commentWrapper: {
     flexDirection: 'column',
     flex: 1,
+    width: '100%',
   },
   commentView: {
     flex: 1,
     flexDirection: 'row',
-  },
-  feedCommentWrapper: {
-    flexDirection: 'column',
-    width: '90%',
-    marginTop: 5,
+    marginTop: 10,
+    width: '100%',
   },
   commentButton: {
     color: 'grey',
@@ -27,6 +25,7 @@ export default StyleSheet.create({
     width: '100%',
     marginTop: 10,
     paddingTop: 8,
+    marginLeft: -10,
   },
   name: {
     paddingBottom: 3,
@@ -35,6 +34,7 @@ export default StyleSheet.create({
   },
   commentBody: {
     marginLeft: 7,
+    marginTop: 3,
     flex: 1,
     backgroundColor: '#f5f5f5',
     paddingLeft: 5,
@@ -50,7 +50,6 @@ export default StyleSheet.create({
   },
   commentText: {
     flexDirection: 'column',
-    width: 300,
     fontFamily: 'Lato-Bold',
   },
   input: {
@@ -64,24 +63,24 @@ export default StyleSheet.create({
     width: '78%',
   },
   inputWrapper: {
+    marginTop: 3,
     flexDirection: 'row',
     justifyContent: 'center',
     height: '70%',
     marginLeft: 6,
     borderRadius: 5,
     backgroundColor: '#f5f5f5',
-    width: '85%',
+    width: '84%',
   },
   interaction: {
     flexDirection: 'row',
     marginBottom: 15,
+    marginLeft: 50,
   },
   timeText: {
     color: '#929292',
     fontSize: 10,
-    marginLeft: 43,
-    marginRight: 15,
-    marginTop: 10,
+    marginTop: 5,
   },
   deleteText: {
     fontSize: 13,
@@ -90,6 +89,7 @@ export default StyleSheet.create({
   },
   avatar: {
     marginTop: 5,
+    marginLeft: -10,
   },
   feedAvatar: {
     marginTop: 8,
@@ -115,25 +115,37 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   moreContainer: {
+    flex: 1,
+    padding: 15,
     width: '100%',
-    justifyContent: 'center',
+    flexWrap: 'wrap',
+    flexDirection: 'row',
     alignItems: 'center',
-    paddingBottom: 20,
+    justifyContent: 'center',
+    fontSize: 18,
   },
   more: {
-    backgroundColor: '#fff',
-    borderWidth: 2,
-    borderColor: 'black',
+    width: '100%',
+    height: 48,
+    backgroundColor: '#F5F5F5',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
-    height: 28,
-    width: 243,
+    textAlign: 'center',
+    shadowColor: 'rgba(0, 0, 0, 0.15)',
+    shadowOffset: {
+      height: 4,
+    },
+    shadowRadius: 5,
+    shadowOpacity: 10,
   },
   moreText: {
+    color: '#323339',
+    paddingLeft: 10,
+    paddingRight: 10,
     fontSize: 15,
-    fontFamily: 'Lato',
-    color: 'black',
+    textAlign: 'center',
+    fontFamily: 'Lato-Bold',
   },
   icon: {
     fontSize: 30,

@@ -9,20 +9,24 @@ import AppNavigator from './navigation/AppNavigator';
 import { AmpInit, AmpEvent } from './components/withAmplitude';
 import { Provider } from 'react-redux';
 import store from './store/configureStore';
+import WebSocketManager from './websockets/WebSocketManager';
 
 import { navigationRef } from './navigation/RootNavigator';
 
 // componentWillReceiveProps and componentWillMount seem to be being used in a dependency library. The following line mutes warnings in the app
 YellowBox.ignoreWarnings([
   'Warning: componentWillReceiveProps',
-  'Warning: componentWillMount'
+  'Warning: componentWillMount',
 ]);
 
 export default App;
 
+// initialize WebSocketManager
+
 function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
+  WebSocketManager().getInstance().setLoggerEnabled(true);
   const handleNavigationChange = (prevState, newState, action) => {
     routeSupply = () => {
       if (action.key) {
@@ -53,9 +57,9 @@ function App(props) {
   } else {
     return (
       <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
+        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         {Platform.OS === 'android' && (
-          <StatusBar barStyle='light-content' translucent />
+          <StatusBar barStyle="light-content" translucent />
         )}
         <Provider store={store}>
           <MenuProvider>
@@ -77,8 +81,8 @@ async function loadResourcesAsync() {
     Asset.loadAsync([require('./assets/images/splash.png')]),
     Font.loadAsync({
       Lato: require('./assets/fonts/Lato/Lato-Regular.ttf'),
-      'Lato-Bold': require('./assets/fonts/Lato/Lato-Bold.ttf')
-    })
+      'Lato-Bold': require('./assets/fonts/Lato/Lato-Bold.ttf'),
+    }),
   ]);
 }
 
@@ -93,6 +97,6 @@ function handleFinishLoading(setLoadingComplete) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
-  }
+    backgroundColor: '#fff',
+  },
 });

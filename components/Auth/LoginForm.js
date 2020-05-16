@@ -4,15 +4,12 @@ import {
   Text,
   TextInput,
   Keyboard,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 
 import { navigate } from '../../navigation/RootNavigator';
 
 import styles from '../../constants/Auth/LoginForm';
-import ChevronLeft from '../../assets/jsicons/miscIcons/ChevronLeftWhite';
-// import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
-import { throwIfAudioIsDisabled } from 'expo-av/build/Audio/AudioAvailability';
 
 import Lock from '../../assets/jsicons/auth/Lock';
 import Envelope from '../../assets/jsicons/auth/Envelope';
@@ -28,7 +25,7 @@ class LoginForm extends Component {
       emailError: '',
       passwordError: '',
       showPasswordTooltip: false,
-      type: 0
+      type: 0,
     };
   }
 
@@ -71,7 +68,7 @@ class LoginForm extends Component {
     }
     this.setState({
       emailError: emailError,
-      passwordError: passwordError
+      passwordError: passwordError,
     });
     if (emailError === false && passwordError === false) {
       this.props.realmLogin(this.state.email, this.state.password);
@@ -84,20 +81,17 @@ class LoginForm extends Component {
         <View style={styles.inputField}>
           <Envelope />
           <TextInput
-            placeholder='email@example.com'
-            placeholderTextColor='rgba(44,44,44,0.4)'
-            returnKeyType='next'
+            placeholder="email@example.com"
+            placeholderTextColor="rgba(44,44,44,0.4)"
+            returnKeyType="next"
             onSubmitEditing={() => this.passwordInput.focus()}
-            style={[
-              styles.input,
-              this.state.emailError && styles.inputError
-            ]}
-            keyboardType='email-address'
-            autoCapitalize='none'
+            style={[styles.input, this.state.emailError && styles.inputError]}
+            keyboardType="email-address"
+            autoCapitalize="none"
             autoCorrect={false}
-            ref={input => (this.emailInput = input)}
+            ref={(input) => (this.emailInput = input)}
             value={this.state.email}
-            onChangeText={text => this.setState({ email: text.trim() })}
+            onChangeText={(text) => this.setState({ email: text.trim() })}
           />
         </View>
         <View style={styles.inputField}>
@@ -107,30 +101,33 @@ class LoginForm extends Component {
           />
           <Lock />
           <TextInput
-            placeholder='password'
-            placeholderTextColor='rgba(44,44,44,0.4)'
+            placeholder="password"
+            placeholderTextColor="rgba(44,44,44,0.4)"
             secureTextEntry
-            returnKeyType='go'
+            returnKeyType="go"
             onSubmitEditing={this.validateLogin}
-            autoCapitalize='none'
+            autoCapitalize="none"
             autoCorrect={false}
             style={[
               styles.input,
-              this.state.passwordError && styles.inputError
+              this.state.passwordError && styles.inputError,
             ]}
             onFocus={() => this.setState({ showPasswordTooltip: true })}
             onBlur={() => this.setState({ showPasswordTooltip: false })}
-            ref={input => (this.passwordInput = input)}
+            ref={(input) => (this.passwordInput = input)}
             value={this.state.password}
-            onChangeText={text => this.setState({ password: text.trim() })}
+            onChangeText={(text) => this.setState({ password: text.trim() })}
           />
         </View>
         <View style={styles.footnoteContainer}>
           <TouchableOpacity
-            onPress={() => !this.state.type && navigate('ResetPassword', { 
-              resetPassword: this.props.resetPassword,
-              email: this.state.email
-             })}
+            onPress={() =>
+              !this.state.type &&
+              navigate('ResetPassword', {
+                resetPassword: this.props.resetPassword,
+                email: this.state.email,
+              })
+            }
           >
             <Text style={styles.footnote}>
               {this.state.type
