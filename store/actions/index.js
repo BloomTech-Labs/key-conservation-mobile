@@ -62,8 +62,8 @@ const axiosWithAuth = (dispatch, req) => {
 // production
 // export const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
-// export const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
-export const seturl = 'http://192.168.1.146:8000/api/';
+export const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+// export const seturl = 'http://192.168.1.146:8000/api/';
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
@@ -280,6 +280,46 @@ export const getProfileData = (
   });
 };
 
+export const [
+  EDIT_PROFILE_IMAGE_START,
+  EDIT_PROFILE_IMAGE_ERROR,
+  EDIT_PROFILE_IMAGE_SUCCESS,
+] = [
+  'EDIT_PROFILE_IMAGE_START',
+  'EDIT_PROFILE_IMAGE_ERROR',
+  'EDIT_PROFILE_IMAGE_SUCCESS',
+];
+
+export const editProfileImage = (id, uri) => (dispatch) => {
+  dispatch({ type: EDIT_PROFILE_IMAGE_START });
+
+  let uriParts = uri.split('.');
+  let fileType = uriParts[uriParts.length - 1];
+
+  const formData = new FormData();
+  formData.append('photo', {
+    uri,
+    name: `photo.${fileType}`,
+    type: `image/${fileType}`,
+  });
+
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios.put(`${seturl}users/${id}`, formData, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  })
+    .then((res) => {
+      dispatch({ type: EDIT_PROFILE_IMAGE_SUCCESS, payload: res.data.user });
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch({ type: EDIT_PROFILE_IMAGE_ERROR, payload: err });
+    });
+};
+
 export const [EDIT_PROFILE_START, EDIT_PROFILE_ERROR, EDIT_PROFILE_SUCCESS] = [
   'EDIT_PROFILE_START',
   'EDIT_PROFILE_ERROR',
@@ -294,39 +334,9 @@ export const editProfileData = (id, changes) => (dispatch) => {
     changes
   );
 
-  let formData = new FormData();
-
-  let keys = Object.keys(filteredChanges).filter((key) => {
-    return key !== 'profile_image';
-  });
-
-  if (filteredChanges.profile_image) {
-    const uri = filteredChanges.profile_image;
-
-    let uriParts = uri.split('.');
-    let fileType = uriParts[uriParts.length - 1];
-
-    formData.append('photo', {
-      uri,
-      name: `photo.${fileType}`,
-      type: `image/${fileType}`,
-    });
-  }
-
-  keys.forEach((key) => {
-    if (filteredChanges[key] !== null) {
-      formData.append(key, filteredChanges[key]);
-    }
-  });
-
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .put(`${seturl}users/${id}`, formData, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+      .put(`${seturl}users/${id}`, filteredChanges)
       .then((res) => {
         dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.user });
       })
