@@ -204,6 +204,7 @@ class FeedScreen extends React.Component {
                 ref={this.scrollView}
                 scrollEventThrottle={16}
                 data={this.props.allCampaigns}
+                keyExtractor={(item) => String(item.id)}
                 renderItem={({ item: campaign }) => {
                   return (
                     <CampaignPost
