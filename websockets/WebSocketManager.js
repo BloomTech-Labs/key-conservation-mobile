@@ -49,6 +49,7 @@ class WebSocketManager {
     this.socket.onclose = (e) => {
       this.connected = false;
       this.logMessage(`Disconnected`);
+      this.reconnect();
     };
 
     this.socket.onmessage = (e) => {

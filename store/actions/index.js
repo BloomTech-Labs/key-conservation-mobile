@@ -280,10 +280,14 @@ export const getProfileData = (
   });
 };
 
-export const [EDIT_PROFILE_IMAGE_START, EDIT_PROFILE_IMAGE_ERROR, EDIT_PROFILE_IMAGE_SUCCESS] = [
+export const [
+  EDIT_PROFILE_IMAGE_START,
+  EDIT_PROFILE_IMAGE_ERROR,
+  EDIT_PROFILE_IMAGE_SUCCESS,
+] = [
   'EDIT_PROFILE_IMAGE_START',
   'EDIT_PROFILE_IMAGE_ERROR',
-  'EDIT_PROFILE_IMAGE_SUCCESS'
+  'EDIT_PROFILE_IMAGE_SUCCESS',
 ];
 
 export const editProfileImage = (id, uri) => (dispatch) => {
@@ -304,15 +308,17 @@ export const editProfileImage = (id, uri) => (dispatch) => {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'multipart/form-data',
-      }
-    })
-  }).then((res) => {
-    dispatch({ type: EDIT_PROFILE_IMAGE_SUCCESS, payload: res.data.user });
-  }).catch((err) => {
-    console.log(err);
-    dispatch({ type: EDIT_PROFILE_IMAGE_ERROR, payload: err });
+      },
+    });
   })
-}
+    .then((res) => {
+      dispatch({ type: EDIT_PROFILE_IMAGE_SUCCESS, payload: res.data.user });
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch({ type: EDIT_PROFILE_IMAGE_ERROR, payload: err });
+    });
+};
 
 export const [EDIT_PROFILE_START, EDIT_PROFILE_ERROR, EDIT_PROFILE_SUCCESS] = [
   'EDIT_PROFILE_START',
@@ -410,14 +416,22 @@ export const [
   'GET_FEED_ERROR',
 ];
 
-export const getFeed = (startAt = 0, size = 8) => (dispatch) => {
+export const getFeed = (startAt = undefined, size = 8) => (dispatch) => {
+  console.log(startAt, size);
+
+  const now = new Date(Date.now()).toISOString();
+
+  if (!startAt) {
+    startAt = now;
+  }
+
   dispatch({ type: GET_FEED_START });
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .get(`${seturl}feed?startAt=${startAt}&size=${startAt + size}`)
+      .get(`${seturl}feed?startAt=${startAt}&size=${size}`)
       .then((res) => {
         dispatch({
-          type: startAt > 0 ? EXPAND_FEED_SUCCESS : GET_FEED_SUCCESS,
+          type: startAt < now ? EXPAND_FEED_SUCCESS : GET_FEED_SUCCESS,
           payload: res.data,
         });
       })
