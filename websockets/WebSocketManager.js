@@ -9,7 +9,7 @@ export default class WebSocketManager {
       WebSocketManager.singleton = new WebSocketManager();
     }
 
-    return this.singleton;
+    return WebSocketManager.singleton;
   }
 
   socket;
