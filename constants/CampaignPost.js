@@ -1,7 +1,7 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 const deviceWidth = Dimensions.get('window').width;
-export default {
+export default StyleSheet.create({
   feedContainer: {
     flex: 1,
     backgroundColor: '#fff',
@@ -20,12 +20,9 @@ export default {
   mainContainer: {
     flex: 1,
     backgroundColor: '#F2F2FB',
-    // height: 0,
   },
   container: {
     flex: 1,
-    // position: 'absolute',
-    // top: 0,
     overflow: 'hidden',
     width: '95%',
     justifyContent: 'center',
@@ -167,4 +164,4 @@ export default {
     alignSelf: 'flex-end',
     paddingRight: 7,
   },
-};
+});

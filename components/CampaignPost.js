@@ -73,6 +73,7 @@ const CampaignPost = (props) => {
   const [animation] = useState(new Animated.Value(0));
 
   const animateIn = Animated.timing(animation, {
+    useNativeDriver: true,
     toValue: 1,
     duration: 200,
   });
@@ -162,16 +163,23 @@ const CampaignPost = (props) => {
     setBookmark();
   };
 
-  const height = animation.interpolate({
+  const translateY = animation.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 650],
+    outputRange: [-650, 0],
+  });
+
+  const opacity = animation.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [0, 0.25, 1],
   });
 
   return (
-    // <Animated.View
-    //   style={[styles.mainContainer, { height, opacity: animation }]}
-    // >
-    <View style={styles.mainContainer}>
+    <Animated.View
+      style={[
+        styles.mainContainer,
+        { transform: [{ translateY: translateY }], opacity: opacity },
+      ]}
+    >
       <View style={styles.container}>
         <LoadingOverlay
           loading={props.deleteBuffer.includes(data.id)}
@@ -334,8 +342,7 @@ const CampaignPost = (props) => {
         <TakeActionCallToAction donate={props.data} />
         <View style={styles.demarcation} />
       </View>
-    </View>
-    // </Animated.View>
+    </Animated.View>
   );
 };
 
