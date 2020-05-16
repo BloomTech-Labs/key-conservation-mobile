@@ -210,9 +210,9 @@ const reducer = (state = initialState, action) => {
         ...state,
         pending: { ...state.pending, getFeed: false },
         allCampaigns: Array.from(
-          new Set([...state.allCampaigns, ...action.payload].map((s) => s.id))
+          new Set([...action.payload, ...state.allCampaigns].map((s) => s.id))
         ).map((id) => {
-          const data = [...state.allCampaigns, ...action.payload].find(
+          const data = [...action.payload, ...state.allCampaigns].find(
             (s) => s.id === id
           );
           return data;
@@ -708,7 +708,16 @@ const reducer = (state = initialState, action) => {
     case actions.APPEND_TO_FEED:
       const newCampaigns =
         action.payload.length > 0
-          ? [...action.payload, ...state.allCampaigns.slice(1)]
+          ? Array.from(
+              new Set(
+                [...action.payload, ...state.allCampaigns].map((s) => s.id)
+              )
+            ).map((id) => {
+              const data = [...action.payload, ...state.allCampaigns].find(
+                (s) => s.id === id
+              );
+              return data;
+            })
           : [...state.allCampaigns];
 
       return {
