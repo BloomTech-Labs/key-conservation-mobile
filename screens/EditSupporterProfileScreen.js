@@ -6,7 +6,7 @@ import BackButton from '../components/BackButton';
 import DoneButton from '../components/DoneButton';
 import UploadMedia from '../components/UploadMedia';
 
-import { editProfileData, logout } from '../store/actions';
+import { editProfileData, editProfileImage, logout } from '../store/actions';
 import { AmpEvent } from '../components/withAmplitude';
 
 import styles from '../constants/screens/EditSupporterProfileScreen';
@@ -61,6 +61,9 @@ class EditSupporterProfileScreen extends React.Component {
 
   done = () => {
     let changes = this.state;
+    if (changes.profile_image) {
+      this.props.editProfileImage(this.props.currentUserProfile.id, changes.profile_image);
+    }
     this.props.editProfileData(this.props.currentUserProfile.id, changes);
     if (this.props.firstLogin) {
       this.props.navigation.navigate('Home');
@@ -251,5 +254,6 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   editProfileData,
+  editProfileImage,
   logout
 })(EditSupporterProfileScreen);
