@@ -75,7 +75,7 @@ const CampaignPost = (props) => {
   const animateIn = Animated.timing(animation, {
     useNativeDriver: true,
     toValue: 1,
-    duration: 200,
+    duration: 300,
   });
 
   useEffect(() => {

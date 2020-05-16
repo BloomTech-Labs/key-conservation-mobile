@@ -5,9 +5,8 @@ import {
   TouchableOpacity,
   Button,
   ActivityIndicator,
-  RefreshControl,
 } from 'react-native';
-import { ScrollView, FlatList } from 'react-navigation';
+import { FlatList } from 'react-navigation';
 import { connect } from 'react-redux';
 import {
   getFeed,
@@ -117,23 +116,16 @@ class FeedScreen extends React.Component {
 
   onScroll = ({ nativeEvent }) => {
     if (isCloseToBottom(nativeEvent) && !this.state.gettingMorePosts) {
-      let created_at = this.props.allCampaigns[0]?.created_at;
-
-      if (this.props.newPostQueue.length > 0) {
-        created_at = this.props.newPostQueue[0].created_at;
-      }
+      // Oldest post we have
+      const created_at = this.props.allCampaigns[
+        this.props.allCampaigns.length - 1
+      ].created_at;
 
       this.setState({ gettingMorePosts: true });
-      this.props
-        .refreshFeed(created_at)
-        .then(() => {
-          return this.props.getFeed(
-            this.props.allCampaigns.length + this.props.newPostQueue.length
-          );
-        })
-        .then(() => {
-          this.setState({ gettingMorePosts: false });
-        });
+
+      return this.props.getFeed(created_at).then(() => {
+        this.setState({ gettingMorePosts: false });
+      });
     }
 
     if (isCloseToTop(nativeEvent)) {

@@ -59,6 +59,7 @@ export default class FeedLoading extends Component {
             right: 0,
             bottom: 0,
             zIndex: 100,
+            height: 1200,
           },
           { opacity: this.props.loading ? 1 : 0 },
         ]}
@@ -69,7 +70,7 @@ export default class FeedLoading extends Component {
             key={i}
             style={{
               ...styles.container,
-              height: 640,
+              height: 720,
               paddingTop: 0,
               paddingBottom: 0,
               padding: 0,

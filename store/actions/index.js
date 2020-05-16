@@ -62,8 +62,8 @@ const axiosWithAuth = (dispatch, req) => {
 // production
 // export const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
-export const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
-// export const seturl = 'http://192.168.1.146:8000/api/';
+// export const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+export const seturl = 'http://192.168.1.146:8000/api/';
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
@@ -406,14 +406,22 @@ export const [
   'GET_FEED_ERROR',
 ];
 
-export const getFeed = (startAt = 0, size = 8) => (dispatch) => {
+export const getFeed = (startAt = undefined, size = 8) => (dispatch) => {
+  console.log(startAt, size);
+
+  const now = new Date(Date.now()).toISOString();
+
+  if (!startAt) {
+    startAt = now;
+  }
+
   dispatch({ type: GET_FEED_START });
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .get(`${seturl}feed?startAt=${startAt}&size=${startAt + size}`)
+      .get(`${seturl}feed?startAt=${startAt}&size=${size}`)
       .then((res) => {
         dispatch({
-          type: startAt > 0 ? EXPAND_FEED_SUCCESS : GET_FEED_SUCCESS,
+          type: startAt < now ? EXPAND_FEED_SUCCESS : GET_FEED_SUCCESS,
           payload: res.data,
         });
       })
