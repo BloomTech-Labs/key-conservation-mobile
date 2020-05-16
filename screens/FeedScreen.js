@@ -151,10 +151,6 @@ class FeedScreen extends React.Component {
       WebSocketManager().getInstance().reconnect();
     }
 
-    if (this.props.allCampaigns.length <= 3) {
-      this.props.getFeed();
-    }
-
     if (
       this.props.newPostQueue.length > 0 &&
       this.state.showNewPostsButton === false
@@ -180,9 +176,13 @@ class FeedScreen extends React.Component {
     const { navigation } = this.props;
     return (
       <View style={{ flex: 1 }}>
-        {this.props.feedError ? (
+        {this.props.feedError ||
+        (!this.props.loading && this.props.allCampaigns.length === 0) ? (
           <View style={styles.errorContainer}>
-            <Text style={styles.errorText}>{this.props.feedError}</Text>
+            <Text style={styles.errorText}>
+              {this.props.feedError ||
+                'Something went wrong... Please try again'}
+            </Text>
             <Button title="Retry" onPress={this.props.getFeed} />
           </View>
         ) : (
