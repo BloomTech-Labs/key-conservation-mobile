@@ -191,6 +191,14 @@ const CampaignPost = (props) => {
           isMine={props.currentUserProfile.id === data.user_id}
           post={data}
         />
+        <View style={styles.topRow}>
+          <View style={styles.topRowLeft}>
+            <Text style={styles.postTitle}>{data.name}</Text>
+          </View>
+          <View style={styles.topRowRight}>
+            <Text style={styles.timeText}>{timeDiff}</Text>
+          </View>
+        </View>
         <ListItem
           disabled={props.disableHeader}
           onPress={goToProfile}
@@ -218,11 +226,15 @@ const CampaignPost = (props) => {
             </TouchableOpacity>
           }
           subtitle={
-            <View style={{ flexDirection: 'row', marginLeft: -10 }}>
+            <View
+              style={{ flexDirection: 'row', marginLeft: -12, marginTop: 3 }}
+            >
               {data.location !== (undefined || null) ? (
                 <MapMarker fill="#505050" />
               ) : null}
-              <Text style={{ color: '#929292' }}>{data.location}</Text>
+              <Text style={{ color: '#929292', paddingLeft: 3 }}>
+                {data.location}
+              </Text>
             </View>
           }
         />
@@ -235,14 +247,14 @@ const CampaignPost = (props) => {
             </View>
           ) : (
             <Text style={styles.campaignDescriptionText}>
-              {shorten(data.description, 80)}
+              {shorten(data.description, 280)}
               &nbsp;
               <Text onPress={toggleText} style={styles.readMore}>
                 Read More
               </Text>
             </Text>
           )}
-          <Text style={styles.timeText}>{timeDiff}</Text>
+          {/* <Text style={styles.timeText}>{timeDiff}</Text> */}
         </View>
         <View>
           <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
