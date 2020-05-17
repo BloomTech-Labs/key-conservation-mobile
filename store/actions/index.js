@@ -60,9 +60,9 @@ const axiosWithAuth = (dispatch, req) => {
 // url for heroku staging vs production server
 // comment out either server depending on testing needs
 // production
-export const seturl = 'https://key-conservation.herokuapp.com/api/';
+// export const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
-// export const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+export const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 // export const seturl = 'http://192.168.1.146:8000/api/';
 
 const filterUrls = (keys, object) => {
