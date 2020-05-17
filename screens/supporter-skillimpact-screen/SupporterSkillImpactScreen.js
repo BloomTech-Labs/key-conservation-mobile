@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, Alert } from 'react-native';
 import { ScrollView } from 'react-navigation';
 import * as SecureStore from 'expo-secure-store';
 import {
@@ -10,6 +10,7 @@ import {
 import { connect } from 'react-redux';
 import SupporterSkilledImpactHeader from '../../components/SkilledImpact/SupporterSkilledImpactHeader';
 import SupporterSkilledImpactBody from '../../components/SkilledImpact/SupporterSkilledImpactBody';
+import styles from '../../constants/screens/SupporterSkilledImpactScreen';
 
 class SupporterSkillImpactScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -88,13 +89,6 @@ class SupporterSkillImpactScreen extends Component {
     }
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
-});
 
 const mapStateToProps = (state) => ({
   campaignsBySkill: state.campaignsBySkill,
