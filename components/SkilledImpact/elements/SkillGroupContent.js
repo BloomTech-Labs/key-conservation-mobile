@@ -5,6 +5,7 @@ import Sync from '../../../assets/jsicons/bottomnavigation/Sync';
 import ChevronBottom from '../../../assets/jsicons/miscIcons/ChevronBottom';
 import ChevronRight from '../../../assets/jsicons/miscIcons/ChevronRight';
 import SkillGroupElement from './SkillGroupElement';
+import Skills from '../../../constants/Skills';
 
 const assetPath = '../../../assets/images/SkilledImpact/Skills_Logos/';
 
@@ -73,13 +74,6 @@ class SkillGroupContent extends React.Component {
     this.setState({ expanded: !this.state.expanded });
   };
 
-  toTitleCase = (str) => {
-    return str
-      .split('_')
-      .map((w) => w[0].toUpperCase() + w.substr(1).toLowerCase())
-      .join(' ');
-  };
-
   render() {
     return (
       <View style={styles.itemContainers}>
@@ -98,7 +92,7 @@ class SkillGroupContent extends React.Component {
             <View style={styles.itemContentRows}>
               {this.state.skillGroups ? (
                 this.state.skillGroups.map((skillGroup, i) => {
-                  const skill = this.toTitleCase(skillGroup);
+                  const skill = Skills[skillGroup];
                   const image = skillsImageMap[skillGroup];
                   return (
                     <SkillGroupElement key={i} image={image} name={skill} />
