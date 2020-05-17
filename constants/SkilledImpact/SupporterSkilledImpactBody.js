@@ -241,4 +241,17 @@ export default StyleSheet.create({
     alignItems: 'center',
     fontSize: 14,
   },
+  skillGroupElement: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
+    width: '50%',
+  },
+  skillGroupTitle: {
+    fontSize: 16,
+    marginTop: 10,
+  },
+  skillGroupName: {
+    fontSize: 16,
+  },
 });
