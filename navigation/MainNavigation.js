@@ -131,6 +131,7 @@ const SupporterSkillImpactStack = createStackNavigator(
   //TODO add the rest of skill request screens for supporters here
   {
     SkillImpact: SupporterSkillImpactScreen,
+    EditSupporterProfile: EditSupporterProfileScreen,
   },
   {
     navigationOptions: {

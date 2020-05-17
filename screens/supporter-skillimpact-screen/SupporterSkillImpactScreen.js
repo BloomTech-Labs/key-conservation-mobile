@@ -45,16 +45,15 @@ class SupporterSkillImpactScreen extends Component {
       const userId = await SecureStore.getItemAsync('id', {});
       await this.props.getProfileData(userId, null, true);
       let { skills, accepting_help_requests } = this.props.currentUserProfile;
-      // Placeholder for skills, remove once Skills Creation screen is made
-      if (!skills) {
-        skills = ['ARCHITECTURE', 'DRONE'];
-      }
-      skills.forEach(async (skill) => {
-        await this.props.getCampaignsBySkill(skill);
-        this.setState({
-          campaigns: this.state.campaigns.concat(this.props.campaignsBySkill),
+
+      if (skills) {
+        skills.forEach(async (skill) => {
+          await this.props.getCampaignsBySkill(skill);
+          this.setState({
+            campaigns: this.state.campaigns.concat(this.props.campaignsBySkill),
+          });
         });
-      });
+      }
 
       await this.props.getApplicationsByUser(userId);
 
@@ -81,7 +80,10 @@ class SupporterSkillImpactScreen extends Component {
       return (
         <ScrollView contentContainerStyle={styles.container}>
           <SupporterSkilledImpactHeader />
-          <SupporterSkilledImpactBody data={data} />
+          <SupporterSkilledImpactBody
+            data={data}
+            navigation={this.props.navigation}
+          />
         </ScrollView>
       );
     } else {

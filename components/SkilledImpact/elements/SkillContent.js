@@ -66,7 +66,10 @@ class SkillContent extends React.Component {
                   );
                 }
               })}
-              <TouchableOpacity style={styles.responsiveButton}>
+              <TouchableOpacity
+                style={styles.responsiveButton}
+                onPress={this.props.navigation.navigate('EditSupporterProfile')}
+              >
                 <Text style={styles.buttonTextPlusIcon}>+</Text>
                 <Text style={styles.mediumButtonText}>ADD A SKILL</Text>
               </TouchableOpacity>
