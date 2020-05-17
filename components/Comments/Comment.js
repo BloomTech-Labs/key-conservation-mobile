@@ -86,7 +86,7 @@ const Comment = (props) => {
                 }
               }
               source={{
-                uri: props.comment.profile_image,
+                uri: props.comment.profile_image || undefined,
               }}
             />
           </View>
