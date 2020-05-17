@@ -226,7 +226,9 @@ const CampaignPost = (props) => {
             </TouchableOpacity>
           }
           subtitle={
-            <View style={{ flexDirection: 'row', marginLeft: -10 }}>
+            <View
+              style={{ flexDirection: 'row', marginLeft: -10, marginTop: 3 }}
+            >
               {data.location !== (undefined || null) ? (
                 <MapMarker fill="#505050" />
               ) : null}

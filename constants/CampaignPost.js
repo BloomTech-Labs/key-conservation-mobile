@@ -9,6 +9,7 @@ export default StyleSheet.create({
   name: {
     flexDirection: 'row',
     marginLeft: -10,
+    width: '100%',
   },
   ellipse: {
     paddingTop: 3,
@@ -70,30 +71,24 @@ export default StyleSheet.create({
   },
   topRow: {
     flexDirection: 'row',
-    // borderColor: 'red',
-    // borderWidth: 1,
+    justifyContent: 'space-around',
     width: '100%',
+    paddingTop: 8,
   },
   topRowLeft: {
-    paddingLeft: 15,
+    paddingLeft: 17,
+    width: '75%',
   },
   topRowRight: {
-    // flexDirection: 'row',
-    // alignSelf: 'flex-end',
-    // paddingTop: 5,
-    paddingLeft: 57,
+    paddingRight: 15,
   },
   postTitle: {
-    // borderColor: 'purple',
-    // borderWidth: 1,
     paddingRight: 15,
     flex: 2,
     fontFamily: 'Lato-Bold',
     fontSize: 18,
   },
   timeText: {
-    // borderColor: 'green',
-    // borderWidth: 1,
     color: '#929292',
     fontSize: 16,
     fontFamily: 'Lato',
