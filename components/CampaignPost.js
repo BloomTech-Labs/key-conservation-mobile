@@ -337,9 +337,10 @@ const CampaignPost = (props) => {
                 value={data.comments ? data.comments.length : 0}
               />
             </TouchableOpacity>
+            <TakeActionCallToAction donate={props.data} />
           </View>
         </View>
-        <TakeActionCallToAction donate={props.data} />
+        {/* <TakeActionCallToAction donate={props.data} /> */}
         <View style={styles.demarcation} />
       </View>
     </Animated.View>
