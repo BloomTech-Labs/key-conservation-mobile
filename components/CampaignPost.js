@@ -227,12 +227,14 @@ const CampaignPost = (props) => {
           }
           subtitle={
             <View
-              style={{ flexDirection: 'row', marginLeft: -10, marginTop: 3 }}
+              style={{ flexDirection: 'row', marginLeft: -12, marginTop: 3 }}
             >
               {data.location !== (undefined || null) ? (
                 <MapMarker fill="#505050" />
               ) : null}
-              <Text style={{ color: '#929292' }}>{data.location}</Text>
+              <Text style={{ color: '#929292', paddingLeft: 3 }}>
+                {data.location}
+              </Text>
             </View>
           }
         />

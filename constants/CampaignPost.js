@@ -86,7 +86,7 @@ export default StyleSheet.create({
     paddingRight: 15,
     flex: 2,
     fontFamily: 'Lato-Bold',
-    fontSize: 18,
+    fontSize: 17,
   },
   timeText: {
     color: '#929292',
