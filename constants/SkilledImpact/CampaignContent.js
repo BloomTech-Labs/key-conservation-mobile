@@ -146,4 +146,9 @@ export default StyleSheet.create({
     color: '#b6b9bc',
     fontSize: 12,
   },
+  description: {
+    width: '100%',
+    alignItems: 'center',
+    fontSize: 14,
+  },
 });

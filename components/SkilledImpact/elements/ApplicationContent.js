@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Switch } from 'react-native';
-import styles from '../../../constants/SkilledImpact/OrgSkilledImpactBody';
+import styles from '../../../constants/SkilledImpact/SupporterSkilledImpactBody';
 import ApplicationPage from '../../../assets/jsicons/SkilledImpact/ApplicationPage';
 import LargeCrossCircle from '../../../assets/jsicons/SkilledImpact/LargeCrossCircle';
 import PlayButton from '../../../assets/jsicons/SkilledImpact/PlayButton';
@@ -18,6 +18,15 @@ class ApplicationContent extends React.Component {
       selectedExpanded: true,
       notSelectedExpanded: true,
     };
+    this.noDecisionSubmissions = props.submissions.map(
+      (submission) => submission.submission.decision === 'PENDING'
+    );
+    this.selectedSubmissions = props.submissions.map(
+      (submission) => submission.submission.decision === 'ACCEPTED'
+    );
+    this.notSelectedSubmissions = props.submissions.map(
+      (submission) => submission.submission.decision === 'DENIED'
+    );
   }
 
   toggleMainExpand = () => {
@@ -69,19 +78,20 @@ class ApplicationContent extends React.Component {
 
             {this.state.mainExpanded && this.state.noDecisionExpanded ? (
               <View style={styles.itemContentBody}>
-                {this.props.submissions.map((submission, keyIndex) => {
-                  if (
-                    submission &&
-                    submission.submission.decision === 'PENDING'
-                  ) {
+                {this.noDecisionSubmissions ? (
+                  this.noDecisionSubmissions.map((submission, keyIndex) => {
                     return (
                       <ApplicationElement
                         key={keyIndex}
                         submission={submission}
                       />
                     );
-                  }
-                })}
+                  })
+                ) : (
+                  <View style={styles.description}>
+                    <Text>No Submissions with "No Decision" Decision</Text>
+                  </View>
+                )}
               </View>
             ) : null}
 
@@ -102,19 +112,20 @@ class ApplicationContent extends React.Component {
 
             {this.state.mainExpanded && this.state.selectedExpanded ? (
               <View style={styles.itemContentBody}>
-                {this.props.submissions.map((submission, keyIndex) => {
-                  if (
-                    submission &&
-                    submission.submission.decision === 'ACCEPTED'
-                  ) {
+                {this.selectedSubmissions ? (
+                  this.selectedSubmissions.map((submission, keyIndex) => {
                     return (
                       <ApplicationElement
                         key={keyIndex}
                         submission={submission}
                       />
                     );
-                  }
-                })}
+                  })
+                ) : (
+                  <View style={styles.description}>
+                    <Text>No Submissions with "Selected" Decision</Text>
+                  </View>
+                )}
               </View>
             ) : null}
 
@@ -137,13 +148,17 @@ class ApplicationContent extends React.Component {
 
         {this.state.mainExpanded && this.state.notSelectedExpanded ? (
           <View style={styles.itemContentBody}>
-            {this.props.submissions.map((submission, keyIndex) => {
-              if (submission && submission.submission.decision === 'DENIED') {
+            {this.notSelectedSubmissions ? (
+              this.notSelectedSubmissions.map((submission, keyIndex) => {
                 return (
                   <ApplicationElement key={keyIndex} submission={submission} />
                 );
-              }
-            })}
+              })
+            ) : (
+              <View style={styles.description}>
+                <Text>No Submissions with "Not Selected" Decision</Text>
+              </View>
+            )}
           </View>
         ) : null}
       </View>

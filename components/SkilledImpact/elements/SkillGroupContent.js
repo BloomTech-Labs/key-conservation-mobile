@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Switch } from 'react-native';
-import styles from '../../../constants/SkilledImpact/OrgSkilledImpactBody';
+import styles from '../../../constants/SkilledImpact/SupporterSkilledImpactBody';
 import Sync from '../../../assets/jsicons/bottomnavigation/Sync';
 import ChevronBottom from '../../../assets/jsicons/miscIcons/ChevronBottom';
 import ChevronRight from '../../../assets/jsicons/miscIcons/ChevronRight';
@@ -96,15 +96,21 @@ class SkillGroupContent extends React.Component {
         {this.state.expanded ? (
           <View style={styles.itemContentBody}>
             <View style={styles.itemContentRows}>
-              {this.state.skillGroups.map((skillGroup, i) => {
-                if (skillGroup) {
+              {this.state.skillGroups ? (
+                this.state.skillGroups.map((skillGroup, i) => {
                   const skill = this.toTitleCase(skillGroup);
                   const image = skillsImageMap[skillGroup];
                   return (
                     <SkillGroupElement key={i} image={image} name={skill} />
                   );
-                }
-              })}
+                })
+              ) : (
+                <View style={styles.description}>
+                  <Text>
+                    Select your skills above to see available Skilled Groups
+                  </Text>
+                </View>
+              )}
             </View>
             <View style={styles.itemFooterRow}></View>
           </View>

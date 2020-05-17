@@ -32,6 +32,7 @@ class SupporterSkilledImpactBody extends Component {
           skills={this.state.skills}
           isAcceptingHelp={this.state.isAcceptingHelp}
           userId={this.state.userId}
+          navigation={this.props.navigation}
         />
         <CampaignContent campaigns={this.state.campaigns} />
         <SkillGroupContent skillGroups={this.state.skills} />

@@ -37,11 +37,17 @@ class CampaignContent extends React.Component {
         </TouchableOpacity>
         {this.state.skillExpand ? (
           <View style={styles.itemContentBody}>
-            {campaignList.map((campaign, keyIndex) => {
-              if (campaign) {
-                return <CampaignElement key={keyIndex} campaign={campaign} />;
-              }
-            })}
+            {campaignList ? (
+              campaignList.map((campaign, keyIndex) => {
+                if (campaign) {
+                  return <CampaignElement key={keyIndex} campaign={campaign} />;
+                }
+              })
+            ) : (
+              <View style={styles.description}>
+                <Text>Select your skills above to see available campaigns</Text>
+              </View>
+            )}
           </View>
         ) : null}
       </View>
