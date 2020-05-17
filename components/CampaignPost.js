@@ -191,6 +191,14 @@ const CampaignPost = (props) => {
           isMine={props.currentUserProfile.id === data.user_id}
           post={data}
         />
+        <View style={styles.topRow}>
+          <View style={styles.topRowLeft}>
+            <Text style={styles.postTitle}>{data.name}</Text>
+          </View>
+          <View style={styles.topRowRight}>
+            <Text style={styles.timeText}>{timeDiff}</Text>
+          </View>
+        </View>
         <ListItem
           disabled={props.disableHeader}
           onPress={goToProfile}
@@ -235,14 +243,14 @@ const CampaignPost = (props) => {
             </View>
           ) : (
             <Text style={styles.campaignDescriptionText}>
-              {shorten(data.description, 80)}
+              {shorten(data.description, 280)}
               &nbsp;
               <Text onPress={toggleText} style={styles.readMore}>
                 Read More
               </Text>
             </Text>
           )}
-          <Text style={styles.timeText}>{timeDiff}</Text>
+          {/* <Text style={styles.timeText}>{timeDiff}</Text> */}
         </View>
         <View>
           <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
@@ -337,10 +345,9 @@ const CampaignPost = (props) => {
                 value={data.comments ? data.comments.length : 0}
               />
             </TouchableOpacity>
-            <TakeActionCallToAction donate={props.data} />
           </View>
         </View>
-        {/* <TakeActionCallToAction donate={props.data} /> */}
+        <TakeActionCallToAction donate={props.data} />
         <View style={styles.demarcation} />
       </View>
     </Animated.View>
