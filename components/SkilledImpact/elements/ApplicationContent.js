@@ -18,13 +18,13 @@ class ApplicationContent extends React.Component {
       selectedExpanded: true,
       notSelectedExpanded: true,
     };
-    this.noDecisionSubmissions = props.submissions.map(
+    this.noDecisionSubmissions = props.submissions.filter(
       (submission) => submission.submission.decision === 'PENDING'
     );
-    this.selectedSubmissions = props.submissions.map(
+    this.selectedSubmissions = props.submissions.filter(
       (submission) => submission.submission.decision === 'ACCEPTED'
     );
-    this.notSelectedSubmissions = props.submissions.map(
+    this.notSelectedSubmissions = props.submissions.filter(
       (submission) => submission.submission.decision === 'DENIED'
     );
   }
