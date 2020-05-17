@@ -1,7 +1,10 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Switch } from 'react-native';
 import styles from '../../../constants/SkilledImpact/OrgSkilledImpactBody';
-import Sync from '../../../assets/jsicons/bottomnavigation/Sync';
+import ApplicationPage from '../../../assets/jsicons/SkilledImpact/ApplicationPage';
+import LargeCrossCircle from '../../../assets/jsicons/SkilledImpact/LargeCrossCircle';
+import PlayButton from '../../../assets/jsicons/SkilledImpact/PlayButton';
+import StopButton from '../../../assets/jsicons/SkilledImpact/StopButton';
 import ChevronBottom from '../../../assets/jsicons/miscIcons/ChevronBottom';
 import ChevronRight from '../../../assets/jsicons/miscIcons/ChevronRight';
 import ApplicationElement from './ApplicationElement';
@@ -40,7 +43,7 @@ class ApplicationContent extends React.Component {
           style={styles.itemTitleRow}
           onPress={this.toggleMainExpand}
         >
-          <Sync />
+          <ApplicationPage />
           <Text style={styles.itemTitleText}>My Applications</Text>
           <View style={styles.chevronArrowContainer}>
             {this.state.mainExpanded ? <ChevronBottom /> : <ChevronRight />}
@@ -53,7 +56,7 @@ class ApplicationContent extends React.Component {
               style={styles.itemTitleRow}
               onPress={this.toggleNoDecisionExpand}
             >
-              <Sync />
+              <LargeCrossCircle />
               <Text style={styles.itemTitleText}>No Decision</Text>
               <View style={styles.chevronArrowContainer}>
                 {this.state.noDecisionExpanded ? (
@@ -86,7 +89,7 @@ class ApplicationContent extends React.Component {
               style={styles.itemTitleRow}
               onPress={this.toggleSelectedExpand}
             >
-              <Sync />
+              <PlayButton />
               <Text style={styles.itemTitleText}>Selected</Text>
               <View style={styles.chevronArrowContainer}>
                 {this.state.selectedExpanded ? (
@@ -119,7 +122,7 @@ class ApplicationContent extends React.Component {
               style={styles.itemTitleRow}
               onPress={this.toggleNotSelectedExpand}
             >
-              <Sync />
+              <StopButton />
               <Text style={styles.itemTitleText}>Not Selected</Text>
               <View style={styles.chevronArrowContainer}>
                 {this.state.notSelectedExpanded ? (
