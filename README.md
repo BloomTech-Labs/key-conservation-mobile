@@ -21,7 +21,6 @@ Current version: 5.2.0. This app is in Beta for iOS and Android.
 
 Richard Machado - [GitHub](https://github.com/richardmachado) | [LinkedIn](https://www.linkedin.com/in/richard-machado)
 
-
 #### React Native Developers:
 
 Michael Callahan - [GitHub](https://github.com/Callmich) | [LinkedIn](https://www.linkedin.com/in/michael-callahan-a640551a3/)
