@@ -8,6 +8,7 @@ import {
   getApplicationsByUser,
 } from '../../store/actions';
 import { connect } from 'react-redux';
+import { withNavigationFocus } from 'react-navigation';
 import SupporterSkilledImpactHeader from '../../components/SkilledImpact/SupporterSkilledImpactHeader';
 import SupporterSkilledImpactBody from '../../components/SkilledImpact/SupporterSkilledImpactBody';
 import styles from '../../constants/screens/SupporterSkilledImpactScreen';
@@ -44,19 +45,16 @@ class SupporterSkillImpactScreen extends Component {
     try {
       const userId = await SecureStore.getItemAsync('id', {});
       await this.props.getProfileData(userId, null, true);
+      await this.props.getApplicationsByUser(userId);
       let { skills, accepting_help_requests } = this.props.currentUserProfile;
-
       if (skills) {
-        skills.forEach(async (skill) => {
+        for (const skill of skills) {
           await this.props.getCampaignsBySkill(skill);
           this.setState({
             campaigns: this.state.campaigns.concat(this.props.campaignsBySkill),
           });
-        });
+        }
       }
-
-      await this.props.getApplicationsByUser(userId);
-
       this.setState({
         submissions: this.props.submissions,
         skills,
@@ -102,4 +100,4 @@ export default connect(mapStateToProps, {
   getProfileData,
   getCampaignsBySkill,
   getApplicationsByUser,
-})(SupporterSkillImpactScreen);
+})(withNavigationFocus(SupporterSkillImpactScreen));
