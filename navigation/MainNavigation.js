@@ -46,6 +46,7 @@ import Lightening from '../assets/jsicons/bottomnavigation/Lightening';
 import Globe from '../assets/jsicons/bottomnavigation/Globe';
 import Smile from '../assets/jsicons/bottomnavigation/Smile';
 import Sync from '../assets/jsicons/bottomnavigation/Sync';
+import Bell from '../assets/jsicons/bottomnavigation/Bell';
 
 export const OrgOnboardStack = createStackNavigator(
   {
@@ -77,6 +78,18 @@ const MapStack = createStackNavigator(
     navigationOptions: {
       tabBarLabel: 'Map',
       tabBarIcon: ({ focused }) => <Globe />,
+    },
+  }
+);
+
+const NotStack = createStackNavigator(
+  {
+    NotScreen: WideMapScreen,
+  },
+  {
+    navigationOptions: {
+      tabBarLabel: 'Map',
+      tabBarIcon: ({ focused }) => <Bell />,
     },
   }
 );
@@ -238,6 +251,10 @@ export const ConsNavigator = createBottomTabNavigator(
     },
     MyProStack: {
       screen: MyProStack,
+      path: '',
+    },
+    NotStack: {
+      screen: NotStack,
       path: '',
     },
   },
