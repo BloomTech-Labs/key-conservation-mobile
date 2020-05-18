@@ -103,7 +103,8 @@ class SkillGroupContent extends React.Component {
         {this.state.expanded ? (
           <View style={styles.itemContentBody}>
             <View style={styles.itemContentRows}>
-              {this.state.skillGroups.length > 0 ? (
+              {this.state.skillGroups.length > 0 &&
+              this.state.skillGroups[0] != null ? (
                 this.state.skillGroups.map((skillGroup, i) => {
                   const skill = Skills[skillGroup];
                   const image = skillsImageMap[skillGroup];
