@@ -4,6 +4,7 @@ import styles from '../../../constants/SkilledImpact/SupporterSkilledImpactBody'
 import Sync from '../../../assets/jsicons/bottomnavigation/Sync';
 import ChevronBottom from '../../../assets/jsicons/miscIcons/ChevronBottom';
 import ChevronRight from '../../../assets/jsicons/miscIcons/ChevronRight';
+import Skills from '../../../constants/Skills';
 
 import { editProfileData } from '../../../store/actions';
 import { connect } from 'react-redux';
@@ -61,7 +62,9 @@ class SkillContent extends React.Component {
                 if (skill) {
                   return (
                     <TouchableOpacity key={i} style={styles.skillsButton}>
-                      <Text style={styles.mediumButtonText}>{skill}</Text>
+                      <Text style={styles.mediumButtonText}>
+                        {Skills[skill].toUpperCase()}
+                      </Text>
                     </TouchableOpacity>
                   );
                 }
