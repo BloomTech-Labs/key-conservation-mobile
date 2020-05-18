@@ -29,6 +29,7 @@ import EditSupporterProfileScreen from '../screens/EditSupporterProfileScreen';
 import CreateCampaignUpdateScreen from '../screens/CreateCampaignUpdateScreen';
 import AccountSettingsScreen from '../screens/AccountSettingsScreen';
 import WideMapScreen from '../screens/maps/WideMapScreen';
+import NotificationsScreen from '../screens/notifications/NotificationsMain';
 import AdminReportScreen from '../screens/AdminReportScreen';
 import ReportDetailScreen from '../screens/ReportDetailScreen';
 import CreateReportScreen from '../screens/CreateReportScreen';
@@ -84,7 +85,7 @@ const MapStack = createStackNavigator(
 
 const NotStack = createStackNavigator(
   {
-    NotScreen: WideMapScreen,
+    NotScreen: NotificationsScreen,
   },
   {
     navigationOptions: {
