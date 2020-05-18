@@ -117,6 +117,16 @@ class ViewCampaignScreen extends React.Component {
           >
             <Viewport.Tracker>
               <View>
+                <View style={styles.topRow}>
+                  <View style={styles.topRowLeft}>
+                    <Text style={styles.postTitle}>
+                      {this.props.selectedCampaign.name}
+                    </Text>
+                  </View>
+                  <View style={styles.topRowRight}>
+                    <Text style={styles.timeText}>{timeDiff}</Text>
+                  </View>
+                </View>
                 <ListItem
                   onPress={this.goToProfile}
                   title={
@@ -137,20 +147,19 @@ class ViewCampaignScreen extends React.Component {
                       (undefined || null) ? (
                         <MapMarker fill="#505050" />
                       ) : null}
-                      <Text style={{ color: '#929292' }}>
+                      <Text style={{ color: '#929292', paddingLeft: 3 }}>
                         {this.props.selectedCampaign.location}
                       </Text>
                     </View>
                   }
                 />
                 <View style={styles.campaignDescriptionContainer}>
-                  <Text style={styles.campaignDescriptionName}>
+                  {/* <Text style={styles.campaignDescriptionName}>
                     {this.props.selectedCampaign.name}
-                  </Text>
+                  </Text> */}
                   <Text style={styles.campaignDescription}>
                     {this.props.selectedCampaign.description}
                   </Text>
-                  <Text style={styles.timeText}>{timeDiff}</Text>
                 </View>
                 {this.props.selectedCampaign.image.includes('.mov') ||
                 this.props.selectedCampaign.image.includes('.mp3') ||

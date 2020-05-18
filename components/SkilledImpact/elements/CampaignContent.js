@@ -1,61 +1,53 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import styles from '../../../constants/SkilledImpact/CampaignContent';
-import Lightening from '../../../assets/jsicons/bottomnavigation/Lightening';
-import ChevronBottom from '../../../assets/jsicons/miscIcons/ChevronBottom';
+import styles from '../../../constants/SkilledImpact/OrgSkilledImpactBody';
 import ChevronRight from '../../../assets/jsicons/miscIcons/ChevronRight';
-import CampaignElement from './CampaignElement';
+import { Avatar } from 'react-native-elements';
+import * as moment from 'moment';
 
-class CampaignContent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      skillExpand: true,
-      isReachable: true,
-      skills: props.skills,
-      campaigns: props.campaigns,
-    };
-  }
+export default React.forwardRef((props, ref) => {
+   const campaign = props.campaign;
 
-  skillExpand = () => {
-    this.setState({ skillExpand: !this.state.skillExpand });
-  };
-
-  render() {
-    const campaignList = this.state.campaigns;
     return (
-      <View style={styles.itemContainers}>
-        <TouchableOpacity
-          style={styles.itemTitleRow}
-          onPress={this.skillExpand}
-        >
-          <Lightening />
-          <Text style={styles.itemTitleText}>Current Campaigns</Text>
-          <View style={styles.chevronArrowContainer}>
-            {this.state.skillExpand ? <ChevronBottom /> : <ChevronRight />}
-          </View>
-        </TouchableOpacity>
-        {this.state.skillExpand ? (
-          <View style={styles.itemContentBody}>
-            {campaignList.length !== 0 ? (
-              campaignList.map((campaign, keyIndex) => {
-                if (campaign) {
-                  return <CampaignElement key={keyIndex} campaign={campaign} />;
-                }
-              })
-            ) : (
-              <View style={styles.description}>
-                <Text>
-                  Select your skills above to see available campaigns that match
-                  your skills
-                </Text>
-              </View>
+      <View style={styles.itemContentRows}>
+        <View style={styles.avatarImageContainer}>
+          <Avatar
+            size={65}
+            rounded
+            source={{
+              uri: campaign.image || undefined
+            }}
+          />
+        </View>
+        <View style={styles.campaignRightContainer}>
+          <View style={styles.campaignRow}>
+            {campaign.name? (
+              <Text style={styles.campaignOrganizationName}>
+                {campaign.name}
+              </Text>
+            ):(
+              <Text style={styles.campaignOrganizationName}>
+                {campaign.org_name}
+              </Text>
             )}
+            <View style={styles.chevronArrowContainer}>
+              <ChevronRight />
+            </View>
           </View>
-        ) : null}
+          <View style={styles.campaignRow}>
+            {campaign.is_deactivated ?
+              (<View style={styles.closeTag}>
+                <Text style={styles.closeText}>CLOSE</Text>
+              </View>):
+              (<View style={styles.openTag}>
+                <Text style={styles.mediumButtonText}>OPEN</Text>
+              </View>)}
+          </View>
+          <View style={styles.campaignRowFooter}>
+            <Text style={styles.intervalPostedText}>{moment.utc(campaign.created_at).local().startOf('seconds').fromNow()}</Text>
+          </View>
+        </View>
       </View>
     );
-  }
-}
 
-export default CampaignContent;
+});
