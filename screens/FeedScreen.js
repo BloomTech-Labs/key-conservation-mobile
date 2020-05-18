@@ -123,7 +123,7 @@ class FeedScreen extends React.Component {
 
       this.setState({ gettingMorePosts: true });
 
-      return this.props.getFeed(created_at).then(() => {
+      return this.props.getFeed(created_at).finally(() => {
         this.setState({ gettingMorePosts: false });
       });
     }
