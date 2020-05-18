@@ -8,9 +8,15 @@
 // Shorten returns a shortened string truncated by charLimit, and an ellipse
 // is added to the end if the text gets trimmed at all
 export const shorten = (text, charLimit) => {
-  if(!text) return '';
-  else if (text.length > charLimit) return text.slice(0, charLimit - 3).trim() + '...';
-  else return text;
+  if (!text) return '';
+  else if (text.length > charLimit) {
+    let end = charLimit;
+    const avoidChars = [' ', ',', '.', '!'];
+    while (avoidChars.includes(text.charAt(end)) && end >= charLimit - 10) {
+      end--;
+    }
+    return `${text.substring(0, end)}...`;
+  } else return text;
 };
 
 // Add more above this line...

@@ -1,13 +1,9 @@
 import React from 'react';
-import {
-  TextInput,
-  Text,
-  View
-} from 'react-native';
+import { TextInput, Text, View } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { editCampaign, getCampaigns } from '../store/actions';
+import { editCampaignPost, getCampaigns } from '../store/actions';
 import BackButton from '../components/BackButton';
 
 import DoneButton from '../components/DoneButton';
@@ -19,7 +15,7 @@ class EditCampaignScreen extends React.Component {
     return {
       title: 'Edit Campaign',
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: '#323338',
       },
       headerTintColor: '#fff',
       headerLeft: () => <BackButton navigation={navigation} />,
@@ -28,7 +24,7 @@ class EditCampaignScreen extends React.Component {
           navigation={navigation}
           pressAction={navigation.getParam('edit')}
         />
-      )
+      ),
     };
   };
 
@@ -39,7 +35,7 @@ class EditCampaignScreen extends React.Component {
       this.props.navigation.getParam('selectedCampaign') || {};
 
     this.state = {
-      description: this.selectedCampaign.description
+      description: this.selectedCampaign.description,
     };
   }
 
@@ -51,24 +47,26 @@ class EditCampaignScreen extends React.Component {
     if (!this.state.description) {
       return;
     } else {
-      let changes = this.state;
-      await this.props.editCampaign(this.selectedCampaign.id, changes);
-      this.props.navigation.goBack();
+      try {
+        let changes = this.state;
+        await this.props.editCampaignPost(this.selectedCampaign.id, changes);
+        this.props.navigation.goBack();
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
   clearState = () => {
     this.setState({
-      name: this.selectedCampaign.name
+      name: this.selectedCampaign.name,
     });
   };
 
   render() {
     return (
       <KeyboardAwareScrollView contentContainerStyle={styles.container}>
-        <NavigationEvents
-          onDidBlur={this.clearState}
-        />
+        <NavigationEvents onDidBlur={this.clearState} />
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionHeader}>
             Edit "{this.selectedCampaign.name}"
@@ -77,13 +75,13 @@ class EditCampaignScreen extends React.Component {
           <View style={styles.sections}>
             <Text style={styles.sectionsText}>Campaign Details</Text>
             <TextInput
-              ref={input => {
+              ref={(input) => {
                 this.campaignDetailsInput = input;
               }}
-              returnKeyType='next'
+              returnKeyType="next"
               placeholder={`What's the story?`}
               style={styles.inputContain2}
-              onChangeText={text => this.setState({ description: text })}
+              onChangeText={(text) => this.setState({ description: text })}
               multiline={true}
               value={this.state.description}
             />
@@ -95,6 +93,6 @@ class EditCampaignScreen extends React.Component {
 }
 
 export default connect(null, {
-  editCampaign,
+  editCampaignPost,
   getCampaigns,
 })(EditCampaignScreen);

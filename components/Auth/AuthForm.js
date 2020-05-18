@@ -4,7 +4,7 @@ import {
   Text,
   Keyboard,
   ActivityIndicator,
-  Animated
+  Animated,
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -12,27 +12,29 @@ import { connect } from 'react-redux';
 import ChevronLeft from '../../assets/jsicons/miscIcons/ChevronLeftBlack';
 
 import styles from '../../constants/Auth/AuthForm';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
 import LoginForm from './LoginForm';
 
 class AuthForm extends Component {
   constructor(props) {
     super(props);
 
+    this.dummyInputRef = React.createRef();
+
     this.TABS = ['Log In', 'Sign Up'];
 
     this.state = {
       loadingOpacity: new Animated.Value(0),
       keyboardOpen: false,
-      currentTab: 0
+      currentTab: 0,
     };
 
     this.animateLoadIn = Animated.timing(this.state.loadingOpacity, {
-      toValue: 1
+      toValue: 1,
     });
 
     this.animateLoadOut = Animated.timing(this.state.loadingOpacity, {
-      toValue: 0
+      toValue: 0,
     });
   }
 
@@ -69,7 +71,7 @@ class AuthForm extends Component {
           pointerEvents={this.props.loading ? 'auto' : 'none'}
           style={[styles.loading, { opacity: this.state.loadingOpacity }]}
         >
-          <ActivityIndicator size='large' />
+          <ActivityIndicator size="large" />
         </Animated.View>
         <View style={styles.tabSelector}>
           {this.TABS.map((tab, index) => {
@@ -89,13 +91,24 @@ class AuthForm extends Component {
           })}
         </View>
         <View style={styles.headerSection}>
+          {/* This is a dummy invisible input field
+          that we can focus on before trying
+          to dismiss the Keyboard. Compensation
+          for a React Native bug where the keyboard
+          dismiss function doesn't work after an autofill */}
+          <TextInput
+            pointerEvents="none"
+            style={{ opacity: 0 }}
+            ref={this.dummyInputRef}
+          />
           <TouchableOpacity
             onPress={() => {
+              this.dummyInputRef.current?.focus?.();
               this.props.goBack();
             }}
             style={styles.backButton}
           >
-            <ChevronLeft fill='#000' />
+            <ChevronLeft fill="#000" />
           </TouchableOpacity>
           <Text style={styles.headerText}>
             {this.state.currentTab ? 'Sign up' : 'Log in'} as a{' '}
@@ -122,8 +135,8 @@ class AuthForm extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  loading: state.pending.login
+const mapStateToProps = (state) => ({
+  loading: state.pending.login,
 });
 
 export default connect(mapStateToProps, {})(AuthForm);

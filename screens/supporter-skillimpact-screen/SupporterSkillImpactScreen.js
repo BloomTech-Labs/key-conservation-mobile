@@ -1,38 +1,103 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
+import { ScrollView } from 'react-navigation';
+import * as SecureStore from 'expo-secure-store';
+import {
+  getCampaignsBySkill,
+  getProfileData,
+  getApplicationsByUser,
+} from '../../store/actions';
+import { connect } from 'react-redux';
+import { withNavigationFocus } from 'react-navigation';
+import SupporterSkilledImpactHeader from '../../components/SkilledImpact/SupporterSkilledImpactHeader';
+import SupporterSkilledImpactBody from '../../components/SkilledImpact/SupporterSkilledImpactBody';
+import styles from '../../constants/screens/SupporterSkilledImpactScreen';
 
 class SupporterSkillImpactScreen extends Component {
   static navigationOptions = ({ navigation }) => {
-    //TODO use navigations to establish stack navigation logic
     return {
-      title: 'Supporter Skill Impact',
+      title: 'My Skilled Impact',
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: '#323338',
       },
       headerTintColor: '#fff',
       headerLeft: () => <View />,
     };
   };
   constructor(props) {
-    //TODO props edits and states
     super(props);
+    this.state = {
+      campaigns: [],
+      submissions: [],
+      skills: [],
+      userId: 0,
+      isAcceptingHelp: false,
+      loading: true,
+    };
+    this.initProfileData = this.initProfileData.bind(this);
   }
 
   componentDidMount() {
-    //TODO when the screen is loaded
+    this.initProfileData();
   }
 
+  initProfileData = async () => {
+    try {
+      const userId = await SecureStore.getItemAsync('id', {});
+      await this.props.getProfileData(userId, null, true);
+      await this.props.getApplicationsByUser(userId);
+      let { skills, accepting_help_requests } = this.props.currentUserProfile;
+      if (skills) {
+        for (const skill of skills) {
+          await this.props.getCampaignsBySkill(skill);
+          this.setState({
+            campaigns: this.state.campaigns.concat(this.props.campaignsBySkill),
+          });
+        }
+      }
+      this.setState({
+        submissions: this.props.submissions,
+        skills,
+        isAcceptingHelp: accepting_help_requests,
+        userId,
+        loading: false,
+      });
+    } catch (err) {
+      console.log(err);
+      Alert.alert('Error', 'Failed to retrieve user profile');
+      this.setState({
+        loading: false,
+        error: 'Failed to retrieve user profile',
+      });
+    }
+  };
 
   render() {
-    //TODO view to be implemented
-    return (
-      <View>
-
-      </View>
-    );
-
+    const data = this.state;
+    if (!this.state.loading && Object.keys(data).length !== 0) {
+      return (
+        <ScrollView contentContainerStyle={styles.container}>
+          <SupporterSkilledImpactHeader />
+          <SupporterSkilledImpactBody
+            data={data}
+            navigation={this.props.navigation}
+          />
+        </ScrollView>
+      );
+    } else {
+      return null;
+    }
   }
 }
 
+const mapStateToProps = (state) => ({
+  campaignsBySkill: state.campaignsBySkill,
+  submissions: state.submissions,
+  currentUserProfile: state.currentUserProfile,
+});
 
-export default SupporterSkillImpactScreen;
+export default connect(mapStateToProps, {
+  getProfileData,
+  getCampaignsBySkill,
+  getApplicationsByUser,
+})(withNavigationFocus(SupporterSkillImpactScreen));

@@ -30,29 +30,17 @@ export default {
     backgroundColor: '#F2F2FB',
     paddingTop: 5,
   },
-  // updateBar: {
-  //   backgroundColor: 'rgba(202,255,0, 0.7)',
-  //   height: 37,
-  //   width: '100%',
-  //   position: 'absolute',
-  //   zIndex: 1,
-  //   top: 0,
-  //   right: 0,
-  //   bottom: 0,
-  //   left: 0,
-  //   justifyContent: 'center',
-  //   alignItems: 'center'
-  // },
-  // updateBarText: {
-  //   fontFamily: 'Lato-Bold',
-  //   fontSize: 16,
-  //   letterSpacing: 5,
-  //   color: 'black'
-  // },
+  urgencyBarText: {
+    fontFamily: 'Lato-Bold',
+    fontSize: 16,
+    letterSpacing: 5,
+    color: 'white',
+  },
   commentsView: {
+    width: '100%',
     fontSize: 14,
     fontFamily: 'Lato',
-    padding: 19,
+    paddingLeft: 15,
     borderRadius: 10,
     backgroundColor: 'white',
   },
@@ -87,7 +75,7 @@ export default {
     backgroundColor: 'white',
   },
   campaignDescriptionName: {
-    fontFamily: 'Lato-Bold',
+    fontFamily: 'Lato',
     fontSize: 17,
     lineHeight: 22,
     paddingBottom: 10,
@@ -98,15 +86,15 @@ export default {
     lineHeight: 19,
   },
   listName: {
-    fontFamily: 'Lato-Bold',
-    fontSize: 18,
+    fontFamily: 'Lato',
+    fontSize: 17,
     lineHeight: 22,
-    fontWeight: 'bold',
     paddingBottom: 3,
   },
   donateView: {
     alignItems: 'center',
     marginTop: 5,
+    paddingBottom: 8,
   },
   whiteSpace: {
     height: 40,
@@ -133,11 +121,34 @@ export default {
     fontSize: 30,
     color: '#00FF9D',
   },
+  iconRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 15,
+    height: 30,
+  },
+  topRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    paddingTop: 8,
+  },
+  topRowLeft: {
+    paddingLeft: 17,
+    width: '75%',
+  },
+  topRowRight: {
+    paddingRight: 15,
+  },
+  postTitle: {
+    paddingRight: 15,
+    flex: 2,
+    fontFamily: 'Lato-Bold',
+    fontSize: 17,
+  },
   timeText: {
     color: '#929292',
-    fontSize: 10,
-    marginLeft: 0,
-    marginRight: 15,
-    marginTop: 15,
+    fontSize: 16,
+    fontFamily: 'Lato',
   },
 };

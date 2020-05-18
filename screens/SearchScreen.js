@@ -3,7 +3,7 @@ import {
   View,
   TouchableOpacity,
   KeyboardAvoidingView,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 
 import { NavigationEvents } from 'react-navigation';
@@ -11,9 +11,7 @@ import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import { getCampaigns } from '../store/actions';
 
-import FeedCampaign from '../components/FeedScreen/FeedCampaign';
-
-import FeedUpdate from '../components/FeedScreen/FeedUpdate';
+import CampaignPost from '../components/CampaignPost';
 
 import { Header, SearchBar } from 'react-native-elements';
 import { createFilter } from 'react-native-search-filter';
@@ -27,24 +25,24 @@ const KEYS_TO_FILTERS = [
   'name',
   'location',
   'data',
-  'description'
+  'description',
 ];
 
 class SearchScreen extends React.Component {
   state = {
-    searchTerm: ''
+    searchTerm: '',
   };
 
   // Changes based on the term that is searched
-  searchUpdated = term => {
+  searchUpdated = (term) => {
     this.setState({ searchTerm: term });
     this.props.navigation.setParams({
-      searchTerm: term
+      searchTerm: term,
     });
   };
   componentDidMount() {
     this.props.navigation.setParams({
-      roles: this.props.currentUserProfile.roles
+      roles: this.props.currentUserProfile.roles,
     });
   }
 
@@ -85,7 +83,7 @@ class SearchScreen extends React.Component {
                     'Pixel' ||
                     'Pixel XL'
                   ? null
-                  : 80
+                  : 80,
             }}
             leftComponent={
               <TouchableOpacity
@@ -93,7 +91,7 @@ class SearchScreen extends React.Component {
                 style={{
                   width: 75,
                   height: 45,
-                  justifyContent: 'center'
+                  justifyContent: 'center',
                 }}
               >
                 <ChevronLeftWhite fill="#fff" width="25" height="25" />
@@ -114,24 +112,24 @@ class SearchScreen extends React.Component {
                   borderBottomWidth: 0,
                   marginLeft: 60,
                   flex: 1,
-                  width: 340
+                  width: 340,
                 }}
                 inputContainerStyle={{
-                  paddingBottom: 1
+                  paddingBottom: 1,
                 }}
                 inputStyle={{
                   borderRadius: 5,
                   margin: 2,
                   fontSize: 14,
                   backgroundColor: '#fff',
-                  paddingLeft: 10
+                  paddingLeft: 10,
                 }}
               />
             }
           />
           {this.props.allCampaigns.length > 0 &&
-            filteredCampaigns.map(campaign => (
-              <FeedCampaign
+            filteredCampaigns.map((campaign) => (
+              <CampaignPost
                 key={campaign.id}
                 data={campaign}
                 navigation={navigation}
@@ -143,9 +141,9 @@ class SearchScreen extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   allCampaigns: state.allCampaigns,
-  currentUserProfile: state.currentUserProfile
+  currentUserProfile: state.currentUserProfile,
 });
 
 export default connect(mapStateToProps, { getCampaigns })(SearchScreen);

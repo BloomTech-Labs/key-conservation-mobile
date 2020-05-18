@@ -1,5 +1,4 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { responsiveFontSize } from 'react-native-responsive-dimensions';
 
 const styles = StyleSheet.create({
   // in headerLeft
@@ -12,6 +11,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F2FB',
     height: Dimensions.get('screen').height * 0.9,
     width: Dimensions.get('screen').width,
+  },
+  title: {
+    color: 'crimson',
+    fontFamily: 'Lato-Bold',
+    fontSize: 15,
+    padding: 16,
+    paddingBottom: 0,
   },
   sections: {
     marginLeft: 10,
