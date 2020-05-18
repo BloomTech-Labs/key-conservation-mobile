@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Switch } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Switch,
+  ActivityIndicator,
+} from 'react-native';
 import styles from '../../../constants/SkilledImpact/SupporterSkilledImpactBody';
 import Sync from '../../../assets/jsicons/bottomnavigation/Sync';
 import ChevronBottom from '../../../assets/jsicons/miscIcons/ChevronBottom';
@@ -15,9 +21,26 @@ class SkillContent extends React.Component {
     this.state = {
       expanded: true,
       isAcceptingHelp: props.isAcceptingHelp,
-      skills: props.skills,
+      skills: props.currentUserProfile.skills,
+      loading: false,
       userId: props.userId,
     };
+  }
+
+  componentDidMount() {
+    const { navigation } = this.props;
+    this.focusListener = navigation.addListener('didFocus', () => {
+      setTimeout(() => {
+        this.setState({
+          skills: this.props.currentUserProfile.skills,
+          loading: false,
+        });
+      }, 500);
+      console.log('Skills Updated');
+    });
+  }
+  componentWillUnmount() {
+    this.focusListener.remove();
   }
 
   toggleExpand = () => {
@@ -57,28 +80,37 @@ class SkillContent extends React.Component {
         </TouchableOpacity>
         {this.state.expanded ? (
           <View style={styles.itemContentBody}>
-            <View style={styles.itemContentRows}>
-              {this.state.skills.map((skill, i) => {
-                if (skill) {
-                  return (
-                    <TouchableOpacity key={i} style={styles.skillsButton}>
-                      <Text style={styles.mediumButtonText}>
-                        {Skills[skill].toUpperCase()}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                }
-              })}
-              <TouchableOpacity
-                style={styles.responsiveButton}
-                onPress={() =>
-                  this.props.navigation.navigate('EditSupporterProfile')
-                }
-              >
-                <Text style={styles.buttonTextPlusIcon}>+</Text>
-                <Text style={styles.mediumButtonText}>ADD A SKILL</Text>
-              </TouchableOpacity>
-            </View>
+            {!this.state.loading && (
+              <View style={styles.itemContentRows}>
+                {this.state.skills.map((skill, i) => {
+                  if (skill) {
+                    return (
+                      <TouchableOpacity key={i} style={styles.skillsButton}>
+                        <Text style={styles.mediumButtonText}>
+                          {Skills[skill].toUpperCase()}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  }
+                })}
+                <TouchableOpacity
+                  style={styles.responsiveButton}
+                  onPress={() =>
+                    this.props.navigation.navigate('EditSupporterProfile', {
+                      goBack: () => this.setState({ loading: true }),
+                    })
+                  }
+                >
+                  <Text style={styles.buttonTextPlusIcon}>+</Text>
+                  <Text style={styles.mediumButtonText}>ADD A SKILL</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+            {this.state.loading && (
+              <ActivityIndicator
+                style={{ ...styles.itemContentRows, width: '100%' }}
+              />
+            )}
             <View style={styles.itemFooterRow}>
               <Text style={styles.reachMeText}>
                 Conservation organizations and Researchers can contact me about

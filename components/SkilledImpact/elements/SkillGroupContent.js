@@ -6,6 +6,7 @@ import ChevronBottom from '../../../assets/jsicons/miscIcons/ChevronBottom';
 import ChevronRight from '../../../assets/jsicons/miscIcons/ChevronRight';
 import SkillGroupElement from './SkillGroupElement';
 import Skills from '../../../constants/Skills';
+import { connect } from 'react-redux';
 
 const assetPath = '../../../assets/images/SkilledImpact/Skills_Logos/';
 
@@ -70,6 +71,18 @@ class SkillGroupContent extends React.Component {
     };
   }
 
+  componentDidUpdate = async (prevProps) => {
+    if (
+      prevProps.currentUserProfile.skills !==
+      this.props.currentUserProfile.skills
+    ) {
+      this.setState({
+        skillGroups: this.props.currentUserProfile.skills,
+      });
+      console.log('Skilled Groups Done');
+    }
+  };
+
   toggleExpand = () => {
     this.setState({ expanded: !this.state.expanded });
   };
@@ -114,4 +127,7 @@ class SkillGroupContent extends React.Component {
   }
 }
 
-export default SkillGroupContent;
+const mapStateToProps = (state) => ({
+  currentUserProfile: state.currentUserProfile,
+});
+export default connect(mapStateToProps, {})(SkillGroupContent);

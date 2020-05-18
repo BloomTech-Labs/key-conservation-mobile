@@ -71,6 +71,9 @@ class EditSupporterProfileScreen extends React.Component {
     if (this.props.firstLogin) {
       this.props.navigation.navigate('Home');
     } else {
+      if (this.props.navigation.state.params.goBack) {
+        this.props.navigation.state.params.goBack();
+      }
       this.props.navigation.goBack();
     }
   };
