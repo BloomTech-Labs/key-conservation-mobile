@@ -78,7 +78,7 @@ class ApplicationContent extends React.Component {
 
             {this.state.mainExpanded && this.state.noDecisionExpanded ? (
               <View style={styles.itemContentBody}>
-                {this.noDecisionSubmissions ? (
+                {this.noDecisionSubmissions.length > 0 ? (
                   this.noDecisionSubmissions.map((submission, keyIndex) => {
                     return (
                       <ApplicationElement
@@ -89,7 +89,7 @@ class ApplicationContent extends React.Component {
                   })
                 ) : (
                   <View style={styles.description}>
-                    <Text>No Submissions with "No Decision" Decision</Text>
+                    <Text>No Applications Pending</Text>
                   </View>
                 )}
               </View>
@@ -112,7 +112,7 @@ class ApplicationContent extends React.Component {
 
             {this.state.mainExpanded && this.state.selectedExpanded ? (
               <View style={styles.itemContentBody}>
-                {this.selectedSubmissions ? (
+                {this.selectedSubmissions.length > 0 ? (
                   this.selectedSubmissions.map((submission, keyIndex) => {
                     return (
                       <ApplicationElement
@@ -123,7 +123,7 @@ class ApplicationContent extends React.Component {
                   })
                 ) : (
                   <View style={styles.description}>
-                    <Text>No Submissions with "Selected" Decision</Text>
+                    <Text>No Applications Accepted</Text>
                   </View>
                 )}
               </View>
@@ -148,7 +148,7 @@ class ApplicationContent extends React.Component {
 
         {this.state.mainExpanded && this.state.notSelectedExpanded ? (
           <View style={styles.itemContentBody}>
-            {this.notSelectedSubmissions ? (
+            {this.notSelectedSubmissions.length > 0 ? (
               this.notSelectedSubmissions.map((submission, keyIndex) => {
                 return (
                   <ApplicationElement key={keyIndex} submission={submission} />
@@ -156,7 +156,7 @@ class ApplicationContent extends React.Component {
               })
             ) : (
               <View style={styles.description}>
-                <Text>No Submissions with "Not Selected" Decision</Text>
+                <Text>No Applications Denied</Text>
               </View>
             )}
           </View>

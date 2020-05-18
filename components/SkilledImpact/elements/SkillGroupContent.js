@@ -90,7 +90,7 @@ class SkillGroupContent extends React.Component {
         {this.state.expanded ? (
           <View style={styles.itemContentBody}>
             <View style={styles.itemContentRows}>
-              {this.state.skillGroups ? (
+              {this.state.skillGroups.length > 0 ? (
                 this.state.skillGroups.map((skillGroup, i) => {
                   const skill = Skills[skillGroup];
                   const image = skillsImageMap[skillGroup];
@@ -99,7 +99,7 @@ class SkillGroupContent extends React.Component {
                   );
                 })
               ) : (
-                <View style={styles.description}>
+                <View style={styles.skillGroupDescription}>
                   <Text>
                     Select your skills above to see available Skilled Groups
                   </Text>

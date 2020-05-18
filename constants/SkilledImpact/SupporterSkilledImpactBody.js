@@ -238,8 +238,10 @@ export default StyleSheet.create({
   },
   description: {
     width: '100%',
-    alignItems: 'center',
+    justifyContent: 'flex-end',
     fontSize: 14,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
   skillGroupElement: {
     alignItems: 'center',
@@ -253,5 +255,11 @@ export default StyleSheet.create({
   },
   skillGroupName: {
     fontSize: 16,
+  },
+  skillGroupDescription: {
+    width: '100%',
+    justifyContent: 'flex-end',
+    fontSize: 14,
+    paddingLeft: 5,
   },
 });

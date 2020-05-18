@@ -148,7 +148,9 @@ export default StyleSheet.create({
   },
   description: {
     width: '100%',
-    alignItems: 'center',
+    justifyContent: 'flex-end',
     fontSize: 14,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
 });

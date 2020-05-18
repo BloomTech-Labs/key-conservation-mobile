@@ -37,7 +37,7 @@ class CampaignContent extends React.Component {
         </TouchableOpacity>
         {this.state.skillExpand ? (
           <View style={styles.itemContentBody}>
-            {campaignList ? (
+            {campaignList.length !== 0 ? (
               campaignList.map((campaign, keyIndex) => {
                 if (campaign) {
                   return <CampaignElement key={keyIndex} campaign={campaign} />;
@@ -45,7 +45,10 @@ class CampaignContent extends React.Component {
               })
             ) : (
               <View style={styles.description}>
-                <Text>Select your skills above to see available campaigns</Text>
+                <Text>
+                  Select your skills above to see available campaigns that match
+                  your skills
+                </Text>
               </View>
             )}
           </View>
