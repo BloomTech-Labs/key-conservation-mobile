@@ -44,6 +44,7 @@ const initialState = {
   allCampaigns: [],
   firstLogin: false,
   campaignsToggled: [],
+  campaignsBySkill: [],
   token: '',
   profileReset: false,
   userRegistered: true,
@@ -57,6 +58,7 @@ const initialState = {
     error: '',
   },
   bookmarks: [],
+  submissions: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -241,6 +243,25 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         selectedCampaign: action.payload,
+      };
+    case actions.GET_CAMPAIGNS_BY_SKILL_START:
+      return {
+        ...state,
+        pending: { ...state.pending, getCampaignsBySkill: true },
+        error: '',
+      };
+    case actions.GET_CAMPAIGNS_BY_SKILL_SUCCESS:
+      const campaigns = action.payload;
+      return {
+        ...state,
+        pending: { ...state.pending, getCampaignsBySkill: false },
+        campaignsBySkill: campaigns,
+      };
+    case actions.GET_CAMPAIGNS_BY_SKILL_ERROR:
+      return {
+        ...state,
+        pending: { ...state.pending, getCampaignsBySkill: false },
+        error: action.payload,
       };
     case actions.DELETE_POST_START:
       return {
@@ -723,13 +744,24 @@ const reducer = (state = initialState, action) => {
         ]),
         newPostQueue: [],
       };
-    case actions.REMOVE_FROM_UPLOAD_QUEUE:
+    case actions.GET_APPLICATIONS_BY_USER_START:
       return {
         ...state,
-        postUploadQueue: removeFromUploadQueue(
-          state.postUploadQueue,
-          action.payload
-        ),
+        pending: { ...state.pending, getApplicationsByUser: true },
+        error: '',
+      };
+    case actions.GET_APPLICATIONS_BY_USER_SUCCESS:
+      const submissions = action.payload;
+      return {
+        ...state,
+        pending: { ...state.pending, getApplicationsByUser: false },
+        submissions,
+      };
+    case actions.GET_APPLICATIONS_BY_USER_ERROR:
+      return {
+        ...state,
+        pending: { ...state.pending, getApplicationsByUser: true },
+        error: action.payload,
       };
     default:
       return state;

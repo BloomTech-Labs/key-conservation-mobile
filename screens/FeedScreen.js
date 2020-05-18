@@ -53,6 +53,13 @@ class FeedScreen extends React.Component {
       headerStyle: {
         backgroundColor: '#323338',
       },
+      headerTitleStyle: {
+        alignSelf: 'center',
+        textAlign: 'center',
+        justifyContent: 'center',
+        flex: 1,
+        textAlignVertical: 'center',
+      },
       headerTintColor: '#fff',
       headerLeft: () => <View />,
       headerRight: () => (
