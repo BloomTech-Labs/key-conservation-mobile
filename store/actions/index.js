@@ -97,7 +97,6 @@ export const loginError = (error) => ({
 });
 export const loginSuccess = (credentials, role) => async (dispatch) => {
   await SecureStore.setItemAsync('accessToken', credentials.idToken);
-
   const decoded = JwtDecode(credentials.idToken);
 
   await SecureStore.setItemAsync('sub', decoded.sub);
@@ -246,7 +245,6 @@ export const getProfileData = (
   let user, url;
   if (id) url = `${seturl}users/${id}`;
   else if (sub) url = `${seturl}users/sub/${sub}`;
-
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .get(url)
@@ -772,6 +770,60 @@ export const getCampaignComments = (id) => (dispatch) => {
       .catch((err) => {
         console.log(err.message);
         dispatch({ type: GET_COMMENTS_ERROR, payload: err.response });
+      });
+  });
+};
+
+export const [
+  GET_CAMPAIGNS_BY_SKILL_START,
+  GET_CAMPAIGNS_BY_SKILL_ERROR,
+  GET_CAMPAIGNS_BY_SKILL_SUCCESS,
+] = [
+  'GET_CAMPAIGNS_BY_SKILL_START',
+  'GET_CAMPAIGNS_BY_SKILL_ERROR',
+  'GET_CAMPAIGNS_BY_SKILL_SUCCESS',
+];
+
+export const getCampaignsBySkill = (skill) => (dispatch) => {
+  dispatch({ type: GET_CAMPAIGNS_BY_SKILL_START });
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .get(`${seturl}campaigns/?skill=${skill}`)
+      .then((res) => {
+        dispatch({
+          type: GET_CAMPAIGNS_BY_SKILL_SUCCESS,
+          payload: res.data.campaigns,
+        });
+      })
+      .catch((err) => {
+        dispatch({ type: GET_CAMPAIGNS_BY_SKILL_ERROR, payload: err });
+      });
+  });
+};
+
+export const [
+  GET_APPLICATIONS_BY_USER_START,
+  GET_APPLICATIONS_BY_USER_ERROR,
+  GET_APPLICATIONS_BY_USER_SUCCESS,
+] = [
+  'GET_APPLICATIONS_BY_USER_START',
+  'GET_APPLICATIONS_BY_USER_ERROR',
+  'GET_APPLICATIONS_BY_USER_SUCCESS',
+];
+
+export const getApplicationsByUser = (userId) => (dispatch) => {
+  dispatch({ type: GET_APPLICATIONS_BY_USER_START });
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .get(`${seturl}users/${userId}/submissions`)
+      .then((res) => {
+        dispatch({
+          type: GET_APPLICATIONS_BY_USER_SUCCESS,
+          payload: res.data.submissions,
+        });
+      })
+      .catch((err) => {
+        dispatch({ type: GET_APPLICATIONS_BY_USER_ERROR, payload: err });
       });
   });
 };
