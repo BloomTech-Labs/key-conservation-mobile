@@ -130,7 +130,7 @@ class FeedScreen extends React.Component {
 
       this.setState({ gettingMorePosts: true });
 
-      return this.props.getFeed(created_at).then(() => {
+      return this.props.getFeed(created_at).finally(() => {
         this.setState({ gettingMorePosts: false });
       });
     }
@@ -188,7 +188,7 @@ class FeedScreen extends React.Component {
               {this.props.feedError ||
                 'Something went wrong... Please try again'}
             </Text>
-            <Button title="Retry" onPress={this.props.getFeed} />
+            <Button title="Retry" onPress={() => this.props.getFeed()} />
           </View>
         ) : (
           <View style={{ flex: 1 }}>
