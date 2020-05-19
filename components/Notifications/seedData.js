@@ -6,7 +6,7 @@ export const seedData = {
             notification_type: 1,
             sender_id: 123,
             sender_name: "Michael Callahan",
-            sender_Pic: 'X', //state or pathway to sender's Avatar?
+            sender_Pic: 'https://i.imgur.com/BkwfGEa.png', //state or pathway to sender's Avatar?
             user_Id: 234,
             time: "5/19/2020 13:20", //figure out the makeup of their time stamps
             pathway: 'X', //Pathway Here to user's connection Req tab
@@ -20,7 +20,7 @@ export const seedData = {
             notification_type: 2,
             sender_id: 456,
             sender_name: "Fishing Cat Conservancy",
-            sender_Pic: 'X', //state or pathway to sender's Avatar?
+            sender_Pic: 'https://i.imgur.com/K102CdZ.png', //state or pathway to sender's Avatar?
             user_Id: 234,
             time: "5/19/2020 13:24", //figure out the makeup of their time stamps
             pathway: 'X', //Pathway Here to campaign update
@@ -34,7 +34,7 @@ export const seedData = {
             notification_type: 1,
             sender_id: 789,
             sender_name: "Zahid Khawaja",
-            sender_Pic: 'X', //state or pathway to sender's Avatar?
+            sender_Pic: 'https://i.imgur.com/aEjIUNq.png', //state or pathway to sender's Avatar?
             user_Id: 234,
             time: "5/19/2020 13:28", //figure out the makeup of their time stamps
             pathway: 'X', //Pathway Here to user's connection Req tab
@@ -48,7 +48,7 @@ export const seedData = {
             notification_type: 2,
             sender_id: 456,
             sender_name: "Everglad Wildlife Foundation",
-            sender_Pic: 'X', //Pathway here
+            sender_Pic: 'https://i.imgur.com/g7Bg8FL.png', //Pathway here
             user_Id: 234,
             time: "5/19/2020 13:24", //figure out the makeup of their time stamps
             pathway: 'X', //Pathway Here

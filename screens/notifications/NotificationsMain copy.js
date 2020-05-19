@@ -1,15 +1,11 @@
 import React from 'react';
 import { ScrollView, View, TouchableOpacity, StyleSheet, ActivityIndicator, Image, FlatList, Text } from 'react-native';
-
 import BackButton from '../../components/BackButton';
 import ConnectionNotification from '../../components/Notifications/ConnectionNotification'
-// import CampaignNotification from "../../components/Notifications/CampaignNotification";
-
+import CampaignNotification from "../../components/Notifications/CampaignNotification";
 import Messages from '../../assets/jsicons/bottomnavigation/Messages';
 import Bell from '../../assets/jsicons/bottomnavigation/BellB';
 import Logo from '../../assets/jsicons/other/Logo';
-
-import {seedData} from '../../components/Notifications/seedData'
 
 class NotificationsMain extends React.Component {
 
@@ -32,7 +28,6 @@ class NotificationsMain extends React.Component {
   componentDidMount() {
 
     console.log('Fetching notifications...');
-    // console.log(seedData.data);
 
   }
 
@@ -47,17 +42,19 @@ class NotificationsMain extends React.Component {
             <Bell />
           </TouchableOpacity>
         </View>
-        <ScrollView contentContainerStyle={this.state.isLoading ? styles.contentContainerLoading : styles.contentContainer} style={!this.state.notifOpen ? '' : styles.closed}>
+        <ScrollView contentContainerStyle={styles.contentContainer} style={!this.state.notifOpen ? '' : styles.closed}>
 
-          <View style={this.state.isLoading ? styles.loadingContainer : styles.closed} >
+          {/* <View style={this.state.isLoading ? styles.loadingContainer : styles.closed} >
             <Logo style={styles.logoIcon} />
             <ActivityIndicator style={styles.indicator} size='large' color="#00FF9A" />
           </View>
+          <ConnectionNotification />
+          <ConnectionNotification /> */}
 
           {/* MESSAGES STUFF GOES HERE */}
 
         </ScrollView>
-        <ScrollView contentContainerStyle={this.state.isLoading ? styles.contentContainerLoading : styles.contentContainer} style={this.state.notifOpen ? '' : styles.closed}>
+        <ScrollView contentContainerStyle={styles.contentContainer} style={this.state.notifOpen ? '' : styles.closed}>
           {/* FlatMap goes here */}
           {/* <FlatList /> */}
 
@@ -65,19 +62,9 @@ class NotificationsMain extends React.Component {
             <Logo style={styles.logoIcon} />
             <ActivityIndicator style={styles.indicator} size='large' color="#00FF9A" />
           </View>
-         
-          <FlatList style={{width: '100%'}}
-             data={seedData.data}
-             showsVerticalScrollIndicator={false}
-            renderItem={(data) =>
-              {
-                {data.item.notification_type = 1 ? 
-                <ConnectionNotification notifData={data} /> : data.item.notification_type = 2 ? 
-                <ConnectionNotification notifData={data} /> : <ConnectionNotification notifData={data} />}
-              }
-             }
-             keyExtractor={(data, index) => index.toString()}
-           />
+          <ConnectionNotification />
+          <ConnectionNotification />
+          <ConnectionNotification />
 
         </ScrollView>
       </View >
@@ -91,8 +78,7 @@ const styles = StyleSheet.create({
 
     flex: 1,
     width: '100%',
-    height: '100%',
-    backgroundColor: '#F2F2FB'
+    height: '100%'
 
   },
   tabContainer: {
@@ -134,22 +120,6 @@ const styles = StyleSheet.create({
 
   },
   contentContainer: {
-
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    // width: '100%',
-    height: '90%',
-    marginLeft: 10,
-    marginRight: 10,
-    marginTop: 10,
-    paddingTop: 5,
-    backgroundColor: 'white',
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-
-  },
-  contentContainerLoading: {
 
     flex: 1,
     justifyContent: 'center',

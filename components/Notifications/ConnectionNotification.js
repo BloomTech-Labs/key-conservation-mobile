@@ -1,9 +1,19 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { View, TouchableOpacity, StyleSheet, Text, Image, Button } from 'react-native';
 import { Avatar } from 'react-native-elements';
 
+{/* TEAL COLOR: #00FF9D */}
 
-const ConnectionNotification = () => {
+const ConnectionNotification = (props) => {
+
+    useEffect(() => {
+
+        console.log(props);
+        // console.log(props.notifData.item.sender_name);
+        // console.log(props.notifData.item.sender_Pic);
+
+    });
+
     return (
         <TouchableOpacity style={styles.wrapper}>
             <View style={styles.container}>
@@ -11,16 +21,20 @@ const ConnectionNotification = () => {
                     <Avatar
                         size="medium"
                         rounded
-                    // source={{
-                    //     uri: profile.profile_image || undefined
-                    // }}
+                    source={{ 
+                        uri: `${props.notifData.item.sender_Pic}` || undefined
+                    }}
                     />
                 </View>
                 <View style={styles.content}>
-                    <Text style={styles.connectionInfo}>Johnathan Tincher wants to connect</Text>
+                    <Text style={styles.connectionInfo}>{props.notifData.item.sender_name} wants to connect</Text>
                     <Text style={styles.timeStamp}>8 minutes ago</Text>
                 </View>
-                <Button style={styles.button} title="Connect" />
+                <TouchableOpacity style={styles.button}>
+                    <Text style = {styles.connect}>Connect</Text>
+                </TouchableOpacity>
+        
+ 
             </View>
         </TouchableOpacity>
     )
@@ -29,7 +43,8 @@ const ConnectionNotification = () => {
 
 const styles = StyleSheet.create({
     wrapper: {
-        height: 80
+        height: 80,
+        backgroundColor:'white'
     },
     container: {
         flex: 1,
@@ -37,25 +52,54 @@ const styles = StyleSheet.create({
         width: "100%",
         padding: 5,
         flexDirection: "row",
-        borderWidth: 2,
-        borderColor: "black",
         // padding: 10,
         borderRadius: 0,
         marginVertical: 6,
+        alignItems: 'center'
     },
     content: {
-        flex: 2,
-        backgroundColor: 'blue'
+        flex: 4,
+        marginLeft: 10
+
     },
     avatarContainer: {
         alignSelf: "center",
-        flex: 1
+        flex: 1,
+        marginLeft: 10  //no need to put px all numbers are already knownas it? Ok,
     },
     button: {
-        flex: 1
+        flex: 1,
+        borderRadius: 10,
+        height: 30,
+        padding:10,
+        margin: 5,
+        justifyContent:"center",
+        color: 'black',
+        backgroundColor: '#00FF9D',
+        alignItems:"center",
+        shadowColor: "black",
+		shadowOffset: { width: 0, height: 2 },
+		shadowOpacity: 0.6,
+        elevation: 10,
+        
+
+    },
+    connect: {
+
+        fontFamily: "Lato",
+        fontWeight: "bold"
+
+    },
+    connectionInfo:{
+        fontFamily: "Lato",
+        fontSize: 17,
+
     },
     timeStamp: {
-        // color: ""
+        fontFamily: "Lato",
+        fontSize: 16,
+        fontWeight: "700",
+        color: "#ADADAD"
     }
 
 })
