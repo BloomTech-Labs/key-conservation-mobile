@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { View, Text, Animated, Image } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import animalData from '../../components/Animals/animalData';
 import styles from '../../constants/SkilledImpact/OrgSkilledImpactHeader';
 

@@ -9,6 +9,7 @@ export default StyleSheet.create({
   name: {
     flexDirection: 'row',
     marginLeft: -10,
+    width: '100%',
   },
   ellipse: {
     paddingTop: 3,
@@ -34,7 +35,7 @@ export default StyleSheet.create({
     marginTop: 10,
   },
   orgTitleView: {
-    fontFamily: 'Lato-Bold',
+    fontFamily: 'Lato',
     fontSize: 17,
   },
   campImgContain: {
@@ -67,6 +68,30 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
     marginTop: 15,
     height: 30,
+  },
+  topRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    paddingTop: 8,
+  },
+  topRowLeft: {
+    paddingLeft: 17,
+    width: '75%',
+  },
+  topRowRight: {
+    paddingRight: 15,
+  },
+  postTitle: {
+    paddingRight: 15,
+    flex: 2,
+    fontFamily: 'Lato-Bold',
+    fontSize: 17,
+  },
+  timeText: {
+    color: '#929292',
+    fontSize: 16,
+    fontFamily: 'Lato',
   },
   bookmarks: {
     marginHorizontal: 20,
@@ -132,13 +157,6 @@ export default StyleSheet.create({
   },
   readMore: {
     color: '#929292',
-  },
-  timeText: {
-    color: '#929292',
-    fontSize: 10,
-    fontFamily: 'Lato',
-    marginTop: 10,
-    paddingBottom: 5,
   },
   urgencyBarText: {
     fontFamily: 'Lato-Bold',
