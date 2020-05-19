@@ -30,12 +30,10 @@ class SkillContent extends React.Component {
   componentDidMount() {
     const { navigation } = this.props;
     this.focusListener = navigation.addListener('didFocus', () => {
-      setTimeout(() => {
-        this.setState({
-          skills: this.props.currentUserProfile.skills,
-          loading: false,
-        });
-      }, 500);
+      this.setState({
+        skills: this.props.currentUserProfile.skills,
+        loading: false,
+      });
       console.log('Skills Updated');
     });
   }
