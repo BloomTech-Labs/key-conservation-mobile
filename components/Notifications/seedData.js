@@ -24,7 +24,7 @@ export const seedData = {
             user_Id: 234,
             time: "5/19/2020 13:24", //figure out the makeup of their time stamps
             pathway: 'X', //Pathway Here to campaign update
-            campaign_pic: 'X', //state or pathway to campaign update pic
+            campaign_pic: 'https://i.imgur.com/nT6lkDq.jpeg', //state or pathway to campaign update pic
             emoji: null, //Pathway to emoji? If an emoji is used?
             comment: null,
             campaign_update_type: "Critical"
@@ -52,7 +52,7 @@ export const seedData = {
             user_Id: 234,
             time: "5/19/2020 13:24", //figure out the makeup of their time stamps
             pathway: 'X', //Pathway Here
-            campaign_pic: null, //pathway Here
+            campaign_pic: 'https://i.imgur.com/sIUigHS.jpg', //pathway Here
             emoji: null, //Pathway to emoji? Emoji used,
             comment: null,
             campaign_update_type: "Critical"

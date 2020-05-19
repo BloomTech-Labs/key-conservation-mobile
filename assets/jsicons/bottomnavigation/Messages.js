@@ -10,7 +10,7 @@ export default function Message() {
  Created by potrace 1.16, written by Peter Selinger 2001-2019
  </metadata>
  <g transform="translate(0.000000,454.000000) scale(0.100000,-0.100000)"
- fill="#000000" stroke="none">
+ fill="#333333" stroke="none">
  <path d="M135 4528 c-36 -19 -96 -82 -116 -120 -19 -36 -19 -87 -19 -2135 l1
  -2098 23 -45 c12 -25 46 -64 75 -88 l52 -42 3505 0 3505 0 44 30 c25 17 57 47
  72 67 l28 36 0 2137 0 2137 -29 37 c-15 21 -46 51 -69 67 l-40 29 -3506 0

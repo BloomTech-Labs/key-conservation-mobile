@@ -8,7 +8,7 @@ const ConnectionNotification = (props) => {
 
     useEffect(() => {
 
-        console.log(props);
+        // console.log(props);
         // console.log(props.notifData.item.sender_name);
         // console.log(props.notifData.item.sender_Pic);
 

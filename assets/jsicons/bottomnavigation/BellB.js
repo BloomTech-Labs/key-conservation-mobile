@@ -10,7 +10,7 @@ export default function BellB() {
  Created by potrace 1.16, written by Peter Selinger 2001-2019
  </metadata>
  <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
- fill="#000000" stroke="none">
+ fill="#333333" stroke="none">
  <path d="M2477 4466 c-84 -31 -139 -98 -153 -184 -6 -40 -6 -40 -68 -51 -171
  -33 -349 -112 -489 -217 -188 -141 -330 -363 -399 -624 -12 -47 -25 -87 -29
  -90 -4 -3 -8 -23 -8 -45 0 -22 -5 -74 -11 -115 -6 -41 -15 -212 -20 -380 -12

@@ -3,13 +3,15 @@ import { ScrollView, View, TouchableOpacity, StyleSheet, ActivityIndicator, Imag
 
 import BackButton from '../../components/BackButton';
 import ConnectionNotification from '../../components/Notifications/ConnectionNotification'
-// import CampaignNotification from "../../components/Notifications/CampaignNotification";
+import CampaignNotification from "../../components/Notifications/CampaignNotification";
 
 import Messages from '../../assets/jsicons/bottomnavigation/Messages';
 import Bell from '../../assets/jsicons/bottomnavigation/BellB';
 import Logo from '../../assets/jsicons/other/Logo';
 
 import {seedData} from '../../components/Notifications/seedData'
+
+var aaa = 0;
 
 class NotificationsMain extends React.Component {
 
@@ -44,7 +46,12 @@ class NotificationsMain extends React.Component {
             <Messages />
           </TouchableOpacity>
           <TouchableOpacity style={this.state.isActive ? styles.tabButtonSelected : styles.tabButton} onPress={() => this.setState({ isActive: !this.state.isActive, notifOpen: !this.state.notifOpen })}>
-            <Bell />
+            <View>
+              <Bell />
+              <View style={styles.counterTextContainer} />
+              {/* </View> */}
+              <Text style={styles.counterText}>{Object.keys(seedData.data).length}</Text>
+            </View>
           </TouchableOpacity>
         </View>
         <ScrollView contentContainerStyle={this.state.isLoading ? styles.contentContainerLoading : styles.contentContainer} style={!this.state.notifOpen ? '' : styles.closed}>
@@ -66,15 +73,26 @@ class NotificationsMain extends React.Component {
             <ActivityIndicator style={styles.indicator} size='large' color="#00FF9A" />
           </View>
          
-          <FlatList style={{width: '100%'}}
+          <FlatList style={{width: '100%', height: '100%'}}
              data={seedData.data}
              showsVerticalScrollIndicator={false}
-            renderItem={(data) =>
-              {
-                {data.item.notification_type = 1 ? 
-                <ConnectionNotification notifData={data} /> : data.item.notification_type = 2 ? 
-                <ConnectionNotification notifData={data} /> : <ConnectionNotification notifData={data} />}
-              }
+             renderItem={(data) =>
+                {
+
+                  switch(data.item.notification_type) {
+
+                    case 1:
+                      return(<ConnectionNotification notifData={data} />);
+                    
+                    case 2:
+                      return(<CampaignNotification notifData={data} />);
+
+                    default:
+                      return(<Text>No new notifications</Text>);
+
+                  }
+
+                }
              }
              keyExtractor={(data, index) => index.toString()}
            />
@@ -131,6 +149,24 @@ const styles = StyleSheet.create({
 
     width: '15%',
     height: '15%'
+
+  },
+  counterTextContainer: {
+
+    position: 'absolute',
+    right: -10,
+    padding: 8,
+    backgroundColor: '#D7FF43',
+    borderRadius: 50,
+
+  },
+  counterText: {
+
+    position: 'absolute',
+    right: -5,
+    top: -1,
+    fontSize: 12,
+    fontWeight: 'bold'
 
   },
   contentContainer: {
