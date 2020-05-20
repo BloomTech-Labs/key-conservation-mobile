@@ -250,12 +250,12 @@ export const ConsNavigator = createBottomTabNavigator(
     MapStack: {
       screen: MapStack,
     },
-    MyProStack: {
-      screen: MyProStack,
-      path: '',
-    },
     NotStack: {
       screen: NotStack,
+      path: '',
+    },
+    MyProStack: {
+      screen: MyProStack,
       path: '',
     },
   },
@@ -291,6 +291,10 @@ export const SupporterNavigator = createBottomTabNavigator(
     },
     MapStack: {
       screen: MapStack,
+    },
+    NotStack: {
+      screen: NotStack,
+      path: '',
     },
     SupporterProfileStack: {
       screen: SupporterProfileStack,

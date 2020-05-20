@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { View, TouchableOpacity, Text, Image, Button, StyleSheet } from 'react-native';
 import { Avatar } from 'react-native-elements';
+import moment from 'moment';
+import TimeStamp from './TimeStamp';
 
 const CampaignNotification = (props) => {
     // useEffect(() => {
@@ -11,6 +13,15 @@ const CampaignNotification = (props) => {
 
     // });
 
+    const goToProfile = () => {
+        props.nav.push('Pro', {
+          selectedProfile: props.notifData.item.sender_id,
+        });
+      };
+
+  const createdAt = props.notifData.item.time;
+
+
     return (
         <TouchableOpacity style={styles.wrapper}>
             <View style={styles.container}>
@@ -18,14 +29,21 @@ const CampaignNotification = (props) => {
                     <Avatar
                         size="medium"
                         rounded
+                                      onPress={goToProfile}
+
                     source={{ 
                         uri: `${props.notifData.item.sender_Pic}` || undefined
                     }}
                     />
                 </View>
                 <View style={styles.content}>
-                    <Text style={styles.connectionInfo}>{props.notifData.item.sender_name} has a {props.notifData.item.campaign_update_type} campaign post</Text>
-                    <Text style={styles.timeStamp}>8 minutes ago</Text>
+                    <Text style={styles.connectionInfo}>
+                        <Text style={styles.connect}>{props.notifData.item.sender_name} </Text>
+                        has a 
+                        <Text style={styles.updateType}> {props.notifData.item.campaign_update_type} </Text>
+                        campaign post
+                    </Text>
+                    <TimeStamp style={styles.timeStamp} createdAt={createdAt}/>
                 </View>
                 <View style={styles.avatarContainer}>
                     <Avatar
@@ -90,6 +108,14 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
 
     },
+    updateType: {
+
+        fontFamily: "Lato",
+        fontWeight: "bold",
+        color: "#E6106F",
+        textTransform: "uppercase"
+
+    },
     connectionInfo:{
         fontFamily: "Lato",
         fontSize: 17,
@@ -97,9 +123,9 @@ const styles = StyleSheet.create({
     },
     timeStamp: {
         fontFamily: "Lato",
-        fontSize: 16,
+        fontSize: 13,
         fontWeight: "700",
-        color: "#ADADAD"
+        color: "#B5B5B5"
     }
 })
 

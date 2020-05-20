@@ -1,6 +1,8 @@
 import React, {useEffect} from 'react'
 import { View, TouchableOpacity, StyleSheet, Text, Image, Button } from 'react-native';
 import { Avatar } from 'react-native-elements';
+import moment from 'moment';
+import TimeStamp from './TimeStamp';
 
 {/* TEAL COLOR: #00FF9D */}
 
@@ -14,23 +16,37 @@ const ConnectionNotification = (props) => {
 
     });
 
+  const createdAt = props.notifData.item.time;
+
+
+  const goToCommenterProfile = () => {
+    props.nav.push('Pro', {
+      selectedProfile: props.notifData.item.sender_id,
+    });
+  };
+
     return (
-        <TouchableOpacity style={styles.wrapper}>
+        <TouchableOpacity style={styles.wrapper} onPress={() => { props.nav.push('Connections', (props = { forceOpen: true })) }}>
             <View style={styles.container}>
                 <View style={styles.avatarContainer}>
-                    <Avatar
-                        size="medium"
-                        rounded
-                    source={{ 
-                        uri: `${props.notifData.item.sender_Pic}` || undefined
-                    }}
-                    />
+                    <TouchableOpacity onPress={goToCommenterProfile}>
+                        <Avatar
+                            size="medium"
+                            rounded
+                        source={{ 
+                            uri: `${props.notifData.item.sender_Pic}` || undefined
+                        }}
+                        />
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.content}>
-                    <Text style={styles.connectionInfo}>{props.notifData.item.sender_name} wants to connect</Text>
-                    <Text style={styles.timeStamp}>8 minutes ago</Text>
+                    <Text style={styles.connectionInfo}>
+                        <Text style={styles.connect} onPress={goToCommenterProfile}>{props.notifData.item.sender_name} </Text>
+                        wants to connect
+                    </Text>
+                    <TimeStamp style={styles.timeStamp} createdAt={createdAt}/>
                 </View>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={() => { props.nav.push('Connections', (props = { forceOpen: true })) }}>
                     <Text style = {styles.connect}>Connect</Text>
                 </TouchableOpacity>
         
@@ -65,14 +81,15 @@ const styles = StyleSheet.create({
     avatarContainer: {
         alignSelf: "center",
         flex: 1,
-        marginLeft: 10  //no need to put px all numbers are already knownas it? Ok,
+        marginLeft: 10
     },
     button: {
         flex: 1,
-        borderRadius: 10,
-        height: 30,
-        padding:10,
-        margin: 5,
+        borderRadius: 7.5,
+        height: 27,
+        paddingRight: 15,
+        paddingLeft: 15,
+        marginRight: 5,
         justifyContent:"center",
         color: 'black',
         backgroundColor: '#00FF9D',
@@ -85,10 +102,8 @@ const styles = StyleSheet.create({
 
     },
     connect: {
-
         fontFamily: "Lato",
         fontWeight: "bold"
-
     },
     connectionInfo:{
         fontFamily: "Lato",
@@ -97,9 +112,9 @@ const styles = StyleSheet.create({
     },
     timeStamp: {
         fontFamily: "Lato",
-        fontSize: 16,
+        fontSize: 13,
         fontWeight: "700",
-        color: "#ADADAD"
+        color: "#B5B5B5"
     }
 
 })

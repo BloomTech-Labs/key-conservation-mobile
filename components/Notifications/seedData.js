@@ -4,12 +4,12 @@ export const seedData = {
         {
             notification_Id: 1,
             notification_type: 1,
-            sender_id: 123,
-            sender_name: "Michael Callahan",
-            sender_Pic: 'https://i.imgur.com/BkwfGEa.png', //state or pathway to sender's Avatar?
+            sender_id: 127,
+            sender_name: "Daniel Lazarov",
+            sender_Pic: 'https://keyconservation.s3.us-west-1.amazonaws.com/files/1586369603266_photo.png', //state or pathway to sender's Avatar?
             user_Id: 234,
-            time: "5/19/2020 13:20", //figure out the makeup of their time stamps
-            pathway: 'X', //Pathway Here to user's connection Req tab
+            time: "2020-05-19T21:05:36.093Z", //this comes from moment() not sure yet if it needs to be a string
+            pathway: 'Connections', //Pathway to connections tab will be Connections
             campaign_pic: null, //state or pathway to campaign update pic
             emoji: null, //Pathway to emoji? If an emoji used?
             comment: null,
@@ -18,13 +18,13 @@ export const seedData = {
         {
             notification_Id: 2,
             notification_type: 2,
-            sender_id: 456,
-            sender_name: "Fishing Cat Conservancy",
-            sender_Pic: 'https://i.imgur.com/K102CdZ.png', //state or pathway to sender's Avatar?
+            sender_id: 14,
+            sender_name: "Sylvester Foundation",
+            sender_Pic: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', //state or pathway to sender's Avatar?
             user_Id: 234,
-            time: "5/19/2020 13:24", //figure out the makeup of their time stamps
+            time: "2020-05-19T21:07:45.933Z", //this comes from moment() not sure yet if it needs to be a string
             pathway: 'X', //Pathway Here to campaign update
-            campaign_pic: 'https://i.imgur.com/nT6lkDq.jpeg', //state or pathway to campaign update pic
+            campaign_pic: 'https://keyconservation.s3.us-west-1.amazonaws.com/files/1589742510769_photo.jpg', //state or pathway to campaign update pic
             emoji: null, //Pathway to emoji? If an emoji is used?
             comment: null,
             campaign_update_type: "Critical"
@@ -32,12 +32,12 @@ export const seedData = {
         {
             notification_Id: 3,
             notification_type: 1,
-            sender_id: 789,
-            sender_name: "Zahid Khawaja",
-            sender_Pic: 'https://i.imgur.com/aEjIUNq.png', //state or pathway to sender's Avatar?
+            sender_id: 128,
+            sender_name: "Leah Kelley",
+            sender_Pic: 'https://keyconservation.s3.us-west-1.amazonaws.com/files/1589910890977_photo.png', //state or pathway to sender's Avatar?
             user_Id: 234,
-            time: "5/19/2020 13:28", //figure out the makeup of their time stamps
-            pathway: 'X', //Pathway Here to user's connection Req tab
+            time: "2020-05-20T21:07:45.933Z", //this comes from moment() not sure yet if it needs to be a string
+            pathway: 'Connections', //Pathway to connections tab will be Connections
             campaign_pic: null, //state or pathway to campaign update pic
             emoji: null, //Pathway to emoji? If Emoji used?
             comment: null,
@@ -46,13 +46,13 @@ export const seedData = {
         {
             notification_Id: 4,
             notification_type: 2,
-            sender_id: 456,
-            sender_name: "Everglad Wildlife Foundation",
-            sender_Pic: 'https://i.imgur.com/g7Bg8FL.png', //Pathway here
+            sender_id: 133,
+            sender_name: "Bat Action Network",
+            sender_Pic: "https://keyconservation.s3.us-west-1.amazonaws.com/files/1586378882572_photo.png", //Pathway here
             user_Id: 234,
-            time: "5/19/2020 13:24", //figure out the makeup of their time stamps
+            time: "2020-04-08T20:48:56.687436+00:00", //this comes from moment() not sure yet if it needs to be a string
             pathway: 'X', //Pathway Here
-            campaign_pic: 'https://i.imgur.com/sIUigHS.jpg', //pathway Here
+            campaign_pic: "https://keyconservation.s3.us-west-1.amazonaws.com/files/1586379060648_photo.jpg", //pathway Here
             emoji: null, //Pathway to emoji? Emoji used,
             comment: null,
             campaign_update_type: "Critical"

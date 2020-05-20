@@ -17,7 +17,8 @@ class NotificationsMain extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { isLoading: false, isActive: true, notifOpen: true }
+    // console.log(props);
+    this.state = { isLoading: false, isActive: true, notifOpen: true, navigation: props.navigation }
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -33,6 +34,8 @@ class NotificationsMain extends React.Component {
 
   componentDidMount() {
 
+    // this.state.navigation.push('Connections', {});
+    // console.log(this.state.navigation);
     console.log('Fetching notifications...');
     // console.log(seedData.data);
 
@@ -41,7 +44,7 @@ class NotificationsMain extends React.Component {
   render() {
     return (
       <View style={styles.wrapper}>
-        <View style={styles.tabContainer}>
+        <View style={styles.tabContainer} elevation={8}>
           <TouchableOpacity style={!this.state.isActive ? styles.tabButtonSelected : styles.tabButton} onPress={() => this.setState({ isActive: !this.state.isActive, notifOpen: !this.state.notifOpen })}>
             <Messages />
           </TouchableOpacity>
@@ -82,10 +85,10 @@ class NotificationsMain extends React.Component {
                   switch(data.item.notification_type) {
 
                     case 1:
-                      return(<ConnectionNotification notifData={data} />);
+                      return(<ConnectionNotification notifData={data} nav={this.state.navigation} />);
                     
                     case 2:
-                      return(<CampaignNotification notifData={data} />);
+                      return(<CampaignNotification notifData={data} nav={this.state.navigation} />);
 
                     default:
                       return(<Text>No new notifications</Text>);
@@ -118,7 +121,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     width: '100%',
-    maxHeight: '10%'
+    maxHeight: '10%',
+    backgroundColor: 'white',
+    shadowColor: '#292626',
+    shadowRadius: 5,
+    shadowOpacity: 1.0,
 
   },
   tabButton: {
