@@ -6,6 +6,7 @@ import {
   Keyboard,
   TouchableOpacity,
 } from 'react-native';
+import * as WebBrowser from 'expo-web-browser';
 
 import { navigate } from '../../navigation/RootNavigator';
 
@@ -75,6 +76,12 @@ class LoginForm extends Component {
     }
   };
 
+  showTOS() {
+    WebBrowser.openBrowserAsync(
+      'https://www.keyconservation.org/termsandconditions'
+    );
+  }
+
   render() {
     return (
       <View style={styles.inputContainer}>
@@ -122,11 +129,12 @@ class LoginForm extends Component {
         <View style={styles.footnoteContainer}>
           <TouchableOpacity
             onPress={() =>
-              !this.state.type &&
-              navigate('ResetPassword', {
-                resetPassword: this.props.resetPassword,
-                email: this.state.email,
-              })
+              this.state.type
+                ? this.showTOS()
+                : navigate('ResetPassword', {
+                    resetPassword: this.props.resetPassword,
+                    email: this.state.email,
+                  })
             }
           >
             <Text style={styles.footnote}>

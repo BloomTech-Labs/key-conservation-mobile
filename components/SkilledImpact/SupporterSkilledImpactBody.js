@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import styles from '../../constants/SkilledImpact/SupporterSkilledImpactBody';
-import CampaignContent from '../../components/SkilledImpact/elements/CampaignContent';
+import SupporterCampaignContent from './elements/SupporterCampaignContent';
 import SkillContent from '../../components/SkilledImpact/elements/SkillContent';
 import ApplicationContent from '../../components/SkilledImpact/elements/ApplicationContent';
 import SkillGroupContent from '../../components/SkilledImpact/elements/SkillGroupContent';
@@ -34,7 +34,7 @@ class SupporterSkilledImpactBody extends Component {
           userId={this.state.userId}
           navigation={this.props.navigation}
         />
-        <CampaignContent campaigns={this.state.campaigns} />
+        <SupporterCampaignContent campaigns={this.state.campaigns} />
         <SkillGroupContent skillGroups={this.state.skills} />
         <ApplicationContent submissions={this.state.submissions} />
       </View>
