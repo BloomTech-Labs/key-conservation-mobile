@@ -1,4 +1,4 @@
-import { AppLoading } from 'expo';
+import { AppLoading, Linking } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import React, { useState } from 'react';
@@ -23,8 +23,14 @@ export default App;
 
 // initialize WebSocketManager
 
+const prefix = Linking.makeUrl('/');
+
 function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
+
+  const linking = {
+    prefixes: [prefix],
+  };
 
   WebSocketManager().getInstance().setLoggerEnabled(true);
   const handleNavigationChange = (prevState, newState, action) => {
@@ -68,6 +74,7 @@ function App(props) {
               onNavigationStateChange={(prevState, newState, action) => {
                 handleNavigationChange(prevState, newState, action);
               }}
+              linking={linking}
             />
           </MenuProvider>
         </Provider>

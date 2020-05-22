@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Alert, ActivityIndicator, ImageBackground } from 'react-native';
+import { View, Alert, ActivityIndicator, ImageBackground, Linking } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { connect } from 'react-redux';
 import {
@@ -37,7 +37,7 @@ class LoadingScreen extends React.Component {
   checkAirtable = (record) => {
     // console.log("record: " + record.isVetting);
     //console.log("LoadingScreen checkAirtable activated.");
-    if (record?.fields?.isVetting) {
+    if (record ?.fields ?.isVetting) {
       this.props.navigation.navigate('Vetting');
     } else {
       // if in vetting process, sends them back to VettingCheck, otherwise component runs as usual.
@@ -76,6 +76,9 @@ class LoadingScreen extends React.Component {
   };
 
   async componentDidMount() {
+
+    Linking.addEventListener('url', this.handleOpenUrl);
+    // this.props.navigation.navigate('MyPro');
     const sub = await SecureStore.getItemAsync('sub', {});
     const roles = await SecureStore.getItemAsync('roles', {});
     const email = await SecureStore.getItemAsync('email', {});
@@ -142,6 +145,18 @@ class LoadingScreen extends React.Component {
       }
     }
   }
+
+  handleOpenUrl = (event) => {
+    let url = event.url;
+    let pathIndex = url.lastIndexOf('/');
+    url = url.substring(pathIndex + 1, url.length);
+    console.log(url);
+    this.props.navigation.navigate(url);
+  }
+
+  // componentWillUnmount() {
+  //   Linking.removeListener('url');
+  // }
 
   render() {
     return (
