@@ -6,7 +6,7 @@ import BackButton from '../components/BackButton';
 import DoneButton from '../components/DoneButton';
 import UploadMedia from '../components/UploadMedia';
 
-import { editProfileData, logout } from '../store/actions';
+import { editProfileData, editProfileImage, logout } from '../store/actions';
 import { AmpEvent } from '../components/withAmplitude';
 
 import styles from '../constants/screens/EditSupporterProfileScreen';
@@ -20,7 +20,7 @@ class EditSupporterProfileScreen extends React.Component {
     return {
       title: 'Edit Profile',
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: '#323338',
       },
       headerTintColor: '#fff',
       headerRight: () => (
@@ -28,7 +28,7 @@ class EditSupporterProfileScreen extends React.Component {
           navigation={navigation}
           pressAction={navigation.getParam('done')}
         />
-      )
+      ),
     };
   };
 
@@ -42,7 +42,7 @@ class EditSupporterProfileScreen extends React.Component {
     instagram: this.props.currentUserProfile.instagram,
     twitter: this.props.currentUserProfile.twitter,
     species_and_habitats: this.props.currentUserProfile.species_and_habitats,
-    skills: this.props.currentUserProfile.skills
+    skills: this.props.currentUserProfile.skills,
   };
 
   componentDidMount() {
@@ -52,7 +52,7 @@ class EditSupporterProfileScreen extends React.Component {
     }
   }
 
-  isProfileComplete = profile => {
+  isProfileComplete = (profile) => {
     for (let p in profile) {
       if (!profile[p]) return false;
     }
@@ -61,10 +61,19 @@ class EditSupporterProfileScreen extends React.Component {
 
   done = () => {
     let changes = this.state;
+    if (changes.profile_image) {
+      this.props.editProfileImage(
+        this.props.currentUserProfile.id,
+        changes.profile_image
+      );
+    }
     this.props.editProfileData(this.props.currentUserProfile.id, changes);
     if (this.props.firstLogin) {
       this.props.navigation.navigate('Home');
     } else {
+      if (this.props.navigation.state.params.goBack) {
+        this.props.navigation.state.params.goBack();
+      }
       this.props.navigation.goBack();
     }
   };
@@ -77,13 +86,13 @@ class EditSupporterProfileScreen extends React.Component {
           <View style={styles.sections}>
             <Text style={styles.sectionsText}>Name</Text>
             <TextInput
-              ref={input => {
+              ref={(input) => {
                 this.nameInput = input;
               }}
-              returnKeyType='next'
-              placeholder='John Doe'
+              returnKeyType="next"
+              placeholder="John Doe"
               style={styles.inputContain}
-              onChangeText={text => this.setState({ name: text })}
+              onChangeText={(text) => this.setState({ name: text })}
               onSubmitEditing={() => {
                 if (Platform.OS === 'android') return;
                 this.locationInput.focus();
@@ -96,13 +105,13 @@ class EditSupporterProfileScreen extends React.Component {
           <View style={styles.sections}>
             <Text style={styles.sectionsText}>Location</Text>
             <TextInput
-              ref={input => {
+              ref={(input) => {
                 this.locationInput = input;
               }}
-              returnKeyType='next'
-              placeholder='Miami, Flordia'
+              returnKeyType="next"
+              placeholder="Miami, Flordia"
               style={styles.inputContain}
-              onChangeText={text => this.setState({ location: text })}
+              onChangeText={(text) => this.setState({ location: text })}
               onSubmitEditing={() => {
                 if (Platform.OS === 'android') return;
                 this.mini_bioInput.focus();
@@ -115,16 +124,16 @@ class EditSupporterProfileScreen extends React.Component {
           <View style={styles.sections}>
             <Text style={styles.sectionsText}>Bio (150 characters max)</Text>
             <TextInput
-              ref={input => {
+              ref={(input) => {
                 this.mini_bioInput = input;
               }}
               multiline={true}
               numberOfLines={5}
               maxLength={150}
-              returnKeyType='next'
-              placeholder='Tell us about yourself!'
+              returnKeyType="next"
+              placeholder="Tell us about yourself!"
               style={styles.bioInputContain}
-              onChangeText={text => this.setState({ mini_bio: text })}
+              onChangeText={(text) => this.setState({ mini_bio: text })}
               onSubmitEditing={() => {
                 if (Platform.OS === 'android') return;
                 this.emailInput.focus();
@@ -137,14 +146,14 @@ class EditSupporterProfileScreen extends React.Component {
           <View style={styles.sections}>
             <Text style={styles.sectionsText}>Email</Text>
             <TextInput
-              ref={input => {
+              ref={(input) => {
                 this.emailInput = input;
               }}
-              returnKeyType='next'
-              placeholder='youremail@gmail.com'
-              keyboardType='email-address'
+              returnKeyType="next"
+              placeholder="youremail@gmail.com"
+              keyboardType="email-address"
               style={styles.inputContain}
-              onChangeText={text => this.setState({ email: text })}
+              onChangeText={(text) => this.setState({ email: text })}
               onSubmitEditing={() => {
                 if (Platform.OS === 'android') return;
                 this.facebookInput.focus();
@@ -159,10 +168,12 @@ class EditSupporterProfileScreen extends React.Component {
             <View style={styles.imageSelectContainer}>
               <UploadMedia
                 media={this.state.profile_image}
-                onChangeMedia={media => this.setState({ profile_image: media })}
+                onChangeMedia={(media) =>
+                  this.setState({ profile_image: media })
+                }
                 size={128}
                 circular
-                title='Upload photo'
+                title="Upload photo"
                 removable
               />
             </View>
@@ -170,12 +181,17 @@ class EditSupporterProfileScreen extends React.Component {
         </View>
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionHeader}>Skilled Impact</Text>
-          <Text style={styles.sectionsText}>Select the skills you currently have and want to use to help conservationists.</Text>
-          <Text style={styles.sectionSubText}>You can add more details later</Text>
+          <Text style={styles.sectionsText}>
+            Select the skills you currently have and want to use to help
+            conservationists.
+          </Text>
+          <Text style={styles.sectionSubText}>
+            You can add more details later
+          </Text>
           <SkillSelect
             skills={this.state.skills}
             enableOtherSkills={true}
-            onSkillsChanged={skills => this.setState({ skills: skills })}
+            onSkillsChanged={(skills) => this.setState({ skills: skills })}
           />
         </View>
         <View style={styles.sectionContainer}>
@@ -183,15 +199,15 @@ class EditSupporterProfileScreen extends React.Component {
           <View style={styles.sections}>
             <Text style={styles.sectionsText}>Facebook</Text>
             <TextInput
-              ref={input => {
+              ref={(input) => {
                 this.facebookInput = input;
               }}
-              returnKeyType='next'
-              placeholder='https://www.facebook.com/orgname'
-              keyboardType='default'
+              returnKeyType="next"
+              placeholder="https://www.facebook.com/orgname"
+              keyboardType="default"
               style={styles.inputContain}
-              autoCapitalize='none'
-              onChangeText={text => this.setState({ facebook: text })}
+              autoCapitalize="none"
+              onChangeText={(text) => this.setState({ facebook: text })}
               onSubmitEditing={() => {
                 if (Platform.OS === 'android') return;
                 this.instagramInput.focus();
@@ -204,15 +220,15 @@ class EditSupporterProfileScreen extends React.Component {
           <View style={styles.sections}>
             <Text style={styles.sectionsText}>Instagram</Text>
             <TextInput
-              ref={input => {
+              ref={(input) => {
                 this.instagramInput = input;
               }}
-              returnKeyType='next'
-              keyboardType='default'
+              returnKeyType="next"
+              keyboardType="default"
               style={styles.inputContain}
-              autoCapitalize='none'
-              placeholder='https://www.instagram.com/orgname'
-              onChangeText={text => this.setState({ instagram: text })}
+              autoCapitalize="none"
+              placeholder="https://www.instagram.com/orgname"
+              onChangeText={(text) => this.setState({ instagram: text })}
               onSubmitEditing={() => {
                 if (Platform.OS === 'android') return;
                 this.twitterInput.focus();
@@ -225,15 +241,15 @@ class EditSupporterProfileScreen extends React.Component {
           <View style={styles.sections}>
             <Text style={styles.sectionsText}>Twitter</Text>
             <TextInput
-              ref={input => {
+              ref={(input) => {
                 this.twitterInput = input;
               }}
-              returnKeyType='done'
-              keyboardType='default'
+              returnKeyType="done"
+              keyboardType="default"
               style={styles.inputContain}
-              autoCapitalize='none'
-              placeholder='https://www.twitter.com/orgname'
-              onChangeText={text => this.setState({ twitter: text })}
+              autoCapitalize="none"
+              placeholder="https://www.twitter.com/orgname"
+              onChangeText={(text) => this.setState({ twitter: text })}
               // blurOnSubmit={true}
               value={this.state.twitter}
             />
@@ -244,12 +260,13 @@ class EditSupporterProfileScreen extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   error: state.error,
-  currentUserProfile: state.currentUserProfile
+  currentUserProfile: state.currentUserProfile,
 });
 
 export default connect(mapStateToProps, {
   editProfileData,
-  logout
+  editProfileImage,
+  logout,
 })(EditSupporterProfileScreen);

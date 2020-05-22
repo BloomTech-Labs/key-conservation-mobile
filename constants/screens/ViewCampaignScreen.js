@@ -75,7 +75,7 @@ export default {
     backgroundColor: 'white',
   },
   campaignDescriptionName: {
-    fontFamily: 'Lato-Bold',
+    fontFamily: 'Lato',
     fontSize: 17,
     lineHeight: 22,
     paddingBottom: 10,
@@ -86,10 +86,9 @@ export default {
     lineHeight: 19,
   },
   listName: {
-    fontFamily: 'Lato-Bold',
-    fontSize: 18,
+    fontFamily: 'Lato',
+    fontSize: 17,
     lineHeight: 22,
-    fontWeight: 'bold',
     paddingBottom: 3,
   },
   donateView: {
@@ -122,11 +121,34 @@ export default {
     fontSize: 30,
     color: '#00FF9D',
   },
+  iconRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 15,
+    height: 30,
+  },
+  topRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    paddingTop: 8,
+  },
+  topRowLeft: {
+    paddingLeft: 17,
+    width: '75%',
+  },
+  topRowRight: {
+    paddingRight: 15,
+  },
+  postTitle: {
+    paddingRight: 15,
+    flex: 2,
+    fontFamily: 'Lato-Bold',
+    fontSize: 17,
+  },
   timeText: {
     color: '#929292',
-    fontSize: 10,
-    marginLeft: 0,
-    marginRight: 15,
-    marginTop: 15,
+    fontSize: 16,
+    fontFamily: 'Lato',
   },
 };

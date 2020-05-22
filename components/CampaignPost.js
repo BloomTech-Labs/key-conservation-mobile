@@ -73,8 +73,9 @@ const CampaignPost = (props) => {
   const [animation] = useState(new Animated.Value(0));
 
   const animateIn = Animated.timing(animation, {
+    useNativeDriver: true,
     toValue: 1,
-    duration: 200,
+    duration: 300,
   });
 
   useEffect(() => {
@@ -162,16 +163,23 @@ const CampaignPost = (props) => {
     setBookmark();
   };
 
-  const height = animation.interpolate({
+  const translateY = animation.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 650],
+    outputRange: [-650, 0],
+  });
+
+  const opacity = animation.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [0, 0.25, 1],
   });
 
   return (
-    // <Animated.View
-    //   style={[styles.mainContainer, { height, opacity: animation }]}
-    // >
-    <View style={styles.mainContainer}>
+    <Animated.View
+      style={[
+        styles.mainContainer,
+        { transform: [{ translateY: translateY }], opacity: opacity },
+      ]}
+    >
       <View style={styles.container}>
         <LoadingOverlay
           loading={props.deleteBuffer.includes(data.id)}
@@ -183,6 +191,14 @@ const CampaignPost = (props) => {
           isMine={props.currentUserProfile.id === data.user_id}
           post={data}
         />
+        <View style={styles.topRow}>
+          <View style={styles.topRowLeft}>
+            <Text style={styles.postTitle}>{data.name}</Text>
+          </View>
+          <View style={styles.topRowRight}>
+            <Text style={styles.timeText}>{timeDiff}</Text>
+          </View>
+        </View>
         <ListItem
           disabled={props.disableHeader}
           onPress={goToProfile}
@@ -210,11 +226,15 @@ const CampaignPost = (props) => {
             </TouchableOpacity>
           }
           subtitle={
-            <View style={{ flexDirection: 'row', marginLeft: -10 }}>
+            <View
+              style={{ flexDirection: 'row', marginLeft: -12, marginTop: 3 }}
+            >
               {data.location !== (undefined || null) ? (
                 <MapMarker fill="#505050" />
               ) : null}
-              <Text style={{ color: '#929292' }}>{data.location}</Text>
+              <Text style={{ color: '#929292', paddingLeft: 3 }}>
+                {data.location}
+              </Text>
             </View>
           }
         />
@@ -227,14 +247,14 @@ const CampaignPost = (props) => {
             </View>
           ) : (
             <Text style={styles.campaignDescriptionText}>
-              {shorten(data.description, 80)}
+              {shorten(data.description, 280)}
               &nbsp;
               <Text onPress={toggleText} style={styles.readMore}>
                 Read More
               </Text>
             </Text>
           )}
-          <Text style={styles.timeText}>{timeDiff}</Text>
+          {/* <Text style={styles.timeText}>{timeDiff}</Text> */}
         </View>
         <View>
           <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
@@ -334,8 +354,7 @@ const CampaignPost = (props) => {
         <TakeActionCallToAction data={props.data} />
         <View style={styles.demarcation} />
       </View>
-    </View>
-    // </Animated.View>
+    </Animated.View>
   );
 };
 

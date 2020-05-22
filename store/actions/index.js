@@ -97,7 +97,6 @@ export const loginError = (error) => ({
 });
 export const loginSuccess = (credentials, role) => async (dispatch) => {
   await SecureStore.setItemAsync('accessToken', credentials.idToken);
-
   const decoded = JwtDecode(credentials.idToken);
 
   await SecureStore.setItemAsync('sub', decoded.sub);
@@ -246,7 +245,6 @@ export const getProfileData = (
   let user, url;
   if (id) url = `${seturl}users/${id}`;
   else if (sub) url = `${seturl}users/sub/${sub}`;
-
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .get(url)
@@ -280,6 +278,46 @@ export const getProfileData = (
   });
 };
 
+export const [
+  EDIT_PROFILE_IMAGE_START,
+  EDIT_PROFILE_IMAGE_ERROR,
+  EDIT_PROFILE_IMAGE_SUCCESS,
+] = [
+  'EDIT_PROFILE_IMAGE_START',
+  'EDIT_PROFILE_IMAGE_ERROR',
+  'EDIT_PROFILE_IMAGE_SUCCESS',
+];
+
+export const editProfileImage = (id, uri) => (dispatch) => {
+  dispatch({ type: EDIT_PROFILE_IMAGE_START });
+
+  let uriParts = uri.split('.');
+  let fileType = uriParts[uriParts.length - 1];
+
+  const formData = new FormData();
+  formData.append('photo', {
+    uri,
+    name: `photo.${fileType}`,
+    type: `image/${fileType}`,
+  });
+
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios.put(`${seturl}users/${id}`, formData, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  })
+    .then((res) => {
+      dispatch({ type: EDIT_PROFILE_IMAGE_SUCCESS, payload: res.data.user });
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch({ type: EDIT_PROFILE_IMAGE_ERROR, payload: err });
+    });
+};
+
 export const [EDIT_PROFILE_START, EDIT_PROFILE_ERROR, EDIT_PROFILE_SUCCESS] = [
   'EDIT_PROFILE_START',
   'EDIT_PROFILE_ERROR',
@@ -294,39 +332,9 @@ export const editProfileData = (id, changes) => (dispatch) => {
     changes
   );
 
-  let formData = new FormData();
-
-  let keys = Object.keys(filteredChanges).filter((key) => {
-    return key !== 'profile_image';
-  });
-
-  if (filteredChanges.profile_image) {
-    const uri = filteredChanges.profile_image;
-
-    let uriParts = uri.split('.');
-    let fileType = uriParts[uriParts.length - 1];
-
-    formData.append('photo', {
-      uri,
-      name: `photo.${fileType}`,
-      type: `image/${fileType}`,
-    });
-  }
-
-  keys.forEach((key) => {
-    if (filteredChanges[key] !== null) {
-      formData.append(key, filteredChanges[key]);
-    }
-  });
-
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .put(`${seturl}users/${id}`, formData, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+      .put(`${seturl}users/${id}`, filteredChanges)
       .then((res) => {
         dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.user });
       })
@@ -406,14 +414,20 @@ export const [
   'GET_FEED_ERROR',
 ];
 
-export const getFeed = (startAt = 0, size = 8) => (dispatch) => {
+export const getFeed = (startAt = undefined, size = 8) => (dispatch) => {
+  const now = new Date(Date.now()).toISOString();
+
+  if (!startAt) {
+    startAt = now;
+  }
+
   dispatch({ type: GET_FEED_START });
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .get(`${seturl}feed?startAt=${startAt}&size=${startAt + size}`)
+      .get(`${seturl}feed?startAt=${startAt}&size=${size}`)
       .then((res) => {
         dispatch({
-          type: startAt > 0 ? EXPAND_FEED_SUCCESS : GET_FEED_SUCCESS,
+          type: startAt < now ? EXPAND_FEED_SUCCESS : GET_FEED_SUCCESS,
           payload: res.data,
         });
       })
@@ -756,6 +770,60 @@ export const getCampaignComments = (id) => (dispatch) => {
       .catch((err) => {
         console.log(err.message);
         dispatch({ type: GET_COMMENTS_ERROR, payload: err.response });
+      });
+  });
+};
+
+export const [
+  GET_CAMPAIGNS_BY_SKILL_START,
+  GET_CAMPAIGNS_BY_SKILL_ERROR,
+  GET_CAMPAIGNS_BY_SKILL_SUCCESS,
+] = [
+  'GET_CAMPAIGNS_BY_SKILL_START',
+  'GET_CAMPAIGNS_BY_SKILL_ERROR',
+  'GET_CAMPAIGNS_BY_SKILL_SUCCESS',
+];
+
+export const getCampaignsBySkill = (skill) => (dispatch) => {
+  dispatch({ type: GET_CAMPAIGNS_BY_SKILL_START });
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .get(`${seturl}campaigns/?skill=${skill}`)
+      .then((res) => {
+        dispatch({
+          type: GET_CAMPAIGNS_BY_SKILL_SUCCESS,
+          payload: res.data.campaigns,
+        });
+      })
+      .catch((err) => {
+        dispatch({ type: GET_CAMPAIGNS_BY_SKILL_ERROR, payload: err });
+      });
+  });
+};
+
+export const [
+  GET_APPLICATIONS_BY_USER_START,
+  GET_APPLICATIONS_BY_USER_ERROR,
+  GET_APPLICATIONS_BY_USER_SUCCESS,
+] = [
+  'GET_APPLICATIONS_BY_USER_START',
+  'GET_APPLICATIONS_BY_USER_ERROR',
+  'GET_APPLICATIONS_BY_USER_SUCCESS',
+];
+
+export const getApplicationsByUser = (userId) => (dispatch) => {
+  dispatch({ type: GET_APPLICATIONS_BY_USER_START });
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .get(`${seturl}users/${userId}/submissions`)
+      .then((res) => {
+        dispatch({
+          type: GET_APPLICATIONS_BY_USER_SUCCESS,
+          payload: res.data.submissions,
+        });
+      })
+      .catch((err) => {
+        dispatch({ type: GET_APPLICATIONS_BY_USER_ERROR, payload: err });
       });
   });
 };

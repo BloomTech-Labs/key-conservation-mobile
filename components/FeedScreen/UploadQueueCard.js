@@ -68,7 +68,12 @@ class UploadQueueCard extends Component {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.progressBar}>
+        <View
+          style={{
+            ...styles.progressBar,
+            backgroundColor: data?.status === 'Failed' ? 'crimson' : 'gray',
+          }}
+        >
           <View
             style={{
               ...styles.fill,

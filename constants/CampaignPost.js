@@ -1,7 +1,7 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 const deviceWidth = Dimensions.get('window').width;
-export default {
+export default StyleSheet.create({
   feedContainer: {
     flex: 1,
     backgroundColor: '#fff',
@@ -9,6 +9,7 @@ export default {
   name: {
     flexDirection: 'row',
     marginLeft: -10,
+    width: '100%',
   },
   ellipse: {
     paddingTop: 3,
@@ -20,12 +21,9 @@ export default {
   mainContainer: {
     flex: 1,
     backgroundColor: '#F2F2FB',
-    // height: 0,
   },
   container: {
     flex: 1,
-    // position: 'absolute',
-    // top: 0,
     overflow: 'hidden',
     width: '95%',
     justifyContent: 'center',
@@ -37,7 +35,7 @@ export default {
     marginTop: 10,
   },
   orgTitleView: {
-    fontFamily: 'Lato-Bold',
+    fontFamily: 'Lato',
     fontSize: 17,
   },
   campImgContain: {
@@ -70,6 +68,30 @@ export default {
     justifyContent: 'space-around',
     marginTop: 15,
     height: 30,
+  },
+  topRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    paddingTop: 8,
+  },
+  topRowLeft: {
+    paddingLeft: 17,
+    width: '75%',
+  },
+  topRowRight: {
+    paddingRight: 15,
+  },
+  postTitle: {
+    paddingRight: 15,
+    flex: 2,
+    fontFamily: 'Lato-Bold',
+    fontSize: 17,
+  },
+  timeText: {
+    color: '#929292',
+    fontSize: 16,
+    fontFamily: 'Lato',
   },
   bookmarks: {
     marginHorizontal: 20,
@@ -136,13 +158,6 @@ export default {
   readMore: {
     color: '#929292',
   },
-  timeText: {
-    color: '#929292',
-    fontSize: 10,
-    fontFamily: 'Lato',
-    marginTop: 10,
-    paddingBottom: 5,
-  },
   urgencyBarText: {
     fontFamily: 'Lato-Bold',
     fontSize: 16,
@@ -167,4 +182,4 @@ export default {
     alignSelf: 'flex-end',
     paddingRight: 7,
   },
-};
+});

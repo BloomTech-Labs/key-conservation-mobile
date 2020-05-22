@@ -13,18 +13,21 @@ class AddCampaignHeader extends React.Component {
     this.showAnimation = new Animated.Value(0);
 
     this.animateIn = Animated.timing(this.showAnimation, {
-      toValue: 1,
-      duration: 200,
+      useNativeDriver: true,
+      toValue: this.props.uploadQueue.length,
+      duration: 300,
     });
 
     this.animateOut = Animated.timing(this.showAnimation, {
+      useNativeDriver: true,
       toValue: 0,
-      duration: 200,
+      duration: 300,
     });
   }
 
   componentDidUpdate() {
     if (this.props.uploadQueue.length > 0) {
+      this.showAnimation.setValue(this.props.uploadQueue.length - 1);
       this.animateOut.stop();
       this.animateIn.start();
     } else {
@@ -34,17 +37,26 @@ class AddCampaignHeader extends React.Component {
   }
 
   render() {
-    const flex = this.showAnimation.interpolate({
+    const opacity = this.showAnimation.interpolate({
       inputRange: [0, 1],
       outputRange: [0, 1],
     });
 
+    const translateY = this.showAnimation.interpolate({
+      inputRange: [0, 100],
+      outputRange: [0, 5600],
+    });
+
     return (
       <View style={{ flex: 1 }}>
-        <Animated.View stlye={{ flex }}>
-          {Object.entries(this.props.uploadQueue).map(([key, value]) => (
-            <UploadQueueCard key={key} id={key} post={value} />
-          ))}
+        <Animated.View
+          stlye={{ opacity, transform: [{ translateY: translateY }] }}
+        >
+          {Object.entries(this.props.uploadQueue)
+            .sort(([_a, a], [_b, b]) => a.id > b.id)
+            .map(([key, value]) => (
+              <UploadQueueCard key={key} id={key} post={value} />
+            ))}
           {/* <UploadQueueCard
             post={{
               image:

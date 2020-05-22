@@ -1,25 +1,17 @@
 import { seturl } from '../store/actions';
 const SECURE_WEBSOCKET_URL = seturl;
 
-export default function () {
-  var singleton;
+export default class WebSocketManager {
+  static singleton = null;
 
-  function createInstance() {
-    let instance = new WebSocketManager();
-    return instance;
+  static getInstance() {
+    if (WebSocketManager.singleton == null) {
+      WebSocketManager.singleton = new WebSocketManager();
+    }
+
+    return WebSocketManager.singleton;
   }
 
-  return Object.freeze({
-    getInstance: function () {
-      if (!singleton) {
-        singleton = createInstance();
-      }
-      return singleton;
-    },
-  });
-}
-
-class WebSocketManager {
   socket;
 
   subscriptions = {};
@@ -33,29 +25,36 @@ class WebSocketManager {
   loggerEnabled = false;
 
   constructor() {
-    this.socket = new WebSocket(SECURE_WEBSOCKET_URL);
+    this.socket = this.initSocket();
+  }
 
-    this.socket.onopen = () => {
+  initSocket() {
+    const socket = new WebSocket(SECURE_WEBSOCKET_URL);
+
+    socket.onopen = () => {
       this.connected = true;
       this.logMessage(`Connected`);
     };
 
-    this.socket.onerror = (error) => {
+    socket.onerror = (error) => {
       this.connected = false;
 
       this.logMessage(`Connection Interrupted: ${error.message}`);
     };
 
-    this.socket.onclose = (e) => {
+    socket.onclose = (e) => {
       this.connected = false;
       this.logMessage(`Disconnected`);
+      this.reconnect();
     };
 
-    this.socket.onmessage = (e) => {
+    socket.onmessage = (e) => {
       const message = JSON.parse(e.data);
       this.logMessage(e.data);
       this.handleDispatchMessage(message);
     };
+
+    return socket;
   }
 
   setLoggerEnabled(enabled) {
@@ -89,7 +88,7 @@ class WebSocketManager {
     this.reconnecting = true;
     if (!this.connected) {
       this.logMessage(`Reconnecting...`);
-      this.socket = new WebSocket(SECURE_WEBSOCKET_URL);
+      this.socket = this.initSocket();
     } else {
       this.logMessage(`Tried to reconnected, but is already connected`);
     }

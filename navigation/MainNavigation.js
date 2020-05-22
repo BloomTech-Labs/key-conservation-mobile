@@ -37,12 +37,15 @@ import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import ConnectionsScreen from '../screens/Connections/ConnectionsScreen';
 import SelectedConnectionsScreen from '../screens/Connections/SelectedConnectionsScreen';
+import OrgSkillImpactScreen from '../screens/org-skillimpact-screen/OrgSkillImpactScreen';
+import SupporterSkillImpactScreen from '../screens/supporter-skillimpact-screen/SupporterSkillImpactScreen';
 
 //icon imports
 
 import Lightening from '../assets/jsicons/bottomnavigation/Lightening';
 import Globe from '../assets/jsicons/bottomnavigation/Globe';
 import Smile from '../assets/jsicons/bottomnavigation/Smile';
+import Sync from '../assets/jsicons/bottomnavigation/Sync';
 
 export const OrgOnboardStack = createStackNavigator(
   {
@@ -107,6 +110,33 @@ const FeedStack = createStackNavigator(
     navigationOptions: {
       tabBarLabel: 'Feed',
       tabBarIcon: ({ focused }) => <Lightening />,
+    },
+  }
+);
+
+const SkillImpactStack = createStackNavigator(
+  //TODO add the rest of skill request screens for conservationists here
+  {
+    SkillImpact: OrgSkillImpactScreen,
+  },
+  {
+    navigationOptions: {
+      tabBarLabel: 'Skilled Impact',
+      tabBarIcon: ({ focused }) => <Sync />,
+    },
+  }
+);
+
+const SupporterSkillImpactStack = createStackNavigator(
+  //TODO add the rest of skill request screens for supporters here
+  {
+    SkillImpact: SupporterSkillImpactScreen,
+    EditSupporterProfile: EditSupporterProfileScreen,
+  },
+  {
+    navigationOptions: {
+      tabBarLabel: 'Skilled Impact',
+      tabBarIcon: ({ focused }) => <Sync />,
     },
   }
 );
@@ -199,6 +229,10 @@ export const ConsNavigator = createBottomTabNavigator(
       screen: FeedStack,
       path: '',
     },
+    SkillImpactStack: {
+      screen: SkillImpactStack,
+      path: '',
+    },
     MapStack: {
       screen: MapStack,
     },
@@ -231,6 +265,10 @@ export const SupporterNavigator = createBottomTabNavigator(
   {
     FeedStack: {
       screen: FeedStack,
+      path: '',
+    },
+    SupporterSkillImpactStack: {
+      screen: SupporterSkillImpactStack,
       path: '',
     },
     MapStack: {
