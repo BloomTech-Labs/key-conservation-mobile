@@ -7,9 +7,13 @@ import {
   Button,
   StyleSheet,
 } from 'react-native';
+import { withNavigationFocus } from 'react-navigation';
+import { useDispatch, connect } from 'react-redux';
+import { AmpEvent } from '../withAmplitude';
 import { Avatar } from 'react-native-elements';
 import moment from 'moment';
 import TimeStamp from './TimeStamp';
+import { setCampaign } from '../../store/actions';
 
 const CampaignNotification = (props) => {
   // useEffect(() => {
@@ -19,6 +23,7 @@ const CampaignNotification = (props) => {
   //     // console.log(props.notifData.item.sender_Pic);
 
   // });
+  const dispatch = useDispatch();
 
   const goToProfile = () => {
     props.nav.push('Pro', {
@@ -28,8 +33,21 @@ const CampaignNotification = (props) => {
 
   const createdAt = props.notifData.item.time;
 
+  const goToCampaign = async () => {
+    AmpEvent('Select Profile from Campaign', {
+      campaign: props.notifData.item.name,
+      profile: props.notifData.item.sender_name,
+    });
+    console.log('testme', props.notifData.item);
+    dispatch(setCampaign(props.notifData.item));
+    console.log('!!!!!!!!!!!!!!!!!!!!!!!', selectedCampaign);
+    navigate('Campaign', {
+      userBookmarked: 153,
+    });
+  };
+
   return (
-    <TouchableOpacity style={styles.wrapper}>
+    <TouchableOpacity style={styles.wrapper} onPress={goToCampaign}>
       <View style={styles.container}>
         <View style={styles.avatarContainer}>
           <Avatar
@@ -43,13 +61,13 @@ const CampaignNotification = (props) => {
         </View>
         <View style={styles.content}>
           <Text style={styles.connectionInfo}>
-            <Text style={styles.connect}>
+            <Text style={styles.connect} onPress={goToProfile}>
               {props.notifData.item.sender_name}{' '}
             </Text>
             has a
             <Text style={styles.updateType}>
               {' '}
-              {props.notifData.item.campaign_update_type}{' '}
+              {props.notifData.item.urgency}{' '}
             </Text>
             campaign post
           </Text>
@@ -127,4 +145,20 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CampaignNotification;
+const mapStateToProps = (state) => ({
+  currentUserProfile: state.currentUserProfile,
+  currentUser: state.currentUser,
+  token: state.token,
+  selectedCampaign: state.selectedCampaign,
+  deleteBuffer: state.pending.deletePost,
+  bookmarks: state.bookmarks,
+  bookmarksLoading: state.pending.bookmarks,
+  bookmarksError: state.errors.bookmarks,
+});
+
+export default connect(mapStateToProps, {
+  // toggleCampaignText,
+  // addBookmark,
+  // removeBookmark,
+  // fetchBookmarks,
+})(withNavigationFocus(CampaignNotification));

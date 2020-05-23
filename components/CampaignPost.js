@@ -45,7 +45,7 @@ const ViewportAwareVideo = Viewport.Aware(
 );
 
 const CampaignPost = (props) => {
-  const { data, toggled } = props;
+  const { data, toggled, selectedCampaign } = props;
 
   const [urgTop, setUrgTop] = useState(0);
   const [loader, setLoader] = useState(true);
@@ -136,8 +136,9 @@ const CampaignPost = (props) => {
       campaign: data.campaign_name,
       profile: data.org_name,
     });
-
+    console.log('testme', data);
     dispatch(setCampaign(data));
+    console.log('!!!!!!!!!!!!!!!!!!!!!!!', selectedCampaign);
     navigate('Campaign', {
       userBookmarked: data.userBookmarked,
     });
@@ -362,6 +363,7 @@ const mapStateToProps = (state) => ({
   currentUserProfile: state.currentUserProfile,
   currentUser: state.currentUser,
   token: state.token,
+  selectedCampaign: state.selectedCampaign,
   deleteBuffer: state.pending.deletePost,
   bookmarks: state.bookmarks,
   bookmarksLoading: state.pending.bookmarks,
