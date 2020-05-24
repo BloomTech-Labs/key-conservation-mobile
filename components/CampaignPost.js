@@ -254,7 +254,6 @@ const CampaignPost = (props) => {
               </Text>
             </Text>
           )}
-          {/* <Text style={styles.timeText}>{timeDiff}</Text> */}
         </View>
         <View>
           <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
@@ -315,7 +314,7 @@ const CampaignPost = (props) => {
           <View style={styles.campaignControlsRight}>
             {props.currentUserProfile.roles === 'supporter' ? (
               <TouchableOpacity
-                style={styles.rightSection}
+                style={styles.rightSectionBookmark}
                 onPress={handleBookmarkPressed}
               >
                 {props.bookmarksLoading ? (
@@ -329,7 +328,7 @@ const CampaignPost = (props) => {
             ) : null}
 
             <TouchableOpacity
-              style={styles.rightSection}
+              style={styles.rightSectionComment}
               onPress={goToCampaign}
             >
               <CommentIcon />
