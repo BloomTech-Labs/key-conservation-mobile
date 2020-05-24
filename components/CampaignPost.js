@@ -215,6 +215,7 @@ const CampaignPost = (props) => {
             <TouchableOpacity onPress={showActionSheet}>
               <View
                 style={{
+                  marginTop: -12,
                   height: 25,
                   width: 40,
                   paddingRight: 5,
