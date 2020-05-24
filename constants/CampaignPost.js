@@ -162,6 +162,10 @@ export default StyleSheet.create({
     paddingRight: 6,
     height: 42,
   },
+  listItemStyle: {
+    borderBottomColor: 'transparent',
+    borderBottomWidth: 0,
+  },
   readMore: {
     color: '#929292',
   },
