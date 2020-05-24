@@ -76,11 +76,11 @@ export default StyleSheet.create({
     paddingTop: 8,
   },
   topRowLeft: {
-    paddingLeft: 17,
+    paddingLeft: 0,
     width: '75%',
   },
   topRowRight: {
-    paddingRight: 15,
+    paddingRight: 10,
   },
   postTitle: {
     paddingRight: 15,
