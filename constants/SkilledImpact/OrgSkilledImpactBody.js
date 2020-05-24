@@ -3,7 +3,8 @@ import { StyleSheet, Platform } from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 2,
-    marginTop: 240,
+    marginTop: 200,
+    marginBottom: 10,
   },
   itemContainers: {
     width: '95%',
@@ -36,6 +37,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignContent: 'stretch',
+    marginBottom: 10,
     paddingLeft: 15,
     paddingRight: 15,
     paddingTop: 10,
@@ -55,7 +57,7 @@ export default StyleSheet.create({
     fontSize: 17,
     marginLeft: 7,
     textAlign: 'left',
-    fontFamily: 'Lato',
+    fontFamily: 'Lato-Bold',
     alignSelf: 'flex-start',
   },
   chevronArrowContainer: {
@@ -93,6 +95,7 @@ export default StyleSheet.create({
   },
   mediumButtonText: {
     fontSize: 14,
+    fontFamily: 'Lato-Bold'
   },
   responsiveButton: {
     height: 34,
@@ -137,6 +140,8 @@ export default StyleSheet.create({
     fontFamily: 'Lato-Bold',
   },
   reachMeText: {
+    fontSize: 16,
+    fontFamily: 'Lato',
     color: '#323339',
     width: '70%',
   },
