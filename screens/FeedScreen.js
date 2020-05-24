@@ -55,8 +55,8 @@ class FeedScreen extends React.Component {
         shadowColor: 'transparent',
       },
       headerTitleStyle: {
-        paddingTop: 10,
-        paddingBottom: 5,
+        paddingTop: 8,
+        paddingBottom: 3,
         alignSelf: 'center',
         textAlign: 'center',
         justifyContent: 'center',
