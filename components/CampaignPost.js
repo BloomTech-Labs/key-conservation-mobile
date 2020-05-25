@@ -83,7 +83,7 @@ const CampaignPost = (props) => {
       d: '1d',
       dd: '%dd',
       M: '1m',
-      MM: '%dM',
+      MM: '%d months',
       y: '1y',
       yy: '%dY',
     },
