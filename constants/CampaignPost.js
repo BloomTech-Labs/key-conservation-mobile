@@ -76,7 +76,7 @@ export default StyleSheet.create({
     paddingTop: 8,
   },
   topRowLeft: {
-    paddingLeft: 0,
+    paddingLeft: 9,
     width: '75%',
   },
   topRowRight: {
