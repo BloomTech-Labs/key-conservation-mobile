@@ -176,7 +176,7 @@ export default StyleSheet.create({
     color: 'white',
   },
   demarcation: {
-    marginTop: 10,
+    marginTop: 5,
   },
   subtitleText: {
     color: '#929292',
