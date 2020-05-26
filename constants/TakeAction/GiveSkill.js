@@ -6,7 +6,6 @@ export default StyleSheet.create({
     justifyContent: 'flex-start'
   },
   header_icon: {
-    paddingLeft: 15,
     paddingRight: 5,
     opacity: .85
   },
@@ -18,7 +17,10 @@ export default StyleSheet.create({
   header_text: {
     fontFamily: 'Lato',
     fontSize: 15,
-    marginRight: 50,
+  },
+  header_arrow_container: {
+    position: 'absolute',
+    right: 5
   },
   skill_bubble_container: {
     flexDirection: 'row'
@@ -39,8 +41,10 @@ export default StyleSheet.create({
     fontSize: 15
   },
   needed_skills_card: {
-    marginLeft: 46,
-    marginRight: 20,   
+    marginTop: 15,
+    borderTopWidth: 1,
+    marginLeft: 33,
+    marginRight: 20,  
   },
   skill_needed_header: {
     fontSize: 17,

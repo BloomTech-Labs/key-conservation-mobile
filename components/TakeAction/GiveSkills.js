@@ -11,7 +11,7 @@ import styles from '../../constants/TakeAction/GiveSkill';
 
 const NeededSkills = props => {
   var skillsBubbles = [];
-  
+
   props.neededSkills.forEach( skill => {
     skillsBubbles.push(
       <View style={styles.skill_bubble}>
@@ -38,8 +38,8 @@ const Goal = props => {
 const NeededSkillsDetailContainer = props => {
   var neededSkillsDetails = [];
 
-  props.neededSkills.forEach( skill => {
-    neededSkillsDetails.push(<NeededSkillsCard skill={skill}/>)
+  props.data.skilled_impact_requests.forEach( skill => {
+    neededSkillsDetails.push(<NeededSkillsCard skill={skill} navigation={props.navigation}/>)
   })
 
   return <View >{neededSkillsDetails}</View>
@@ -52,13 +52,15 @@ class NeededSkillsCard extends React.Component {
     this.skill = props.skill;
 
     this.goals = [];
-    this.skill.goals.forEach(goal => {   
-      this.goals.push(<Goal title={goal.title} text={goal.text} />);
-    })
+    if (this.skill.project_goals) {
+      this.skill.project_goals.forEach(goal => {   
+        this.goals.push(<Goal title={goal.goal_title} text={goal.description} />);
+      })
+    }
   }
 
   state = {
-    expanded: true
+    expanded: false
   }
 
   handleExpand = () => {
@@ -90,25 +92,26 @@ class NeededSkillsCard extends React.Component {
           </View>
         </View>
 
-        {this.state.expanded ? 
+        {this.state.expanded &&
           <View>
-            <View style={styles.section_header}>
-              <ProjectGoalIcon />
-              <View style={styles.project_goal_title_container}>
-                <Text style={styles.project_goal_title}>Project Goals</Text>
-              </View>  
-            </View>
+            {this.goals.length > 0 && 
+              <View style={styles.section_header}>
+                <ProjectGoalIcon />
+                <View style={styles.project_goal_title_container}>
+                  <Text style={styles.project_goal_title}>Project Goals</Text>
+                </View>  
+              </View>
+            }
             {this.goals}
             <TouchableOpacity
               style={ styles.buttonTouch }
-              onPress={() => this.setState({
-                // HANDLE THE APPLICATION PROCESS HERE
-              })}
+              onPress={() => {
+                // TODO: Handle application process
+              }}
             >
               <Text style={styles.button_label}>Apply</Text>
             </TouchableOpacity>
           </View>
-          : null
         }
       </View>
     );
@@ -118,12 +121,11 @@ class NeededSkillsCard extends React.Component {
 class GiveSkill extends React.Component {
   constructor(props) {
     super(props);
-    
-    this.neededSkills = props.neededSkills;
+    this.data = props.data;
   }
 
   state = {
-    expanded: true
+    expanded: false
   }
 
   handleExpand = () => {
@@ -133,7 +135,7 @@ class GiveSkill extends React.Component {
   }
 
   render() {
-    if (this.neededSkills.length == 0) {
+    if (!this.data.skilled_impact_requests) {
       return null;
     }
     
@@ -146,12 +148,12 @@ class GiveSkill extends React.Component {
           <View >
             <Text style={styles.header_title}>Give Skills</Text>
             <Text style={styles.header_text}>Skills needed for this campaign are:</Text>
-            {!this.state.expanded && <NeededSkills neededSkills={this.neededSkills} />}
+            {!this.state.expanded && <NeededSkills neededSkills={this.data.skilled_impact_requests} />}
           </View>
           <View>
 
           </View>
-          <View>
+          <View style={styles.header_arrow_container}>
             {this.state.expanded ? 
               <TouchableOpacity onPress={this.handleExpand}>
                 <DownArrowIcon />
@@ -164,7 +166,12 @@ class GiveSkill extends React.Component {
           </View>
         </View>
 
-        {this.state.expanded && <NeededSkillsDetailContainer neededSkills={this.neededSkills} />}
+        {this.state.expanded && 
+          <NeededSkillsDetailContainer 
+            data={this.data} 
+            navigation={this.props.navigation}
+          />
+        }
       </React.Fragment>
     )
   }

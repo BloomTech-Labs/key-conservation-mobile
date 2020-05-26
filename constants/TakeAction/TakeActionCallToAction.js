@@ -35,12 +35,15 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Lato-Bold',
   },
+  taking_action_container: {
+    paddingHorizontal: 15,
+  },
   section_container: {
     flexDirection: 'row',
     justifyContent: 'flex-start'
   },
   section_icon: {
-    paddingLeft: 15,
+
     paddingRight: 5,
     opacity: .85
   },
