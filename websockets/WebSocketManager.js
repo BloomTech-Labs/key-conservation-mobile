@@ -50,7 +50,6 @@ export default class WebSocketManager {
 
     socket.onmessage = (e) => {
       const message = JSON.parse(e.data);
-      this.logMessage(e.data);
       this.handleDispatchMessage(message);
     };
 
@@ -90,7 +89,7 @@ export default class WebSocketManager {
       this.logMessage(`Reconnecting...`);
       this.socket = this.initSocket();
     } else {
-      this.logMessage(`Tried to reconnected, but is already connected`);
+      this.logMessage(`Tried to reconnect, but is already connected`);
     }
     this.reconnecting = false;
   }

@@ -62,8 +62,8 @@ const axiosWithAuth = (dispatch, req) => {
 // production
 // export const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
-export const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
-// export const seturl = 'http://192.168.1.146:8000/api/';
+// export const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+export const seturl = 'http://192.168.1.146:8000/api/';
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
@@ -465,23 +465,91 @@ export const refreshFeed = (createdAt) => (dispatch) => {
   });
 };
 
-export const [GET_POST_START, GET_POST_SUCCESS, GET_POST_ERROR] = [
-  'GET_POST_START',
-  'GET_POST_SUCCESS',
-  'GET_POST_ERROR',
-];
-export const getCampaignPost = (id) => (dispatch) => {
-  dispatch({ type: GET_POST_START });
+// Not in use yet ==== Might be needed at some point
+// export const [GET_POST_START, GET_POST_SUCCESS, GET_POST_ERROR] = [
+//   'GET_POST_START',
+//   'GET_POST_SUCCESS',
+//   'GET_POST_ERROR',
+// ];
+// export const getCampaignPost = (id) => (dispatch) => {
+//   dispatch({ type: GET_POST_START });
+
+//   return axiosWithAuth(dispatch, (aaxios) => {
+//     return aaxios
+//       .get(`${seturl}posts/${id}`)
+//       .then((res) => {
+//         dispatch({ type: GET_POST_SUCCESS, payload: res.data });
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//         dispatch({ type: GET_POST_ERROR, payload: err.response });
+//       });
+//   });
+// };
+
+export const [
+  GET_USER_POSTS_START,
+  GET_USER_POSTS_SUCCESS,
+  GET_USER_POSTS_ERROR,
+] = ['GET_USER_POSTS_START', 'GET_USER_POSTS_SUCCESS', 'GET_USER_POSTS_ERROR'];
+
+export const getUserPosts = (userId, startAt, size = 8) => (dispatch) => {
+  dispatch({ type: GET_USER_POSTS_START });
+
+  if (!startAt) {
+    dispatch({
+      type: GET_USER_POSTS_ERROR,
+      payload: 'No starting date provided',
+    });
+    console.log(
+      'No starting date provided to getUserPosts, this is required and must be fixed'
+    );
+    return;
+  }
 
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .get(`${seturl}posts/${id}`)
+      .get(`${seturl}users/${userId}/posts?startAt=${startAt}&size=${size}`)
       .then((res) => {
-        dispatch({ type: GET_REPORTS_SUCCESS, payload: res.data });
+        dispatch({ type: GET_USER_POSTS_SUCCESS, payload: res.data });
       })
       .catch((err) => {
-        console.log(err);
-        dispatch({ type: GET_REPORTS_ERROR, payload: err.response });
+        dispatch({
+          type: GET_USER_POSTS_ERROR,
+          payload:
+            err.response?.data?.message ||
+            `An error occurred retreiving this user's posts`,
+        });
+      });
+  });
+};
+
+export const [
+  GET_ORIGINAL_POST_START,
+  GET_ORIGINAL_POST_SUCCESS,
+  GET_ORIGINAL_POST_ERROR,
+] = [
+  'GET_ORIGINAL_POST_START',
+  'GET_ORIGINAL_POST_SUCCESS',
+  'GET_ORIGINAL_POST_ERROR',
+];
+
+export const getOriginalPost = (campaign_id) => (dispatch) => {
+  dispatch({ type: GET_ORIGINAL_POST_START });
+
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .get(`${seturl}campaigns/${campaign_id}/original`)
+      .then((res) => {
+        dispatch({ type: GET_ORIGINAL_POST_SUCCESS, payload: res.data });
+      })
+      .catch((err) => {
+        dispatch({
+          type: GET_ORIGINAL_POST_ERROR,
+          payload:
+            err.response?.data?.message ||
+            'An error occurred while retreiving that post',
+        });
       });
   });
 };

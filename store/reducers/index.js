@@ -592,6 +592,40 @@ const reducer = (state = initialState, action) => {
           error: action.payload,
         },
       };
+    case actions.GET_ORIGINAL_POST_START:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          getCampaign: true,
+        },
+        errors: {
+          ...state.errors,
+          getCampaign: '',
+        },
+      };
+    case actions.GET_ORIGINAL_POST_SUCCESS: {
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          getCampaign: false,
+        },
+        selectedCampaign: action.payload,
+      };
+    }
+    case actions.GET_ORIGINAL_POST_ERROR:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          getCampaign: false,
+        },
+        errors: {
+          ...state.errors,
+          getCampaign: action.payload,
+        },
+      };
     case actions.ARCHIVE_REPORT_START:
       return {
         ...state,

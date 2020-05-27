@@ -28,7 +28,6 @@ export default {
   mainContainer: {
     flex: 1,
     backgroundColor: '#F2F2FB',
-    paddingTop: 5,
   },
   urgencyBarText: {
     fontFamily: 'Lato-Bold',
@@ -53,7 +52,7 @@ export default {
     paddingTop: 7,
     paddingBottom: 10,
     borderRadius: 10,
-    marginTop: 5,
+    marginVertical: 10,
   },
   ogPostButton: {
     fontFamily: 'Lato-Bold',
@@ -150,5 +149,16 @@ export default {
     color: '#929292',
     fontSize: 16,
     fontFamily: 'Lato',
+  },
+  viewOriginalPost: {
+    backgroundColor: 'dodgerblue',
+    height: 40,
+    paddingHorizontal: 18,
+    justifyContent: 'center',
+  },
+  viewOriginalPostText: {
+    color: 'white',
+    fontFamily: 'Lato-Bold',
+    fontSize: 16,
   },
 };
