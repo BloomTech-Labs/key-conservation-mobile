@@ -1,8 +1,6 @@
-import { Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-const deviceWidth = Dimensions.get('window').width;
-
-export default {
+export default StyleSheet.create({
   touchableButton: {
     paddingTop: 25,
     paddingBottom: 25,
@@ -29,12 +27,6 @@ export default {
     flex: 1,
     backgroundColor: '#F2F2FB',
   },
-  urgencyBarText: {
-    fontFamily: 'Lato-Bold',
-    fontSize: 16,
-    letterSpacing: 5,
-    color: 'white',
-  },
   commentsView: {
     width: '100%',
     fontSize: 14,
@@ -58,13 +50,6 @@ export default {
     fontFamily: 'Lato-Bold',
     width: '60%',
     alignSelf: 'center',
-  },
-  campaignImageContainer: {
-    /* Must have a Width && Height or it won't display anything! */
-    width: '100%',
-    flex: 1,
-    height: deviceWidth,
-    marginTop: 3,
   },
   campaignDescriptionContainer: {
     marginLeft: 15,
@@ -161,4 +146,4 @@ export default {
     fontFamily: 'Lato-Bold',
     fontSize: 16,
   },
-};
+});

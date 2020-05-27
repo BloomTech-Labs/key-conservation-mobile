@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity, Image } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { View } from 'react-native-animatable';
 import { ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -16,7 +16,8 @@ import CampaignActionSheet from '../components/Reports/CampaignActionSheet';
 import TakeActionCallToAction from '../components/TakeAction/TakeActionCallToAction';
 import MapMarker from '../assets/jsicons/headerIcons/map-marker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { ViewportAwareVideo } from '../util';
+import { withNavigationFocus } from 'react-navigation';
+import MediaViewer from '../components/MediaViewer';
 
 class ViewCampaignScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -48,7 +49,6 @@ class ViewCampaignScreen extends React.Component {
     const campaign_id = this.props.navigation.getParam('campaign_id');
 
     if (campaign_id) {
-      console.log(`fetching original post for campaign id ${campaign_id}`);
       this.props.getOriginalPost(campaign_id).finally(() => {
         this.loadPostData();
       });
@@ -62,38 +62,12 @@ class ViewCampaignScreen extends React.Component {
   loadPostData() {
     const campaignPost = this.props.selectedCampaign || {};
 
-    let urgencyColor;
-    if (campaignPost.is_update) {
-      urgencyColor = 'rgba(202,255,0, 0.7)';
-    } else if (campaignPost.urgency === 'Critical') {
-      urgencyColor = 'rgba(227,16,89,0.6)';
-    } else if (campaignPost.urgency === 'Urgent') {
-      urgencyColor = 'rgba(255,199,0,0.6)';
-    } else if (campaignPost.urgency === 'Longterm') {
-      urgencyColor = 'rgba(0,255,157,0.6)';
-    } else {
-      urgencyColor = 'none';
-    }
-
-    let urgencyStatus;
-    if (
-      campaignPost.is_update ||
-      !campaignPost.urgency ||
-      campaignPost.urgency == 'null'
-    ) {
-      urgencyStatus = 'Update';
-    } else {
-      urgencyStatus = campaignPost.urgency.toUpperCase();
-    }
-
-    this.setState((prevState) => ({
-      urgencyColor,
-      urgencyStatus,
+    this.setState({
       createdAt: campaignPost.created_at
         ? moment(campaignPost.created_at).fromNow()
         : '...',
       ...campaignPost,
-    }));
+    });
   }
 
   showActionSheet = () => {
@@ -115,16 +89,6 @@ class ViewCampaignScreen extends React.Component {
   };
 
   render() {
-    const urgencyStyles = {
-      backgroundColor: this.state.urgencyColor,
-      height: 37,
-      width: '100%',
-      position: 'absolute',
-      justifyContent: 'center',
-      alignItems: 'center',
-      zIndex: 1,
-    };
-
     return (
       <View style={styles.mainContainer}>
         <KeyboardAwareScrollView extraScrollHeight={50} enableOnAndroid={false}>
@@ -193,40 +157,11 @@ class ViewCampaignScreen extends React.Component {
                     {this.state.description}
                   </Text>
                 </View>
-                {this.state.image?.includes('.mov') ||
-                this.state.image?.includes('.mp3') ||
-                this.state.image?.includes('.mp4') ? (
-                  <View>
-                    {this.state.urgency ? (
-                      <View style={urgencyStyles}>
-                        <Text style={styles.urgencyBarText}>
-                          {this.state.urgencyStatus}
-                        </Text>
-                      </View>
-                    ) : null}
-                    <ViewportAwareVideo
-                      source={{
-                        uri: this.state.image,
-                      }}
-                      retainOnceInViewport={false}
-                      rate={1.0}
-                      playTriggerRatio={-0.1}
-                      isLooping
-                      shouldPlay={true}
-                      volume={1.0}
-                      isMuted={false}
-                      useNativeControls={false}
-                      resizeMode="cover"
-                      style={styles.campaignImageContainer}
-                    />
-                  </View>
-                ) : (
-                  <Image
-                    source={{ uri: this.state.image }}
-                    style={styles.campaignImageContainer}
-                  />
-                )}
-
+                <MediaViewer
+                  source={this.state.image}
+                  urgency={this.state.urgency}
+                  isUpdate={this.state.is_update}
+                />
                 <View style={styles.donateView}>
                   <TakeActionCallToAction donate={this.state} />
                 </View>
@@ -278,5 +213,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { getOriginalPost })(
-  ViewCampaignScreen
+  withNavigationFocus(ViewCampaignScreen)
 );

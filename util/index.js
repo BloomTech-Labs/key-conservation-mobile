@@ -35,8 +35,6 @@ const Placeholder = () => (
   />
 );
 
-export const ViewportAwareVideo = Viewport.Aware(
-  Viewport.WithPlaceholder(Video, Placeholder)
-);
+export const ViewportAwareVideo = Viewport.Aware(Video);
 
 // Add more above this line...

@@ -1284,4 +1284,20 @@ export const retryUploadPost = (queueId, data) => (dispatch) => {
   }
 };
 
+export const [SET_ACTIVE_VIDEO, UNSET_ACTIVE_VIDEO] = [
+  'SET_ACTIVE_VIDEO',
+  'UNSET_ACTIVE_VIDEO',
+];
+
+export const setActiveVideo = (postId) => (dispatch) => {
+  dispatch({ type: SET_ACTIVE_VIDEO, payload: postId });
+};
+
+export const unsetActiveVideo = (postId) => (dispatch) => {
+  dispatch({
+    type: UNSET_ACTIVE_VIDEO,
+    payload: postId,
+  });
+};
+
 // TODO: Add getting emoji reaction details (User names and avatars for each emoji)
