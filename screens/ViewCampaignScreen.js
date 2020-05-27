@@ -150,9 +150,6 @@ class ViewCampaignScreen extends React.Component {
                   }
                 />
                 <View style={styles.campaignDescriptionContainer}>
-                  {/* <Text style={styles.campaignDescriptionName}>
-                    {this.state.name}
-                  </Text> */}
                   <Text style={styles.campaignDescription}>
                     {this.state.description}
                   </Text>
@@ -168,7 +165,7 @@ class ViewCampaignScreen extends React.Component {
 
                 <View style={styles.commentsView}>
                   {this.props.loading ? (
-                    <Text>Comments loading...</Text>
+                    <Text>Loading comments...</Text>
                   ) : (
                     <CommentsView />
                   )}

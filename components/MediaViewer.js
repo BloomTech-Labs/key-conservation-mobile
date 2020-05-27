@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 // images and displaying them intelligently making sure that
 // only one video ever plays at once, and that videos only play
 // when in view
+const VIDEO_EXTS = ['mov', 'mp3', 'mp3'];
 
 class MediaViewer extends Component {
   constructor(props) {
@@ -22,27 +23,15 @@ class MediaViewer extends Component {
     this.state = {
       loading: true,
     };
-
-    if (this.props.source) {
-      const VIDEO_EXTS = ['mov', 'mp3', 'mp3'];
-
-      let ext = this.props.source.split('.');
-      ext = ext[ext.length - 1].toLowerCase();
-
-      this.isVideo = VIDEO_EXTS.includes(ext);
-
-      this.parseUrgency();
-    }
   }
 
+  determineIfVideo = () => {
+    return VIDEO_EXTS.some((ext) => this.props.source?.includes(ext));
+  };
+
   componentDidUpdate() {
-    if (this.props.source) {
-      const VIDEO_EXTS = ['mov', 'mp3', 'mp3'];
-
-      let ext = this.props.source.split('.');
-      ext = ext[ext.length - 1].toLowerCase();
-
-      this.isVideo = VIDEO_EXTS.includes(ext);
+    if (this.props.urgency) {
+      this.parseUrgency();
     }
   }
 
@@ -70,10 +59,15 @@ class MediaViewer extends Component {
       urgencyStatus = this.props.urgency.toUpperCase();
     }
 
-    this.state = {
-      urgency: urgencyStatus,
-      urgencyColor,
-    };
+    if (
+      this.state.urgency !== urgencyStatus ||
+      this.state.urgencyColor !== urgencyColor
+    ) {
+      this.setState({
+        urgency: urgencyStatus,
+        urgencyColor,
+      });
+    }
   };
 
   onPlaybackStatusUpdate = (status) => {
@@ -114,7 +108,7 @@ class MediaViewer extends Component {
             <ActivityIndicator size="large" />
           </View>
         ) : null}
-        {this.isVideo ? (
+        {this.determineIfVideo() ? (
           <ViewportAwareVideo
             source={{
               uri: this.props.source,
