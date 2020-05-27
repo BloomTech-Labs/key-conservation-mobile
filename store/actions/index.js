@@ -168,16 +168,12 @@ export const getCustomById = (table_name, id) => (dispatch) => {
   let url = `${seturl}`;
 
   switch (table_name) {
-    case 'campaign_updates': {
-      url += 'updates';
+    case 'campaign_posts': {
+      url += 'posts';
       break;
     }
     case 'comments': {
       url += 'comments/com';
-      break;
-    }
-    case 'campaigns': {
-      url += 'campaigns';
       break;
     }
     default: {
@@ -1041,8 +1037,6 @@ export const getReport = (id) => (dispatch) => {
   dispatch({ type: GET_REPORT_START });
   let url = `${seturl}reports/${id}`;
 
-  console.log(`getting report ${id}`);
-
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .get(url)
@@ -1073,6 +1067,8 @@ export const deactivateUser = (id) => (dispatch) => {
 };
 
 export const createReport = (postType, postId, desc) => (dispatch) => {
+  console.log(postType, postId, desc);
+
   return axiosWithAuth(dispatch, (aaxios) => {
     let url = `${seturl}reports`;
     return aaxios

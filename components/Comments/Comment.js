@@ -71,7 +71,7 @@ const Comment = (props) => {
           admin={props.admin}
           commentId={props.comment.id}
           ref={actionSheetRef}
-          campaign={props.selectedCampaign}
+          post={props.selectedCampaign}
         />
         <View style={styles.commentView}>
           <View style={styles.avatar}>

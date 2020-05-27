@@ -8,7 +8,7 @@ import {
   ScrollView,
   Picker,
   Alert,
-  Platform
+  Platform,
 } from 'react-native';
 
 import BackButton from '../components/BackButton';
@@ -29,10 +29,10 @@ class CreateReportScreen extends Component {
     return {
       title: 'Report',
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: '#323338',
       },
       headerTintColor: '#fff',
-      headerLeft: () => <BackButton navigation={navigation} />
+      headerLeft: () => <BackButton navigation={navigation} />,
     };
   };
 
@@ -45,7 +45,7 @@ class CreateReportScreen extends Component {
       text_data: null,
       name: null,
       description: null,
-      reporting: false
+      reporting: false,
     };
 
     this.id = this.props.navigation.getParam('id');
@@ -56,62 +56,42 @@ class CreateReportScreen extends Component {
       `It's an attempt at scam`,
       `It's inappropriate/offensive`,
       `It's spam`,
-      `Other`
+      `Other`,
     ];
   }
 
   componentDidMount() {
     switch (this.type) {
       case 'users': {
-        const { profile_image: image, name } = this.props.selectedProfile;
+        const { profile_image: image, name } = this.props.selectedProfile || {};
         this.setState({
           image,
           name,
-          title: 'account'
+          title: 'account',
         });
         break;
       }
-      case 'campaigns': {
-        const {
-          profile_image: image,
-          name,
-          description: text_data
-        } = this.props.selectedCampaign;
+      case 'campaign_posts': {
+        const { profile_image: image, name, descripton: text_data } =
+          this.props.selectedCampaign || {};
         this.setState({
           image,
           name,
           text_data,
-          title: 'campaign'
-        });
-        break;
-      }
-      case 'campaign_updates': {
-        const {
-          profile_image: image,
-          name,
-          descripton: text_data
-        } = this.props.selectedCampaign;
-        this.setState({
-          image,
-          name,
-          text_data,
-          title: 'campaign'
+          title: 'campaign',
         });
         break;
       }
       case 'comments': {
-        const {
-          profile_image: image,
-          body: text_data,
-          name
-        } = this.props.selectedCampaign.comments.find(
-          com => com.id === this.props.navigation.getParam('id')
-        );
+        const { profile_image: image, body: text_data, name } =
+          this.props.selectedCampaign.comments.find(
+            (com) => com.id === this.id
+          ) || {};
         this.setState({
           image,
           name,
           text_data,
-          title: 'comment'
+          title: 'comment',
         });
         break;
       }
@@ -123,7 +103,7 @@ class CreateReportScreen extends Component {
     // Send the report here
     this.props
       .createReport(this.type, this.id, this.state.description)
-      .then(err => {
+      .then((err) => {
         if (!err) {
           Alert.alert(
             'Thank you',
@@ -145,12 +125,12 @@ class CreateReportScreen extends Component {
     // without any wrapping element, so we include our Collapsible
     // component as a wrapping element.
     const PickerWrapper = Platform.select({
-      ios: props => (
+      ios: (props) => (
         <Collapsible title={this.state.description} collapsed={true}>
           {props.children}
         </Collapsible>
       ),
-      android: props => <View>{props.children}</View>
+      android: (props) => <View>{props.children}</View>,
     });
 
     return (
@@ -195,7 +175,7 @@ class CreateReportScreen extends Component {
                 ? {
                     ...styles.report_button,
                     backgroundColor: 'gray',
-                    shadowOpacity: 0
+                    shadowOpacity: 0,
                   }
                 : styles.report_button
             }
@@ -208,9 +188,9 @@ class CreateReportScreen extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   selectedCampaign: state.selectedCampaign,
-  selectedProfile: state.selectedProfile
+  selectedProfile: state.selectedProfile,
 });
 
 export default connect(mapStateToProps, { createReport })(CreateReportScreen);
