@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -25,6 +25,12 @@ const CampaignNotification = (props) => {
   // });
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    console.log('@@@@@@@@@', data);
+  }, [data]);
+
+  const [data, setData] = useState(props.notifData.item);
+
   const goToProfile = () => {
     props.nav.push('Pro', {
       selectedProfile: props.notifData.item.sender_id,
@@ -33,21 +39,34 @@ const CampaignNotification = (props) => {
 
   const createdAt = props.notifData.item.time;
 
+  const checkNew = () => {
+    console.log('state data', data);
+    if ((data.new_notification = true)) {
+      return setData({
+        ...data,
+        new_notification: false,
+      });
+    }
+  };
+
   const goToCampaign = async () => {
     AmpEvent('Select Profile from Campaign', {
       campaign: props.notifData.item.name,
       profile: props.notifData.item.sender_name,
     });
-    console.log('testme', props.notifData.item);
+    // console.log('testme', props.notifData.item);
     dispatch(setCampaign(props.notifData.item));
-    console.log('!!!!!!!!!!!!!!!!!!!!!!!', selectedCampaign);
+    // console.log('!!!!!!!!!!!!!!!!!!!!!!!', selectedCampaign);
     navigate('Campaign', {
       userBookmarked: 153,
     });
   };
 
   return (
-    <TouchableOpacity style={styles.wrapper} onPress={goToCampaign}>
+    <TouchableOpacity
+      style={!data.new_notification ? styles.wrapper : styles.wrapperNew}
+      onPress={checkNew}
+    >
       <View style={styles.container}>
         <View style={styles.avatarContainer}>
           <Avatar
@@ -90,6 +109,11 @@ const styles = StyleSheet.create({
   wrapper: {
     height: 80,
     backgroundColor: 'white',
+  },
+  wrapperNew: {
+    height: 80,
+    backgroundColor: '#D3D3D3',
+    borderRadius: 20,
   },
   container: {
     flex: 1,

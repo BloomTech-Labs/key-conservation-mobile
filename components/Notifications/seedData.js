@@ -1,3 +1,9 @@
+// export const checkNew = () => {
+//   if(seedData.data.new_notification == true){
+//     return seedData.data.new_notification = false;
+//   }
+// }
+
 export const seedData = {
   data: [
     {
@@ -14,6 +20,7 @@ export const seedData = {
       emoji: null, //Pathway to emoji? If an emoji used?
       comment: null,
       campaign_update_type: null,
+      new_notification: true,
     },
     {
       notification_Id: 2,
@@ -31,6 +38,7 @@ export const seedData = {
       comment: null,
       name: 'Restoring our habitats',
       urgency: 'Critical',
+      new_notification: true,
     },
     {
       notification_Id: 3,
@@ -46,6 +54,7 @@ export const seedData = {
       emoji: null, //Pathway to emoji? If Emoji used?
       comment: null,
       campaign_update_type: null,
+      new_notification: true,
     },
     {
       notification_Id: 4,
@@ -63,6 +72,7 @@ export const seedData = {
       comment: null,
       name: 'Restoring our habitats',
       urgency: 'Critical',
+      new_notification: true,
     },
   ],
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -17,25 +17,33 @@ import TimeStamp from './TimeStamp';
 
 const ConnectionNotification = (props) => {
   useEffect(() => {
-    // console.log(props);
-    // console.log(props.notifData.item.sender_name);
-    // console.log(props.notifData.item.sender_Pic);
-  });
+    console.log('@@@@@@@@@', data);
+  }, [data]);
 
   const createdAt = props.notifData.item.time;
+  const [data, setData] = useState(props.notifData.item);
 
   const goToCommenterProfile = () => {
     props.nav.push('Pro', {
       selectedProfile: props.notifData.item.sender_id,
     });
+    checkNew();
+  };
+
+  const checkNew = () => {
+    console.log('state data', data);
+    if ((data.new_notification = true)) {
+      return setData({
+        ...data,
+        new_notification: false,
+      });
+    }
   };
 
   return (
     <TouchableOpacity
-      style={styles.wrapper}
-      onPress={() => {
-        props.nav.push('Connections', (props = { forceOpen: true }));
-      }}
+      style={!data.new_notification ? styles.wrapper : styles.wrapperNew}
+      onPress={goToCommenterProfile}
     >
       <View style={styles.container}>
         <View style={styles.avatarContainer}>
@@ -75,6 +83,11 @@ const styles = StyleSheet.create({
   wrapper: {
     height: 80,
     backgroundColor: 'white',
+  },
+  wrapperNew: {
+    height: 80,
+    backgroundColor: '#D3D3D3',
+    borderRadius: 20,
   },
   container: {
     flex: 1,
