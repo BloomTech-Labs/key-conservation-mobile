@@ -9,11 +9,9 @@ import {
 import { withNavigationFocus } from 'react-navigation';
 import { View } from 'react-native-animatable';
 import moment from 'moment';
-import { Video } from 'expo-av';
 import { ListItem, Badge } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
-import { Viewport } from '@skele/components';
 
 import {
   toggleCampaignText,
@@ -36,18 +34,11 @@ import TakeActionCallToAction from './TakeAction/TakeActionCallToAction';
 import SmileSelector from './FeedScreen/SmileSelector';
 import Bookmark from '../assets/jsicons/miscIcons/Bookmark';
 import BookmarkSolid from '../assets/jsicons/miscIcons/BookmarkSolid';
-import { shorten } from '../util';
-
-const Placeholder = () => <View style={styles.campImgContain} />;
-
-const ViewportAwareVideo = Viewport.Aware(
-  Viewport.WithPlaceholder(Video, Placeholder)
-);
+import { shorten, ViewportAwareVideo } from '../util';
 
 const CampaignPost = (props) => {
   const { data, toggled } = props;
 
-  const [urgTop, setUrgTop] = useState(0);
   const [loader, setLoader] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
 
@@ -107,7 +98,6 @@ const CampaignPost = (props) => {
     height: 37,
     width: '100%',
     position: 'absolute',
-    top: urgTop,
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 1,

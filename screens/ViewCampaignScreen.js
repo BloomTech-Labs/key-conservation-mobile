@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, TouchableOpacity, Image } from 'react-native';
 import { View } from 'react-native-animatable';
-import { Video } from 'expo-av';
 import { ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { getOriginalPost } from '../store/actions';
@@ -17,6 +16,7 @@ import CampaignActionSheet from '../components/Reports/CampaignActionSheet';
 import TakeActionCallToAction from '../components/TakeAction/TakeActionCallToAction';
 import MapMarker from '../assets/jsicons/headerIcons/map-marker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { ViewportAwareVideo } from '../util';
 
 class ViewCampaignScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -115,6 +115,16 @@ class ViewCampaignScreen extends React.Component {
   };
 
   render() {
+    const urgencyStyles = {
+      backgroundColor: this.state.urgencyColor,
+      height: 37,
+      width: '100%',
+      position: 'absolute',
+      justifyContent: 'center',
+      alignItems: 'center',
+      zIndex: 1,
+    };
+
     return (
       <View style={styles.mainContainer}>
         <KeyboardAwareScrollView extraScrollHeight={50} enableOnAndroid={false}>
@@ -186,17 +196,30 @@ class ViewCampaignScreen extends React.Component {
                 {this.state.image?.includes('.mov') ||
                 this.state.image?.includes('.mp3') ||
                 this.state.image?.includes('.mp4') ? (
-                  <Video
-                    source={{
-                      uri: this.state.image,
-                    }}
-                    rate={1.0}
-                    volume={1.0}
-                    isMuted={true}
-                    useNativeControls={true}
-                    resizeMode="cover"
-                    style={styles.campaignImageContainer}
-                  />
+                  <View>
+                    {this.state.urgency ? (
+                      <View style={urgencyStyles}>
+                        <Text style={styles.urgencyBarText}>
+                          {this.state.urgencyStatus}
+                        </Text>
+                      </View>
+                    ) : null}
+                    <ViewportAwareVideo
+                      source={{
+                        uri: this.state.image,
+                      }}
+                      retainOnceInViewport={false}
+                      rate={1.0}
+                      playTriggerRatio={-0.1}
+                      isLooping
+                      shouldPlay={true}
+                      volume={1.0}
+                      isMuted={false}
+                      useNativeControls={false}
+                      resizeMode="cover"
+                      style={styles.campaignImageContainer}
+                    />
+                  </View>
                 ) : (
                   <Image
                     source={{ uri: this.state.image }}
