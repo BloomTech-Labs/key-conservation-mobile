@@ -16,7 +16,6 @@ import CampaignActionSheet from '../components/Reports/CampaignActionSheet';
 import TakeActionCallToAction from '../components/TakeAction/TakeActionCallToAction';
 import MapMarker from '../assets/jsicons/headerIcons/map-marker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { withNavigationFocus } from 'react-navigation';
 import MediaViewer from '../components/MediaViewer';
 
 class ViewCampaignScreen extends React.Component {
@@ -210,5 +209,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { getOriginalPost })(
-  withNavigationFocus(ViewCampaignScreen)
+  ViewCampaignScreen
 );
