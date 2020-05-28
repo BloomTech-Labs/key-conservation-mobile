@@ -13,6 +13,7 @@ import { useHeaderHeight } from 'react-navigation-stack';
 
 const ProfileHeader = forwardRef((props, ref) => {
   let profile = props.profile || {};
+  console.log('profile', profile);
 
   const appHeaderHeight = useHeaderHeight();
 
@@ -34,7 +35,7 @@ const ProfileHeader = forwardRef((props, ref) => {
 
     setState({
       ...state,
-      MAX_HEADER_HEIGHT: height
+      MAX_HEADER_HEIGHT: height,
     });
   };
 
@@ -45,7 +46,7 @@ const ProfileHeader = forwardRef((props, ref) => {
     ? props.parentScrollY.interpolate({
         inputRange: [0, inputMax],
         outputRange: [0, -inputMax],
-        extrapolate: 'clamp'
+        extrapolate: 'clamp',
       })
     : 0;
 
@@ -53,7 +54,7 @@ const ProfileHeader = forwardRef((props, ref) => {
     ? props.parentScrollY.interpolate({
         inputRange: [0, inputMax / 2, inputMax],
         outputRange: [0, 2, 10],
-        extrapolate: 'clamp'
+        extrapolate: 'clamp',
       })
     : 0;
 
@@ -61,7 +62,7 @@ const ProfileHeader = forwardRef((props, ref) => {
     ? props.parentScrollY.interpolate({
         inputRange: [0, inputMax / 2, inputMax],
         outputRange: [1, 0.2, 0],
-        extrapolate: 'clamp'
+        extrapolate: 'clamp',
       })
     : null;
 
@@ -76,7 +77,7 @@ const ProfileHeader = forwardRef((props, ref) => {
         style={{
           opacity: 0.6,
           height: 360,
-          width: '100%'
+          width: '100%',
         }}
         blurRadius={headerBlur}
         imageStyle={{ opacity: 0.6 }}
@@ -89,9 +90,9 @@ const ProfileHeader = forwardRef((props, ref) => {
             opacity:
               contentOpacity?.interpolate({
                 inputRange: [0, 0.2, 1],
-                outputRange: [1, 0.6, 0]
-              }) || 0
-          }
+                outputRange: [1, 0.6, 0],
+              }) || 0,
+          },
         ]}
       >
         <Text style={styles.headerTitle}>{profileName}</Text>
@@ -99,7 +100,7 @@ const ProfileHeader = forwardRef((props, ref) => {
       <Animated.View
         style={[
           styles.contentContainer,
-          { marginTop: appHeaderHeight, opacity: contentOpacity }
+          { marginTop: appHeaderHeight, opacity: contentOpacity },
         ]}
       >
         <View style={styles.avatarContainer}>
@@ -107,7 +108,7 @@ const ProfileHeader = forwardRef((props, ref) => {
             size={80}
             rounded
             source={{
-              uri: profile.profile_image || undefined
+              uri: profile.profile_image || undefined,
             }}
           />
         </View>

@@ -23,13 +23,15 @@ export default class ConnectionsScreen extends React.Component {
   constructor(props) {
     super(props);
 
+    // console.log(props.navigation.state.params.forceOpen);
+
     const routes = [
       { key: 'organizations', title: 'Organizations' },
       { key: 'people', title: 'People' }
     ];
 
     this.state = {
-      index: 0,
+      index: props.navigation.state.params.forceOpen ? 1 : 0, /// This is where the connections page renders either org or people. 1 = people, 0 = organization
       routes
     };
   }

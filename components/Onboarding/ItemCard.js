@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 
 const ItemCard = props => {
   const { item } = props;
+
   if (!item) {
     return null;
   } else {
