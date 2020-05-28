@@ -116,7 +116,7 @@ class SkillContent extends React.Component {
               </Text>
               <Switch
                 style={styles.reachMeSwitch}
-                trackColor={{ false: '#767577', true: '#30d985' }}
+                trackColor={{ false: '#767577', true: '#00ff9d' }}
                 thumbColor={this.state.isAcceptingHelp ? '#fffeff' : '#f4f3f4'}
                 ios_backgroundColor="#3e3e3e"
                 onValueChange={this.toggleAcceptingHelpSwitch}

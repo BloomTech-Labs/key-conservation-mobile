@@ -59,11 +59,11 @@ export default StyleSheet.create({
     paddingTop: 8,
   },
   topRowLeft: {
-    paddingLeft: 17,
+    paddingLeft: 9,
     width: '75%',
   },
   topRowRight: {
-    paddingRight: 15,
+    paddingRight: 10,
   },
   postTitle: {
     paddingRight: 15,
@@ -106,24 +106,35 @@ export default StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
   },
-  rightSection: {
+  rightSectionBookmark: {
     borderRadius: 12,
-    marginTop: 12,
+    marginTop: 10,
     marginRight: 3,
-    fontFamily: 'Lato',
-    fontSize: 14,
-    lineHeight: 16,
     backgroundColor: '#F5F5F5',
-    paddingTop: 5,
+    paddingTop: 10,
     paddingLeft: 6,
     paddingRight: 6,
     height: 42,
+  },
+  rightSectionComment: {
+    borderRadius: 12,
+    marginTop: 10,
+    marginRight: 3,
+    backgroundColor: '#F5F5F5',
+    paddingTop: 6,
+    paddingLeft: 6,
+    paddingRight: 6,
+    height: 42,
+  },
+  listItemStyle: {
+    borderBottomColor: 'transparent',
+    borderBottomWidth: 0,
   },
   readMore: {
     color: '#929292',
   },
   demarcation: {
-    marginTop: 10,
+    marginTop: 5,
   },
   subtitleText: {
     color: '#929292',

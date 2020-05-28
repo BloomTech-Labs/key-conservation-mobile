@@ -16,7 +16,7 @@ export default function ActiveComment() {
 </svg>`;
 
   const ActiveComment = () => (
-    <SvgXml xml={active_comment} width="23" height="23" />
+    <SvgXml xml={active_comment} width="26" height="26" />
   );
 
   return <ActiveComment />;

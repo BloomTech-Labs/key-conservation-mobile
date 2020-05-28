@@ -52,6 +52,7 @@ class FeedScreen extends React.Component {
       title: 'LIVE Feed',
       headerStyle: {
         backgroundColor: '#323338',
+        shadowColor: 'transparent',
       },
       headerTintColor: '#fff',
     };

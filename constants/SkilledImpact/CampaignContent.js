@@ -55,7 +55,7 @@ export default StyleSheet.create({
     fontSize: 17,
     marginLeft: 7,
     textAlign: 'left',
-    fontFamily: 'Lato',
+    fontFamily: 'Lato-Bold',
     alignSelf: 'flex-start',
   },
   chevronArrowContainer: {
@@ -149,8 +149,12 @@ export default StyleSheet.create({
   description: {
     width: '100%',
     justifyContent: 'flex-end',
-    fontSize: 14,
     paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingTop: 5,
+    paddingBottom: 10
   },
+  descriptionText: {
+    fontSize: 16,
+    fontFamily: 'Lato'
+  }
 });

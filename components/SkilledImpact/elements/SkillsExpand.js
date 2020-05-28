@@ -76,7 +76,7 @@ const SkillsExpand = (props) => {
                 <Text style={styles.reachMeText}>Other Conservation organizations and Researchers can contact me about our skills</Text>
                 <Switch
                   style={styles.reachMeSwitch}
-                  trackColor={{ false: "#767577", true: "#30d985" }}
+                  trackColor={{ false: "#767577", true: "#00ff9d" }}
                   thumbColor={acceptingHelp ? "#fffeff" : "#f4f3f4"}
                   ios_backgroundColor="#3e3e3e"
                   onValueChange={toggleAcceptingHelpSwitch}
