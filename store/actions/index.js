@@ -164,7 +164,7 @@ export const getAirtableKey = () => {
 // Data comes in as a table name and an ID
 // So this function allows for the dynamic request of any
 // type of report
-export const getCustomById = (table_name, id) => (dispatch) => {
+export const getCustomById = (table_name, id, canceltoken) => (dispatch) => {
   let url = `${seturl}`;
 
   switch (table_name) {
@@ -185,7 +185,9 @@ export const getCustomById = (table_name, id) => (dispatch) => {
   }
 
   return axiosWithAuth(dispatch, (aaxios) => {
-    return aaxios.get(`${url}/${id}`);
+    return aaxios
+      .get(`${url}/${id}`, { canceltoken })
+      .catch((err) => console.log(err.response));
   });
 };
 
