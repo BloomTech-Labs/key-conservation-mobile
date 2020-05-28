@@ -16,24 +16,7 @@ const Comment = (props) => {
 
   const actionSheetRef = useRef(null);
 
-  const createdAt = props.comment.created_at;
-  const currentTime = moment();
-  const postTime = moment(createdAt);
-  let timeDiff;
-  
-  if (currentTime.diff(postTime, 'days') < 1) {
-    if (currentTime.diff(postTime, 'hours') < 1) {
-      if (currentTime.diff(postTime, 'minutes') < 1) {
-        timeDiff = 'just now';
-      } else {
-        currentTime.diff(postTime, 'minutes') === 1 ? timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO` : timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`;
-      }
-    } else {
-      currentTime.diff(postTime, 'hours') === 1 ? timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO` : timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`;
-    }
-  } else {
-    currentTime.diff(postTime, 'days') === 1 ? timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO` : timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
-  }
+  const timeDiff = moment(props.comment.created_at).fromNow();
 
   const goToCommenterProfile = () => {
     props.navigation.push('Pro', {

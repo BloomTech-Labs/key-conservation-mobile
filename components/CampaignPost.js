@@ -36,7 +36,7 @@ import { shorten } from '../util';
 import MediaViewer from './MediaViewer';
 
 const CampaignPost = (props) => {
-  const { data, toggled, selectedCampaign } = props;
+  const { data, toggled } = props;
 
   const [isSaved, setIsSaved] = useState(false);
 
@@ -113,9 +113,7 @@ const CampaignPost = (props) => {
       campaign: data.campaign_name,
       profile: data.org_name,
     });
-    console.log('testme', data);
     dispatch(setCampaign(data));
-    console.log('!!!!!!!!!!!!!!!!!!!!!!!', selectedCampaign);
     navigate('Campaign', {
       userBookmarked: data.userBookmarked,
     });
@@ -293,7 +291,6 @@ const mapStateToProps = (state) => ({
   currentUserProfile: state.currentUserProfile,
   currentUser: state.currentUser,
   token: state.token,
-  selectedCampaign: state.selectedCampaign,
   deleteBuffer: state.pending.deletePost,
   bookmarks: state.bookmarks,
   bookmarksLoading: state.pending.bookmarks,
