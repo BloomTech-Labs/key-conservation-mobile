@@ -77,7 +77,7 @@ class SupporterCampaignContent extends React.Component {
                 })
               ) : (
                 <View style={styles.description}>
-                  <Text>
+                  <Text style={styles.descriptionText}>
                     Select your skills above to see available campaigns that
                     match your skills
                   </Text>

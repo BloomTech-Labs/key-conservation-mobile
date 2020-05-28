@@ -70,6 +70,25 @@ const CampaignPost = (props) => {
   const createdAt = data.created_at;
   const timeDiff = moment(createdAt).fromNow();
 
+  moment.locale('en', {
+    relativeTime: {
+      future: 'in %s',
+      past: '%s',
+      s: '1s',
+      ss: '%ss',
+      m: '1m',
+      mm: '%dm',
+      h: '1h',
+      hh: '%dh',
+      d: '1d',
+      dd: '%dd',
+      M: '1m',
+      MM: '%d months',
+      y: '1y',
+      yy: '%dY',
+    },
+  });
+
   const [animation] = useState(new Animated.Value(0));
 
   const animateIn = Animated.timing(animation, {
@@ -201,6 +220,7 @@ const CampaignPost = (props) => {
           </View>
         </View>
         <ListItem
+          containerStyle={styles.listItemStyle}
           disabled={props.disableHeader}
           onPress={goToProfile}
           title={
@@ -216,6 +236,7 @@ const CampaignPost = (props) => {
             <TouchableOpacity onPress={showActionSheet}>
               <View
                 style={{
+                  marginTop: -12,
                   height: 25,
                   width: 40,
                   paddingRight: 5,
@@ -255,7 +276,6 @@ const CampaignPost = (props) => {
               </Text>
             </Text>
           )}
-          {/* <Text style={styles.timeText}>{timeDiff}</Text> */}
         </View>
         <View>
           <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
@@ -316,7 +336,7 @@ const CampaignPost = (props) => {
           <View style={styles.campaignControlsRight}>
             {props.currentUserProfile.roles === 'supporter' ? (
               <TouchableOpacity
-                style={styles.rightSection}
+                style={styles.rightSectionBookmark}
                 onPress={handleBookmarkPressed}
               >
                 {props.bookmarksLoading ? (
@@ -330,7 +350,7 @@ const CampaignPost = (props) => {
             ) : null}
 
             <TouchableOpacity
-              style={styles.rightSection}
+              style={styles.rightSectionComment}
               onPress={goToCampaign}
             >
               <CommentIcon />
