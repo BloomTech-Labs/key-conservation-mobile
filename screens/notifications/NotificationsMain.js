@@ -9,6 +9,7 @@ import {
   FlatList,
   Text,
 } from 'react-native';
+import { Badge, withBadge } from 'react-native-elements';
 
 import BackButton from '../../components/BackButton';
 import ConnectionNotification from '../../components/Notifications/ConnectionNotification';
@@ -82,11 +83,20 @@ class NotificationsMain extends React.Component {
           >
             <View>
               <Bell />
-              <View style={styles.counterTextContainer} />
+              <Badge
+                value={Object.keys(seedData.data).length}
+                style={styles.badge}
+                containerStyle={{
+                  position: 'absolute',
+                  top: -4,
+                  right: -4,
+                }}
+              />
+              {/* <View style={styles.counterTextContainer} />
               {/* </View> */}
-              <Text style={styles.counterText}>
-                {Object.keys(seedData.data).length}
-              </Text>
+              {/* <Text style={styles.counterText}> */}
+              {/* {Object.keys(seedData.data).length} */}
+              {/* </Text>{' '} */}
             </View>
           </TouchableOpacity>
         </View>
@@ -182,7 +192,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     width: '100%',
-    maxHeight: '10%',
+    maxHeight: '8%',
     backgroundColor: 'white',
     shadowColor: '#292626',
     shadowRadius: 5,
@@ -212,19 +222,19 @@ const styles = StyleSheet.create({
     width: '15%',
     height: '15%',
   },
-  counterTextContainer: {
-    position: 'absolute',
-    right: -10,
-    padding: 8,
+  badge: {
+    // position: 'absolute',
+    // right: -3,
+    // top: -2,
+    // padding: 8,
     backgroundColor: '#D7FF43',
-    borderRadius: 50,
+    // borderRadius: 40,
   },
   counterText: {
     position: 'absolute',
-    right: -5,
+    right: 1,
     top: -1,
-    fontSize: 12,
-    fontWeight: 'bold',
+    fontSize: 11,
   },
   contentContainer: {
     flex: 1,

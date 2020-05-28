@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     width: 'auto',
     // flex: 1,
     borderRadius: 7.5,
-    height: 27,
+    height: 30,
     paddingRight: 15,
     paddingLeft: 15,
     margin: 'auto',
