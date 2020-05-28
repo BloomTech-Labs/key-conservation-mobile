@@ -109,11 +109,13 @@ const styles = StyleSheet.create({
   wrapper: {
     height: 80,
     backgroundColor: 'white',
+    marginBottom: 10,
   },
   wrapperNew: {
     height: 80,
     backgroundColor: '#D3D3D3',
     borderRadius: 20,
+    marginBottom: 10,
   },
   container: {
     flex: 1,
