@@ -59,6 +59,25 @@ const CampaignPost = (props) => {
   const createdAt = data.created_at;
   const timeDiff = moment(createdAt).fromNow();
 
+  moment.updateLocale('en', {
+    relativeTime: {
+      future: 'in %s',
+      past: '%s',
+      s: '1s',
+      ss: '%ss',
+      m: '1m',
+      mm: '%dm',
+      h: '1h',
+      hh: '%dh',
+      d: '1d',
+      dd: '%dd',
+      M: '1m',
+      MM: '%d months',
+      y: '1y',
+      yy: '%dY',
+    },
+  });
+
   const [animation] = useState(new Animated.Value(0));
 
   const animateIn = Animated.timing(animation, {
