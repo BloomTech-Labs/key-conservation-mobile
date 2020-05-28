@@ -235,10 +235,10 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     marginTop: 10,
-    paddingTop: 5,
+    paddingTop: 1,
     backgroundColor: 'white',
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
   },
   contentContainerLoading: {
     flex: 1,
