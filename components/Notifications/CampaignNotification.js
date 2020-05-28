@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     // padding: 10,
     borderRadius: 0,
-    margin: 6,
+    marginVertical: 6,
     alignItems: 'center',
   },
   content: {
@@ -141,6 +141,7 @@ const styles = StyleSheet.create({
     // flex: 1,
     width: '15%',
     marginLeft: 1,
+    alignItems: 'flex-start',
   },
   imgContainer: {
     alignSelf: 'center',

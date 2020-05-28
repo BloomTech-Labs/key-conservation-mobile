@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     margin: 3,
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 0.5 },
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.1,
     elevation: 1,
   },
   container: {
@@ -116,7 +116,12 @@ const styles = StyleSheet.create({
     width: '15 %',
     marginLeft: 1,
   },
+  avatar: {
+    justifyContent: 'flex-start',
+    width: '100%',
+  },
   button: {
+    minWidth: '17%',
     width: 'auto',
     // flex: 1,
     borderRadius: 7.5,
