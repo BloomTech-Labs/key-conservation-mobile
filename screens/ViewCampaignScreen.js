@@ -184,7 +184,8 @@ class ViewCampaignScreen extends React.Component {
 
                 <View style={styles.donateView}>
                   <TakeActionCallToAction
-                    donate={this.props.selectedCampaign}
+                    data={this.props.selectedCampaign}
+                    navigation={this.props.navigation}
                   />
                 </View>
 
