@@ -20,30 +20,19 @@ const Comment = (props) => {
   const currentTime = moment();
   const postTime = moment(createdAt);
   let timeDiff;
+  
   if (currentTime.diff(postTime, 'days') < 1) {
     if (currentTime.diff(postTime, 'hours') < 1) {
       if (currentTime.diff(postTime, 'minutes') < 1) {
         timeDiff = 'just now';
       } else {
-        if (currentTime.diff(postTime, 'minutes') === 1) {
-          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO`;
-        } else {
-          timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`;
-        }
+        currentTime.diff(postTime, 'minutes') === 1 ? timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTE AGO` : timeDiff = `${currentTime.diff(postTime, 'minutes')} MINUTES AGO`;
       }
     } else {
-      if (currentTime.diff(postTime, 'hours') === 1) {
-        timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO`;
-      } else {
-        timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`;
-      }
+      currentTime.diff(postTime, 'hours') === 1 ? timeDiff = `${currentTime.diff(postTime, 'hours')} HOUR AGO` : timeDiff = `${currentTime.diff(postTime, 'hours')} HOURS AGO`;
     }
   } else {
-    if (currentTime.diff(postTime, 'days') === 1) {
-      timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO`;
-    } else {
-      timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
-    }
+    currentTime.diff(postTime, 'days') === 1 ? timeDiff = `${currentTime.diff(postTime, 'days')} DAY AGO` : timeDiff = `${currentTime.diff(postTime, 'days')} DAYS AGO`;
   }
 
   const goToCommenterProfile = () => {

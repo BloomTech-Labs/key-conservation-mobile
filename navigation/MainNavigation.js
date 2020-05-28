@@ -29,6 +29,7 @@ import EditSupporterProfileScreen from '../screens/EditSupporterProfileScreen';
 import CreateCampaignUpdateScreen from '../screens/CreateCampaignUpdateScreen';
 import AccountSettingsScreen from '../screens/AccountSettingsScreen';
 import WideMapScreen from '../screens/maps/WideMapScreen';
+import NotificationsScreen from '../screens/notifications/NotificationsMain';
 import AdminReportScreen from '../screens/AdminReportScreen';
 import ReportDetailScreen from '../screens/ReportDetailScreen';
 import CreateReportScreen from '../screens/CreateReportScreen';
@@ -46,6 +47,7 @@ import Lightening from '../assets/jsicons/bottomnavigation/Lightening';
 import Globe from '../assets/jsicons/bottomnavigation/Globe';
 import Smile from '../assets/jsicons/bottomnavigation/Smile';
 import Sync from '../assets/jsicons/bottomnavigation/Sync';
+import Bell from '../assets/jsicons/bottomnavigation/Bell';
 
 export const OrgOnboardStack = createStackNavigator(
   {
@@ -77,6 +79,18 @@ const MapStack = createStackNavigator(
     navigationOptions: {
       tabBarLabel: 'Map',
       tabBarIcon: ({ focused }) => <Globe />,
+    },
+  }
+);
+
+const NotStack = createStackNavigator(
+  {
+    NotScreen: NotificationsScreen,
+  },
+  {
+    navigationOptions: {
+      tabBarLabel: 'Map',
+      tabBarIcon: ({ focused }) => <Bell />,
     },
   }
 );
@@ -236,6 +250,10 @@ export const ConsNavigator = createBottomTabNavigator(
     MapStack: {
       screen: MapStack,
     },
+    NotStack: {
+      screen: NotStack,
+      path: '',
+    },
     MyProStack: {
       screen: MyProStack,
       path: '',
@@ -273,6 +291,10 @@ export const SupporterNavigator = createBottomTabNavigator(
     },
     MapStack: {
       screen: MapStack,
+    },
+    NotStack: {
+      screen: NotStack,
+      path: '',
     },
     SupporterProfileStack: {
       screen: SupporterProfileStack,
