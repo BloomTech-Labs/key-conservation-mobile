@@ -218,7 +218,6 @@ const styles = StyleSheet.create({
     height: '15%',
   },
   badge: {
-    position: 'absolute',
     backgroundColor: '#D7FE49',
     color: "black",
     overflow: "hidden",
