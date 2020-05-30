@@ -89,19 +89,48 @@ class CreateCampaignScreen extends React.Component {
     }
   };
 
+  isProjectGoalArrValid = (projectGoalArr) =>{
+    for(const entry of projectGoalArr){
+      if(entry.description==""||
+         entry.goal_title==""){
+        return false;
+      }
+    }
+    return true;
+  };
+
+  isSkillImpactRequestValid = (skillImpactRequestMap) =>{
+    if(skillImpactRequestMap.size==0){
+      return true;
+    }else {
+      for (const [key, entry] of skillImpactRequestMap) {
+        if (entry.skill=="" ||
+          entry.point_of_contact=="" ||
+          entry.our_contribution=="" ||
+          !this.isProjectGoalArrValid(entry.project_goals)
+        ){
+          return false;
+        }
+      }
+      return true;
+    }
+  };
+
   publish = () => {
     if (
       !this.state.image ||
       !this.state.name ||
       !this.state.description ||
-      !this.state.call_to_action
+      !this.state.call_to_action ||
+      !this.isSkillImpactRequestValid(this.state.skillImpactRequests)
     ) {
       const errorMessage =
         'Form incomplete. Please include:' +
         (this.state.image ? '' : '\n    - Campaign Image') +
         (this.state.name ? '' : '\n    - Campaign Name') +
         (this.state.description ? '' : '\n    - Campaign Details') +
-        (this.state.call_to_action ? '' : '\n    - Donation Link');
+        (this.state.call_to_action ? '' : '\n    - Donation Link') +
+        (this.isSkillImpactRequestValid(this.state.skillImpactRequests) ? '': '\n    - Skill Impact Requests Form');
       return Alert.alert('Error', errorMessage);
     } else {
       const campaign = {
@@ -111,6 +140,7 @@ class CreateCampaignScreen extends React.Component {
         call_to_action: this.state.call_to_action,
         urgency: this.state.urgency,
         image: this.state.image,
+        skilledImpactRequests: Array.from(this.state.skillImpactRequests.values())
       };
       this.props.postCampaign(campaign);
       this.props.navigation.goBack();
