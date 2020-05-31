@@ -140,7 +140,7 @@ class CreateCampaignScreen extends React.Component {
         call_to_action: this.state.call_to_action,
         urgency: this.state.urgency,
         image: this.state.image,
-        skilledImpactRequests: Array.from(this.state.skillImpactRequests.values())
+        skilledImpactRequests: JSON.stringify(Array.from(this.state.skillImpactRequests.values()))
       };
       this.props.postCampaign(campaign);
       this.props.navigation.goBack();
