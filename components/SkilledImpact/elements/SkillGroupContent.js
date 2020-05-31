@@ -13,6 +13,7 @@ const assetPath = '../../../assets/images/SkilledImpact/Skills_Logos/';
 const skillsImageMap = {
   ACCOUNTING: require(assetPath + 'Accounting.png'),
   ARCHITECTURE: require(assetPath + 'Architecture.png'),
+  ARTIFICIAL_INTELLIGENCE: require(assetPath + 'Artificial_Intelligence.png'),
   AUTO: require(assetPath + 'Auto.png'),
   APP_DEVELOPMENT: require(assetPath + 'App_Development.png'),
   ART: require(assetPath + 'Art.png'),
