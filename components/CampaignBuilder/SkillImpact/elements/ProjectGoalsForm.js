@@ -70,11 +70,14 @@ const ProjectGoalsForm = (props) => {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={styles.elementRightContainer}>
+          <TouchableOpacity
+            style={styles.elementRightContainer}
+            onPress={addProjectGoal}
+          >
             <Text style={styles.textInput}>
               Add another goal
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
