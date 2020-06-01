@@ -113,7 +113,7 @@ class MediaViewer extends Component {
             source={{
               uri: this.props.source,
             }}
-            retainOnceInViewport={true}
+            retainOnceInViewport={false}
             preTriggerRatio={-0.1}
             rate={1.0}
             isMuted={false}
