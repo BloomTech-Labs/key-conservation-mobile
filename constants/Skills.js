@@ -1,6 +1,7 @@
 export default {
   ACCOUNTING: 'Accounting',
   ARCHITECTURE: 'Architecture',
+  ARTIFICIAL_INTELLIGENCE: 'Artificial Intelligence',
   AUTO: 'Auto',
   APP_DEVELOPMENT: 'App Development',
   ART: 'Art',
