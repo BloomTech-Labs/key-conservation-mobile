@@ -32,7 +32,6 @@ class ProfileScreen extends React.Component {
 
     this.headerOnScroll = React.createRef();
     this.bodyOnScroll = React.createRef();
-    // this.scrollY = new Animated.Value(0);
 
     this.scrollView = React.createRef();
 

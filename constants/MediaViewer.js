@@ -23,7 +23,7 @@ export default StyleSheet.create({
     width: '100%',
     flex: 1,
     height: deviceWidth,
-    marginTop: 3,
+    marginTop: 0,
   },
   indicator: {
     position: 'absolute',
@@ -31,6 +31,7 @@ export default StyleSheet.create({
     right: 0,
     top: 0,
     bottom: 0,
+    zIndex: 99,
     alignItems: 'center',
     justifyContent: 'center',
   },

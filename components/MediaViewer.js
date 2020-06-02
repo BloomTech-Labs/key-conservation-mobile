@@ -21,13 +21,19 @@ class MediaViewer extends Component {
     super(props);
 
     this.state = {
-      loading: true,
+      loading: false,
     };
   }
 
   determineIfVideo = () => {
     return VIDEO_EXTS.some((ext) => this.props.source?.includes(ext));
   };
+
+  componentDidMount() {
+    if (this.props.urgency) {
+      this.parseUrgency();
+    }
+  }
 
   componentDidUpdate() {
     if (this.props.urgency) {
