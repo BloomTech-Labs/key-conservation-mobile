@@ -57,6 +57,8 @@ class MediaViewer extends Component {
     let urgencyStatus;
     if (this.props.isUpdate) {
       urgencyStatus = 'UPDATE';
+    } else if (this.props.urgency === 'null') {
+      urgencyStatus = '';
     } else {
       urgencyStatus = this.props.urgency.toUpperCase();
     }
