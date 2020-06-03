@@ -21,6 +21,8 @@ import styles from '../constants/screens/CreateCampaignScreen';
 import CheckMark from '../assets/icons/checkmark-24.png';
 
 import Lightening from '../assets/jsicons/bottomnavigation/Lightening';
+import SelectSkillsContent from '../components/CampaignBuilder/SkillImpact/SelectSkillsContent';
+import SkillDescriptionForm from '../components/CampaignBuilder/SkillImpact/SkillDescriptionForm';
 
 class CreateCampaignScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -71,6 +73,7 @@ class CreateCampaignScreen extends React.Component {
     name: '',
     description: '',
     call_to_action: '',
+    skillImpactRequests: new Map(),
     urgency: null,
   };
 
@@ -86,12 +89,40 @@ class CreateCampaignScreen extends React.Component {
     }
   };
 
+  isProjectGoalArrValid = (projectGoalArr) =>{
+    for(const entry of projectGoalArr){
+      if(entry.description==""||
+         entry.goal_title==""){
+        return false;
+      }
+    }
+    return true;
+  };
+
+  isSkillImpactRequestValid = (skillImpactRequestMap) =>{
+    if(skillImpactRequestMap.size==0){
+      return true;
+    }else {
+      for (const [key, entry] of skillImpactRequestMap) {
+        if (entry.skill=="" ||
+          entry.point_of_contact=="" ||
+          entry.our_contribution=="" ||
+          !this.isProjectGoalArrValid(entry.project_goals)
+        ){
+          return false;
+        }
+      }
+      return true;
+    }
+  };
+
   publish = () => {
     if (
       !this.state.image ||
       !this.state.name ||
       !this.state.description ||
       !this.state.call_to_action ||
+      !this.isSkillImpactRequestValid(this.state.skillImpactRequests) ||
       !this.state.urgency
     ) {
       const errorMessage =
@@ -100,6 +131,7 @@ class CreateCampaignScreen extends React.Component {
         (this.state.name ? '' : '\n    - Campaign Name') +
         (this.state.description ? '' : '\n    - Campaign Details') +
         (this.state.call_to_action ? '' : '\n    - Donation Link') +
+        (this.isSkillImpactRequestValid(this.state.skillImpactRequests) ? '': '\n    - Skill Impact Requests Form')+
         (this.state.urgency ? '' : '    - Urgency Level\n ');
       return Alert.alert('Error', errorMessage);
     } else {
@@ -110,6 +142,7 @@ class CreateCampaignScreen extends React.Component {
         call_to_action: this.state.call_to_action,
         urgency: this.state.urgency,
         image: this.state.image,
+        skilledImpactRequests: JSON.stringify(Array.from(this.state.skillImpactRequests.values()))
       };
       this.props.postCampaign(campaign);
       this.props.navigation.goBack();
@@ -123,11 +156,22 @@ class CreateCampaignScreen extends React.Component {
       name: '',
       description: '',
       call_to_action: '',
+      skillImpactRequests: new Map(),
       urgency: null,
     });
   };
 
   render() {
+    const skillList = Array.from(this.state.skillImpactRequests.keys()).map((skill, index) => {
+      return (
+        <SkillDescriptionForm
+          key={index}
+          skill={skill}
+          skillImpactRequests={this.state.skillImpactRequests}
+          onChangeSkills={(skillsMap) => this.setState({ skillImpactRequests: skillsMap })}
+        />
+      )
+    });
     return (
       <KeyboardAwareScrollView contentContainerStyle={styles.container}>
         <NavigationEvents onDidBlur={this.clearState} />
@@ -227,6 +271,11 @@ class CreateCampaignScreen extends React.Component {
             ))}
           </View>
         </View>
+        <SelectSkillsContent
+          skillImpactRequests={this.state.skillImpactRequests}
+          onChangeSkills={(skillsMap) => this.setState({ skillImpactRequests: skillsMap })}
+        />
+        {skillList}
         <View style={styles.sectionContainer}>
           <TouchableOpacity onPress={this.publish}>
             <View style={styles.publishButton}>

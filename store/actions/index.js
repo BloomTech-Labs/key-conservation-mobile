@@ -604,6 +604,7 @@ export const postCampaign = (campaign) => (dispatch) => {
   formData.append('name', filteredCampaign.name);
   formData.append('user_id', filteredCampaign.user_id);
   formData.append('urgency', filteredCampaign.urgency);
+  formData.append('skilledImpactRequests', filteredCampaign.skilledImpactRequests);
 
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
