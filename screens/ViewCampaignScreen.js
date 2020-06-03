@@ -109,9 +109,7 @@ class ViewCampaignScreen extends React.Component {
                 admin={this.props.currentUserProfile.admin}
                 post={this.state}
                 ref={(o) => (this.ActionSheet = o)}
-                isMine={
-                  this.props.currentUserProfile.admin === this.state.user_id
-                }
+                isMine={this.props.currentUserProfile.id === this.state.user_id}
                 goBack
               />
             ) : null}
