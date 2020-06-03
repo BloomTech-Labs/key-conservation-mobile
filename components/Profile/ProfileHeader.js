@@ -1,5 +1,5 @@
 import React, { useMemo, useState, forwardRef } from 'react';
-import { View, Text, TouchableOpacity, Linking, Animated } from 'react-native';
+import { View, Text, Animated } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { Avatar } from 'react-native-elements';
 import { AmpEvent } from '../withAmplitude';
@@ -13,7 +13,6 @@ import { useHeaderHeight } from 'react-navigation-stack';
 
 const ProfileHeader = forwardRef((props, ref) => {
   let profile = props.profile || {};
-  console.log('profile', profile);
 
   const appHeaderHeight = useHeaderHeight();
 

@@ -54,30 +54,7 @@ class FeedScreen extends React.Component {
         backgroundColor: '#323338',
         shadowColor: 'transparent',
       },
-      headerTitleStyle: {
-        paddingTop: 10,
-        alignSelf: 'center',
-        textAlign: 'center',
-        justifyContent: 'center',
-        flex: 1,
-        textAlignVertical: 'center',
-      },
       headerTintColor: '#fff',
-      headerLeft: () => <View />,
-      headerRight: () => (
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Search')}
-          style={{
-            width: 70,
-            height: 45,
-            justifyContent: 'center',
-            alignItems: 'flex-end',
-            marginRight: 15,
-          }}
-        >
-          <Search />
-        </TouchableOpacity>
-      ),
     };
   };
 

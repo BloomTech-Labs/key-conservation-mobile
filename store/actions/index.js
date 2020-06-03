@@ -62,8 +62,8 @@ const axiosWithAuth = (dispatch, req) => {
 // production
 // export const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
-export const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
-// export const seturl = 'http://192.168.1.146:8000/api/';
+// export const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+export const seturl = 'http://192.168.1.146:8000/api/';
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
@@ -164,20 +164,16 @@ export const getAirtableKey = () => {
 // Data comes in as a table name and an ID
 // So this function allows for the dynamic request of any
 // type of report
-export const getCustomById = (table_name, id) => (dispatch) => {
+export const getCustomById = (table_name, id, canceltoken) => (dispatch) => {
   let url = `${seturl}`;
 
   switch (table_name) {
-    case 'campaign_updates': {
-      url += 'updates';
+    case 'campaign_posts': {
+      url += 'posts';
       break;
     }
     case 'comments': {
       url += 'comments/com';
-      break;
-    }
-    case 'campaigns': {
-      url += 'campaigns';
       break;
     }
     default: {
@@ -189,7 +185,9 @@ export const getCustomById = (table_name, id) => (dispatch) => {
   }
 
   return axiosWithAuth(dispatch, (aaxios) => {
-    return aaxios.get(`${url}/${id}`);
+    return aaxios
+      .get(`${url}/${id}`, { canceltoken })
+      .catch((err) => console.log(err.response));
   });
 };
 
@@ -465,23 +463,91 @@ export const refreshFeed = (createdAt) => (dispatch) => {
   });
 };
 
-export const [GET_POST_START, GET_POST_SUCCESS, GET_POST_ERROR] = [
-  'GET_POST_START',
-  'GET_POST_SUCCESS',
-  'GET_POST_ERROR',
-];
-export const getCampaignPost = (id) => (dispatch) => {
-  dispatch({ type: GET_POST_START });
+// Not in use yet ==== Might be needed at some point
+// export const [GET_POST_START, GET_POST_SUCCESS, GET_POST_ERROR] = [
+//   'GET_POST_START',
+//   'GET_POST_SUCCESS',
+//   'GET_POST_ERROR',
+// ];
+// export const getCampaignPost = (id) => (dispatch) => {
+//   dispatch({ type: GET_POST_START });
+
+//   return axiosWithAuth(dispatch, (aaxios) => {
+//     return aaxios
+//       .get(`${seturl}posts/${id}`)
+//       .then((res) => {
+//         dispatch({ type: GET_POST_SUCCESS, payload: res.data });
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//         dispatch({ type: GET_POST_ERROR, payload: err.response });
+//       });
+//   });
+// };
+
+export const [
+  GET_USER_POSTS_START,
+  GET_USER_POSTS_SUCCESS,
+  GET_USER_POSTS_ERROR,
+] = ['GET_USER_POSTS_START', 'GET_USER_POSTS_SUCCESS', 'GET_USER_POSTS_ERROR'];
+
+export const getUserPosts = (userId, startAt, size = 8) => (dispatch) => {
+  dispatch({ type: GET_USER_POSTS_START });
+
+  if (!startAt) {
+    dispatch({
+      type: GET_USER_POSTS_ERROR,
+      payload: 'No starting date provided',
+    });
+    console.log(
+      'No starting date provided to getUserPosts, this is required and must be fixed'
+    );
+    return;
+  }
 
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .get(`${seturl}posts/${id}`)
+      .get(`${seturl}users/${userId}/posts?startAt=${startAt}&size=${size}`)
       .then((res) => {
-        dispatch({ type: GET_REPORTS_SUCCESS, payload: res.data });
+        dispatch({ type: GET_USER_POSTS_SUCCESS, payload: res.data });
       })
       .catch((err) => {
-        console.log(err);
-        dispatch({ type: GET_REPORTS_ERROR, payload: err.response });
+        dispatch({
+          type: GET_USER_POSTS_ERROR,
+          payload:
+            err.response?.data?.message ||
+            `An error occurred retreiving this user's posts`,
+        });
+      });
+  });
+};
+
+export const [
+  GET_ORIGINAL_POST_START,
+  GET_ORIGINAL_POST_SUCCESS,
+  GET_ORIGINAL_POST_ERROR,
+] = [
+  'GET_ORIGINAL_POST_START',
+  'GET_ORIGINAL_POST_SUCCESS',
+  'GET_ORIGINAL_POST_ERROR',
+];
+
+export const getOriginalPost = (campaign_id) => (dispatch) => {
+  dispatch({ type: GET_ORIGINAL_POST_START });
+
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .get(`${seturl}campaigns/${campaign_id}/original`)
+      .then((res) => {
+        dispatch({ type: GET_ORIGINAL_POST_SUCCESS, payload: res.data });
+      })
+      .catch((err) => {
+        dispatch({
+          type: GET_ORIGINAL_POST_ERROR,
+          payload:
+            err.response?.data?.message ||
+            'An error occurred while retreiving that post',
+        });
       });
   });
 };
@@ -973,8 +1039,6 @@ export const getReport = (id) => (dispatch) => {
   dispatch({ type: GET_REPORT_START });
   let url = `${seturl}reports/${id}`;
 
-  console.log(`getting report ${id}`);
-
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
       .get(url)
@@ -1005,6 +1069,8 @@ export const deactivateUser = (id) => (dispatch) => {
 };
 
 export const createReport = (postType, postId, desc) => (dispatch) => {
+  console.log(postType, postId, desc);
+
   return axiosWithAuth(dispatch, (aaxios) => {
     let url = `${seturl}reports`;
     return aaxios
@@ -1214,6 +1280,22 @@ export const retryUploadPost = (queueId, data) => (dispatch) => {
   } else {
     dispatch(postCampaign(data));
   }
+};
+
+export const [SET_ACTIVE_VIDEO, UNSET_ACTIVE_VIDEO] = [
+  'SET_ACTIVE_VIDEO',
+  'UNSET_ACTIVE_VIDEO',
+];
+
+export const setActiveVideo = (postId) => (dispatch) => {
+  dispatch({ type: SET_ACTIVE_VIDEO, payload: postId });
+};
+
+export const unsetActiveVideo = (postId) => (dispatch) => {
+  dispatch({
+    type: UNSET_ACTIVE_VIDEO,
+    payload: postId,
+  });
 };
 
 // TODO: Add getting emoji reaction details (User names and avatars for each emoji)

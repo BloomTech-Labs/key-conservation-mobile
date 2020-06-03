@@ -91,14 +91,16 @@ class CreateCampaignScreen extends React.Component {
       !this.state.image ||
       !this.state.name ||
       !this.state.description ||
-      !this.state.call_to_action
+      !this.state.call_to_action ||
+      !this.state.urgency
     ) {
       const errorMessage =
         'Form incomplete. Please include:' +
         (this.state.image ? '' : '\n    - Campaign Image') +
         (this.state.name ? '' : '\n    - Campaign Name') +
         (this.state.description ? '' : '\n    - Campaign Details') +
-        (this.state.call_to_action ? '' : '\n    - Donation Link');
+        (this.state.call_to_action ? '' : '\n    - Donation Link') +
+        (this.state.urgency ? '' : '    - Urgency Level\n ');
       return Alert.alert('Error', errorMessage);
     } else {
       const campaign = {

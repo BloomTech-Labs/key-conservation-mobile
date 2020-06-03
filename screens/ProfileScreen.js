@@ -32,7 +32,6 @@ class ProfileScreen extends React.Component {
 
     this.headerOnScroll = React.createRef();
     this.bodyOnScroll = React.createRef();
-    // this.scrollY = new Animated.Value(0);
 
     this.scrollView = React.createRef();
 
@@ -60,35 +59,9 @@ class ProfileScreen extends React.Component {
     }
   };
 
-  updateCampaigns = async () => {
-    try {
-      const updatedUser = await this.props.getProfileData(this.profileId, null);
-      if (this.state.user.roles === 'conservationist') {
-        if (updatedUser.campaigns.length !== this.state.user.campaigns.length) {
-          this.initProfileData();
-        }
-      } else if (this.state.user.roles === 'supporter') {
-        if (updatedUser.bookmarks.length !== this.state.user.bookmarks.length) {
-          this.initProfileData();
-        }
-      }
-    } catch (err) {
-      console.log(err);
-      Alert.alert('Error', 'Failed to retrieve user profile');
-    }
-  };
-
   componentDidMount = () => {
     this.initProfileData();
-    this._sub = this.props.navigation.addListener(
-      'didFocus',
-      this.initProfileData
-    );
   };
-
-  componentWillUnmount() {
-    this._sub.remove();
-  }
 
   static navigationOptions = ({ navigation }) => {
     const selectedProfile = navigation.getParam('selectedProfile');

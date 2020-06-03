@@ -1,19 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   Text,
-  ImageBackground,
   ActivityIndicator,
   TouchableOpacity,
   Animated,
 } from 'react-native';
-import { withNavigationFocus } from 'react-navigation';
 import { View } from 'react-native-animatable';
 import moment from 'moment';
-import { Video } from 'expo-av';
 import { ListItem, Badge } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
-import { Viewport } from '@skele/components';
 
 import {
   toggleCampaignText,
@@ -37,18 +33,11 @@ import SmileSelector from './FeedScreen/SmileSelector';
 import Bookmark from '../assets/jsicons/miscIcons/Bookmark';
 import BookmarkSolid from '../assets/jsicons/miscIcons/BookmarkSolid';
 import { shorten } from '../util';
-
-const Placeholder = () => <View style={styles.campImgContain} />;
-
-const ViewportAwareVideo = Viewport.Aware(
-  Viewport.WithPlaceholder(Video, Placeholder)
-);
+import MediaViewer from './MediaViewer';
 
 const CampaignPost = (props) => {
-  const { data, toggled, selectedCampaign } = props;
+  const { data, toggled } = props;
 
-  const [urgTop, setUrgTop] = useState(0);
-  const [loader, setLoader] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
@@ -70,7 +59,7 @@ const CampaignPost = (props) => {
   const createdAt = data.created_at;
   const timeDiff = moment(createdAt).fromNow();
 
-  moment.locale('en', {
+  moment.updateLocale('en', {
     relativeTime: {
       future: 'in %s',
       past: '%s',
@@ -101,37 +90,6 @@ const CampaignPost = (props) => {
     animateIn.start();
   }, [animation]);
 
-  //// All styles for the urgency bar
-  let urgencyColor;
-  if (data.is_update || data.urgency == 'null') {
-    urgencyColor = 'rgba(202,255,0, 0.7)';
-  } else if (data.urgency === 'Critical') {
-    urgencyColor = 'rgba(227,16,89,0.6)';
-  } else if (data.urgency === 'Urgent') {
-    urgencyColor = 'rgba(255,199,0,0.6)';
-  } else if (data.urgency === 'Longterm') {
-    urgencyColor = 'rgba(0,255,157,0.6)';
-  } else {
-    urgencyColor = 'none';
-  }
-  let urgencyStatus;
-  if (data.is_update || !data.urgency || data.urgency == 'null') {
-    urgencyStatus = 'UPDATE';
-  } else {
-    urgencyStatus = data.urgency.toUpperCase();
-  }
-
-  const urgencyStyles = {
-    backgroundColor: urgencyColor,
-    height: 37,
-    width: '100%',
-    position: 'absolute',
-    top: urgTop,
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 1,
-  };
-
   const goToProfile = () => {
     AmpEvent('Select Profile from Campaign', {
       profile: data.org_name,
@@ -155,9 +113,7 @@ const CampaignPost = (props) => {
       campaign: data.campaign_name,
       profile: data.org_name,
     });
-    console.log('testme', data);
     dispatch(setCampaign(data));
-    console.log('!!!!!!!!!!!!!!!!!!!!!!!', selectedCampaign);
     navigate('Campaign', {
       userBookmarked: data.userBookmarked,
     });
@@ -165,14 +121,6 @@ const CampaignPost = (props) => {
 
   const toggleText = () => {
     dispatch(toggleCampaignText(data.id));
-  };
-
-  const onPlaybackStatusUpdate = (status) => {
-    if (status.isBuffering && !status.isPlaying) {
-      setLoader(true);
-    } else {
-      setLoader(false);
-    }
   };
 
   const showActionSheet = () => {
@@ -279,51 +227,11 @@ const CampaignPost = (props) => {
         </View>
         <View>
           <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
-            {data.image?.includes('.mov') ||
-            data.image?.includes('.mp3') ||
-            data.image?.includes('.mp4') ? (
-              <View>
-                {data.urgency ? (
-                  <View style={urgencyStyles}>
-                    <Text style={styles.urgencyBarText}>{urgencyStatus}</Text>
-                  </View>
-                ) : null}
-                {loader ? (
-                  <View style={styles.indicator}>
-                    <ActivityIndicator size="large" color="#00FF9D" />
-                  </View>
-                ) : null}
-                {props.isFocused ? (
-                  <ViewportAwareVideo
-                    source={{
-                      uri: data.image,
-                    }}
-                    retainOnceInViewport={false}
-                    preTriggerRatio={-0.1}
-                    rate={1.0}
-                    isMuted={false}
-                    shouldPlay={true}
-                    isLooping
-                    resizeMode="cover"
-                    onPlaybackStatusUpdate={onPlaybackStatusUpdate}
-                    style={styles.campImgContain}
-                  />
-                ) : (
-                  <View style={styles.campImgContain} />
-                )}
-              </View>
-            ) : (
-              <ImageBackground
-                source={{ uri: data.image }}
-                style={styles.campImgContain}
-              >
-                {urgencyStatus ? (
-                  <View style={urgencyStyles}>
-                    <Text style={styles.urgencyBarText}>{urgencyStatus}</Text>
-                  </View>
-                ) : null}
-              </ImageBackground>
-            )}
+            <MediaViewer
+              source={data.image}
+              urgency={data.urgency}
+              isUpdate={data.is_update}
+            />
           </TouchableOpacity>
         </View>
 
@@ -383,7 +291,6 @@ const mapStateToProps = (state) => ({
   currentUserProfile: state.currentUserProfile,
   currentUser: state.currentUser,
   token: state.token,
-  selectedCampaign: state.selectedCampaign,
   deleteBuffer: state.pending.deletePost,
   bookmarks: state.bookmarks,
   bookmarksLoading: state.pending.bookmarks,
@@ -395,5 +302,4 @@ export default connect(mapStateToProps, {
   addBookmark,
   removeBookmark,
   fetchBookmarks,
-})(withNavigationFocus(CampaignPost));
-// withNavigationFocus unmounts video and prevents audio playing across the navigation stack
+})(CampaignPost);

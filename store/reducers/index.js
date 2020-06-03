@@ -59,6 +59,10 @@ const initialState = {
   },
   bookmarks: [],
   submissions: [],
+  // This is to make sure only video is ever playing at any given time
+  // The last video ID in this array will be the active video,
+  // The array is ordered from least to most recently entered the viewport
+  activeVideos: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -592,6 +596,40 @@ const reducer = (state = initialState, action) => {
           error: action.payload,
         },
       };
+    case actions.GET_ORIGINAL_POST_START:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          getCampaign: true,
+        },
+        errors: {
+          ...state.errors,
+          getCampaign: '',
+        },
+      };
+    case actions.GET_ORIGINAL_POST_SUCCESS: {
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          getCampaign: false,
+        },
+        selectedCampaign: action.payload,
+      };
+    }
+    case actions.GET_ORIGINAL_POST_ERROR:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          getCampaign: false,
+        },
+        errors: {
+          ...state.errors,
+          getCampaign: action.payload,
+        },
+      };
     case actions.ARCHIVE_REPORT_START:
       return {
         ...state,
@@ -762,6 +800,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         pending: { ...state.pending, getApplicationsByUser: true },
         error: action.payload,
+      };
+    case actions.SET_ACTIVE_VIDEO:
+      return {
+        ...state,
+        activeVideos: [...state.activeVideos, action.payload],
+      };
+    case actions.UNSET_ACTIVE_VIDEO:
+      return {
+        ...state,
+        activeVideos: state.activeVideos.filter((v) => v !== action.payload),
       };
     default:
       return state;

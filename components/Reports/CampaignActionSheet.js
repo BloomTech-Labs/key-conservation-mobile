@@ -32,22 +32,20 @@ export default forwardRef((props, ref) => {
   const dispatch = useDispatch();
 
   const report = () => {
-    const id = props.campaign?.id || props.update?.id;
+    const id = props.post?.id;
 
     if (typeof id === 'undefined') {
       console.warn(
-        'CampaignActionSheet: `campaign` or `update` property missing or invalid - action canceled'
+        'CampaignActionSheet: `post` property missing or invalid - action canceled'
       );
       return;
     }
 
-    dispatch(setCampaign(props.campaign || props.update));
-
-    const type = props.campaign ? 'campaigns' : 'campaign_updates';
+    dispatch(setCampaign(props.post));
 
     // Take the user to a report screen
     navigate('CreateReport', {
-      type,
+      type: 'campaign_posts',
       id,
     });
   };
@@ -65,12 +63,6 @@ export default forwardRef((props, ref) => {
       if (props.goBack) goBack();
     });
   };
-
-  // const editCampaign = () => {
-  //   navigate('EditCampaign', {
-  //     selectedCampaign: props.post,
-  //   });
-  // };
 
   const editPost = () => {
     navigate('EditCampaign', {
