@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Switch, Alert, TextInput } from 'react-native';
+import { View, TextInput } from 'react-native';
 import styles from '../../../../constants/CampaignBuilder/SkillImpact/SkillExpand';
 import { connect } from 'react-redux';
 
 const ProjectGoalsFormContent = (props) => {
-
-
 
   const onChangeGoalTitle = (text) =>{
     const modifiedProjectGoal = props.projectGoals[props.index];
@@ -34,7 +32,7 @@ const ProjectGoalsFormContent = (props) => {
           value={props.projectGoals[props.index].goal_title}
         />
         <TextInput
-          multiline
+          multiline={true}
           numberOfLines={4}
           style={styles.goalDescriptionBox}
           placeholder="Description of goal"

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Switch, Alert, TextInput } from 'react-native';
+import { View, TextInput } from 'react-native';
 import styles from '../../../../constants/CampaignBuilder/SkillImpact/SkillExpand';
 import { connect } from 'react-redux';
 import IdCardAlt from '../../../../assets/jsicons/IdCardAlt';

@@ -6,7 +6,6 @@ import ChevronBottom from '../../../assets/jsicons/miscIcons/ChevronBottom';
 import ChevronRight from '../../../assets/jsicons/miscIcons/ChevronRight';
 import { connect } from 'react-redux';
 import Skills from '../../../constants/Skills';
-import IdCardAlt from '../../../assets/jsicons/IdCardAlt';
 import PointOfContactForm from './elements/PointOfContactForm';
 import ProjectGoalsForm from './elements/ProjectGoalsForm';
 import OurContributionForm from './elements/OurContributionForm';

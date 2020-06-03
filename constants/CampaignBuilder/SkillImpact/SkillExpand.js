@@ -267,6 +267,17 @@ export default StyleSheet.create({
     padding: 8,
     borderRadius: 5,
     fontSize: 16,
+    marginTop:4,
+    textAlignVertical : "top"
+  },
+  addGoalButton:{
+    flex: 1,
+    height: 34,
+    backgroundColor: '#F5F5F5',
+    color: '#ADADAD',
+    padding: 8,
+    borderRadius: 5,
+    fontSize: 16,
     marginTop:4
   },
   textBox:{
@@ -275,7 +286,8 @@ export default StyleSheet.create({
     backgroundColor: '#F5F5F5',
     padding: 8,
     borderRadius: 5,
-    fontSize: 16
+    fontSize: 16,
+    textAlignVertical : "top"
   },
   goalDescriptionBox:{
     flex: 1,
@@ -284,7 +296,8 @@ export default StyleSheet.create({
     padding: 8,
     borderRadius: 5,
     fontSize: 16,
-    marginTop:6
+    marginTop:6,
+    textAlignVertical : "top"
   },
   itemContentIconContainer:{
     marginRight:5,

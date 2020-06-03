@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Switch, Alert, TextInput } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 import styles from '../../../../constants/CampaignBuilder/SkillImpact/SkillExpand';
 import { connect } from 'react-redux';
-import ProjectGoalsFormContent from './ProjectGoalsFormContent';
-import PlusSign from '../../../../assets/jsicons/headerIcons/plusSign';
-import PlusSignCircle from '../../../../assets/jsicons/PlusSignCircle';
 import BallotCheck from '../../../../assets/jsicons/BallotCheck';
 
 const OurContributionForm = (props) => {
@@ -31,7 +28,7 @@ const OurContributionForm = (props) => {
         </View>
         <View style={styles.itemContentRows}>
           <TextInput
-            multiline
+            multiline={true}
             numberOfLines={4}
             style={styles.goalDescriptionBox}
             placeholder="Description of your contribution"

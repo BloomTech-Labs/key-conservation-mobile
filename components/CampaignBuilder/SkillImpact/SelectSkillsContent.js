@@ -5,7 +5,7 @@ import Sync from '../../../assets/jsicons/bottomnavigation/Sync';
 import ChevronBottom from '../../../assets/jsicons/miscIcons/ChevronBottom';
 import ChevronRight from '../../../assets/jsicons/miscIcons/ChevronRight';
 import { editProfileData } from '../../../store/actions';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import SkillSelect from '../../SkillSelect';
 
 const SelectSkillsContent = (props) => {
@@ -58,7 +58,7 @@ const SelectSkillsContent = (props) => {
           <View style={styles.itemContentRows}>
             <SkillSelect
               skills={Array.from(props.skillImpactRequests.keys())}
-              enableOtherSkills={true}
+              enableOtherSkills={false}
               onSkillsChanged={(skills) =>  onChangeSkillImpactRequest(skills)}
             />
           </View>
