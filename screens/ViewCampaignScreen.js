@@ -157,7 +157,10 @@ class ViewCampaignScreen extends React.Component {
                   isUpdate={this.state.is_update}
                 />
                 <View style={styles.donateView}>
-                  <TakeActionCallToAction donate={this.state} />
+                  <TakeActionCallToAction
+                    data={this.props.selectedCampaign}
+                    navigation={this.props.navigation}
+                  />
                 </View>
 
                 <View style={styles.commentsView}>
