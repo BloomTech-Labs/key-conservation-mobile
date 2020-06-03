@@ -47,7 +47,7 @@ const ProjectGoalsForm = (props) => {
         <View style={styles.itemContentRows}>
           <Text style={styles.itemBodyText}>
             What are the goals you want to accomplish while working with this
-            skilled professional. Give each goal a title and fill out the exact
+            skilled professional? Give each goal a title and fill out the exact
             details of what you want achieved. Be as clear and precise as possible.
           </Text>
         </View>
