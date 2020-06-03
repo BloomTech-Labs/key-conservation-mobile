@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Switch, Alert, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, Animated } from 'react-native';
 import styles from '../../../constants/CampaignBuilder/SkillImpact/SkillExpand';
 import Sync from '../../../assets/jsicons/bottomnavigation/Sync';
 import ChevronBottom from '../../../assets/jsicons/miscIcons/ChevronBottom';
@@ -24,10 +24,24 @@ const SkillButton = props => {
   )
 };
 const SkillDescriptionForm = (props) => {
-  const [expanded, setExpand] = useState(true);
+  const [expanded, setExpand] = useState(false);
+  const [SlideInFirst, setSlideInFirst] = useState(new Animated.Value(0));
+  const [SlideInSecond, setSlideInSecond] = useState(new Animated.Value(0));
+  const [SlideInThird, setSlideInThird] = useState(new Animated.Value(0));
+  const [FirstAnimationVal, setFirstAnimationVal] = useState( [0, 0]);
+  const [SecondAnimationVal, setSecondAnimationVal] = useState([0, 0]);
+  const [ThirdAnimationVal, setThirdAnimationVal] = useState([0, 0]);
 
   const toggleExpand = () =>{
-    setExpand(!expanded)
+     if(expanded){
+       setExpand(!expanded);
+     }else{
+       setExpand(!expanded);
+       setFirstAnimationVal([-40, 0]);
+       setSecondAnimationVal([-250, 0]);
+       setThirdAnimationVal([-650, 0]);
+       _start();
+     }
   };
 
   const onChangeProjectGoal=(projectGoal)=>{
@@ -38,6 +52,26 @@ const SkillDescriptionForm = (props) => {
   const onChangeOurContribution = (ourContribution) =>{
     props.skillImpactRequests.get(props.skill).our_contribution = ourContribution;
     props.onChangeSkills(props.skillImpactRequests);
+  };
+
+  const _start = () => {
+    Animated.parallel([
+      Animated.timing(SlideInFirst, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true
+      }),
+      Animated.timing(SlideInSecond, {
+        toValue: 1,
+        duration: 600,
+        useNativeDriver: true
+      }),
+      Animated.timing(SlideInThird, {
+        toValue: 1,
+        duration: 800,
+        useNativeDriver: true
+      })
+    ]).start();
   };
 
   return (
@@ -56,19 +90,61 @@ const SkillDescriptionForm = (props) => {
     </View>
       {expanded ? (
         <View style={styles.bigContainer}>
+          <Animated.View
+            style={{
+              transform: [
+                {
+                  translateY: SlideInFirst.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: FirstAnimationVal
+                  })
+                }
+              ],
+              flex: 1,
+            }}
+          >
         <PointOfContactForm
           skillImpactRequests={props.skillImpactRequests}
           skill={props.skill}
           onChangeSkills={props.onChangeSkills}
         />
+          </Animated.View>
+          <Animated.View
+            style={{
+              transform: [
+                {
+                  translateY: SlideInSecond.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: SecondAnimationVal
+                  })
+                }
+              ],
+              flex: 1,
+            }}
+          >
         <ProjectGoalsForm
           projectGoals={props.skillImpactRequests.get(props.skill).project_goals}
           onChangeProjectGoal={projectGoal => onChangeProjectGoal(projectGoal)}
         />
+          </Animated.View>
+          <Animated.View
+            style={{
+              transform: [
+                {
+                  translateY: SlideInThird.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: ThirdAnimationVal
+                  })
+                }
+              ],
+              flex: 1,
+            }}
+          >
         <OurContributionForm
           ourContribution={props.skillImpactRequests.get(props.skill).our_contribution}
           onChangeContribution={ourContribution => onChangeOurContribution(ourContribution)}
         />
+          </Animated.View>
         </View>
       ) : null}
     </View>

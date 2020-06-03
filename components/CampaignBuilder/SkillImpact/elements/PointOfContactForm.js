@@ -41,7 +41,7 @@ const PointOfContactForm = (props) => {
             />
           </View>
         </View>
-    </View>
+      </View>
   );
 
 }
