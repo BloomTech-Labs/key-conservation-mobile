@@ -1,5 +1,10 @@
-// This file is for all kinds of miscellaneous helper functions that could
-// be useful throughout the entire app, even if just in two places
+import React from 'react';
+import { View, Dimensions } from 'react-native';
+import { Viewport } from '@skele/components';
+import { Video } from 'expo-av';
+
+// This file is for all kinds of miscellaneous helper functions & components
+// that could be useful throughout the entire app, even if just in two places
 
 // If you see any repetitve helper functions that would fit into here,
 // add it. If you write a function that you think has a general enough
@@ -18,5 +23,18 @@ export const shorten = (text, charLimit) => {
     return `${text.substring(0, end)}...`;
   } else return text;
 };
+
+const Placeholder = () => (
+  <View
+    style={{
+      width: '100%',
+      flex: 1,
+      height: Dimensions.get('window').width,
+      marginTop: 3,
+    }}
+  />
+);
+
+export const ViewportAwareVideo = Viewport.Aware(Video);
 
 // Add more above this line...

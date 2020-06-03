@@ -122,7 +122,8 @@ class CreateCampaignScreen extends React.Component {
       !this.state.name ||
       !this.state.description ||
       !this.state.call_to_action ||
-      !this.isSkillImpactRequestValid(this.state.skillImpactRequests)
+      !this.isSkillImpactRequestValid(this.state.skillImpactRequests) ||
+      !this.state.urgency
     ) {
       const errorMessage =
         'Form incomplete. Please include:' +
@@ -130,7 +131,8 @@ class CreateCampaignScreen extends React.Component {
         (this.state.name ? '' : '\n    - Campaign Name') +
         (this.state.description ? '' : '\n    - Campaign Details') +
         (this.state.call_to_action ? '' : '\n    - Donation Link') +
-        (this.isSkillImpactRequestValid(this.state.skillImpactRequests) ? '': '\n    - Skill Impact Requests Form');
+        (this.isSkillImpactRequestValid(this.state.skillImpactRequests) ? '': '\n    - Skill Impact Requests Form')+
+        (this.state.urgency ? '' : '    - Urgency Level\n ');
       return Alert.alert('Error', errorMessage);
     } else {
       const campaign = {

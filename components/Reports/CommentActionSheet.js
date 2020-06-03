@@ -17,7 +17,7 @@ import { Alert } from 'react-native';
     ref={o => this.ActionSheet = o}
     admin={boolean}
     commentId={id}
-    campaign={object}                   // The campaign data
+    post={object}                   // The post data
   />
 ...
 */
@@ -40,19 +40,19 @@ export default forwardRef((props, ref) => {
       return;
     }
 
-    if (typeof props.campaign?.id !== 'number') {
+    if (typeof props.post?.id !== 'number') {
       console.warn(
-        'CommentActionSheet: `campaign` property not found or invalid - action canceled'
+        'CommentActionSheet: `post` property not found or invalid - action canceled'
       );
       return;
     }
 
-    dispatch(setCampaign(props.campaign));
+    dispatch(setCampaign(props.post));
 
     // Take the user to a report screen
     navigate('CreateReport', {
       type: 'comments',
-      id: props.commentId
+      id: props.commentId,
     });
   };
 
@@ -64,7 +64,7 @@ export default forwardRef((props, ref) => {
       return;
     }
     props.onDelete?.();
-    dispatch(deleteComment(props.commentId)).then(err => {
+    dispatch(deleteComment(props.commentId)).then((err) => {
       if (err) {
         Alert.alert('Failed to delete comment');
         props.onDelete?.(true);
@@ -83,14 +83,14 @@ export default forwardRef((props, ref) => {
         options: ['Delete comment', 'Cancel'],
         cancelIndex: 1,
         destructiveIndex: 0,
-        onPress: index => {
+        onPress: (index) => {
           switch (index) {
             case 0: {
               deleteCom();
               break;
             }
           }
-        }
+        },
       }
     : props.admin
     ? {
@@ -98,7 +98,7 @@ export default forwardRef((props, ref) => {
         options: ['Delete comment', 'Report', 'Cancel'],
         cancelIndex: 2,
         destructiveIndex: 0,
-        onPress: index => {
+        onPress: (index) => {
           switch (index) {
             case 0: {
               deleteCom();
@@ -109,21 +109,21 @@ export default forwardRef((props, ref) => {
               break;
             }
           }
-        }
+        },
       }
     : {
         title: 'Actions',
         options: ['Report', 'Cancel'],
         cancelIndex: 1,
         destructiveIndex: 0,
-        onPress: index => {
+        onPress: (index) => {
           switch (index) {
             case 0: {
               report();
               break;
             }
           }
-        }
+        },
       };
 
   return (

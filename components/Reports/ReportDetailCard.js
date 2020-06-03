@@ -1,6 +1,7 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Image, Alert } from 'react-native';
+import axios from 'axios';
 
 import styles from '../../constants/Reports/ReportDetailCard';
 
@@ -37,36 +38,49 @@ class ReportDetailCard extends Component {
     };
   }
 
+  componentWillUnmount() {
+    if (this.source) {
+      this.source.cancel('User navigated away');
+    }
+  }
+
   componentDidMount() {
     const isUser = this.props.currentReport.table_name === 'users';
 
     this.setState({ isUser });
 
     if (!isUser) {
+      const CancelToken = axios.CancelToken;
+
+      this.source = CancelToken.source();
+
       this.props
         .getCustomById(
           this.props.currentReport.table_name,
-          this.props.currentReport.post_id
+          this.props.currentReport.post_id,
+          this.source.token
         )
         .then((res) => {
           if (!res) return;
 
           switch (this.props.currentReport.table_name) {
-            case 'campaigns':
+            case 'campaign_posts':
               this.type = 'Campaign';
-              this.setState({ postText: res.data.campaign.description });
-              this.setState({ postImage: res.data.campaign.image });
-              break;
-            case 'campaign_updates':
-              this.type = 'Campaign';
-              this.setState({ postText: res.data.campaignUpdate.description });
-              this.setState({ postImage: res.data.campaignUpdate.image });
+              console.log(res.data.image);
+              this.setState({
+                postText: res.data.description,
+                postImage: res.data.image,
+              });
               break;
             case 'comments':
               this.type = 'Comment';
               this.setState({ postText: res.data.body });
               // Image retreieved thru res.data.id
-              return this.props.getCustomById('campaigns', res.data.id);
+              return this.props.getCustomById(
+                'campaign_posts',
+                res.data.campaign_id,
+                this.source.token
+              );
             default: {
               console.warn(
                 'invalid table name found in ReportDetailCard.componentDidMount()'
@@ -76,11 +90,10 @@ class ReportDetailCard extends Component {
         })
         .then((campaign) => {
           if (campaign?.data) {
-            this.setState({ postImage: campaign.data.campaign.image });
+            this.setState({ postImage: campaign.data.image });
           }
         })
         .catch((err) => {
-          console.log(err.message);
           Alert.alert('An error ocurred when we tried to get some data');
         });
     } else this.type = 'User Profile';
@@ -95,11 +108,7 @@ class ReportDetailCard extends Component {
         del = this.props.deleteComment;
         break;
       }
-      case 'campaigns': {
-        del = this.props.deleteCampaignPost;
-        break;
-      }
-      case 'campaign_updates': {
+      case 'campaign_posts': {
         del = this.props.deleteCampaignPost;
         break;
       }
@@ -153,7 +162,7 @@ class ReportDetailCard extends Component {
   };
 
   goToPost = () => {
-    // TODO: Implement a way to view the post (comment, campaign or campaign update)
+    // TODO: Implement a way to view the post (comment or campaign)
   };
 
   render() {
@@ -161,8 +170,7 @@ class ReportDetailCard extends Component {
       this.props.currentReport.reported_at
     ).format('lll')}`;
 
-    const loading =
-      !this.state.isUser && !(this.state.postText && this.state.postImage);
+    const loading = !this.state.isUser && !this.state.postText;
 
     return (
       <Collapsible
@@ -189,7 +197,7 @@ class ReportDetailCard extends Component {
               <View style={styles.image_content_container}>
                 <Image
                   style={styles.image_content}
-                  source={loading ? null : { uri: this.state.postImage }}
+                  source={{ uri: this.state.postImage || undefined }}
                 />
               </View>
               <View style={styles.text_content_container}>

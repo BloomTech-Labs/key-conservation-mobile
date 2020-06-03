@@ -1,6 +1,5 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-const deviceWidth = Dimensions.get('window').width;
 export default StyleSheet.create({
   feedContainer: {
     flex: 1,
@@ -38,22 +37,6 @@ export default StyleSheet.create({
     fontFamily: 'Lato',
     fontSize: 17,
   },
-  campImgContain: {
-    /* Must have a Width && Height or it won't display anything! */
-    width: '100%',
-    flex: 1,
-    height: deviceWidth,
-    marginTop: 3,
-  },
-  indicator: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   goToCampaignButton: {
     backgroundColor: 'rgba(0, 255, 157, 0.7)',
     alignItems: 'center',
@@ -76,11 +59,11 @@ export default StyleSheet.create({
     paddingTop: 8,
   },
   topRowLeft: {
-    paddingLeft: 17,
+    paddingLeft: 9,
     width: '75%',
   },
   topRowRight: {
-    paddingRight: 15,
+    paddingRight: 10,
   },
   postTitle: {
     paddingRight: 15,
@@ -123,49 +106,35 @@ export default StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
   },
-  updateBar: {
-    backgroundColor: 'rgba(202,255,0, 0.7)',
-    height: 37,
-    width: '100%',
-    position: 'absolute',
-    zIndex: 1,
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  updateBarText: {
-    fontFamily: 'Lato-Bold',
-    fontSize: 16,
-    letterSpacing: 5,
-    color: 'black',
-  },
-  rightSection: {
+  rightSectionBookmark: {
     borderRadius: 12,
-    marginTop: 12,
+    marginTop: 10,
     marginRight: 3,
-    fontFamily: 'Lato',
-    fontSize: 14,
-    lineHeight: 16,
     backgroundColor: '#F5F5F5',
-    paddingTop: 5,
+    paddingTop: 10,
     paddingLeft: 6,
     paddingRight: 6,
     height: 42,
   },
+  rightSectionComment: {
+    borderRadius: 12,
+    marginTop: 10,
+    marginRight: 3,
+    backgroundColor: '#F5F5F5',
+    paddingTop: 6,
+    paddingLeft: 6,
+    paddingRight: 6,
+    height: 42,
+  },
+  listItemStyle: {
+    borderBottomColor: 'transparent',
+    borderBottomWidth: 0,
+  },
   readMore: {
     color: '#929292',
   },
-  urgencyBarText: {
-    fontFamily: 'Lato-Bold',
-    fontSize: 16,
-    letterSpacing: 5,
-    color: 'white',
-  },
   demarcation: {
-    marginTop: 10,
+    marginTop: 5,
   },
   subtitleText: {
     color: '#929292',

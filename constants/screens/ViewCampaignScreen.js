@@ -1,8 +1,6 @@
-import { Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-const deviceWidth = Dimensions.get('window').width;
-
-export default {
+export default StyleSheet.create({
   touchableButton: {
     paddingTop: 25,
     paddingBottom: 25,
@@ -28,13 +26,6 @@ export default {
   mainContainer: {
     flex: 1,
     backgroundColor: '#F2F2FB',
-    paddingTop: 5,
-  },
-  urgencyBarText: {
-    fontFamily: 'Lato-Bold',
-    fontSize: 16,
-    letterSpacing: 5,
-    color: 'white',
   },
   commentsView: {
     width: '100%',
@@ -53,19 +44,12 @@ export default {
     paddingTop: 7,
     paddingBottom: 10,
     borderRadius: 10,
-    marginTop: 5,
+    marginVertical: 10,
   },
   ogPostButton: {
     fontFamily: 'Lato-Bold',
     width: '60%',
     alignSelf: 'center',
-  },
-  campaignImageContainer: {
-    /* Must have a Width && Height or it won't display anything! */
-    width: '100%',
-    flex: 1,
-    height: deviceWidth,
-    marginTop: 3,
   },
   campaignDescriptionContainer: {
     marginLeft: 15,
@@ -151,4 +135,15 @@ export default {
     fontSize: 16,
     fontFamily: 'Lato',
   },
-};
+  viewOriginalPost: {
+    backgroundColor: 'dodgerblue',
+    height: 40,
+    paddingHorizontal: 18,
+    justifyContent: 'center',
+  },
+  viewOriginalPostText: {
+    color: 'white',
+    fontFamily: 'Lato-Bold',
+    fontSize: 16,
+  },
+});
