@@ -161,7 +161,10 @@ const CampaignPost = (props) => {
         />
         <View style={styles.topRow}>
           <View style={styles.topRowLeft}>
-            <Text style={styles.postTitle}>{data.name}</Text>
+            <Text style={styles.postTitle} maxLength={8}>
+              {shorten(data.name, 30)}
+              &nbsp;
+            </Text>
           </View>
           <View style={styles.topRowRight}>
             <Text style={styles.timeText}>{timeDiff}</Text>
@@ -172,7 +175,7 @@ const CampaignPost = (props) => {
           disabled={props.disableHeader}
           onPress={goToProfile}
           title={
-            <View style={styles.name}>
+            <View style={styles.org_name}>
               <Text style={styles.orgTitleView}>{data.org_name}</Text>
             </View>
           }
