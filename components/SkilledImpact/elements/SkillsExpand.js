@@ -52,12 +52,12 @@ const SkillsExpand = (props) => {
         {expanded ? (
           <View style={styles.itemContentBody}>
               <View style={styles.itemContentRows}>
-                {skills.map((skill, i) => {
-                  if(skill) {
+                {skills.map((skillJSON, i) => {
+                  if(skillJSON.skill) {
                     return (
                       <TouchableOpacity key={i} style={styles.skillsButton}>
                         <Text style={styles.mediumButtonText}>
-                          {skill}
+                          {skillJSON.skill}
                         </Text>
                       </TouchableOpacity>
                     )
