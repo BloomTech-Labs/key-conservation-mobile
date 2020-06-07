@@ -164,9 +164,10 @@ export default StyleSheet.create({
   rightSectionBookmark: {
     borderRadius: 12,
     backgroundColor: '#F5F5F5',
-    height: 46,
-    width: 40,
+    height: 44,
+    width: 44,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    margin: 2,
   },
 });
