@@ -146,4 +146,11 @@ export default StyleSheet.create({
     fontFamily: 'Lato-Bold',
     fontSize: 16,
   },
+  campaignControls: {
+    flexDirection: 'row',
+  },
+  campaignControlsLeft: {
+    flexDirection: 'row',
+    flex: 2,
+  },
 });

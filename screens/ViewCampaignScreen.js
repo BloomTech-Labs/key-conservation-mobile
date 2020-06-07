@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { View } from 'react-native-animatable';
-import { ListItem } from 'react-native-elements';
+import { ListItem, Badge } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { getOriginalPost } from '../store/actions';
 import moment from 'moment';
@@ -17,6 +17,9 @@ import TakeActionCallToAction from '../components/TakeAction/TakeActionCallToAct
 import MapMarker from '../assets/jsicons/headerIcons/map-marker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import MediaViewer from '../components/MediaViewer';
+import SmileSelector from '../components/FeedScreen/SmileSelector';
+import BookmarkSolid from '../assets/jsicons/miscIcons/BookmarkSolid';
+import Bookmark from '../assets/jsicons/miscIcons/Bookmark';
 
 class ViewCampaignScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -62,6 +65,7 @@ class ViewCampaignScreen extends React.Component {
     const campaignPost = this.props.selectedCampaign || {};
 
     this.setState({
+      ...this.state,
       createdAt: campaignPost.created_at
         ? moment(campaignPost.created_at).fromNow()
         : '...',
@@ -156,6 +160,19 @@ class ViewCampaignScreen extends React.Component {
                   urgency={this.state.urgency}
                   isUpdate={this.state.is_update}
                 />
+                <View style={styles.campaignControls}>
+                  <View style={styles.campaignControlsLeft}>
+                    <View
+                      style={{
+                        marginLeft: 8,
+                        marginBottom: 0,
+                        paddingTop: 10,
+                      }}
+                    >
+                      <SmileSelector postId={this.state.campaign_id || this.state.id} />
+                    </View>
+                  </View>
+                </View>
                 <View style={styles.donateView}>
                   <TakeActionCallToAction
                     data={this.props.selectedCampaign}

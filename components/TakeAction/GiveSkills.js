@@ -12,9 +12,9 @@ import styles from '../../constants/TakeAction/GiveSkill';
 const NeededSkills = props => {
   var skillsBubbles = [];
 
-  props.neededSkills.forEach( skill => {
+  props.neededSkills.forEach( (skill, index) => {
     skillsBubbles.push(
-      <View style={styles.skill_bubble}>
+      <View key={index} style={styles.skill_bubble}>
         <Text style={styles.skill_label}>{skill.skill}</Text>
       </View>
     )

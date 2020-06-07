@@ -29,6 +29,8 @@ const SmileSelector = (props) => {
 
       const reactions = {};
 
+      console.log(emojiReactions);
+
       emojiReactions.reactions.forEach((emote) => {
         reactions[emote] = reactions[emote] || 0;
         reactions[emote] += 1;
@@ -48,8 +50,8 @@ const SmileSelector = (props) => {
   };
 
   useEffect(() => {
-    init();
-  }, []);
+    if (props.postId && Object.entries(emoji).length === 0) init();
+  }, [props.postId]);
 
   // Called when an emoji is selected from
   // the emoji menu only
