@@ -38,8 +38,8 @@ const Goal = props => {
 const NeededSkillsDetailContainer = props => {
   var neededSkillsDetails = [];
 
-  props.data.skilled_impact_requests.forEach( skill => {
-    neededSkillsDetails.push(<NeededSkillsCard skill={skill} navigation={props.navigation}/>)
+  props.data.skilled_impact_requests.forEach( (skill, index) => {
+    neededSkillsDetails.push(<NeededSkillsCard key={index} skill={skill} navigation={props.navigation}/>)
   })
 
   return <View >{neededSkillsDetails}</View>

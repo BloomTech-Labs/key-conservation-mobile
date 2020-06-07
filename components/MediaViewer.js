@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 // images and displaying them intelligently making sure that
 // only one video ever plays at once, and that videos only play
 // when in view
-const VIDEO_EXTS = ['mov', 'mp3', 'mp4'];
+const VIDEO_EXTS = ['mov', 'mkv', 'mp4'];
 
 class MediaViewer extends Component {
   constructor(props) {
