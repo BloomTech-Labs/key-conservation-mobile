@@ -147,10 +147,26 @@ export default StyleSheet.create({
     fontSize: 16,
   },
   campaignControls: {
+    flex: 1,
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 10,
   },
   campaignControlsLeft: {
     flexDirection: 'row',
-    flex: 2,
+    flex: 1,
+  },
+  campaignControlsRight: {
+    flexDirection: 'row-reverse',
+    flex: 1,
+  },
+  rightSectionBookmark: {
+    borderRadius: 12,
+    backgroundColor: '#F5F5F5',
+    height: 46,
+    width: 40,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 });

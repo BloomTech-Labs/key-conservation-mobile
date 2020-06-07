@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { View } from 'react-native-animatable';
 import { ListItem, Badge } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { getOriginalPost } from '../store/actions';
+import { getOriginalPost, addBookmark, removeBookmark } from '../store/actions';
 import moment from 'moment';
 import { Viewport } from '@skele/components';
 import { navigate } from '../navigation/RootNavigator';
@@ -45,7 +45,9 @@ class ViewCampaignScreen extends React.Component {
     };
   };
 
-  state = {};
+  state = {
+    isBookmarked: false,
+  };
 
   componentDidMount() {
     const campaign_id = this.props.navigation.getParam('campaign_id');
@@ -59,6 +61,22 @@ class ViewCampaignScreen extends React.Component {
     this.props.navigation.setParams({
       showCampaignOptions: this.showActionSheet,
     });
+
+    this.setBookmarked();
+  }
+
+  setBookmarked = () => {
+    let isBookmarked = this.props.bookmarks?.filter(
+      (bm) => bm.campaign_id === this.state.campaign_id
+    );
+    isBookmarked = isBookmarked.length > 0;
+    if (this.state.isBookmarked !== isBookmarked) {
+      this.setState({ isBookmarked: isBookmarked });
+    }
+  };
+
+  componentDidUpdate() {
+    this.setBookmarked();
   }
 
   loadPostData() {
@@ -89,6 +107,16 @@ class ViewCampaignScreen extends React.Component {
     } else {
       console.log('Could not navigate to original post, invalid campaign id');
     }
+  };
+
+  handleBookmarkPressed = () => {
+    if (this.state.isBookmarked) {
+      this.props.removeBookmark(this.state.campaign_id);
+    } else {
+      this.props.addBookmark(this.state);
+    }
+
+    this.setBookmarked();
   };
 
   render() {
@@ -162,15 +190,25 @@ class ViewCampaignScreen extends React.Component {
                 />
                 <View style={styles.campaignControls}>
                   <View style={styles.campaignControlsLeft}>
-                    <View
-                      style={{
-                        marginLeft: 8,
-                        marginBottom: 0,
-                        paddingTop: 10,
-                      }}
-                    >
-                      <SmileSelector postId={this.state.campaign_id || this.state.id} />
-                    </View>
+                    <SmileSelector
+                      postId={this.state.campaign_id || this.state.id}
+                    />
+                  </View>
+                  <View style={styles.campaignControlsRight}>
+                    {this.props.currentUserProfile.roles === 'supporter' ? (
+                      <TouchableOpacity
+                        style={styles.rightSectionBookmark}
+                        onPress={this.handleBookmarkPressed}
+                      >
+                        {this.props.bookmarksLoading ? (
+                          <ActivityIndicator size="large" color="#ADADAD" />
+                        ) : this.state.isBookmarked ? (
+                          <BookmarkSolid />
+                        ) : (
+                          <Bookmark />
+                        )}
+                      </TouchableOpacity>
+                    ) : null}
                   </View>
                 </View>
                 <View style={styles.donateView}>
@@ -220,12 +258,17 @@ class ViewCampaignScreen extends React.Component {
 
 const mapStateToProps = (state) => ({
   loading: state.pending.getCampaign,
+  bookmarks: state.bookmarks,
+  bookamrksLoading: state.pending.bookmarks,
+  bookmarksError: state.errors.bookmarks,
   selectedCampaign: state.selectedCampaign,
   currentUser: state.currentUser,
   currentUserProfile: state.currentUserProfile,
   token: state.token,
 });
 
-export default connect(mapStateToProps, { getOriginalPost })(
-  ViewCampaignScreen
-);
+export default connect(mapStateToProps, {
+  getOriginalPost,
+  addBookmark,
+  removeBookmark,
+})(ViewCampaignScreen);
