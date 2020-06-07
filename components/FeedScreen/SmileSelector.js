@@ -29,8 +29,6 @@ const SmileSelector = (props) => {
 
       const reactions = {};
 
-      console.log(emojiReactions);
-
       emojiReactions.reactions.forEach((emote) => {
         reactions[emote] = reactions[emote] || 0;
         reactions[emote] += 1;
