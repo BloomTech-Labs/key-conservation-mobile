@@ -178,7 +178,9 @@ export default StyleSheet.create({
   },
   updatesTitle: {
     fontFamily: 'Lato-Bold',
+    padding: 10,
+    marginLeft: 10,
     color: 'black',
-    fontSize: 20,
+    fontSize: 22,
   }
 });

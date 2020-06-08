@@ -3,7 +3,9 @@ import { View, Text, Image } from 'react-native';
 import styles from '../../constants/CampaignPost/UpdateStrip';
 import moment from 'moment';
 
-import { getCampaignUpdates } from '../../store/actions';
+import { getCampaignUpdates, setCampaign } from '../../store/actions';
+
+import { navigate } from '../../navigation/RootNavigator';
 
 import { connect } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -13,44 +15,59 @@ class UpdateStrip extends Component {
     super(props);
     this.state = {
       updates: [],
-      loading: true,
+      loading: false,
       error: '',
     };
   }
 
   componentDidMount() {
-    if (this.props.id && typeof this.props.id === 'number')
-      this.props
-        .getCampaignUpdates(this.props.id)
-        .then((res) => {
-          this.setState({ updates: res?.data, loading: false });
-        })
-        .catch((err) => {
-          console.log(err);
-          this.setState({
-            loading: false,
-            error: err?.message,
-          });
+    if (
+      this.props.campaign.campaign_id &&
+      typeof this.props.campaign.campaign_id === 'number' &&
+      this.state.loading === false
+    )
+      this.setState({
+        loading: true,
+      });
+    this.props
+      .getCampaignUpdates(this.props.campaign.campaign_id)
+      .then((res) => {
+        this.setState({ updates: res?.data, loading: false });
+      })
+      .catch((err) => {
+        console.log(err);
+        this.setState({
+          loading: false,
+          error: err?.message,
         });
+      });
   }
 
-  onSeeAll() {
-      // TODO Implement
-  }
-
-  onTilePressed() {
-      // TODO Implement
+  goToUpdate(index = 0) {
+    this.props.setCampaign(this.props.campaign);
+    navigate(
+      'Campaign',
+      {
+        userBookmarked: this.props.campaign.userBookmarked,
+        targetUpdate: index,
+        updates: this.state.updates,
+      },
+      `${this.props.campaign.campaign_id}`
+    );
   }
 
   render() {
+
     return this.state.loading ||
       this.state.error ||
       this.state.updates.length === 0 ? null : (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>Latest updates</Text>
+          <Text style={styles.title}>
+            Latest updates ({this.state.updates.length})
+          </Text>
           {this.state.updates?.length > 3 ? (
-            <TouchableOpacity onPress={this.onSeeAll}>
+            <TouchableOpacity onPress={this.goToUpdate.bind(this)}>
               <Text style={{ ...styles.title, color: '#4F4F4F' }}>
                 See All >
               </Text>
@@ -58,10 +75,12 @@ class UpdateStrip extends Component {
           ) : null}
         </View>
         <View style={styles.tileContainer}>
-          {this.state.updates.slice(0, 3).map((update) => {
-            console.log(update.image);
+          {this.state.updates.slice(0, 3).map((update, index) => {
             return (
-              <TouchableOpacity key={update.id} onPress={this.onTilePressed}>
+              <TouchableOpacity
+                key={update.id}
+                onPress={this.goToUpdate.bind(this, index)}
+              >
                 <View style={styles.updateTile}>
                   <Image style={styles.image} source={{ uri: update.image }} />
                   <View style={styles.dateContainer}>
@@ -79,4 +98,4 @@ class UpdateStrip extends Component {
   }
 }
 
-export default connect(null, { getCampaignUpdates })(UpdateStrip);
+export default connect(null, { getCampaignUpdates, setCampaign })(UpdateStrip);

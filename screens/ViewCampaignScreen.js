@@ -56,12 +56,23 @@ class ViewCampaignScreen extends React.Component {
     };
   };
 
+  constructor(props) {
+    super(props);
+
+    this.scrollView = React.createRef();
+  }
+
   state = {
     isBookmarked: false,
     updates: [],
     updatesLoading: true,
     updatesError: '',
   };
+
+  onTargetUpdateLayout(yPos) {
+    console.log('scrolling to ' + yPos);
+    this.scrollView.scrollTo?.({ y: yPos + 1124, animated: true });
+  }
 
   componentDidMount() {
     let campaign_id = this.props.navigation.getParam('campaign_id');
@@ -74,7 +85,15 @@ class ViewCampaignScreen extends React.Component {
 
     campaign_id = campaign_id || this.props.selectedCampaign.campaign_id;
 
-    if (campaign_id) {
+    if (this.props.navigation.getParam('updates')) {
+      console.log('Updates provided via props, loading them in...');
+      this.setState({
+        updates: this.props.navigation.getParam('updates'),
+        updatesLoading: false,
+      });
+      // console.log('scrolling...')
+      // this.scrollView.scrollTo?.({ animated: true, y: 0 });
+    } else if (campaign_id) {
       this.props
         .getCampaignUpdates(campaign_id)
         .then((res) => {
@@ -155,7 +174,11 @@ class ViewCampaignScreen extends React.Component {
   render() {
     return (
       <View style={styles.mainContainer}>
-        <KeyboardAwareScrollView extraScrollHeight={50} enableOnAndroid={false}>
+        <KeyboardAwareScrollView
+          innerRef={(r) => (this.scrollView = r)}
+          extraScrollHeight={50}
+          enableOnAndroid={false}
+        >
           {this.state.is_update ? (
             <TouchableOpacity
               activeOpacity={0.8}
@@ -271,16 +294,34 @@ class ViewCampaignScreen extends React.Component {
           ) : this.state.updates?.length > 0 ? (
             <View style={styles.container}>
               <Text style={styles.updatesTitle}>Latest updates</Text>
-              {this.state.updates.map(update => {
-                return (
-                  <CampaignPost
-                    disableControls
-                    key={update.id}
-                    data={update}
-                    toggled={this.props.campaignsToggled.includes(update.id)}
-                  />
-                );
-              })}
+              {this.state.updates
+                .filter((u) => u.id !== this.state.id)
+                .map((update, index) => {
+                  return (
+                    <View
+                      onLayout={(event) => {
+                        if (
+                          index ===
+                          this.props.navigation.getParam('targetUpdate')
+                        ) {
+                          const layout = event.nativeEvent.layout;
+                          this.onTargetUpdateLayout(layout.y);
+                        }
+                      }}
+                      style={{ flex: 1 }}
+                      key={update.id}
+                    >
+                      <CampaignPost
+                        disableControls
+                        disableHeader
+                        data={update}
+                        toggled={this.props.campaignsToggled.includes(
+                          update.id
+                        )}
+                      />
+                    </View>
+                  );
+                })}
             </View>
           ) : null}
         </KeyboardAwareScrollView>

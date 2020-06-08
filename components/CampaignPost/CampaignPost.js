@@ -45,6 +45,7 @@ CampaignPost USAGE
 Props:
 
 disableControls - Include this to hide emoji, comment and bookmark controls
+disableHeader   - Include this to hide header (Title, avatar, name, location)
 
 
 */
@@ -128,9 +129,13 @@ const CampaignPost = (props) => {
       profile: data.org_name,
     });
     dispatch(setCampaign(data));
-    navigate('Campaign', {
-      userBookmarked: data.userBookmarked,
-    }, `${data.id}`);
+    navigate(
+      'Campaign',
+      {
+        userBookmarked: data.userBookmarked,
+      },
+      `${data.id}`
+    );
   };
 
   const toggleText = () => {
@@ -299,7 +304,7 @@ const CampaignPost = (props) => {
           </View>
         )}
         <TakeActionCallToAction data={props.data} />
-        {data.is_update ? null : <UpdateStrip id={data.campaign_id} />}
+        {data.is_update ? null : <UpdateStrip campaign={data} />}
         <View style={styles.demarcation} />
       </View>
     </Animated.View>
