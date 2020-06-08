@@ -313,7 +313,8 @@ class ViewCampaignScreen extends React.Component {
             <Text style={styles.updatesLoadingError}>
               {this.state.updatesError}
             </Text>
-          ) : this.state.updates?.length > 0 ? (
+          ) : this.state.updates?.filter((u) => u.id !== this.state.id).length >
+            0 ? (
             <View style={styles.container}>
               <Text style={styles.updatesTitle}>Latest updates</Text>
               {this.state.updates
