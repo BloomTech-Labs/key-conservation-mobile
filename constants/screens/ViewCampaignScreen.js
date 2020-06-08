@@ -146,4 +146,28 @@ export default StyleSheet.create({
     fontFamily: 'Lato-Bold',
     fontSize: 16,
   },
+  campaignControls: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 10,
+  },
+  campaignControlsLeft: {
+    flexDirection: 'row',
+    flex: 1,
+  },
+  campaignControlsRight: {
+    flexDirection: 'row-reverse',
+    flex: 1,
+  },
+  rightSectionBookmark: {
+    borderRadius: 12,
+    backgroundColor: '#F5F5F5',
+    height: 44,
+    width: 44,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 2,
+  },
 });

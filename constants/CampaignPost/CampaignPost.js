@@ -108,23 +108,22 @@ export default StyleSheet.create({
   },
   rightSectionBookmark: {
     borderRadius: 12,
-    marginTop: 10,
-    marginRight: 3,
     backgroundColor: '#F5F5F5',
-    paddingTop: 10,
-    paddingLeft: 6,
-    paddingRight: 6,
-    height: 42,
+    height: 44,
+    width: 44,
+    justifyContent: 'center',
+    margin: 2,
+    alignItems: 'center'
   },
   rightSectionComment: {
     borderRadius: 12,
-    marginTop: 10,
-    marginRight: 3,
     backgroundColor: '#F5F5F5',
-    paddingTop: 6,
-    paddingLeft: 6,
-    paddingRight: 6,
-    height: 42,
+    height: 44,
+    width: 48,
+    margin: 2,
+    paddingLeft: 2,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   listItemStyle: {
     borderBottomColor: 'transparent',
@@ -141,14 +140,19 @@ export default StyleSheet.create({
   },
   campaignControls: {
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 5,
+    flex: 1,
   },
   campaignControlsLeft: {
     flexDirection: 'row',
-    flex: 2,
+    alignItems: 'center',
+    flex: 1,
   },
   campaignControlsRight: {
-    flexDirection: 'row',
-    alignSelf: 'flex-end',
-    paddingRight: 7,
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    flex: 1,
   },
 });

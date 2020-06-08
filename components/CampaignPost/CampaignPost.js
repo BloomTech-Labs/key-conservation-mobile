@@ -238,7 +238,7 @@ const CampaignPost = (props) => {
 
         <View style={styles.campaignControls}>
           <View style={styles.campaignControlsLeft}>
-            <View style={{ marginLeft: 8, marginBottom: -60, paddingTop: 10 }}>
+            <View>
               <SmileSelector postId={data.campaign_id || data.id} />
             </View>
           </View>
@@ -263,21 +263,23 @@ const CampaignPost = (props) => {
               onPress={goToCampaign}
             >
               <CommentIcon />
-              <Badge
-                textStyle={{
-                  color: 'black',
-                  fontSize: 15,
-                }}
-                badgeStyle={{
-                  backgroundColor: '#CAFF03',
-                }}
-                containerStyle={{
-                  position: 'absolute',
-                  top: -8,
-                  right: -3,
-                }}
-                value={data.comments ? data.comments.length : 0}
-              />
+              {data.comments?.length > 0 ? (
+                <Badge
+                  textStyle={{
+                    color: 'black',
+                    fontSize: 15,
+                  }}
+                  badgeStyle={{
+                    backgroundColor: '#CAFF03',
+                  }}
+                  containerStyle={{
+                    position: 'absolute',
+                    top: -8,
+                    right: -3,
+                  }}
+                  value={data.comments ? data.comments.length : 0}
+                />
+              ) : null}
             </TouchableOpacity>
           </View>
         </View>
