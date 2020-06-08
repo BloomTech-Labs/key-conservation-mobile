@@ -31,7 +31,7 @@ export default StyleSheet.create({
     width: '100%',
     fontSize: 14,
     fontFamily: 'Lato',
-    paddingLeft: 15,
+    paddingHorizontal: 10,
     borderRadius: 10,
     backgroundColor: 'white',
   },

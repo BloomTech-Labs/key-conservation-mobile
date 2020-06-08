@@ -89,13 +89,10 @@ class ViewCampaignScreen extends React.Component {
     campaign_id = campaign_id || this.props.selectedCampaign.campaign_id;
 
     if (this.props.navigation.getParam('updates')) {
-      console.log('Updates provided via props, loading them in...');
       this.setState({
         updates: this.props.navigation.getParam('updates'),
         updatesLoading: false,
       });
-      // console.log('scrolling...')
-      // this.scrollView.scrollTo?.({ animated: true, y: 0 });
     } else if (campaign_id) {
       this.props
         .getCampaignUpdates(campaign_id)

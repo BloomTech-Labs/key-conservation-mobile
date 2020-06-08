@@ -60,18 +60,18 @@ class CommentsView extends React.Component {
 
   render() {
     const comments = [this.bufferedComment, ...this.props.campaignComments]
-            ?.filter((com) => com !== null)
-            .slice(0, this.state.commentsVisible)
-            .map((comment) => {
-              return (
-                <Comment
-                  key={comment.id}
-                  comment={comment}
-                  currentUserProfile={this.props.currentUserProfile}
-                  selectedCampaign={this.props.selectedCampaign}
-                />
-              );
-            })
+      ?.filter((com) => com !== null)
+      .slice(0, this.state.commentsVisible)
+      .map((comment) => {
+        return (
+          <Comment
+            key={comment.id}
+            comment={comment}
+            currentUserProfile={this.props.currentUserProfile}
+            selectedCampaign={this.props.selectedCampaign}
+          />
+        );
+      });
 
     return (
       <KeyboardAvoidingView>
@@ -84,7 +84,11 @@ class CommentsView extends React.Component {
           </View>
         )}
         <View style={{ flex: 1, flexDirection: 'column-reverse' }}>
-          {comments.length > 0 ? comments : <Text style={styles.commentsEmpty}>No comments yet</Text>}
+          {comments.length > 0 ? (
+            comments
+          ) : (
+            <Text style={styles.commentsEmpty}>No comments yet</Text>
+          )}
         </View>
         {/* View More Comments is visible if the length of campaignComments is greater than the value of commentsVisible */}
         <View style={styles.replyView}>

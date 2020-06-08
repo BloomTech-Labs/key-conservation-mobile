@@ -89,7 +89,6 @@ export default StyleSheet.create({
   },
   avatar: {
     marginTop: 5,
-    marginLeft: -10,
   },
   feedAvatar: {
     marginTop: 8,
@@ -119,6 +118,7 @@ export default StyleSheet.create({
     padding: 15,
     backgroundColor: '#E0E0E0',
     width: '100%',
+    alignSelf: 'center',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
