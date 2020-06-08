@@ -14,7 +14,7 @@ import {
   refreshFeed,
   dequeueNewPosts,
 } from '../store/actions';
-import CampaignPost from '../components/CampaignPost';
+import CampaignPost from '../components/CampaignPost/CampaignPost';
 import styles from '../constants/screens/FeedScreen';
 import { Viewport } from '@skele/components';
 import AddCampaignHeader from '../components/FeedScreen/AddCampaignHeader';

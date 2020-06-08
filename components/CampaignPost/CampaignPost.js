@@ -17,23 +17,24 @@ import {
   addBookmark,
   removeBookmark,
   fetchBookmarks,
-} from '../store/actions';
-import { AmpEvent } from './withAmplitude';
-import LoadingOverlay from './LoadingOverlay';
+} from '../../store/actions';
+import { AmpEvent } from '../withAmplitude';
+import LoadingOverlay from '../LoadingOverlay';
 
-import { navigate } from '../navigation/RootNavigator';
+import { navigate } from '../../navigation/RootNavigator';
 
-import styles from '../constants/CampaignPost';
-import Ellipse from '../assets/jsicons/Ellipse';
-import CommentIcon from '../assets/jsicons/CommentIcon';
-import MapMarker from '../assets/jsicons/headerIcons/map-marker';
-import CampaignActionSheet from './Reports/CampaignActionSheet';
-import TakeActionCallToAction from './TakeAction/TakeActionCallToAction';
-import SmileSelector from './FeedScreen/SmileSelector';
-import Bookmark from '../assets/jsicons/miscIcons/Bookmark';
-import BookmarkSolid from '../assets/jsicons/miscIcons/BookmarkSolid';
-import { shorten } from '../util';
-import MediaViewer from './MediaViewer';
+import styles from '../../constants/CampaignPost/CampaignPost';
+import Ellipse from '../../assets/jsicons/Ellipse';
+import CommentIcon from '../../assets/jsicons/CommentIcon';
+import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
+import CampaignActionSheet from '../Reports/CampaignActionSheet';
+import TakeActionCallToAction from '../TakeAction/TakeActionCallToAction';
+import SmileSelector from '../FeedScreen/SmileSelector';
+import Bookmark from '../../assets/jsicons/miscIcons/Bookmark';
+import BookmarkSolid from '../../assets/jsicons/miscIcons/BookmarkSolid';
+import { shorten } from '../../util';
+import MediaViewer from '../MediaViewer';
+import UpdateStrip from './UpdateStrip';
 
 const CampaignPost = (props) => {
   const { data, toggled } = props;
@@ -280,7 +281,11 @@ const CampaignPost = (props) => {
             </TouchableOpacity>
           </View>
         </View>
-        <TakeActionCallToAction donate={props.data} />
+        <TakeActionCallToAction
+          data={props.data}
+          navigation={props.navigation}
+        />
+        {data.is_update ? null : <UpdateStrip id={data.campaign_id} />}
         <View style={styles.demarcation} />
       </View>
     </Animated.View>
