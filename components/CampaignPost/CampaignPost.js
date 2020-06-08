@@ -123,7 +123,7 @@ const CampaignPost = (props) => {
     updateBookmarkIcon();
   };
 
-  const goToCampaign = async () => {
+  const goToCampaign = async (params) => {
     AmpEvent('Select Profile from Campaign', {
       campaign: data.campaign_name,
       profile: data.org_name,
@@ -133,6 +133,7 @@ const CampaignPost = (props) => {
       'Campaign',
       {
         userBookmarked: data.userBookmarked,
+        ...params,
       },
       `${data.id}`
     );
@@ -279,7 +280,7 @@ const CampaignPost = (props) => {
 
               <TouchableOpacity
                 style={styles.rightSectionComment}
-                onPress={goToCampaign}
+                onPress={goToCampaign.bind(this, { focusComments: true })}
               >
                 <CommentIcon />
                 {data.comments?.length > 0 ? (

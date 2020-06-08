@@ -117,27 +117,12 @@ export default StyleSheet.create({
   moreContainer: {
     flex: 1,
     padding: 15,
+    backgroundColor: '#E0E0E0',
     width: '100%',
-    flexWrap: 'wrap',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     fontSize: 18,
-  },
-  more: {
-    width: '100%',
-    height: 48,
-    backgroundColor: '#F5F5F5',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-    textAlign: 'center',
-    shadowColor: 'rgba(0, 0, 0, 0.15)',
-    shadowOffset: {
-      height: 4,
-    },
-    shadowRadius: 5,
-    shadowOpacity: 10,
   },
   moreText: {
     color: '#323339',
@@ -152,4 +137,10 @@ export default StyleSheet.create({
     marginTop: 9,
     color: '#7B7D88',
   },
+  commentsEmpty: {
+    color: 'gray',
+    textAlign: 'center',
+    padding: 16,
+    backgroundColor: '#F0F0F0'
+  }
 });

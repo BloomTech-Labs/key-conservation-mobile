@@ -59,11 +59,7 @@ class CommentsView extends React.Component {
   };
 
   render() {
-    return (
-      <KeyboardAvoidingView>
-        {/* Displays latest comment unless the user is viewing all the campaign comments. */}
-        <View style={{ flex: 1, flexDirection: 'column-reverse' }}>
-          {[this.bufferedComment, ...this.props.campaignComments]
+    const comments = [this.bufferedComment, ...this.props.campaignComments]
             ?.filter((com) => com !== null)
             .slice(0, this.state.commentsVisible)
             .map((comment) => {
@@ -75,17 +71,21 @@ class CommentsView extends React.Component {
                   selectedCampaign={this.props.selectedCampaign}
                 />
               );
-            })}
-        </View>
+            })
+
+    return (
+      <KeyboardAvoidingView>
+        {/* Displays latest comment unless the user is viewing all the campaign comments. */}
         {this.props.campaignComments?.length > this.state.commentsVisible && (
           <View style={styles.moreContainer}>
             <TouchableOpacity onPress={() => this.addMoreComments()}>
-              <View style={styles.more}>
-                <Text style={styles.moreText}>View more comments</Text>
-              </View>
+              <Text style={styles.moreText}>View more comments</Text>
             </TouchableOpacity>
           </View>
         )}
+        <View style={{ flex: 1, flexDirection: 'column-reverse' }}>
+          {comments.length > 0 ? comments : <Text style={styles.commentsEmpty}>No comments yet</Text>}
+        </View>
         {/* View More Comments is visible if the length of campaignComments is greater than the value of commentsVisible */}
         <View style={styles.replyView}>
           <View style={styles.replyAvatar}>

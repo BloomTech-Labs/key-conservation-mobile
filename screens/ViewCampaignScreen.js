@@ -67,11 +67,14 @@ class ViewCampaignScreen extends React.Component {
     updates: [],
     updatesLoading: true,
     updatesError: '',
+    hasFocused: false,
   };
 
   onTargetUpdateLayout(yPos) {
-    console.log('scrolling to ' + yPos);
-    this.scrollView.scrollTo?.({ y: yPos + 1124, animated: true });
+    if (!this.state.hasFocused) {
+      this.scrollView.scrollTo?.({ y: yPos + 1124, animated: true });
+      this.setState({ hasFocused: true });
+    }
   }
 
   componentDidMount() {
@@ -279,7 +282,26 @@ class ViewCampaignScreen extends React.Component {
                   {this.props.loading ? (
                     <Text>Loading comments...</Text>
                   ) : (
-                    <CommentsView />
+                    <View
+                      onLayout={(event) => {
+                        if (this.props.navigation.getParam('focusComments')) {
+                          const layout = event.nativeEvent.layout;
+                          this.onTargetUpdateLayout(layout.y + 72);
+                        }
+                      }}
+                      style={{ flex: 1 }}
+                    >
+                      <Text
+                        style={{
+                          fontFamily: 'Lato-Bold',
+                          fontSize: 18,
+                          paddingBottom: 8,
+                        }}
+                      >
+                        Comments
+                      </Text>
+                      <CommentsView />
+                    </View>
                   )}
                 </View>
               </View>
