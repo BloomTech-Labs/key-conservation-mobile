@@ -170,4 +170,15 @@ export default StyleSheet.create({
     alignItems: 'center',
     margin: 2,
   },
+  updatesLoadingContainer: {
+    flex: 1,
+  },
+  updatesLoadingError: {
+    color: 'crimson',
+  },
+  updatesTitle: {
+    fontFamily: 'Lato-Bold',
+    color: 'black',
+    fontSize: 20,
+  }
 });

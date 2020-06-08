@@ -157,7 +157,6 @@ class FeedScreen extends React.Component {
   }
 
   render() {
-    const { navigation } = this.props;
     return (
       <View style={{ flex: 1 }}>
         {this.props.feedError ||
@@ -170,7 +169,7 @@ class FeedScreen extends React.Component {
             <Button title="Retry" onPress={() => this.props.getFeed()} />
           </View>
         ) : (
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 1, backgroundColor: '#F2F2FB' }}>
             <Viewport.Tracker>
               <FlatList
                 onRefresh={this.onRefresh}
@@ -189,7 +188,6 @@ class FeedScreen extends React.Component {
                       toggled={this.props.campaignsToggled.includes(
                         campaign.id
                       )}
-                      navigation={navigation}
                     />
                   );
                 }}

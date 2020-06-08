@@ -36,6 +36,19 @@ import { shorten } from '../../util';
 import MediaViewer from '../MediaViewer';
 import UpdateStrip from './UpdateStrip';
 
+/*
+
+CampaignPost USAGE
+
+**CURRENLTLY INCOMPLETE**
+
+Props:
+
+disableControls - Include this to hide emoji, comment and bookmark controls
+
+
+*/
+
 const CampaignPost = (props) => {
   const { data, toggled } = props;
 
@@ -117,7 +130,7 @@ const CampaignPost = (props) => {
     dispatch(setCampaign(data));
     navigate('Campaign', {
       userBookmarked: data.userBookmarked,
-    });
+    }, `${data.id}`);
   };
 
   const toggleText = () => {
@@ -236,57 +249,56 @@ const CampaignPost = (props) => {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.campaignControls}>
-          <View style={styles.campaignControlsLeft}>
-            <View>
-              <SmileSelector postId={data.campaign_id || data.id} />
+        {props.disableControls ? null : (
+          <View style={styles.campaignControls}>
+            <View style={styles.campaignControlsLeft}>
+              <View>
+                <SmileSelector postId={data.campaign_id || data.id} />
+              </View>
+            </View>
+            <View style={styles.campaignControlsRight}>
+              {props.currentUserProfile.roles === 'supporter' ? (
+                <TouchableOpacity
+                  style={styles.rightSectionBookmark}
+                  onPress={handleBookmarkPressed}
+                >
+                  {props.bookmarksLoading ? (
+                    <ActivityIndicator size="large" color="#ADADAD" />
+                  ) : isSaved ? (
+                    <BookmarkSolid />
+                  ) : (
+                    <Bookmark />
+                  )}
+                </TouchableOpacity>
+              ) : null}
+
+              <TouchableOpacity
+                style={styles.rightSectionComment}
+                onPress={goToCampaign}
+              >
+                <CommentIcon />
+                {data.comments?.length > 0 ? (
+                  <Badge
+                    textStyle={{
+                      color: 'black',
+                      fontSize: 15,
+                    }}
+                    badgeStyle={{
+                      backgroundColor: '#CAFF03',
+                    }}
+                    containerStyle={{
+                      position: 'absolute',
+                      top: -8,
+                      right: -3,
+                    }}
+                    value={data.comments ? data.comments.length : 0}
+                  />
+                ) : null}
+              </TouchableOpacity>
             </View>
           </View>
-          <View style={styles.campaignControlsRight}>
-            {props.currentUserProfile.roles === 'supporter' ? (
-              <TouchableOpacity
-                style={styles.rightSectionBookmark}
-                onPress={handleBookmarkPressed}
-              >
-                {props.bookmarksLoading ? (
-                  <ActivityIndicator size="large" color="#ADADAD" />
-                ) : isSaved ? (
-                  <BookmarkSolid />
-                ) : (
-                  <Bookmark />
-                )}
-              </TouchableOpacity>
-            ) : null}
-
-            <TouchableOpacity
-              style={styles.rightSectionComment}
-              onPress={goToCampaign}
-            >
-              <CommentIcon />
-              {data.comments?.length > 0 ? (
-                <Badge
-                  textStyle={{
-                    color: 'black',
-                    fontSize: 15,
-                  }}
-                  badgeStyle={{
-                    backgroundColor: '#CAFF03',
-                  }}
-                  containerStyle={{
-                    position: 'absolute',
-                    top: -8,
-                    right: -3,
-                  }}
-                  value={data.comments ? data.comments.length : 0}
-                />
-              ) : null}
-            </TouchableOpacity>
-          </View>
-        </View>
-        <TakeActionCallToAction
-          data={props.data}
-          navigation={props.navigation}
-        />
+        )}
+        <TakeActionCallToAction data={props.data} />
         {data.is_update ? null : <UpdateStrip id={data.campaign_id} />}
         <View style={styles.demarcation} />
       </View>

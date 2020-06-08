@@ -19,7 +19,6 @@ export default StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    backgroundColor: '#F2F2FB',
   },
   container: {
     flex: 1,

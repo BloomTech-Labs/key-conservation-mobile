@@ -1,9 +1,19 @@
 import React from 'react';
-import { Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import {
+  Text,
+  TouchableOpacity,
+  ActivityIndicator,
+  FlatList,
+} from 'react-native';
 import { View } from 'react-native-animatable';
 import { ListItem, Badge } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { getOriginalPost, addBookmark, removeBookmark } from '../store/actions';
+import {
+  getOriginalPost,
+  addBookmark,
+  removeBookmark,
+  getCampaignUpdates,
+} from '../store/actions';
 import moment from 'moment';
 import { Viewport } from '@skele/components';
 import { navigate } from '../navigation/RootNavigator';
@@ -20,7 +30,7 @@ import MediaViewer from '../components/MediaViewer';
 import SmileSelector from '../components/FeedScreen/SmileSelector';
 import BookmarkSolid from '../assets/jsicons/miscIcons/BookmarkSolid';
 import Bookmark from '../assets/jsicons/miscIcons/Bookmark';
-import UpdateStrip from '../components/CampaignPost/UpdateStrip';
+import CampaignPost from '../components/CampaignPost/CampaignPost';
 
 class ViewCampaignScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -48,16 +58,38 @@ class ViewCampaignScreen extends React.Component {
 
   state = {
     isBookmarked: false,
+    updates: [],
+    updatesLoading: true,
+    updatesError: '',
   };
 
   componentDidMount() {
-    const campaign_id = this.props.navigation.getParam('campaign_id');
+    let campaign_id = this.props.navigation.getParam('campaign_id');
 
     if (campaign_id) {
       this.props.getOriginalPost(campaign_id).finally(() => {
         this.loadPostData();
       });
     } else this.loadPostData();
+
+    campaign_id = campaign_id || this.props.selectedCampaign.campaign_id;
+
+    if (campaign_id) {
+      this.props
+        .getCampaignUpdates(campaign_id)
+        .then((res) => {
+          this.setState({
+            updates: res?.data || [],
+            updatesLoading: false,
+          });
+        })
+        .catch((err) => {
+          this.setState({
+            updatesLoading: false,
+            updatesError: err?.message || 'Failed to get updates',
+          });
+        });
+    }
 
     this.props.navigation.setParams({
       showCampaignOptions: this.showActionSheet,
@@ -230,6 +262,27 @@ class ViewCampaignScreen extends React.Component {
               </View>
             </Viewport.Tracker>
           </View>
+          {this.state.updatesLoading ? (
+            <View style={styles.updatesLoadingContainer}></View>
+          ) : this.state.updatesError ? (
+            <Text style={styles.updatesLoadingError}>
+              {this.state.updatesError}
+            </Text>
+          ) : this.state.updates?.length > 0 ? (
+            <View style={styles.container}>
+              <Text style={styles.updatesTitle}>Latest updates</Text>
+              {this.state.updates.map(update => {
+                return (
+                  <CampaignPost
+                    disableControls
+                    key={update.id}
+                    data={update}
+                    toggled={this.props.campaignsToggled.includes(update.id)}
+                  />
+                );
+              })}
+            </View>
+          ) : null}
         </KeyboardAwareScrollView>
       </View>
     );
@@ -267,10 +320,12 @@ const mapStateToProps = (state) => ({
   currentUser: state.currentUser,
   currentUserProfile: state.currentUserProfile,
   token: state.token,
+  campaignsToggled: state.campaignsToggled,
 });
 
 export default connect(mapStateToProps, {
   getOriginalPost,
   addBookmark,
   removeBookmark,
+  getCampaignUpdates,
 })(ViewCampaignScreen);

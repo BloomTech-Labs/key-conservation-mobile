@@ -50,7 +50,7 @@ class TakeActionCallToAction extends React.Component {
               </View>
             </View>
             <View style={styles.action_container}>
-              <GiveSkill data={this.props.data} navigation={this.props.navigation}/>
+              <GiveSkill data={this.props.data} />
             </View>
           </View>
         }
