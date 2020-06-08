@@ -20,12 +20,19 @@ class CommentsView extends React.Component {
     comment: '',
     commentsVisible: 3,
     height: 40,
+    campaign_id: null,
   };
 
   bufferedComment = null;
 
   componentDidMount() {
-    this.props.getCampaignComments(this.props.selectedCampaign.campaign_id);
+    const campaign_id = this.props.selectedCampaign?.campaign_id;
+
+    if (!this.props.comments) this.props.getCampaignComments(campaign_id);
+
+    this.setState({
+      campaign_id: campaign_id,
+    });
   }
 
   componentDidUpdate() {
@@ -59,7 +66,7 @@ class CommentsView extends React.Component {
   };
 
   render() {
-    const comments = [this.bufferedComment, ...this.props.campaignComments]
+    const comments = [this.bufferedComment, ...(this.props.comments || [])]
       ?.filter((com) => com !== null)
       .slice(0, this.state.commentsVisible)
       .map((comment) => {
@@ -76,7 +83,7 @@ class CommentsView extends React.Component {
     return (
       <KeyboardAvoidingView>
         {/* Displays latest comment unless the user is viewing all the campaign comments. */}
-        {this.props.campaignComments?.length > this.state.commentsVisible && (
+        {this.props.comments?.length > this.state.commentsVisible && (
           <View style={styles.moreContainer}>
             <TouchableOpacity onPress={() => this.addMoreComments()}>
               <Text style={styles.moreText}>View more comments</Text>
@@ -110,7 +117,7 @@ class CommentsView extends React.Component {
               value={this.state.comment}
               textAlignVertical={'center'}
               onSubmitEditing={this.postComment}
-              blurOnSubmit={Platform.OS === 'android'}
+              blurOnSubmit={true}
               ref={(input) => {
                 this.commentInput = input;
               }}
@@ -135,8 +142,7 @@ class CommentsView extends React.Component {
 
 const mapStateToProps = (state) => ({
   currentUserProfile: state.currentUserProfile,
-  selectedCampaign: state.selectedCampaign,
-  campaignComments: state.selectedCampaign.comments || [],
+  selectedCampaign: state.selectedCampaign
 });
 
 export default connect(mapStateToProps, {
