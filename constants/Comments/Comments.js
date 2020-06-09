@@ -116,12 +116,11 @@ export default StyleSheet.create({
   moreContainer: {
     flex: 1,
     padding: 15,
-    backgroundColor: '#E0E0E0',
     width: '100%',
     alignSelf: 'center',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     fontSize: 18,
   },
   moreText: {

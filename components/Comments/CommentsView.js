@@ -99,7 +99,7 @@ class CommentsView extends React.Component {
         {this.props.comments?.length > this.state.commentsVisible && (
           <View style={styles.moreContainer}>
             <TouchableOpacity onPress={() => this.addMoreComments()}>
-              <Text style={styles.moreText}>View more comments</Text>
+              <Text style={styles.moreText}>View more comments...</Text>
             </TouchableOpacity>
           </View>
         )}
