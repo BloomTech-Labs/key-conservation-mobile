@@ -92,7 +92,7 @@ const CampaignNotification = (props) => {
           </Text>
           <TimeStamp style={styles.timeStamp} createdAt={createdAt} />
         </View>
-        <View style={styles.avatarContainer}>
+        <View style={styles.imgContainer}>
           <Avatar
             size="medium"
             source={{
@@ -109,13 +109,17 @@ const styles = StyleSheet.create({
   wrapper: {
     height: 80,
     backgroundColor: 'white',
-    marginBottom: 10,
+    margin: 3,
   },
   wrapperNew: {
     height: 80,
-    backgroundColor: '#D3D3D3',
-    borderRadius: 20,
-    marginBottom: 10,
+    backgroundColor: '#F5F5F5',
+    borderRadius: 8,
+    margin: 3,
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 0.5 },
+    shadowOpacity: 0.1,
+    elevation: 1,
   },
   container: {
     flex: 1,
@@ -129,13 +133,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   content: {
-    flex: 5,
+    width: '65%',
     marginLeft: 10,
   },
   avatarContainer: {
     alignSelf: 'center',
-    flex: 1,
-    marginLeft: 1, //no need to put px all numbers are already knownas it? Ok,
+    // flex: 1,
+    width: '15%',
+    marginLeft: 1,
+    alignItems: 'flex-start',
+  },
+  imgContainer: {
+    alignSelf: 'center',
+    // flex: 1,
+    width: '15%',
+    marginRight: 15,
   },
   button: {
     flex: 1,
@@ -150,7 +162,7 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.6,
-    elevation: 10,
+    // elevation: 10,
   },
   connect: {
     fontFamily: 'Lato-Bold',

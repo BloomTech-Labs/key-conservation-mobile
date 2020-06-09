@@ -13,6 +13,9 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 class UpdateStrip extends Component {
   constructor(props) {
     super(props);
+
+    this.mounted = false;
+
     this.state = {
       updates: [],
       loading: false,
@@ -20,7 +23,12 @@ class UpdateStrip extends Component {
     };
   }
 
+  componentWillUnmount() {
+    this.mounted = false;
+  }
+
   componentDidMount() {
+    this.mounted = true;
     if (
       this.props.campaign.campaign_id &&
       typeof this.props.campaign.campaign_id === 'number' &&
@@ -32,14 +40,15 @@ class UpdateStrip extends Component {
     this.props
       .getCampaignUpdates(this.props.campaign.campaign_id)
       .then((res) => {
-        this.setState({ updates: res?.data, loading: false });
+        if (this.mounted) this.setState({ updates: res?.data, loading: false });
       })
       .catch((err) => {
         console.log(err);
-        this.setState({
-          loading: false,
-          error: err?.message,
-        });
+        if (this.mounted)
+          this.setState({
+            loading: false,
+            error: err?.message,
+          });
       });
   }
 
@@ -57,7 +66,6 @@ class UpdateStrip extends Component {
   }
 
   render() {
-
     return this.state.loading ||
       this.state.error ||
       this.state.updates.length === 0 ? null : (

@@ -266,6 +266,7 @@ export const ConsNavigator = createBottomTabNavigator(
       activeBackgroundColor: '#EAEAEA',
       style: {
         borderTopColor: 'transparent',
+        height: 52
       },
       tabStyle: {
         borderRightColor: '#EAEAEA',
