@@ -823,24 +823,9 @@ export const toggleCampaignText = (id) => ({
   payload: id,
 });
 
-export const [GET_COMMENTS_START, GET_COMMENTS_SUCCESS, GET_COMMENTS_ERROR] = [
-  'GET_COMMENTS_START',
-  'GET_COMMENTS_SUCCESS',
-  'GET_COMMENTS_ERROR',
-];
-
 export const getCampaignComments = (id) => (dispatch) => {
-  dispatch({ type: GET_COMMENTS_START });
   return axiosWithAuth(dispatch, (aaxios) => {
-    return aaxios
-      .get(`${seturl}comments/${id}`)
-      .then((res) => {
-        dispatch({ type: GET_COMMENTS_SUCCESS, payload: res.data.data });
-      })
-      .catch((err) => {
-        console.log(err.message);
-        dispatch({ type: GET_COMMENTS_ERROR, payload: err.response });
-      });
+    return aaxios.get(`${seturl}comments/${id}`);
   });
 };
 

@@ -17,6 +17,7 @@ import styles from '../../constants/Comments/Comments';
 
 class CommentsView extends React.Component {
   state = {
+    comments: [],
     comment: '',
     commentsVisible: 3,
     height: 40,
@@ -28,11 +29,20 @@ class CommentsView extends React.Component {
   componentDidMount() {
     const campaign_id = this.props.selectedCampaign?.campaign_id;
 
-    if (!this.props.comments) this.props.getCampaignComments(campaign_id);
-
     this.setState({
+      comments: this.props.comments,
       campaign_id: campaign_id,
     });
+
+    if (campaign_id)
+      this.props
+        .getCampaignComments(campaign_id)
+        .then((res) => {
+          this.setState({ comments: res.data });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
   }
 
   componentDidUpdate() {
@@ -66,7 +76,7 @@ class CommentsView extends React.Component {
   };
 
   render() {
-    const comments = [this.bufferedComment, ...(this.props.comments || [])]
+    const comments = [this.bufferedComment, ...this.state.comments]
       ?.filter((com) => com !== null)
       .sort((a, b) => new Date(a).getTime() < new Date(b).getTime())
       .slice(0, this.state.commentsVisible)
