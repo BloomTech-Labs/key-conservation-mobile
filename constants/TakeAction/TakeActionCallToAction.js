@@ -2,8 +2,6 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   buttonContainer: {
-    // borderColor: 'red',
-    // borderWidth: 1,
     marginTop: 3.5,
     flex: 1,
     padding: 15,
@@ -17,7 +15,7 @@ export default StyleSheet.create({
   buttonTouch: {
     width: '100%',
     height: 48,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#00ff9d',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
@@ -29,7 +27,7 @@ export default StyleSheet.create({
     shadowRadius: 5,
     shadowOpacity: 10,
   },
-  text: {
+  button_label: {
     color: '#323339',
     textTransform: 'uppercase',
     letterSpacing: 1.8,
@@ -37,4 +35,29 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Lato-Bold',
   },
+  taking_action_container: {
+    paddingHorizontal: 15,
+  },
+  section_container: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start'
+  },
+  section_icon: {
+
+    paddingRight: 5,
+    opacity: .85
+  },
+  section_title: {
+    fontFamily: 'Lato-Bold',
+    fontSize: 18,
+    paddingBottom: 5
+  },
+  section_text: {
+    fontFamily: 'Lato',
+    fontSize: 15,
+    marginRight: 55,
+  },
+  action_container: {
+    paddingTop: 20
+  }
 });

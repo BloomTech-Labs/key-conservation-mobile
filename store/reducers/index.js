@@ -450,27 +450,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         campaignsToggled: [...state.campaignsToggled, action.payload],
       };
-    case actions.GET_COMMENTS_START:
-      return {
-        ...state,
-        pending: { ...state.pending, getComments: true },
-        errors: { ...state.errors, getComments: '' },
-      };
-    case actions.GET_COMMENTS_SUCCESS:
-      return {
-        ...state,
-        pending: { ...state.pending, getComments: false },
-        selectedCampaign: {
-          ...state.selectedCampaign,
-          comments: action.payload,
-        },
-      };
-    case actions.GET_COMMENTS_ERROR:
-      return {
-        ...state,
-        pending: { ...state.pending, getComments: false },
-        errors: { ...state.errors, getComments: action.payload },
-      };
     case actions.POST_COMMENT_START:
       return {
         ...state,

@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 // images and displaying them intelligently making sure that
 // only one video ever plays at once, and that videos only play
 // when in view
-const VIDEO_EXTS = ['mov', 'mp3', 'mp4'];
+const VIDEO_EXTS = ['mov', 'mkv', 'mp4'];
 
 class MediaViewer extends Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class MediaViewer extends Component {
 
   parseUrgency = () => {
     let urgencyColor;
-    if (this.props.is_update || this.props.urgency == 'null') {
+    if (this.props.isUpdate) {
       urgencyColor = 'rgba(202,255,0, 0.7)';
     } else if (this.props.urgency === 'Critical') {
       urgencyColor = 'rgba(227,16,89,0.6)';
@@ -55,12 +55,10 @@ class MediaViewer extends Component {
       urgencyColor = 'none';
     }
     let urgencyStatus;
-    if (
-      this.props.is_update ||
-      !this.props.urgency ||
-      this.props.urgency == 'null'
-    ) {
+    if (this.props.isUpdate) {
       urgencyStatus = 'UPDATE';
+    } else if (this.props.urgency === 'null') {
+      urgencyStatus = '';
     } else {
       urgencyStatus = this.props.urgency.toUpperCase();
     }

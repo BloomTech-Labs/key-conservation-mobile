@@ -62,8 +62,8 @@ const axiosWithAuth = (dispatch, req) => {
 // production
 // export const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
-export const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
-// export const seturl = 'http://192.168.1.146:8000/api/';
+// export const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+export const seturl = 'http://192.168.1.146:8000/api/';
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
@@ -604,7 +604,10 @@ export const postCampaign = (campaign) => (dispatch) => {
   formData.append('name', filteredCampaign.name);
   formData.append('user_id', filteredCampaign.user_id);
   formData.append('urgency', filteredCampaign.urgency);
-  formData.append('skilledImpactRequests', filteredCampaign.skilledImpactRequests);
+  formData.append(
+    'skilledImpactRequests',
+    filteredCampaign.skilledImpactRequests
+  );
 
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
@@ -820,24 +823,9 @@ export const toggleCampaignText = (id) => ({
   payload: id,
 });
 
-export const [GET_COMMENTS_START, GET_COMMENTS_SUCCESS, GET_COMMENTS_ERROR] = [
-  'GET_COMMENTS_START',
-  'GET_COMMENTS_SUCCESS',
-  'GET_COMMENTS_ERROR',
-];
-
 export const getCampaignComments = (id) => (dispatch) => {
-  dispatch({ type: GET_COMMENTS_START });
   return axiosWithAuth(dispatch, (aaxios) => {
-    return aaxios
-      .get(`${seturl}comments/${id}`)
-      .then((res) => {
-        dispatch({ type: GET_COMMENTS_SUCCESS, payload: res.data.data });
-      })
-      .catch((err) => {
-        console.log(err.message);
-        dispatch({ type: GET_COMMENTS_ERROR, payload: err.response });
-      });
+    return aaxios.get(`${seturl}comments/${id}`);
   });
 };
 
@@ -1216,6 +1204,12 @@ export const getCampaignPostReactions = (postId) => (dispatch) => {
         console.log(err);
         throw new Error(err.message);
       });
+  });
+};
+
+export const getCampaignUpdates = (campaignId) => (dispatch) => {
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios.get(`${seturl}campaigns/${campaignId}/updates`);
   });
 };
 

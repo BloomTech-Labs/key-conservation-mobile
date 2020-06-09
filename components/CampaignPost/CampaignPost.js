@@ -17,23 +17,38 @@ import {
   addBookmark,
   removeBookmark,
   fetchBookmarks,
-} from '../store/actions';
-import { AmpEvent } from './withAmplitude';
-import LoadingOverlay from './LoadingOverlay';
+} from '../../store/actions';
+import { AmpEvent } from '../withAmplitude';
+import LoadingOverlay from '../LoadingOverlay';
 
-import { navigate } from '../navigation/RootNavigator';
+import { navigate } from '../../navigation/RootNavigator';
 
-import styles from '../constants/CampaignPost';
-import Ellipse from '../assets/jsicons/Ellipse';
-import CommentIcon from '../assets/jsicons/CommentIcon';
-import MapMarker from '../assets/jsicons/headerIcons/map-marker';
-import CampaignActionSheet from './Reports/CampaignActionSheet';
-import TakeActionCallToAction from './TakeAction/TakeActionCallToAction';
-import SmileSelector from './FeedScreen/SmileSelector';
-import Bookmark from '../assets/jsicons/miscIcons/Bookmark';
-import BookmarkSolid from '../assets/jsicons/miscIcons/BookmarkSolid';
-import { shorten } from '../util';
-import MediaViewer from './MediaViewer';
+import styles from '../../constants/CampaignPost/CampaignPost';
+import Ellipse from '../../assets/jsicons/Ellipse';
+import CommentIcon from '../../assets/jsicons/CommentIcon';
+import MapMarker from '../../assets/jsicons/headerIcons/map-marker';
+import CampaignActionSheet from '../Reports/CampaignActionSheet';
+import TakeActionCallToAction from '../TakeAction/TakeActionCallToAction';
+import SmileSelector from '../FeedScreen/SmileSelector';
+import Bookmark from '../../assets/jsicons/miscIcons/Bookmark';
+import BookmarkSolid from '../../assets/jsicons/miscIcons/BookmarkSolid';
+import { shorten } from '../../util';
+import MediaViewer from '../MediaViewer';
+import UpdateStrip from './UpdateStrip';
+
+/*
+
+CampaignPost USAGE
+
+**CURRENLTLY INCOMPLETE**
+
+Props:
+
+disableControls - Include this to hide emoji, comment and bookmark controls
+disableHeader   - Include this to hide header (Title, avatar, name, location)
+
+
+*/
 
 const CampaignPost = (props) => {
   const { data, toggled } = props;
@@ -83,7 +98,7 @@ const CampaignPost = (props) => {
   const animateIn = Animated.timing(animation, {
     useNativeDriver: true,
     toValue: 1,
-    duration: 300,
+    duration: 250,
   });
 
   useEffect(() => {
@@ -108,15 +123,20 @@ const CampaignPost = (props) => {
     updateBookmarkIcon();
   };
 
-  const goToCampaign = async () => {
+  const goToCampaign = async (params) => {
     AmpEvent('Select Profile from Campaign', {
       campaign: data.campaign_name,
       profile: data.org_name,
     });
     dispatch(setCampaign(data));
-    navigate('Campaign', {
-      userBookmarked: data.userBookmarked,
-    });
+    navigate(
+      'Campaign',
+      {
+        userBookmarked: data.userBookmarked,
+        ...params,
+      },
+      `${data.id}`
+    );
   };
 
   const toggleText = () => {
@@ -235,52 +255,57 @@ const CampaignPost = (props) => {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.campaignControls}>
-          <View style={styles.campaignControlsLeft}>
-            <View style={{ marginLeft: 8, marginBottom: -60, paddingTop: 10 }}>
-              <SmileSelector postId={data.campaign_id || data.id} />
+        {props.disableControls ? null : (
+          <View style={styles.campaignControls}>
+            <View style={styles.campaignControlsLeft}>
+              <View>
+                <SmileSelector postId={data.campaign_id || data.id} />
+              </View>
+            </View>
+            <View style={styles.campaignControlsRight}>
+              {props.currentUserProfile.roles === 'supporter' ? (
+                <TouchableOpacity
+                  style={styles.rightSectionBookmark}
+                  onPress={handleBookmarkPressed}
+                >
+                  {props.bookmarksLoading ? (
+                    <ActivityIndicator size="large" color="#ADADAD" />
+                  ) : isSaved ? (
+                    <BookmarkSolid />
+                  ) : (
+                    <Bookmark />
+                  )}
+                </TouchableOpacity>
+              ) : null}
+
+              <TouchableOpacity
+                style={styles.rightSectionComment}
+                onPress={goToCampaign.bind(this, { focusComments: true })}
+              >
+                <CommentIcon />
+                {data.comments?.length > 0 ? (
+                  <Badge
+                    textStyle={{
+                      color: 'black',
+                      fontSize: 15,
+                    }}
+                    badgeStyle={{
+                      backgroundColor: '#CAFF03',
+                    }}
+                    containerStyle={{
+                      position: 'absolute',
+                      top: -8,
+                      right: -3,
+                    }}
+                    value={data.comments ? data.comments.length : 0}
+                  />
+                ) : null}
+              </TouchableOpacity>
             </View>
           </View>
-          <View style={styles.campaignControlsRight}>
-            {props.currentUserProfile.roles === 'supporter' ? (
-              <TouchableOpacity
-                style={styles.rightSectionBookmark}
-                onPress={handleBookmarkPressed}
-              >
-                {props.bookmarksLoading ? (
-                  <ActivityIndicator size="large" color="#ADADAD" />
-                ) : isSaved ? (
-                  <BookmarkSolid />
-                ) : (
-                  <Bookmark />
-                )}
-              </TouchableOpacity>
-            ) : null}
-
-            <TouchableOpacity
-              style={styles.rightSectionComment}
-              onPress={goToCampaign}
-            >
-              <CommentIcon />
-              <Badge
-                textStyle={{
-                  color: 'black',
-                  fontSize: 15,
-                }}
-                badgeStyle={{
-                  backgroundColor: '#CAFF03',
-                }}
-                containerStyle={{
-                  position: 'absolute',
-                  top: -8,
-                  right: -3,
-                }}
-                value={data.comments ? data.comments.length : 0}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <TakeActionCallToAction donate={props.data} />
+        )}
+        <TakeActionCallToAction data={props.data} />
+        {data.is_update ? null : <UpdateStrip campaign={data} />}
         <View style={styles.demarcation} />
       </View>
     </Animated.View>

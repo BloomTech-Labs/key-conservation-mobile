@@ -2,7 +2,7 @@ import React from 'react';
 import { View, ActivityIndicator, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 
-import CampaignPost from '../../CampaignPost';
+import CampaignPost from '../../CampaignPost/CampaignPost';
 import styles from '../../../constants/Profile/tabs/Campaigns';
 
 const CampaignList = ({ bookmarks }) => {

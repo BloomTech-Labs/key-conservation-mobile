@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Animated } from 'react-native';
 import AnimatedGradient from '../AnimatedGradient';
 
-import styles from '../../constants/CampaignPost';
+import styles from '../../constants/CampaignPost/CampaignPost';
 
 export default class FeedLoading extends Component {
   constructor(props) {
