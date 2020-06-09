@@ -28,6 +28,8 @@ const Comment = (props) => {
     actionSheetRef.current?.show();
   };
 
+  console.log(props.comment);
+
   return (
     <View
       pointerEvents={loading ? 'none' : 'auto'}

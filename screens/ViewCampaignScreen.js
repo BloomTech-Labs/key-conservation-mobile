@@ -295,7 +295,7 @@ class ViewCampaignScreen extends React.Component {
                           paddingBottom: 8,
                         }}
                       >
-                        Comments ({this.state.comments?.length})
+                        Comments ({this.state.comments?.length || 0})
                       </Text>
                       <CommentsView comments={this.state.comments} />
                     </View>
