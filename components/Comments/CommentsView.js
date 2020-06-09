@@ -68,6 +68,7 @@ class CommentsView extends React.Component {
   render() {
     const comments = [this.bufferedComment, ...(this.props.comments || [])]
       ?.filter((com) => com !== null)
+      .sort((a, b) => new Date(a).getTime() < new Date(b).getTime())
       .slice(0, this.state.commentsVisible)
       .map((comment) => {
         return (
@@ -142,7 +143,7 @@ class CommentsView extends React.Component {
 
 const mapStateToProps = (state) => ({
   currentUserProfile: state.currentUserProfile,
-  selectedCampaign: state.selectedCampaign
+  selectedCampaign: state.selectedCampaign,
 });
 
 export default connect(mapStateToProps, {
