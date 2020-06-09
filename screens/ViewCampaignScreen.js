@@ -67,7 +67,7 @@ class ViewCampaignScreen extends React.Component {
     updates: [],
     updatesLoading: true,
     updatesError: '',
-    hasFocused: false,
+    hasFocused: false
   };
 
   onTargetUpdateLayout(yPos) {
@@ -135,7 +135,6 @@ class ViewCampaignScreen extends React.Component {
     const campaignPost = this.props.selectedCampaign || {};
 
     this.setState({
-      ...this.state,
       createdAt: campaignPost.created_at
         ? moment(campaignPost.created_at).fromNow()
         : '...',
@@ -351,7 +350,6 @@ class ViewCampaignScreen extends React.Component {
 
   addBookmark = () => {
     this.setState({
-      ...this.state,
       userBookmarked: true,
     });
     this.props.navigation.state.params.addBookmark();
@@ -359,7 +357,6 @@ class ViewCampaignScreen extends React.Component {
 
   deleteBookmark = () => {
     this.setState({
-      ...this.state,
       userBookmarked: false,
     });
     this.props.navigation.state.params.deleteBookmark();

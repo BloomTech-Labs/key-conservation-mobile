@@ -38,7 +38,7 @@ class CommentsView extends React.Component {
       this.props
         .getCampaignComments(campaign_id)
         .then((res) => {
-          this.setState({ comments: res.data });
+          this.setState({ comments: res?.data?.data || [] });
         })
         .catch((err) => {
           console.log(err);
@@ -51,7 +51,6 @@ class CommentsView extends React.Component {
 
   addMoreComments = () => {
     this.setState({
-      ...this.state,
       commentsVisible: this.state.commentsVisible + 9,
     });
   };
@@ -76,7 +75,10 @@ class CommentsView extends React.Component {
   };
 
   render() {
-    const comments = [this.bufferedComment, ...this.state.comments]
+    const comments = [
+      this.bufferedComment,
+      ...(this.state.comments || this.props.comments || []),
+    ]
       ?.filter((com) => com !== null)
       .sort((a, b) => new Date(a).getTime() < new Date(b).getTime())
       .slice(0, this.state.commentsVisible)
