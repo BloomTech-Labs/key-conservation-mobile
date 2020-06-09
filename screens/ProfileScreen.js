@@ -36,6 +36,8 @@ class ProfileScreen extends React.Component {
     this.scrollView = React.createRef();
 
     this.scrollY = new Animated.Value(0);
+
+    this.mounted = false;
   }
 
   initProfileData = async () => {
@@ -45,21 +47,30 @@ class ProfileScreen extends React.Component {
         null,
         !this.props.navigation.getParam('selectedProfile')
       );
-      this.setState({
-        user,
-        loading: false,
-      });
+      if (this.mounted) {
+        this.setState({
+          user,
+          loading: false,
+        });
+      }
     } catch (err) {
       console.log(err);
       Alert.alert('Error', 'Failed to retrieve user profile');
-      this.setState({
-        loading: false,
-        error: 'Failed to retrieve user profile',
-      });
+      if (this.mounted) {
+        this.setState({
+          loading: false,
+          error: 'Failed to retrieve user profile',
+        });
+      }
     }
   };
 
+  componentWillUnmount() {
+    this.mounted = false;
+  }
+
   componentDidMount = () => {
+    this.mounted = true;
     this.initProfileData();
   };
 

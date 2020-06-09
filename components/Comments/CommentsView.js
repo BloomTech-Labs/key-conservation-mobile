@@ -5,7 +5,6 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
-  Platform,
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -16,6 +15,8 @@ import Comment from './Comment';
 import styles from '../../constants/Comments/Comments';
 
 class CommentsView extends React.Component {
+  mounted = false;
+
   state = {
     comments: [],
     comment: '',
@@ -26,7 +27,12 @@ class CommentsView extends React.Component {
 
   bufferedComment = null;
 
+  componentWillUnmount() {
+    this.mounted = false;
+  }
+
   componentDidMount() {
+    this.mounted = true;
     const campaign_id = this.props.selectedCampaign?.campaign_id;
 
     this.setState({
@@ -38,7 +44,7 @@ class CommentsView extends React.Component {
       this.props
         .getCampaignComments(campaign_id)
         .then((res) => {
-          this.setState({ comments: res?.data?.data || [] });
+          if (this.mounted) this.setState({ comments: res?.data?.data || [] });
         })
         .catch((err) => {
           console.log(err);

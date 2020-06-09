@@ -59,6 +59,8 @@ class ViewCampaignScreen extends React.Component {
   constructor(props) {
     super(props);
 
+    this.mounted = false;
+
     this.scrollView = React.createRef();
   }
 
@@ -67,7 +69,7 @@ class ViewCampaignScreen extends React.Component {
     updates: [],
     updatesLoading: true,
     updatesError: '',
-    hasFocused: false
+    hasFocused: false,
   };
 
   onTargetUpdateLayout(yPos) {
@@ -77,12 +79,18 @@ class ViewCampaignScreen extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.mounted = false;
+  }
+
   componentDidMount() {
+    this.mounted = true;
+
     let campaign_id = this.props.navigation.getParam('campaign_id');
 
     if (campaign_id) {
       this.props.getOriginalPost(campaign_id).finally(() => {
-        this.loadPostData();
+        if (this.mounted) this.loadPostData();
       });
     } else this.loadPostData();
 
@@ -97,16 +105,18 @@ class ViewCampaignScreen extends React.Component {
       this.props
         .getCampaignUpdates(campaign_id)
         .then((res) => {
-          this.setState({
-            updates: res?.data || [],
-            updatesLoading: false,
-          });
+          if (this.mounted)
+            this.setState({
+              updates: res?.data || [],
+              updatesLoading: false,
+            });
         })
         .catch((err) => {
-          this.setState({
-            updatesLoading: false,
-            updatesError: err?.message || 'Failed to get updates',
-          });
+          if (this.mounted)
+            this.setState({
+              updatesLoading: false,
+              updatesError: err?.message || 'Failed to get updates',
+            });
         });
     }
 
