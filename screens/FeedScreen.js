@@ -20,7 +20,6 @@ import { Viewport } from '@skele/components';
 import AddCampaignHeader from '../components/FeedScreen/AddCampaignHeader';
 import FeedLoading from '../components/FeedScreen/FeedLoading';
 
-import Search from '../assets/jsicons/SearchIcon';
 import WebSocketManager from '../websockets/WebSocketManager';
 import NewPostsButton from '../components/FeedScreen/NewPostsButton';
 

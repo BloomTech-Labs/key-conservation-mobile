@@ -83,11 +83,19 @@ class UpdateStrip extends Component {
           ) : null}
         </View>
         <View style={styles.tileContainer}>
-          {this.state.updates?.slice?.(0, 3).map?.((update, index) => {
+          {[0, 1, 2].map(i => {
+            if(this.state.updates.length < i + 1) {
+              return (
+                <View style={{...styles.updateTile, backgroundColor: 'none'}}>
+
+                </View>
+              )
+            }
+            const update = this.state.updates[i];
             return (
               <TouchableOpacity
                 key={update.id}
-                onPress={this.goToUpdate.bind(this, index)}
+                onPress={this.goToUpdate.bind(this, i)}
               >
                 <View style={styles.updateTile}>
                   <Image style={styles.image} source={{ uri: update.image }} />
