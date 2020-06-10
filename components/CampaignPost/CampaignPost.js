@@ -294,8 +294,8 @@ const CampaignPost = (props) => {
                     }}
                     containerStyle={{
                       position: 'absolute',
-                      top: -8,
-                      right: -3,
+                      top: -4,
+                      right: -2,
                     }}
                     value={data.comments ? data.comments.length : 0}
                   />

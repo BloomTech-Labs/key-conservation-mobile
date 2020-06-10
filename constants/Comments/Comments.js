@@ -23,9 +23,6 @@ export default StyleSheet.create({
   replyView: {
     flexDirection: 'row',
     width: '100%',
-    marginTop: 10,
-    paddingTop: 8,
-    marginLeft: -10,
   },
   name: {
     paddingBottom: 3,

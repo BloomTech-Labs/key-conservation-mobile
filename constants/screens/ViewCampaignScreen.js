@@ -44,7 +44,7 @@ export default StyleSheet.create({
     paddingTop: 7,
     paddingBottom: 10,
     borderRadius: 10,
-    marginVertical: 10,
+    marginTop: 10,
   },
   ogPostButton: {
     fontFamily: 'Lato-Bold',
