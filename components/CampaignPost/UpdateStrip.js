@@ -68,11 +68,11 @@ class UpdateStrip extends Component {
   render() {
     return this.state.loading ||
       this.state.error ||
-      this.state.updates.length === 0 ? null : (
+      this.state.updates?.length === 0 ? null : (
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>
-            Latest updates ({this.state.updates.length})
+            Latest updates ({this.state.updates?.length})
           </Text>
           {this.state.updates?.length > 3 ? (
             <TouchableOpacity onPress={this.goToUpdate.bind(this)}>
@@ -83,7 +83,7 @@ class UpdateStrip extends Component {
           ) : null}
         </View>
         <View style={styles.tileContainer}>
-          {this.state.updates.slice(0, 3).map((update, index) => {
+          {this.state.updates?.slice?.(0, 3).map?.((update, index) => {
             return (
               <TouchableOpacity
                 key={update.id}
