@@ -443,10 +443,10 @@ export const getFeed = (startAt = undefined, size = 8) => (dispatch) => {
 
 export const APPEND_TO_FEED = 'APPEND_TO_FEED';
 
-export const refreshFeed = (createdAt) => (dispatch) => {
+export const refreshFeed = () => (dispatch) => {
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .get(`${seturl}feed?date=${createdAt}`)
+      .get(`${seturl}feed`)
       .then((res) => {
         dispatch({
           type: APPEND_TO_FEED,

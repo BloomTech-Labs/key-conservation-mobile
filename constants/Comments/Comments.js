@@ -21,6 +21,7 @@ export default StyleSheet.create({
     marginLeft: 7,
   },
   replyView: {
+    marginTop: 4,
     flexDirection: 'row',
     width: '100%',
   },
