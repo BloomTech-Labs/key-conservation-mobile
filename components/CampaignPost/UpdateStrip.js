@@ -86,9 +86,7 @@ class UpdateStrip extends Component {
           {[0, 1, 2].map(i => {
             if(this.state.updates.length < i + 1) {
               return (
-                <View style={{...styles.updateTile, backgroundColor: 'none'}}>
-
-                </View>
+                <View key={i} style={{...styles.updateTile, backgroundColor: 'none'}} />
               )
             }
             const update = this.state.updates[i];
