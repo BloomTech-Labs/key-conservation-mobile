@@ -14,7 +14,7 @@ const source = CancelToken.source();
 // by eligible action creators
 let cancellables = {};
 
-// // This is defined here to prevent
+// // This is defined here to p revent
 // // any un
 
 // // IMPORTANT USAGE NOTES
@@ -283,10 +283,10 @@ export const [
   EDIT_PROFILE_IMAGE_ERROR,
   EDIT_PROFILE_IMAGE_SUCCESS,
 ] = [
-  'EDIT_PROFILE_IMAGE_START',
-  'EDIT_PROFILE_IMAGE_ERROR',
-  'EDIT_PROFILE_IMAGE_SUCCESS',
-];
+    'EDIT_PROFILE_IMAGE_START',
+    'EDIT_PROFILE_IMAGE_ERROR',
+    'EDIT_PROFILE_IMAGE_SUCCESS',
+  ];
 
 export const editProfileImage = (id, uri) => (dispatch) => {
   dispatch({ type: EDIT_PROFILE_IMAGE_START });
@@ -408,11 +408,11 @@ export const [
   GET_FEED_SUCCESS,
   GET_FEED_ERROR,
 ] = [
-  'GET_FEED_START',
-  'GET_FEED_SUCCESS',
-  'EXPAND_FEED_SUCCESS',
-  'GET_FEED_ERROR',
-];
+    'GET_FEED_START',
+    'GET_FEED_SUCCESS',
+    'EXPAND_FEED_SUCCESS',
+    'GET_FEED_ERROR',
+  ];
 
 export const getFeed = (startAt = undefined, size = 8) => (dispatch) => {
   const now = new Date(Date.now()).toISOString();
@@ -502,12 +502,12 @@ export const [
   POST_CAMPAIGN_SUCCESS,
   POST_CAMPAIGN_CANCEL,
 ] = [
-  'POST_CAMPAIGN_START',
-  'POST_CAMPAIGN_PROGRESS',
-  'POST_CAMPAIGN_ERROR',
-  'POST_CAMPAIGN_SUCCESS',
-  'POST_CAMPAIGN_CANCEL',
-];
+    'POST_CAMPAIGN_START',
+    'POST_CAMPAIGN_PROGRESS',
+    'POST_CAMPAIGN_ERROR',
+    'POST_CAMPAIGN_SUCCESS',
+    'POST_CAMPAIGN_CANCEL',
+  ];
 
 export const postCampaign = (campaign) => (dispatch) => {
   const id = `${campaign.name}${Math.random() * 1000}`;
@@ -656,12 +656,12 @@ export const [
   POST_CAMPAIGN_UPDATE_SUCCESS,
   POST_CAMPAIGN_UPDATE_CANCEL,
 ] = [
-  'POST_CAMPAIGN_UPDATE_START',
-  'POST_CAMPAIGN_UPDATE_PROGRESS',
-  'POST_CAMPAIGN_UPDATE_ERROR',
-  'POST_CAMPAIGN_UPDATE_SUCCESS',
-  'POST_CAMPAIGN_UPDATE_CANCEL',
-];
+    'POST_CAMPAIGN_UPDATE_START',
+    'POST_CAMPAIGN_UPDATE_PROGRESS',
+    'POST_CAMPAIGN_UPDATE_ERROR',
+    'POST_CAMPAIGN_UPDATE_SUCCESS',
+    'POST_CAMPAIGN_UPDATE_CANCEL',
+  ];
 
 export const postCampaignUpdate = (campaignUpdate) => (dispatch) => {
   const id = `${campaignUpdate.description}${Math.random() * 1000}`;
@@ -779,10 +779,10 @@ export const [
   GET_CAMPAIGNS_BY_SKILL_ERROR,
   GET_CAMPAIGNS_BY_SKILL_SUCCESS,
 ] = [
-  'GET_CAMPAIGNS_BY_SKILL_START',
-  'GET_CAMPAIGNS_BY_SKILL_ERROR',
-  'GET_CAMPAIGNS_BY_SKILL_SUCCESS',
-];
+    'GET_CAMPAIGNS_BY_SKILL_START',
+    'GET_CAMPAIGNS_BY_SKILL_ERROR',
+    'GET_CAMPAIGNS_BY_SKILL_SUCCESS',
+  ];
 
 export const getCampaignsBySkill = (skill) => (dispatch) => {
   dispatch({ type: GET_CAMPAIGNS_BY_SKILL_START });
@@ -806,10 +806,10 @@ export const [
   GET_APPLICATIONS_BY_USER_ERROR,
   GET_APPLICATIONS_BY_USER_SUCCESS,
 ] = [
-  'GET_APPLICATIONS_BY_USER_START',
-  'GET_APPLICATIONS_BY_USER_ERROR',
-  'GET_APPLICATIONS_BY_USER_SUCCESS',
-];
+    'GET_APPLICATIONS_BY_USER_START',
+    'GET_APPLICATIONS_BY_USER_ERROR',
+    'GET_APPLICATIONS_BY_USER_SUCCESS',
+  ];
 
 export const getApplicationsByUser = (userId) => (dispatch) => {
   dispatch({ type: GET_APPLICATIONS_BY_USER_START });
@@ -882,10 +882,10 @@ export const [
   GET_ORGANIZATIONS_SUCCESS,
   GET_ORGANIZATIONS_ERROR,
 ] = [
-  'GET_ORGANIZATIONS_STARTED',
-  'GET_ORGANIZATIONS_SUCCESS',
-  'GET_ORGANIZATIONS_ERROR',
-];
+    'GET_ORGANIZATIONS_STARTED',
+    'GET_ORGANIZATIONS_SUCCESS',
+    'GET_ORGANIZATIONS_ERROR',
+  ];
 
 export const getOrganizations = () => (dispatch) => {
   dispatch({ type: GET_ORGANIZATIONS_STARTED });
@@ -1068,16 +1068,16 @@ export const [
   FETCH_BOOKMARKS_SUCCESS,
   FETCH_BOOKMARKS_ERROR,
 ] = [
-  'ADD_BOOKMARK_LOADING',
-  'ADD_BOOKMARK_SUCCESS',
-  'ADD_BOOKMARK_ERROR',
-  'REMOVE_BOOKMARK_LOADING',
-  'REMOVE_BOOKMARK_SUCCESS',
-  'REMOVE_BOOKMARK_ERROR',
-  'FETCH_BOOKMARKS_LOADING',
-  'FETCH_BOOKMARKS_SUCCESS',
-  'FETCH_BOOKMARKS_ERROR',
-];
+    'ADD_BOOKMARK_LOADING',
+    'ADD_BOOKMARK_SUCCESS',
+    'ADD_BOOKMARK_ERROR',
+    'REMOVE_BOOKMARK_LOADING',
+    'REMOVE_BOOKMARK_SUCCESS',
+    'REMOVE_BOOKMARK_ERROR',
+    'FETCH_BOOKMARKS_LOADING',
+    'FETCH_BOOKMARKS_SUCCESS',
+    'FETCH_BOOKMARKS_ERROR',
+  ];
 
 export const addBookmark = (campaign) => (dispatch) => {
   dispatch({ type: ADD_BOOKMARK_LOADING });

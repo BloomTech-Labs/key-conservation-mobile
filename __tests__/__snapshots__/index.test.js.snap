@@ -19,3 +19,12 @@ Array [
   },
 ]
 `;
+
+exports[`toggleCampaignText 1`] = `
+Array [
+  Object {
+    "payload": undefined,
+    "type": "TOGGLE_CAMPAIGN_TEXT",
+  },
+]
+`;
