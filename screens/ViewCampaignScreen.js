@@ -141,9 +141,7 @@ class ViewCampaignScreen extends React.Component {
       return;
     }
     // Find out the position of the update
-    const yPos = yOffset + this.state.topSectionHeight - 1420;
-
-    console.log(yPos);
+    const yPos = yOffset + this.state.topSectionHeight;
 
     this.scrollView?.scrollTo({ x: 0, y: yPos, animated: true });
   }
@@ -222,7 +220,7 @@ class ViewCampaignScreen extends React.Component {
             onLayout={({ nativeEvent }) => {
               this.setState({
                 topSectionHeight:
-                  nativeEvent.layout.height + nativeEvent.layout.height,
+                  nativeEvent.layout.height + nativeEvent.layout.y,
               });
             }}
           >
