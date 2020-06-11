@@ -99,8 +99,9 @@
     "!**/vendor/**"
   ],
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-class-properties": "^7.10.1",
     "babel-preset-expo": "^8.0.0",
+    "jest": "^26.0.1",
     "jest-expo": "^36.0.0"
   },
   "private": true
