@@ -6,10 +6,10 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest --watchAll"
+    "coverage": "jest --coverage --detectOpenHandles --forceExit || true"
   },
   "jest": {
-    "preset": "jest-expo"
+    "collectCoverageFrom": [
   },
   "dependencies": {
     "@expo/samples": "~3.0.0",
