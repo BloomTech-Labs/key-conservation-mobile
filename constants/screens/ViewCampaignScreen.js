@@ -26,6 +26,7 @@ export default StyleSheet.create({
   mainContainer: {
     flex: 1,
     backgroundColor: '#F2F2FB',
+    paddingBottom: 8
   },
   commentsView: {
     width: '100%',
@@ -44,7 +45,7 @@ export default StyleSheet.create({
     paddingTop: 7,
     paddingBottom: 10,
     borderRadius: 10,
-    marginVertical: 10,
+    marginTop: 10,
   },
   ogPostButton: {
     fontFamily: 'Lato-Bold',
@@ -182,5 +183,16 @@ export default StyleSheet.create({
     marginLeft: 10,
     color: 'black',
     fontSize: 22,
+  },
+  originalPostMarker: {
+    width: '95%',
+    alignSelf: 'center',
+    backgroundColor: 'dodgerblue',
+    margin: 16,
+    padding: 8,
+  },
+  originalPostMarkerText: {
+    color: 'white',
+    fontFamily: 'Lato-Bold'
   }
 });

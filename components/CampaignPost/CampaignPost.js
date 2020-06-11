@@ -46,6 +46,7 @@ Props:
 
 disableControls - Include this to hide emoji, comment and bookmark controls
 disableHeader   - Include this to hide header (Title, avatar, name, location)
+hideRelated     - Include this to hide related update posts
 
 
 */
@@ -294,8 +295,8 @@ const CampaignPost = (props) => {
                     }}
                     containerStyle={{
                       position: 'absolute',
-                      top: -8,
-                      right: -3,
+                      top: -4,
+                      right: -2,
                     }}
                     value={data.comments ? data.comments.length : 0}
                   />
@@ -305,7 +306,7 @@ const CampaignPost = (props) => {
           </View>
         )}
         <TakeActionCallToAction data={props.data} />
-        {data.is_update ? null : <UpdateStrip campaign={data} />}
+        {props.hideRelated ? null : <UpdateStrip campaign={data} />}
         <View style={styles.demarcation} />
       </View>
     </Animated.View>

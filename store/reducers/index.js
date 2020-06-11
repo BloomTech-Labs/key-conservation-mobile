@@ -445,6 +445,14 @@ const reducer = (state = initialState, action) => {
           action.payload
         ),
       };
+    case actions.UPDATE_USER_PROFILE:
+      return {
+        ...state,
+        currentUserProfile: {
+          ...state.currentUserProfile,
+          ...action.payload
+        }
+      }
     case actions.TOGGLE_CAMPAIGN_TEXT:
       return {
         ...state,
@@ -804,13 +812,25 @@ const removeFromUploadQueue = (queue, id) => {
 };
 
 const mergePosts = (posts) => {
-  const sortedPosts = Array.from(posts).sort(
+  // Refresh posts
+  // Take out duplicates by adding
+  // first instance to array, and duplicates
+  // afterwards are ignored
+  // The first instances are the newer ones,
+  // so we take advantage of that
+  let refreshedPosts = [];
+  let ids = [];
+
+  for (const i in posts) {
+    if (!ids.includes(posts[i].id)) {
+      ids.push(posts[i].id);
+      refreshedPosts.push(posts[i]);
+    }
+  }
+
+  return refreshedPosts.sort(
     (a, b) =>
       new Date(a.created_at).getTime() < new Date(b.created_at).getTime()
-  );
-
-  return Array.from(new Set(sortedPosts.map((s) => s.id))).map((id) =>
-    sortedPosts.find((s) => s.id === id)
   );
 };
 

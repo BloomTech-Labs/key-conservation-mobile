@@ -21,11 +21,9 @@ export default StyleSheet.create({
     marginLeft: 7,
   },
   replyView: {
+    marginTop: 4,
     flexDirection: 'row',
     width: '100%',
-    marginTop: 10,
-    paddingTop: 8,
-    marginLeft: -10,
   },
   name: {
     paddingBottom: 3,

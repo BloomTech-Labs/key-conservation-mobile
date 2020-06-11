@@ -20,7 +20,6 @@ import { Viewport } from '@skele/components';
 import AddCampaignHeader from '../components/FeedScreen/AddCampaignHeader';
 import FeedLoading from '../components/FeedScreen/FeedLoading';
 
-import Search from '../assets/jsicons/SearchIcon';
 import WebSocketManager from '../websockets/WebSocketManager';
 import NewPostsButton from '../components/FeedScreen/NewPostsButton';
 
@@ -70,14 +69,14 @@ class FeedScreen extends React.Component {
       this.onGetNewPosts();
     }
 
-    let created_at = this.props.allCampaigns[0]?.created_at;
+    // let created_at = this.props.allCampaigns[0]?.created_at;
 
-    if (this.props.newPostQueue.length > 0) {
-      created_at = this.props.newPostQueue[0].created_at;
-    }
+    // if (this.props.newPostQueue.length > 0) {
+    //   created_at = this.props.newPostQueue[0].created_at;
+    // }
 
     this.setState({ refreshing: true });
-    this.props.refreshFeed(created_at).finally(() => {
+    this.props.refreshFeed().finally(() => {
       this.setState({ refreshing: false });
     });
     if (!WebSocketManager.getInstance().connected) {

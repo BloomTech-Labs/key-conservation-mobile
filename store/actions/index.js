@@ -62,8 +62,8 @@ const axiosWithAuth = (dispatch, req) => {
 // production
 // export const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
-export const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
-// export const seturl = 'http://192.168.1.146:8000/api/';
+// export const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+export const seturl = 'http://192.168.1.146:8000/api/';
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
@@ -443,10 +443,10 @@ export const getFeed = (startAt = undefined, size = 8) => (dispatch) => {
 
 export const APPEND_TO_FEED = 'APPEND_TO_FEED';
 
-export const refreshFeed = (createdAt) => (dispatch) => {
+export const refreshFeed = () => (dispatch) => {
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .get(`${seturl}feed?date=${createdAt}`)
+      .get(`${seturl}feed`)
       .then((res) => {
         dispatch({
           type: APPEND_TO_FEED,
