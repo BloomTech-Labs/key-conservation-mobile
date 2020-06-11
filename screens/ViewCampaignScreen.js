@@ -3,10 +3,9 @@ import {
   Text,
   TouchableOpacity,
   ActivityIndicator,
-  FlatList,
 } from 'react-native';
 import { View } from 'react-native-animatable';
-import { ListItem, Badge } from 'react-native-elements';
+import { ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import {
   getOriginalPost,
@@ -69,15 +68,9 @@ class ViewCampaignScreen extends React.Component {
     updates: [],
     updatesLoading: true,
     updatesError: '',
-    hasFocused: false,
+    topSectionHeight: 0,
+    queueScroll: -1,
   };
-
-  onTargetUpdateLayout(yPos) {
-    if (!this.state.hasFocused) {
-      this.scrollView.scrollTo?.({ y: yPos + 1124, animated: true });
-      this.setState({ hasFocused: true });
-    }
-  }
 
   componentWillUnmount() {
     this.mounted = false;
@@ -137,8 +130,32 @@ class ViewCampaignScreen extends React.Component {
     }
   };
 
+  // Scroll to an update. If its location cannot be
+  // determined yet, scrollToOffset queues it until
+  // it can be, and then scrolls to to the target
+  scrollToOffset(yOffset) {
+    if (!this.state.topSectionHeight) {
+      this.setState({
+        queueScroll: yOffset,
+      });
+      return;
+    }
+    // Find out the position of the update
+    const yPos = yOffset + this.state.topSectionHeight - 1420;
+
+    console.log(yPos);
+
+    this.scrollView?.scrollTo({ x: 0, y: yPos, animated: true });
+  }
+
   componentDidUpdate() {
     this.setBookmarked();
+
+    if (this.state.queueScroll !== -1 && this.state.topSectionHeight) {
+      this.scrollToOffset(this.state.queueScroll);
+
+      this.setState({ queueScroll: -1 });
+    }
   }
 
   loadPostData() {
@@ -200,7 +217,15 @@ class ViewCampaignScreen extends React.Component {
               </View>
             </TouchableOpacity>
           ) : null}
-          <View style={styles.container}>
+          <View
+            style={styles.container}
+            onLayout={({ nativeEvent }) => {
+              this.setState({
+                topSectionHeight:
+                  nativeEvent.layout.height + nativeEvent.layout.height,
+              });
+            }}
+          >
             {!this.props.loading ? (
               <CampaignActionSheet
                 admin={this.props.currentUserProfile.admin}
@@ -289,10 +314,9 @@ class ViewCampaignScreen extends React.Component {
                     <Text>Loading comments...</Text>
                   ) : (
                     <View
-                      onLayout={(event) => {
+                      onLayout={() => {
                         if (this.props.navigation.getParam('focusComments')) {
-                          const layout = event.nativeEvent.layout;
-                          this.onTargetUpdateLayout(layout.y + 72);
+                          this.scrollToOffset(8);
                         }
                       }}
                       style={{ flex: 1 }}
@@ -328,13 +352,12 @@ class ViewCampaignScreen extends React.Component {
                 .map((update, index) => {
                   return (
                     <View
-                      onLayout={(event) => {
+                      onLayout={({ nativeEvent }) => {
                         if (
                           index ===
                           this.props.navigation.getParam('targetUpdate')
                         ) {
-                          const layout = event.nativeEvent.layout;
-                          this.onTargetUpdateLayout(layout.y);
+                          this.scrollToOffset(nativeEvent.layout.y);
                         }
                       }}
                       style={{ flex: 1 }}

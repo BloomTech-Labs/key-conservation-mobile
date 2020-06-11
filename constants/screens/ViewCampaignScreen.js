@@ -26,6 +26,7 @@ export default StyleSheet.create({
   mainContainer: {
     flex: 1,
     backgroundColor: '#F2F2FB',
+    paddingBottom: 8
   },
   commentsView: {
     width: '100%',

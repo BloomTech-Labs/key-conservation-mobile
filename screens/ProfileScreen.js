@@ -13,6 +13,8 @@ import EditButton from '../components/EditButton';
 import ProfileBody from '../components/Profile/ProfileBody';
 import { NavigationEvents, withNavigationFocus } from 'react-navigation';
 
+import WebSocketManager from '../websockets/WebSocketManager';
+
 class ProfileScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -65,6 +67,11 @@ class ProfileScreen extends React.Component {
     }
   };
 
+  updateProfile(data) {
+    //TODO
+    // this.props.updateProfile(data);
+  }
+
   componentWillUnmount() {
     this.mounted = false;
   }
@@ -72,6 +79,8 @@ class ProfileScreen extends React.Component {
   componentDidMount = () => {
     this.mounted = true;
     this.initProfileData();
+
+    WebSocketManager.getInstance().subscribe('profile', this.props.updateProfile)
   };
 
   static navigationOptions = ({ navigation }) => {

@@ -445,6 +445,14 @@ const reducer = (state = initialState, action) => {
           action.payload
         ),
       };
+    case actions.UPDATE_USER_PROFILE:
+      return {
+        ...state,
+        currentUserProfile: {
+          ...state.currentUserProfile,
+          ...action.payload
+        }
+      }
     case actions.TOGGLE_CAMPAIGN_TEXT:
       return {
         ...state,
