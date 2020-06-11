@@ -8,7 +8,7 @@ import { getCampaignUpdates, setCampaign } from '../../store/actions';
 import { navigate } from '../../navigation/RootNavigator';
 
 import { connect } from 'react-redux';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 
 class UpdateStrip extends Component {
   constructor(props) {
@@ -69,6 +69,24 @@ class UpdateStrip extends Component {
   }
 
   render() {
+    const updates = this.state.updates.map((update, i) => {
+      return (
+        <TouchableOpacity
+          key={update.id}
+          onPress={this.goToUpdate.bind(this, i)}
+        >
+          <View style={styles.updateTile}>
+            <Image style={styles.image} source={{ uri: update.image }} />
+            <View style={styles.dateContainer}>
+              <Text style={styles.date}>
+                {moment(update.created_at).format('MMM DD')}
+              </Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      );
+    });
+
     return this.state.loading ? (
       <View
         style={{
@@ -101,34 +119,7 @@ class UpdateStrip extends Component {
             </TouchableOpacity>
           ) : null}
         </View>
-        <View style={styles.tileContainer}>
-          {[0, 1, 2].map((i) => {
-            if (this.state.updates.length < i + 1) {
-              return (
-                <View
-                  key={i}
-                  style={{ ...styles.updateTile, backgroundColor: 'none' }}
-                />
-              );
-            }
-            const update = this.state.updates[i];
-            return (
-              <TouchableOpacity
-                key={update.id}
-                onPress={this.goToUpdate.bind(this, i)}
-              >
-                <View style={styles.updateTile}>
-                  <Image style={styles.image} source={{ uri: update.image }} />
-                  <View style={styles.dateContainer}>
-                    <Text style={styles.date}>
-                      {moment(update.created_at).format('MMM DD')}
-                    </Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            );
-          })}
-        </View>
+        <ScrollView style={styles.tileContainer} horizontal>{updates}</ScrollView>
       </View>
     );
   }

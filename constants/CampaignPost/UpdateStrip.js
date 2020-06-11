@@ -12,12 +12,13 @@ export default StyleSheet.create({
     height: TILE_SIZE,
     backgroundColor: 'gray',
     overflow: 'hidden',
+    marginRight: 8,
     borderRadius: 10,
   },
   tileContainer: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    alignContent: 'flex-start',
+    paddingBottom: 10
   },
   dateContainer: {
     position: 'absolute',
