@@ -6,10 +6,17 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
+    "test": "jest --watchAll",
     "coverage": "jest --coverage --detectOpenHandles --forceExit || true"
   },
   "jest": {
+    "preset": "jest-expo",
     "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**",
+      "!**/__tests__/**"
+    ]
   },
   "dependencies": {
     "@expo/samples": "~3.0.0",
@@ -101,7 +108,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.10.1",
     "babel-preset-expo": "^8.0.0",
-    "jest": "^26.0.1",
+    "jest": "^25.0.0",
     "jest-expo": "^36.0.0",
     "redux-mock-store": "^1.5.4"
   },
