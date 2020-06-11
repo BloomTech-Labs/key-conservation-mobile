@@ -183,5 +183,16 @@ export default StyleSheet.create({
     marginLeft: 10,
     color: 'black',
     fontSize: 22,
+  },
+  originalPostMarker: {
+    width: '95%',
+    alignSelf: 'center',
+    backgroundColor: 'dodgerblue',
+    margin: 16,
+    padding: 8,
+  },
+  originalPostMarkerText: {
+    color: 'white',
+    fontFamily: 'Lato-Bold'
   }
 });

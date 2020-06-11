@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  Text,
-  TouchableOpacity,
-  ActivityIndicator,
-} from 'react-native';
+import { Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { View } from 'react-native-animatable';
 import { ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -361,9 +357,17 @@ class ViewCampaignScreen extends React.Component {
                       style={{ flex: 1 }}
                       key={update.id}
                     >
+                      {update.is_update ? null : (
+                        <View style={styles.originalPostMarker}>
+                          <Text style={styles.originalPostMarkerText}>
+                            ORIGINAL POST
+                          </Text>
+                        </View>
+                      )}
                       <CampaignPost
                         disableControls
                         disableHeader
+                        hideRelated
                         data={update}
                         toggled={this.props.campaignsToggled.includes(
                           update.id

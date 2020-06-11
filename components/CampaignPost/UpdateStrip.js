@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, ActivityIndicator } from 'react-native';
 import styles from '../../constants/CampaignPost/UpdateStrip';
 import moment from 'moment';
 
@@ -40,7 +40,10 @@ class UpdateStrip extends Component {
     this.props
       .getCampaignUpdates(this.props.campaign.campaign_id)
       .then((res) => {
-        if (this.mounted) this.setState({ updates: res?.data, loading: false });
+        const updates = res?.data?.filter(
+          (u) => u.id !== this.props.campaign.id
+        );
+        if (this.mounted) this.setState({ updates, loading: false });
       })
       .catch((err) => {
         console.log(err);
@@ -66,13 +69,29 @@ class UpdateStrip extends Component {
   }
 
   render() {
-    return this.state.loading ||
-      this.state.error ||
-      this.state.updates?.length === 0 ? null : (
+    return this.state.loading ? (
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'row',
+          height: 48,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <ActivityIndicator size="small" />
+        <Text style={{ fontFamily: 'Lato-Bold', fontSize: 16, marginLeft: 8 }}>
+          Loading related posts...
+        </Text>
+      </View>
+    ) : this.state.error || this.state.updates?.length === 0 ? null : (
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>
-            Latest updates ({this.state.updates?.length})
+            {this.props.campaign?.is_update
+              ? 'More updates '
+              : `Latest updates `}
+            ({this.state.updates?.length})
           </Text>
           {this.state.updates?.length > 3 ? (
             <TouchableOpacity onPress={this.goToUpdate.bind(this)}>
@@ -83,11 +102,14 @@ class UpdateStrip extends Component {
           ) : null}
         </View>
         <View style={styles.tileContainer}>
-          {[0, 1, 2].map(i => {
-            if(this.state.updates.length < i + 1) {
+          {[0, 1, 2].map((i) => {
+            if (this.state.updates.length < i + 1) {
               return (
-                <View key={i} style={{...styles.updateTile, backgroundColor: 'none'}} />
-              )
+                <View
+                  key={i}
+                  style={{ ...styles.updateTile, backgroundColor: 'none' }}
+                />
+              );
             }
             const update = this.state.updates[i];
             return (
