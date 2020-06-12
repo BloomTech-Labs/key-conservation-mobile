@@ -11,9 +11,10 @@ import {
 import { shorten } from '../../util/';
 
 import { connect } from 'react-redux';
-import { cancelUploadPost } from '../../store/actions';
+import { cancelUploadPost, retryUploadPost } from '../../store/actions';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import X from '../../assets/jsicons/miscIcons/X';
+import Retry from '../../assets/jsicons/miscIcons/Retry';
 
 class UploadQueueCard extends Component {
   constructor(props) {
@@ -42,7 +43,9 @@ class UploadQueueCard extends Component {
   }
 
   handleRetry() {
-    //TODO: Implement Retry
+    this.props.retryUploadPost(this.props.id, {
+      ...this.props.post,
+    });
   }
 
   render() {
@@ -61,8 +64,14 @@ class UploadQueueCard extends Component {
             </Text>
           </View>
           <View style={styles.rightContainer}>
-            {data?.status === 'Failed' ? null : <ActivityIndicator />}
             <Text style={styles.text}>{data?.status || 'Posting...'}</Text>
+            {data?.status === 'Failed' ? (
+              <TouchableOpacity onPress={this.handleRetry.bind(this)}>
+                <Retry height={20} width={20} />
+              </TouchableOpacity>
+            ) : (
+              <ActivityIndicator />
+            )}
             <TouchableOpacity onPress={this.handleCancel.bind(this)}>
               <X />
             </TouchableOpacity>
@@ -128,4 +137,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null, { cancelUploadPost })(UploadQueueCard);
+export default connect(null, { cancelUploadPost, retryUploadPost })(
+  UploadQueueCard
+);

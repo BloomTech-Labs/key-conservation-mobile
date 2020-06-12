@@ -69,7 +69,7 @@ class UpdateStrip extends Component {
   }
 
   render() {
-    const updates = this.state.updates.map((update, i) => {
+    const updates = this.state.updates?.map((update, i) => {
       return (
         <TouchableOpacity
           key={update.id}
@@ -85,7 +85,7 @@ class UpdateStrip extends Component {
           </View>
         </TouchableOpacity>
       );
-    });
+    }) || [];
 
     return this.state.loading ? (
       <View
