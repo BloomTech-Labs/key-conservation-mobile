@@ -121,11 +121,8 @@ class LoadingScreen extends React.Component {
 
           if (this.props.firstLogin) {
             this.props.afterFirstLogin();
-            if (roles === 'conservationist') {
-              this.props.navigation.navigate('EditProfile');
-            } else {
-              this.props.navigation.navigate('EditSupporterProfile');
-            }
+
+            this.props.navigation.navigate('EditProfile');
           } else {
             this.props.navigation.navigate(
               roles === 'conservationist' ? 'Conservationist' : 'Supporter'

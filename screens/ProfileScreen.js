@@ -2,7 +2,11 @@ import React from 'react';
 import { ActivityIndicator, Alert, View, Animated } from 'react-native';
 import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
-import { getProfileData, createReport } from '../store/actions';
+import {
+  getProfileData,
+  createReport,
+  updateProfileData,
+} from '../store/actions';
 import ProfileHeader from '../components/Profile/ProfileHeader';
 import BackButton from '../components/BackButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -68,8 +72,10 @@ class ProfileScreen extends React.Component {
   };
 
   updateProfile(data) {
-    //TODO
-    // this.props.updateProfile(data);
+    // TODO: Complete
+    console.log('ProfileScreen received data: ' + data);
+
+    this.props.updateProfileData(data);
   }
 
   componentWillUnmount() {
@@ -78,26 +84,27 @@ class ProfileScreen extends React.Component {
 
   componentDidMount = () => {
     this.mounted = true;
-    this.initProfileData();
+    if (this.state.loading) {
+      this.initProfileData();
+    }
 
-    WebSocketManager.getInstance().subscribe('profile', this.props.updateProfile)
+    WebSocketManager.getInstance().subscribe(
+      'profile',
+      this.props.updateProfile
+    );
   };
 
   static navigationOptions = ({ navigation }) => {
     const selectedProfile = navigation.getParam('selectedProfile');
     const currentProfile = navigation.getParam('currentProfile');
 
-    const editRoute =
-      selectedProfile?.roles || currentProfile?.roles === 'supporter'
-        ? 'EditSupporterProfile'
-        : 'EditProfile';
-
     const headerRight = () => {
-      if (!selectedProfile) {
-        return <EditButton navigation={navigation} editRoute={editRoute} />;
-      } else if (selectedProfile && currentProfile?.id === selectedProfile)
-        return <EditButton navigation={navigation} editRoute={editRoute} />;
-      else {
+      if (
+        !selectedProfile ||
+        (selectedProfile && currentProfile?.id === selectedProfile)
+      ) {
+        return <EditButton navigation={navigation} editRoute={'EditProfile'} />;
+      } else {
         return (
           <TouchableOpacity
             style={{
@@ -233,6 +240,8 @@ const mapStateToProps = (state) => ({
   admin: state.currentUserProfile.admin,
 });
 
-export default connect(mapStateToProps, { getProfileData, createReport })(
-  withNavigationFocus(ProfileScreen)
-);
+export default connect(mapStateToProps, {
+  getProfileData,
+  createReport,
+  updateProfileData,
+})(withNavigationFocus(ProfileScreen));

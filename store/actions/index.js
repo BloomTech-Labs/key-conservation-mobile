@@ -68,17 +68,18 @@ export const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
   // If they already include it it will be ignored. and if it is capital "Https || Http" it will become lowercase.
-  keys.forEach((key) => {
-    if (
-      object[key] &&
-      object[key] !== null &&
-      object[key].indexOf('http://') !== 0 &&
-      object[key].indexOf('https://') !== 0
-    ) {
-      object[key] = object[key].toLowerCase();
-      object[key] = 'https://' + object[key];
-    }
-  });
+  if (object)
+    keys.forEach((key) => {
+      if (
+        object[key] &&
+        object[key] !== null &&
+        object[key].indexOf('http://') !== 0 &&
+        object[key].indexOf('https://') !== 0
+      ) {
+        object[key] = object[key].toLowerCase();
+        object[key] = 'https://' + object[key];
+      }
+    });
   return object;
 };
 
@@ -286,55 +287,41 @@ export const [
   'EDIT_PROFILE_IMAGE_SUCCESS',
 ];
 
-export const editProfileImage = (id, uri) => (dispatch) => {
-  dispatch({ type: EDIT_PROFILE_IMAGE_START });
-
-  let uriParts = uri.split('.');
-  let fileType = uriParts[uriParts.length - 1];
-
-  const formData = new FormData();
-  formData.append('photo', {
-    uri,
-    name: `photo.${fileType}`,
-    type: `image/${fileType}`,
-  });
-
-  return axiosWithAuth(dispatch, (aaxios) => {
-    return aaxios.put(`${seturl}users/${id}`, formData, {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-  })
-    .then((res) => {
-      dispatch({ type: EDIT_PROFILE_IMAGE_SUCCESS, payload: res.data.user });
-    })
-    .catch((err) => {
-      console.log(err);
-      dispatch({ type: EDIT_PROFILE_IMAGE_ERROR, payload: err });
-    });
-};
-
 export const [EDIT_PROFILE_START, EDIT_PROFILE_ERROR, EDIT_PROFILE_SUCCESS] = [
   'EDIT_PROFILE_START',
   'EDIT_PROFILE_ERROR',
   'EDIT_PROFILE_SUCCESS',
 ];
 
-export const editProfileData = (id, changes) => (dispatch) => {
-  dispatch({ type: EDIT_PROFILE_START });
+export const editProfileData = (changes) => (dispatch) => {
+  dispatch({ type: EDIT_PROFILE_START, payload: changes });
 
   const filteredChanges = filterUrls(
     ['facebook', 'twitter', 'instagram', 'link_url', 'call_to_action'],
     changes
   );
 
+  let uriParts = changes.profile_image?.split('.');
+  let fileType = uriParts?.[uriParts.length - 1];
+
+  const formData = new FormData();
+  if (changes.profile_image) {
+    formData.append('photo', {
+      uri: changes.profile_image,
+      name: `photo.${fileType}`,
+      type: `image/${fileType}`,
+    });
+  }
+
+  Object.entries(filteredChanges).forEach((entry) => {
+    formData.append(entry[0], entry[1]);
+  });
+
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .put(`${seturl}users/${id}`, filteredChanges)
+      .put(`${seturl}users`, formData)
       .then((res) => {
-        dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.user });
+        dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data });
       })
       .catch((err) => {
         console.log(err);
@@ -1291,6 +1278,12 @@ export const unsetActiveVideo = (postId) => (dispatch) => {
     type: UNSET_ACTIVE_VIDEO,
     payload: postId,
   });
+};
+
+export const UPDATE_PROFILE_DATA = 'UPDATE_PROFILE_DATA';
+
+export const updateProfileData = (data) => (dispatch) => {
+  dispatch({ type: UPDATE_PROFILE_DATA, payload: data });
 };
 
 // TODO: Add getting emoji reaction details (User names and avatars for each emoji)

@@ -164,13 +164,20 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, updateProfile: true },
+        currentUserProfile: {
+          ...state.currentUserProfile,
+          ...action.payload
+        },
         error: '',
       };
     case actions.EDIT_PROFILE_SUCCESS:
       return {
         ...state,
         pending: { ...state.pending, updateProfile: false },
-        currentUserProfile: action.payload,
+        currentUserProfile: {
+          ...state.currentUserProfile,
+          ...action.payload
+        },
       };
     case actions.EDIT_PROFILE_ERROR:
       return {
@@ -798,6 +805,14 @@ const reducer = (state = initialState, action) => {
         ...state,
         activeVideos: state.activeVideos.filter((v) => v !== action.payload),
       };
+    case actions.UPDATE_PROFILE_DATA:
+      return {
+        ...state,
+        currentUserProfile: {
+          ...state.currentUserProfile,
+          ...action.payload
+        }
+      }
     default:
       return state;
   }
