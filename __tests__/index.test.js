@@ -1,7 +1,10 @@
 import configureStore from 'redux-mock-store';
-const { setCampaign, toggleCampaignText, getCampaignPost } = require('../store/actions');
+const {
+  setCampaign,
+  toggleCampaignText,
+  getCampaignPost,
+} = require('../store/actions');
 import thunk from 'redux-thunk';
-
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -28,38 +31,31 @@ test('setCampaign(null)', () => {
   expect(store.getActions()).toMatchSnapshot();
 });
 
-
 test('toggleCampaignText', () => {
   const initialState = {};
-  const store = mockStore(initialState)
-  store.dispatch(toggleCampaignText())
+  const store = mockStore(initialState);
+  store.dispatch(toggleCampaignText());
   expect(store.getActions()).toMatchSnapshot();
-})
+});
 
 describe('getCampaignPost', () => {
   const fakeCampaignPost = { test: 'test', id: 1 };
-  let { id, test } = fakeCampaignPost
+  let { id, test } = fakeCampaignPost;
   const initialState = {};
   const store = mockStore(initialState);
 
-  const getCampSuccess = () => {
-    return {
-      type: 'GET_REPORTS_SUCCESS'
-    }
-  }
-
   const getCampaigns = () => {
-    return dispatch => {
-      return getCampaignPost({ id }).then(() => dispatch(getCampSuccess()))
-    }
-  }
+    return (dispatch) => {
+      getCampaignPost({ id });
+
+      return dispatch({ type: 'GET_REPORTS_SUCCESS' });
+    };
+  };
 
   it('should fetch proper post', () => {
-    store.dispatch(getCampaigns()).then(() => {
-      const actions = store.getActions()
-      expect(actions[0]).toEqual(getCampSuccess())
-    })
+    store.dispatch(getCampaigns());
 
-  })
-
-})
+    const actions = store.getActions();
+    expect(actions[0]).toEqual({ type: 'GET_REPORTS_SUCCESS' });
+  });
+});
