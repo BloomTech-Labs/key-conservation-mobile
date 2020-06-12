@@ -5,6 +5,7 @@ const {
   getCampaignPost,
   addBookmark,
   removeBookmark,
+  getConnections,
 } = require('../store/actions');
 import thunk from 'redux-thunk';
 
@@ -62,21 +63,6 @@ describe('getCampaignPost', () => {
   });
 });
 
-// describe('getConnections', () => {
-//   const fakeConnections = [{ connection: 'test', id: 1}, { connection: 'test2', id: 2}];
-//   let {id, connection} = fakeConnections;
-//   const initialState = {};
-//   const store = mockStore(initialState);
-
-//     const getConnect = () => {
-//       return (dispatch) => {
-//         getConnections({id});
-
-//         return dispatch({type: ''})
-//       }
-//     }
-// })
-
 describe('addBookmark', () => {
   const fakeBookmark = { test: 'test', id: 1 };
   let { id, test } = fakeBookmark;
@@ -119,4 +105,12 @@ describe('removeBookmark', () => {
     const actions = store.getActions();
     expect(actions[0]).toEqual({ type: 'REMOVE_BOOKMARK_SUCCESS' });
   });
+});
+
+test('getConnections', () => {
+  const initialState = {};
+  const store = mockStore(initialState);
+
+  store.dispatch(getConnections());
+  expect(store.getActions()).toMatchSnapshot();
 });
