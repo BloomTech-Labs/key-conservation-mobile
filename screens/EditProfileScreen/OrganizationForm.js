@@ -24,7 +24,6 @@ class OrganizationForm extends React.Component {
     instagram: this.props.data.instagram,
     twitter: this.props.data.twitter,
     about_us: this.props.data.about_us,
-    species_and_habitats: this.props.data.species_and_habitats,
     phone_number: this.props.data.phone_number,
     call_to_action: this.props.data.call_to_action,
     longitude: this.props.data.longitude,
@@ -70,8 +69,8 @@ class OrganizationForm extends React.Component {
   }; // Also deletes vetting variables in case NameScreen isn't executed before starting a new organization onboarding process.
 
 
-  done = () => {   
-    this.props.onSubmit(this.state);
+  done = async () => {   
+    return await this.props.onSubmit(this.state);
   };
 
   render() {

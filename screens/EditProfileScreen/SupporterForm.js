@@ -18,7 +18,6 @@ class SupporterForm extends React.Component {
     facebook: this.props.data.facebook,
     instagram: this.props.data.instagram,
     twitter: this.props.data.twitter,
-    species_and_habitats: this.props.data.species_and_habitats,
     skills: this.props.data.skills,
   };
 
@@ -26,8 +25,8 @@ class SupporterForm extends React.Component {
     this.props.navigation.setParams({ done: this.done });
   }
 
-  done = () => {
-    this.props.onSubmit(this.state);
+  done = async () => {
+    return await this.props.onSubmit(this.state);
   };
 
   render() {
