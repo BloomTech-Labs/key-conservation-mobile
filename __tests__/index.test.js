@@ -3,6 +3,8 @@ const {
   setCampaign,
   toggleCampaignText,
   getCampaignPost,
+  addBookmark,
+  removeBookmark,
 } = require('../store/actions');
 import thunk from 'redux-thunk';
 
@@ -57,5 +59,64 @@ describe('getCampaignPost', () => {
 
     const actions = store.getActions();
     expect(actions[0]).toEqual({ type: 'GET_REPORTS_SUCCESS' });
+  });
+});
+
+// describe('getConnections', () => {
+//   const fakeConnections = [{ connection: 'test', id: 1}, { connection: 'test2', id: 2}];
+//   let {id, connection} = fakeConnections;
+//   const initialState = {};
+//   const store = mockStore(initialState);
+
+//     const getConnect = () => {
+//       return (dispatch) => {
+//         getConnections({id});
+
+//         return dispatch({type: ''})
+//       }
+//     }
+// })
+
+describe('addBookmark', () => {
+  const fakeBookmark = { test: 'test', id: 1 };
+  let { id, test } = fakeBookmark;
+  const initialState = {};
+  const store = mockStore(initialState);
+
+  const bookmark = () => {
+    return (dispatch) => {
+      addBookmark({ id });
+
+      return dispatch({ type: 'ADD_BOOKMARK_SUCCESS' });
+    };
+  };
+
+  it('should add bookmark', () => {
+    store.dispatch(bookmark());
+
+    const actions = store.getActions();
+    expect(actions[0]).toEqual({ type: 'ADD_BOOKMARK_SUCCESS' });
+  });
+});
+
+describe('removeBookmark', () => {
+  const fakeBookmark = { test: 'test', id: 1 };
+  let { id, test } = fakeBookmark;
+  const initialState = {};
+  const store = mockStore(initialState);
+
+  const bookmarkRemove = () => {
+    return (dispatch) => {
+      removeBookmark({ id });
+
+      return dispatch({ type: 'REMOVE_BOOKMARK_SUCCESS' });
+    };
+  };
+
+  it('should remove bookmark', () => {
+    store.dispatch(bookmarkRemove());
+
+    const actions = store.getActions();
+    expect(actions[0]).toEqual({ type: 'REMOVE_BOOKMARK_SUCCESS' });
   });
 });
