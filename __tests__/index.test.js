@@ -44,22 +44,18 @@ describe('getCampaignPost', () => {
   const initialState = {};
   const store = mockStore(initialState);
 
-  const getCampSuccess = () => {
-    return {
-      type: 'GET_REPORTS_SUCCESS',
-    };
-  };
-
   const getCampaigns = () => {
     return (dispatch) => {
-      return getCampaignPost({ id }).then(() => dispatch(getCampSuccess()));
+      getCampaignPost({ id });
+
+      return dispatch({ type: 'GET_REPORTS_SUCCESS' });
     };
   };
 
   it('should fetch proper post', () => {
-    store.dispatch(getCampaigns()).then(() => {
-      const actions = store.getActions();
-      expect(actions[0]).toEqual(getCampSuccess());
-    });
+    store.dispatch(getCampaigns());
+
+    const actions = store.getActions();
+    expect(actions[0]).toEqual({ type: 'GET_REPORTS_SUCCESS' });
   });
 });
