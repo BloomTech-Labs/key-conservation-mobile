@@ -123,7 +123,7 @@ class FeedScreen extends React.Component {
   componentDidMount() {
     this.props.getFeed();
     this.props.navigation.setParams({
-      roles: this.props.currentUserProfile.roles,
+      roles: this.props.currentUserProfile?.roles,
     });
 
     WebSocketManager.getInstance().subscribe('feed', this.props.queueNewPosts);

@@ -94,7 +94,7 @@ class SkillContent extends React.Component {
                 <TouchableOpacity
                   style={styles.responsiveButton}
                   onPress={() =>
-                    this.props.navigation.navigate('EditSupporterProfile', {
+                    this.props.navigation.navigate('EditProfile', {
                       goBack: () => this.setState({ loading: true }),
                     })
                   }

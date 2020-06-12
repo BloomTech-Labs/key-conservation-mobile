@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`setCampaign("test") 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "test": "test",
+    },
+    "type": "SET_CAMPAIGN",
+  },
+]
+`;
+
+exports[`setCampaign(null) 1`] = `
+Array [
+  Object {
+    "payload": undefined,
+    "type": "SET_CAMPAIGN",
+  },
+]
+`;
