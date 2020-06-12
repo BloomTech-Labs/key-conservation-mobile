@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { Text, Keyboard, View } from 'react-native';
 
 import LocationIQ from 'react-native-locationiq';
 
@@ -18,14 +18,21 @@ class EditProfileScreen extends Component {
       },
       headerTintColor: '#fff',
       headerRight: () => (
-        <DoneButton pressAction={navigation.getParam('done')} />
+        <DoneButton
+          navigation={navigation}
+          pressAction={navigation.getParam('done')}
+        />
       ),
     };
   };
 
-  submit = async (state) => {
-    this.props.navigation.goBack();
+  state = {
+    submitting: false,
+  };
 
+  submit = async (state) => {
+    Keyboard.dismiss();
+    this.setState({ submitting: true });
     LocationIQ.init('pk.21494f179d6ad0c272404a3614275418');
 
     let changes = {};
@@ -46,15 +53,18 @@ class EditProfileScreen extends Component {
         changes.longitude = parseFloat(json[0].lon);
       }
       if (changes !== {}) {
-        this.props.editProfileData(changes);
+        await this.props.editProfileData(changes);
       }
+      return true;
     } catch (err) {
       console.log(err);
+      this.setState({ submitting: false });
+      return false;
     }
   };
 
   render() {
-    return this.props.profile ? (
+    const form = this.props.profile ? (
       this.props.profile.roles === 'conservationist' ? (
         <OrganizationForm
           navigation={this.props.navigation}
@@ -70,6 +80,12 @@ class EditProfileScreen extends Component {
       )
     ) : (
       <Text>Loading...</Text>
+    );
+
+    return (
+      <View pointerEvents={this.state.submitting ? 'none' : 'auto'}>
+        {form}
+      </View>
     );
   }
 }

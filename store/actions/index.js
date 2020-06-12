@@ -325,6 +325,9 @@ export const editProfileData = (changes) => (dispatch) => {
       })
       .catch((err) => {
         console.log(err);
+        Alert.alert(
+          'Failed to update profile. Please restart the app and try again.'
+        );
         dispatch({ type: EDIT_PROFILE_ERROR, payload: err });
       });
   });
