@@ -235,9 +235,9 @@ class ViewCampaignScreen extends React.Component {
                   <View style={styles.topRowLeft}>
                     <Text style={styles.postTitle}>{this.state.name}</Text>
                   </View>
-                  <View style={styles.topRowRight}>
+                  {/* <View style={styles.topRowRight}>
                     <Text style={styles.timeText}>{this.state.createdAt}</Text>
-                  </View>
+                  </View> */}
                 </View>
                 <ListItem
                   onPress={this.goToProfile}
@@ -266,6 +266,7 @@ class ViewCampaignScreen extends React.Component {
                   <Text style={styles.campaignDescription}>
                     {this.state.description}
                   </Text>
+                  <Text style={styles.timeText}>{this.state.createdAt}</Text>
                 </View>
                 <MediaViewer
                   source={this.state.image}

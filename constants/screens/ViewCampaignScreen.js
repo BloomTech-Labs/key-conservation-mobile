@@ -53,11 +53,18 @@ export default StyleSheet.create({
     alignSelf: 'center',
   },
   campaignDescriptionContainer: {
+    flex: 1,
     marginLeft: 15,
     paddingBottom: 15,
     marginRight: 10,
     borderRadius: 10,
     backgroundColor: 'white',
+  },
+  timeText: {
+    justifyContent: 'flex-end',
+    color: '#929292',
+    fontSize: 16,
+    fontFamily: 'Lato',
   },
   campaignDescriptionName: {
     fontFamily: 'Lato',
@@ -114,13 +121,11 @@ export default StyleSheet.create({
   },
   topRow: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
     width: '100%',
     paddingTop: 8,
   },
   topRowLeft: {
     paddingLeft: 17,
-    width: '75%',
   },
   topRowRight: {
     paddingRight: 15,
@@ -130,11 +135,6 @@ export default StyleSheet.create({
     flex: 2,
     fontFamily: 'Lato-Bold',
     fontSize: 17,
-  },
-  timeText: {
-    color: '#929292',
-    fontSize: 16,
-    fontFamily: 'Lato',
   },
   viewOriginalPost: {
     backgroundColor: 'dodgerblue',
