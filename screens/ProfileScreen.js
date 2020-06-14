@@ -2,7 +2,11 @@ import React from 'react';
 import { ActivityIndicator, Alert, View, Animated } from 'react-native';
 import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
-import { getProfileData, createReport } from '../store/actions';
+import {
+  getProfileData,
+  createReport,
+  updateProfileData,
+} from '../store/actions';
 import ProfileHeader from '../components/Profile/ProfileHeader';
 import BackButton from '../components/BackButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -12,6 +16,8 @@ import SettingsButton from '../components/SettingsButton';
 import EditButton from '../components/EditButton';
 import ProfileBody from '../components/Profile/ProfileBody';
 import { NavigationEvents, withNavigationFocus } from 'react-navigation';
+
+import WebSocketManager from '../websockets/WebSocketManager';
 
 class ProfileScreen extends React.Component {
   constructor(props) {
@@ -36,6 +42,8 @@ class ProfileScreen extends React.Component {
     this.scrollView = React.createRef();
 
     this.scrollY = new Animated.Value(0);
+
+    this.mounted = false;
   }
 
   initProfileData = async () => {
@@ -45,39 +53,58 @@ class ProfileScreen extends React.Component {
         null,
         !this.props.navigation.getParam('selectedProfile')
       );
-      this.setState({
-        user,
-        loading: false,
-      });
+      if (this.mounted) {
+        this.setState({
+          user,
+          loading: false,
+        });
+      }
     } catch (err) {
       console.log(err);
       Alert.alert('Error', 'Failed to retrieve user profile');
-      this.setState({
-        loading: false,
-        error: 'Failed to retrieve user profile',
-      });
+      if (this.mounted) {
+        this.setState({
+          loading: false,
+          error: 'Failed to retrieve user profile',
+        });
+      }
     }
   };
 
+  updateProfile(data) {
+    // TODO: Complete
+    console.log('ProfileScreen received data: ' + data);
+
+    this.props.updateProfileData(data);
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
+  }
+
   componentDidMount = () => {
-    this.initProfileData();
+    this.mounted = true;
+    if (this.state.loading) {
+      this.initProfileData();
+    }
+
+    WebSocketManager.getInstance().subscribe(
+      'profile',
+      this.props.updateProfile
+    );
   };
 
   static navigationOptions = ({ navigation }) => {
     const selectedProfile = navigation.getParam('selectedProfile');
     const currentProfile = navigation.getParam('currentProfile');
 
-    const editRoute =
-      selectedProfile?.roles || currentProfile?.roles === 'supporter'
-        ? 'EditSupporterProfile'
-        : 'EditProfile';
-
     const headerRight = () => {
-      if (!selectedProfile) {
-        return <EditButton navigation={navigation} editRoute={editRoute} />;
-      } else if (selectedProfile && currentProfile?.id === selectedProfile)
-        return <EditButton navigation={navigation} editRoute={editRoute} />;
-      else {
+      if (
+        !selectedProfile ||
+        (selectedProfile && currentProfile?.id === selectedProfile)
+      ) {
+        return <EditButton navigation={navigation} editRoute={'EditProfile'} />;
+      } else {
         return (
           <TouchableOpacity
             style={{
@@ -213,6 +240,8 @@ const mapStateToProps = (state) => ({
   admin: state.currentUserProfile.admin,
 });
 
-export default connect(mapStateToProps, { getProfileData, createReport })(
-  withNavigationFocus(ProfileScreen)
-);
+export default connect(mapStateToProps, {
+  getProfileData,
+  createReport,
+  updateProfileData,
+})(withNavigationFocus(ProfileScreen));

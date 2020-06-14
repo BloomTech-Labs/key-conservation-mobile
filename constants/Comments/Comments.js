@@ -21,11 +21,9 @@ export default StyleSheet.create({
     marginLeft: 7,
   },
   replyView: {
+    marginTop: 4,
     flexDirection: 'row',
     width: '100%',
-    marginTop: 10,
-    paddingTop: 8,
-    marginLeft: -10,
   },
   name: {
     paddingBottom: 3,
@@ -89,7 +87,6 @@ export default StyleSheet.create({
   },
   avatar: {
     marginTop: 5,
-    marginLeft: -10,
   },
   feedAvatar: {
     marginTop: 8,
@@ -118,26 +115,11 @@ export default StyleSheet.create({
     flex: 1,
     padding: 15,
     width: '100%',
-    flexWrap: 'wrap',
+    alignSelf: 'center',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     fontSize: 18,
-  },
-  more: {
-    width: '100%',
-    height: 48,
-    backgroundColor: '#F5F5F5',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-    textAlign: 'center',
-    shadowColor: 'rgba(0, 0, 0, 0.15)',
-    shadowOffset: {
-      height: 4,
-    },
-    shadowRadius: 5,
-    shadowOpacity: 10,
   },
   moreText: {
     color: '#323339',
@@ -152,4 +134,10 @@ export default StyleSheet.create({
     marginTop: 9,
     color: '#7B7D88',
   },
+  commentsEmpty: {
+    color: 'gray',
+    textAlign: 'center',
+    padding: 16,
+    backgroundColor: '#F0F0F0'
+  }
 });

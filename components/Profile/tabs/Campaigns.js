@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 
 import styles from '../../../constants/Profile/tabs/Campaigns';
-import CampaignPost from '../../CampaignPost';
+import CampaignPost from '../../CampaignPost/CampaignPost';
 
 import CampaignBlankSpace from '../CampaignBlankSpace';
 import CampaignList from './CampaignList';

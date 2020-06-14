@@ -1,9 +1,14 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { View } from 'react-native-animatable';
 import { ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { getOriginalPost } from '../store/actions';
+import {
+  getOriginalPost,
+  addBookmark,
+  removeBookmark,
+  getCampaignUpdates,
+} from '../store/actions';
 import moment from 'moment';
 import { Viewport } from '@skele/components';
 import { navigate } from '../navigation/RootNavigator';
@@ -17,6 +22,10 @@ import TakeActionCallToAction from '../components/TakeAction/TakeActionCallToAct
 import MapMarker from '../assets/jsicons/headerIcons/map-marker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import MediaViewer from '../components/MediaViewer';
+import SmileSelector from '../components/FeedScreen/SmileSelector';
+import BookmarkSolid from '../assets/jsicons/miscIcons/BookmarkSolid';
+import Bookmark from '../assets/jsicons/miscIcons/Bookmark';
+import CampaignPost from '../components/CampaignPost/CampaignPost';
 
 class ViewCampaignScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -42,20 +51,105 @@ class ViewCampaignScreen extends React.Component {
     };
   };
 
-  state = {};
+  constructor(props) {
+    super(props);
+
+    this.mounted = false;
+
+    this.scrollView = React.createRef();
+  }
+
+  state = {
+    isBookmarked: false,
+    updates: [],
+    updatesLoading: true,
+    updatesError: '',
+    topSectionHeight: 0,
+    queueScroll: -1,
+  };
+
+  componentWillUnmount() {
+    this.mounted = false;
+  }
 
   componentDidMount() {
-    const campaign_id = this.props.navigation.getParam('campaign_id');
+    this.mounted = true;
+
+    let campaign_id = this.props.navigation.getParam('campaign_id');
 
     if (campaign_id) {
       this.props.getOriginalPost(campaign_id).finally(() => {
-        this.loadPostData();
+        if (this.mounted) this.loadPostData();
       });
     } else this.loadPostData();
+
+    campaign_id = campaign_id || this.props.selectedCampaign.campaign_id;
+
+    if (this.props.navigation.getParam('updates')) {
+      this.setState({
+        updates: this.props.navigation.getParam('updates'),
+        updatesLoading: false,
+      });
+    } else if (campaign_id) {
+      this.props
+        .getCampaignUpdates(campaign_id)
+        .then((res) => {
+          if (this.mounted)
+            this.setState({
+              updates: res?.data || [],
+              updatesLoading: false,
+            });
+        })
+        .catch((err) => {
+          if (this.mounted)
+            this.setState({
+              updatesLoading: false,
+              updatesError: err?.message || 'Failed to get updates',
+            });
+        });
+    }
 
     this.props.navigation.setParams({
       showCampaignOptions: this.showActionSheet,
     });
+
+    this.setBookmarked();
+  }
+
+  setBookmarked = () => {
+    let isBookmarked = this.props.bookmarks?.filter(
+      (bm) => bm.campaign_id === this.state.campaign_id
+    );
+    isBookmarked = isBookmarked.length > 0;
+    if (this.state.isBookmarked !== isBookmarked) {
+      this.setState({ isBookmarked: isBookmarked });
+    }
+  };
+
+  // Scroll to an update. If its location cannot be
+  // determined yet, scrollToOffset queues it until
+  // it can be, and then scrolls to to the target
+  scrollToOffset(yOffset) {
+    if (!this.state.topSectionHeight) {
+      this.setState({
+        queueScroll: yOffset,
+      });
+      return;
+    }
+    // Find out the position of the update
+    const yPos = yOffset + this.state.topSectionHeight;
+
+    this.scrollView?.scrollTo({ x: 0, y: yPos, animated: true });
+  }
+
+  componentDidUpdate() {
+    this.setBookmarked();
+
+    if (this.state.queueScroll !== -1 && this.state.topSectionHeight) {
+      this.scrollToOffset(this.state.queueScroll);
+
+      this.setState({ queueScroll: -1 });
+    }
   }
 
   loadPostData() {
@@ -87,10 +181,24 @@ class ViewCampaignScreen extends React.Component {
     }
   };
 
+  handleBookmarkPressed = () => {
+    if (this.state.isBookmarked) {
+      this.props.removeBookmark(this.state.campaign_id);
+    } else {
+      this.props.addBookmark(this.state);
+    }
+
+    this.setBookmarked();
+  };
+
   render() {
     return (
       <View style={styles.mainContainer}>
-        <KeyboardAwareScrollView extraScrollHeight={50} enableOnAndroid={false}>
+        <KeyboardAwareScrollView
+          innerRef={(r) => (this.scrollView = r)}
+          extraScrollHeight={50}
+          enableOnAndroid={false}
+        >
           {this.state.is_update ? (
             <TouchableOpacity
               activeOpacity={0.8}
@@ -103,15 +211,21 @@ class ViewCampaignScreen extends React.Component {
               </View>
             </TouchableOpacity>
           ) : null}
-          <View style={styles.container}>
+          <View
+            style={styles.container}
+            onLayout={({ nativeEvent }) => {
+              this.setState({
+                topSectionHeight:
+                  nativeEvent.layout.height + nativeEvent.layout.y,
+              });
+            }}
+          >
             {!this.props.loading ? (
               <CampaignActionSheet
                 admin={this.props.currentUserProfile.admin}
                 post={this.state}
                 ref={(o) => (this.ActionSheet = o)}
-                isMine={
-                  this.props.currentUserProfile.admin === this.state.user_id
-                }
+                isMine={this.props.currentUserProfile.id === this.state.user_id}
                 goBack
               />
             ) : null}
@@ -158,20 +272,112 @@ class ViewCampaignScreen extends React.Component {
                   urgency={this.state.urgency}
                   isUpdate={this.state.is_update}
                 />
+                <View style={styles.campaignControls}>
+                  <View style={styles.campaignControlsLeft}>
+                    <SmileSelector
+                      postId={this.state.campaign_id || this.state.id}
+                    />
+                  </View>
+                  <View style={styles.campaignControlsRight}>
+                    {this.props.currentUserProfile.roles === 'supporter' ? (
+                      <TouchableOpacity
+                        style={styles.rightSectionBookmark}
+                        onPress={this.handleBookmarkPressed}
+                      >
+                        {this.props.bookmarksLoading ? (
+                          <ActivityIndicator size="large" color="#ADADAD" />
+                        ) : this.state.isBookmarked ? (
+                          <BookmarkSolid />
+                        ) : (
+                          <Bookmark />
+                        )}
+                      </TouchableOpacity>
+                    ) : null}
+                  </View>
+                </View>
+
                 <View style={styles.donateView}>
-                  <TakeActionCallToAction donate={this.state} />
+                  <TakeActionCallToAction
+                    data={this.props.selectedCampaign}
+                    navigation={this.props.navigation}
+                  />
                 </View>
 
                 <View style={styles.commentsView}>
                   {this.props.loading ? (
                     <Text>Loading comments...</Text>
                   ) : (
-                    <CommentsView />
+                    <View
+                      onLayout={() => {
+                        if (this.props.navigation.getParam('focusComments')) {
+                          this.scrollToOffset(8);
+                        }
+                      }}
+                      style={{ flex: 1 }}
+                    >
+                      <Text
+                        style={{
+                          fontFamily: 'Lato-Bold',
+                          fontSize: 18,
+                          paddingBottom: 8,
+                        }}
+                      >
+                        Comments ({this.state.comments?.length || 0})
+                      </Text>
+                      <CommentsView comments={this.state.comments} />
+                    </View>
                   )}
                 </View>
               </View>
             </Viewport.Tracker>
           </View>
+          {this.state.updatesLoading ? (
+            <View style={styles.updatesLoadingContainer}></View>
+          ) : this.state.updatesError ? (
+            <Text style={styles.updatesLoadingError}>
+              {this.state.updatesError}
+            </Text>
+          ) : this.state.updates?.filter((u) => u.id !== this.state.id).length >
+            0 ? (
+            <View style={styles.container}>
+              <Text style={styles.updatesTitle}>Latest updates</Text>
+              {this.state.updates
+                .filter((u) => u.id !== this.state.id)
+                .map((update, index) => {
+                  return (
+                    <View
+                      onLayout={({ nativeEvent }) => {
+                        if (
+                          index ===
+                          this.props.navigation.getParam('targetUpdate')
+                        ) {
+                          this.scrollToOffset(nativeEvent.layout.y);
+                        }
+                      }}
+                      style={{ flex: 1 }}
+                      key={update.id}
+                    >
+                      {update.is_update ? null : (
+                        <View style={styles.originalPostMarker}>
+                          <Text style={styles.originalPostMarkerText}>
+                            ORIGINAL POST
+                          </Text>
+                        </View>
+                      )}
+                      <CampaignPost
+                        disableControls
+                        disableHeader
+                        hideRelated
+                        data={update}
+                        toggled={this.props.campaignsToggled.includes(
+                          update.id
+                        )}
+                      />
+                    </View>
+                  );
+                })}
+            </View>
+          ) : null}
         </KeyboardAwareScrollView>
       </View>
     );
@@ -179,7 +385,6 @@ class ViewCampaignScreen extends React.Component {
 
   addBookmark = () => {
     this.setState({
-      ...this.state,
       userBookmarked: true,
     });
     this.props.navigation.state.params.addBookmark();
@@ -187,7 +392,6 @@ class ViewCampaignScreen extends React.Component {
 
   deleteBookmark = () => {
     this.setState({
-      ...this.state,
       userBookmarked: false,
     });
     this.props.navigation.state.params.deleteBookmark();
@@ -202,12 +406,19 @@ class ViewCampaignScreen extends React.Component {
 
 const mapStateToProps = (state) => ({
   loading: state.pending.getCampaign,
+  bookmarks: state.bookmarks,
+  bookamrksLoading: state.pending.bookmarks,
+  bookmarksError: state.errors.bookmarks,
   selectedCampaign: state.selectedCampaign,
   currentUser: state.currentUser,
   currentUserProfile: state.currentUserProfile,
   token: state.token,
+  campaignsToggled: state.campaignsToggled,
 });
 
-export default connect(mapStateToProps, { getOriginalPost })(
-  ViewCampaignScreen
-);
+export default connect(mapStateToProps, {
+  getOriginalPost,
+  addBookmark,
+  removeBookmark,
+  getCampaignUpdates,
+})(ViewCampaignScreen);

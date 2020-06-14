@@ -5,7 +5,6 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
-  Platform,
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -16,16 +15,40 @@ import Comment from './Comment';
 import styles from '../../constants/Comments/Comments';
 
 class CommentsView extends React.Component {
+  mounted = false;
+
   state = {
+    comments: [],
     comment: '',
     commentsVisible: 3,
     height: 40,
+    campaign_id: null,
   };
 
   bufferedComment = null;
 
+  componentWillUnmount() {
+    this.mounted = false;
+  }
+
   componentDidMount() {
-    this.props.getCampaignComments(this.props.selectedCampaign.campaign_id);
+    this.mounted = true;
+    const campaign_id = this.props.selectedCampaign?.campaign_id;
+
+    this.setState({
+      comments: this.props.comments,
+      campaign_id: campaign_id,
+    });
+
+    if (campaign_id)
+      this.props
+        .getCampaignComments(campaign_id)
+        .then((res) => {
+          if (this.mounted) this.setState({ comments: res?.data?.data || [] });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
   }
 
   componentDidUpdate() {
@@ -34,7 +57,6 @@ class CommentsView extends React.Component {
 
   addMoreComments = () => {
     this.setState({
-      ...this.state,
       commentsVisible: this.state.commentsVisible + 9,
     });
   };
@@ -59,33 +81,41 @@ class CommentsView extends React.Component {
   };
 
   render() {
+    const comments = [
+      this.bufferedComment,
+      ...(this.state.comments || this.props.comments || []),
+    ]
+      ?.filter((com) => com !== null)
+      .sort((a, b) => new Date(a).getTime() < new Date(b).getTime())
+      .slice(0, this.state.commentsVisible)
+      .map((comment) => {
+        return (
+          <Comment
+            key={comment.id}
+            comment={comment}
+            currentUserProfile={this.props.currentUserProfile}
+            selectedCampaign={this.props.selectedCampaign}
+          />
+        );
+      });
+
     return (
       <KeyboardAvoidingView>
         {/* Displays latest comment unless the user is viewing all the campaign comments. */}
-        <View style={{ flex: 1, flexDirection: 'column-reverse' }}>
-          {[this.bufferedComment, ...this.props.campaignComments]
-            ?.filter((com) => com !== null)
-            .slice(0, this.state.commentsVisible)
-            .map((comment) => {
-              return (
-                <Comment
-                  key={comment.id}
-                  comment={comment}
-                  currentUserProfile={this.props.currentUserProfile}
-                  selectedCampaign={this.props.selectedCampaign}
-                />
-              );
-            })}
-        </View>
-        {this.props.campaignComments?.length > this.state.commentsVisible && (
+        {this.props.comments?.length > this.state.commentsVisible && (
           <View style={styles.moreContainer}>
             <TouchableOpacity onPress={() => this.addMoreComments()}>
-              <View style={styles.more}>
-                <Text style={styles.moreText}>View more comments</Text>
-              </View>
+              <Text style={styles.moreText}>View more comments...</Text>
             </TouchableOpacity>
           </View>
         )}
+        <View style={{ flex: 1, flexDirection: 'column-reverse' }}>
+          {comments.length > 0 ? (
+            comments
+          ) : (
+            <Text style={styles.commentsEmpty}>No comments yet</Text>
+          )}
+        </View>
         {/* View More Comments is visible if the length of campaignComments is greater than the value of commentsVisible */}
         <View style={styles.replyView}>
           <View style={styles.replyAvatar}>
@@ -106,7 +136,7 @@ class CommentsView extends React.Component {
               value={this.state.comment}
               textAlignVertical={'center'}
               onSubmitEditing={this.postComment}
-              blurOnSubmit={Platform.OS === 'android'}
+              blurOnSubmit={true}
               ref={(input) => {
                 this.commentInput = input;
               }}
@@ -132,7 +162,6 @@ class CommentsView extends React.Component {
 const mapStateToProps = (state) => ({
   currentUserProfile: state.currentUserProfile,
   selectedCampaign: state.selectedCampaign,
-  campaignComments: state.selectedCampaign.comments || [],
 });
 
 export default connect(mapStateToProps, {

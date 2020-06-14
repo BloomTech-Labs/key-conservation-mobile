@@ -164,13 +164,20 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, updateProfile: true },
+        currentUserProfile: {
+          ...state.currentUserProfile,
+          ...action.payload
+        },
         error: '',
       };
     case actions.EDIT_PROFILE_SUCCESS:
       return {
         ...state,
         pending: { ...state.pending, updateProfile: false },
-        currentUserProfile: action.payload,
+        currentUserProfile: {
+          ...state.currentUserProfile,
+          ...action.payload
+        },
       };
     case actions.EDIT_PROFILE_ERROR:
       return {
@@ -445,31 +452,18 @@ const reducer = (state = initialState, action) => {
           action.payload
         ),
       };
+    case actions.UPDATE_USER_PROFILE:
+      return {
+        ...state,
+        currentUserProfile: {
+          ...state.currentUserProfile,
+          ...action.payload
+        }
+      }
     case actions.TOGGLE_CAMPAIGN_TEXT:
       return {
         ...state,
         campaignsToggled: [...state.campaignsToggled, action.payload],
-      };
-    case actions.GET_COMMENTS_START:
-      return {
-        ...state,
-        pending: { ...state.pending, getComments: true },
-        errors: { ...state.errors, getComments: '' },
-      };
-    case actions.GET_COMMENTS_SUCCESS:
-      return {
-        ...state,
-        pending: { ...state.pending, getComments: false },
-        selectedCampaign: {
-          ...state.selectedCampaign,
-          comments: action.payload,
-        },
-      };
-    case actions.GET_COMMENTS_ERROR:
-      return {
-        ...state,
-        pending: { ...state.pending, getComments: false },
-        errors: { ...state.errors, getComments: action.payload },
       };
     case actions.POST_COMMENT_START:
       return {
@@ -811,6 +805,14 @@ const reducer = (state = initialState, action) => {
         ...state,
         activeVideos: state.activeVideos.filter((v) => v !== action.payload),
       };
+    case actions.UPDATE_PROFILE_DATA:
+      return {
+        ...state,
+        currentUserProfile: {
+          ...state.currentUserProfile,
+          ...action.payload
+        }
+      }
     default:
       return state;
   }
@@ -825,13 +827,25 @@ const removeFromUploadQueue = (queue, id) => {
 };
 
 const mergePosts = (posts) => {
-  const sortedPosts = Array.from(posts).sort(
+  // Refresh posts
+  // Take out duplicates by adding
+  // first instance to array, and duplicates
+  // afterwards are ignored
+  // The first instances are the newer ones,
+  // so we take advantage of that
+  let refreshedPosts = [];
+  let ids = [];
+
+  for (const i in posts) {
+    if (!ids.includes(posts[i].id)) {
+      ids.push(posts[i].id);
+      refreshedPosts.push(posts[i]);
+    }
+  }
+
+  return refreshedPosts.sort(
     (a, b) =>
       new Date(a.created_at).getTime() < new Date(b.created_at).getTime()
-  );
-
-  return Array.from(new Set(sortedPosts.map((s) => s.id))).map((id) =>
-    sortedPosts.find((s) => s.id === id)
   );
 };
 

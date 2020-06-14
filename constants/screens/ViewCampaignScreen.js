@@ -26,12 +26,13 @@ export default StyleSheet.create({
   mainContainer: {
     flex: 1,
     backgroundColor: '#F2F2FB',
+    paddingBottom: 8
   },
   commentsView: {
     width: '100%',
     fontSize: 14,
     fontFamily: 'Lato',
-    paddingLeft: 15,
+    paddingHorizontal: 10,
     borderRadius: 10,
     backgroundColor: 'white',
   },
@@ -44,7 +45,7 @@ export default StyleSheet.create({
     paddingTop: 7,
     paddingBottom: 10,
     borderRadius: 10,
-    marginVertical: 10,
+    marginTop: 10,
   },
   ogPostButton: {
     fontFamily: 'Lato-Bold',
@@ -146,4 +147,52 @@ export default StyleSheet.create({
     fontFamily: 'Lato-Bold',
     fontSize: 16,
   },
+  campaignControls: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 10,
+  },
+  campaignControlsLeft: {
+    flexDirection: 'row',
+    flex: 1,
+  },
+  campaignControlsRight: {
+    flexDirection: 'row-reverse',
+    flex: 1,
+  },
+  rightSectionBookmark: {
+    borderRadius: 12,
+    backgroundColor: '#F5F5F5',
+    height: 44,
+    width: 44,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 2,
+  },
+  updatesLoadingContainer: {
+    flex: 1,
+  },
+  updatesLoadingError: {
+    color: 'crimson',
+  },
+  updatesTitle: {
+    fontFamily: 'Lato-Bold',
+    padding: 10,
+    marginLeft: 10,
+    color: 'black',
+    fontSize: 22,
+  },
+  originalPostMarker: {
+    width: '95%',
+    alignSelf: 'center',
+    backgroundColor: 'dodgerblue',
+    margin: 16,
+    padding: 8,
+  },
+  originalPostMarkerText: {
+    color: 'white',
+    fontFamily: 'Lato-Bold'
+  }
 });

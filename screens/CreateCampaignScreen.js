@@ -121,7 +121,6 @@ class CreateCampaignScreen extends React.Component {
       !this.state.image ||
       !this.state.name ||
       !this.state.description ||
-      !this.state.call_to_action ||
       !this.isSkillImpactRequestValid(this.state.skillImpactRequests) ||
       !this.state.urgency
     ) {
@@ -130,7 +129,6 @@ class CreateCampaignScreen extends React.Component {
         (this.state.image ? '' : '\n    - Campaign Image') +
         (this.state.name ? '' : '\n    - Campaign Name') +
         (this.state.description ? '' : '\n    - Campaign Details') +
-        (this.state.call_to_action ? '' : '\n    - Donation Link') +
         (this.isSkillImpactRequestValid(this.state.skillImpactRequests)
           ? ''
           : '\n    - Skill Impact Requests Form') +
@@ -229,22 +227,6 @@ class CreateCampaignScreen extends React.Component {
           </View>
         </View>
         <View style={styles.sectionContainer}>
-          <Text style={styles.sectionsText}>Donation Link</Text>
-          <TextInput
-            ref={(input) => {
-              this.donationLinkInput = input;
-            }}
-            returnKeyType="next"
-            placeholder="https://www.carribbeanseaturtle.com/donate"
-            keyboardType="default"
-            placeholder="Please include full URL"
-            autoCapitalize="none"
-            style={styles.inputContain}
-            onChangeText={(text) => this.setState({ call_to_action: text })}
-            value={this.state.call_to_action}
-          />
-        </View>
-        <View style={styles.sectionContainer}>
           <Text style={styles.sectionsText}>Urgency Level</Text>
           <Text style={styles.bodyText}>
             Select one. This can be changed at a future date.
@@ -278,6 +260,22 @@ class CreateCampaignScreen extends React.Component {
               </TouchableWithoutFeedback>
             ))}
           </View>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionsText}>Request donated funds</Text>
+          <Text style={{color: 'gray'}}>Coming soon</Text>
+          {/* <TextInput
+            ref={(input) => {
+              this.donationLinkInput = input;
+            }}
+            returnKeyType="next"
+            keyboardType="default"
+            placeholder="Please include full URL"
+            autoCapitalize="none"
+            style={styles.inputContain}
+            onChangeText={(text) => this.setState({ call_to_action: text })}
+            value={this.state.call_to_action}
+          /> */}
         </View>
         <SelectSkillsContent
           skillImpactRequests={this.state.skillImpactRequests}

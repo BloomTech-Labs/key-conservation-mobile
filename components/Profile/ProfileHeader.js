@@ -66,6 +66,10 @@ const ProfileHeader = forwardRef((props, ref) => {
     : null;
 
   const profileName = props.loading ? 'Loading...' : profile.name;
+  const profileImage =
+    profile.profile_image?.trim() ||
+    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
+
   return (
     <Animated.View
       style={[styles.container, { transform: [{ translateY: translateY }] }]}
@@ -107,7 +111,9 @@ const ProfileHeader = forwardRef((props, ref) => {
             size={80}
             rounded
             source={{
-              uri: profile.profile_image || undefined,
+              uri:
+                profile.profile_image?.trim() ||
+                'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
             }}
           />
         </View>

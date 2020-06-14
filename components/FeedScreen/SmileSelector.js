@@ -23,6 +23,8 @@ const SmileSelector = (props) => {
   const [activeEmoji, setActiveEmoji] = useState();
   const [loading, setLoading] = useState(true);
 
+  let mounted = false;
+
   const init = async () => {
     try {
       const emojiReactions = await props.getCampaignPostReactions(props.postId);
@@ -34,22 +36,29 @@ const SmileSelector = (props) => {
         reactions[emote] += 1;
       });
 
-      if (emojiReactions.userReaction) {
-        setActiveEmoji(emojiReactions.userReaction);
+      if (mounted) {
+        if (emojiReactions.userReaction) {
+          setActiveEmoji(emojiReactions.userReaction);
+        }
+
+        setEmoji(reactions);
+
+        setLoading(false);
       }
-
-      setEmoji(reactions);
-
-      setLoading(false);
     } catch (err) {
       console.log(err);
-      setLoading(false);
+      if (mounted) {
+        setLoading(false);
+      }
     }
-  };
 
+  };
+  
   useEffect(() => {
-    init();
-  }, []);
+    mounted = true;
+    if (props.postId && Object.entries(emoji).length === 0) init();
+    return () => (mounted = false);
+  }, [props.postId]);
 
   // Called when an emoji is selected from
   // the emoji menu only
@@ -259,31 +268,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 12,
     backgroundColor: '#F5F5F5',
-    margin: 1,
-    marginTop: 0,
-    marginRight: 3,
+    margin: 2,
     padding: 4,
   },
   emojiContainerActive: {
     justifyContent: 'center',
     borderRadius: 12,
     backgroundColor: '#E0DFDF',
-    margin: 1,
-    marginTop: 0,
-    marginRight: 3,
+    margin: 2,
     padding: 4,
   },
   plusButton: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 3,
-    margin: 1,
-    marginTop: 0,
-    padding: 4,
+    margin: 2,
     backgroundColor: '#f5f5f5',
     borderRadius: 12,
-    width: 40,
-    height: 45,
+    width: 44,
+    height: 44,
   },
 });
 

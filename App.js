@@ -21,11 +21,11 @@ YellowBox.ignoreWarnings([
 
 export default App;
 
-// initialize WebSocketManager
 
 function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
-
+  
+  // initialize WebSocketManager
   WebSocketManager.getInstance();
   const handleNavigationChange = (prevState, newState, action) => {
     routeSupply = () => {
