@@ -193,7 +193,7 @@ const CampaignPost = (props) => {
           disabled={props.disableHeader}
           onPress={goToProfile}
           title={
-            <View style={styles.org_name}>
+            <View>
               <Text style={styles.orgTitleView}>{data.org_name}</Text>
             </View>
           }

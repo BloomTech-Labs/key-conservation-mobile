@@ -35,6 +35,7 @@ export default StyleSheet.create({
   orgTitleView: {
     fontFamily: 'Lato',
     fontSize: 17,
+    marginLeft: -10,
   },
   goToCampaignButton: {
     backgroundColor: 'rgba(0, 255, 157, 0.7)',
