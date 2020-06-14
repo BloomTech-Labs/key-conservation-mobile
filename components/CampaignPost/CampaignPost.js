@@ -183,7 +183,7 @@ const CampaignPost = (props) => {
         <View style={styles.topRow}>
           <View style={styles.topRowLeft}>
             <Text style={styles.postTitle}>
-              {shorten(data.name, 80)}
+              {shorten(data.name, 75)}
               &nbsp;
             </Text>
           </View>

@@ -235,7 +235,7 @@ class ViewCampaignScreen extends React.Component {
                 <View style={styles.topRow}>
                   <View style={styles.topRowLeft}>
                     <Text style={styles.postTitle}>
-                    {shorten(this.state.name, 80)}
+                    {shorten(this.state.name, 75)}
               &nbsp;</Text>
                   </View>
                 </View>

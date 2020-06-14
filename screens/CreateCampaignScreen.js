@@ -200,6 +200,7 @@ class CreateCampaignScreen extends React.Component {
               }}
               blurOnSubmit={Platform.OS === 'android'}
               value={this.state.name}
+              maxLength={70}
             />
           </View>
         </View>
