@@ -53,7 +53,6 @@ export default StyleSheet.create({
     alignSelf: 'center',
   },
   campaignDescriptionContainer: {
-    flex: 1,
     marginLeft: 15,
     paddingBottom: 15,
     marginRight: 10,
@@ -61,7 +60,6 @@ export default StyleSheet.create({
     backgroundColor: 'white',
   },
   timeText: {
-    justifyContent: 'flex-end',
     color: '#929292',
     fontSize: 16,
     fontFamily: 'Lato',

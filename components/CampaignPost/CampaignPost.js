@@ -182,13 +182,10 @@ const CampaignPost = (props) => {
         />
         <View style={styles.topRow}>
           <View style={styles.topRowLeft}>
-            <Text style={styles.postTitle} maxLength={8}>
-              {shorten(data.name, 30)}
+            <Text style={styles.postTitle}>
+              {shorten(data.name, 80)}
               &nbsp;
             </Text>
-          </View>
-          <View style={styles.topRowRight}>
-            <Text style={styles.timeText}>{timeDiff}</Text>
           </View>
         </View>
         <ListItem

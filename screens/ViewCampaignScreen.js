@@ -26,6 +26,7 @@ import SmileSelector from '../components/FeedScreen/SmileSelector';
 import BookmarkSolid from '../assets/jsicons/miscIcons/BookmarkSolid';
 import Bookmark from '../assets/jsicons/miscIcons/Bookmark';
 import CampaignPost from '../components/CampaignPost/CampaignPost';
+import { shorten } from '../util';
 
 class ViewCampaignScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -233,11 +234,10 @@ class ViewCampaignScreen extends React.Component {
               <View>
                 <View style={styles.topRow}>
                   <View style={styles.topRowLeft}>
-                    <Text style={styles.postTitle}>{this.state.name}</Text>
+                    <Text style={styles.postTitle}>
+                    {shorten(this.state.name, 80)}
+              &nbsp;</Text>
                   </View>
-                  {/* <View style={styles.topRowRight}>
-                    <Text style={styles.timeText}>{this.state.createdAt}</Text>
-                  </View> */}
                 </View>
                 <ListItem
                   onPress={this.goToProfile}
@@ -265,8 +265,9 @@ class ViewCampaignScreen extends React.Component {
                 <View style={styles.campaignDescriptionContainer}>
                   <Text style={styles.campaignDescription}>
                     {this.state.description}
-                  </Text>
+                    &nbsp;
                   <Text style={styles.timeText}>{this.state.createdAt}</Text>
+                  </Text>
                 </View>
                 <MediaViewer
                   source={this.state.image}

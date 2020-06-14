@@ -53,13 +53,11 @@ export default StyleSheet.create({
   },
   topRow: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
     width: '100%',
     paddingTop: 8,
   },
   topRowLeft: {
-    paddingLeft: 9,
-    width: '75%',
+    paddingLeft: 17,
   },
   topRowRight: {
     paddingRight: 10,
