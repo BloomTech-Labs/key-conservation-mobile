@@ -105,7 +105,7 @@ class NotificationsMain extends React.Component {
               <Badge
                 value={
                   <Text style={styles.badgeText}>
-                    {Object.keys(seedData.data).length}
+                    {this.props.notifications.filter((notif) => notif.new_notification = true).length}
                   </Text>
                 }
                 badgeStyle={styles.badge}

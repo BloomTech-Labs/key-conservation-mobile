@@ -98,6 +98,23 @@ const Connect = props => {
           ? 'Connected'
           : 'Connect';
 
+
+
+  const test = () => {
+
+    console.log('BBBB');
+    connectRequest(props.profileId);
+    createNotification({
+      "notification_type": 0,
+      "pathway": "something",
+      "sender_id": 59,
+      "sender_name": "Testing",
+      "sender_pic": "aaa",
+      "user_id": 59,
+    });
+
+  }
+
   return (
     <View style={styles.connectContainer}>
       <TouchableOpacity
@@ -137,7 +154,7 @@ const Connect = props => {
                 onPress={() => {
                   return isConnected
                     ? promptDelete()
-                    : connectRequest(props.profileId);
+                    : test();
                 }}
               />
             </View>
