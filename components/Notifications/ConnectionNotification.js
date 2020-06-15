@@ -52,7 +52,7 @@ const ConnectionNotification = (props) => {
               size="medium"
               rounded
               source={{
-                uri: `${props.notifData.item.sender_Pic}` || undefined,
+                uri: `${props.notifData.item.sender_pic}` || undefined,
               }}
             />
           </TouchableOpacity>

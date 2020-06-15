@@ -38,6 +38,9 @@ class NotificationsMain extends React.Component {
     };
   }
 
+
+
+
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Notifications',
@@ -54,6 +57,18 @@ class NotificationsMain extends React.Component {
     // console.log(this.state.navigation);
     console.log('Fetching notifications...');
     // console.log(seedData.data);
+    console.log('aslkdfj: ' + this.props.currentUserId)
+    console.log('aslkdfj asdfds: ' + this.props.notificationsLoading)
+    // console.log
+    if (this.props.notificationsLoading)
+      this.props.getAllNotifications(59);
+
+    // }
+  }
+
+  componentDidUpdate() {
+    // this.setState({ isLoading: false });
+    console.log('this is notification in state', this.props.notifications)
   }
 
   render() {
@@ -68,13 +83,8 @@ class NotificationsMain extends React.Component {
               this.setState({
                 isActive: !this.state.isActive,
                 notifOpen: !this.state.notifOpen,
-              }),
-                console.log(
-                  '!!!!!!PROPS CURRENT USER*****',
-                  // this.props
-                  // ))
-                  this.props.fetchNotifications(1)
-                );
+              })
+              // handleGetNotifications(this.props.currentUserId)
             }}
           >
             <Messages />
@@ -110,7 +120,7 @@ class NotificationsMain extends React.Component {
         </View>
         <ScrollView
           contentContainerStyle={
-            this.state.isLoading
+            this.props.notificationsLoading
               ? styles.contentContainerLoading
               : styles.contentContainer
           }
@@ -118,7 +128,7 @@ class NotificationsMain extends React.Component {
         >
           <View
             style={
-              this.state.isLoading ? styles.loadingContainer : styles.closed
+              this.props.notificationsLoading ? styles.loadingContainer : styles.closed
             }
           >
             <Logo style={styles.logoIcon} />
@@ -133,7 +143,7 @@ class NotificationsMain extends React.Component {
         </ScrollView>
         <ScrollView
           contentContainerStyle={
-            this.state.isLoading
+            this.props.notificationsLoading
               ? styles.contentContainerLoading
               : styles.contentContainer
           }
@@ -144,7 +154,7 @@ class NotificationsMain extends React.Component {
 
           <View
             style={
-              this.state.isLoading ? styles.loadingContainer : styles.closed
+              this.props.notificationsLoading ? styles.loadingContainer : styles.closed
             }
           >
             <Logo style={styles.logoIcon} />
@@ -157,11 +167,11 @@ class NotificationsMain extends React.Component {
 
           <FlatList
             style={{ width: '100%', height: '100%' }}
-            data={seedData.data}
+            data={this.props.notifications} // seedData.data 
             showsVerticalScrollIndicator={false}
             renderItem={(data) => {
               switch (data.item.notification_type) {
-                case 1:
+                case 0:
                   return (
                     <ConnectionNotification
                       notifData={data}
@@ -169,7 +179,7 @@ class NotificationsMain extends React.Component {
                     />
                   );
 
-                case 2:
+                case 1:
                   return (
                     <CampaignNotification
                       notifData={data}
@@ -282,10 +292,22 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   currentUserId: state.currentUserProfile.id,
+  notifications: state.notifications,
+  notificationsLoading: state.notificationsLoading,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchNotifications: (id) => dispatch(getAllNotifications(id)),
-});
+// const mapDispatchToProps = (dispatch) => {
+//   return
+//   { fetchNotifications: (id) => dispatch(getAllNotifications(id)) }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NotificationsMain);
+// };
+
+export default connect(mapStateToProps, {
+  getAllNotifications
+})(NotificationsMain);
+
+// const mapStateToProps = (state) => ({
+//   currentUserId: state.currentUserProfile.id,
+// });
+
+// export default connect(mapStateToProps, mapDispatchToProps)(NotificationsMain);
