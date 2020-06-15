@@ -26,7 +26,7 @@ const CampaignNotification = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('@@@@@@@@@', data);
+    // console.log('@@@@@@@@@', data);
   }, [data]);
 
   const [data, setData] = useState(props.notifData.item);

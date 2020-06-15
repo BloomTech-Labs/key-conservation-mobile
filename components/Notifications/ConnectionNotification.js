@@ -17,7 +17,7 @@ import TimeStamp from './TimeStamp';
 
 const ConnectionNotification = (props) => {
   useEffect(() => {
-    console.log('@@@@@@@@@', data);
+    // console.log('@@@@@@@@@', data);
   }, [data]);
 
   const createdAt = props.notifData.item.time;
@@ -31,7 +31,7 @@ const ConnectionNotification = (props) => {
   };
 
   const checkNew = () => {
-    console.log('state data', data);
+    // console.log('state data', data);
     if ((data.new_notification = true)) {
       return setData({
         ...data,

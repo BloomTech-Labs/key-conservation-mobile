@@ -20,6 +20,8 @@ import Bell from '../../assets/jsicons/bottomnavigation/BellB';
 import Logo from '../../assets/jsicons/other/Logo';
 
 import { seedData } from '../../components/Notifications/seedData';
+import { connect } from 'react-redux';
+import { getAllNotifications } from '../../store/actions';
 
 var aaa = 0;
 
@@ -32,6 +34,7 @@ class NotificationsMain extends React.Component {
       isActive: true,
       notifOpen: true,
       navigation: props.navigation,
+      // fetch: fetchNotifications,
     };
   }
 
@@ -61,12 +64,18 @@ class NotificationsMain extends React.Component {
             style={
               !this.state.isActive ? styles.tabButtonSelected : styles.tabButton
             }
-            onPress={() =>
+            onPress={() => {
               this.setState({
                 isActive: !this.state.isActive,
                 notifOpen: !this.state.notifOpen,
-              })
-            }
+              }),
+                console.log(
+                  '!!!!!!PROPS CURRENT USER*****',
+                  // this.props
+                  // ))
+                  this.props.fetchNotifications(1)
+                );
+            }}
           >
             <Messages />
           </TouchableOpacity>
@@ -84,7 +93,11 @@ class NotificationsMain extends React.Component {
             <View>
               <Bell />
               <Badge
-                value={<Text style={styles.badgeText}>{Object.keys(seedData.data).length}</Text>}
+                value={
+                  <Text style={styles.badgeText}>
+                    {Object.keys(seedData.data).length}
+                  </Text>
+                }
                 badgeStyle={styles.badge}
                 containerStyle={{
                   position: 'absolute',
@@ -219,12 +232,12 @@ const styles = StyleSheet.create({
   },
   badge: {
     backgroundColor: '#D7FE49',
-    color: "black",
-    overflow: "hidden",
+    color: 'black',
+    overflow: 'hidden',
     position: 'relative',
   },
   badgeText: {
-    color: "black"
+    color: 'black',
   },
   counterText: {
     position: 'absolute',
@@ -267,4 +280,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NotificationsMain;
+const mapStateToProps = (state) => ({
+  currentUserId: state.currentUserProfile.id,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchNotifications: (id) => dispatch(getAllNotifications(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NotificationsMain);

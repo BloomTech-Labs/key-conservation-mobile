@@ -62,7 +62,7 @@ const axiosWithAuth = (dispatch, req) => {
 // production
 // export const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
-export const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+export const seturl = 'https://key-conservation-be.herokuapp.com/api/';
 // export const seturl = 'http://192.168.1.146:8000/api/';
 
 const filterUrls = (keys, object) => {
@@ -1217,3 +1217,29 @@ export const retryUploadPost = (queueId, data) => (dispatch) => {
 };
 
 // TODO: Add getting emoji reaction details (User names and avatars for each emoji)
+
+// Notifications
+
+export const [
+  FETCH_NOTIFICATION_START,
+  FETCH_NOTIFICATION_SUCCESS,
+  FETCH_NOTIFICATION_ERROR,
+] = [
+  'FETCH_NOTIFICATION_START',
+  'FETCH_NOTIFICATION_SUCCESS',
+  'FETCH_NOTIFICATION_ERROR',
+];
+
+export const getAllNotifications = (id) => (dispatch) => {
+  dispatch({ type: FETCH_NOTIFICATION_START });
+  return axios
+    .get(`${seturl}notifications/${id}`)
+    .then((res) => {
+      console.log('FROM NOTES*******', res.data);
+      dispatch({ type: FETCH_NOTIFICATION_SUCCESS, payload: res.data });
+    })
+    .catch((err) => {
+      console.log('ERROR FROM NOTES*******', err);
+      dispatch({ type: FETCH_NOTIFICATION_ERROR, payload: err });
+    });
+};
