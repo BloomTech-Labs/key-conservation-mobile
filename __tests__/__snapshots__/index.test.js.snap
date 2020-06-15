@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`getConnections 1`] = `Array []`;
+
 exports[`setCampaign("test") 1`] = `
 Array [
   Object {
@@ -16,6 +18,15 @@ Array [
   Object {
     "payload": undefined,
     "type": "SET_CAMPAIGN",
+  },
+]
+`;
+
+exports[`toggleCampaignText 1`] = `
+Array [
+  Object {
+    "payload": undefined,
+    "type": "TOGGLE_CAMPAIGN_TEXT",
   },
 ]
 `;

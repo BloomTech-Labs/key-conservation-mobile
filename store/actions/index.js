@@ -14,7 +14,7 @@ const source = CancelToken.source();
 // by eligible action creators
 let cancellables = {};
 
-// // This is defined here to prevent
+// // This is defined here to p revent
 // // any un
 
 // // IMPORTANT USAGE NOTES
