@@ -233,6 +233,8 @@ const CampaignPost = (props) => {
           {toggled || data.description?.length < 80 ? (
             <View>
               <Text style={styles.campaignDescriptionText}>
+              <Text style={styles.timeText}>{timeDiff}</Text>
+              &nbsp;&nbsp; 
                 {data.description}
               </Text>
             </View>

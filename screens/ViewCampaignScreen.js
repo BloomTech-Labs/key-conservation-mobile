@@ -264,9 +264,9 @@ class ViewCampaignScreen extends React.Component {
                 />
                 <View style={styles.campaignDescriptionContainer}>
                   <Text style={styles.campaignDescription}>
-                    {this.state.description}
-                    &nbsp;
                   <Text style={styles.timeText}>{this.state.createdAt}</Text>
+                  &nbsp;&nbsp; 
+                    {this.state.description}        
                   </Text>
                 </View>
                 <MediaViewer
