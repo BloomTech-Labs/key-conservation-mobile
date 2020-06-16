@@ -1,81 +1,32 @@
 import React from 'react';
 import { Platform, Text, View, TextInput } from 'react-native';
-import { connect } from 'react-redux';
-import BackButton from '../components/BackButton';
 
-import DoneButton from '../components/DoneButton';
-import UploadMedia from '../components/UploadMedia';
+import UploadMedia from '../../components/UploadMedia';
 
-import { editProfileData, editProfileImage, logout } from '../store/actions';
-import { AmpEvent } from '../components/withAmplitude';
-
-import styles from '../constants/screens/EditSupporterProfileScreen';
-
+import styles from '../../constants/EditProfileScreen/SupporterForm';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import SkillSelect from '../components/SkillSelect';
+import SkillSelect from '../../components/SkillSelect';
 
-class EditSupporterProfileScreen extends React.Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: 'Edit Profile',
-      headerStyle: {
-        backgroundColor: '#323338',
-      },
-      headerTintColor: '#fff',
-      headerRight: () => (
-        <DoneButton
-          navigation={navigation}
-          pressAction={navigation.getParam('done')}
-        />
-      ),
-    };
-  };
-
+class SupporterForm extends React.Component {
   state = {
-    name: this.props.currentUserProfile.name,
-    profile_image: this.props.currentUserProfile.profile_image,
-    location: this.props.currentUserProfile.location,
-    mini_bio: this.props.currentUserProfile.mini_bio,
-    email: this.props.currentUserProfile.email,
-    facebook: this.props.currentUserProfile.facebook,
-    instagram: this.props.currentUserProfile.instagram,
-    twitter: this.props.currentUserProfile.twitter,
-    species_and_habitats: this.props.currentUserProfile.species_and_habitats,
-    skills: this.props.currentUserProfile.skills,
+    name: this.props.data.name,
+    profile_image: this.props.data.profile_image,
+    location: this.props.data.location,
+    mini_bio: this.props.data.mini_bio,
+    email: this.props.data.email,
+    facebook: this.props.data.facebook,
+    instagram: this.props.data.instagram,
+    twitter: this.props.data.twitter,
+    skills: this.props.data.skills,
   };
 
   componentDidMount() {
     this.props.navigation.setParams({ done: this.done });
-    if (this.isProfileComplete(this.state) === true) {
-      return AmpEvent('Profile Completed');
-    }
   }
 
-  isProfileComplete = (profile) => {
-    for (let p in profile) {
-      if (!profile[p]) return false;
-    }
-    return true;
-  };
-
-  done = () => {
-    let changes = this.state;
-    if (changes.profile_image) {
-      this.props.editProfileImage(
-        this.props.currentUserProfile.id,
-        changes.profile_image
-      );
-    }
-    this.props.editProfileData(this.props.currentUserProfile.id, changes);
-    if (this.props.firstLogin) {
-      this.props.navigation.navigate('Home');
-    } else {
-      if (this.props.navigation.state.params.goBack) {
-        this.props.navigation.state.params.goBack();
-      }
-      this.props.navigation.goBack();
-    }
+  done = async () => {
+    return await this.props.onSubmit(this.state);
   };
 
   render() {
@@ -97,7 +48,6 @@ class EditSupporterProfileScreen extends React.Component {
                 if (Platform.OS === 'android') return;
                 this.locationInput.focus();
               }}
-              // blurOnSubmit={Platform.OS === 'android'}
               value={this.state.name}
             />
           </View>
@@ -116,7 +66,6 @@ class EditSupporterProfileScreen extends React.Component {
                 if (Platform.OS === 'android') return;
                 this.mini_bioInput.focus();
               }}
-              // blurOnSubmit={Platform.OS === 'android'}
               value={this.state.location}
             />
           </View>
@@ -138,7 +87,6 @@ class EditSupporterProfileScreen extends React.Component {
                 if (Platform.OS === 'android') return;
                 this.emailInput.focus();
               }}
-              // blurOnSubmit={Platform.OS === 'android'}
               value={this.state.mini_bio}
             />
           </View>
@@ -158,7 +106,6 @@ class EditSupporterProfileScreen extends React.Component {
                 if (Platform.OS === 'android') return;
                 this.facebookInput.focus();
               }}
-              // blurOnSubmit={Platform.OS === 'android'}
               value={this.state.email}
             />
           </View>
@@ -212,7 +159,6 @@ class EditSupporterProfileScreen extends React.Component {
                 if (Platform.OS === 'android') return;
                 this.instagramInput.focus();
               }}
-              // blurOnSubmit={Platform.OS === 'android'}
               value={this.state.facebook}
             />
           </View>
@@ -233,7 +179,6 @@ class EditSupporterProfileScreen extends React.Component {
                 if (Platform.OS === 'android') return;
                 this.twitterInput.focus();
               }}
-              // blurOnSubmit={Platform.OS === 'android'}
               value={this.state.instagram}
             />
           </View>
@@ -250,7 +195,6 @@ class EditSupporterProfileScreen extends React.Component {
               autoCapitalize="none"
               placeholder="https://www.twitter.com/orgname"
               onChangeText={(text) => this.setState({ twitter: text })}
-              // blurOnSubmit={true}
               value={this.state.twitter}
             />
           </View>
@@ -260,13 +204,4 @@ class EditSupporterProfileScreen extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  error: state.error,
-  currentUserProfile: state.currentUserProfile,
-});
-
-export default connect(mapStateToProps, {
-  editProfileData,
-  editProfileImage,
-  logout,
-})(EditSupporterProfileScreen);
+export default SupporterForm;

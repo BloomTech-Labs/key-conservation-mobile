@@ -68,17 +68,18 @@ export const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
   // If they already include it it will be ignored. and if it is capital "Https || Http" it will become lowercase.
-  keys.forEach((key) => {
-    if (
-      object[key] &&
-      object[key] !== null &&
-      object[key].indexOf('http://') !== 0 &&
-      object[key].indexOf('https://') !== 0
-    ) {
-      object[key] = object[key].toLowerCase();
-      object[key] = 'https://' + object[key];
-    }
-  });
+  if (object)
+    keys.forEach((key) => {
+      if (
+        object[key] &&
+        object[key] !== null &&
+        object[key].indexOf('http://') !== 0 &&
+        object[key].indexOf('https://') !== 0
+      ) {
+        object[key] = object[key].toLowerCase();
+        object[key] = 'https://' + object[key];
+      }
+    });
   return object;
 };
 
@@ -286,58 +287,47 @@ export const [
   'EDIT_PROFILE_IMAGE_SUCCESS',
 ];
 
-export const editProfileImage = (id, uri) => (dispatch) => {
-  dispatch({ type: EDIT_PROFILE_IMAGE_START });
-
-  let uriParts = uri.split('.');
-  let fileType = uriParts[uriParts.length - 1];
-
-  const formData = new FormData();
-  formData.append('photo', {
-    uri,
-    name: `photo.${fileType}`,
-    type: `image/${fileType}`,
-  });
-
-  return axiosWithAuth(dispatch, (aaxios) => {
-    return aaxios.put(`${seturl}users/${id}`, formData, {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-  })
-    .then((res) => {
-      dispatch({ type: EDIT_PROFILE_IMAGE_SUCCESS, payload: res.data.user });
-    })
-    .catch((err) => {
-      console.log(err);
-      dispatch({ type: EDIT_PROFILE_IMAGE_ERROR, payload: err });
-    });
-};
-
 export const [EDIT_PROFILE_START, EDIT_PROFILE_ERROR, EDIT_PROFILE_SUCCESS] = [
   'EDIT_PROFILE_START',
   'EDIT_PROFILE_ERROR',
   'EDIT_PROFILE_SUCCESS',
 ];
 
-export const editProfileData = (id, changes) => (dispatch) => {
-  dispatch({ type: EDIT_PROFILE_START });
+export const editProfileData = (changes) => (dispatch) => {
+  dispatch({ type: EDIT_PROFILE_START, payload: changes });
 
   const filteredChanges = filterUrls(
     ['facebook', 'twitter', 'instagram', 'link_url', 'call_to_action'],
     changes
   );
 
+  let uriParts = changes.profile_image?.split('.');
+  let fileType = uriParts?.[uriParts.length - 1];
+
+  const formData = new FormData();
+  if (changes.profile_image) {
+    formData.append('photo', {
+      uri: changes.profile_image,
+      name: `photo.${fileType}`,
+      type: `image/${fileType}`,
+    });
+  }
+
+  Object.entries(filteredChanges).forEach((entry) => {
+    formData.append(entry[0], entry[1]);
+  });
+
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .put(`${seturl}users/${id}`, filteredChanges)
+      .put(`${seturl}users`, formData)
       .then((res) => {
-        dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data.user });
+        dispatch({ type: EDIT_PROFILE_SUCCESS, payload: res.data });
       })
       .catch((err) => {
         console.log(err);
+        Alert.alert(
+          'Failed to update profile. Please restart the app and try again.'
+        );
         dispatch({ type: EDIT_PROFILE_ERROR, payload: err });
       });
   });
@@ -443,10 +433,10 @@ export const getFeed = (startAt = undefined, size = 8) => (dispatch) => {
 
 export const APPEND_TO_FEED = 'APPEND_TO_FEED';
 
-export const refreshFeed = (createdAt) => (dispatch) => {
+export const refreshFeed = () => (dispatch) => {
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
-      .get(`${seturl}feed?date=${createdAt}`)
+      .get(`${seturl}feed`)
       .then((res) => {
         dispatch({
           type: APPEND_TO_FEED,
@@ -582,7 +572,7 @@ export const postCampaign = (campaign) => (dispatch) => {
     type: POST_CAMPAIGN_START,
     payload: {
       id,
-      campaign,
+      campaign: { ...campaign, status: 'Posting...' },
     },
   });
 
@@ -604,7 +594,10 @@ export const postCampaign = (campaign) => (dispatch) => {
   formData.append('name', filteredCampaign.name);
   formData.append('user_id', filteredCampaign.user_id);
   formData.append('urgency', filteredCampaign.urgency);
-  formData.append('skilledImpactRequests', filteredCampaign.skilledImpactRequests);
+  formData.append(
+    'skilledImpactRequests',
+    filteredCampaign.skilledImpactRequests
+  );
 
   return axiosWithAuth(dispatch, (aaxios) => {
     return aaxios
@@ -737,7 +730,7 @@ export const postCampaignUpdate = (campaignUpdate) => (dispatch) => {
     type: POST_CAMPAIGN_UPDATE_START,
     payload: {
       id,
-      campaignUpdate,
+      campaignUpdate: { ...campaignUpdate, status: 'Posting...' },
     },
   });
 
@@ -820,24 +813,9 @@ export const toggleCampaignText = (id) => ({
   payload: id,
 });
 
-export const [GET_COMMENTS_START, GET_COMMENTS_SUCCESS, GET_COMMENTS_ERROR] = [
-  'GET_COMMENTS_START',
-  'GET_COMMENTS_SUCCESS',
-  'GET_COMMENTS_ERROR',
-];
-
 export const getCampaignComments = (id) => (dispatch) => {
-  dispatch({ type: GET_COMMENTS_START });
   return axiosWithAuth(dispatch, (aaxios) => {
-    return aaxios
-      .get(`${seturl}comments/${id}`)
-      .then((res) => {
-        dispatch({ type: GET_COMMENTS_SUCCESS, payload: res.data.data });
-      })
-      .catch((err) => {
-        console.log(err.message);
-        dispatch({ type: GET_COMMENTS_ERROR, payload: err.response });
-      });
+    return aaxios.get(`${seturl}comments/${id}`);
   });
 };
 
@@ -1219,6 +1197,12 @@ export const getCampaignPostReactions = (postId) => (dispatch) => {
   });
 };
 
+export const getCampaignUpdates = (campaignId) => (dispatch) => {
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios.get(`${seturl}campaigns/${campaignId}/updates`);
+  });
+};
+
 // Post emoji reaction on a specific post
 export const setCampaignPostReaction = (postId, emoji = '') => (dispatch) => {
   return axiosWithAuth(dispatch, (aaxios) => {
@@ -1252,33 +1236,33 @@ export const dequeueNewPosts = () => (dispatch) => {
   });
 };
 
-export const REMOVE_FROM_UPLOAD_QUEUE = 'REMOVE_FROM_UPLOAD_QUEUE';
-
 export const cancelUploadPost = (queueId) => (dispatch) => {
   if (cancellables[queueId]) {
     cancellables[queueId]();
     delete cancellables[queueId];
   } else {
     dispatch({
-      type: REMOVE_FROM_UPLOAD_QUEUE,
+      type: POST_CAMPAIGN_CANCEL,
       payload: queueId,
     });
   }
 };
 
-export const RETRY_UPLOAD_POST = 'RETRY_UPLOAD_POST';
-
 export const retryUploadPost = (queueId, data) => (dispatch) => {
   // If a post in the upload queue fails to upload, this is the
   // action dispatched to retry
-  dispatch({
-    type: RETRY_UPLOAD_POST,
-    id: queueId,
-  });
 
-  if (data.is_update) {
+  if (data.isUpdate) {
+    dispatch({
+      type: POST_CAMPAIGN_UPDATE_CANCEL,
+      payload: queueId,
+    });
     dispatch(postCampaignUpdate(data));
   } else {
+    dispatch({
+      type: POST_CAMPAIGN_CANCEL,
+      payload: queueId,
+    });
     dispatch(postCampaign(data));
   }
 };
@@ -1297,6 +1281,12 @@ export const unsetActiveVideo = (postId) => (dispatch) => {
     type: UNSET_ACTIVE_VIDEO,
     payload: postId,
   });
+};
+
+export const UPDATE_PROFILE_DATA = 'UPDATE_PROFILE_DATA';
+
+export const updateProfileData = (data) => (dispatch) => {
+  dispatch({ type: UPDATE_PROFILE_DATA, payload: data });
 };
 
 // TODO: Add getting emoji reaction details (User names and avatars for each emoji)

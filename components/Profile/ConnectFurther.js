@@ -27,7 +27,7 @@ const ConnectFurther = props => {
   const profile = props.profile;
   const myProfile = props.currentUserProfile.id === profile.id ? true : false;
 
-  const editRoute = profile.roles === 'supporter' ? 'EditSupporterProfile' : 'EditProfile';
+  const editRoute = 'EditProfile';
 
   return (
     <View>

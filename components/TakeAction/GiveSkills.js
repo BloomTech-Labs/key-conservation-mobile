@@ -39,7 +39,7 @@ const NeededSkillsDetailContainer = props => {
   var neededSkillsDetails = [];
 
   props.data.skilled_impact_requests.forEach( (skill, index) => {
-    neededSkillsDetails.push(<NeededSkillsCard key={index} skill={skill} navigation={props.navigation}/>)
+    neededSkillsDetails.push(<NeededSkillsCard key={index} skill={skill} />)
   })
 
   return <View >{neededSkillsDetails}</View>
@@ -168,8 +168,7 @@ class GiveSkill extends React.Component {
 
         {this.state.expanded && 
           <NeededSkillsDetailContainer 
-            data={this.data} 
-            navigation={this.props.navigation}
+            data={this.data}
           />
         }
       </React.Fragment>

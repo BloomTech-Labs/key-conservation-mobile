@@ -11,7 +11,7 @@ import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import { getCampaigns } from '../store/actions';
 
-import CampaignPost from '../components/CampaignPost';
+import CampaignPost from '../components/CampaignPost/CampaignPost';
 
 import { Header, SearchBar } from 'react-native-elements';
 import { createFilter } from 'react-native-search-filter';

@@ -25,7 +25,6 @@ import NameScreen from '../screens/NameScreen';
 import SearchScreen from '../screens/SearchScreen';
 import ViewCampaignScreen from '../screens/ViewCampaignScreen';
 import EditCampaignScreen from '../screens/EditCampaignScreen';
-import EditSupporterProfileScreen from '../screens/EditSupporterProfileScreen';
 import CreateCampaignUpdateScreen from '../screens/CreateCampaignUpdateScreen';
 import AccountSettingsScreen from '../screens/AccountSettingsScreen';
 import WideMapScreen from '../screens/maps/WideMapScreen';
@@ -145,7 +144,7 @@ const SupporterSkillImpactStack = createStackNavigator(
   //TODO add the rest of skill request screens for supporters here
   {
     SkillImpact: SupporterSkillImpactScreen,
-    EditSupporterProfile: EditSupporterProfileScreen,
+    EditProfileScreen: EditProfileScreen,
   },
   {
     navigationOptions: {
@@ -192,7 +191,7 @@ const MyProStack = createStackNavigator(
 const SupporterProfileStack = createStackNavigator(
   {
     MySupporterProfile: { screen: ProfileScreen },
-    EditSupporterProfile: { screen: EditSupporterProfileScreen },
+    EditProfile: { screen: EditProfileScreen },
     Connections: { screen: ConnectionsScreen },
   },
   {
@@ -266,6 +265,7 @@ export const ConsNavigator = createBottomTabNavigator(
       activeBackgroundColor: '#EAEAEA',
       style: {
         borderTopColor: 'transparent',
+        height: 52
       },
       tabStyle: {
         borderRightColor: '#EAEAEA',

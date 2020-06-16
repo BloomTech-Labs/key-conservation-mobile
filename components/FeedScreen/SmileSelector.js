@@ -23,6 +23,8 @@ const SmileSelector = (props) => {
   const [activeEmoji, setActiveEmoji] = useState();
   const [loading, setLoading] = useState(true);
 
+  let mounted = false;
+
   const init = async () => {
     try {
       const emojiReactions = await props.getCampaignPostReactions(props.postId);
@@ -34,21 +36,28 @@ const SmileSelector = (props) => {
         reactions[emote] += 1;
       });
 
-      if (emojiReactions.userReaction) {
-        setActiveEmoji(emojiReactions.userReaction);
+      if (mounted) {
+        if (emojiReactions.userReaction) {
+          setActiveEmoji(emojiReactions.userReaction);
+        }
+
+        setEmoji(reactions);
+
+        setLoading(false);
       }
-
-      setEmoji(reactions);
-
-      setLoading(false);
     } catch (err) {
       console.log(err);
-      setLoading(false);
+      if (mounted) {
+        setLoading(false);
+      }
     }
-  };
 
+  };
+  
   useEffect(() => {
+    mounted = true;
     if (props.postId && Object.entries(emoji).length === 0) init();
+    return () => (mounted = false);
   }, [props.postId]);
 
   // Called when an emoji is selected from
