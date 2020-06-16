@@ -25,7 +25,7 @@ export default class WebSocketManager {
   loggerEnabled = false;
 
   constructor() {
-    this.socket = this.initSocket();
+    // this.socket = this.initSocket();
   }
 
   initSocket() {
@@ -45,7 +45,7 @@ export default class WebSocketManager {
     socket.onclose = (e) => {
       this.connected = false;
       this.logMessage(`Disconnected`);
-      this.reconnect();
+      // this.reconnect();
     };
 
     socket.onmessage = (e) => {
@@ -88,7 +88,7 @@ export default class WebSocketManager {
     this.reconnecting = true;
     if (!this.connected) {
       this.logMessage(`Reconnecting...`);
-      this.socket = this.initSocket();
+      // this.socket = this.initSocket();
     } else {
       this.logMessage(`Tried to reconnected, but is already connected`);
     }

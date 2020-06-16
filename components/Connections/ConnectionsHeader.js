@@ -6,12 +6,11 @@ import {
   getConnections,
   connectRequest,
   deleteConnection,
-  createNotification
+  createNotification,
 } from '../../store/actions';
 import styles from '../../constants/Profile/ProfileHeader';
 
-
-const Connect = props => {
+const Connect = (props) => {
   const [connections, setConnections] = useState([]);
 
   const getConnections = async () => {
@@ -25,8 +24,7 @@ const Connect = props => {
   };
 
   useEffect(() => {
-    if (props.profileId)
-      getConnections();
+    if (props.profileId) getConnections();
   }, [props.profileId]);
 
   const connectRequest = () => {
@@ -34,27 +32,29 @@ const Connect = props => {
       ...connections,
       {
         connector_id: props.currentUserProfile.id, // this will be the sender_id
-        connected_id: props.profileId,// This is the user id
+        connected_id: props.profileId, // This is the user id
         status:
-          props.profileData?.roles === 'supporter' ? 'Pending' : 'Following'
-      }
+          props.profileData?.roles === 'supporter' ? 'Pending' : 'Following',
+      },
     ]);
-    props.connectRequest(props.profileId).then(() => {
-      getConnections();
-    }).catch(error => {
-      Alert.alert(error.message);
-    });
+    props
+      .connectRequest(props.profileId)
+      .then(() => {
+        getConnections();
+      })
+      .catch((error) => {
+        Alert.alert(error.message);
+      });
   };
 
   const disconnect = () => {
-    setConnections(
-      connections.filter?.(c => c.id !== myConnection.id)
-    );
+    setConnections(connections.filter?.((c) => c.id !== myConnection.id));
     props
       .deleteConnection(myConnection.id, props.profileId)
       .then(() => {
         getConnections();
-      }).catch(() => {
+      })
+      .catch(() => {
         Alert.alert('Failed to remove connection');
       });
   };
@@ -67,18 +67,18 @@ const Connect = props => {
         {
           text: 'Remove',
           style: 'destructive',
-          onPress: disconnect
+          onPress: disconnect,
         },
-        { text: 'Cancel', style: 'cancel' }
+        { text: 'Cancel', style: 'cancel' },
       ]
     );
   };
 
   let selectedUserConnections =
-    connections?.filter?.(connect => connect.status === 'Connected') || [];
+    connections?.filter?.((connect) => connect.status === 'Connected') || [];
 
   const myConnection = connections?.find(
-    connection =>
+    (connection) =>
       connection.connector_id === props.currentUserProfile.id ||
       connection.connected_id === props.currentUserProfile.id
   );
@@ -98,22 +98,18 @@ const Connect = props => {
           ? 'Connected'
           : 'Connect';
 
-
-
   const test = () => {
-
     console.log('BBBB');
-    connectRequest(props.profileId);
-    createNotification({
-      "notification_type": 0,
-      "pathway": "something",
-      "sender_id": 59,
-      "sender_name": "Testing",
-      "sender_pic": "aaa",
-      "user_id": 59,
+    // connectRequest(props.profileId);
+    props.createNotification({
+      notification_type: 0,
+      pathway: 'something',
+      sender_id: 59,
+      sender_name: 'Testing',
+      sender_pic: 'aaa',
+      user_id: 59,
     });
-
-  }
+  };
 
   return (
     <View style={styles.connectContainer}>
@@ -121,10 +117,7 @@ const Connect = props => {
         style={styles.connectText}
         onPress={() => {
           props.profileId !== props.currentUserProfile.id
-            ? props.navigation.push(
-              'SelectedConnections',
-              (props = { props })
-            )
+            ? props.navigation.push('SelectedConnections', (props = { props }))
             : props.navigation.push('Connections', (props = { props }));
         }}
       >
@@ -145,16 +138,14 @@ const Connect = props => {
               style={{
                 ...styles.connectButton,
                 fontFamily: 'Lato-Bold',
-                backgroundColor: isConnected ? '#00FD9B' : '#fff'
+                backgroundColor: isConnected ? '#00FD9B' : '#fff',
               }}
             >
               <Button
-                color='black'
+                color="black"
                 title={buttonTitle}
                 onPress={() => {
-                  return isConnected
-                    ? promptDelete()
-                    : test();
+                  return isConnected ? promptDelete() : test();
                 }}
               />
             </View>
@@ -164,7 +155,7 @@ const Connect = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentUserProfile: state.currentUserProfile,
   selectedProfile: state.selectedProfile,
   connections: state.connections,
@@ -175,5 +166,5 @@ export default connect(mapStateToProps, {
   connectRequest,
   deleteConnection,
   getConnections,
-  createNotification
+  createNotification,
 })(withNavigation(Connect));

@@ -1236,7 +1236,10 @@ export const getAllNotifications = (id) => (dispatch) => {
     .get(`${seturl}notifications/${id}`)
     .then((res) => {
       console.log('FROM NOTES*******', res.data.notifications);
-      dispatch({ type: FETCH_NOTIFICATION_SUCCESS, payload: res.data.notifications });
+      dispatch({
+        type: FETCH_NOTIFICATION_SUCCESS,
+        payload: res.data.notifications,
+      });
     })
     .catch((err) => {
       console.log('ERROR FROM NOTES*******', err);
@@ -1255,18 +1258,21 @@ export const [
   ];
 
 export const createNotification = (data) => (dispatch) => {
+  console.log('create notification start', data);
   dispatch({ type: CREATE_NOTIFICATION_START });
   return axios
-    .post(`${seturl}notifications/`, { data })
+    .post(`${seturl}notifications/`, data)
     .then((res) => {
-      console.log(res.data.message)
-      dispatch({ type: CREATE_NOTIFICATION_SUCCESS, payload: res.data.message })
+      console.log('create notification success', res.data.message);
+      dispatch({
+        type: CREATE_NOTIFICATION_SUCCESS,
+        payload: res.data.message,
+      });
     })
     .catch((err) => {
-      dispatch({ type: CREATE_NOTIFICATION_ERROR, payload: err })
-    })
-}
-
+      dispatch({ type: CREATE_NOTIFICATION_ERROR, payload: err });
+    });
+};
 
 // Object {
 //   "message": "1 notifications were found",

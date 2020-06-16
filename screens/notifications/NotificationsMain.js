@@ -22,6 +22,7 @@ import Logo from '../../assets/jsicons/other/Logo';
 import { seedData } from '../../components/Notifications/seedData';
 import { connect } from 'react-redux';
 import { getAllNotifications } from '../../store/actions';
+import { NavigationEvents } from 'react-navigation';
 
 var aaa = 0;
 
@@ -37,9 +38,6 @@ class NotificationsMain extends React.Component {
       // fetch: fetchNotifications,
     };
   }
-
-
-
 
   static navigationOptions = ({ navigation }) => {
     return {
@@ -57,23 +55,27 @@ class NotificationsMain extends React.Component {
     // console.log(this.state.navigation);
     console.log('Fetching notifications...');
     // console.log(seedData.data);
-    console.log('aslkdfj: ' + this.props.currentUserId)
-    console.log('aslkdfj asdfds: ' + this.props.notificationsLoading)
+    console.log('aslkdfj: ' + this.props.currentUserId);
+    console.log('aslkdfj asdfds: ' + this.props.notificationsLoading);
     // console.log
-    if (this.props.notificationsLoading)
-      this.props.getAllNotifications(59);
-
-    // }
+    if (this.props.notificationsLoading) this.props.getAllNotifications(59);
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    // if (prevProps.notifications.length == this.props.)
+    // this.props.getAllNotifications(59);
     // this.setState({ isLoading: false });
-    console.log('this is notification in state', this.props.notifications)
+    //
+    // console.log('this is notification in state', this.props.notifications);
+    // this.props.getAllNotifications(59);
   }
 
   render() {
     return (
       <View style={styles.wrapper}>
+        <NavigationEvents
+          onDidFocus={() => this.props.getAllNotifications(59)}
+        />
         <View style={styles.tabContainer} elevation={8}>
           <TouchableOpacity
             style={
@@ -83,7 +85,7 @@ class NotificationsMain extends React.Component {
               this.setState({
                 isActive: !this.state.isActive,
                 notifOpen: !this.state.notifOpen,
-              })
+              });
               // handleGetNotifications(this.props.currentUserId)
             }}
           >
@@ -105,7 +107,11 @@ class NotificationsMain extends React.Component {
               <Badge
                 value={
                   <Text style={styles.badgeText}>
-                    {this.props.notifications.filter((notif) => notif.new_notification = true).length}
+                    {
+                      this.props.notifications.filter(
+                        (notif) => (notif.new_notification = true)
+                      ).length
+                    }
                   </Text>
                 }
                 badgeStyle={styles.badge}
@@ -128,7 +134,9 @@ class NotificationsMain extends React.Component {
         >
           <View
             style={
-              this.props.notificationsLoading ? styles.loadingContainer : styles.closed
+              this.props.notificationsLoading
+                ? styles.loadingContainer
+                : styles.closed
             }
           >
             <Logo style={styles.logoIcon} />
@@ -154,7 +162,9 @@ class NotificationsMain extends React.Component {
 
           <View
             style={
-              this.props.notificationsLoading ? styles.loadingContainer : styles.closed
+              this.props.notificationsLoading
+                ? styles.loadingContainer
+                : styles.closed
             }
           >
             <Logo style={styles.logoIcon} />
@@ -167,7 +177,7 @@ class NotificationsMain extends React.Component {
 
           <FlatList
             style={{ width: '100%', height: '100%' }}
-            data={this.props.notifications} // seedData.data 
+            data={this.props.notifications} // seedData.data
             showsVerticalScrollIndicator={false}
             renderItem={(data) => {
               switch (data.item.notification_type) {
@@ -303,7 +313,7 @@ const mapStateToProps = (state) => ({
 // };
 
 export default connect(mapStateToProps, {
-  getAllNotifications
+  getAllNotifications,
 })(NotificationsMain);
 
 // const mapStateToProps = (state) => ({
