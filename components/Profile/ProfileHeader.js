@@ -44,26 +44,26 @@ const ProfileHeader = forwardRef((props, ref) => {
 
   const translateY = state.MAX_HEADER_HEIGHT
     ? props.parentScrollY.interpolate({
-        inputRange: [0, inputMax],
-        outputRange: [0, -inputMax],
-        extrapolate: 'clamp',
-      })
+      inputRange: [0, inputMax],
+      outputRange: [0, -inputMax],
+      extrapolate: 'clamp',
+    })
     : 0;
 
   const headerBlur = state.MAX_HEADER_HEIGHT
     ? props.parentScrollY.interpolate({
-        inputRange: [0, inputMax / 2, inputMax],
-        outputRange: [0, 2, 10],
-        extrapolate: 'clamp',
-      })
+      inputRange: [0, inputMax / 2, inputMax],
+      outputRange: [0, 2, 10],
+      extrapolate: 'clamp',
+    })
     : 0;
 
   const contentOpacity = state.MAX_HEADER_HEIGHT
     ? props.parentScrollY.interpolate({
-        inputRange: [0, inputMax / 2, inputMax],
-        outputRange: [1, 0.2, 0],
-        extrapolate: 'clamp',
-      })
+      inputRange: [0, inputMax / 2, inputMax],
+      outputRange: [1, 0.2, 0],
+      extrapolate: 'clamp',
+    })
     : null;
 
   const profileName = props.loading ? 'Loading...' : profile.name;
@@ -128,10 +128,10 @@ const ProfileHeader = forwardRef((props, ref) => {
                     {profile.link_text}
                   </Text>
                 ) : (
-                  <Text style={styles.websiteText} onPress={WebsiteClick}>
-                    {profile.link_url}
-                  </Text>
-                )
+                    <Text style={styles.websiteText} onPress={WebsiteClick}>
+                      {profile.link_url}
+                    </Text>
+                  )
               ) : null}
             </View>
           )}

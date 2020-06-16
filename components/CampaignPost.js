@@ -155,9 +155,9 @@ const CampaignPost = (props) => {
       campaign: data.campaign_name,
       profile: data.org_name,
     });
-    console.log('testme', data);
+    // console.log('testme', data);
     dispatch(setCampaign(data));
-    console.log('!!!!!!!!!!!!!!!!!!!!!!!', selectedCampaign);
+    // console.log('!!!!!!!!!!!!!!!!!!!!!!!', selectedCampaign);
     navigate('Campaign', {
       userBookmarked: data.userBookmarked,
     });
@@ -268,62 +268,62 @@ const CampaignPost = (props) => {
               </Text>
             </View>
           ) : (
-            <Text style={styles.campaignDescriptionText}>
-              {shorten(data.description, 280)}
+              <Text style={styles.campaignDescriptionText}>
+                {shorten(data.description, 280)}
               &nbsp;
-              <Text onPress={toggleText} style={styles.readMore}>
-                Read More
+                <Text onPress={toggleText} style={styles.readMore}>
+                  Read More
               </Text>
-            </Text>
-          )}
+              </Text>
+            )}
         </View>
         <View>
           <TouchableOpacity activeOpacity={0.5} onPress={goToCampaign}>
             {data.image?.includes('.mov') ||
-            data.image?.includes('.mp3') ||
-            data.image?.includes('.mp4') ? (
-              <View>
-                {data.urgency ? (
-                  <View style={urgencyStyles}>
-                    <Text style={styles.urgencyBarText}>{urgencyStatus}</Text>
-                  </View>
-                ) : null}
-                {loader ? (
-                  <View style={styles.indicator}>
-                    <ActivityIndicator size="large" color="#00FF9D" />
-                  </View>
-                ) : null}
-                {props.isFocused ? (
-                  <ViewportAwareVideo
-                    source={{
-                      uri: data.image,
-                    }}
-                    retainOnceInViewport={false}
-                    preTriggerRatio={-0.1}
-                    rate={1.0}
-                    isMuted={false}
-                    shouldPlay={true}
-                    isLooping
-                    resizeMode="cover"
-                    onPlaybackStatusUpdate={onPlaybackStatusUpdate}
-                    style={styles.campImgContain}
-                  />
-                ) : (
-                  <View style={styles.campImgContain} />
-                )}
-              </View>
-            ) : (
-              <ImageBackground
-                source={{ uri: data.image }}
-                style={styles.campImgContain}
-              >
-                {urgencyStatus ? (
-                  <View style={urgencyStyles}>
-                    <Text style={styles.urgencyBarText}>{urgencyStatus}</Text>
-                  </View>
-                ) : null}
-              </ImageBackground>
-            )}
+              data.image?.includes('.mp3') ||
+              data.image?.includes('.mp4') ? (
+                <View>
+                  {data.urgency ? (
+                    <View style={urgencyStyles}>
+                      <Text style={styles.urgencyBarText}>{urgencyStatus}</Text>
+                    </View>
+                  ) : null}
+                  {loader ? (
+                    <View style={styles.indicator}>
+                      <ActivityIndicator size="large" color="#00FF9D" />
+                    </View>
+                  ) : null}
+                  {props.isFocused ? (
+                    <ViewportAwareVideo
+                      source={{
+                        uri: data.image,
+                      }}
+                      retainOnceInViewport={false}
+                      preTriggerRatio={-0.1}
+                      rate={1.0}
+                      isMuted={false}
+                      shouldPlay={true}
+                      isLooping
+                      resizeMode="cover"
+                      onPlaybackStatusUpdate={onPlaybackStatusUpdate}
+                      style={styles.campImgContain}
+                    />
+                  ) : (
+                      <View style={styles.campImgContain} />
+                    )}
+                </View>
+              ) : (
+                <ImageBackground
+                  source={{ uri: data.image }}
+                  style={styles.campImgContain}
+                >
+                  {urgencyStatus ? (
+                    <View style={urgencyStyles}>
+                      <Text style={styles.urgencyBarText}>{urgencyStatus}</Text>
+                    </View>
+                  ) : null}
+                </ImageBackground>
+              )}
           </TouchableOpacity>
         </View>
 
@@ -344,8 +344,8 @@ const CampaignPost = (props) => {
                 ) : isSaved ? (
                   <BookmarkSolid />
                 ) : (
-                  <Bookmark />
-                )}
+                      <Bookmark />
+                    )}
               </TouchableOpacity>
             ) : null}
 

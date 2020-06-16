@@ -37,6 +37,7 @@ class ProfileScreen extends React.Component {
     this.scrollView = React.createRef();
 
     this.scrollY = new Animated.Value(0);
+    console.log(props);
   }
 
   initProfileData = async () => {
@@ -218,16 +219,16 @@ class ProfileScreen extends React.Component {
                 size="large"
               />
             ) : (
-              <ProfileBody
-                profile={profileData}
-                contentPaddingTop={this.state.contentPaddingTop}
-                headerHeight={this.state.headerHeight}
-                myProfile={profileData === this.props.currentUserProfile}
-                scrollY={this.scrollY}
-                ref={this.bodyOnScroll}
-                scrollToMaximizeContent={this.scrollToMaximizeContent}
-              />
-            )}
+                <ProfileBody
+                  profile={profileData}
+                  contentPaddingTop={this.state.contentPaddingTop}
+                  headerHeight={this.state.headerHeight}
+                  myProfile={profileData === this.props.currentUserProfile}
+                  scrollY={this.scrollY}
+                  ref={this.bodyOnScroll}
+                  scrollToMaximizeContent={this.scrollToMaximizeContent}
+                />
+              )}
           </Animated.ScrollView>
         </View>
       </Viewport.Tracker>

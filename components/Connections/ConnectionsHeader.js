@@ -99,15 +99,15 @@ const Connect = (props) => {
           : 'Connect';
 
   const test = () => {
-    console.log('BBBB');
+    console.log(props);
     // connectRequest(props.profileId);
     props.createNotification({
       notification_type: 0,
-      pathway: 'something',
-      sender_id: 59,
+      pathway: 'Connections',
+      sender_id: 59, // props.currentUserProfile.id
       sender_name: 'Testing',
       sender_pic: 'aaa',
-      user_id: 59,
+      user_id: 59, // props.profileId
     });
   };
 

@@ -21,7 +21,7 @@ import Logo from '../../assets/jsicons/other/Logo';
 
 import { seedData } from '../../components/Notifications/seedData';
 import { connect } from 'react-redux';
-import { getAllNotifications } from '../../store/actions';
+import { getAllNotifications, markNotification } from '../../store/actions';
 import { NavigationEvents } from 'react-navigation';
 
 var aaa = 0;
@@ -186,6 +186,12 @@ class NotificationsMain extends React.Component {
                     <ConnectionNotification
                       notifData={data}
                       nav={this.state.navigation}
+                    // onPress={() => {
+                    //   this.props.markNotification(
+                    //     data.user_id,
+                    //     data.notification_id
+                    //   );
+                    // }}
                     />
                   );
 
@@ -194,6 +200,12 @@ class NotificationsMain extends React.Component {
                     <CampaignNotification
                       notifData={data}
                       nav={this.state.navigation}
+                    // onPress={() => {
+                    //   this.props.markNotification(
+                    //     data.user_id,
+                    //     data.notification_id
+                    //   );
+                    // }}
                     />
                   );
 
@@ -314,6 +326,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getAllNotifications,
+  markNotification,
 })(NotificationsMain);
 
 // const mapStateToProps = (state) => ({

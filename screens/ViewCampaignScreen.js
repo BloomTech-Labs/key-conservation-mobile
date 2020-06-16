@@ -42,7 +42,7 @@ class ViewCampaignScreen extends React.Component {
   };
 
   componentDidMount() {
-    console.log('getting post id: ', this.props.selectedCampaign.id);
+    // console.log('getting post id: ', this.props.selectedCampaign.id);
     this.props.getCampaignPost(this.props.selectedCampaign.id);
     this.props.navigation.setParams({
       showCampaignOptions: this.showActionSheet,
@@ -144,9 +144,9 @@ class ViewCampaignScreen extends React.Component {
                   subtitle={
                     <View style={{ flexDirection: 'row' }}>
                       {this.props.selectedCampaign.location !==
-                      (undefined || null) ? (
-                        <MapMarker fill="#505050" />
-                      ) : null}
+                        (undefined || null) ? (
+                          <MapMarker fill="#505050" />
+                        ) : null}
                       <Text style={{ color: '#929292', paddingLeft: 3 }}>
                         {this.props.selectedCampaign.location}
                       </Text>
@@ -162,25 +162,25 @@ class ViewCampaignScreen extends React.Component {
                   </Text>
                 </View>
                 {this.props.selectedCampaign.image.includes('.mov') ||
-                this.props.selectedCampaign.image.includes('.mp3') ||
-                this.props.selectedCampaign.image.includes('.mp4') ? (
-                  <Video
-                    source={{
-                      uri: this.props.selectedCampaign.image,
-                    }}
-                    rate={1.0}
-                    volume={1.0}
-                    isMuted={true}
-                    useNativeControls={true}
-                    resizeMode="cover"
-                    style={styles.campaignImageContainer}
-                  />
-                ) : (
-                  <Image
-                    source={{ uri: this.props.selectedCampaign.image }}
-                    style={styles.campaignImageContainer}
-                  />
-                )}
+                  this.props.selectedCampaign.image.includes('.mp3') ||
+                  this.props.selectedCampaign.image.includes('.mp4') ? (
+                    <Video
+                      source={{
+                        uri: this.props.selectedCampaign.image,
+                      }}
+                      rate={1.0}
+                      volume={1.0}
+                      isMuted={true}
+                      useNativeControls={true}
+                      resizeMode="cover"
+                      style={styles.campaignImageContainer}
+                    />
+                  ) : (
+                    <Image
+                      source={{ uri: this.props.selectedCampaign.image }}
+                      style={styles.campaignImageContainer}
+                    />
+                  )}
 
                 <View style={styles.donateView}>
                   <TakeActionCallToAction
@@ -192,8 +192,8 @@ class ViewCampaignScreen extends React.Component {
                   {this.props.loading ? (
                     <Text>Comments loading...</Text>
                   ) : (
-                    <CommentsView />
-                  )}
+                      <CommentsView />
+                    )}
                 </View>
               </View>
             </Viewport.Tracker>

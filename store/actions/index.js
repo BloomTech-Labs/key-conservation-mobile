@@ -1235,7 +1235,7 @@ export const getAllNotifications = (id) => (dispatch) => {
   return axios
     .get(`${seturl}notifications/${id}`)
     .then((res) => {
-      console.log('FROM NOTES*******', res.data.notifications);
+      // console.log('FROM NOTES*******', res.data.notifications);
       dispatch({
         type: FETCH_NOTIFICATION_SUCCESS,
         payload: res.data.notifications,
@@ -1271,6 +1271,33 @@ export const createNotification = (data) => (dispatch) => {
     })
     .catch((err) => {
       dispatch({ type: CREATE_NOTIFICATION_ERROR, payload: err });
+    });
+};
+
+export const [
+  MARK_NOTIFICATION_START,
+  MARK_NOTIFICATION_SUCCESS,
+  MARK_NOTIFICATION_ERROR,
+] = [
+    'MARK_NOTIFICATION_START',
+    'MARK_NOTIFICATION_SUCCESS',
+    'MARK_NOTIFICATION_ERROR',
+  ];
+
+export const markNotification = (UID, NID) => (dispatch) => {
+  // console.log('create notification start', data);
+  // dispatch({ type: CREATE_NOTIFICATION_START });
+  return axios
+    .put(`${seturl}notifications/`, { userID: UID, notifID: NID })
+    .then((res) => {
+      console.log(res.data.message);
+      // dispatch({
+      //   type: CREATE_NOTIFICATION_SUCCESS,
+      //   payload: res.data.message,
+      // });
+    })
+    .catch((err) => {
+      dispatch({ type: MARK_NOTIFICATION_ERROR, payload: err });
     });
 };
 
