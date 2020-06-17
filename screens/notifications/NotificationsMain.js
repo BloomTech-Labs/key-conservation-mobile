@@ -58,7 +58,8 @@ class NotificationsMain extends React.Component {
     console.log('aslkdfj: ' + this.props.currentUserId);
     console.log('aslkdfj asdfds: ' + this.props.notificationsLoading);
     // console.log
-    if (this.props.notificationsLoading) this.props.getAllNotifications(59);
+    if (this.props.notificationsLoading)
+      this.props.getAllNotifications(this.props.currentUserId);
   }
 
   componentDidUpdate(prevProps) {
@@ -74,7 +75,9 @@ class NotificationsMain extends React.Component {
     return (
       <View style={styles.wrapper}>
         <NavigationEvents
-          onDidFocus={() => this.props.getAllNotifications(59)}
+          onDidFocus={() =>
+            this.props.getAllNotifications(this.props.currentUserId)
+          }
         />
         <View style={styles.tabContainer} elevation={8}>
           <TouchableOpacity

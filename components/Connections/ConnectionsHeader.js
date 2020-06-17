@@ -100,15 +100,29 @@ const Connect = (props) => {
 
   const test = () => {
     console.log(props);
-    // connectRequest(props.profileId);
-    props.createNotification({
-      notification_type: 0,
-      pathway: 'Connections',
-      sender_id: 59, // props.currentUserProfile.id
-      sender_name: 'Testing',
-      sender_pic: 'aaa',
-      user_id: 59, // props.profileId
-    });
+    props
+      .connectRequest(props.profileId)
+      .then(() => {
+        props.createNotification({
+          notification_type: 0,
+          pathway: 'Connections',
+          sender_id: props.currentUserProfile.id, // props.currentUserProfile.id
+          sender_name: props.currentUserProfile.name, // props.currentUserProfile.name
+          sender_pic: props.currentUserProfile.profile_image, // props.currentUserProfile.profile_image
+          user_id: props.profileId, // props.profileId
+        });
+      })
+      .catch((error) => {
+        Alert.alert(error.message);
+      });
+
+    // .connectRequest(props.profileId)
+    // .then(() => {
+    //   getConnections();
+    // })
+    // .catch((error) => {
+    //   Alert.alert(error.message);
+    // });
   };
 
   return (
