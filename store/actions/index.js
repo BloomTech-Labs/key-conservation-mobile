@@ -1024,6 +1024,7 @@ export const getConnections = (id) => (dispatch) => {
     return aaxios
       .get(`${seturl}users/connect/${id}`)
       .then((res) => {
+        console.log('from getConnections res.data', res.data);
         return res.data;
       })
       .catch((err) => {
