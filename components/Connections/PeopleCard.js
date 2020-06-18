@@ -4,13 +4,14 @@ import { AmpEvent } from '../withAmplitude';
 import { Avatar } from 'react-native-elements';
 import styles from '../../constants/Connections/Cards';
 import X from '../../assets/jsicons/miscIcons/X';
-import { withNavigation } from 'react-navigation';
+import { NavigationEvents, withNavigation } from 'react-navigation';
 
 import {
   getConnections,
   deleteConnection,
   editConnectStatus,
   goToProfile,
+  markAllNotifications,
 } from '../../store/actions';
 import { connect } from 'react-redux';
 
@@ -100,6 +101,11 @@ const People = (props) => {
 
   return (
     <View>
+      <NavigationEvents
+        onDidFocus={() =>
+          props.markAllNotifications(props.currentUserProfile.id, '0')
+        }
+      />
       {props.currentUserProfile.roles === 'supporter' ? (
         <View>
           <View style={styles.mainContainer}>
@@ -261,4 +267,5 @@ export default connect(mapStateToProps, {
   deleteConnection,
   editConnectStatus,
   goToProfile,
+  markAllNotifications,
 })(withNavigation(People));

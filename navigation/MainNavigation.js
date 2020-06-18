@@ -1,6 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { View, Text, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
+import { Badge, withBadge, withTheme } from 'react-native-elements';
 
 import CanScreen from '../screens/org-onboarding-screens/CanScreen';
 import CantScreen from '../screens/org-onboarding-screens/CantScreen';
@@ -40,6 +43,8 @@ import ConnectionsScreen from '../screens/Connections/ConnectionsScreen';
 import SelectedConnectionsScreen from '../screens/Connections/SelectedConnectionsScreen';
 import OrgSkillImpactScreen from '../screens/org-skillimpact-screen/OrgSkillImpactScreen';
 import SupporterSkillImpactScreen from '../screens/supporter-skillimpact-screen/SupporterSkillImpactScreen';
+
+import store from '../store/configureStore';
 
 //icon imports
 
@@ -83,6 +88,20 @@ const MapStack = createStackNavigator(
   }
 );
 
+const styles = StyleSheet.create({
+  badge: {
+    backgroundColor: '#D7FE49',
+    color: 'black',
+    overflow: 'hidden',
+    position: 'relative',
+  },
+  badgeText: {
+    color: 'black',
+  },
+});
+
+const state = store.getState();
+
 const NotStack = createStackNavigator(
   {
     NotScreen: NotificationsScreen,
@@ -90,7 +109,29 @@ const NotStack = createStackNavigator(
   {
     navigationOptions: {
       tabBarLabel: 'Map',
-      tabBarIcon: ({ focused }) => <Bell />,
+      tabBarIcon: ({ focused }) => (
+        <>
+          <Bell />
+          <Badge
+            value={
+              <Text style={styles.badgeText}>
+                {/* {
+                      this.props.notifications.filter(
+                        (notif) => (notif.new_notification = true)
+                      ).length
+                    } */}
+                {state.notifications.length}
+              </Text>
+            }
+            badgeStyle={styles.badge}
+            containerStyle={{
+              position: 'absolute',
+              top: -20,
+              right: -20,
+            }}
+          />
+        </>
+      ),
     },
   }
 );

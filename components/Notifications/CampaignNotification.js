@@ -41,7 +41,7 @@ const CampaignNotification = (props) => {
 
   const checkNew = () => {
     console.log('state data', data);
-    if ((data.new_notification = true)) {
+    if ((data.new_notification == true)) {
       return setData({
         ...data,
         new_notification: false,

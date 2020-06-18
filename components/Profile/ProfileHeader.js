@@ -13,7 +13,7 @@ import { useHeaderHeight } from 'react-navigation-stack';
 
 const ProfileHeader = forwardRef((props, ref) => {
   let profile = props.profile || {};
-  console.log('profile', profile);
+  // console.log('profile', profile);
 
   const appHeaderHeight = useHeaderHeight();
 

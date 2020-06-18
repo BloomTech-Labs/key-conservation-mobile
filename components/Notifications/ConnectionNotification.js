@@ -19,40 +19,50 @@ import { NavigationEvents } from 'react-navigation';
 }
 
 const ConnectionNotification = (props) => {
-  useEffect(() => {
-    // console.log('@@@@@@@@@', data);
-  }, [data]);
-
   const createdAt = props.notifData.item.time;
   const [data, setData] = useState(props.notifData.item);
+  const [read, setRead] = useState(props.notifData.item.new_notification);
+
+  useEffect(() => {
+    console.log('@@@@@@@@@', props.notifData);
+
+    console.log('**** data.new_notification ***', read);
+  }, [data]);
 
   const goToCommenterProfile = () => {
     props.nav.push('Pro', {
       selectedProfile: props.notifData.item.sender_id,
     });
-    checkNew();
+    // checkNew();
   };
 
-  const checkNew = () => {
-    // console.log('state data', data);
-    if ((data.new_notification = true)) {
-      return setData({
-        ...data,
-        new_notification: false,
-      });
-    }
-  };
+  // const checkNew = () => {
+  //   // console.log('state data', data);
+  //   if ((data.new_notification = true)) {
+  //     return setData({
+  //       ...data,
+  //       new_notification: false,
+  //     });
+  //   }
+  // };
 
   const handleMark = () => {
     console.log('handleMark');
-    props.markNotification(data.user_id, data.notification_id, 0).then(() => {
-      goToCommenterProfile();
-    });
+    props
+      .markNotification(
+        props.notifData.item.user_id,
+        props.notifData.item.notification_id
+      )
+      .then(() => {
+        goToCommenterProfile();
+      });
   };
 
   return (
     <TouchableOpacity
-      style={!data.new_notification ? styles.wrapper : styles.wrapperNew}
+      style={
+        !props.notifData.new_notification ? styles.wrapper : styles.wrapperNew
+      }
       onPress={() => {
         handleMark();
       }}
