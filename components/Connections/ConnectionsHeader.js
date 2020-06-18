@@ -43,14 +43,16 @@ const Connect = (props) => {
       .connectRequest(props.profileId)
       .then(() => {
         getConnections(props.currentUserProfile.id);
-        props.createNotification({
-          notification_type: 0,
-          pathway: 'Connections',
-          sender_id: props.currentUserProfile.id, // props.currentUserProfile.id
-          sender_name: props.currentUserProfile.name, // props.currentUserProfile.name
-          sender_pic: props.currentUserProfile.profile_image, // props.currentUserProfile.profile_image
-          user_id: props.profileId, // props.profileId
-        });
+        if (!isPending) {
+          props.createNotification({
+            notification_type: 0,
+            pathway: 'Connections',
+            sender_id: props.currentUserProfile.id, // props.currentUserProfile.id
+            sender_name: props.currentUserProfile.name, // props.currentUserProfile.name
+            sender_pic: props.currentUserProfile.profile_image, // props.currentUserProfile.profile_image
+            user_id: props.profileId, // props.profileId
+          });
+        }
       })
       .catch((error) => {
         Alert.alert(error.message);
@@ -113,14 +115,16 @@ const Connect = (props) => {
     props
       .connectRequest(props.profileId)
       .then(() => {
-        props.createNotification({
-          notification_type: 0,
-          pathway: 'Connections',
-          sender_id: props.currentUserProfile.id, // props.currentUserProfile.id
-          sender_name: props.currentUserProfile.name, // props.currentUserProfile.name
-          sender_pic: props.currentUserProfile.profile_image, // props.currentUserProfile.profile_image
-          user_id: props.profileId, // props.profileId
-        });
+        if (!isPending) {
+          props.createNotification({
+            notification_type: 0,
+            pathway: 'Connections',
+            sender_id: props.currentUserProfile.id, // props.currentUserProfile.id
+            sender_name: props.currentUserProfile.name, // props.currentUserProfile.name
+            sender_pic: props.currentUserProfile.profile_image, // props.currentUserProfile.profile_image
+            user_id: props.profileId, // props.profileId
+          });
+        }
       })
       .catch((error) => {
         Alert.alert(error.message);

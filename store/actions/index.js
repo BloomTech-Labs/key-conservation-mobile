@@ -1287,15 +1287,16 @@ export const [
 
 export const markNotification = (UID, NID) => (dispatch) => {
   // console.log('create notification start', data);
-  // dispatch({ type: CREATE_NOTIFICATION_START });
+  console.log('DDD', UID + '/' + NID);
+  dispatch({ type: MARK_NOTIFICATION_START });
   return axios
     .put(`${seturl}notifications/`, { userID: UID, notifID: NID })
     .then((res) => {
-      console.log(res.data.message);
-      // dispatch({
-      //   type: CREATE_NOTIFICATION_SUCCESS,
-      //   payload: res.data.message,
-      // });
+      console.log('MARK NOTIFICATION', res.data.message);
+      dispatch({
+        type: MARK_NOTIFICATION_SUCCESS,
+        payload: res.data.message,
+      });
     })
     .catch((err) => {
       dispatch({ type: MARK_NOTIFICATION_ERROR, payload: err });

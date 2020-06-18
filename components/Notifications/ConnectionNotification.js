@@ -10,6 +10,9 @@ import {
 import { Avatar } from 'react-native-elements';
 import moment from 'moment';
 import TimeStamp from './TimeStamp';
+import { connect } from 'react-redux';
+import { markNotification } from '../../store/actions';
+import { NavigationEvents } from 'react-navigation';
 
 {
   /* TEAL COLOR: #00FF9D */
@@ -40,10 +43,19 @@ const ConnectionNotification = (props) => {
     }
   };
 
+  const handleMark = () => {
+    console.log('handleMark');
+    props.markNotification(data.user_id, data.notification_id, 0).then(() => {
+      goToCommenterProfile();
+    });
+  };
+
   return (
     <TouchableOpacity
       style={!data.new_notification ? styles.wrapper : styles.wrapperNew}
-      onPress={goToCommenterProfile}
+      onPress={() => {
+        handleMark();
+      }}
     >
       <View style={styles.container}>
         <View style={styles.avatarContainer}>
@@ -152,4 +164,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ConnectionNotification;
+export default connect(null, {
+  markNotification,
+})(ConnectionNotification);
+
+// export default ConnectionNotification;

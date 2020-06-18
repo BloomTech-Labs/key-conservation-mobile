@@ -189,12 +189,6 @@ class NotificationsMain extends React.Component {
                     <ConnectionNotification
                       notifData={data}
                       nav={this.state.navigation}
-                    // onPress={() => {
-                    //   this.props.markNotification(
-                    //     data.user_id,
-                    //     data.notification_id
-                    //   );
-                    // }}
                     />
                   );
 
@@ -203,12 +197,6 @@ class NotificationsMain extends React.Component {
                     <CampaignNotification
                       notifData={data}
                       nav={this.state.navigation}
-                    // onPress={() => {
-                    //   this.props.markNotification(
-                    //     data.user_id,
-                    //     data.notification_id
-                    //   );
-                    // }}
                     />
                   );
 
