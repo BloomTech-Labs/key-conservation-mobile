@@ -90,7 +90,7 @@ const MapStack = createStackNavigator(
 
 const styles = StyleSheet.create({
   badge: {
-    backgroundColor: '#D7FE49',
+    backgroundColor: '#D7FE49', // #D7FE49
     color: 'black',
     overflow: 'hidden',
     position: 'relative',
@@ -126,8 +126,8 @@ const NotStack = createStackNavigator(
             badgeStyle={styles.badge}
             containerStyle={{
               position: 'absolute',
-              top: -20,
-              right: -20,
+              top: 5,
+              right: 10,
             }}
           />
         </>

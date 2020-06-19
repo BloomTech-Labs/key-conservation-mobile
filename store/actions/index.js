@@ -1232,13 +1232,12 @@ export const [
   ];
 
 export const getAllNotifications = (id) => (dispatch) => {
-  dispatch({ type: FETCH_NOTIFICATION_START }); // dsafkl
+  dispatch({ type: FETCH_NOTIFICATION_START });
   console.log('43eoidf: ' + id);
   return axios
     .get(`${seturl}notifications/${id}`)
     .then((res) => {
-      // console.log('FROM NOTES*******', res.data.notifications);
-      console.log('34987hr987fhds:', res.data.notifications);
+      console.log('FROM NOTES*******', res.data.notifications);
       dispatch({
         type: FETCH_NOTIFICATION_SUCCESS,
         payload: res.data.notifications,

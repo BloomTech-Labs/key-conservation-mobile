@@ -6,14 +6,20 @@ import {
   Text,
   Image,
   Button,
+  Alert,
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import moment from 'moment';
 import TimeStamp from './TimeStamp';
 import { connect } from 'react-redux';
-import { markNotification } from '../../store/actions';
+import {
+  editConnectStatus,
+  markNotification,
+  getConnections,
+  deleteConnection,
+} from '../../store/actions';
 import { NavigationEvents } from 'react-navigation';
-
+import X from '../../assets/jsicons/miscIcons/X';
 {
   /* TEAL COLOR: #00FF9D */
 }
@@ -22,11 +28,12 @@ const ConnectionNotification = (props) => {
   const createdAt = props.notifData.item.time;
   const [data, setData] = useState(props.notifData.item);
   const [read, setRead] = useState(props.notifData.item.new_notification);
+  const [connections, setConnections] = useState([]);
 
   useEffect(() => {
-    console.log('@@@@@@@@@', props.notifData);
-
-    console.log('**** data.new_notification ***', read);
+    // console.log('@@@@@@@@@', props.notifData);
+    getConnections();
+    // console.log('**** data.new_notification ***', read);
   }, [data]);
 
   const goToCommenterProfile = () => {
@@ -46,6 +53,48 @@ const ConnectionNotification = (props) => {
   //   }
   // };
 
+  const promptDelete = () => {
+    Alert.alert(
+      'Decline Connection',
+      `Are you sure you want to decline this connection?`,
+      [
+        {
+          text: 'Decline',
+          style: 'destructive',
+          onPress: disconnect,
+        },
+        { text: 'Cancel', style: 'cancel' },
+      ]
+    );
+  };
+
+  const getConnections = async () => {
+    try {
+      const connection = await props.getConnections(
+        props.notifData.item.user_id
+      );
+      if (Array.isArray(connection)) setConnections(connection);
+      else throw new Error(connection);
+    } catch (error) {
+      Alert.alert('Failed to get connections');
+    }
+  };
+
+  const myPendingConnection = connections?.find(
+    (connection) => connection.connector_id === props.notifData.item.sender_id
+  );
+
+  const approveRequest = () => {
+    props.editConnectStatus(myPendingConnection.id, {
+      status: 'Connected',
+    });
+  };
+
+  const disconnect = () => {
+    console.log('props.notifData.item.sender_id', myPendingConnection.id);
+    props.deleteConnection(myPendingConnection.id);
+  };
+
   const handleMark = () => {
     console.log('handleMark');
     props
@@ -61,7 +110,9 @@ const ConnectionNotification = (props) => {
   return (
     <TouchableOpacity
       style={
-        !props.notifData.new_notification ? styles.wrapper : styles.wrapperNew
+        !props.notifData.item.new_notification
+          ? styles.wrapper
+          : styles.wrapperNew
       }
       onPress={() => {
         handleMark();
@@ -90,11 +141,15 @@ const ConnectionNotification = (props) => {
         </View>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => {
-            props.nav.push('Connections', (props = { forceOpen: true }));
-          }}
+          // onPress={() => {
+          //   props.nav.push('Connections', (props = { forceOpen: true }));
+          // }}
+          onPress={() => approveRequest()}
         >
           <Text style={styles.connect}>Connect</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => promptDelete()}>
+          <X />
         </TouchableOpacity>
       </View>
     </TouchableOpacity>
@@ -175,7 +230,10 @@ const styles = StyleSheet.create({
 });
 
 export default connect(null, {
+  editConnectStatus,
   markNotification,
+  deleteConnection,
+  getConnections,
 })(ConnectionNotification);
 
 // export default ConnectionNotification;

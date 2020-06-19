@@ -39,6 +39,7 @@ const People = (props) => {
     });
   };
 
+  // Deletes the request
   const promptDelete = () => {
     Alert.alert(
       'Decline Connection',
@@ -54,6 +55,7 @@ const People = (props) => {
     );
   };
 
+  // Approves the request
   const approveRequest = () => {
     setConnections(connections.filter((c) => c.id !== myPendingConnection.id));
     props
@@ -70,6 +72,7 @@ const People = (props) => {
     getConnections();
   }, []);
 
+  // Locates a connection based on this cards connected ID
   const myPendingConnection = connections?.find(
     (connection) => connection.connected_id === props.currentUserProfile.id
   );
