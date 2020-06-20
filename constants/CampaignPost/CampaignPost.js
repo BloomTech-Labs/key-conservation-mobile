@@ -35,6 +35,7 @@ export default StyleSheet.create({
   orgTitleView: {
     fontFamily: 'Lato',
     fontSize: 17,
+    marginLeft: -10,
   },
   goToCampaignButton: {
     backgroundColor: 'rgba(0, 255, 157, 0.7)',
@@ -53,13 +54,11 @@ export default StyleSheet.create({
   },
   topRow: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
     width: '100%',
     paddingTop: 8,
   },
   topRowLeft: {
-    paddingLeft: 9,
-    width: '75%',
+    paddingLeft: 17,
   },
   topRowRight: {
     paddingRight: 10,

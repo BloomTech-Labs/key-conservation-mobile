@@ -182,10 +182,10 @@ const CampaignPost = (props) => {
         />
         <View style={styles.topRow}>
           <View style={styles.topRowLeft}>
-            <Text style={styles.postTitle}>{data.name}</Text>
-          </View>
-          <View style={styles.topRowRight}>
-            <Text style={styles.timeText}>{timeDiff}</Text>
+            <Text style={styles.postTitle}>
+              {shorten(data.name, 75)}
+              &nbsp;
+            </Text>
           </View>
         </View>
         <ListItem
@@ -193,7 +193,7 @@ const CampaignPost = (props) => {
           disabled={props.disableHeader}
           onPress={goToProfile}
           title={
-            <View style={styles.name}>
+            <View>
               <Text style={styles.orgTitleView}>{data.org_name}</Text>
             </View>
           }
@@ -233,6 +233,8 @@ const CampaignPost = (props) => {
           {toggled || data.description?.length < 80 ? (
             <View>
               <Text style={styles.campaignDescriptionText}>
+              <Text style={styles.timeText}>{timeDiff}</Text>
+              &nbsp;&nbsp; 
                 {data.description}
               </Text>
             </View>

@@ -25,14 +25,13 @@ Richard Machado - [GitHub](https://github.com/richardmachado) | [LinkedIn](https
 
 Michael Callahan - [GitHub](https://github.com/Callmich) | [LinkedIn](https://www.linkedin.com/in/michael-callahan-a640551a3/)
 
-Afia Caruso  - [GitHub](https://github.com/afialydia) | [LinkedIn](https://www.linkedin.com/in/afia-caruso/)
+Afia Caruso - [GitHub](https://github.com/afialydia) | [LinkedIn](https://www.linkedin.com/in/afia-caruso/)
 
 Alston Garrett - [GitHub](https://github.com/Neytoro) | [LinkedIn](https://www.linkedin.com/in/neytorokx/)
 
 Zahid Khawaja - [GitHub](https://github.com/zahidkhawaja) | [LinkedIn](https://www.linkedin.com/in/zahidkhawaja/)
 
-Daniel Kyman - [GitHub](https://github.com/danielkyman) | [LinkedIn]()
-https://www.linkedin.com/in/daniel-kyman-6816b3b2/)
+Daniel Kyman - [GitHub](https://github.com/danielkyman) | [LinkedIn](https://www.linkedin.com/in/daniel-kyman-6816b3b2/)
 
 ## Previous Labs Teams Who Contributed To This Project
 

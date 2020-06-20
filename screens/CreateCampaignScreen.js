@@ -19,7 +19,7 @@ import UploadMedia from '../components/UploadMedia';
 
 import styles from '../constants/screens/CreateCampaignScreen';
 import CheckMark from '../assets/icons/checkmark-24.png';
-
+import { shorten } from '../util';
 import Lightening from '../assets/jsicons/bottomnavigation/Lightening';
 import SelectSkillsContent from '../components/CampaignBuilder/SkillImpact/SelectSkillsContent';
 import SkillDescriptionForm from '../components/CampaignBuilder/SkillImpact/SkillDescriptionForm';
@@ -200,6 +200,7 @@ class CreateCampaignScreen extends React.Component {
               }}
               blurOnSubmit={Platform.OS === 'android'}
               value={this.state.name}
+              maxLength={70}
             />
           </View>
         </View>
