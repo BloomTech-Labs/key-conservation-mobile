@@ -13,7 +13,7 @@ import { AmpEvent } from '../withAmplitude';
 import { Avatar } from 'react-native-elements';
 import moment from 'moment';
 import TimeStamp from './TimeStamp';
-import { setCampaign } from '../../store/actions';
+import { openCampaign } from '../../store/actions';
 
 const CampaignNotification = (props) => {
   // useEffect(() => {
@@ -55,10 +55,10 @@ const CampaignNotification = (props) => {
       profile: props.notifData.item.sender_name,
     });
     // console.log('testme', props.notifData.item);
-    dispatch(setCampaign(props.notifData.item));
-    // console.log('!!!!!!!!!!!!!!!!!!!!!!!', selectedCampaign);
+    dispatch(openCampaign(props.notifData.item));
     navigate('Campaign', {
       userBookmarked: 153,
+      postId: props.notifData.item.id,
     });
   };
 
@@ -187,7 +187,6 @@ const mapStateToProps = (state) => ({
   currentUserProfile: state.currentUserProfile,
   currentUser: state.currentUser,
   token: state.token,
-  selectedCampaign: state.selectedCampaign,
   deleteBuffer: state.pending.deletePost,
   bookmarks: state.bookmarks,
   bookmarksLoading: state.pending.bookmarks,

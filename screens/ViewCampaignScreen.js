@@ -58,6 +58,14 @@ class ViewCampaignScreen extends React.Component {
     this.mounted = false;
 
     this.scrollView = React.createRef();
+
+    if (!this.props.navigation.getParam('postId')) {
+      // Crash the app if no postId is provided - Prevents developers from
+      // releasing the app without fixing this issue
+      throw new Error('No postId parameter provided to ViewCampaignScreen');
+    } else {
+      this.postId = this.props.navigation.getParam('postId');
+    }
   }
 
   state = {
@@ -79,12 +87,11 @@ class ViewCampaignScreen extends React.Component {
     let campaign_id = this.props.navigation.getParam('campaign_id');
 
     if (campaign_id) {
-      this.props.getOriginalPost(campaign_id).finally(() => {
-        if (this.mounted) this.loadPostData();
-      });
-    } else this.loadPostData();
+      this.props.getOriginalPost(campaign_id);
+    }
 
-    campaign_id = campaign_id || this.props.selectedCampaign.campaign_id;
+    campaign_id =
+      campaign_id || this.props.openCampaigns[this.postId]?.campaign_id;
 
     if (this.props.navigation.getParam('updates')) {
       this.setState({
@@ -119,7 +126,8 @@ class ViewCampaignScreen extends React.Component {
 
   setBookmarked = () => {
     let isBookmarked = this.props.bookmarks?.filter(
-      (bm) => bm.campaign_id === this.state.campaign_id
+      (bm) =>
+        bm.campaign_id === this.props.openCampaigns[this.postId]?.campaign_id
     );
     isBookmarked = isBookmarked.length > 0;
     if (this.state.isBookmarked !== isBookmarked) {
@@ -153,29 +161,19 @@ class ViewCampaignScreen extends React.Component {
     }
   }
 
-  loadPostData() {
-    const campaignPost = this.props.selectedCampaign || {};
-
-    this.setState({
-      createdAt: campaignPost.created_at
-        ? moment(campaignPost.created_at).fromNow()
-        : '...',
-      ...campaignPost,
-    });
-  }
-
   showActionSheet = () => {
     this.ActionSheet?.show();
   };
 
   viewOriginalPost = () => {
-    if (typeof Number(this.campaign_id) === 'number') {
+    const campaign = this.props.openCampaigns[this.postId];
+    if (typeof camoaign?.campaign_id === 'number') {
       navigate(
         'Campaign',
         {
-          campaign_id: this.state.campaign_id,
+          campaign_id: campaign.campaign_id,
         },
-        `${this.state.campaign_id}_${this.state.id}`
+        `${campaign.campaign_id}_${campaign.id}`
       );
     } else {
       console.log('Could not navigate to original post, invalid campaign id');
@@ -184,15 +182,19 @@ class ViewCampaignScreen extends React.Component {
 
   handleBookmarkPressed = () => {
     if (this.state.isBookmarked) {
-      this.props.removeBookmark(this.state.campaign_id);
+      this.props.removeBookmark(
+        this.props.openCampaigns[this.postId]?.campaign_id
+      );
     } else {
-      this.props.addBookmark(this.state);
+      this.props.addBookmark(this.props.openCampaigns[this.postId]);
     }
 
     this.setBookmarked();
   };
 
   render() {
+    const post = this.props.openCampaigns[this.postId] || {};
+
     return (
       <View style={styles.mainContainer}>
         <KeyboardAwareScrollView
@@ -200,7 +202,7 @@ class ViewCampaignScreen extends React.Component {
           extraScrollHeight={50}
           enableOnAndroid={false}
         >
-          {this.state.is_update ? (
+          {post.is_update ? (
             <TouchableOpacity
               activeOpacity={0.8}
               onPress={this.viewOriginalPost}
@@ -224,9 +226,9 @@ class ViewCampaignScreen extends React.Component {
             {!this.props.loading ? (
               <CampaignActionSheet
                 admin={this.props.currentUserProfile.admin}
-                post={this.state}
+                post={post}
                 ref={(o) => (this.ActionSheet = o)}
-                isMine={this.props.currentUserProfile.id === this.state.user_id}
+                isMine={this.props.currentUserProfile.id === post.user_id}
                 goBack
               />
             ) : null}
@@ -235,50 +237,51 @@ class ViewCampaignScreen extends React.Component {
                 <View style={styles.topRow}>
                   <View style={styles.topRowLeft}>
                     <Text style={styles.postTitle}>
-                    {shorten(this.state.name, 75)}
-              &nbsp;</Text>
+                      {shorten(post.name, 75)}
+                      &nbsp;
+                    </Text>
                   </View>
                 </View>
                 <ListItem
                   onPress={this.goToProfile}
                   title={
                     <View>
-                      <Text style={styles.listName}>{this.state.org_name}</Text>
+                      <Text style={styles.listName}>{post.org_name}</Text>
                     </View>
                   }
                   leftAvatar={{
                     source: {
-                      uri: this.state.profile_image || undefined,
+                      uri: post.profile_image || undefined,
                     },
                   }}
                   subtitle={
                     <View style={{ flexDirection: 'row' }}>
-                      {this.state.location !== (undefined || null) ? (
+                      {post.location !== (undefined || null) ? (
                         <MapMarker fill="#505050" />
                       ) : null}
                       <Text style={{ color: '#929292', paddingLeft: 3 }}>
-                        {this.state.location}
+                        {post.location}
                       </Text>
                     </View>
                   }
                 />
                 <View style={styles.campaignDescriptionContainer}>
                   <Text style={styles.campaignDescription}>
-                  <Text style={styles.timeText}>{this.state.createdAt}</Text>
-                  &nbsp;&nbsp; 
-                    {this.state.description}        
+                    <Text style={styles.timeText}>
+                      {moment(post.created_at).fromNow()}
+                    </Text>
+                    &nbsp;&nbsp;
+                    {post.description}
                   </Text>
                 </View>
                 <MediaViewer
-                  source={this.state.image}
-                  urgency={this.state.urgency}
-                  isUpdate={this.state.is_update}
+                  source={post.image}
+                  urgency={post.urgency}
+                  isUpdate={post.is_update}
                 />
                 <View style={styles.campaignControls}>
                   <View style={styles.campaignControlsLeft}>
-                    <SmileSelector
-                      postId={this.state.campaign_id || this.state.id}
-                    />
+                    <SmileSelector postId={post.campaign_id || post.id} />
                   </View>
                   <View style={styles.campaignControlsRight}>
                     {this.props.currentUserProfile.roles === 'supporter' ? (
@@ -300,7 +303,7 @@ class ViewCampaignScreen extends React.Component {
 
                 <View style={styles.donateView}>
                   <TakeActionCallToAction
-                    data={this.props.selectedCampaign}
+                    data={this.props.openCampaigns[this.postId]}
                     navigation={this.props.navigation}
                   />
                 </View>
@@ -324,9 +327,13 @@ class ViewCampaignScreen extends React.Component {
                           paddingBottom: 8,
                         }}
                       >
-                        Comments ({this.state.comments?.length || 0})
+                        Comments ({post.comments?.length || 0})
                       </Text>
-                      <CommentsView comments={this.state.comments} />
+                      <CommentsView
+                        comments={post.comments}
+                        campaignId={post.campaign_id}
+                        postId={post.id}
+                      />
                     </View>
                   )}
                 </View>
@@ -339,12 +346,11 @@ class ViewCampaignScreen extends React.Component {
             <Text style={styles.updatesLoadingError}>
               {this.state.updatesError}
             </Text>
-          ) : this.state.updates?.filter((u) => u.id !== this.state.id).length >
-            0 ? (
+          ) : this.state.updates?.filter((u) => u.id !== post.id).length > 0 ? (
             <View style={styles.container}>
               <Text style={styles.updatesTitle}>Latest updates</Text>
               {this.state.updates
-                .filter((u) => u.id !== this.state.id)
+                .filter((u) => u.id !== post.id)
                 .map((update, index) => {
                   return (
                     <View
@@ -401,7 +407,7 @@ class ViewCampaignScreen extends React.Component {
 
   goToProfile = () => {
     this.props.navigation.navigate('Pro', {
-      selectedProfile: this.state.user_id,
+      selectedProfile: this.props.openCampaigns[this.postId]?.user_id,
     });
   };
 }
@@ -411,7 +417,7 @@ const mapStateToProps = (state) => ({
   bookmarks: state.bookmarks,
   bookamrksLoading: state.pending.bookmarks,
   bookmarksError: state.errors.bookmarks,
-  selectedCampaign: state.selectedCampaign,
+  openCampaigns: state.openCampaigns,
   currentUser: state.currentUser,
   currentUserProfile: state.currentUserProfile,
   token: state.token,

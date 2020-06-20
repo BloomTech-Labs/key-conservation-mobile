@@ -48,36 +48,33 @@ const axiosWithAuth = (dispatch, req) => {
 
         if (error.response?.data?.logout) {
           dispatch(logout(error.response.data.message));
-        } else {
-          if (error.config && error.response?.status === 401) {
-            console.log(
-              'request failed with 401, checking for refresh token...'
-            );
-            return SecureStore.getItemAsync('refreshToken')
-              .then(
-                ((rToken) => {
-                  if (rToken) {
-                    return dispatch(refreshSession())
-                      .then((token) => {
-                        error.config.headers.Authorization = `Bearer ${token}`;
-                        console.log(`Retrying request with new token...`);
-                        return axios.request(error.config);
-                      })
-                      .catch((err) => {
-                        return Promise.reject(err);
-                      });
-                  } else {
-                    console.log('Refresh token not found, rejecting request');
-                    return Promise.reject(error);
-                  }
-                }).bind(this)
-              )
-              .catch((err) => {
-                console.log(err);
-                return err;
-              });
-          }
+        } else if (error.config && error.response?.status === 401) {
+          console.log('request failed with 401, checking for refresh token...');
+          return SecureStore.getItemAsync('refreshToken')
+            .then(
+              ((rToken) => {
+                if (rToken) {
+                  return dispatch(refreshSession())
+                    .then((token) => {
+                      error.config.headers.Authorization = `Bearer ${token}`;
+                      console.log(`Retrying request with new token...`);
+                      return axios.request(error.config);
+                    })
+                    .catch((err) => {
+                      return Promise.reject(err);
+                    });
+                } else {
+                  console.log('Refresh token not found, rejecting request');
+                  return Promise.reject(error);
+                }
+              }).bind(this)
+            )
+            .catch((err) => {
+              return err;
+            });
         }
+
+        return Promise.reject(error);
       });
 
       return req(instance);
@@ -283,7 +280,7 @@ export const getAirtableKey = () => {
         );
         return response.data.airtable_key;
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log('getAirtableKey', error));
   });
 };
 
@@ -345,7 +342,7 @@ export const getLoadingData = (sub) => (dispatch) => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.log('getLoadingData', error);
         dispatch({ type: GET_AUTH_ERROR, payload: error.message });
       });
   });
@@ -668,13 +665,23 @@ export const getOriginalPost = (campaign_id) => (dispatch) => {
   });
 };
 
-export const SET_CAMPAIGN = 'SET_CAMPAIGN';
+export const [OPEN_CAMPAIGN, CLOSE_CAMPAIGN] = [
+  'OPEN_CAMPAIGN',
+  'CLOSE_CAMPAIGN',
+];
 
-export const setCampaign = (campaign) => {
-  return {
-    type: SET_CAMPAIGN,
+export const openCampaign = (campaign) => (dispatch) => {
+  dispatch({
+    type: OPEN_CAMPAIGN,
     payload: campaign,
-  };
+  });
+};
+
+export const closeCampaign = (campaignId) => (dispatch) => {
+  dispatch({
+    type: CLOSE_CAMPAIGN,
+    payload: campaignId,
+  });
 };
 
 export const [
@@ -939,9 +946,39 @@ export const toggleCampaignText = (id) => ({
   payload: id,
 });
 
+export const [
+  GET_CAMPAIGN_COMMENTS_START,
+  GET_CAMPAIGN_COMMENTS_SUCCESS,
+  GET_CAMPAIGN_COMMENTS_ERROR,
+] = [
+  'GET_CAMPAIGN_COMMENTS_START',
+  'GET_CAMPAIGN_COMMENTS_SUCCESS',
+  'GET_CAMPAIGN_COMMENTS_ERROR',
+];
+
 export const getCampaignComments = (id) => (dispatch) => {
+  dispatch({
+    type: GET_CAMPAIGN_COMMENTS_START,
+  });
   return axiosWithAuth(dispatch, (aaxios) => {
-    return aaxios.get(`${seturl}comments/${id}`);
+    return aaxios
+      .get(`${seturl}comments/${id}`)
+      .then((res) => {
+        dispatch({
+          type: GET_CAMPAIGN_COMMENTS_SUCCESS,
+          payload: {
+            campaign_id: id,
+            comments: res?.data?.data || [],
+          },
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch({
+          type: GET_CAMPAIGN_COMMENTS_ERROR,
+          payload: 'Failed to get campaign comments',
+        });
+      });
   });
 };
 
@@ -1015,7 +1052,13 @@ export const commentOnCampaign = (id, body) => (dispatch) => {
         body: body,
       })
       .then((res) => {
-        dispatch({ type: POST_COMMENT_SUCCESS, payload: res.data.data });
+        dispatch({
+          type: POST_COMMENT_SUCCESS,
+          payload: {
+            campaign_id: id,
+            comments: res.data.data,
+          },
+        });
         return res.data.data;
       })
       .catch((err) => {

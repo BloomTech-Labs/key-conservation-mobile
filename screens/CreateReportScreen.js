@@ -73,7 +73,7 @@ class CreateReportScreen extends Component {
       }
       case 'campaign_posts': {
         const { profile_image: image, name, descripton: text_data } =
-          this.props.selectedCampaign || {};
+          this.props.openCampaigns[this.id] || {};
         this.setState({
           image,
           name,
@@ -84,9 +84,9 @@ class CreateReportScreen extends Component {
       }
       case 'comments': {
         const { profile_image: image, body: text_data, name } =
-          this.props.selectedCampaign.comments.find(
-            (com) => com.id === this.id
-          ) || {};
+          this.props.openCampaigns[
+            this.props.navigation.getParam('postId')
+          ]?.comments?.find((com) => com.id === this.id) || {};
         this.setState({
           image,
           name,
@@ -189,8 +189,8 @@ class CreateReportScreen extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  selectedCampaign: state.selectedCampaign,
   selectedProfile: state.selectedProfile,
+  openCampaigns: state.openCampaigns,
 });
 
 export default connect(mapStateToProps, { createReport })(CreateReportScreen);

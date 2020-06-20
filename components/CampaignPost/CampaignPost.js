@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 
 import {
   toggleCampaignText,
-  setCampaign,
+  openCampaign,
   addBookmark,
   removeBookmark,
   fetchBookmarks,
@@ -129,11 +129,12 @@ const CampaignPost = (props) => {
       campaign: data.campaign_name,
       profile: data.org_name,
     });
-    dispatch(setCampaign(data));
+    dispatch(openCampaign(data));
     navigate(
       'Campaign',
       {
         userBookmarked: data.userBookmarked,
+        postId: data.id,
         ...params,
       },
       `${data.id}`
@@ -233,8 +234,8 @@ const CampaignPost = (props) => {
           {toggled || data.description?.length < 80 ? (
             <View>
               <Text style={styles.campaignDescriptionText}>
-              <Text style={styles.timeText}>{timeDiff}</Text>
-              &nbsp;&nbsp; 
+                <Text style={styles.timeText}>{timeDiff}</Text>
+                &nbsp;&nbsp;
                 {data.description}
               </Text>
             </View>

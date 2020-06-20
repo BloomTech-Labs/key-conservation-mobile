@@ -18,7 +18,6 @@ class CommentsView extends React.Component {
   mounted = false;
 
   state = {
-    comments: [],
     comment: '',
     commentsVisible: 3,
     height: 40,
@@ -33,22 +32,17 @@ class CommentsView extends React.Component {
 
   componentDidMount() {
     this.mounted = true;
-    const campaign_id = this.props.selectedCampaign?.campaign_id;
+    const campaign_id = this.props.campaignId;
 
     this.setState({
-      comments: this.props.comments,
       campaign_id: campaign_id,
     });
 
-    if (campaign_id)
-      this.props
-        .getCampaignComments(campaign_id)
-        .then((res) => {
-          if (this.mounted) this.setState({ comments: res?.data?.data || [] });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    if (campaign_id) this.props.getCampaignComments(campaign_id);
+    else
+      console.warn(
+        'No campaign_id passed to CommentsView. This can cause unwanted behavior'
+      );
   }
 
   componentDidUpdate() {
@@ -61,21 +55,11 @@ class CommentsView extends React.Component {
     });
   };
 
-  refreshComments = (comments) => {
-    if (this.mounted) {
-      this.setState({
-        comments,
-      });
-    }
-  };
-
   postComment = () => {
-    this.props
-      .commentOnCampaign(
-        this.props.selectedCampaign.campaign_id,
-        this.state.comment.trim()
-      )
-      .then((comments) => this.refreshComments(comments));
+    this.props.commentOnCampaign(
+      this.props.campaignId,
+      this.state.comment.trim()
+    );
 
     // Add ghost comment for better user experience
     this.bufferedComment = {
@@ -92,8 +76,10 @@ class CommentsView extends React.Component {
 
   render() {
     const comments = [
+      ...(this.props.openCampaigns[this.props.postId]?.comments ||
+        this.props.comments ||
+        []),
       this.bufferedComment,
-      ...(this.state.comments || this.props.comments || []),
     ]
       ?.filter((com) => com !== null)
       .sort((a, b) => new Date(a).getTime() < new Date(b).getTime())
@@ -104,7 +90,7 @@ class CommentsView extends React.Component {
             key={comment.id || 999}
             comment={comment}
             currentUserProfile={this.props.currentUserProfile}
-            selectedCampaign={this.props.selectedCampaign}
+            postId={this.props.postId}
           />
         );
       });
@@ -171,7 +157,7 @@ class CommentsView extends React.Component {
 
 const mapStateToProps = (state) => ({
   currentUserProfile: state.currentUserProfile,
-  selectedCampaign: state.selectedCampaign,
+  openCampaigns: state.openCampaigns,
 });
 
 export default connect(mapStateToProps, {
