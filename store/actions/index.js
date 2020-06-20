@@ -5,6 +5,7 @@ import * as SecureStore from 'expo-secure-store';
 import { navigate } from '../../navigation/RootNavigator';
 import { Alert } from 'react-native';
 import JwtDecode from 'jwt-decode';
+import Auth0 from 'react-native-auth0';
 
 // For canceling requests
 const CancelToken = axios.CancelToken;
@@ -33,22 +34,51 @@ const axiosWithAuth = (dispatch, req) => {
   return SecureStore.getItemAsync('accessToken')
     .then((token) => {
       // Create request with auth header
-      const instance = axios.create({
+      let instance = axios.create({
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       // Response interceptor to check whether or not
       // to log the user out
-      instance.interceptors.response.use(
-        (response) => response,
-        (error) => {
-          if (error.response?.data?.logout) {
-            dispatch(logout(error.response.data.message));
-          }
+      instance.interceptors.response.use(null, (error) => {
+        if (!dispatch) {
           return Promise.reject(error);
         }
-      );
+
+        if (error.response?.data?.logout) {
+          dispatch(logout(error.response.data.message));
+        } else {
+          if (error.config && error.response?.status === 401) {
+            console.log(
+              'request failed with 401, checking for refresh token...'
+            );
+            return SecureStore.getItemAsync('refreshToken')
+              .then(
+                ((rToken) => {
+                  if (rToken) {
+                    return dispatch(refreshSession())
+                      .then((token) => {
+                        error.config.headers.Authorization = `Bearer ${token}`;
+                        console.log(`Retrying request with new token...`);
+                        return axios.request(error.config);
+                      })
+                      .catch((err) => {
+                        return Promise.reject(err);
+                      });
+                  } else {
+                    console.log('Refresh token not found, rejecting request');
+                    return Promise.reject(error);
+                  }
+                }).bind(this)
+              )
+              .catch((err) => {
+                console.log(err);
+                return err;
+              });
+          }
+        }
+      });
 
       return req(instance);
     })
@@ -56,6 +86,8 @@ const axiosWithAuth = (dispatch, req) => {
       console.log(err);
     });
 };
+
+export const AUTH0_DOMAIN = 'https://key-conservation.auth0.com/';
 
 // url for heroku staging vs production server
 // comment out either server depending on testing needs
@@ -97,9 +129,10 @@ export const loginError = (error) => ({
   payload: error,
 });
 export const loginSuccess = (credentials, role) => async (dispatch) => {
-  await SecureStore.setItemAsync('accessToken', credentials.idToken);
+  SecureStore.setItemAsync('refreshToken', credentials.refreshToken);
   const decoded = JwtDecode(credentials.idToken);
 
+  await SecureStore.setItemAsync('accessToken', credentials.idToken);
   await SecureStore.setItemAsync('sub', decoded.sub);
   await SecureStore.setItemAsync('email', decoded.email);
   await SecureStore.setItemAsync('roles', role);
@@ -127,6 +160,9 @@ export const logout = (message = '') => async (dispatch) => {
   await SecureStore.deleteItemAsync('id', {});
   await SecureStore.deleteItemAsync('userId', {});
   await SecureStore.deleteItemAsync('accessToken', {});
+  await SecureStore.deleteItemAsync('refreshToken');
+
+  // TODO: Blacklist refresh token
 
   console.log('logging out');
 
@@ -138,6 +174,96 @@ export const logout = (message = '') => async (dispatch) => {
     type: LOGOUT,
     payload: message,
   });
+};
+
+export const [
+  BEGIN_EXCHANGE_TOKEN,
+  LISTEN_FOR_EXCHANGE_TOKEN,
+  EXCHANGE_TOKEN_SUCCESS,
+  EXCHANGE_TOKEN_FAILURE,
+] = [
+  'BEGIN_EXCHANGE_TOKEN',
+  'LISTEN_FOR_EXCHANGE_TOKEN',
+  'EXCHANGE_TOKEN_SUCCESS',
+  'EXCHANGE_TOKEN_FAILURE',
+];
+
+const refreshSession = () => async (dispatch, getState) => {
+  const state = await getState();
+
+  if (state.exchangingTokens) {
+    console.log('Request already made, waiting for result... (add to queue)');
+
+    let $resolve, $reject;
+    const promise = new Promise((resolve, reject) => {
+      $resolve = resolve;
+      $reject = reject;
+    });
+    dispatch({
+      type: LISTEN_FOR_EXCHANGE_TOKEN,
+      payload: {
+        resolve: $resolve,
+        reject: $reject,
+      },
+    });
+
+    const token = await promise;
+
+    return token;
+  } else {
+    dispatch({
+      type: BEGIN_EXCHANGE_TOKEN,
+    });
+    console.log('Sending refresh token to Auth0 for exchange...');
+  }
+
+  const CLIENT_ID = await SecureStore.getItemAsync('active_auth_client_id');
+  const ID_TOKEN = await SecureStore.getItemAsync('accessToken');
+  const REFRESH_TOKEN = await SecureStore.getItemAsync('refreshToken');
+
+  const decoded = JwtDecode(ID_TOKEN);
+
+  // If our token is not yet expired, then this is not a refresh issue.
+  // Cancel the refresh return
+  if (decoded.exp > Date.now()) {
+    console.log('access token still valid');
+    return;
+  }
+
+  const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId: CLIENT_ID });
+
+  let credentials;
+
+  try {
+    credentials = await auth0.auth.refreshToken({
+      refreshToken: REFRESH_TOKEN,
+    });
+  } catch (err) {
+    dispatch({
+      type: EXCHANGE_TOKEN_FAILURE,
+    });
+    SecureStore.deleteItemAsync('refreshToken');
+    dispatch(
+      logout(
+        'Oops, we were unable to authenticate you. Please log in again to continue.'
+      )
+    );
+    throw new Error(
+      'Exchange failed. Deleting refresh token and logging out',
+      JSON.stringify(err)
+    );
+  }
+
+  console.log('Exhanged refresh token for new credentials successfully');
+  SecureStore.setItemAsync('refreshToken', credentials.refreshToken);
+  await SecureStore.setItemAsync('accessToken', credentials.idToken);
+
+  dispatch({
+    type: EXCHANGE_TOKEN_SUCCESS,
+    payload: credentials.idToken,
+  });
+
+  return credentials.idToken;
 };
 
 export const AFTER_FIRST_LOGIN = 'AFTER_FIRST_LOGIN';
@@ -889,9 +1015,8 @@ export const commentOnCampaign = (id, body) => (dispatch) => {
         body: body,
       })
       .then((res) => {
-        console.log('res', res);
         dispatch({ type: POST_COMMENT_SUCCESS, payload: res.data.data });
-        return aaxios.get(`${seturl}comments/${id}`);
+        return res.data.data;
       })
       .catch((err) => {
         console.log(err);
@@ -1281,12 +1406,6 @@ export const unsetActiveVideo = (postId) => (dispatch) => {
     type: UNSET_ACTIVE_VIDEO,
     payload: postId,
   });
-};
-
-export const UPDATE_PROFILE_DATA = 'UPDATE_PROFILE_DATA';
-
-export const updateProfileData = (data) => (dispatch) => {
-  dispatch({ type: UPDATE_PROFILE_DATA, payload: data });
 };
 
 // TODO: Add getting emoji reaction details (User names and avatars for each emoji)

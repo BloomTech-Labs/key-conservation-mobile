@@ -2,11 +2,7 @@ import React from 'react';
 import { ActivityIndicator, Alert, View, Animated } from 'react-native';
 import { connect } from 'react-redux';
 import { Viewport } from '@skele/components';
-import {
-  getProfileData,
-  createReport,
-  updateProfileData,
-} from '../store/actions';
+import { getProfileData, createReport } from '../store/actions';
 import ProfileHeader from '../components/Profile/ProfileHeader';
 import BackButton from '../components/BackButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -16,8 +12,6 @@ import SettingsButton from '../components/SettingsButton';
 import EditButton from '../components/EditButton';
 import ProfileBody from '../components/Profile/ProfileBody';
 import { NavigationEvents, withNavigationFocus } from 'react-navigation';
-
-import WebSocketManager from '../websockets/WebSocketManager';
 
 class ProfileScreen extends React.Component {
   constructor(props) {
@@ -71,13 +65,6 @@ class ProfileScreen extends React.Component {
     }
   };
 
-  updateProfile(data) {
-    // TODO: Complete
-    console.log('ProfileScreen received data: ' + data);
-
-    this.props.updateProfileData(data);
-  }
-
   componentWillUnmount() {
     this.mounted = false;
   }
@@ -87,11 +74,6 @@ class ProfileScreen extends React.Component {
     if (this.state.loading) {
       this.initProfileData();
     }
-
-    WebSocketManager.getInstance().subscribe(
-      'profile',
-      this.props.updateProfile
-    );
   };
 
   static navigationOptions = ({ navigation }) => {
@@ -243,5 +225,4 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getProfileData,
   createReport,
-  updateProfileData,
 })(withNavigationFocus(ProfileScreen));

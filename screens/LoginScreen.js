@@ -13,7 +13,7 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   TouchableWithoutFeedback,
-  Alert
+  Alert,
 } from 'react-native';
 
 import KeyInfoYellow from '../assets/jsicons/KeyCon/KeyInfoYellow';
@@ -26,18 +26,17 @@ import {
   loginStart,
   loginError,
   loginSuccess,
-  getAirtableKey
+  getAirtableKey,
+  AUTH0_DOMAIN,
 } from '../store/actions';
 import AnimalModal from '../components/Animals/AnimalModal';
 
 const DEVICE_WIDTH = Dimensions.get('screen').width;
 
-const AUTH0_DOMAIN = 'https://key-conservation.auth0.com/';
-
-export default LoginScreen = props => {
+export default LoginScreen = (props) => {
   navigationOptions = () => {
     return {
-      headerShown: false
+      headerShown: false,
     };
   };
 
@@ -47,12 +46,12 @@ export default LoginScreen = props => {
 
   const [SUPPORTER_CLIENT_ID, CONSERVATIONIST_CLIENT_ID] = [
     'DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S',
-    'elyo5qK7vYReEsKAPEADW2T8LAMpIJaf'
+    'elyo5qK7vYReEsKAPEADW2T8LAMpIJaf',
   ];
 
   const [SUPPORTER_CONNECTION, CONSERVATIONIST_CONNECTION] = [
     'SupporterDB',
-    'Username-Password-Authentication'
+    'Username-Password-Authentication',
   ];
 
   const [connection, setConnection] = useState('');
@@ -63,7 +62,7 @@ export default LoginScreen = props => {
     new Animated.ValueXY({ x: DEVICE_WIDTH, y: -DEVICE_WIDTH })
   );
 
-  const setRole = role => {
+  const setRole = (role) => {
     setUserRole(role);
 
     if (role === 'supporter') {
@@ -78,17 +77,17 @@ export default LoginScreen = props => {
   const enterAnim = Animated.timing(animation, {
     toValue: {
       x: 0,
-      y: 0
+      y: 0,
     },
-    duration: 240
+    duration: 240,
   });
 
   const exitAnim = Animated.timing(animation, {
     toValue: {
       x: DEVICE_WIDTH,
-      y: -DEVICE_WIDTH
+      y: -DEVICE_WIDTH,
     },
-    duration: 240
+    duration: 240,
   });
 
   useEffect(() => {
@@ -97,7 +96,7 @@ export default LoginScreen = props => {
     } else enterAnim.start();
   }, [role]);
 
-  const resetPassword = email => {
+  const resetPassword = (email) => {
     const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId });
 
     // console.log(email, connection);
@@ -110,7 +109,7 @@ export default LoginScreen = props => {
           'You will recieve an email with further instructions shortly if you entered your email correctly!'
         );
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -123,12 +122,12 @@ export default LoginScreen = props => {
       .createUser({
         email,
         password,
-        connection
+        connection,
       })
-      .then(success => {
+      .then((success) => {
         realmLogin(email, password);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log('failed');
         console.log('error');
         let message =
@@ -163,12 +162,12 @@ export default LoginScreen = props => {
         username,
         password,
         realm: connection,
-        scope: 'openid profile email'
+        scope: 'openid profile email offline_access',
       })
-      .then(credentials => {
+      .then((credentials) => {
         onSuccess(credentials);
       })
-      .catch(error => {
+      .catch((error) => {
         onFailure(error.message);
         console.log(error.message);
       });
@@ -184,7 +183,7 @@ export default LoginScreen = props => {
   // a way to get OAuth working without needing to link those custom
   // NativeModules, but this feature will have to wait until a
   // Google account with OAuth dev keys is set up.
-  const webAuth = connection => {
+  const webAuth = (connection) => {
     const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId });
 
     dispatch(loginStart());
@@ -192,20 +191,23 @@ export default LoginScreen = props => {
     auth0.webAuth
       .authorize({
         scope: 'openid profile email',
-        connection
+        connection,
       })
-      .then(credentials => {
+      .then((credentials) => {
         onSuccess(credentials);
         console.log(credentials);
       })
-      .catch(error => {
+      .catch((error) => {
         onFailure(error.message);
         console.log(error.message);
       });
   };
 
-  const onSuccess = async credentials => {
+  const onSuccess = async (credentials) => {
     dispatch(loginSuccess(credentials, role));
+
+    SecureStore.setItemAsync('active_auth_client_id', clientId);
+    SecureStore.setItemAsync('active_auth_connection', connection);
 
     // Make sure airtableKey exists
     const key = await SecureStore.getItemAsync('airtableKey', {});
@@ -215,14 +217,14 @@ export default LoginScreen = props => {
     }
   };
 
-  const onFailure = message => {
+  const onFailure = (message) => {
     dispatch(loginError(message));
     Alert.alert(message);
   };
 
   const formOpacity = animation.x.interpolate({
     inputRange: [0, DEVICE_WIDTH / 2, DEVICE_WIDTH],
-    outputRange: [1, 0.2, 0]
+    outputRange: [1, 0.2, 0],
   });
 
   return (
@@ -244,7 +246,7 @@ export default LoginScreen = props => {
           </TouchableWithoutFeedback>
         </View>
         <KeyboardAvoidingView
-          behavior='position'
+          behavior="position"
           style={styles.keyboardAvoidingView}
           contentContainerStyle={styles.keyboardAvoidingView}
         >
@@ -252,7 +254,7 @@ export default LoginScreen = props => {
             <Animated.View
               style={[
                 styles.formView,
-                { left: animation.x, right: animation.y, opacity: formOpacity }
+                { left: animation.x, right: animation.y, opacity: formOpacity },
               ]}
             >
               <AuthForm

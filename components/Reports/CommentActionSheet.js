@@ -68,8 +68,6 @@ export default forwardRef((props, ref) => {
       if (err) {
         Alert.alert('Failed to delete comment');
         props.onDelete?.(true);
-      } else {
-        Alert.alert('Deleted successfully!');
       }
     });
   };

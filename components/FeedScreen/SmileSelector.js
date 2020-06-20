@@ -30,7 +30,7 @@ const SmileSelector = (props) => {
       const emojiReactions = await props.getCampaignPostReactions(props.postId);
 
       const reactions = {};
-
+      if (!emojiReactions?.reactions) return;
       emojiReactions.reactions.forEach((emote) => {
         reactions[emote] = reactions[emote] || 0;
         reactions[emote] += 1;
@@ -51,9 +51,8 @@ const SmileSelector = (props) => {
         setLoading(false);
       }
     }
-
   };
-  
+
   useEffect(() => {
     mounted = true;
     if (props.postId && Object.entries(emoji).length === 0) init();

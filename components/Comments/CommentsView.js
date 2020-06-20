@@ -61,11 +61,21 @@ class CommentsView extends React.Component {
     });
   };
 
+  refreshComments = (comments) => {
+    if (this.mounted) {
+      this.setState({
+        comments,
+      });
+    }
+  };
+
   postComment = () => {
-    this.props.commentOnCampaign(
-      this.props.selectedCampaign.campaign_id,
-      this.state.comment.trim()
-    );
+    this.props
+      .commentOnCampaign(
+        this.props.selectedCampaign.campaign_id,
+        this.state.comment.trim()
+      )
+      .then((comments) => this.refreshComments(comments));
 
     // Add ghost comment for better user experience
     this.bufferedComment = {
@@ -91,7 +101,7 @@ class CommentsView extends React.Component {
       .map((comment) => {
         return (
           <Comment
-            key={comment.id}
+            key={comment.id || 999}
             comment={comment}
             currentUserProfile={this.props.currentUserProfile}
             selectedCampaign={this.props.selectedCampaign}

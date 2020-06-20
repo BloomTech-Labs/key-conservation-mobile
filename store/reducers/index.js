@@ -10,6 +10,8 @@ import * as actions from '../actions';
 
 const initialState = {
   error: '',
+  exchangingTokens: false,
+  tokenExchangeCallbacks: [],
   errors: {
     getFeed: '',
     getCampaign: '',
@@ -166,7 +168,7 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, updateProfile: true },
         currentUserProfile: {
           ...state.currentUserProfile,
-          ...action.payload
+          ...action.payload,
         },
         error: '',
       };
@@ -176,7 +178,7 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, updateProfile: false },
         currentUserProfile: {
           ...state.currentUserProfile,
-          ...action.payload
+          ...action.payload,
         },
       };
     case actions.EDIT_PROFILE_ERROR:
@@ -457,9 +459,9 @@ const reducer = (state = initialState, action) => {
         ...state,
         currentUserProfile: {
           ...state.currentUserProfile,
-          ...action.payload
-        }
-      }
+          ...action.payload,
+        },
+      };
     case actions.TOGGLE_CAMPAIGN_TEXT:
       return {
         ...state,
@@ -810,9 +812,41 @@ const reducer = (state = initialState, action) => {
         ...state,
         currentUserProfile: {
           ...state.currentUserProfile,
-          ...action.payload
-        }
-      }
+          ...action.payload,
+        },
+      };
+    case actions.BEGIN_EXCHANGE_TOKEN:
+      return {
+        ...state,
+        exchangingTokens: true,
+        tokenExchangeCallbacks: [],
+      };
+    case actions.LISTEN_FOR_EXCHANGE_TOKEN:
+      return {
+        ...state,
+        tokenExchangeCallbacks: [
+          ...state.tokenExchangeCallbacks,
+          action.payload,
+        ],
+      };
+    case actions.EXCHANGE_TOKEN_SUCCESS:
+      state.tokenExchangeCallbacks.forEach((cb) => {
+        cb.resolve(action.payload);
+      });
+      return {
+        ...state,
+        exchangingTokens: false,
+        tokenExchangeCallbacks: [],
+      };
+    case actions.EXCHANGE_TOKEN_FAILURE:
+      state.tokenExchangeCallbacks.forEach((cb) => {
+        cb.reject('Failed to exchange tokens with authentication server');
+      });
+      return {
+        ...state,
+        exchangingTokens: false,
+        tokenExchangeCallbacks: [],
+      };
     default:
       return state;
   }
