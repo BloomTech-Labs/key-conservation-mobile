@@ -43,7 +43,7 @@ class SupporterSkillImpactScreen extends Component {
 
   initProfileData = async () => {
     try {
-      const userId = await SecureStore.getItemAsync('id', {});
+      const userId = this.props.currentUserProfile.id;
       await this.props.getProfileData(userId, null, true);
       await this.props.getApplicationsByUser(userId);
       let { skills, accepting_help_requests } = this.props.currentUserProfile;

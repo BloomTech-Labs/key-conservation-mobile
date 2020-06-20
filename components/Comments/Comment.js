@@ -43,7 +43,7 @@ const Comment = (props) => {
           admin={props.admin}
           commentId={props.comment.id}
           ref={actionSheetRef}
-          post={props.selectedCampaign}
+          postId={props.postId}
         />
         <View style={styles.commentView}>
           <View style={styles.avatar}>
@@ -52,7 +52,8 @@ const Comment = (props) => {
               size="medium"
               rounded
               containerStyle={
-                props.comment.user_id === props.selectedCampaign.user_id && {
+                props.comment.user_id ===
+                  props.openCampaigns[props.postId]?.id && {
                   borderWidth: 1,
                   borderColor: '#00FF9D',
                 }
@@ -83,6 +84,7 @@ const Comment = (props) => {
 
 const mapStateToProps = (state) => ({
   selectedProfile: state.selectedProfile,
+  openCampaigns: state.openCampaigns,
   admin: state.currentUserProfile.admin,
 });
 

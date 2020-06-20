@@ -114,8 +114,7 @@ class LoadingScreen extends React.Component {
       if (this.props.userRegistered === true) {
         await this.props.getProfileData(null, sub, true);
 
-        if (this.props.userId /* && isVetting !== "true"*/) {
-          await SecureStore.setItemAsync('id', `${this.props.userId}`);
+        if (this.props.userId) {
           AmpInit();
           AmpEvent('Login');
 
@@ -163,7 +162,6 @@ const mapStateToProps = (state) => ({
   userId: state.currentUserProfile.id,
   firstLogin: state.firstLogin,
   userRole: state.currentUserProfile.roles,
-  profileReset: state.profileReset,
   userRegistered: state.userRegistered,
 });
 

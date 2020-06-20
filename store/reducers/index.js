@@ -10,15 +10,20 @@ import * as actions from '../actions';
 
 const initialState = {
   error: '',
+  openCampaigns: {},
+  exchangingTokens: false,
+  tokenExchangeCallbacks: [],
   errors: {
     getFeed: '',
     getCampaign: '',
     updateProfile: '',
     bookmarks: '',
+    getComments: '',
   },
   newPostQueue: [],
   postUploadQueue: {},
   pending: {
+    getComments: false,
     getFeed: false,
     getCampaign: false,
     updateProfile: false,
@@ -40,7 +45,6 @@ const initialState = {
     campaigns: [],
     connections: [],
   },
-  selectedCampaign: {},
   allCampaigns: [],
   firstLogin: false,
   campaignsToggled: [],
@@ -166,7 +170,7 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, updateProfile: true },
         currentUserProfile: {
           ...state.currentUserProfile,
-          ...action.payload
+          ...action.payload,
         },
         error: '',
       };
@@ -176,7 +180,7 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, updateProfile: false },
         currentUserProfile: {
           ...state.currentUserProfile,
-          ...action.payload
+          ...action.payload,
         },
       };
     case actions.EDIT_PROFILE_ERROR:
@@ -242,7 +246,10 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, getCampaign: false },
-        selectedCampaign: campaign,
+        openCampaigns: {
+          ...state.openCampaigns,
+          [campaign.id]: campaign,
+        },
       };
     case actions.GET_CAMPAIGN_ERROR:
       return {
@@ -250,10 +257,13 @@ const reducer = (state = initialState, action) => {
         pending: { ...state.pending, getCampaign: false },
         error: action.payload,
       };
-    case actions.SET_CAMPAIGN:
+    case actions.OPEN_CAMPAIGN:
       return {
         ...state,
-        selectedCampaign: action.payload,
+        openCampaigns: {
+          ...state.openCampaigns,
+          [action.payload.id]: action.payload,
+        },
       };
     case actions.GET_CAMPAIGNS_BY_SKILL_START:
       return {
@@ -382,7 +392,10 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pending: { ...state.pending, editCampaign: false },
-        selectedCampaign: action.payload,
+        openCampaigns: {
+          ...state.openCampaigns,
+          [action.payload.id]: action.payload,
+        },
       };
     case actions.EDIT_CAMPAIGN_ERROR:
       return {
@@ -457,9 +470,9 @@ const reducer = (state = initialState, action) => {
         ...state,
         currentUserProfile: {
           ...state.currentUserProfile,
-          ...action.payload
-        }
-      }
+          ...action.payload,
+        },
+      };
     case actions.TOGGLE_CAMPAIGN_TEXT:
       return {
         ...state,
@@ -473,10 +486,7 @@ const reducer = (state = initialState, action) => {
     case actions.POST_COMMENT_SUCCESS:
       return {
         ...state,
-        selectedCampaign: {
-          ...state.selectedCampaign,
-          comments: action.payload,
-        },
+        openCampaigns: setComments(state.openCampaigns, action.payload),
       };
     case actions.POST_COMMENT_ERROR:
       return {
@@ -491,12 +501,7 @@ const reducer = (state = initialState, action) => {
     case actions.DELETE_COMMENT_SUCCESS:
       return {
         ...state,
-        selectedCampaign: {
-          ...state.selectedCampaign,
-          comments: state.selectedCampaign?.comments.filter(
-            (c) => c.id != action.payload
-          ),
-        },
+        openCampaigns: deleteComment(state.openCampaigns, action.payload),
       };
     case actions.DELETE_COMMENT_ERROR:
       return {
@@ -609,7 +614,10 @@ const reducer = (state = initialState, action) => {
           ...state.pending,
           getCampaign: false,
         },
-        selectedCampaign: action.payload,
+        openCampaigns: {
+          ...state.openCampaigns,
+          [action.payload.id]: action.payload,
+        },
       };
     }
     case actions.GET_ORIGINAL_POST_ERROR:
@@ -810,12 +818,109 @@ const reducer = (state = initialState, action) => {
         ...state,
         currentUserProfile: {
           ...state.currentUserProfile,
-          ...action.payload
-        }
-      }
+          ...action.payload,
+        },
+      };
+    case actions.BEGIN_EXCHANGE_TOKEN:
+      return {
+        ...state,
+        exchangingTokens: true,
+        tokenExchangeCallbacks: [],
+      };
+    case actions.LISTEN_FOR_EXCHANGE_TOKEN:
+      return {
+        ...state,
+        tokenExchangeCallbacks: [
+          ...state.tokenExchangeCallbacks,
+          action.payload,
+        ],
+      };
+    case actions.EXCHANGE_TOKEN_SUCCESS:
+      state.tokenExchangeCallbacks.forEach((cb) => {
+        cb.resolve(action.payload);
+      });
+      return {
+        ...state,
+        exchangingTokens: false,
+        tokenExchangeCallbacks: [],
+      };
+    case actions.EXCHANGE_TOKEN_FAILURE:
+      state.tokenExchangeCallbacks.forEach((cb) => {
+        cb.reject('Failed to exchange tokens with authentication server');
+      });
+      return {
+        ...state,
+        exchangingTokens: false,
+        tokenExchangeCallbacks: [],
+      };
+    case actions.GET_CAMPAIGN_COMMENTS_START:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          getComments: true,
+        },
+        errors: {
+          ...state.errors,
+          getComments: '',
+        },
+      };
+    case actions.GET_CAMPAIGN_COMMENTS_SUCCESS:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          getComments: false,
+        },
+        openCampaigns: setComments(state.openCampaigns, action.payload),
+      };
+    case actions.GET_CAMPAIGN_COMMENTS_ERROR:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          getComments: false,
+        },
+        errors: {
+          ...state.errors,
+          getComments: action.payload,
+        },
+      };
     default:
       return state;
   }
+};
+
+const setComments = (openCampaigns, payload) => {
+  return Object.fromEntries(
+    Object.entries(openCampaigns)
+      .filter(([key, value]) => key !== undefined && value !== undefined)
+      .map(([key, value]) => {
+        if (value.campaign_id === payload.campaign_id) {
+          return [key, { ...value, comments: payload.comments }];
+        } else return value;
+      })
+  );
+};
+
+const deleteComment = (openCampaigns, commentId) => {
+  const newEntries = Object.entries(openCampaigns)
+    .filter(([key, value]) => key !== undefined && value !== undefined)
+    .map(([key, value]) => {
+      const newComments = value.comments.filter((c) => {
+        return parseInt(c.id) !== parseInt(commentId);
+      });
+
+      return [
+        key,
+        {
+          ...value,
+          comments: newComments,
+        },
+      ];
+    });
+
+  return Object.fromEntries(newEntries);
 };
 
 const removeFromUploadQueue = (queue, id) => {

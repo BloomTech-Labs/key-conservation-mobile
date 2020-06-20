@@ -5,7 +5,7 @@ import { goBack, navigate } from '../../navigation/RootNavigator';
 
 import { useDispatch } from 'react-redux';
 
-import { deleteCampaignPost, setCampaign } from '../../store/actions';
+import { deleteCampaignPost, openCampaign } from '../../store/actions';
 
 // Usage:
 
@@ -41,7 +41,7 @@ export default forwardRef((props, ref) => {
       return;
     }
 
-    dispatch(setCampaign(props.post));
+    dispatch(openCampaign(props.post));
 
     // Take the user to a report screen
     navigate('CreateReport', {

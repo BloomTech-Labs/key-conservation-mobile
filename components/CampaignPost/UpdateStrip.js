@@ -3,7 +3,7 @@ import { View, Text, Image, ActivityIndicator } from 'react-native';
 import styles from '../../constants/CampaignPost/UpdateStrip';
 import moment from 'moment';
 
-import { getCampaignUpdates, setCampaign } from '../../store/actions';
+import { getCampaignUpdates, openCampaign } from '../../store/actions';
 
 import { navigate } from '../../navigation/RootNavigator';
 
@@ -56,11 +56,12 @@ class UpdateStrip extends Component {
   }
 
   goToUpdate(index = 0) {
-    this.props.setCampaign(this.props.campaign);
+    this.props.openCampaign(this.props.campaign);
     navigate(
       'Campaign',
       {
         userBookmarked: this.props.campaign.userBookmarked,
+        postId: this.props.campaign.id,
         targetUpdate: index,
         updates: this.state.updates,
       },
@@ -69,23 +70,24 @@ class UpdateStrip extends Component {
   }
 
   render() {
-    const updates = this.state.updates?.map((update, i) => {
-      return (
-        <TouchableOpacity
-          key={update.id}
-          onPress={this.goToUpdate.bind(this, i)}
-        >
-          <View style={styles.updateTile}>
-            <Image style={styles.image} source={{ uri: update.image }} />
-            <View style={styles.dateContainer}>
-              <Text style={styles.date}>
-                {moment(update.created_at).format('MMM DD')}
-              </Text>
+    const updates =
+      this.state.updates?.map((update, i) => {
+        return (
+          <TouchableOpacity
+            key={update.id}
+            onPress={this.goToUpdate.bind(this, i)}
+          >
+            <View style={styles.updateTile}>
+              <Image style={styles.image} source={{ uri: update.image }} />
+              <View style={styles.dateContainer}>
+                <Text style={styles.date}>
+                  {moment(update.created_at).format('MMM DD')}
+                </Text>
+              </View>
             </View>
-          </View>
-        </TouchableOpacity>
-      );
-    }) || [];
+          </TouchableOpacity>
+        );
+      }) || [];
 
     return this.state.loading ? (
       <View
@@ -119,10 +121,12 @@ class UpdateStrip extends Component {
             </TouchableOpacity>
           ) : null}
         </View>
-        <ScrollView style={styles.tileContainer} horizontal>{updates}</ScrollView>
+        <ScrollView style={styles.tileContainer} horizontal>
+          {updates}
+        </ScrollView>
       </View>
     );
   }
 }
 
-export default connect(null, { getCampaignUpdates, setCampaign })(UpdateStrip);
+export default connect(null, { getCampaignUpdates, openCampaign })(UpdateStrip);

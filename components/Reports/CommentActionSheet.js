@@ -5,7 +5,7 @@ import { navigate } from '../../navigation/RootNavigator';
 
 import { useDispatch } from 'react-redux';
 
-import { deleteComment, setCampaign } from '../../store/actions';
+import { deleteComment } from '../../store/actions';
 import { Alert } from 'react-native';
 
 // Usage:
@@ -40,18 +40,10 @@ export default forwardRef((props, ref) => {
       return;
     }
 
-    if (typeof props.post?.id !== 'number') {
-      console.warn(
-        'CommentActionSheet: `post` property not found or invalid - action canceled'
-      );
-      return;
-    }
-
-    dispatch(setCampaign(props.post));
-
     // Take the user to a report screen
     navigate('CreateReport', {
       type: 'comments',
+      postId: props.postId,
       id: props.commentId,
     });
   };
@@ -68,8 +60,6 @@ export default forwardRef((props, ref) => {
       if (err) {
         Alert.alert('Failed to delete comment');
         props.onDelete?.(true);
-      } else {
-        Alert.alert('Deleted successfully!');
       }
     });
   };
