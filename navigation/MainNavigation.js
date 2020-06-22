@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 import { Badge, withBadge, withTheme } from 'react-native-elements';
+import { NavigationEvents } from 'react-navigation';
+
+import { getAllNotifications } from '../store/actions/';
 
 import CanScreen from '../screens/org-onboarding-screens/CanScreen';
 import CantScreen from '../screens/org-onboarding-screens/CantScreen';
@@ -108,32 +111,48 @@ const NotStack = createStackNavigator(
   },
   {
     navigationOptions: {
-      tabBarLabel: 'Map',
-      tabBarIcon: ({ focused }) => (
-        <>
-          <Bell />
-          <Badge
-            value={
-              <Text style={styles.badgeText}>
-                {
-                  state.notifications.filter((notif) => notif.new_notification)
-                    .length
-                }
-                {/* {state.notifications.length} */}
-              </Text>
-            }
-            badgeStyle={styles.badge}
-            containerStyle={{
-              position: 'absolute',
-              top: 5,
-              right: 10,
-            }}
-          />
-        </>
-      ),
+      tabBarLabel: 'Map', //
+      tabBarIcon: ({ focused }) => {
+        // console.log('KLSDFJS:DILFHSDLFKJSDF: ' + state.notificationsLoading);
+
+        if (!state.notificationsLoading) {
+          console.log('CALLED A');
+          store.dispatch(getAllNotifications(59));
+        }
+
+        return (
+          <>
+            <Bell onPress={() => aaa()} />
+            <Badge
+              value={
+                <Text style={styles.badgeText}>
+                  {
+                    state.notifications.filter(
+                      (notif) => notif.new_notification
+                    ).length
+                  }
+                  {/* {state.notifications.length} */}
+                </Text>
+              }
+              badgeStyle={styles.badge}
+              containerStyle={{
+                position: 'absolute',
+                top: 5,
+                right: 10,
+              }}
+            />
+          </>
+        );
+      },
     },
   }
 );
+
+// const mapStateToProps = (state) => ({});
+
+// export default connect(mapStateToProps, {
+//   getAllNotifications,
+// })(Test);
 
 const FeedStack = createStackNavigator(
   {

@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import { Badge } from 'react-native-elements';
 
-
 import ConnectionNotification from '../../components/Notifications/ConnectionNotification';
 import CampaignNotification from '../../components/Notifications/CampaignNotification';
 
@@ -19,11 +18,9 @@ import Messages from '../../assets/jsicons/bottomnavigation/Messages';
 import Bell from '../../assets/jsicons/bottomnavigation/BellB';
 import Logo from '../../assets/jsicons/other/Logo';
 
-
 import { connect } from 'react-redux';
 import { getAllNotifications, markNotification } from '../../store/actions';
 import { NavigationEvents } from 'react-navigation';
-
 
 class NotificationsMain extends React.Component {
   constructor(props) {
@@ -92,7 +89,7 @@ class NotificationsMain extends React.Component {
                   <Text style={styles.badgeText}>
                     {
                       this.props.notifications.filter(
-                        (notif) => (notif.new_notification)
+                        (notif) => notif.new_notification
                       ).length
                     }
                   </Text>
