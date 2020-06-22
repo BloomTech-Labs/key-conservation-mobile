@@ -115,12 +115,11 @@ const NotStack = createStackNavigator(
           <Badge
             value={
               <Text style={styles.badgeText}>
-                {/* {
-                      this.props.notifications.filter(
-                        (notif) => (notif.new_notification = true)
-                      ).length
-                    } */}
-                {state.notifications.length}
+                {
+                  state.notifications.filter((notif) => notif.new_notification)
+                    .length
+                }
+                {/* {state.notifications.length} */}
               </Text>
             }
             badgeStyle={styles.badge}

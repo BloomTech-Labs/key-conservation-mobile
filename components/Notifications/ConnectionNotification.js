@@ -33,6 +33,7 @@ const ConnectionNotification = (props) => {
   useEffect(() => {
     // console.log('@@@@@@@@@', props.notifData);
     getConnections();
+    console.log("props.notifData.item", props.notifData.item);
     // console.log('**** data.new_notification ***', read);
   }, [data]);
 
@@ -110,9 +111,9 @@ const ConnectionNotification = (props) => {
   return (
     <TouchableOpacity
       style={
-        !props.notifData.item.new_notification
-          ? styles.wrapper
-          : styles.wrapperNew
+        props.notifData.item.new_notification
+          ? styles.wrapperNew
+          : styles.wrapper
       }
       onPress={() => {
         handleMark();

@@ -9,9 +9,9 @@ import {
   FlatList,
   Text,
 } from 'react-native';
-import { Badge, withBadge, withTheme } from 'react-native-elements';
+import { Badge } from 'react-native-elements';
 
-import BackButton from '../../components/BackButton';
+
 import ConnectionNotification from '../../components/Notifications/ConnectionNotification';
 import CampaignNotification from '../../components/Notifications/CampaignNotification';
 
@@ -19,23 +19,20 @@ import Messages from '../../assets/jsicons/bottomnavigation/Messages';
 import Bell from '../../assets/jsicons/bottomnavigation/BellB';
 import Logo from '../../assets/jsicons/other/Logo';
 
-import { seedData } from '../../components/Notifications/seedData';
+
 import { connect } from 'react-redux';
 import { getAllNotifications, markNotification } from '../../store/actions';
 import { NavigationEvents } from 'react-navigation';
 
-var aaa = 0;
 
 class NotificationsMain extends React.Component {
   constructor(props) {
     super(props);
-    // console.log(props);
     this.state = {
       isLoading: false,
       isActive: true,
       notifOpen: true,
       navigation: props.navigation,
-      // fetch: fetchNotifications,
     };
   }
 
@@ -51,24 +48,8 @@ class NotificationsMain extends React.Component {
   };
 
   componentDidMount() {
-    // this.state.navigation.push('Connections', {});
-    // console.log(this.state.navigation);
-    console.log('Fetching notifications...');
-    // console.log(seedData.data);
-    console.log('aslkdfj: ' + this.props.currentUserId);
-    console.log('aslkdfj asdfds: ' + this.props.notificationsLoading);
-    // console.log
     if (this.props.notificationsLoading)
       this.props.getAllNotifications(this.props.currentUserId);
-  }
-
-  componentDidUpdate(prevProps) {
-    // if (prevProps.notifications.length == this.props.)
-    // this.props.getAllNotifications(59);
-    // this.setState({ isLoading: false });
-    //
-    // console.log('this is notification in state', this.props.notifications);
-    // this.props.getAllNotifications(59);
   }
 
   render() {
@@ -89,7 +70,6 @@ class NotificationsMain extends React.Component {
                 isActive: !this.state.isActive,
                 notifOpen: !this.state.notifOpen,
               });
-              // handleGetNotifications(this.props.currentUserId)
             }}
           >
             <Messages />
@@ -112,7 +92,7 @@ class NotificationsMain extends React.Component {
                   <Text style={styles.badgeText}>
                     {
                       this.props.notifications.filter(
-                        (notif) => (notif.new_notification = true)
+                        (notif) => (notif.new_notification)
                       ).length
                     }
                   </Text>
