@@ -33,7 +33,7 @@ const ConnectionNotification = (props) => {
   useEffect(() => {
     // console.log('@@@@@@@@@', props.notifData);
     getConnections();
-    console.log("props.notifData.item", props.notifData.item);
+    console.log('props.notifData.item', props.notifData.item);
     // console.log('**** data.new_notification ***', read);
   }, [data]);
 
@@ -89,6 +89,8 @@ const ConnectionNotification = (props) => {
     props.editConnectStatus(myPendingConnection.id, {
       status: 'Connected',
     });
+    mark();
+    Alert.alert('You Are Now Connected');
   };
 
   const disconnect = () => {
@@ -106,6 +108,13 @@ const ConnectionNotification = (props) => {
       .then(() => {
         goToCommenterProfile();
       });
+  };
+
+  const mark = () => {
+    props.markNotification(
+      props.notifData.item.user_id,
+      props.notifData.item.notification_id
+    );
   };
 
   return (

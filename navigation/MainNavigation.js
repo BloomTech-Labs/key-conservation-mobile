@@ -112,17 +112,24 @@ const NotStack = createStackNavigator(
   {
     navigationOptions: {
       tabBarLabel: 'Map', //
+      tabBarIcon: ({ focused }) => <Bell />
+    },
+  }
+);
+
+/*
+
       tabBarIcon: ({ focused }) => {
         // console.log('KLSDFJS:DILFHSDLFKJSDF: ' + state.notificationsLoading);
 
-        if (!state.notificationsLoading) {
-          console.log('CALLED A');
-          store.dispatch(getAllNotifications(59));
-        }
+        // if (!state.notificationsLoading) {
+        //   console.log('CALLED A');
+        //   store.dispatch(getAllNotifications(59));
+        // }
 
         return (
           <>
-            <Bell onPress={() => aaa()} />
+            <Bell />
             <Badge
               value={
                 <Text style={styles.badgeText}>
@@ -131,7 +138,6 @@ const NotStack = createStackNavigator(
                       (notif) => notif.new_notification
                     ).length
                   }
-                  {/* {state.notifications.length} */}
                 </Text>
               }
               badgeStyle={styles.badge}
@@ -144,15 +150,8 @@ const NotStack = createStackNavigator(
           </>
         );
       },
-    },
-  }
-);
 
-// const mapStateToProps = (state) => ({});
-
-// export default connect(mapStateToProps, {
-//   getAllNotifications,
-// })(Test);
+*/
 
 const FeedStack = createStackNavigator(
   {
