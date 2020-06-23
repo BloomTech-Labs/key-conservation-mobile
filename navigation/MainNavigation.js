@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -48,6 +48,8 @@ import OrgSkillImpactScreen from '../screens/org-skillimpact-screen/OrgSkillImpa
 import SupporterSkillImpactScreen from '../screens/supporter-skillimpact-screen/SupporterSkillImpactScreen';
 
 import store from '../store/configureStore';
+
+import { newNotesLength } from '../store/selectors';
 
 //icon imports
 
@@ -115,23 +117,38 @@ const NotStack = createStackNavigator(
       tabBarIcon: ({ focused }) => {
         // console.log('KLSDFJS:DILFHSDLFKJSDF: ' + state.notificationsLoading);
 
-        if (!state.notificationsLoading) {
-          console.log('CALLED A');
-          store.dispatch(getAllNotifications(59));
-        }
+        // if (!state.notificationsLoading) {
+        //   console.log('CALLED A');
+        //   store.dispatch(getAllNotifications(59));
+        // }
 
+        console.log(
+          'check me out',
+          newNotesLength
+          // state.notifications.filter((notif) => {
+          //   notif.new_notification == true;
+          // }).length
+        );
         return (
           <>
-            <Bell onPress={() => aaa()} />
+            <Bell
+              onPress={() => {
+                console.log(
+                  'check me out',
+                  state.notifications.filter((notif) => {
+                    notif.new_notification == true;
+                  }).length
+                );
+              }}
+            />
             <Badge
               value={
                 <Text style={styles.badgeText}>
                   {
-                    state.notifications.filter(
-                      (notif) => notif.new_notification
-                    ).length
+                    state.notifications.filter((notif) => {
+                      notif.new_notification == false;
+                    }).length
                   }
-                  {/* {state.notifications.length} */}
                 </Text>
               }
               badgeStyle={styles.badge}
