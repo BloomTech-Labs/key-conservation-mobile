@@ -91,8 +91,8 @@ export const AUTH0_DOMAIN = 'https://key-conservation.auth0.com/';
 // production
 // export const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
-// export const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
-export const seturl = 'http://192.168.1.146:8000/api/';
+export const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+// export const seturl = 'http://192.168.1.146:8000/api/';
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.

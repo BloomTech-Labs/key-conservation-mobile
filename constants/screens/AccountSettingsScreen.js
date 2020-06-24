@@ -20,10 +20,9 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
   },
   sections: {
-    marginLeft: 10,
-    marginRight: 10,
-    marginTop: 10,
-    paddingBottom: 10,
+    margin: 10,
+    padding: 4,
+    marginBottom: 0,
     backgroundColor: '#fff',
     borderRadius: 5,
     fontSize: 15,
@@ -39,7 +38,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: 15,
+    marginVertical: 8,
   },
   logoutButton: {
     backgroundColor: '#fff',
@@ -74,6 +73,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     fontSize: 16,
+  },
+  separator: {
+    marginVertical: 4,
+    width: '95%',
+    alignSelf: 'center',
+    height: 1,
+    backgroundColor: '#ddd',
   },
 });
 
