@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import { deactivateUser, getProfileData } from '../store/actions';
 import ReportDetailCard from '../components/Reports/ReportDetailCard';
 
-import BackButton from '../components/BackButton';
 import LoadingOverlay from '../components/LoadingOverlay';
 
 import ChevronLeft from '../assets/jsicons/miscIcons/ChevronLeftWhite';
@@ -23,7 +22,6 @@ class ReportDetailScreen extends Component {
         backgroundColor: '#323338',
       },
       headerTintColor: '#fff',
-      headerLeft: () => <BackButton navigation={navigation} />,
     };
   };
 

@@ -91,8 +91,8 @@ export const AUTH0_DOMAIN = 'https://key-conservation.auth0.com/';
 // production
 // export const seturl = 'https://key-conservation.herokuapp.com/api/';
 // staging
-export const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
-// export const seturl = 'http://192.168.1.146:8000/api/';
+// export const seturl = 'https://key-conservation-staging.herokuapp.com/api/';
+export const seturl = 'http://192.168.1.146:8000/api/';
 
 const filterUrls = (keys, object) => {
   // If a user doesn't include http or https in their URL this function will add it.
@@ -1448,6 +1448,40 @@ export const unsetActiveVideo = (postId) => (dispatch) => {
   dispatch({
     type: UNSET_ACTIVE_VIDEO,
     payload: postId,
+  });
+};
+
+export const [
+  GET_PAYMENT_WIDGET_START,
+  GET_PAYMENT_WIDGET_SUCCESS,
+  GET_PAYMENT_WIDGET_FAILURE,
+] = [
+  'GET_PAYMENT_WIDGET_START',
+  'GET_PAYMENT_WIDGET_SUCCESS',
+  'GET_PAYMENT_WIDGET_FAILURE',
+];
+
+export const getPaymentAccountWidget = () => (dispatch) => {
+  dispatch({
+    type: GET_PAYMENT_WIDGET_START,
+  });
+
+  return axiosWithAuth(dispatch, (aaxios) => {
+    return aaxios
+      .get(`${seturl}donations/accounts`)
+      .then((res) => {
+        dispatch({
+          type: GET_PAYMENT_WIDGET_SUCCESS,
+          payload: res.data.widget,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch({
+          type: GET_PAYMENT_WIDGET_FAILURE,
+          payload: err.response?.message || 'Failed to get payment accounts',
+        });
+      });
   });
 };
 

@@ -17,7 +17,7 @@ class EditProfileScreen extends Component {
         backgroundColor: '#323338',
       },
       headerTintColor: '#fff',
-      headerRight: (
+      headerRight: () => (
         <DoneButton
           navigation={navigation}
           pressAction={navigation.getParam('done')}

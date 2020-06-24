@@ -8,6 +8,7 @@ import { logout } from '../store/actions';
 import BackButtonHeader from '../components/BackButtonHeader';
 import LogoutSymbol from '../assets/jsicons/accountSettings/LogoutSymbol';
 import styles from '../constants/screens/AccountSettingsScreen';
+import DoneButton from '../components/DoneButton';
 
 class AccountSettingsScreen extends React.Component {
   state = {
@@ -22,8 +23,11 @@ class AccountSettingsScreen extends React.Component {
         backgroundColor: '#323338',
       },
       headerTintColor: '#fff',
-      headerLeft: () => (
-        <BackButtonHeader pressAction={() => navigation.navigate('MyPro')} />
+      headerRight: () => (
+        <DoneButton
+          navigation={navigation}
+          pressAction={() => navigation.navigate('MyProfile')}
+        />
       ),
     };
   };
@@ -51,6 +55,11 @@ class AccountSettingsScreen extends React.Component {
     this.props.logout();
   };
 
+  payments = () => {
+    // Go to payments settings screen
+    this.props.navigation.navigate('PaymentSettings');
+  };
+
   render() {
     return (
       <ScrollView contentContainerStyle={styles.scrollBG}>
@@ -69,6 +78,14 @@ class AccountSettingsScreen extends React.Component {
           </View>
         )}
         <View style={styles.sections}>
+          {this.state.roles === 'supporter' && (
+            <TouchableOpacity style={styles.linkWrap} onPress={this.payments}>
+              <View style={styles.logoutButton}>
+                <LogoutSymbol />
+              </View>
+              <Text style={styles.linkText}>Payments</Text>
+            </TouchableOpacity>
+          )}
           <TouchableOpacity style={styles.linkWrap} onPress={this.logoutPress}>
             <View style={styles.logoutButton}>
               <LogoutSymbol />

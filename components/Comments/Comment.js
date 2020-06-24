@@ -19,7 +19,7 @@ const Comment = (props) => {
   const timeDiff = moment(props.comment.created_at).fromNow();
 
   const goToCommenterProfile = () => {
-    props.navigation.push('Pro', {
+    props.navigation.push('Profile', {
       selectedProfile: props.comment.user_id,
     });
   };

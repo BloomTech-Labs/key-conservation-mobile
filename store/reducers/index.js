@@ -12,6 +12,7 @@ const initialState = {
   error: '',
   openCampaigns: {},
   exchangingTokens: false,
+  paymentWidgetUrl: null,
   tokenExchangeCallbacks: [],
   errors: {
     getFeed: '',
@@ -19,6 +20,7 @@ const initialState = {
     updateProfile: '',
     bookmarks: '',
     getComments: '',
+    getPaymentWidget: '',
   },
   newPostQueue: [],
   postUploadQueue: {},
@@ -28,6 +30,7 @@ const initialState = {
     getCampaign: false,
     updateProfile: false,
     bookmarks: false,
+    getPaymentWidget: false,
     deletePost: [], // An array of currently deleting posts
   },
   currentUser: {
@@ -884,6 +887,39 @@ const reducer = (state = initialState, action) => {
         errors: {
           ...state.errors,
           getComments: action.payload,
+        },
+      };
+    case actions.GET_PAYMENT_WIDGET_START:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          getPaymentWidget: true,
+        },
+        errors: {
+          ...state.errors,
+          getPaymentWidget: '',
+        },
+      };
+    case actions.GET_PAYMENT_WIDGET_SUCCESS:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          getPaymentWidget: false,
+        },
+        paymentWidgetUrl: action.payload,
+      };
+    case actions.GET_PAYMENT_WIDGET_FAILURE:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          getPaymentWidget: false,
+        },
+        errors: {
+          ...state.errors,
+          getPaymentWidget: action.payload,
         },
       };
     default:

@@ -5,7 +5,7 @@ import { Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
 import styles from '../../constants/Connections/Cards';
 import { withNavigation } from 'react-navigation';
-const PeopleCard = props => {
+const PeopleCard = (props) => {
   const [connections, setConnections] = useState([]);
 
   const getConnections = async () => {
@@ -25,12 +25,12 @@ const PeopleCard = props => {
   let selectedUserConnections = connections?.filter
     ? props.selectedProfile.roles === 'conservationist'
       ? connections.filter(
-          connect =>
+          (connect) =>
             connect.status === 'Connected' &&
             connect.connector_role === 'supporter'
         )
       : connections.filter(
-          connect =>
+          (connect) =>
             connect.status === 'Connected' &&
             connect.connected_role === 'supporter'
         )
@@ -43,17 +43,11 @@ const PeopleCard = props => {
           <Text style={styles.noConnections}>No Current Connections</Text>
         ) : (
           <View>
-            {selectedUserConnections?.map(connection => (
+            {selectedUserConnections?.map((connection) => (
               <View style={styles.card} key={connection.id}>
-                <View
-                  style={styles.peopleCardContainer}
-                  key={connection.id}
-                >
+                <View style={styles.peopleCardContainer} key={connection.id}>
                   <View style={styles.userInfo} key={connection.id}>
-                    <View
-                      style={styles.imageContainer}
-                      key={connection.id}
-                    >
+                    <View style={styles.imageContainer} key={connection.id}>
                       <Avatar
                         size={48}
                         rounded
@@ -62,21 +56,21 @@ const PeopleCard = props => {
                           uri:
                             props.selectedProfile.id === connection.connector_id
                               ? connection.connected_avatar
-                              : connection.connector_avatar
+                              : connection.connector_avatar,
                         }}
                       />
                     </View>
                     <TouchableOpacity
-                    onPress={() => {
+                      onPress={() => {
                         props.selectedProfile.id === connection.connector_id
-                        ? props.navigation.push('Pro', {
-                            selectedProfile: connection.connected_id
-                          })
-                        : props.navigation.push('Pro', {
-                            selectedProfile: connection.connector_id
-                          })
-                    }}
-                  >
+                          ? props.navigation.push('Profile', {
+                              selectedProfile: connection.connected_id,
+                            })
+                          : props.navigation.push('Profile', {
+                              selectedProfile: connection.connector_id,
+                            });
+                      }}
+                    >
                       <Text key={connection.id} style={styles.name}>
                         {connection.connected_name === null
                           ? '---'
@@ -96,10 +90,10 @@ const PeopleCard = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   connections: state.connections,
   currentUserProfile: state.currentUserProfile,
-  selectedProfile: state.selectedProfile
+  selectedProfile: state.selectedProfile,
 });
 
 export default connect(mapStateToProps, { getConnections })(

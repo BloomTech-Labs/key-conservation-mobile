@@ -36,9 +36,9 @@ export default createAppContainer(
           flexGrow: 1,
           // marginTop: 10,
           alignSelf: 'center',
-          fontFamily: 'Lato-Bold'
-        }
-      }
+          fontFamily: 'Lato-Bold',
+        },
+      },
     }
   )
 );
