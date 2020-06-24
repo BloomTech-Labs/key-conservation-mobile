@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import * as SecureStorage from 'expo-secure-store';
 
 import { logout } from '../store/actions';
-import BackButtonHeader from '../components/BackButtonHeader';
 import LogoutSymbol from '../assets/jsicons/accountSettings/LogoutSymbol';
 import styles from '../constants/screens/AccountSettingsScreen';
 import DoneButton from '../components/DoneButton';
@@ -78,7 +77,7 @@ class AccountSettingsScreen extends React.Component {
           </View>
         )}
         <View style={styles.sections}>
-          {this.state.roles === 'supporter' && (
+          {this.state.roles === 'conservationist' && (
             <TouchableOpacity style={styles.linkWrap} onPress={this.payments}>
               <View style={styles.logoutButton}>
                 <LogoutSymbol />
@@ -86,6 +85,7 @@ class AccountSettingsScreen extends React.Component {
               <Text style={styles.linkText}>Payments</Text>
             </TouchableOpacity>
           )}
+          <View style={styles.separator} />
           <TouchableOpacity style={styles.linkWrap} onPress={this.logoutPress}>
             <View style={styles.logoutButton}>
               <LogoutSymbol />
