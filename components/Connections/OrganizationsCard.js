@@ -9,7 +9,7 @@ import { withNavigation } from 'react-navigation';
 
 const OrganizationsCard = (props) => {
   const [connections, setConnections] = useState([]);
-  const mounted = false;
+  const [mounted, setMounted] = useState(false);
 
   const getConnections = async () => {
     try {
@@ -24,9 +24,9 @@ const OrganizationsCard = (props) => {
   };
 
   useEffect(() => {
-    mounted = true;
+    setMounted(true);
     getConnections();
-    return () => (mounted = false);
+    return () => setMounted(false);
   }, []);
 
   const disconnect = () => {
@@ -162,10 +162,10 @@ const OrganizationsCard = (props) => {
                           onPress={() => {
                             props.currentUserProfile.id ===
                             connection.connector_id
-                              ? props.navigation.navigate('Pro', {
+                              ? props.navigation.navigate('Profile', {
                                   selectedProfile: connection.connected_id,
                                 })
-                              : props.navigation.navigate('Pro', {
+                              : props.navigation.navigate('Profile', {
                                   selectedProfile: connection.connector_id,
                                 });
                           }}
@@ -212,7 +212,7 @@ const OrganizationsCard = (props) => {
                     </View>
                     <TouchableOpacity
                       onPress={() =>
-                        props.navigation.navigate('Pro', {
+                        props.navigation.navigate('Profile', {
                           selectedProfile: connection.connected_id,
                         })
                       }

@@ -10,8 +10,8 @@ const WideMap = ({ getOrganizations, coords, navigation }) => {
     getOrganizations();
   }, []);
 
-  const goToProfile = async id => {
-    navigation.navigate('Pro', { fromMap: true, selectedProfile: id }); // For BackButton.
+  const goToProfile = async (id) => {
+    navigation.navigate('Profile', { fromMap: true, selectedProfile: id }); // For BackButton.
   };
 
   return (
@@ -22,23 +22,23 @@ const WideMap = ({ getOrganizations, coords, navigation }) => {
           latitude: 34.01425,
           longitude: -98.491624,
           latitudeDelta: 38,
-          longitudeDelta: 38
+          longitudeDelta: 38,
         }}
       >
-        {coords.map(coordinate => {
+        {coords.map((coordinate) => {
           return (
             <Marker
               key={coordinate.user_id}
-              pinColor='#00FF9D'
+              pinColor="#00FF9D"
               coordinate={{
                 latitude: coordinate.latitude,
-                longitude: coordinate.longitude
+                longitude: coordinate.longitude,
               }}
               stopPropagation={true}
             >
               <Image
                 source={{
-                  uri: coordinate.profile_image || undefined
+                  uri: coordinate.profile_image || undefined,
                 }}
                 style={styles.markerImg}
               />
@@ -58,7 +58,7 @@ const WideMap = ({ getOrganizations, coords, navigation }) => {
 const styles = StyleSheet.create({
   mapStyle: {
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height
+    height: Dimensions.get('window').height,
   },
   markerImg: {
     height: 40,
@@ -66,42 +66,42 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 3,
     borderColor: '#00FF9D',
-    padding: 3
+    padding: 3,
   },
   markerCallout: {
-    width: 120
+    width: 120,
   },
   calloutOrgName: {
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   calloutButton: {
     backgroundColor: '#00FF9D',
     marginTop: 5,
     borderRadius: 3,
     paddingTop: 2,
-    paddingBottom: 2
+    paddingBottom: 2,
   },
   calloutButtonText: {
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 });
-const mapPropsToState = state => {
+const mapPropsToState = (state) => {
   const coords = state.filteredOrganization
-    .map(org => {
+    .map((org) => {
       return {
         user_id: org.user_id,
         latitude: org.latitude,
         longitude: org.longitude,
         name: org.name,
         location: org.location,
-        profile_image: org.profile_image
+        profile_image: org.profile_image,
       };
     })
-    .filter(coords => coords.latitude && coords.longitude !== null);
+    .filter((coords) => coords.latitude && coords.longitude !== null);
   return {
     organizations: state.organizations,
-    coords: coords
+    coords: coords,
   };
 };
 export default connect(mapPropsToState, { getOrganizations })(WideMap);

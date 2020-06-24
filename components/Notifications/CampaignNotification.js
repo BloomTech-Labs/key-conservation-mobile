@@ -32,7 +32,7 @@ const CampaignNotification = (props) => {
   const [data, setData] = useState(props.notifData.item);
 
   const goToProfile = () => {
-    props.nav.push('Pro', {
+    props.nav.push('Profile', {
       selectedProfile: props.notifData.item.sender_id,
     });
   };

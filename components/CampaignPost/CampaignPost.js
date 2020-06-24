@@ -111,7 +111,7 @@ const CampaignPost = (props) => {
       profile: data.org_name,
       campaign: data.campaign_name,
     });
-    navigate('Pro', { selectedProfile: data.user_id });
+    navigate('Profile', { selectedProfile: data.user_id });
   };
 
   const handleBookmarkPressed = () => {

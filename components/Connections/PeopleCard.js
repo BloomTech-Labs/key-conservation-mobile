@@ -10,11 +10,11 @@ import {
   getConnections,
   deleteConnection,
   editConnectStatus,
-  goToProfile
+  goToProfile,
 } from '../../store/actions';
 import { connect } from 'react-redux';
 
-const People = props => {
+const People = (props) => {
   const [connections, setConnections] = useState([]);
 
   const getConnections = async () => {
@@ -30,12 +30,8 @@ const People = props => {
   };
 
   const disconnect = () => {
-    setConnections(
-      connections.filter(
-        c => c.id !== myPendingConnection.id
-      )
-    );
-    props.deleteConnection(myPendingConnection.id).then(error => {
+    setConnections(connections.filter((c) => c.id !== myPendingConnection.id));
+    props.deleteConnection(myPendingConnection.id).then((error) => {
       if (error) Alert.alert('Failed to Decline Connection');
       getConnections();
     });
@@ -49,24 +45,20 @@ const People = props => {
         {
           text: 'Decline',
           style: 'destructive',
-          onPress: disconnect
+          onPress: disconnect,
         },
-        { text: 'Cancel', style: 'cancel' }
+        { text: 'Cancel', style: 'cancel' },
       ]
     );
   };
 
   const approveRequest = () => {
-    setConnections(
-      connections.filter(
-        c => c.id !== myPendingConnection.id
-      )
-    );
+    setConnections(connections.filter((c) => c.id !== myPendingConnection.id));
     props
       .editConnectStatus(myPendingConnection.id, {
-        status: 'Connected'
+        status: 'Connected',
       })
-      .then(error => {
+      .then((error) => {
         if (error) Alert.alert('Failed to Approve Connection');
         getConnections();
       });
@@ -77,12 +69,12 @@ const People = props => {
   }, []);
 
   const myPendingConnection = connections?.find(
-    connection => connection.connected_id === props.currentUserProfile.id
+    (connection) => connection.connected_id === props.currentUserProfile.id
   );
 
   let currentUserPendingConnections = connections?.filter
     ? connections.filter(
-        connect =>
+        (connect) =>
           connect.status === 'Pending' &&
           connect.connector_role === 'supporter' &&
           connect.connector_id !== props.currentUserProfile.id
@@ -91,7 +83,7 @@ const People = props => {
 
   let supCurrentUserConnections = connections?.filter
     ? connections.filter(
-        connect =>
+        (connect) =>
           connect.status === 'Connected' &&
           connect.connected_role === 'supporter'
       )
@@ -99,7 +91,7 @@ const People = props => {
 
   let orgCurrentUserConnections = connections?.filter
     ? connections.filter(
-        connect =>
+        (connect) =>
           connect.status === 'Connected' &&
           connect.connector_role === 'supporter'
       )
@@ -114,20 +106,14 @@ const People = props => {
               <Text style={styles.noConnections}>No Pending Connections</Text>
             ) : (
               <View>
-                {currentUserPendingConnections?.map(connection => (
+                {currentUserPendingConnections?.map((connection) => (
                   <View style={styles.card} key={connection.id}>
                     <View
                       style={styles.peopleCardContainer}
                       key={connection.id}
                     >
-                      <View
-                        style={styles.userInfo}
-                        key={connection.id}
-                      >
-                        <View
-                          style={styles.imageContainer}
-                          key={connection.id}
-                        >
+                      <View style={styles.userInfo} key={connection.id}>
+                        <View style={styles.imageContainer} key={connection.id}>
                           <Avatar
                             size={48}
                             rounded
@@ -137,15 +123,12 @@ const People = props => {
                                 props.currentUserProfile.id ===
                                 connection.connected_id
                                   ? connection.connector_avatar
-                                  : connection.connected_avatar
+                                  : connection.connected_avatar,
                             }}
                           />
                         </View>
                         <View>
-                          <Text
-                            key={connection.id}
-                            style={styles.name}
-                          >
+                          <Text key={connection.id} style={styles.name}>
                             {connection.connector_name === null
                               ? '---'
                               : connection.connector_name}{' '}
@@ -175,20 +158,14 @@ const People = props => {
               <Text style={styles.noConnections}>No Current Connections</Text>
             ) : (
               <View>
-                {supCurrentUserConnections?.map(connection => (
+                {supCurrentUserConnections?.map((connection) => (
                   <View style={styles.card} key={connection.id}>
                     <View
                       style={styles.peopleCardContainer}
                       key={connection.id}
                     >
-                      <View
-                        style={styles.userInfo}
-                        key={connection.id}
-                      >
-                        <View
-                          style={styles.imageContainer}
-                          key={connection.id}
-                        >
+                      <View style={styles.userInfo} key={connection.id}>
+                        <View style={styles.imageContainer} key={connection.id}>
                           <Avatar
                             size={48}
                             rounded
@@ -198,7 +175,7 @@ const People = props => {
                                 props.currentUserProfile.id ===
                                 connection.connected_id
                                   ? connection.connector_avatar
-                                  : connection.connected_avatar
+                                  : connection.connected_avatar,
                             }}
                           />
                         </View>
@@ -206,18 +183,15 @@ const People = props => {
                           onPress={() => {
                             props.currentUserProfile.id ===
                             connection.connected_id
-                              ? props.navigation.navigate('Pro', {
-                                  selectedProfile: connection.connector_id
+                              ? props.navigation.navigate('Profile', {
+                                  selectedProfile: connection.connector_id,
                                 })
-                              : props.navigation.navigate('Pro', {
-                                  selectedProfile: connection.connected_id
+                              : props.navigation.navigate('Profile', {
+                                  selectedProfile: connection.connected_id,
                                 });
                           }}
                         >
-                          <Text
-                            key={connection.id}
-                            style={styles.name}
-                          >
+                          <Text key={connection.id} style={styles.name}>
                             {connection.connector_name === null
                               ? '---'
                               : props.currentUserProfile.id ===
@@ -240,29 +214,23 @@ const People = props => {
             <Text style={styles.noConnections}>No Current Connections</Text>
           ) : (
             <View>
-              {orgCurrentUserConnections?.map(connection => (
+              {orgCurrentUserConnections?.map((connection) => (
                 <View style={styles.card} key={connection.id}>
-                  <View
-                    style={styles.cardContainer}
-                    key={connection.id}
-                  >
-                    <View
-                      style={styles.imageContainer}
-                      key={connection.id}
-                    >
+                  <View style={styles.cardContainer} key={connection.id}>
+                    <View style={styles.imageContainer} key={connection.id}>
                       <Avatar
                         size={48}
                         rounded
                         key={connection.id}
                         source={{
-                          uri: connection.connector_avatar
+                          uri: connection.connector_avatar,
                         }}
                       />
                     </View>
                     <TouchableOpacity
                       onPress={() =>
-                        props.navigation.navigate('Pro', {
-                          selectedProfile: connection.connector_id
+                        props.navigation.navigate('Profile', {
+                          selectedProfile: connection.connector_id,
                         })
                       }
                     >
@@ -282,14 +250,14 @@ const People = props => {
     </View>
   );
 };
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   connections: state.connections,
   selectedProfile: state.selectedProfile,
-  currentUserProfile: state.currentUserProfile
+  currentUserProfile: state.currentUserProfile,
 });
 export default connect(mapStateToProps, {
   getConnections,
   deleteConnection,
   editConnectStatus,
-  goToProfile
+  goToProfile,
 })(withNavigation(People));

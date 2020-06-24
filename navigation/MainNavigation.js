@@ -27,6 +27,7 @@ import ViewCampaignScreen from '../screens/ViewCampaignScreen';
 import EditCampaignScreen from '../screens/EditCampaignScreen';
 import CreateCampaignUpdateScreen from '../screens/CreateCampaignUpdateScreen';
 import AccountSettingsScreen from '../screens/AccountSettingsScreen';
+import PaymentSettingsScreen from '../screens/PaymentSettingsScreen';
 import WideMapScreen from '../screens/maps/WideMapScreen';
 import NotificationsScreen from '../screens/notifications/NotificationsMain';
 import AdminReportScreen from '../screens/AdminReportScreen';
@@ -103,7 +104,7 @@ const FeedStack = createStackNavigator(
         headerShown: false,
       },
     },
-    Pro: {
+    Profile: {
       screen: ProfileScreen,
       navigationOptions: {
         headerTransparent: true,
@@ -154,27 +155,38 @@ const SupporterSkillImpactStack = createStackNavigator(
   }
 );
 
-export const AccountSettingsStack = createStackNavigator({
-  AccountSettings: AccountSettingsScreen,
-  AdminScreen: AdminReportScreen,
-  ReportScreen: ReportDetailScreen,
-  ProfileDetails: ProfileScreen,
-  Connections: ConnectionsScreen,
-  SelectedConnections: SelectedConnectionsScreen,
-});
-
-const MyProStack = createStackNavigator(
+export const AccountSettingsStack = createStackNavigator(
   {
-    Pro: {
+    AccountSettings: AccountSettingsScreen,
+    AdminScreen: AdminReportScreen,
+    ReportScreen: { screen: ReportDetailScreen },
+    ProfileDetails: ProfileScreen,
+    Connections: ConnectionsScreen,
+    SelectedConnections: SelectedConnectionsScreen,
+    PaymentSettings: PaymentSettingsScreen,
+  },
+  {
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#323338',
+      },
+    },
+  }
+);
+
+const ProfileStack = createStackNavigator(
+  {
+    MyProfile: {
       screen: ProfileScreen,
     },
-    MyPro: {
+    Profile: {
       screen: ProfileScreen,
     },
     EditProfile: {
       screen: EditProfileScreen,
       navigationOptions: { title: 'Edit Profile' },
     },
+    Connections: { screen: ConnectionsScreen },
     Campaign: ViewCampaignScreen,
     EditCampaign: EditCampaignScreen,
     CreateCampaignUpdate: CreateCampaignUpdateScreen,
@@ -184,23 +196,6 @@ const MyProStack = createStackNavigator(
     navigationOptions: {
       tabBarLabel: 'My Profile',
       tabBarIcon: ({ focused }) => <Smile />,
-    },
-  }
-);
-
-const SupporterProfileStack = createStackNavigator(
-  {
-    MySupporterProfile: { screen: ProfileScreen },
-    EditProfile: { screen: EditProfileScreen },
-    Connections: { screen: ConnectionsScreen },
-  },
-  {
-    navigationOptions: {
-      tabBarLabel: 'My Profile',
-      tabBarIcon: ({ focused }) => <Smile />,
-      transitionSpec: {
-        duration: 0,
-      },
     },
   }
 );
@@ -253,8 +248,8 @@ export const ConsNavigator = createBottomTabNavigator(
       screen: NotStack,
       path: '',
     },
-    MyProStack: {
-      screen: MyProStack,
+    ProfileStack: {
+      screen: ProfileStack,
       path: '',
     },
   },
@@ -265,7 +260,7 @@ export const ConsNavigator = createBottomTabNavigator(
       activeBackgroundColor: '#EAEAEA',
       style: {
         borderTopColor: 'transparent',
-        height: 52
+        height: 52,
       },
       tabStyle: {
         borderRightColor: '#EAEAEA',
@@ -296,8 +291,8 @@ export const SupporterNavigator = createBottomTabNavigator(
       screen: NotStack,
       path: '',
     },
-    SupporterProfileStack: {
-      screen: SupporterProfileStack,
+    ProfileStack: {
+      screen: ProfileStack,
       path: '',
     },
   },

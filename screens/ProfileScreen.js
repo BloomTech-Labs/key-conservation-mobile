@@ -65,10 +65,6 @@ class ProfileScreen extends React.Component {
     }
   };
 
-  componentWillUnmount() {
-    this.mounted = false;
-  }
-
   componentDidMount = () => {
     this.mounted = true;
     if (this.state.loading) {
@@ -128,6 +124,7 @@ class ProfileScreen extends React.Component {
   };
 
   componentWillUnmount() {
+    this.mounted = false;
     this.props.navigation.setParams({ selectedProfile: null });
     clearInterval(this.refreshInterval);
   }

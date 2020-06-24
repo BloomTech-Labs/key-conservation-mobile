@@ -406,7 +406,7 @@ class ViewCampaignScreen extends React.Component {
   };
 
   goToProfile = () => {
-    this.props.navigation.navigate('Pro', {
+    this.props.navigation.push('Profile', {
       selectedProfile: this.props.openCampaigns[this.postId]?.user_id,
     });
   };

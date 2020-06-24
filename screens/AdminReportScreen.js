@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import ReportCard from '../components/Reports/ReportCard';
 
 import styles from '../constants/screens/AdminReportScreen';
-import BackButton from '../components/BackButton';
 import LoadingOverlay from '../components/LoadingOverlay';
 
 class AdminReportScreen extends React.Component {
@@ -13,10 +12,9 @@ class AdminReportScreen extends React.Component {
     return {
       title: 'Manage Reports',
       headerStyle: {
-        backgroundColor: '#323338'
+        backgroundColor: '#323338',
       },
       headerTintColor: '#fff',
-      headerLeft: () => <BackButton navigation={navigation} />
     };
   };
 
@@ -29,20 +27,24 @@ class AdminReportScreen extends React.Component {
   state = {
     masterTab: 0,
     currentTab: 0,
-    currentPage: 0
+    currentPage: 0,
   };
 
   nextPage = () => {
     if (this.state.currentPage < this.props.reports.data.pages - 1) {
       this.updateReports(this.state.currentPage + 1);
-      this.setState(prevState => ({ currentPage: prevState.currentPage + 1 }));
+      this.setState((prevState) => ({
+        currentPage: prevState.currentPage + 1,
+      }));
     }
   };
 
   prevPage = () => {
     if (this.state.currentPage > 0) {
       this.updateReports(this.state.currentPage - 1);
-      this.setState(prevState => ({ currentPage: prevState.currentPage - 1 }));
+      this.setState((prevState) => ({
+        currentPage: prevState.currentPage - 1,
+      }));
     }
   };
 
@@ -50,7 +52,7 @@ class AdminReportScreen extends React.Component {
     this.props.getReports();
   }
 
-  openReport = report => {
+  openReport = (report) => {
     this.props.getReport(report.id);
     this.props.navigation.navigate('ReportScreen');
   };
@@ -70,19 +72,19 @@ class AdminReportScreen extends React.Component {
     }
   };
 
-  setMasterTab = tab => {
+  setMasterTab = (tab) => {
     this.setState({ masterTab: tab, currentTab: 0, currentPage: 0 }, () => {
       this.updateReports(this.state.currentPage);
     });
   };
 
-  setCurrentTab = tab => {
+  setCurrentTab = (tab) => {
     this.setState({ currentTab: tab, currentPage: 0 }, () => {
       this.updateReports(this.state.currentPage);
     });
   };
 
-  updateReports = pageNum => {
+  updateReports = (pageNum) => {
     this.props.getReports(
       pageNum,
       this.getReportType(),
@@ -111,7 +113,9 @@ class AdminReportScreen extends React.Component {
               </TouchableOpacity>
             ))}
           </View>
-          <Text style={styles.title}>{this.state.masterTab === 0 ? "Active Reports" : "Archived Reports"}</Text>
+          <Text style={styles.title}>
+            {this.state.masterTab === 0 ? 'Active Reports' : 'Archived Reports'}
+          </Text>
           <View style={{ flex: 1 }}>
             <View style={styles.tabSelector}>
               {this.TABS.map((tabTitle, index) => (
@@ -132,7 +136,7 @@ class AdminReportScreen extends React.Component {
                 style={{
                   flex: 1,
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
                 }}
               >
                 {reports?.length === 0 ? (
@@ -147,35 +151,35 @@ class AdminReportScreen extends React.Component {
               <View style={styles.reportList}>
                 <FlatList
                   data={reports}
-                  renderItem={report => (
+                  renderItem={(report) => (
                     <TouchableOpacity
                       onPress={this.openReport.bind(this, report.item)}
                     >
                       <ReportCard {...report.item} />
                     </TouchableOpacity>
                   )}
-                  keyExtractor={item => item.id.toString()}
+                  keyExtractor={(item) => item.id.toString()}
                 />
                 <View style={styles.pageSelector}>
                   <View style={styles.pageControl}>
                     {this.props.reports.data?.pages &&
                     this.state.currentPage > 0 ? (
                       <Button
-                        title='Previous'
+                        title="Previous"
                         onPress={this.prevPage}
                         disabled={this.props.reports.loading}
                       />
                     ) : null}
                   </View>
-                  <Text style={styles.pageNumber}>{`Page ${this.state
-                    .currentPage + 1 || '-'} of ${this.props.reports.data
-                    ?.pages || '-'}`}</Text>
+                  <Text style={styles.pageNumber}>{`Page ${
+                    this.state.currentPage + 1 || '-'
+                  } of ${this.props.reports.data?.pages || '-'}`}</Text>
                   <View style={styles.pageControl}>
                     {this.props.reports.data?.pages &&
                     this.state.currentPage <
                       this.props.reports.data?.pages - 1 ? (
                       <Button
-                        title='Next'
+                        title="Next"
                         onPress={this.nextPage}
                         disabled={this.props.reports.loading}
                       />
@@ -191,8 +195,8 @@ class AdminReportScreen extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  reports: state.reports
+const mapStateToProps = (state) => ({
+  reports: state.reports,
 });
 
 export default connect(mapStateToProps, { getReports, getReport })(
