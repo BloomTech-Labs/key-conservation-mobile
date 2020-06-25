@@ -1,12 +1,6 @@
+// LABS24: When creating the inital seed data we built out a campaign notiifcation to show differnt types of notifications in our RC 1. This is not currently implemented as this type of notification is not created in the back end. If this type is made on the back end and sent into the notification table - the code in this file can be adjusted to display the data- similar to ConnectionNotification.js
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  TouchableOpacity,
-  Text,
-  Image,
-  Button,
-  StyleSheet,
-} from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 import { useDispatch, connect } from 'react-redux';
 import { AmpEvent } from '../withAmplitude';
@@ -16,13 +10,6 @@ import TimeStamp from './TimeStamp';
 import { setCampaign } from '../../store/actions';
 
 const CampaignNotification = (props) => {
-  // useEffect(() => {
-
-  //     // console.log(props);
-  //     // console.log(props.notifData.item.sender_name);
-  //     // console.log(props.notifData.item.sender_Pic);
-
-  // });
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -41,7 +28,7 @@ const CampaignNotification = (props) => {
 
   const checkNew = () => {
     console.log('state data', data);
-    if ((data.new_notification == true)) {
+    if (data.new_notification == true) {
       return setData({
         ...data,
         new_notification: false,
@@ -54,9 +41,7 @@ const CampaignNotification = (props) => {
       campaign: props.notifData.item.name,
       profile: props.notifData.item.sender_name,
     });
-    // console.log('testme', props.notifData.item);
     dispatch(setCampaign(props.notifData.item));
-    // console.log('!!!!!!!!!!!!!!!!!!!!!!!', selectedCampaign);
     navigate('Campaign', {
       userBookmarked: 153,
     });
@@ -127,7 +112,6 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 5,
     flexDirection: 'row',
-    // padding: 10,
     borderRadius: 0,
     marginVertical: 6,
     alignItems: 'center',
@@ -138,14 +122,12 @@ const styles = StyleSheet.create({
   },
   avatarContainer: {
     alignSelf: 'center',
-    // flex: 1,
     width: '15%',
     marginLeft: 1,
     alignItems: 'flex-start',
   },
   imgContainer: {
     alignSelf: 'center',
-    // flex: 1,
     width: '15%',
     marginRight: 15,
   },
@@ -162,7 +144,6 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.6,
-    // elevation: 10,
   },
   connect: {
     fontFamily: 'Lato-Bold',

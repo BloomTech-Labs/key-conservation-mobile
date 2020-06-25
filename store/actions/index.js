@@ -283,10 +283,10 @@ export const [
   EDIT_PROFILE_IMAGE_ERROR,
   EDIT_PROFILE_IMAGE_SUCCESS,
 ] = [
-    'EDIT_PROFILE_IMAGE_START',
-    'EDIT_PROFILE_IMAGE_ERROR',
-    'EDIT_PROFILE_IMAGE_SUCCESS',
-  ];
+  'EDIT_PROFILE_IMAGE_START',
+  'EDIT_PROFILE_IMAGE_ERROR',
+  'EDIT_PROFILE_IMAGE_SUCCESS',
+];
 
 export const editProfileImage = (id, uri) => (dispatch) => {
   dispatch({ type: EDIT_PROFILE_IMAGE_START });
@@ -408,11 +408,11 @@ export const [
   GET_FEED_SUCCESS,
   GET_FEED_ERROR,
 ] = [
-    'GET_FEED_START',
-    'GET_FEED_SUCCESS',
-    'EXPAND_FEED_SUCCESS',
-    'GET_FEED_ERROR',
-  ];
+  'GET_FEED_START',
+  'GET_FEED_SUCCESS',
+  'EXPAND_FEED_SUCCESS',
+  'GET_FEED_ERROR',
+];
 
 export const getFeed = (startAt = undefined, size = 8) => (dispatch) => {
   const now = new Date(Date.now()).toISOString();
@@ -502,12 +502,12 @@ export const [
   POST_CAMPAIGN_SUCCESS,
   POST_CAMPAIGN_CANCEL,
 ] = [
-    'POST_CAMPAIGN_START',
-    'POST_CAMPAIGN_PROGRESS',
-    'POST_CAMPAIGN_ERROR',
-    'POST_CAMPAIGN_SUCCESS',
-    'POST_CAMPAIGN_CANCEL',
-  ];
+  'POST_CAMPAIGN_START',
+  'POST_CAMPAIGN_PROGRESS',
+  'POST_CAMPAIGN_ERROR',
+  'POST_CAMPAIGN_SUCCESS',
+  'POST_CAMPAIGN_CANCEL',
+];
 
 export const postCampaign = (campaign) => (dispatch) => {
   const id = `${campaign.name}${Math.random() * 1000}`;
@@ -656,12 +656,12 @@ export const [
   POST_CAMPAIGN_UPDATE_SUCCESS,
   POST_CAMPAIGN_UPDATE_CANCEL,
 ] = [
-    'POST_CAMPAIGN_UPDATE_START',
-    'POST_CAMPAIGN_UPDATE_PROGRESS',
-    'POST_CAMPAIGN_UPDATE_ERROR',
-    'POST_CAMPAIGN_UPDATE_SUCCESS',
-    'POST_CAMPAIGN_UPDATE_CANCEL',
-  ];
+  'POST_CAMPAIGN_UPDATE_START',
+  'POST_CAMPAIGN_UPDATE_PROGRESS',
+  'POST_CAMPAIGN_UPDATE_ERROR',
+  'POST_CAMPAIGN_UPDATE_SUCCESS',
+  'POST_CAMPAIGN_UPDATE_CANCEL',
+];
 
 export const postCampaignUpdate = (campaignUpdate) => (dispatch) => {
   const id = `${campaignUpdate.description}${Math.random() * 1000}`;
@@ -779,10 +779,10 @@ export const [
   GET_CAMPAIGNS_BY_SKILL_ERROR,
   GET_CAMPAIGNS_BY_SKILL_SUCCESS,
 ] = [
-    'GET_CAMPAIGNS_BY_SKILL_START',
-    'GET_CAMPAIGNS_BY_SKILL_ERROR',
-    'GET_CAMPAIGNS_BY_SKILL_SUCCESS',
-  ];
+  'GET_CAMPAIGNS_BY_SKILL_START',
+  'GET_CAMPAIGNS_BY_SKILL_ERROR',
+  'GET_CAMPAIGNS_BY_SKILL_SUCCESS',
+];
 
 export const getCampaignsBySkill = (skill) => (dispatch) => {
   dispatch({ type: GET_CAMPAIGNS_BY_SKILL_START });
@@ -806,10 +806,10 @@ export const [
   GET_APPLICATIONS_BY_USER_ERROR,
   GET_APPLICATIONS_BY_USER_SUCCESS,
 ] = [
-    'GET_APPLICATIONS_BY_USER_START',
-    'GET_APPLICATIONS_BY_USER_ERROR',
-    'GET_APPLICATIONS_BY_USER_SUCCESS',
-  ];
+  'GET_APPLICATIONS_BY_USER_START',
+  'GET_APPLICATIONS_BY_USER_ERROR',
+  'GET_APPLICATIONS_BY_USER_SUCCESS',
+];
 
 export const getApplicationsByUser = (userId) => (dispatch) => {
   dispatch({ type: GET_APPLICATIONS_BY_USER_START });
@@ -882,10 +882,10 @@ export const [
   GET_ORGANIZATIONS_SUCCESS,
   GET_ORGANIZATIONS_ERROR,
 ] = [
-    'GET_ORGANIZATIONS_STARTED',
-    'GET_ORGANIZATIONS_SUCCESS',
-    'GET_ORGANIZATIONS_ERROR',
-  ];
+  'GET_ORGANIZATIONS_STARTED',
+  'GET_ORGANIZATIONS_SUCCESS',
+  'GET_ORGANIZATIONS_ERROR',
+];
 
 export const getOrganizations = () => (dispatch) => {
   dispatch({ type: GET_ORGANIZATIONS_STARTED });
@@ -1069,16 +1069,16 @@ export const [
   FETCH_BOOKMARKS_SUCCESS,
   FETCH_BOOKMARKS_ERROR,
 ] = [
-    'ADD_BOOKMARK_LOADING',
-    'ADD_BOOKMARK_SUCCESS',
-    'ADD_BOOKMARK_ERROR',
-    'REMOVE_BOOKMARK_LOADING',
-    'REMOVE_BOOKMARK_SUCCESS',
-    'REMOVE_BOOKMARK_ERROR',
-    'FETCH_BOOKMARKS_LOADING',
-    'FETCH_BOOKMARKS_SUCCESS',
-    'FETCH_BOOKMARKS_ERROR',
-  ];
+  'ADD_BOOKMARK_LOADING',
+  'ADD_BOOKMARK_SUCCESS',
+  'ADD_BOOKMARK_ERROR',
+  'REMOVE_BOOKMARK_LOADING',
+  'REMOVE_BOOKMARK_SUCCESS',
+  'REMOVE_BOOKMARK_ERROR',
+  'FETCH_BOOKMARKS_LOADING',
+  'FETCH_BOOKMARKS_SUCCESS',
+  'FETCH_BOOKMARKS_ERROR',
+];
 
 export const addBookmark = (campaign) => (dispatch) => {
   dispatch({ type: ADD_BOOKMARK_LOADING });
@@ -1226,25 +1226,22 @@ export const [
   FETCH_NOTIFICATION_SUCCESS,
   FETCH_NOTIFICATION_ERROR,
 ] = [
-    'FETCH_NOTIFICATION_START',
-    'FETCH_NOTIFICATION_SUCCESS',
-    'FETCH_NOTIFICATION_ERROR',
-  ];
+  'FETCH_NOTIFICATION_START',
+  'FETCH_NOTIFICATION_SUCCESS',
+  'FETCH_NOTIFICATION_ERROR',
+];
 
 export const getAllNotifications = (id) => (dispatch) => {
   dispatch({ type: FETCH_NOTIFICATION_START });
-  console.log('43eoidf: ' + id);
   return axios
     .get(`${seturl}notifications/${id}`)
     .then((res) => {
-      console.log('FROM NOTES*******', res.data.notifications);
       dispatch({
         type: FETCH_NOTIFICATION_SUCCESS,
         payload: res.data.notifications,
       });
     })
     .catch((err) => {
-      console.log('ERROR FROM NOTES*******', err);
       dispatch({ type: FETCH_NOTIFICATION_ERROR, payload: err });
     });
 };
@@ -1254,18 +1251,16 @@ export const [
   CREATE_NOTIFICATION_SUCCESS,
   CREATE_NOTIFICATION_ERROR,
 ] = [
-    'CREATE_NOTIFICATION_START',
-    'CREATE_NOTIFICATION_SUCCESS',
-    'CREATE_NOTIFICATION_ERROR',
-  ];
+  'CREATE_NOTIFICATION_START',
+  'CREATE_NOTIFICATION_SUCCESS',
+  'CREATE_NOTIFICATION_ERROR',
+];
 
 export const createNotification = (data) => (dispatch) => {
-  console.log('create notification start', data);
   dispatch({ type: CREATE_NOTIFICATION_START });
   return axios
     .post(`${seturl}notifications/`, data)
     .then((res) => {
-      console.log('create notification success', res.data.message);
       dispatch({
         type: CREATE_NOTIFICATION_SUCCESS,
         payload: res.data.message,
@@ -1281,19 +1276,16 @@ export const [
   MARK_NOTIFICATION_SUCCESS,
   MARK_NOTIFICATION_ERROR,
 ] = [
-    'MARK_NOTIFICATION_START',
-    'MARK_NOTIFICATION_SUCCESS',
-    'MARK_NOTIFICATION_ERROR',
-  ];
+  'MARK_NOTIFICATION_START',
+  'MARK_NOTIFICATION_SUCCESS',
+  'MARK_NOTIFICATION_ERROR',
+];
 
 export const markNotification = (UID, NID) => (dispatch) => {
-  // console.log('create notification start', data);
-  console.log('DDD', UID + '/' + NID);
   dispatch({ type: MARK_NOTIFICATION_START });
   return axios
     .put(`${seturl}notifications/`, { userID: UID, notifID: NID })
     .then((res) => {
-      console.log('MARK NOTIFICATION', res.data.message);
       dispatch({
         type: MARK_NOTIFICATION_SUCCESS,
         payload: res.data.message,
@@ -1309,19 +1301,16 @@ export const [
   MARK_ALL_NOTIFICATIONS_SUCCESS,
   MARK_ALL_NOTIFICATIONS_ERROR,
 ] = [
-    'MARK_ALL_NOTIFICATIONS_START',
-    'MARK_ALL_NOTIFICATIONS_SUCCESS',
-    'MARK_ALL_NOTIFICATIONS_ERROR',
-  ];
+  'MARK_ALL_NOTIFICATIONS_START',
+  'MARK_ALL_NOTIFICATIONS_SUCCESS',
+  'MARK_ALL_NOTIFICATIONS_ERROR',
+];
 
 export const markAllNotifications = (UID, NT) => (dispatch) => {
-  // console.log('create notification start', data);
-  console.log('DDD', UID);
   dispatch({ type: MARK_ALL_NOTIFICATIONS_START });
   return axios
     .put(`${seturl}notifications/all/`, { userID: UID, notificationType: NT })
     .then((res) => {
-      console.log('MARK ALL NOTIFICATIONS', res.data.message);
       dispatch({
         type: MARK_ALL_NOTIFICATIONS_SUCCESS,
         payload: res.data.message,
@@ -1331,20 +1320,3 @@ export const markAllNotifications = (UID, NT) => (dispatch) => {
       dispatch({ type: MARK_ALL_NOTIFICATIONS_ERROR, payload: err });
     });
 };
-
-// Object {
-//   "message": "1 notifications were found",
-//     "notifications": Array[
-//       Object {
-//     "new_notification": true,
-//       "notification_id": 1,
-//         "notification_type": 0,
-//           "pathway": "something",
-//             "sender_id": 1,
-//               "sender_name": "Ney",
-//                 "sender_pic": "aaa",
-//                   "time": "2020-06-15T17:49:36.953Z",
-//                     "user_id": 59,
-//     },
-//   ],
-// }

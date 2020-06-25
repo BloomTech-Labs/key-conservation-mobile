@@ -9,7 +9,6 @@ import {
   Alert,
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
-import moment from 'moment';
 import TimeStamp from './TimeStamp';
 import { connect } from 'react-redux';
 import {
@@ -18,7 +17,6 @@ import {
   getConnections,
   deleteConnection,
 } from '../../store/actions';
-import { NavigationEvents } from 'react-navigation';
 import X from '../../assets/jsicons/miscIcons/X';
 {
   /* TEAL COLOR: #00FF9D */
@@ -27,32 +25,18 @@ import X from '../../assets/jsicons/miscIcons/X';
 const ConnectionNotification = (props) => {
   const createdAt = props.notifData.item.time;
   const [data, setData] = useState(props.notifData.item);
-  const [read, setRead] = useState(props.notifData.item.new_notification);
   const [connections, setConnections] = useState([]);
 
   useEffect(() => {
-    // console.log('@@@@@@@@@', props.notifData);
     getConnections();
     console.log('props.notifData.item', props.notifData.item);
-    // console.log('**** data.new_notification ***', read);
   }, [data]);
 
   const goToCommenterProfile = () => {
     props.nav.push('Pro', {
       selectedProfile: props.notifData.item.sender_id,
     });
-    // checkNew();
   };
-
-  // const checkNew = () => {
-  //   // console.log('state data', data);
-  //   if ((data.new_notification = true)) {
-  //     return setData({
-  //       ...data,
-  //       new_notification: false,
-  //     });
-  //   }
-  // };
 
   const promptDelete = () => {
     Alert.alert(
@@ -151,9 +135,6 @@ const ConnectionNotification = (props) => {
         </View>
         <TouchableOpacity
           style={styles.button}
-          // onPress={() => {
-          //   props.nav.push('Connections', (props = { forceOpen: true }));
-          // }}
           onPress={() => approveRequest()}
         >
           <Text style={styles.connect}>Connect</Text>
@@ -188,7 +169,6 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 5,
     flexDirection: 'row',
-    // padding: 10,
     borderRadius: 0,
     marginVertical: 6,
     alignItems: 'center',
@@ -199,7 +179,6 @@ const styles = StyleSheet.create({
   },
   avatarContainer: {
     alignSelf: 'center',
-    // flex: 1,
     width: '15 %',
     marginLeft: 1,
   },
@@ -210,7 +189,6 @@ const styles = StyleSheet.create({
   button: {
     minWidth: '17%',
     width: 'auto',
-    // flex: 1,
     borderRadius: 7.5,
     height: 30,
     paddingRight: 15,
@@ -245,5 +223,3 @@ export default connect(null, {
   deleteConnection,
   getConnections,
 })(ConnectionNotification);
-
-// export default ConnectionNotification;

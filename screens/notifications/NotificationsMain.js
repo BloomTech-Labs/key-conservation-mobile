@@ -157,7 +157,7 @@ class NotificationsMain extends React.Component {
 
           <FlatList
             style={{ width: '100%', height: '100%' }}
-            data={this.props.notifications} // seedData.data
+            data={this.props.notifications}
             showsVerticalScrollIndicator={false}
             renderItem={(data) => {
               switch (data.item.notification_type) {
@@ -249,7 +249,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    // width: '100%',
     height: '90%',
     marginLeft: 10,
     marginRight: 10,
@@ -286,19 +285,7 @@ const mapStateToProps = (state) => ({
   notificationsLoading: state.notificationsLoading,
 });
 
-// const mapDispatchToProps = (dispatch) => {
-//   return
-//   { fetchNotifications: (id) => dispatch(getAllNotifications(id)) }
-
-// };
-
 export default connect(mapStateToProps, {
   getAllNotifications,
   markNotification,
 })(NotificationsMain);
-
-// const mapStateToProps = (state) => ({
-//   currentUserId: state.currentUserProfile.id,
-// });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(NotificationsMain);

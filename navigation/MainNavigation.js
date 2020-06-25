@@ -112,20 +112,14 @@ const NotStack = createStackNavigator(
   {
     navigationOptions: {
       tabBarLabel: 'Map', //
-      tabBarIcon: ({ focused }) => <Bell />
+      tabBarIcon: ({ focused }) => <Bell />,
     },
   }
 );
 
 /*
-
+  // LABS24: We were looking to implement a bage to show if there were any current notifications. The issue appears to be with react-native and the idea of focus. Since the nav bar itself is never out of focus we were not able to find a way to have it re-render. This was previously in the NotStack and was moved out.
       tabBarIcon: ({ focused }) => {
-        // console.log('KLSDFJS:DILFHSDLFKJSDF: ' + state.notificationsLoading);
-
-        // if (!state.notificationsLoading) {
-        //   console.log('CALLED A');
-        //   store.dispatch(getAllNotifications(59));
-        // }
 
         return (
           <>

@@ -797,11 +797,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
       };
-    // case actions.MARK_NOTIFICATION_SUCCESS:
-    // return {
-    //   ...state,
-    //   notifications: {...state.notifications, new_notification: false}
-    // }
+    case actions.MARK_NOTIFICATION_SUCCESS:
+      return {
+        ...state,
+        notifications: { ...state.notifications, new_notification: false },
+      };
     default:
       return state;
   }

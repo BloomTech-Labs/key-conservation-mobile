@@ -1,3 +1,5 @@
+// LABS24: RC1 - this was used when we were setting up the front end for potential types of notifications.
+
 // export const checkNew = () => {
 //   if(seedData.data.new_notification == true){
 //     return seedData.data.new_notification = false;
