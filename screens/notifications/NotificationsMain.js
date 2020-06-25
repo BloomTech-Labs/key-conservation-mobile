@@ -9,9 +9,8 @@ import {
   FlatList,
   Text,
 } from 'react-native';
-import { Badge, withBadge, withTheme } from 'react-native-elements';
+import { Badge } from 'react-native-elements';
 
-import BackButton from '../../components/BackButton';
 import ConnectionNotification from '../../components/Notifications/ConnectionNotification';
 import CampaignNotification from '../../components/Notifications/CampaignNotification';
 
@@ -19,14 +18,13 @@ import Messages from '../../assets/jsicons/bottomnavigation/Messages';
 import Bell from '../../assets/jsicons/bottomnavigation/BellB';
 import Logo from '../../assets/jsicons/other/Logo';
 
-import { seedData } from '../../components/Notifications/seedData';
-
-var aaa = 0;
+import { connect } from 'react-redux';
+import { getAllNotifications, markNotification } from '../../store/actions';
+import { NavigationEvents } from 'react-navigation';
 
 class NotificationsMain extends React.Component {
   constructor(props) {
     super(props);
-    // console.log(props);
     this.state = {
       isLoading: false,
       isActive: true,
@@ -47,26 +45,29 @@ class NotificationsMain extends React.Component {
   };
 
   componentDidMount() {
-    // this.state.navigation.push('Connections', {});
-    // console.log(this.state.navigation);
-    console.log('Fetching notifications...');
-    // console.log(seedData.data);
+    if (this.props.notificationsLoading)
+      this.props.getAllNotifications(this.props.currentUserId);
   }
 
   render() {
     return (
       <View style={styles.wrapper}>
+        <NavigationEvents
+          onDidFocus={() =>
+            this.props.getAllNotifications(this.props.currentUserId)
+          }
+        />
         <View style={styles.tabContainer} elevation={8}>
           <TouchableOpacity
             style={
               !this.state.isActive ? styles.tabButtonSelected : styles.tabButton
             }
-            onPress={() =>
+            onPress={() => {
               this.setState({
                 isActive: !this.state.isActive,
                 notifOpen: !this.state.notifOpen,
-              })
-            }
+              });
+            }}
           >
             <Messages />
           </TouchableOpacity>
@@ -84,7 +85,15 @@ class NotificationsMain extends React.Component {
             <View>
               <Bell />
               <Badge
-                value={<Text style={styles.badgeText}>{Object.keys(seedData.data).length}</Text>}
+                value={
+                  <Text style={styles.badgeText}>
+                    {
+                      this.props.notifications.filter(
+                        (notif) => notif.new_notification
+                      ).length
+                    }
+                  </Text>
+                }
                 badgeStyle={styles.badge}
                 containerStyle={{
                   position: 'absolute',
@@ -97,7 +106,7 @@ class NotificationsMain extends React.Component {
         </View>
         <ScrollView
           contentContainerStyle={
-            this.state.isLoading
+            this.props.notificationsLoading
               ? styles.contentContainerLoading
               : styles.contentContainer
           }
@@ -105,7 +114,9 @@ class NotificationsMain extends React.Component {
         >
           <View
             style={
-              this.state.isLoading ? styles.loadingContainer : styles.closed
+              this.props.notificationsLoading
+                ? styles.loadingContainer
+                : styles.closed
             }
           >
             <Logo style={styles.logoIcon} />
@@ -120,7 +131,7 @@ class NotificationsMain extends React.Component {
         </ScrollView>
         <ScrollView
           contentContainerStyle={
-            this.state.isLoading
+            this.props.notificationsLoading
               ? styles.contentContainerLoading
               : styles.contentContainer
           }
@@ -131,7 +142,9 @@ class NotificationsMain extends React.Component {
 
           <View
             style={
-              this.state.isLoading ? styles.loadingContainer : styles.closed
+              this.props.notificationsLoading
+                ? styles.loadingContainer
+                : styles.closed
             }
           >
             <Logo style={styles.logoIcon} />
@@ -144,11 +157,11 @@ class NotificationsMain extends React.Component {
 
           <FlatList
             style={{ width: '100%', height: '100%' }}
-            data={seedData.data}
+            data={this.props.notifications}
             showsVerticalScrollIndicator={false}
             renderItem={(data) => {
               switch (data.item.notification_type) {
-                case 1:
+                case 0:
                   return (
                     <ConnectionNotification
                       notifData={data}
@@ -156,7 +169,7 @@ class NotificationsMain extends React.Component {
                     />
                   );
 
-                case 2:
+                case 1:
                   return (
                     <CampaignNotification
                       notifData={data}
@@ -219,12 +232,12 @@ const styles = StyleSheet.create({
   },
   badge: {
     backgroundColor: '#D7FE49',
-    color: "black",
-    overflow: "hidden",
+    color: 'black',
+    overflow: 'hidden',
     position: 'relative',
   },
   badgeText: {
-    color: "black"
+    color: 'black',
   },
   counterText: {
     position: 'absolute',
@@ -236,7 +249,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    // width: '100%',
     height: '90%',
     marginLeft: 10,
     marginRight: 10,
@@ -267,4 +279,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NotificationsMain;
+const mapStateToProps = (state) => ({
+  currentUserId: state.currentUserProfile.id,
+  notifications: state.notifications,
+  notificationsLoading: state.notificationsLoading,
+});
+
+export default connect(mapStateToProps, {
+  getAllNotifications,
+  markNotification,
+})(NotificationsMain);

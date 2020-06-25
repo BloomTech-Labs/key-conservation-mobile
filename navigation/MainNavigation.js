@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { View, Text, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
+import { Badge, withBadge, withTheme } from 'react-native-elements';
+import { NavigationEvents } from 'react-navigation';
+
+import { getAllNotifications } from '../store/actions/';
 
 import CanScreen from '../screens/org-onboarding-screens/CanScreen';
 import CantScreen from '../screens/org-onboarding-screens/CantScreen';
@@ -40,6 +46,8 @@ import ConnectionsScreen from '../screens/Connections/ConnectionsScreen';
 import SelectedConnectionsScreen from '../screens/Connections/SelectedConnectionsScreen';
 import OrgSkillImpactScreen from '../screens/org-skillimpact-screen/OrgSkillImpactScreen';
 import SupporterSkillImpactScreen from '../screens/supporter-skillimpact-screen/SupporterSkillImpactScreen';
+
+import store from '../store/configureStore';
 
 //icon imports
 
@@ -83,17 +91,61 @@ const MapStack = createStackNavigator(
   }
 );
 
+const styles = StyleSheet.create({
+  badge: {
+    backgroundColor: '#D7FE49', // #D7FE49
+    color: 'black',
+    overflow: 'hidden',
+    position: 'relative',
+  },
+  badgeText: {
+    color: 'black',
+  },
+});
+
+const state = store.getState();
+
 const NotStack = createStackNavigator(
   {
     NotScreen: NotificationsScreen,
   },
   {
     navigationOptions: {
-      tabBarLabel: 'Map',
+      tabBarLabel: 'Map', //
       tabBarIcon: ({ focused }) => <Bell />,
     },
   }
 );
+
+/*
+  // LABS24: We were looking to implement a bage to show if there were any current notifications. The issue appears to be with react-native and the idea of focus. Since the nav bar itself is never out of focus we were not able to find a way to have it re-render. This was previously in the NotStack and was moved out.
+      tabBarIcon: ({ focused }) => {
+
+        return (
+          <>
+            <Bell />
+            <Badge
+              value={
+                <Text style={styles.badgeText}>
+                  {
+                    state.notifications.filter(
+                      (notif) => notif.new_notification
+                    ).length
+                  }
+                </Text>
+              }
+              badgeStyle={styles.badge}
+              containerStyle={{
+                position: 'absolute',
+                top: 5,
+                right: 10,
+              }}
+            />
+          </>
+        );
+      },
+
+*/
 
 const FeedStack = createStackNavigator(
   {
