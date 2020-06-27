@@ -4,13 +4,14 @@ import { AmpEvent } from '../withAmplitude';
 import { Avatar } from 'react-native-elements';
 import styles from '../../constants/Connections/Cards';
 import X from '../../assets/jsicons/miscIcons/X';
-import { withNavigation } from 'react-navigation';
+import { NavigationEvents, withNavigation } from 'react-navigation';
 
 import {
   getConnections,
   deleteConnection,
   editConnectStatus,
   goToProfile,
+  markAllNotifications,
 } from '../../store/actions';
 import { connect } from 'react-redux';
 
@@ -37,6 +38,7 @@ const People = (props) => {
     });
   };
 
+  // Deletes the request
   const promptDelete = () => {
     Alert.alert(
       'Decline Connection',
@@ -52,6 +54,7 @@ const People = (props) => {
     );
   };
 
+  // Approves the request
   const approveRequest = () => {
     setConnections(connections.filter((c) => c.id !== myPendingConnection.id));
     props
@@ -59,7 +62,7 @@ const People = (props) => {
         status: 'Connected',
       })
       .then((error) => {
-        if (error) Alert.alert('Failed to Approve Connection');
+        // if (error) Alert.alert(error.data.msg);
         getConnections();
       });
   };
@@ -68,6 +71,7 @@ const People = (props) => {
     getConnections();
   }, []);
 
+  // Locates a connection based on this cards connected ID
   const myPendingConnection = connections?.find(
     (connection) => connection.connected_id === props.currentUserProfile.id
   );
@@ -99,6 +103,11 @@ const People = (props) => {
 
   return (
     <View>
+      <NavigationEvents
+        onDidFocus={() =>
+          props.markAllNotifications(props.currentUserProfile.id, '0')
+        }
+      />
       {props.currentUserProfile.roles === 'supporter' ? (
         <View>
           <View style={styles.mainContainer}>
@@ -183,10 +192,10 @@ const People = (props) => {
                           onPress={() => {
                             props.currentUserProfile.id ===
                             connection.connected_id
-                              ? props.navigation.navigate('Profile', {
+                              ? props.navigation.navigate('Pro', {
                                   selectedProfile: connection.connector_id,
                                 })
-                              : props.navigation.navigate('Profile', {
+                              : props.navigation.navigate('Pro', {
                                   selectedProfile: connection.connected_id,
                                 });
                           }}
@@ -260,4 +269,5 @@ export default connect(mapStateToProps, {
   deleteConnection,
   editConnectStatus,
   goToProfile,
+  markAllNotifications,
 })(withNavigation(People));

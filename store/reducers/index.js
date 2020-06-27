@@ -70,6 +70,9 @@ const initialState = {
   // The last video ID in this array will be the active video,
   // The array is ordered from least to most recently entered the viewport
   activeVideos: [],
+  notifications: [],
+  notificationsLoading: true,
+  createNotificationLoading: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -921,6 +924,42 @@ const reducer = (state = initialState, action) => {
           ...state.errors,
           getPaymentWidget: action.payload,
         },
+      };
+    case actions.FETCH_NOTIFICATION_START:
+      return {
+        ...state,
+        notificationsLoading: true,
+      };
+    case actions.FETCH_NOTIFICATION_SUCCESS:
+      return {
+        ...state,
+        notifications: action.payload,
+        notificationsLoading: false,
+      };
+    case actions.FETCH_NOTIFICATION_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case actions.CREATE_NOTIFICATION_START:
+      return {
+        ...state,
+        createNotificationLoading: true,
+      };
+    case actions.CREATE_NOTIFICATION_SUCCESS:
+      return {
+        ...state,
+        createNotificationLoading: false,
+      };
+    case actions.CREATE_NOTIFICATION_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case actions.MARK_NOTIFICATION_SUCCESS:
+      return {
+        ...state,
+        notifications: { ...state.notifications, new_notification: false },
       };
     default:
       return state;

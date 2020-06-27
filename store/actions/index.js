@@ -1237,6 +1237,7 @@ export const getConnections = (id) => (dispatch) => {
     return aaxios
       .get(`${seturl}users/connect/${id}`)
       .then((res) => {
+        console.log('from getConnections res.data', res.data);
         return res.data;
       })
       .catch((err) => {
@@ -1486,3 +1487,105 @@ export const getPaymentAccountWidget = () => (dispatch) => {
 };
 
 // TODO: Add getting emoji reaction details (User names and avatars for each emoji)
+
+// Notifications
+
+export const [
+  FETCH_NOTIFICATION_START,
+  FETCH_NOTIFICATION_SUCCESS,
+  FETCH_NOTIFICATION_ERROR,
+] = [
+  'FETCH_NOTIFICATION_START',
+  'FETCH_NOTIFICATION_SUCCESS',
+  'FETCH_NOTIFICATION_ERROR',
+];
+
+export const getAllNotifications = (id) => (dispatch) => {
+  dispatch({ type: FETCH_NOTIFICATION_START });
+  return axios
+    .get(`${seturl}notifications/${id}`)
+    .then((res) => {
+      dispatch({
+        type: FETCH_NOTIFICATION_SUCCESS,
+        payload: res.data.notifications,
+      });
+    })
+    .catch((err) => {
+      dispatch({ type: FETCH_NOTIFICATION_ERROR, payload: err });
+    });
+};
+
+export const [
+  CREATE_NOTIFICATION_START,
+  CREATE_NOTIFICATION_SUCCESS,
+  CREATE_NOTIFICATION_ERROR,
+] = [
+  'CREATE_NOTIFICATION_START',
+  'CREATE_NOTIFICATION_SUCCESS',
+  'CREATE_NOTIFICATION_ERROR',
+];
+
+export const createNotification = (data) => (dispatch) => {
+  dispatch({ type: CREATE_NOTIFICATION_START });
+  return axios
+    .post(`${seturl}notifications/`, data)
+    .then((res) => {
+      dispatch({
+        type: CREATE_NOTIFICATION_SUCCESS,
+        payload: res.data.message,
+      });
+    })
+    .catch((err) => {
+      dispatch({ type: CREATE_NOTIFICATION_ERROR, payload: err });
+    });
+};
+
+export const [
+  MARK_NOTIFICATION_START,
+  MARK_NOTIFICATION_SUCCESS,
+  MARK_NOTIFICATION_ERROR,
+] = [
+  'MARK_NOTIFICATION_START',
+  'MARK_NOTIFICATION_SUCCESS',
+  'MARK_NOTIFICATION_ERROR',
+];
+
+export const markNotification = (UID, NID) => (dispatch) => {
+  dispatch({ type: MARK_NOTIFICATION_START });
+  return axios
+    .put(`${seturl}notifications/`, { userID: UID, notifID: NID })
+    .then((res) => {
+      dispatch({
+        type: MARK_NOTIFICATION_SUCCESS,
+        payload: res.data.message,
+      });
+    })
+    .catch((err) => {
+      dispatch({ type: MARK_NOTIFICATION_ERROR, payload: err });
+    });
+};
+
+export const [
+  MARK_ALL_NOTIFICATIONS_START,
+  MARK_ALL_NOTIFICATIONS_SUCCESS,
+  MARK_ALL_NOTIFICATIONS_ERROR,
+] = [
+  'MARK_ALL_NOTIFICATIONS_START',
+  'MARK_ALL_NOTIFICATIONS_SUCCESS',
+  'MARK_ALL_NOTIFICATIONS_ERROR',
+];
+
+export const markAllNotifications = (UID, NT) => (dispatch) => {
+  dispatch({ type: MARK_ALL_NOTIFICATIONS_START });
+  return axios
+    .put(`${seturl}notifications/all/`, { userID: UID, notificationType: NT })
+    .then((res) => {
+      dispatch({
+        type: MARK_ALL_NOTIFICATIONS_SUCCESS,
+        payload: res.data.message,
+      });
+    })
+    .catch((err) => {
+      dispatch({ type: MARK_ALL_NOTIFICATIONS_ERROR, payload: err });
+    });
+};

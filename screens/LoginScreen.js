@@ -32,6 +32,8 @@ import {
 import AnimalModal from '../components/Animals/AnimalModal';
 
 const DEVICE_WIDTH = Dimensions.get('screen').width;
+const CLIENT_ID = 'elyo5qK7vYReEsKAPEADW2T8LAMpIJaf';
+const CONNECTION = 'Username-Password-Authentication';
 
 export default LoginScreen = (props) => {
   navigationOptions = () => {
@@ -44,18 +46,6 @@ export default LoginScreen = (props) => {
 
   const dispatch = useDispatch();
 
-  const [SUPPORTER_CLIENT_ID, CONSERVATIONIST_CLIENT_ID] = [
-    'DikbpYHJNM2TkSU9r9ZhRlrMpEdkyO0S',
-    'elyo5qK7vYReEsKAPEADW2T8LAMpIJaf',
-  ];
-
-  const [SUPPORTER_CONNECTION, CONSERVATIONIST_CONNECTION] = [
-    'SupporterDB',
-    'Username-Password-Authentication',
-  ];
-
-  const [connection, setConnection] = useState('');
-  const [clientId, setClientId] = useState('');
   const [role, setUserRole] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [animation] = useState(
@@ -64,14 +54,6 @@ export default LoginScreen = (props) => {
 
   const setRole = (role) => {
     setUserRole(role);
-
-    if (role === 'supporter') {
-      setConnection(SUPPORTER_CONNECTION);
-      setClientId(SUPPORTER_CLIENT_ID);
-    } else {
-      setConnection(CONSERVATIONIST_CONNECTION);
-      setClientId(CONSERVATIONIST_CLIENT_ID);
-    }
   };
 
   const enterAnim = Animated.timing(animation, {
@@ -97,12 +79,12 @@ export default LoginScreen = (props) => {
   }, [role]);
 
   const resetPassword = (email) => {
-    const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId });
+    const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId: CLIENT_ID });
 
-    // console.log(email, connection);
+    // console.log(email, CONNECTION);
 
     return auth0.auth
-      .resetPassword({ email, connection })
+      .resetPassword({ email, connection: CONNECTION })
       .then(() => {
         Alert.alert(
           'Success',
@@ -115,14 +97,14 @@ export default LoginScreen = (props) => {
   };
 
   const createUser = (email, password) => {
-    const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId });
+    const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId: CLIENT_ID });
 
     dispatch(loginStart());
     auth0.auth
       .createUser({
         email,
         password,
-        connection,
+        connection: CONNECTION,
       })
       .then((success) => {
         realmLogin(email, password);
@@ -154,14 +136,14 @@ export default LoginScreen = (props) => {
   };
 
   const realmLogin = (username, password) => {
-    const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId });
+    const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId: CLIENT_ID });
 
     dispatch(loginStart());
     auth0.auth
       .passwordRealm({
         username,
         password,
-        realm: connection,
+        realm: CONNECTION,
         scope: 'openid profile email offline_access',
       })
       .then((credentials) => {
@@ -183,15 +165,15 @@ export default LoginScreen = (props) => {
   // a way to get OAuth working without needing to link those custom
   // NativeModules, but this feature will have to wait until a
   // Google account with OAuth dev keys is set up.
-  const webAuth = (connection) => {
-    const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId });
+  const webAuth = () => {
+    const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId: CLIENT_ID });
 
     dispatch(loginStart());
 
     auth0.webAuth
       .authorize({
         scope: 'openid profile email',
-        connection,
+        connection: CONNECTION,
       })
       .then((credentials) => {
         onSuccess(credentials);
@@ -206,8 +188,8 @@ export default LoginScreen = (props) => {
   const onSuccess = async (credentials) => {
     dispatch(loginSuccess(credentials, role));
 
-    SecureStore.setItemAsync('active_auth_client_id', clientId);
-    SecureStore.setItemAsync('active_auth_connection', connection);
+    SecureStore.setItemAsync('active_auth_client_id', CLIENT_ID);
+    SecureStore.setItemAsync('active_auth_connection', CONNECTION);
 
     // Make sure airtableKey exists
     const key = await SecureStore.getItemAsync('airtableKey', {});

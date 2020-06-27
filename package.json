@@ -99,7 +99,8 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "save": "^2.4.0",
-    "string.prototype.trim": "^1.2.1"
+    "string.prototype.trim": "^1.2.1",
+    "expo-blur": "~8.1.0"
   },
   "collectCoverageFrom": [
     "**/*.{js,jsx}",

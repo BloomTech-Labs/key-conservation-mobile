@@ -5,12 +5,12 @@ import { withNavigation } from 'react-navigation';
 import {
   getConnections,
   connectRequest,
-  deleteConnection
+  deleteConnection,
+  createNotification,
 } from '../../store/actions';
 import styles from '../../constants/Profile/ProfileHeader';
 
-
-const Connect = props => {
+const Connect = (props) => {
   const [connections, setConnections] = useState([]);
 
   const getConnections = async () => {
@@ -24,38 +24,51 @@ const Connect = props => {
   };
 
   useEffect(() => {
-    if (props.profileId)
-    getConnections();
+    if (props.profileId) getConnections();
   }, [props.profileId]);
 
   const connectRequest = () => {
     setConnections([
       ...connections,
       {
-        connector_id: props.currentUserProfile.id,
-        connected_id: props.profileId,
+        connector_id: props.currentUserProfile.id, // this will be the sender_id
+        connected_id: props.profileId, // This is the user id
         status:
-          props.profileData?.roles === 'supporter' ? 'Pending' : 'Following'
-      }
+          props.profileData?.roles === 'supporter' ? 'Pending' : 'Following',
+      },
     ]);
-    props.connectRequest(props.profileId).then(() => {
-      getConnections();
-    }).catch(error => {
-      Alert.alert(error.message);
-    });
+    // console.log('connectionRequest', id);
+    console.log('test', props.profileId);
+    props
+      .connectRequest(props.profileId)
+      .then(() => {
+        getConnections(props.currentUserProfile.id);
+        if (!isPending) {
+          props.createNotification({
+            notification_type: 0,
+            pathway: 'Connections',
+            sender_id: props.currentUserProfile.id, // props.currentUserProfile.id
+            sender_name: props.currentUserProfile.name, // props.currentUserProfile.name
+            sender_pic: props.currentUserProfile.profile_image, // props.currentUserProfile.profile_image
+            user_id: props.profileId, // props.profileId
+          });
+        }
+      })
+      .catch((error) => {
+        Alert.alert(error.message);
+      });
   };
 
   const disconnect = () => {
-    setConnections(
-      connections.filter?.(c => c.id !== myConnection.id)
-    );
+    setConnections(connections.filter?.((c) => c.id !== myConnection.id));
     props
       .deleteConnection(myConnection.id, props.profileId)
       .then(() => {
         getConnections();
-      }).catch(() => {
+      })
+      .catch(() => {
         Alert.alert('Failed to remove connection');
-    });
+      });
   };
 
   const promptDelete = () => {
@@ -66,18 +79,18 @@ const Connect = props => {
         {
           text: 'Remove',
           style: 'destructive',
-          onPress: disconnect
+          onPress: disconnect,
         },
-        { text: 'Cancel', style: 'cancel' }
+        { text: 'Cancel', style: 'cancel' },
       ]
     );
   };
 
   let selectedUserConnections =
-    connections?.filter?.(connect => connect.status === 'Connected') || [];
+    connections?.filter?.((connect) => connect.status === 'Connected') || [];
 
   const myConnection = connections?.find(
-    connection =>
+    (connection) =>
       connection.connector_id === props.currentUserProfile.id ||
       connection.connected_id === props.currentUserProfile.id
   );
@@ -87,15 +100,44 @@ const Connect = props => {
 
   const buttonTitle =
     props.profileData?.roles === 'conservationist' &&
-    props.currentUserProfile.roles === 'supporter'
+      props.currentUserProfile.roles === 'supporter'
       ? isConnected
         ? 'Following'
         : 'Follow'
       : isPending
-      ? 'Pending'
-      : isConnected
-      ? 'Connected'
-      : 'Connect';
+        ? 'Pending'
+        : isConnected
+          ? 'Connected'
+          : 'Connect';
+
+  const test = () => {
+    console.log(props);
+    props
+      .connectRequest(props.profileId)
+      .then(() => {
+        if (!isPending) {
+          props.createNotification({
+            notification_type: 0,
+            pathway: 'Connections',
+            sender_id: props.currentUserProfile.id, // props.currentUserProfile.id
+            sender_name: props.currentUserProfile.name, // props.currentUserProfile.name
+            sender_pic: props.currentUserProfile.profile_image, // props.currentUserProfile.profile_image
+            user_id: props.profileId, // props.profileId
+          });
+        }
+      })
+      .catch((error) => {
+        Alert.alert(error.message);
+      });
+
+    // .connectRequest(props.profileId)
+    // .then(() => {
+    //   getConnections();
+    // })
+    // .catch((error) => {
+    //   Alert.alert(error.message);
+    // });
+  };
 
   return (
     <View style={styles.connectContainer}>
@@ -103,10 +145,7 @@ const Connect = props => {
         style={styles.connectText}
         onPress={() => {
           props.profileId !== props.currentUserProfile.id
-            ? props.navigation.push(
-                'SelectedConnections',
-                (props = { props })
-              )
+            ? props.navigation.push('SelectedConnections', (props = { props }))
             : props.navigation.push('Connections', (props = { props }));
         }}
       >
@@ -118,42 +157,42 @@ const Connect = props => {
       {(props.profileId !== props.currentUserProfile.id &&
         props.profileData.roles !== 'supporter' &&
         props.currentUserProfile.roles === 'conservationist') ||
-      (props.profileId !== props.currentUserProfile.id &&
-        (props.profileData.roles === 'supporter' ||
-          props.profileData.roles === 'conservationist') &&
-        props.currentUserProfile.roles === 'supporter') ? (
-        <View style={styles.buttonContainer}>
-          <View
-            style={{
-              ...styles.connectButton,
-              fontFamily: 'Lato-Bold',
-              backgroundColor: isConnected ? '#00FD9B' : '#fff'
-            }}
-          >
-            <Button
-              color='black'
-              title={buttonTitle}
-              onPress={() => {
-                return isConnected
-                  ? promptDelete()
-                  : connectRequest(props.profileId);
+        (props.profileId !== props.currentUserProfile.id &&
+          (props.profileData.roles === 'supporter' ||
+            props.profileData.roles === 'conservationist') &&
+          props.currentUserProfile.roles === 'supporter') ? (
+          <View style={styles.buttonContainer}>
+            <View
+              style={{
+                ...styles.connectButton,
+                fontFamily: 'Lato-Bold',
+                backgroundColor: isConnected ? '#00FD9B' : '#fff',
               }}
-            />
+            >
+              <Button
+                color="black"
+                title={buttonTitle}
+                onPress={() => {
+                  return isConnected ? promptDelete() : connectRequest();
+                }}
+              />
+            </View>
           </View>
-        </View>
-      ) : null}
+        ) : null}
     </View>
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentUserProfile: state.currentUserProfile,
   selectedProfile: state.selectedProfile,
-  connections: state.connections
+  connections: state.connections,
+  createNotificationLoading: state.createNotificationLoading,
 });
 
 export default connect(mapStateToProps, {
   connectRequest,
   deleteConnection,
-  getConnections
+  getConnections,
+  createNotification,
 })(withNavigation(Connect));

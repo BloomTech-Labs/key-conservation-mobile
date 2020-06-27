@@ -78,14 +78,16 @@ class AccountSettingsScreen extends React.Component {
         )}
         <View style={styles.sections}>
           {this.state.roles === 'conservationist' && (
-            <TouchableOpacity style={styles.linkWrap} onPress={this.payments}>
-              <View style={styles.logoutButton}>
-                <LogoutSymbol />
-              </View>
-              <Text style={styles.linkText}>Payments</Text>
-            </TouchableOpacity>
+            <>
+              <TouchableOpacity style={styles.linkWrap} onPress={this.payments}>
+                <View style={styles.logoutButton}>
+                  <LogoutSymbol />
+                </View>
+                <Text style={styles.linkText}>Payments</Text>
+              </TouchableOpacity>
+              <View style={styles.separator} />
+            </>
           )}
-          <View style={styles.separator} />
           <TouchableOpacity style={styles.linkWrap} onPress={this.logoutPress}>
             <View style={styles.logoutButton}>
               <LogoutSymbol />
