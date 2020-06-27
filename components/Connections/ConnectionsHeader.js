@@ -37,8 +37,6 @@ const Connect = (props) => {
           props.profileData?.roles === 'supporter' ? 'Pending' : 'Following',
       },
     ]);
-    // console.log('connectionRequest', id);
-    console.log('test', props.profileId);
     props
       .connectRequest(props.profileId)
       .then(() => {
@@ -100,15 +98,15 @@ const Connect = (props) => {
 
   const buttonTitle =
     props.profileData?.roles === 'conservationist' &&
-      props.currentUserProfile.roles === 'supporter'
+    props.currentUserProfile.roles === 'supporter'
       ? isConnected
         ? 'Following'
         : 'Follow'
       : isPending
-        ? 'Pending'
-        : isConnected
-          ? 'Connected'
-          : 'Connect';
+      ? 'Pending'
+      : isConnected
+      ? 'Connected'
+      : 'Connect';
 
   const test = () => {
     console.log(props);
@@ -157,28 +155,28 @@ const Connect = (props) => {
       {(props.profileId !== props.currentUserProfile.id &&
         props.profileData.roles !== 'supporter' &&
         props.currentUserProfile.roles === 'conservationist') ||
-        (props.profileId !== props.currentUserProfile.id &&
-          (props.profileData.roles === 'supporter' ||
-            props.profileData.roles === 'conservationist') &&
-          props.currentUserProfile.roles === 'supporter') ? (
-          <View style={styles.buttonContainer}>
-            <View
-              style={{
-                ...styles.connectButton,
-                fontFamily: 'Lato-Bold',
-                backgroundColor: isConnected ? '#00FD9B' : '#fff',
+      (props.profileId !== props.currentUserProfile.id &&
+        (props.profileData.roles === 'supporter' ||
+          props.profileData.roles === 'conservationist') &&
+        props.currentUserProfile.roles === 'supporter') ? (
+        <View style={styles.buttonContainer}>
+          <View
+            style={{
+              ...styles.connectButton,
+              fontFamily: 'Lato-Bold',
+              backgroundColor: isConnected ? '#00FD9B' : '#fff',
+            }}
+          >
+            <Button
+              color="black"
+              title={buttonTitle}
+              onPress={() => {
+                return isConnected ? promptDelete() : connectRequest();
               }}
-            >
-              <Button
-                color="black"
-                title={buttonTitle}
-                onPress={() => {
-                  return isConnected ? promptDelete() : connectRequest();
-                }}
-              />
-            </View>
+            />
           </View>
-        ) : null}
+        </View>
+      ) : null}
     </View>
   );
 };
