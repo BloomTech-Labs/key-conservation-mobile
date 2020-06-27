@@ -6,44 +6,111 @@ import {
   Text,
   Image,
   Button,
+  Alert,
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
-import moment from 'moment';
 import TimeStamp from './TimeStamp';
-
+import { connect } from 'react-redux';
+import {
+  editConnectStatus,
+  markNotification,
+  getConnections,
+  deleteConnection,
+} from '../../store/actions';
+import X from '../../assets/jsicons/miscIcons/X';
 {
   /* TEAL COLOR: #00FF9D */
 }
 
 const ConnectionNotification = (props) => {
-  useEffect(() => {
-    console.log('@@@@@@@@@', data);
-  }, [data]);
-
   const createdAt = props.notifData.item.time;
   const [data, setData] = useState(props.notifData.item);
+  const [connections, setConnections] = useState([]);
+
+  useEffect(() => {
+    getConnections();
+    console.log('props.notifData.item', props.notifData.item);
+  }, [data]);
 
   const goToCommenterProfile = () => {
     props.nav.push('Profile', {
       selectedProfile: props.notifData.item.sender_id,
     });
-    checkNew();
   };
 
-  const checkNew = () => {
-    console.log('state data', data);
-    if ((data.new_notification = true)) {
-      return setData({
-        ...data,
-        new_notification: false,
-      });
+  const promptDelete = () => {
+    Alert.alert(
+      'Decline Connection',
+      `Are you sure you want to decline this connection?`,
+      [
+        {
+          text: 'Decline',
+          style: 'destructive',
+          onPress: disconnect,
+        },
+        { text: 'Cancel', style: 'cancel' },
+      ]
+    );
+  };
+
+  const getConnections = async () => {
+    try {
+      const connection = await props.getConnections(
+        props.notifData.item.user_id
+      );
+      if (Array.isArray(connection)) setConnections(connection);
+      else throw new Error(connection);
+    } catch (error) {
+      Alert.alert('Failed to get connections');
     }
+  };
+
+  const myPendingConnection = connections?.find(
+    (connection) => connection.connector_id === props.notifData.item.sender_id
+  );
+
+  const approveRequest = () => {
+    props.editConnectStatus(myPendingConnection.id, {
+      status: 'Connected',
+    });
+    mark();
+    Alert.alert('You Are Now Connected');
+  };
+
+  const disconnect = () => {
+    console.log('props.notifData.item.sender_id', myPendingConnection.id);
+    props.deleteConnection(myPendingConnection.id);
+  };
+
+  const handleMark = () => {
+    console.log('handleMark');
+    props
+      .markNotification(
+        props.notifData.item.user_id,
+        props.notifData.item.notification_id
+      )
+      .then(() => {
+        goToCommenterProfile();
+      });
+  };
+
+  const mark = () => {
+    props.markNotification(
+      props.notifData.item.user_id,
+      props.notifData.item.notification_id
+    );
   };
 
   return (
     <TouchableOpacity
-      style={!data.new_notification ? styles.wrapper : styles.wrapperNew}
-      onPress={goToCommenterProfile}
+      style={
+        props.notifData.item.new_notification
+          ? styles.wrapperNew
+          : styles.wrapper
+      }
+      onPress={() => {
+        handleMark();
+      }}
     >
       <View style={styles.container}>
         <View style={styles.avatarContainer}>
@@ -52,7 +119,7 @@ const ConnectionNotification = (props) => {
               size="medium"
               rounded
               source={{
-                uri: `${props.notifData.item.sender_Pic}` || undefined,
+                uri: `${props.notifData.item.sender_pic}` || undefined,
               }}
             />
           </TouchableOpacity>
@@ -68,11 +135,12 @@ const ConnectionNotification = (props) => {
         </View>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => {
-            props.nav.push('Connections', (props = { forceOpen: true }));
-          }}
+          onPress={() => approveRequest()}
         >
           <Text style={styles.connect}>Connect</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => promptDelete()}>
+          <X />
         </TouchableOpacity>
       </View>
     </TouchableOpacity>
@@ -101,7 +169,6 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 5,
     flexDirection: 'row',
-    // padding: 10,
     borderRadius: 0,
     marginVertical: 6,
     alignItems: 'center',
@@ -112,7 +179,6 @@ const styles = StyleSheet.create({
   },
   avatarContainer: {
     alignSelf: 'center',
-    // flex: 1,
     width: '15 %',
     marginLeft: 1,
   },
@@ -123,7 +189,6 @@ const styles = StyleSheet.create({
   button: {
     minWidth: '17%',
     width: 'auto',
-    // flex: 1,
     borderRadius: 7.5,
     height: 30,
     paddingRight: 15,
@@ -152,4 +217,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ConnectionNotification;
+export default connect(null, {
+  editConnectStatus,
+  markNotification,
+  deleteConnection,
+  getConnections,
+})(ConnectionNotification);
