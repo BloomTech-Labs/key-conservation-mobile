@@ -8,6 +8,8 @@ import { logout } from '../store/actions';
 import LogoutSymbol from '../assets/jsicons/accountSettings/LogoutSymbol';
 import styles from '../constants/screens/AccountSettingsScreen';
 import DoneButton from '../components/DoneButton';
+import CreditCard from '../assets/jsicons/CreditCard';
+import Cabinet from '../assets/jsicons/Cabinet';
 
 class AccountSettingsScreen extends React.Component {
   state = {
@@ -70,18 +72,18 @@ class AccountSettingsScreen extends React.Component {
               onPress={this.viewReports}
             >
               <View style={styles.logoutButton}>
-                <LogoutSymbol />
+                <Cabinet />
               </View>
               <Text style={styles.linkText}>Manage Reports</Text>
             </TouchableOpacity>
           </View>
         )}
         <View style={styles.sections}>
-          {this.state.roles === 'conservationist' && (
+          {this.props.currentUserProfile.roles === 'conservationist' && (
             <>
               <TouchableOpacity style={styles.linkWrap} onPress={this.payments}>
                 <View style={styles.logoutButton}>
-                  <LogoutSymbol />
+                  <CreditCard />
                 </View>
                 <Text style={styles.linkText}>Payments</Text>
               </TouchableOpacity>

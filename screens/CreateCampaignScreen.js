@@ -80,7 +80,7 @@ class CreateCampaignScreen extends React.Component {
     skillImpactRequests: new Map(),
     urgency: null,
     donationsEnabled: false,
-    donationRequests: {},
+    donationRequests: [],
   };
 
   setUrgency = (urgencyLevel) => {
@@ -93,22 +93,6 @@ class CreateCampaignScreen extends React.Component {
         urgency: urgencyLevel,
       });
     }
-  };
-
-  enableDonations = () => {
-    this.setState({ donationsEnabled: true });
-  };
-
-  disableDonations = () => {
-    this.setState({ donationsEnabled: false });
-  };
-
-  enableSkilledImpact = () => {
-    this.setState({ skilledImpactEnabled: true });
-  };
-
-  enableSkilledImpact = () => {
-    this.setState({ skilledImpactEnabled: false });
   };
 
   isProjectGoalArrValid = (projectGoalArr) => {
@@ -138,27 +122,38 @@ class CreateCampaignScreen extends React.Component {
     }
   };
 
+  isDonationRequestValid = () => {
+    return this.state.donationRequests.every((request) => {
+      return request.title?.trim() && request.goal > 0;
+    });
+  };
+
   publish = () => {
     const skilledImpactValid =
       !this.state.skilledImpactEnabled ||
       !this.isSkillImpactRequestValid(this.state.skillImpactRequests);
+
+    const donationsValid =
+      !this.state.donationsEnabled || !this.isDonationRequestValid();
 
     if (
       !this.state.image ||
       !this.state.name ||
       !this.state.description ||
       skilledImpactValid ||
+      donationsValid ||
       !this.state.urgency
     ) {
       const errorMessage =
-        'Form incomplete. Please include:' +
+        'Form invalid or incomplete. Please check the following:' +
         (this.state.image ? '' : '\n    - Campaign Image') +
         (this.state.name ? '' : '\n    - Campaign Name') +
         (this.state.description ? '' : '\n    - Campaign Details') +
         (this.isSkillImpactRequestValid(this.state.skillImpactRequests)
           ? ''
           : '\n    - Skill Impact Requests Form') +
-        (this.state.urgency ? '' : '    - Urgency Level\n ');
+        (this.isDonationRequestValid() ? '' : '\n    - Donations') +
+        (this.state.urgency ? '' : '\n    - Urgency Level\n ');
       return Alert.alert('Error', errorMessage);
     } else {
       const campaign = {
@@ -296,16 +291,20 @@ class CreateCampaignScreen extends React.Component {
         <OptionalSection
           title="Donations"
           icon={CreditCard}
-          onCollapse={this.disableDonations}
-          onExpand={this.enableDonations}
+          onCollapse={() => this.setState({ donationsEnabled: false })}
+          onExpand={() => this.setState({ donationsEnabled: true })}
         >
-          <RequestDonation />
+          <RequestDonation
+            onChange={(requests) =>
+              this.setState({ donationRequests: requests })
+            }
+          />
         </OptionalSection>
         <OptionalSection
           title="Skilled Impact"
           icon={Sync}
-          onCollapse={this.disableSkilledImpact}
-          onExpand={this.enableSkilledImpact}
+          onCollapse={() => this.setState({ skilledImpactEnabled: false })}
+          onExpand={() => this.setState({ skilledImpactEnabled: true })}
         >
           <SelectSkillsContent
             skillImpactRequests={this.state.skillImpactRequests}
