@@ -19,10 +19,13 @@ import UploadMedia from '../components/UploadMedia';
 
 import styles from '../constants/screens/CreateCampaignScreen';
 import CheckMark from '../assets/icons/checkmark-24.png';
-import { shorten } from '../util';
 import Lightening from '../assets/jsicons/bottomnavigation/Lightening';
 import SelectSkillsContent from '../components/CampaignBuilder/SkillImpact/SelectSkillsContent';
 import SkillDescriptionForm from '../components/CampaignBuilder/SkillImpact/SkillDescriptionForm';
+import CreditCard from '../assets/jsicons/CreditCard';
+import RequestDonation from '../components/CampaignBuilder/Donations/RequestDonation';
+import OptionalSection from '../components/CampaignBuilder/OptionalSection';
+import Sync from '../assets/jsicons/bottomnavigation/Sync';
 
 class CreateCampaignScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -73,8 +76,11 @@ class CreateCampaignScreen extends React.Component {
     name: '',
     description: '',
     call_to_action: '',
+    skilledImpactEnabled: false,
     skillImpactRequests: new Map(),
     urgency: null,
+    donationsEnabled: false,
+    donationRequests: {},
   };
 
   setUrgency = (urgencyLevel) => {
@@ -87,6 +93,22 @@ class CreateCampaignScreen extends React.Component {
         urgency: urgencyLevel,
       });
     }
+  };
+
+  enableDonations = () => {
+    this.setState({ donationsEnabled: true });
+  };
+
+  disableDonations = () => {
+    this.setState({ donationsEnabled: false });
+  };
+
+  enableSkilledImpact = () => {
+    this.setState({ skilledImpactEnabled: true });
+  };
+
+  enableSkilledImpact = () => {
+    this.setState({ skilledImpactEnabled: false });
   };
 
   isProjectGoalArrValid = (projectGoalArr) => {
@@ -117,11 +139,15 @@ class CreateCampaignScreen extends React.Component {
   };
 
   publish = () => {
+    const skilledImpactValid =
+      !this.state.skilledImpactEnabled ||
+      !this.isSkillImpactRequestValid(this.state.skillImpactRequests);
+
     if (
       !this.state.image ||
       !this.state.name ||
       !this.state.description ||
-      !this.isSkillImpactRequestValid(this.state.skillImpactRequests) ||
+      skilledImpactValid ||
       !this.state.urgency
     ) {
       const errorMessage =
@@ -142,9 +168,12 @@ class CreateCampaignScreen extends React.Component {
         call_to_action: this.state.call_to_action,
         urgency: this.state.urgency,
         image: this.state.image,
-        skilledImpactRequests: JSON.stringify(
-          Array.from(this.state.skillImpactRequests.values())
-        ),
+        skilledImpactRequests: this.state.skilledImpactEnabled
+          ? JSON.stringify(Array.from(this.state.skillImpactRequests.values()))
+          : undefined,
+        donationRequests: this.state.donationsEnabled
+          ? this.state.donationRequests
+          : undefined,
       };
       this.props.postCampaign(campaign);
       this.props.navigation.goBack();
@@ -181,6 +210,7 @@ class CreateCampaignScreen extends React.Component {
     return (
       <KeyboardAwareScrollView contentContainerStyle={styles.container}>
         <NavigationEvents onDidBlur={this.clearState} />
+
         <View style={styles.sectionContainer}>
           <View style={styles.horizontalContainer}>
             <View style={styles.iconContainer}>
@@ -262,29 +292,29 @@ class CreateCampaignScreen extends React.Component {
             ))}
           </View>
         </View>
-        <View style={styles.sectionContainer}>
-          <Text style={styles.sectionsText}>Request donated funds</Text>
-          <Text style={{color: 'gray'}}>Coming soon</Text>
-          {/* <TextInput
-            ref={(input) => {
-              this.donationLinkInput = input;
-            }}
-            returnKeyType="next"
-            keyboardType="default"
-            placeholder="Please include full URL"
-            autoCapitalize="none"
-            style={styles.inputContain}
-            onChangeText={(text) => this.setState({ call_to_action: text })}
-            value={this.state.call_to_action}
-          /> */}
-        </View>
-        <SelectSkillsContent
-          skillImpactRequests={this.state.skillImpactRequests}
-          onChangeSkills={(skillsMap) =>
-            this.setState({ skillImpactRequests: skillsMap })
-          }
-        />
-        {skillList}
+        <Text style={styles.chunkTitle}>How can people help?</Text>
+        <OptionalSection
+          title="Donations"
+          icon={CreditCard}
+          onCollapse={this.disableDonations}
+          onExpand={this.enableDonations}
+        >
+          <RequestDonation />
+        </OptionalSection>
+        <OptionalSection
+          title="Skilled Impact"
+          icon={Sync}
+          onCollapse={this.disableSkilledImpact}
+          onExpand={this.enableSkilledImpact}
+        >
+          <SelectSkillsContent
+            skillImpactRequests={this.state.skillImpactRequests}
+            onChangeSkills={(skillsMap) =>
+              this.setState({ skillImpactRequests: skillsMap })
+            }
+          />
+        </OptionalSection>
+        {this.state.skilledImpactEnabled && skillList}
         <View style={styles.sectionContainer}>
           <TouchableOpacity onPress={this.publish}>
             <View style={styles.publishButton}>
