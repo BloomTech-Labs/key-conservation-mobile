@@ -24,6 +24,7 @@
     "@react-native-community/masked-view": "0.1.6",
     "@react-navigation/web": "^1.0.0-alpha.9",
     "@skele/components": "^1.0.0-alpha.40",
+    "@types/react": "^16.9.41",
     "airtable": "^0.7.2",
     "aws-sdk": "^2.541.0",
     "axios": "^0.19.0",
@@ -31,6 +32,7 @@
     "expo-analytics-amplitude": "~8.1.0",
     "expo-asset": "~8.1.5",
     "expo-av": "~8.1.0",
+    "expo-blur": "~8.1.0",
     "expo-cli": "^3.21.5",
     "expo-constants": "~9.0.0",
     "expo-document-picker": "~8.1.0",
@@ -99,8 +101,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "save": "^2.4.0",
-    "string.prototype.trim": "^1.2.1",
-    "expo-blur": "~8.1.0"
+    "string.prototype.trim": "^1.2.1"
   },
   "collectCoverageFrom": [
     "**/*.{js,jsx}",

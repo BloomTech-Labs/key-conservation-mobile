@@ -5,16 +5,16 @@ export default StyleSheet.create({
     flex: 2,
     marginTop: 200,
   },
-  bigContainer:{
+  bigContainer: {
     flexDirection: 'column',
-    flex:1
+    flex: 1,
   },
   itemContainers: {
     flexDirection: 'column',
     padding: 12,
     backgroundColor: 'white',
     borderRadius: 8,
-    marginBottom: 8
+    marginBottom: 8,
   },
   itemContentBody: {
     width: '100%',
@@ -31,13 +31,13 @@ export default StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
   },
-  itemContentTitle:{
+  itemContentTitle: {
     fontSize: 17,
     marginLeft: 7,
     textAlign: 'left',
     fontFamily: 'Lato-Bold',
     alignSelf: 'flex-start',
-    paddingTop:5
+    paddingTop: 5,
   },
   itemContentRows: {
     width: '100%',
@@ -64,17 +64,17 @@ export default StyleSheet.create({
     marginLeft: 7,
     textAlign: 'left',
     fontFamily: 'Lato-Bold',
-    alignSelf: 'flex-start',
+    alignSelf: 'center',
   },
-  buttonSelectedContainer:{
+  buttonSelectedContainer: {
     height: 28,
     borderRadius: 4,
     marginLeft: 7,
-    paddingHorizontal:10,
+    paddingHorizontal: 10,
     backgroundColor: '#00FF9D',
     justifyContent: 'center',
   },
-  buttonSelectedText:{
+  buttonSelectedText: {
     fontWeight: 'bold',
     fontFamily: 'Lato-Bold',
     letterSpacing: 1,
@@ -82,7 +82,7 @@ export default StyleSheet.create({
     color: 'black',
     justifyContent: 'center',
     alignItems: 'center',
-    fontSize: 8
+    fontSize: 8,
   },
   chevronArrowContainer: {
     marginLeft: 'auto',
@@ -171,18 +171,18 @@ export default StyleSheet.create({
   },
   avatarImageContainer: {
     alignSelf: 'flex-start',
-    width:"12%",
-    flexDirection:'row'
+    width: '12%',
+    flexDirection: 'row',
   },
   campaignRightContainer: {
     width: '78%',
     marginLeft: 'auto',
   },
-  elementLeftContainer:{
+  elementLeftContainer: {
     alignSelf: 'flex-start',
-    width:'15%'
+    width: '15%',
   },
-  elementRightContainer:{
+  elementRightContainer: {
     width: '85%',
     marginLeft: 'auto',
   },
@@ -245,12 +245,12 @@ export default StyleSheet.create({
     color: '#b6b9bc',
     fontSize: 12,
   },
-  itemBodyText:{
+  itemBodyText: {
     color: '#ADADAD',
     fontSize: 16,
     fontFamily: 'Lato',
   },
-  skillButtonText:{
+  skillButtonText: {
     fontWeight: 'bold',
     fontFamily: 'Lato-Bold',
     letterSpacing: 1,
@@ -258,19 +258,19 @@ export default StyleSheet.create({
     color: 'black',
     justifyContent: 'center',
     alignItems: 'center',
-    fontSize: 13
+    fontSize: 13,
   },
-  textInput:{
+  textInput: {
     flex: 1,
     height: 34,
     backgroundColor: '#F5F5F5',
     padding: 8,
     borderRadius: 5,
     fontSize: 16,
-    marginTop:4,
-    textAlignVertical : "top"
+    marginTop: 4,
+    textAlignVertical: 'top',
   },
-  addGoalButton:{
+  addGoalButton: {
     flex: 1,
     height: 34,
     backgroundColor: '#F5F5F5',
@@ -278,56 +278,56 @@ export default StyleSheet.create({
     padding: 8,
     borderRadius: 5,
     fontSize: 16,
-    marginTop:4
+    marginTop: 4,
   },
-  textBox:{
+  textBox: {
     flex: 1,
     height: 120,
     backgroundColor: '#F5F5F5',
     padding: 8,
     borderRadius: 5,
     fontSize: 16,
-    textAlignVertical : "top"
+    textAlignVertical: 'top',
   },
-  goalDescriptionBox:{
+  goalDescriptionBox: {
     flex: 1,
     height: 120,
     backgroundColor: '#F5F5F5',
     padding: 8,
     borderRadius: 5,
     fontSize: 16,
-    marginTop:6,
-    textAlignVertical : "top"
+    marginTop: 6,
+    textAlignVertical: 'top',
   },
-  itemContentIconContainer:{
-    marginRight:5,
-    height:'100%',
+  itemContentIconContainer: {
+    marginRight: 5,
+    height: '100%',
     width: 40,
   },
-  leftLine:{
-    height:164,
-    width:3,
-    backgroundColor:'#D7FF43'
+  leftLine: {
+    height: 164,
+    width: 3,
+    backgroundColor: '#D7FF43',
   },
-  leftLineAddGoal:{
-    height:40,
-    width:3,
-    backgroundColor:'#D7FF43'
+  leftLineAddGoal: {
+    height: 40,
+    width: 3,
+    backgroundColor: '#D7FF43',
   },
-  plusSign:{
-    alignSelf:'center',
-    marginTop:5,
+  plusSign: {
+    alignSelf: 'center',
+    marginTop: 5,
   },
-  rightEllipseContainer:{
-    flex:1,
-    flexDirection:"column"
+  rightEllipseContainer: {
+    flex: 1,
+    flexDirection: 'column',
   },
-  ellipseIndicator:{
-    marginTop:5,
-    marginLeft:10,
-    width:30,
-    height:30,
-    borderWidth:2,
-    borderRadius: 15
-  }
+  ellipseIndicator: {
+    marginTop: 5,
+    marginLeft: 10,
+    width: 30,
+    height: 30,
+    borderWidth: 2,
+    borderRadius: 15,
+  },
 });

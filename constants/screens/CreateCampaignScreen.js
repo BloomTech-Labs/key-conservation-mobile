@@ -1,26 +1,26 @@
 export default {
   container: {
     // flex: 1,
-    padding: 8
+    padding: 8,
   },
   sectionContainer: {
     flexDirection: 'column',
     padding: 12,
     backgroundColor: 'white',
     borderRadius: 8,
-    marginBottom: 8
+    marginBottom: 8,
   },
   horizontalContainer: {
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   iconContainer: {
-    marginRight: 8
+    marginRight: 8,
   },
   mediaSection: {
     backgroundColor: '#fff',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   buttons: {
     flexDirection: 'row',
@@ -29,7 +29,7 @@ export default {
     borderBottomColor: '#f5f5f5',
     paddingLeft: 10,
     paddingRight: 10,
-    height: 75
+    height: 75,
   },
   ButtonStyle: {
     alignItems: 'center',
@@ -37,32 +37,32 @@ export default {
     borderColor: '#eee',
     marginTop: 12,
     marginBottom: 12,
-    flex: 1
+    flex: 1,
   },
   CancelButton: {
     fontSize: 16,
-    color: 'black'
+    color: 'black',
   },
   publishButton: {
     backgroundColor: '#00FF9D',
     padding: 18,
-    borderRadius: 6
+    borderRadius: 6,
   },
   publishButtonText: {
     fontFamily: 'Lato-Bold',
     fontSize: 17,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   camera: {
     backgroundColor: '#C4C4C4',
     width: '100%',
     height: 150,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   CameraContainerButton: {
     marginTop: 120,
     marginRight: 10,
-    marginLeft: 10
+    marginLeft: 10,
   },
   inputContain: {
     flex: 1,
@@ -70,7 +70,7 @@ export default {
     backgroundColor: '#F5F5F5',
     padding: 12,
     borderRadius: 5,
-    fontSize: 16
+    fontSize: 16,
   },
   inputContain2: {
     flex: 1,
@@ -79,41 +79,41 @@ export default {
     padding: 12,
     borderRadius: 5,
     fontSize: 16,
-    textAlignVertical: 'top'
+    textAlignVertical: 'top',
   },
   sectionsText: {
     lineHeight: 22,
     fontSize: 16,
     fontFamily: 'Lato-Bold',
-    marginBottom: 5
+    marginBottom: 5,
   },
   bodyText: {
     lineHeight: 19,
     fontSize: 14,
     fontFamily: 'Lato',
     color: 'gray',
-    textAlign: 'left'
+    textAlign: 'left',
   },
   urgencyDescription: {
     lineHeight: 19,
     fontSize: 14,
     fontFamily: 'Lato',
     color: 'gray',
-    textAlign: 'left'
+    textAlign: 'left',
   },
   urgencyText: {
     flex: 1,
-    flexGrow: 20
+    flexGrow: 20,
   },
   urgencyMenu: {
     marginTop: 16,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   checkMark: {
     height: 20,
     width: 20,
     marginTop: 4,
-    marginLeft: 4
+    marginLeft: 4,
   },
   urgencyOption: {
     borderTopWidth: 1,
@@ -122,18 +122,18 @@ export default {
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 13,
-    margin: 'auto'
+    margin: 'auto',
   },
   urgencyCheckmarkContainer: {
     flex: 1,
-    paddingHorizontal: 16
+    paddingHorizontal: 16,
   },
   urgencyLevelTitle: {
     fontSize: 18,
     fontFamily: 'Lato-Bold',
     height: 35,
     justifyContent: 'center',
-    paddingTop: 5
+    paddingTop: 5,
   },
   indicator: {
     position: 'absolute',
@@ -142,6 +142,11 @@ export default {
     top: 0,
     bottom: 0,
     alignItems: 'center',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
+  chunkTitle: {
+    fontSize: 20,
+    fontFamily: 'Lato-Bold',
+    padding: 16,
+  },
 };
