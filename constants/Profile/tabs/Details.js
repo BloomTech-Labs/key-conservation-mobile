@@ -4,7 +4,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F2F2FB',
-    paddingHorizontal: 8
+    paddingHorizontal: 8,
   },
   sections: {
     marginTop: 8,
@@ -12,7 +12,7 @@ export default StyleSheet.create({
     width: '100%',
     padding: 16,
     borderRadius: 5,
-    fontSize: 15
+    fontSize: 15,
   },
   SocialContainer: {
     flexDirection: 'row',
@@ -22,7 +22,7 @@ export default StyleSheet.create({
     paddingBottom: 10,
     justifyContent: 'space-around',
     position: 'absolute',
-    bottom: 0
+    bottom: 0,
   },
   iconWrap: {
     flexWrap: 'wrap',
@@ -31,17 +31,18 @@ export default StyleSheet.create({
     borderBottomColor: '#eee',
     borderBottomWidth: 1,
     marginBottom: 2,
-    paddingBottom: 20
+    paddingBottom: 20,
   },
   title: {
     fontSize: 18,
     color: '#3B3B3B',
     alignSelf: 'center',
     paddingLeft: 10,
-    fontFamily: 'Lato-Bold'
+    fontFamily: 'Lato-Bold',
   },
   body: {
     marginTop: 10,
+    marginBottom: 30,
     flexDirection: 'column',
     flexWrap: 'nowrap',
     fontSize: 17,
@@ -60,23 +61,79 @@ export default StyleSheet.create({
     justifyContent: 'center',
     fontSize: 15,
     marginTop: 8,
-    marginBottom: 8
+    marginBottom: 8,
   },
   donateTitle: {
     fontSize: 18,
     textAlign: 'center',
     marginLeft: 10,
-    fontFamily: 'Lato-Bold'
+    fontFamily: 'Lato-Bold',
   },
   donateButton: {
-    alignItems: 'center',
+    flex: 1,
+    padding: 15,
     width: '100%',
-    marginTop: 24
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 18,
+  },
+  buttonTouch: {
+    width: '95%',
+    height: 48,
+    backgroundColor: '#F5F5F5',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    textAlign: 'center',
+    shadowColor: 'rgba(0, 0, 0, 0.15)',
+    shadowOffset: {
+      height: 4,
+    },
+    shadowRadius: 5,
+    shadowOpacity: 10,
   },
   donateText: {
-    marginTop: 10,
-    fontSize: 15,
+    color: '#323339',
+    textTransform: 'uppercase',
+    letterSpacing: 1.8,
+    fontSize: 17,
     textAlign: 'center',
-    fontFamily: 'Lato-Bold'
-  }
+    fontFamily: 'Lato-Bold',
+  },
+  // donateButton: {
+  //   alignItems: 'center',
+  //   width: '100%',
+  //   marginTop: 10,
+  //   marginBottom: 50,
+  //   backgroundColor: 'limegreen',
+  //   padding: 10,
+  //   borderRadius: 5,
+  // },
+  // donateText: {
+  //   fontSize: 25,
+  //   textAlign: 'center',
+  //   fontFamily: 'Lato-Bold',
+  //   textTransform: 'uppercase',
+  //   color: '#3b3b3b'
+  // },
+  addProjectsButton: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 20,
+  },
+  buttonText: {
+    fontFamily: 'Lato-Bold',
+    color: '#3b3b3b',
+    marginTop: 15,
+  },
+  ProjectPartnerSection: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+  },
 });
